@@ -1,5 +1,6 @@
 body {
     font-family: 'IBM Plex Sans', sans-serif, 'Noto Sans JP';
+    overflow-x: hidden;
 }
 
 
@@ -502,6 +503,9 @@ body {
 /*Checkboxes styles開始*/
 
 input[type="checkbox"] {
+    -webkit-appearance: none; //ChromeやSafari用
+    -moz-appearance: none; //Firefox用
+    appearance: none;
     position: relative;
     width: 1.5em;
     height: 1.5em;
