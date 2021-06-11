@@ -1,5 +1,6 @@
 @charset "UTF-8";
 body {
+  overflow-x: hidden;
   font-family: 'IBM Plex Sans', sans-serif, 'Noto Sans JP';
 }
 
@@ -637,6 +638,9 @@ body {
 
 /*Checkboxes styles開始*/
 .rank input[type="checkbox"] {
+  -webkit-appearance: none; //ChromeやSafari用
+    -moz-appearance: none; //Firefox用
+    appearance: none;
   position: relative;
   width: 1.5em;
   height: 1.5em;
