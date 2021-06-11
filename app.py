@@ -125,6 +125,19 @@ def termsofservice():
 
 
 #####
+# test J-STAGE
+# /test_jstage
+@app.route('/test_jstage')
+def test_jstage():
+    r_mondo_id = ""
+    if request.args.get('mondo_id') is not None:
+        r_mondo_id = request.args.get('mondo_id')
+
+    return render_template('test_jstage.html',
+                           r_mondo_id=r_mondo_id)
+
+
+#####
 # display API page
 # /mme
 @app.route('/mme')

@@ -1,0 +1,30 @@
+
+<h1>J-STAGE</h1>
+
+<script type="module" src="https://togostanza.github.io/metastanza/pagination-table.js" async></script>
+
+<togostanza-pagination-table
+  data-url="https://pcf.dbcls.jp/pcf_get_case_report_by_mondo_id?mondo_id&#x3D;{{ r_mondo_id }}&amp;lang&#x3D;ja"
+  data-type="json"
+  padding="0"
+  page-size-option="10,20,50,100"
+  page-slider="false"
+  columns="[{&quot;id&quot;:&quot;id&quot;,&quot;label&quot;:&quot;J-STAGE ID&quot;,&quot;link&quot;:&quot;url&quot;},{&quot;id&quot;:&quot;pyear&quot;,&quot;label&quot;:&quot;Year&quot;},{&quot;id&quot;:&quot;title&quot;,&quot;label&quot;:&quot;Title&quot;}]"
+></togostanza-pagination-table>
+
+
+<br>
+
+<h1>PubMed</h1>
+
+<script type="module" src="https://togostanza.github.io/metastanza/pagination-table.js" async></script>
+
+<togostanza-pagination-table
+  data-url="https://pcf.dbcls.jp/pcf_get_case_report_by_mondo_id?mondo_id&#x3D;{{ r_mondo_id }}&amp;lang&#x3D;en"
+  data-type="json"
+  padding="0"
+  page-size-option="10,20,50,100"
+  page-slider="false"
+  columns="[{&quot;id&quot;:&quot;id&quot;,&quot;label&quot;:&quot;PMID&quot;,&quot;link&quot;:&quot;url&quot;},{&quot;id&quot;:&quot;pyear&quot;,&quot;label&quot;:&quot;Year&quot;},{&quot;id&quot;:&quot;title&quot;,&quot;label&quot;:&quot;Title&quot;}]"
+></togostanza-pagination-table>
+
