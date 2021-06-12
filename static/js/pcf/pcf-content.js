@@ -6,14 +6,14 @@
 		  URL_GET_ORPHA_DATA_BY_ORPHA_ID            = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_get_orpha_data_by_orpha_id',
 		  URL_GET_GENE_DATA_BY_NCBI_GENE_ID         = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_get_gene_data_by_ncbi_gene_id',
 		  URL_GET_CASE_DATA_BY_CASE_ID              = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_get_case_data_by_case_id',
-		  URL_GET_COUNT_CASE_REPORT_BY_MONDO_ID     = '/pcf_get_count_case_report_by_mondo_id',
+		  URL_GET_COUNT_CASE_REPORT_BY_MONDO_ID     = 'https://pcf.dbcls.jp/pcf_get_count_case_report_by_mondo_id',
 		  URL_GET_HPO_DATA_BY_OMIM_ID               = '/pcf_get_hpo_data_by_omim_id',
-		  URL_GET_HPO_DATA_BY_HPO_ID                = '/pcf_get_hpo_data_by_hpo_id',
+		  URL_GET_HPO_DATA_BY_HPO_ID                = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_get_hpo_data_by_hpo_id',
 		  URL_GET_HPO_DATA_BY_ORPHA_ID              = '/pcf_get_hpo_data_by_orpha_id',
 		  URL_GET_HPO_TOOLTIP_DATA_BY_HPO_ID        = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_get_hpo_tooltip_data_by_hpo_id',
 		  URL_GET_GENE_TOOLTIP_DATA_BY_NCBI_GENE_ID = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_get_gene_tooltip_data_by_ncbi_gene_id',
-		  URL_GET_DISEASE_TOOLTIP_DATA_BY_MONDO_ID    = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_get_disease_tootip_data_by_mondo_id',
-		  URL_GET_CASE_REPORT_BY_MONDO_ID           = '/pcf_get_case_report_by_mondo_id',
+		  URL_GET_DISEASE_TOOLTIP_DATA_BY_MONDO_ID  = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_get_disease_tootip_data_by_mondo_id',
+		  URL_GET_CASE_REPORT_BY_MONDO_ID           = 'https://pcf.dbcls.jp/pcf_get_case_report_by_mondo_id',
 		  URL_GET_COUNT_CASE_REPORT_BY_ORPHA_ID     = '/pcf_get_orpha_data_by_orpha_id',
 		  URL_SHARE                                 = '/pcf_share',
 		  URL_DOWNLOAD                              = '/pcf_download',
@@ -49,7 +49,6 @@
 		  URL_PARA_SHARE          = 'share',
 		  URL_PARA_URL            = 'url';
 
-
 	const TARGET_OMIM='omim',TARGET_ORPHANET='orphanet',TARGET_GENE='gene',TARGET_CASE='case',
 		  TARGET_LST=[TARGET_OMIM,TARGET_ORPHANET,TARGET_GENE,TARGET_CASE];
 
@@ -57,11 +56,6 @@
 		  LANGUAGE = {
 			[LANGUAGE_JA] : {
 				'TAB_LABEL':{
-/*					[TARGET_OMIM]:     '遺伝性疾患',
-					[TARGET_ORPHANET]: '希少疾患',
-					[TARGET_GENE]:     '遺伝子',
-					[TARGET_CASE]:     '症例'
-*/
 					[TARGET_OMIM]:     'Genetic Disease',
 					[TARGET_ORPHANET]: 'Rare Disease',
 					[TARGET_GENE]:     'Gene',
@@ -81,11 +75,11 @@
 										{'CLASS':'list-tag_gray', 'TEXT':'疾患原因遺伝子'}]
 				},
 				'DETAIL_LABEL': {
-					'FIND_IMAGES':     '画像検索(Google)',
-					'PHENOTYPE_LST': '症状一覧',
-					'JA_REPORT':       '日本語症例報告',
-					'EN_REPORT':       '英語症例報告',
-					'UR_DBMS':         '日本語疾患詳細(UR-DBMS)',
+					'FIND_IMAGES':  '画像検索(Google)',
+					'PHENOTYPE_LST':'症状一覧',
+					'JA_REPORT':    '日本語症例報告',
+					'EN_REPORT':    '英語症例報告',
+					'UR_DBMS':      '日本語疾患詳細(UR-DBMS)',
 				}
 			},
 			[LANGUAGE_EN] : {
@@ -138,23 +132,24 @@
 	};
 
 
-	const	KEY_SETTING_OBJECT = 'pcf-setting',
-			KEY_TARGET         = 'pcf-target';
+	const KEY_SETTING_OBJECT = 'pcf-setting',
+		  KEY_TARGET         = 'pcf-target';
 
-	const CLASS_ACTIVE                 = "pcf-active",
-		  CLASS_LOADED                 = "pcf-data-loaded",
-		  CLASS_TAB_BUTTON_PREFIX      = "tab-button-",
-		  CLASS_TAB_BUTTON_ICON_PREFIX = "icon-",
-		  CLASS_ROW                    = "list-content",
-		  CLASS_POPUP_PHENOTYPE        = "pcf-popup px-4 py-3 pcf-popup-pheotype",
-		  CLASS_POPUP_INHERITANCE      = "pcf-popup px-4 py-3 pcf-popup-inheritance",
-		  CLASS_POPUP_GENE             = "pcf-popup px-4 py-3 pcf-popup-gene",
-		  CLASS_POPUP_DISEASE          = "pcf-popup px-4 py-3 pcf-popup-disease";
+	const CLASS_ACTIVE                    = "pcf-active",
+		  CLASS_STATUS_DETAIL_DATA_LOADED = "pcf-status-data-loaded",
+		  CLASS_STATUS_RANKING_LOADED     = "pcf-status-ranking-data-loaded",
+		  CLASS_TAB_BUTTON_PREFIX         = "tab-button-",
+		  CLASS_TAB_BUTTON_ICON_PREFIX    = "icon-",
+		  CLASS_ROW                       = "list-content",
+		  CLASS_POPUP_PHENOTYPE           = "pcf-popup px-4 py-3 pcf-popup-pheotype",
+		  CLASS_POPUP_INHERITANCE         = "pcf-popup px-4 py-3 pcf-popup-inheritance",
+		  CLASS_POPUP_GENE                = "pcf-popup px-4 py-3 pcf-popup-gene",
+		  CLASS_POPUP_DISEASE             = "pcf-popup px-4 py-3 pcf-popup-disease";
 
-	const	POPUP_TYPE_PHENOTYPE   = "popup-phenotype",
-			POPUP_TYPE_INHERITANCE = "popup-inheritance",
-			POPUP_TYPE_GENE        = "popup-gene",
-			POPUP_TYPE_DISEASE     = "popup-disease",
+	const	POPUP_TYPE_PHENOTYPE    = "popup-phenotype",
+			POPUP_TYPE_INHERITANCE  = "popup-inheritance",
+			POPUP_TYPE_GENE         = "popup-gene",
+			POPUP_TYPE_DISEASE      = "popup-disease",
 			KEY_POPUP_TYPE          = 'pcf-popup-type',
 			KEY_POPUP_ID_PHENOTYPE  = 'pcf-phenotype-id',
 			KEY_POPUP_ID_INHERTANCE = 'pcf-inheritance-id',
@@ -186,6 +181,65 @@
 				[POPUP_TYPE_DISEASE]     : URL_PARA_MONDO_ID
 			};
 
+	// KEY:detail data id, VAL:detail data(JSON object)
+	var pcf_detail_data_cache = {
+		[TARGET_OMIM]:     {},
+		[TARGET_ORPHANET]: {},
+		[TARGET_GENE]:     {},
+		[TARGET_CASE]:     {}
+	};
+
+	function _set_detail_data_to_cache(json_data, target){
+		$.extend(pcf_detail_data_cache[target], json_data);
+	}
+
+	function _get_detail_data_from_cache(target){
+		return pcf_detail_data_cache[target];
+	}
+
+
+	// key: hpo_id, val: {name_en, name_js}
+	var pcf_phenotype_name_cache = {};
+	
+	function _set_phenotype_name_data_to_cache(json_data){
+		$.extend(pcf_phenotype_name_cache, json_data);
+	}
+
+	function _is_phenotype_name_existed_at_cache(hpo_id){
+		return(hpo_id in pcf_phenotype_name_cache);
+	}
+	
+	function _get_phenotype_name_from_cache(hpo_id,language){
+		if (!(hpo_id in pcf_phenotype_name_cache)) return "";
+		if(language == LANGUAGE_EN)return pcf_phenotype_name_cache[hpo_id].name_en;
+		return pcf_phenotype_name_cache[hpo_id].name_ja;
+	}
+
+
+	// key: [lang][mondo_id], val: count
+	var pcf_case_report_count_cache = {
+		[LANGUAGE_EN]:{},
+		[LANGUAGE_JA]:{}
+	}
+
+	function _set_case_report_count_data_to_cache(json_data,lang){
+		json_data.forEach(function(item){
+			let mondo_id = item.id;
+			pcf_case_report_count_cache[lang][mondo_id] = item.count;
+		});
+	}
+
+	function _is_case_report_count_existed_at_cache(mondo_id,lang){
+		return (mondo_id in pcf_case_report_count_cache[lang]);
+	}
+
+	function _get_case_report_count_data_from_cache(mondo_id,lang){
+		if(_isEmpty(mondo_id)) return 0;
+		if(!_is_case_report_count_existed_at_cache(mondo_id,lang)) return 0;
+		return pcf_case_report_count_cache[lang][mondo_id];
+	}
+
+
 	// KEY:urlstr, VAL:array of Ranking data(JSON object)
 	var pcf_ranking_cache = {};
 
@@ -213,19 +267,79 @@
 		return (key in pcf_ranking_cache);
 	}
 
-	function _is_target_data_loaded(target){
+	// target panel status:
+	// 1. init:
+	// 2. ranking data loaded:  CLASS_STATUS_RANKING_LOADED     = "pcf-status-ranking-data-loaded",
+	// 3. detail data loaded:   CLASS_STATUS_DETAIL_DATA_LOADED = "pcf-status-data-loaded",
+	function _set_target_status_init(target){
 		let $target_tab_panel = tab_panel_lst[target];
-		return $target_tab_panel.hasClass(CLASS_LOADED);
+		$target_tab_panel.removeClass(CLASS_STATUS_DETAIL_DATA_LOADED);
+		$target_tab_panel.removeClass(CLASS_STATUS_RANKING_LOADED);
 	}
+	
+	function _is_target_status_init(target){
+		let $target_tab_panel = tab_panel_lst[target];
+		return !($target_tab_panel.hasClass(CLASS_STATUS_RANKING_LOADED) || 
+				 $target_tab_panel.hasClass(CLASS_STATUS_DETAIL_DATA_LOADED));
+	}
+	
+	function _is_target_status_data_loaded(target){
+		let $target_tab_panel = tab_panel_lst[target];
+		return $target_tab_panel.hasClass(CLASS_STATUS_DETAIL_DATA_LOADED);
+	}
+	
+	function _set_target_status_ranking_data_loaded(target){
+		let $target_tab_panel = tab_panel_lst[target];
+		$target_tab_panel.addClass(CLASS_STATUS_RANKING_LOADED);
+	}
+
+	function _set_target_status_detail_data_loaded(target){
+		let $target_tab_panel = tab_panel_lst[target];
+		$target_tab_panel.addClass(CLASS_STATUS_DETAIL_DATA_LOADED);
+	}
+
+	function _set_target_status_detail_data_unloaded(target){
+		let $target_tab_panel = tab_panel_lst[target];
+		$target_tab_panel.removeClass(CLASS_STATUS_DETAIL_DATA_LOADED);
+	}
+
+	
 	
 	// for load data for new page , return an array of ids,which are not loaded into tab content panel yet.
 	// 1. get all ids from ranking data cache.
 	// 2. find the start position
 	// 3. retrun the ids of new page 
-	function _find_unloaded_ids(setting){
+	function _find_unloaded_detail_data_ids(setting){
 		let retLst = [];
 		
-		let num_per_page = setting[SETTING_KEY_SIZE];
+		let load_counter = setting[SETTING_KEY_SIZE];
+
+		let num_loaded = _get_target_loaded_num(setting[SETTING_KEY_TARGET]);
+
+		let ranking_data_lst = _get_ranking_data_from_cache(setting);
+
+		let target = setting[SETTING_KEY_TARGET];
+		let cached_detail_data = _get_detail_data_from_cache(target);
+
+		let start = 0;
+		if(num_loaded > 0) start = num_loaded;
+
+		for(let i=start; (i<ranking_data_lst.length && load_counter > 0); i++){
+			//check if existed at cache.
+			if(!(ranking_data_lst[i].id in cached_detail_data)){
+				retLst.push(ranking_data_lst[i].id);
+			}
+			load_counter--;
+		}
+		
+		return retLst;
+	}
+
+
+	function _find_unloaded_hpo_ids(setting){
+		let retLst = {};
+
+		let load_counter = setting[SETTING_KEY_SIZE];
 
 		let num_loaded = _get_target_loaded_num(setting[SETTING_KEY_TARGET]);
 
@@ -234,13 +348,56 @@
 		let start = 0;
 		if(num_loaded > 0) start = num_loaded;
 
-		for(let i=start; (i<ranking_data_lst.length && num_per_page > 0); i++){
-			retLst.push(ranking_data_lst[i].id);
-			num_per_page--;
+		for(let i=start; (i<ranking_data_lst.length && load_counter > 0); i++){
+			//check if existed at cache.
+			let phenoList = ranking_data_lst[i].matched_hpo_id;
+			phenoList.split(',').forEach(function(hpo_id){
+				if(!_is_phenotype_name_existed_at_cache(hpo_id)){
+					retLst[hpo_id] = 1;
+				}
+			});
+
+			load_counter--;
 		}
 		
-		return retLst;
+		return Object.keys(retLst);
 	}
+
+
+	function _find_unloaded_case_report_count_data_ids(setting, lang){
+		let retLst = {};
+		
+		let load_counter = setting[SETTING_KEY_SIZE];
+
+		let num_loaded = _get_target_loaded_num(setting[SETTING_KEY_TARGET]);
+
+		let ranking_data_lst = _get_ranking_data_from_cache(setting);
+
+		let target = setting[SETTING_KEY_TARGET];
+		let cached_detail_data = _get_detail_data_from_cache(target);
+
+		let start = 0;
+		if(num_loaded > 0) start = num_loaded;
+
+		for(let i=start; (i<ranking_data_lst.length && load_counter > 0); i++){
+			//check if existed at cache.
+			if(ranking_data_lst[i].id in cached_detail_data){
+				let detail_data = cached_detail_data[ranking_data_lst[i].id];
+				if(!_isEmpty(detail_data.mondo_id)){
+					detail_data.mondo_id.forEach(function(mondo_id){
+						if(!_is_case_report_count_existed_at_cache(mondo_id, lang)){
+							retLst[mondo_id] = 1;
+						}
+					});
+				}
+			}
+			load_counter--;
+		}
+		
+		return Object.keys(retLst);
+	}
+
+
 
 	// return [address]?[para1]=[val1]&[para2]=[val2]&...
 	function _contruct_url_str(url, datalst){
@@ -284,16 +441,13 @@
 			url_str = _contruct_url_str(URL_GET_DISEASE_TOOLTIP_DATA_BY_MONDO_ID,{[URL_PARA_MONDO_ID]: setting[URL_PARA_MONDO_ID]});
 			
 		}else if(url_key === URL_GET_HPO_DATA_BY_OMIM_ID){
-			
 			url_str = _contruct_url_str(URL_GET_HPO_DATA_BY_OMIM_ID,{[URL_PARA_OMIM_ID]: setting[SETTING_KEY_ID_LST]});
-
 		}else if(url_key === URL_GET_HPO_DATA_BY_ORPHA_ID){
-			
 			url_str = _contruct_url_str(URL_GET_HPO_DATA_BY_ORPHA_ID,{[URL_PARA_ORPHA_ID]: setting[SETTING_KEY_ID_LST]});
-
 		}else if(url_key === URL_GET_HPO_DATA_BY_HPO_ID){
-
-			url_str = _contruct_url_str(URL_GET_HPO_DATA_BY_HPO_ID,{[URL_PARA_HPO_ID]: setting[SETTING_KEY_HPO_ID]});
+			url_str = _contruct_url_str(URL_GET_HPO_DATA_BY_HPO_ID,{[URL_PARA_HPO_ID]: setting[SETTING_KEY_ID_LST]});
+		}else if(url_key === URL_GET_COUNT_CASE_REPORT_BY_MONDO_ID){
+			url_str = _contruct_url_str(URL_GET_COUNT_CASE_REPORT_BY_MONDO_ID,{[URL_PARA_MONDO_ID]: setting[SETTING_KEY_ID_LST],[URL_PARA_LANG]: setting[SETTING_KEY_LANG]});
 		}
 		
 		return url_str;
@@ -375,7 +529,7 @@
 			$panel.empty();
 			let current_setting = $.extend(true,{}, setting, {[SETTING_KEY_TARGET]: target});
 			$panel.data(KEY_SETTING_OBJECT,current_setting);
-			$panel.removeClass(CLASS_LOADED);
+			_set_target_status_init(target);
 		}
 	}
 
@@ -385,7 +539,7 @@
 
 		let $target_tab_panel = tab_panel_lst[target];
 
-		if(_is_target_data_loaded(target)) return;
+		if(_is_target_status_data_loaded(target)) return;
 
 		let current_setting = $target_tab_panel.data(KEY_SETTING_OBJECT);
 
@@ -518,8 +672,10 @@
 		if(!_isEmpty(phenoList)){
 			let $container_list_query = $('<div>').addClass("list-query").appendTo($container_panel);
 			phenoList.split(',').forEach(function(hpo_id){
+				let label_text = _get_phenotype_name_from_cache(hpo_id,lang);
+				if(_isEmpty(label_text)) label_text= hpo_id;
 				let $button = $('<span>').data(KEY_POPUP_TYPE,POPUP_TYPE_PHENOTYPE).data(KEY_POPUP_ID_PHENOTYPE,hpo_id)
-										 .addClass("list-tag_blue").text(hpo_id).appendTo($container_list_query);
+										 .addClass("list-tag_blue").text(label_text).appendTo($container_list_query);
 				$button.popover({html:true,placement:'bottom',trigger:'hover',content:_popoverContent,sanitize:false,
 								template:'<div class=\"popover\" role=\"tooltip\"><div class="arrow"></div><div class=\"popover-body '+CLASS_POPUP_PHENOTYPE+'\"></div></div>'});
 			});
@@ -679,33 +835,45 @@
 			let $a_pheno_list = $('<a>').text(LANGUAGE[lang].DETAIL_LABEL.PHENOTYPE_LST).appendTo($list_show_panel);
 			$("<div class=\"list-show_click\"><i class=\"material-icons\">add_box</i><span>Show("+item.count_hpo_id+")</span></div>").appendTo($a_pheno_list);
 
-			let $a_ja_report =$('<a>').addClass("v_line_left").text(LANGUAGE[lang].DETAIL_LABEL.JA_REPORT).appendTo($list_show_panel);
-			$("<div class=\"list-show_click\"><i class=\"material-icons\">add_box</i><span>Show</span></div>").appendTo($a_ja_report);
+			let mondo_id = ""
+			if(_isExistVal("mondo_id",item)){
+				mondo_id = item["mondo_id"][0];
+			}
 
+			let case_report_count_ja = _get_case_report_count_data_from_cache(mondo_id, LANGUAGE_JA);
+			let $a_ja_report =$('<a>').addClass("v_line_left").text(LANGUAGE[lang].DETAIL_LABEL.JA_REPORT).appendTo($list_show_panel);
+			$("<div class=\"list-show_click\"><i class=\"material-icons\">add_box</i><span>Show("+case_report_count_ja+")</span></div>").appendTo($a_ja_report);
+                                       
+			let case_report_count_en = _get_case_report_count_data_from_cache(mondo_id, LANGUAGE_EN);
 			let $a_en_report= $('<a>').addClass("v_line_left").text(LANGUAGE[lang].DETAIL_LABEL.EN_REPORT).appendTo($list_show_panel);
-			$("<div class=\"list-show_click\"><i class=\"material-icons\">add_box</i><span>Show</span></div>").appendTo($a_en_report);
+			$("<div class=\"list-show_click\"><i class=\"material-icons\">add_box</i><span>Show("+case_report_count_en+")</span></div>").appendTo($a_en_report);
 		}
 		
 		return $container_panel;
 	}
 
-	function _show_result(detail_data, setting){
+	function _show_result(setting){
 		
 		let target       = setting[SETTING_KEY_TARGET];
 		let lang         = setting[SETTING_KEY_LANG];
-		let loaded_num   = _get_target_loaded_num(target);
 		let num_per_page = setting[SETTING_KEY_SIZE];
 				
-		let isFirstLoad = true;
-		if(loaded_num > 0) isFirstLoad = false;
 		 
-		if(_is_target_data_loaded(target)) return;
+		if(_is_target_status_data_loaded(target)) return;
 
 		let $target_tab_panel = tab_panel_lst[target];
 
 		let ranking_list = _get_ranking_data_from_cache(setting);
 		if(_isEmpty(ranking_list)) return;
+		
+		let detail_data = _get_detail_data_from_cache(target);
+		if(_isEmpty(detail_data)) return;
 
+
+		let loaded_num  = _get_target_loaded_num(target);
+		let isFirstLoad = true;
+		if(loaded_num > 0) isFirstLoad = false;
+		
 		let total_num = ranking_list.length;
 		let total_num_str = total_num.toLocaleString("en-US");
 
@@ -780,66 +948,161 @@
 		if(isFirstLoad){
 			let $bottom_panel = $('<div>').addClass("list-footer").appendTo($target_tab_panel);
 			$('<div>').addClass("list-results").text(total_num_str + " results").appendTo($bottom_panel);
-			let button_str = "<button><span><i class=\"material-icons\">add</i></span><p>Show More</p></button>";
+			let button_str = "<button id=\"show_more_button-"+target+"\"><span><i class=\"material-icons\">add</i></span><p>Show More</p></button>";
 			$(button_str)
 			.data(KEY_TARGET,target)
 			.click(function(){
 				let target = $(this).data(KEY_TARGET);
 				let $target_tab_panel = tab_panel_lst[target];
-				$target_tab_panel.removeClass(CLASS_LOADED);
+				_set_target_status_detail_data_unloaded(target);
 				let setting = $target_tab_panel.data(KEY_SETTING_OBJECT);
 				_search_detail_data_and_show_result(setting);
 			})
 			.appendTo($bottom_panel);
-		}else{
-			
-		} 	
+		}
 		
+		if(i >= ranking_list.length){
+			$("#show_more_button-"+target).hide();
+		} 	
+
 		// set panel status to loaded
-		$target_tab_panel.addClass(CLASS_LOADED);
+		_set_target_status_detail_data_loaded(target);
 	}
 
+	function _search_case_report_data_and_show_result(setting){
 
-	function _search_detail_data_and_show_result(setting){
-
-		let uncached_list = _find_unloaded_ids(setting);
+		let uncached_list = _find_unloaded_case_report_count_data_ids(setting,LANGUAGE_EN);
 
 		// check if  needs to be load from interent	
-		if(_isEmpty(uncached_list)) return;
+		if(!_isEmpty(uncached_list)){
 
-		// search detail data from internet and draw result
-		setting[SETTING_KEY_ID_LST] = uncached_list.join(",");
+			// search detail data from internet and draw result
+			let id_lst = uncached_list.join(",");
+			
+			let url_str = _contruct_url(URL_GET_COUNT_CASE_REPORT_BY_MONDO_ID, {[SETTING_KEY_ID_LST]:id_lst, [SETTING_KEY_LANG]:LANGUAGE_EN});
 
-		
-		let url_str = _contruct_url(URL_GET_DATA_BY_ID, setting);
-		_run_ajax(url_str,'GET', 'text', true, function(data){
-			if(!_isEmpty(data)){
-				var json_data = _parseJson(data);
-				_show_result(json_data, setting);
+			_run_ajax(url_str,'GET', 'text', true, function(data){
+	
+				if(!_isEmpty(data)){
+					var json_data = _parseJson(data);
+					_set_case_report_count_data_to_cache(json_data,LANGUAGE_EN);
+				}
+				
+				let uncached_list1 = _find_unloaded_case_report_count_data_ids(setting,LANGUAGE_JA);
+				if(!_isEmpty(uncached_list1)){
+					let id_lst1 = uncached_list1.join(",");
+					let url_str1 = _contruct_url(URL_GET_COUNT_CASE_REPORT_BY_MONDO_ID, {[SETTING_KEY_ID_LST]:id_lst1, [SETTING_KEY_LANG]:LANGUAGE_JA});
+					_run_ajax(url_str1,'GET', 'text', true, function(data1){
+						if(!_isEmpty(data1)){
+							var json_data1 = _parseJson(data1);
+							_set_case_report_count_data_to_cache(json_data1,LANGUAGE_JA);
+						}
+						_show_result(setting);
+						pcf_hide_loading();
+					});
+				} else {
+					_show_result(setting);
+					pcf_hide_loading();
+				}
+			});
+		} else {
+
+			let uncached_list1 = _find_unloaded_case_report_count_data_ids(setting,LANGUAGE_JA);
+			if(!_isEmpty(uncached_list1)){
+				let id_lst1 = uncached_list1.join(",");
+				let url_str1 = _contruct_url(URL_GET_COUNT_CASE_REPORT_BY_MONDO_ID, {[SETTING_KEY_ID_LST]:id_lst1, [SETTING_KEY_LANG]:LANGUAGE_JA});
+				_run_ajax(url_str1,'GET', 'text', true, function(data1){
+					if(!_isEmpty(data1)){
+						var json_data1 = _parseJson(data1);
+						_set_case_report_count_data_to_cache(json_data1,LANGUAGE_JA);
+					}
+					_show_result(setting);
+					pcf_hide_loading();
+				});
+			} else {
+				_show_result(setting);
+				pcf_hide_loading();
 			}
-			pcf_hide_loading();
-		});
+		}
+		
 	}
 
-	// for the input parameters do the 
-	function _run_pcf_search(setting){
 
-		if(!_is_exist_ranking_data(setting)){
-			//search ranking from internet
+	function _search_phenotype_data_and_show_result(setting){
+
+		let uncached_list = _find_unloaded_hpo_ids(setting);
+
+		// check if  needs to be load from interent	
+		if(!_isEmpty(uncached_list)){
+			// search detail data from internet and draw result
+			setting[SETTING_KEY_ID_LST] = uncached_list.join(",");
+			let url_str = _contruct_url(URL_GET_HPO_DATA_BY_HPO_ID, setting);
+			_run_ajax(url_str,'GET', 'text', true, function(data){
+				if(!_isEmpty(data)){
+					var json_data = _parseJson(data);
+					_set_phenotype_name_data_to_cache(json_data);
+				} 
+				_search_case_report_data_and_show_result(setting);
+			});
+		} else {
+			_search_case_report_data_and_show_result(setting);
+		}
+		
+	}
+	
+	function _search_detail_data_and_show_result(setting){
+
+		let target = setting[SETTING_KEY_TARGET];
+		
+		if(_is_target_status_init(target) || _is_target_status_data_loaded(target)) return;
+
+		let uncached_list = _find_unloaded_detail_data_ids(setting);
+
+		// check if  needs to be load from interent	
+		if(!_isEmpty(uncached_list)){
+
+			// search detail data from internet and draw result
+			setting[SETTING_KEY_ID_LST] = uncached_list.join(",");
+		
+			let url_str = _contruct_url(URL_GET_DATA_BY_ID, setting);
+			_run_ajax(url_str,'GET', 'text', true, function(data){
+				if(!_isEmpty(data)){
+					var json_data = _parseJson(data);
+					_set_detail_data_to_cache(json_data,target);
+					_search_phenotype_data_and_show_result(setting);
+				}else{
+					pcf_hide_loading();
+				}
+			});
+		} else {
+			_search_phenotype_data_and_show_result(setting);
+		}
+	}
+
+	function _run_pcf_search(setting){
+		
+		let target = setting[SETTING_KEY_TARGET];
+
+		if(_is_target_status_init(target)){
+			//do searching ranking
 			let url_str = _contruct_url(URL_GET_RANKING_BY_HPO_ID,setting);
 
 			pcf_show_loading();
+			
 			_run_ajax(url_str,'GET', 'text', true, function(data){
+
+				_set_target_status_ranking_data_loaded(target);
+				
 				var json_data = _parseJson(data);
 				if(!_isEmpty(json_data)){
 					_set_ranking_data_into_cache(json_data,setting);
 					_search_detail_data_and_show_result(setting);
 				}else{
+					_set_ranking_data_into_cache([],setting);
 					pcf_hide_loading();
 				}
 			});
-			
-			
+
 		} else {
 			_search_detail_data_and_show_result(setting);
 		}
@@ -867,11 +1130,13 @@
 	var methods = {
 		init: function(options) {
 			
-			let setting = $.extend(true,{}, DEFAULT_SETTINGS, options || {});
+			let setting = $.extend(true,{}, DEFAULT_SETTINGS);
 
-			if(_isExistVal(URL_PARA_FORMAT , options)) setting[SETTING_KEY_FORMAT] = options[URL_PARA_FORMAT];
-			if(_isExistVal(URL_PARA_LANG   , options)) setting[SETTING_KEY_LANG]   = options[URL_PARA_LANG];
-			if(_isExistVal(URL_PARA_SIZE   , options) &&options[URL_PARA_SIZE] > 0) setting[SETTING_KEY_SIZE]   = options[URL_PARA_SIZE];
+			if(_isExistVal(URL_PARA_PHENOTYPE, options)) setting[SETTING_KEY_PHENOTYPE] = options[URL_PARA_PHENOTYPE];
+			if(_isExistVal(URL_PARA_FILTER   , options)) setting[SETTING_KEY_FILTER]    = options[URL_PARA_FILTER];
+			if(_isExistVal(URL_PARA_FORMAT   , options)) setting[SETTING_KEY_FORMAT]    = options[URL_PARA_FORMAT];
+			if(_isExistVal(URL_PARA_LANG     , options)) setting[SETTING_KEY_LANG]      = options[URL_PARA_LANG];
+			if(_isExistVal(URL_PARA_SIZE     , options) &&options[URL_PARA_SIZE] > 0) setting[SETTING_KEY_SIZE] = options[URL_PARA_SIZE];
 
 			
 			$tab_button_panel    = $('<div>').addClass("tab-button-panel").appendTo(this);
@@ -888,19 +1153,23 @@
 				 
 	
 				tab_button_lst[target]=$(tab_button_html)
-											.addClass(CLASS_TAB_BUTTON_PREFIX + target)
-											.data(KEY_SETTING_OBJECT, current_setting)
-											.click(function(){_selectTab(target);})
-											.appendTo($tab_button_panel);
+										.addClass(CLASS_TAB_BUTTON_PREFIX + target)
+										.data(KEY_SETTING_OBJECT, current_setting)
+										.click(function(){_selectTab(target);})
+										.appendTo($tab_button_panel);
 
 				tab_panel_lst[target]=$('<div>')
-											.addClass("tab-content-panel")
-											.data(KEY_SETTING_OBJECT,current_setting)
-											.attr('placeholder','No Search Results.')
-											.appendTo($tab_content_wrapper);
+										.addClass("tab-content-panel")
+										.data(KEY_SETTING_OBJECT,current_setting)
+										.attr('placeholder','No Search Results.')
+										.appendTo($tab_content_wrapper);
+											
+				_set_target_status_init(target);
 			});
 			
 			_selectTab(setting[SETTING_KEY_TARGET]);
+			
+			if(!_isExistVal(URL_PARA_PHENOTYPE, options)) pcf_hide_loading();
 			
 			return this.each(function () {
 				$(this);
@@ -910,14 +1179,14 @@
 
 			let current_setting = $.extend(true,{}, DEFAULT_SETTINGS);
 
+			let current_target = _get_active_target();
+			
 			if(_isExistVal(URL_PARA_TARGET, options)) {
 				if(!_isExistVal(options[URL_PARA_TARGET], tab_panel_lst)){
 					alert("SystemError: unknown target["+options[URL_PARA_TARGET]+"]");
 					return;
 				}
-				current_setting[SETTING_KEY_TARGET] = options[URL_PARA_TARGET];
-			}else{
-				current_setting[SETTING_KEY_TARGET] = _get_active_target();
+				current_target = options[URL_PARA_TARGET];
 			}
 
 			if(_isExistVal(URL_PARA_PHENOTYPE, options)) current_setting[SETTING_KEY_PHENOTYPE] = options[URL_PARA_PHENOTYPE];
@@ -928,7 +1197,7 @@
 
 			_clear_all(current_setting);
 
-			_selectTab(current_setting[SETTING_KEY_TARGET]);
+			_selectTab(current_target);
 		}
 	};
 	

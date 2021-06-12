@@ -100,7 +100,7 @@
                                 <button onclick="window.location.href='/text2hpo';" class="round-button material-icons">text_snippet</button>
                             </td>
                             <td rowspan="2">
-                                <div style="height:100%;width:100%;overflow-x:hidden;overflow-y:auto;margin:0;padding:0;border: 1px solid rgba(0, 0, 0, 0.1);">
+                                <div style="height:100%;width:100%;overflow-x:hidden;overflow-y:auto;margin:0;padding:0;border-left: 1px solid rgba(0, 0, 0, 0.1);border-right: 1px solid rgba(0, 0, 0, 0.1);">
                                     <textarea rows="1" id="tokeninput_hpo" name="str_phenotypes"></textarea>
                                 </div>
                             </td>
@@ -364,7 +364,9 @@
 
         $("#tokeninput_genes").tokenInput_gene("/tokeninput_genes", {
           theme: "facebook",
+          {% if json_genes %}
           prePopulate: {{ json_genes|safe }}
+          {% endif %}
         });
 
         $("#tokeninput_gene_clear").click(function (){
@@ -376,18 +378,22 @@
 
 
         $("#pcf-content").pcf_content({
-		'lang':           "{{ r_lang }}",
-		'size':           {{ r_size }}
-	});
-
-	        $("#pcf-content").pcf_content('search', {
-                  'target':         "{{ r_target }}",
-                  'phenotype':      "{{ r_phenotype }}",
-                  'filter':         "{{ r_filter }}",
-                  'lang':           "{{ r_lang }}",
-   		'size':           {{ r_size }}
-	        });
-
+            {% if r_target %}
+            'target':         "{{ r_target }}",
+            {% endif %}
+            {% if r_phenotype %}
+            'phenotype':      "{{ r_phenotype }}",
+            {% endif %}
+            {% if r_filter %}
+                'filter':     "{{ r_filter }}",
+            {% endif %}
+            {% if r_lang %}
+              'lang':         "{{ r_lang }}",
+            {% endif %}
+            {% if r_size %}
+              'size':          {{ r_size }}
+            {% endif %}
+        });
     });
 
     $("#phenotouch").click(function (e){
@@ -400,13 +406,7 @@
 
     
     $('#search_button').on('click', function (event) {
-        $("#pcf-content").pcf_content('search', {
-	          'target':         "{{ r_target }}",
-                  'phenotype':      "{{ r_phenotype }}",
-                  'filter':         "{{ r_filter }}",
-                  'lang':           "{{ r_lang }}",
-		  'size':           {{ r_size }}
-        });
+        // trigger search 	
     });
 
 

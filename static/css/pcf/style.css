@@ -4,15 +4,15 @@ body {
   font-family: 'IBM Plex Sans', sans-serif, 'Noto Sans JP';
 }
 
-  #fh5co-loader {
-    position: fixed;
-    left: 0px;
-    top: 0px;
-    width: 100%;
-    height: 100%;
-    z-index: 999999;
-    background: url(../../images/pcf/loader.gif) center no-repeat #fff;
-  }
+#fh5co-loader {
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+  z-index: 999999;
+  background: url(../../images/pcf/loader.gif) center no-repeat #fff;
+}
 
 .search-header {
   z-index: 99;
@@ -638,9 +638,9 @@ body {
 
 /*Checkboxes styles開始*/
 .rank input[type="checkbox"] {
-  -webkit-appearance: none; //ChromeやSafari用
-    -moz-appearance: none; //Firefox用
-    appearance: none;
+  -webkit-appearance: none; /*ChromeやSafari用*/
+  -moz-appearance: none; /*Firefox用*/
+  appearance: none;
   position: relative;
   width: 1.5em;
   height: 1.5em;
