@@ -2312,6 +2312,7 @@
 
 				magnificPopup.close();
 			}
+			$('header').css({'top': '24px'});
 		}
 		var timeoutID = null;
 		function openMagnificPopup(params){
@@ -2400,6 +2401,7 @@
                                 $('.mfp-bg').css({'top':'0'});
                                 $('.mfp-wrap').css({'top':'0'});
 			}else{
+				$('header').css({'top': 0});
 				var pos = $("#div_search_button").offset().top;
 				$('.mfp-bg').css({'top': pos+'px'});
 				$('.mfp-wrap').css({'top': pos+'px'});

@@ -14,6 +14,17 @@ body {
   background: url(../../images/pcf/loader.gif) center no-repeat #fff;
 }
 
+#fh5co-wrapper {
+  display: none;
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+  opacity: 0.1;
+  z-index: 999999;
+}
+
 .search-header {
   z-index: 99;
   position: sticky;
@@ -95,7 +106,7 @@ body {
   border: solid 1px #AEB0B5;
   border-radius: 5px;
   background-color: #fff;
-  padding: 10px;
+  padding: 2px 10px 2px 10px;
   height: 108px;
 }
 
@@ -192,13 +203,6 @@ body {
   transition: all 0.3s;
 }
 
-/*
-.dropdown-menu-center {
-    transform: translate(-60px,42px) !important;
-}
-*/
-
-
 #search-button_display-wrapper {
   margin-right: 0;
   left: 0;
@@ -287,7 +291,7 @@ body {
 }
 
 .content-wrapper .content-panel .tab-button-panel {
-   
+  width:100%;
 }
 
 .content-wrapper .content-panel .tab-button-panel span {
@@ -309,7 +313,7 @@ body {
 }
 
 .content-wrapper .content-panel .tab-button-panel span.pcf-active {
-  border-bottom: 3px solid #394466;
+  border-bottom: 5px solid #394466;
 }
 
 .tab-button-omim {
@@ -331,7 +335,7 @@ body {
 
 .tab-content-wrapper {
   padding-top: 1em;
-  display: inline-block;
+  display: block;
   color: #000;
   width: 100%;
 }
@@ -346,7 +350,7 @@ body {
 }
 
 .tab-content-wrapper .tab-content-panel:empty:before{
-  content: attr(placeholder); 
+  content: attr(placeholder);
 }
 
 
@@ -366,32 +370,30 @@ body {
   margin: 0 0 0 auto;
 }
 
-.list-header .list-tag_sample .list-tag_blue {
+.list-header .list-tag_sample span {
+  border-radius: 5px;
+  margin-left: 5px;
+  padding: 3px;
+}
+
+.list-header .list-tag_sample span.list-tag_blue {
   color: #067ABC;
   border: 1.5px solid #067ABC;
-  border-radius: 5px;
-  padding: 3px;
 }
 
-.list-header .list-tag_sample .list-tag_green {
+.list-header .list-tag_sample span.list-tag_green {
   color: #2F9145;
   border: 1.5px solid #2F9145;
-  border-radius: 5px;
-  padding: 3px;
 }
 
-.list-header .list-tag_sample .list-tag_gray {
+.list-header .list-tag_sample span.list-tag_gray {
   color: #777777;
   border: 1.5px solid #777777;
-  border-radius: 5px;
-  padding: 3px;
 }
 
-.list-header .list-tag_sample .list-tag_red {
+.list-header .list-tag_sample span.list-tag_red {
   color: #d9534f;
   border: 1.5px solid #d9534f;
-  border-radius: 5px;
-  padding: 3px;
 }
 
 .list-content {
@@ -468,76 +470,60 @@ body {
   margin-bottom: 0.5em;
 }
 
-.list-content .list-content_right .list-query {
-  display: flex;
+/*
+.list-content .list-content_right .list-tag-wrapper {
   margin-bottom: 0.3em;
 }
+*/
 
-.list-content .list-content_right .list-query .list-tag_blue {
-  color: #067ABC;
-  border: 1.5px solid #067ABC;
+.list-content .list-content_right .list-tag-wrapper .list-tag {
   border-radius: 5px;
   padding: 3px;
   margin-right: 0.3em;
+  margin-bottom: 0.3em;
   cursor: pointer;
 }
 
-.list-content .list-content_right .list-query .list-tag_blue:hover {
+.list-content .list-content_right .list-tag-wrapper .list-tag.list-tag_blue {
+  color: #067ABC;
+  border: 1.5px solid #067ABC;
+}
+
+.list-content .list-content_right .list-tag-wrapper .list-tag.list-tag_blue:hover {
   color: #fff;
   background-color: #067ABC;
   transition: 0.5s;
 }
 
-.list-content .list-content_right .list-heredity-disease {
-  display: flex;
-  margin-bottom: 0.3em;
-}
 
-.list-content .list-content_right .list-heredity-disease .list-tag_green {
+.list-content .list-content_right .list-tag-wrapper .list-tag.list-tag_green {
   color: #2F9145;
   border: 1.5px solid #2F9145;
-  border-radius: 5px;
-  padding: 3px;
-  margin-right: 0.3em;
-  cursor: pointer;
 }
 
-.list-content .list-content_right .list-heredity-disease .list-tag_green:hover {
+.list-content .list-content_right .list-tag-wrapper .list-tag.list-tag_green:hover {
   color: #fff;
   background-color: #2F9145;
   transition: 0.5s;
 }
 
-.list-content .list-content_right .list-heredity-disease .list-tag_gray {
+.list-content .list-content_right .list-tag-wrapper .list-tag.list-tag_gray {
   color: #777777;
   border: 1.5px solid #777777;
-  border-radius: 5px;
-  padding: 3px;
-  margin-right: 0.3em;
-  cursor: pointer;
 }
 
-.list-content .list-content_right .list-heredity-disease .list-tag_gray:hover {
+.list-content .list-content_right .list-tag-wrapper .list-tag.list-tag_gray:hover {
   color: #fff;
   background-color: #777777;
   transition: 0.5s;
 }
 
-.list-content .list-content_right .list-heredity-diseasename {
-  display: flex;
-  margin-bottom: 0.3em;
-}
-
-.list-content .list-content_right .list-heredity-diseasename .list-tag_red {
+.list-content .list-content_right .list-tag-wrapper .list-tag.list-tag_red {
   color: #d9534f;
   border: 1.5px solid #d9534f;
-  border-radius: 5px;
-  padding: 3px;
-  margin-right: 0.3em;
-  cursor: pointer;
 }
 
-.list-content .list-content_right .list-heredity-diseasename .list-tag_red:hover {
+.list-content .list-content_right .list-tag-wrapper .list-tag.list-tag_red:hover {
   color: #fff;
   background-color: #d9534f;
   transition: 0.5s;
@@ -554,13 +540,14 @@ body {
 
 .list-content .list-content_right .list-link {
   margin-top: 0.4em;
-  margin-bottom: 0.9em;
+  margin-bottom: 0.6em;
   line-height:  1.15;
 }
 
 .list-content .list-content_right .list-link a {
   color: #0431B4;
   margin-right: 0.7em;
+  margin-bottom: 0.3em;
   text-decoration: underline;
   cursor: pointer;
 }
@@ -579,18 +566,82 @@ body {
   color: inherit;
   text-decoration: none;
 }
-.list-content .list-content_right .list-show a .list-show_click {
+
+.list-content .list-content_right .list-show a span {
   display: flex;
+  color: #394466;
 }
-
-.list-content .list-content_right .list-show a .list-show_click i {
+.list-content .list-content_right .list-show a span:before {
+  font-feature-settings: 'liga';
+  font-family: 'Material Icons';
+  content: '\e146';
+  font-weight: normal;
+  font-style: normal;
   font-size: 1.2em;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  vertical-align: text-bottom;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
   color: #394466;
 }
 
-.list-content .list-content_right .list-show a .list-show_click span {
-  color: #394466;
+.list-content .list-content_right .list-show a.pcf-active span:before {
+  content: '\e909';
 }
+
+.list-content .list-content_right .list-show-panel {
+  margin-top: 15px;
+  padding-left: 15px;
+  display: none;
+  width:   100%;
+  min-height: 40px;
+}
+
+.list-content .list-content_right .list-show-panel.status-empty {
+  background-color: #fff;
+  background: url(../../images/pcf/loader-32px.gif) center no-repeat #fff; 
+}
+
+.list-content .list-content_right .list-show-panel.pcf-active {
+  display: block;
+  background-color: #f5f5f5;
+  border: 1px solid #ddd;
+/*
+  overflow-y:auto;
+  max-height: 300px;
+*/
+}
+
+.list-content .list-content_right .list-show-panel.pcf-active .category{
+  padding-top: 15px;
+  font-weight: bold;
+}
+
+.list-content .list-content_right .list-show-panel.pcf-active .item{
+  padding-left: 20px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.list-content .list-content_right .list-show-panel.pcf-active .item:before{
+  content: '- ';
+}
+
+
+.list-content .list-content_right .list-show-panel.pcf-active .item span{
+  cursor: pointer;
+  color:  #0431B4;
+  line-height: 1.15;
+  font-size: inherit;
+  vertical-align: inherit; 
+}
+
 
 .list-footer {
   border-bottom: 1px solid #ddd;
@@ -823,3 +874,53 @@ nav li.menu-item-has-children li a:hover {
     background: #F73859;
     color: #fff;
 }
+
+
+.popover {
+  width: 600px;
+  max-width: 850px;
+}
+
+.pcf-popup table tr {
+  border-bottom: solid 1px #ddd;;
+}
+
+.pcf-popup table tr:last-child {
+  border-bottom: 0;
+}
+
+.pcf-popup table tr th {
+  padding-right: 1.0em;
+  white-space: nowrap;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.pcf-popup table tr td {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.pcf-popup table tr td a {
+    color: #0431B4;
+    margin-right: 0.7em;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.pcf-popup-pheotype table tr th {
+  color: #067ABC;
+}
+
+.pcf-popup-inheritance table tr th {
+  color: #2F9145;
+}
+
+.pcf-popup-gene table tr th {
+  color: #777777;
+}
+
+.pcf-popup-disease table tr th {
+  color: #d9534f;
+}
+
