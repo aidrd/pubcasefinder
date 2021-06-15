@@ -60,7 +60,8 @@
 </head>
 
 <body>
-    <div id="fh5co-loader"></div>
+    <div id="fh5co-loader" style="display:none;"></div>
+    <!-- <div id="fh5co-loader"></div> -->
     <header class="search-header">
         <div class="wrapper search-header_wrapper">
             <div class="search-header_top">
@@ -238,41 +239,41 @@
         <div class="content-panel" id="pcf-content"></div>
         <div class='credit'></div>
     </section>
-
+    <div id="fh5co-wrapper"></div>
 <div id="popover_html_phenotype" style="display:none;">
 	<div>
 	<table>
-		<tr><td>HPO ID    </td><td><a href="popup_content_hpo_url" target="_blank">popup_content_pcf-phenotype-id</td></tr>
-		<tr><td>Label(ja) </td><td>popup_content_name_ja</td></tr>
-		<tr><td>Label(en) </td><td>popup_content_name_en</td></tr>
-		<tr><td>Definition</td><td>popup_content_definition</td></tr>
-		<tr><td>Comment   </td><td>popup_content_comment</td></tr>
-		<tr><td>Synonym   </td><td>popup_content_synonym</td></tr>
+		<tr><th>HPO ID    </th><td><a href="popup_content_hpo_url" target="_blank">popup_content_pcf-phenotype-id</td></tr>
+		<tr><th>Label(ja) </th><td>popup_content_name_ja</td></tr>
+		<tr><th>Label(en) </th><td>popup_content_name_en</td></tr>
+		<tr><th>Definition</th><td>popup_content_definition</td></tr>
+		<tr><th>Comment   </th><td>popup_content_comment</td></tr>
+		<tr><th>Synonym   </th><td>popup_content_synonym</td></tr>
 	</table>
 	</div>
 </div>
 <div id="popover_html_disease" style="display:none;">
 	<table>
-		<tr><td>MONDO ID  </td><td><a href="popup_content_mondo_url" target="_blank">popup_content_pcf-disease-id</td></tr>
-		<tr><td>Label(ja) </td><td>popup_content_name_ja</td></tr>
-		<tr><td>Label(en) </td><td>popup_content_name_en</td></tr>
-		<tr><td>Definition</td><td>popup_content_definition</td></tr>
-		<tr><td>Synonym   </td><td>popup_content_synonym</td></tr>
-		<tr><td>OMIM      </td><td>popup_content_omim_list</td></tr>
-		<tr><td>Orphanet  </td><td>popup_content_orpha_list</td></tr>
+		<tr><th>MONDO ID  </th><td><a href="popup_content_mondo_url" target="_blank">popup_content_pcf-disease-id</td></tr>
+		<tr><th>Label(ja) </th><td>popup_content_name_ja</td></tr>
+		<tr><th>Label(en) </th><td>popup_content_name_en</td></tr>
+		<tr><th>Definition</th><td>popup_content_definition</td></tr>
+		<tr><th>Synonym   </th><td>popup_content_synonym</td></tr>
+		<tr><th>OMIM      </th><td>popup_content_omim_list</td></tr>
+		<tr><th>Orphanet  </th><td>popup_content_orpha_list</td></tr>
 	</table>
 </div>
 <div id="popover_html_gene" style="display:none;">
 	<table>
-		<tr><td>NCBI Gene ID</td><td><a href="popup_content_ncbi_gene_url">popup_content_pcf-gene-id</a></td></tr>
-		<tr><td>HGNC symbol</td><td><a href="popup_content_hgnc_gene_url">popup_content_hgnc_gene_symbol</a></td></tr>
-		<tr><td>Synonym</td><td>popup_content_synonym</td></tr>
-		<tr><td>Full name</td><td>popup_content_full_name</td></tr>
-		<tr><td>Other full name</td><td>popup_content_other_full_name</td></tr>
-		<tr><td>Type of gene</td><td>popup_content_type_of_gene</td></tr>
-		<tr><td>Location</td><td>popup_content_location</td></tr>
+		<tr><th>NCBI Gene ID</th><td><a href="popup_content_ncbi_gene_url">popup_content_pcf-gene-id</a></td></tr>
+		<tr><th>HGNC symbol</th><td><a href="popup_content_hgnc_gene_url">popup_content_hgnc_gene_symbol</a></td></tr>
+		<tr><th>Synonym</th><td>popup_content_synonym</td></tr>
+		<tr><th>Full name</th><td>popup_content_full_name</td></tr>
+		<tr><th>Other full name</th><td>popup_content_other_full_name</td></tr>
+		<tr><th>Type of gene</th><td>popup_content_type_of_gene</td></tr>
+		<tr><th>Location</th><td>popup_content_location</td></tr>
 		<tr>
-			<td>Link</td>
+			<th>Link</th>
 			<td>
 				<a href="http://www.hgmd.cf.ac.uk/ac/gene.php?gene=popup_content_hgnc_gene_symbol" target="_blank">HGMD</a>
 				<a href="https://www.ncbi.nlm.nih.gov/clinvar/?term=popup_content_hgnc_gene_symbol" target="_blank">ClinVar</a>
@@ -323,6 +324,7 @@
 <script type="text/javascript" src="/static/js/pcf/popup-hierarchy-hpo.js"></script>
 <script src="/static/js/button-ripple-effect.js"></script>
 <script type="text/javascript" src="/static/js/pcf/pcf-content.js"></script>
+<script type="text/javascript" src="/static/js/pcf/pcf_collapse_panel.js"></script>
 
 <script>
 
