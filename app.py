@@ -174,6 +174,30 @@ def result():
     if request.args.get('lang') is not None:
         r_lang = request.args.get('lang')
 
+    if(len(r_phenotype) > 0):
+        list_phenotypes = r_phenotype.split(',')
+        list_phenotypes_uniq = []
+        for phenotype in list_phenotypes:
+            if phenotype not in list_phenotypes_uniq and phenotype.replace('_ja', '') not in list_phenotypes_uniq and phenotype + '_ja' not in list_phenotypes_uniq:
+                list_phenotypes_uniq.append(phenotype)
+
+        phenotypes = ','.join(list_phenotypes_uniq)
+        phenotypes = re.sub(r'^,+', '', phenotypes)
+        phenotypes = re.sub(r',+$', '', phenotypes)
+        r_phenotype = phenotypes
+
+    if(len(r_filter) > 0):
+        list_genes = r_filter.split(',')
+        list_genes_uniq = []
+        for gene in list_genes:
+            if gene not in list_genes_uniq:
+                list_genes_uniq.append(gene)
+
+        genes = ','.join(list_genes_uniq)
+        genes = re.sub(r'^,+', '', genes)
+        genes = re.sub(r',+$', '', genes)
+        r_filter = genes
+
     list_dict_phenotype, phenotypes_remove_error, phenotypes_remove_error_ja = process_input_phenotype(r_phenotype)
     list_dict_gene, genes_remove_error, list_query_gene_error = process_input_gene(r_filter)
     return render_template('result.html',

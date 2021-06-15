@@ -4,7 +4,7 @@
     <!-- START: FORM -->
     <div id="fh5co-project">
       <div class="container">
-	<form name="search" action="/search_disease" method="post" class="form-group">
+	<form name="search" action="/result" method="get" class="form-group"> -->
 	  <div align="middle"><a href="/"><img src="/static/images/logo_color.svg" width="550"></a></div>
 	  <br>
 	  <!--div style="text-align:center;font-size:1px;"><div class="rater" id="rater"></div></div-->
@@ -15,7 +15,7 @@
 		  <table width="100%">
 		    <tr>
 		      <td width="100%">
-			<textarea class="form-control" rows="2" id="tokeninput_hpo" name="str_phenotypes"></textarea>
+			<textarea class="form-control" rows="2" id="tokeninput_hpo" name="phenotype"></textarea>
 			<tr align="right">
 			  <td valign="top">
 			    {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
@@ -51,11 +51,11 @@
 	      </tr>
 	    </table>
           </div>
-	  <input type="hidden" name="str_genes" value="">
-	  <input type="hidden" name="page_orphanet" value="1">
-	  <input type="hidden" name="page_omim" value="1">
-	  <input type="hidden" name="changesize_selector_orphanet" value="10">
-	  <input type="hidden" name="changesize_selector_omim" value="10">
+          {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
+          <input type="hidden" name="lang" value="ja">
+          {% else %}
+          <input type="hidden" name="lang" value="en">
+          {% endif %}
 	</form>
 	<br><!--br><br-->
       </div>
