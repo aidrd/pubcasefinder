@@ -35,6 +35,12 @@ from utils.api_pcf_get_case_report_by_mondo_id import pcf_get_case_report_by_mon
 # API: pcf_get_count_case_report_by_mondo_id
 from utils.api_pcf_get_count_case_report_by_mondo_id import pcf_get_count_case_report_by_mondo_id
 
+# API: pcf_filter_get_case_id_by_ncbi_gene_id
+from utils.api_pcf_filter_get_case_id_by_ncbi_gene_id import pcf_filter_get_case_id_by_ncbi_gene_id
+
+# API: pcf_filter_get_all_case_id
+from utils.api_pcf_filter_get_all_case_id import pcf_filter_get_all_case_id
+
 # API: pcf_download
 from utils.api_pcf_download import pcf_download
 
@@ -260,6 +266,31 @@ def api_pcf_get_count_case_report_by_mondo_id():
     if request.method == 'GET':
         result = pcf_get_count_case_report_by_mondo_id(r_mondo_id, r_lang)
         return jsonify(result)
+
+
+#####
+# API: Filter case ID list: pcf_filter_get_case_id_by_ncbi_gene_id
+# GET method
+# /pcf_filter_get_case_id_by_ncbi_gene_id?ncbi_gene_id=[NCBI_GENE_ID]
+@app.route('/pcf_filter_get_case_id_by_ncbi_gene_id', methods=['GET'])
+def api_pcf_filter_get_case_id_by_ncbi_gene_id():
+    r_ncbi_gene_id = ""
+    if request.args.get('ncbi_gene_id') is not None:
+        r_ncbi_gene_id = request.args.get('ncbi_gene_id')
+
+    if request.method == 'GET':
+        result = pcf_filter_get_case_id_by_ncbi_gene_id(r_ncbi_gene_id)
+        return jsonify(result)
+
+
+#####
+# API: Filter case ID list: pcf_filter_get_all_case_id
+# GET method
+# /pcf_filter_get_all_case_id
+@app.route('/pcf_filter_get_all_case_id', methods=['GET'])
+def api_pcf_filter_get_all_case_id():
+    result = pcf_filter_get_all_case_id()
+    return jsonify(result)
 
 
 #####

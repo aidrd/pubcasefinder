@@ -26,38 +26,48 @@ def pcf_get_case_report_by_mondo_id(r_mondo_id, r_lang):
 
         # J-Stageの症例報告を取得
         if r_lang == "ja":
-            sql_JStage = u"select a.id_jstage, a.title_ja, a.url_ja, a.pdate from JStage as a left join AnnotOntoMONDOJStage as b on a.id_jstage=b.id_jstage where b.id_mondo=%s order by a.pdate desc"
+            sql_JStage = u"select a.id_jstage, a.title_ja, a.url_ja, a.pdate, a.id_jglobal, a.journal_ja, journal_en from JStage as a left join AnnotOntoMONDOJStage as b on a.id_jstage=b.id_jstage where b.id_mondo=%s order by a.pdate desc"
             cursor_JStage = OBJ_MYSQL.cursor()
             cursor_JStage.execute(sql_JStage, (r_mondo_id,))
             values_JStage = cursor_JStage.fetchall()
             cursor_JStage.close()
             for value_JStage in values_JStage:
-                id_jstage = value_JStage[0]
-                title_ja  = value_JStage[1]
-                url_ja    = value_JStage[2]
-                pdate     = value_JStage[3]
+                id_jstage  = value_JStage[0]
+                title_ja   = value_JStage[1]
+                url_ja     = value_JStage[2]
+                pdate      = value_JStage[3]
+                id_jglobal = value_JStage[4]
+                journal_ja = value_JStage[5]
+                journal_en = value_JStage[6]
+                journal_ja = journal_ja.replace("　", " ")
+                journal = journal_ja.translate(str.maketrans({chr(0xFF01 + i): chr(0x21 + i) for i in range(94)})) if journal_ja != "" else journal_en
                 dict_jstage = {}
-                dict_jstage['id']    = id_jstage
-                dict_jstage['title'] = title_ja
-                dict_jstage['url']   = url_ja
-                dict_jstage['pyear'] = pdate
+                dict_jstage['id']         = id_jstage
+                dict_jstage['title']      = title_ja
+                dict_jstage['url']        = url_ja
+                dict_jstage['pyear']      = pdate
+                dict_jstage['id_jglobal'] = id_jglobal
+                dict_jstage['url_jglobal'] = "https://jglobal.jst.go.jp/detail?JGLOBAL_ID=" + id_jglobal
+                dict_jstage['journal']    = journal
                 list_dict_cs.append(dict_jstage)
         # PubMedの症例報告を取得
         elif r_lang == "en":
-            sql_pubmed = u"select distinct a.PMID, b.title, b.pyear from AnnotOntoMONDO as a left join CaseReports as b on a.PMID = b.PMID where a.OntoID=%s order by b.pyear desc, b.title"
+            sql_pubmed = u"select distinct a.PMID, b.title, b.pyear, b.journal from AnnotOntoMONDO as a left join CaseReports as b on a.PMID = b.PMID where a.OntoID=%s order by b.pyear desc, b.title"
             cursor_pubmed = OBJ_MYSQL.cursor()
             cursor_pubmed.execute(sql_pubmed, (r_mondo_id,))
             values_pubmed = cursor_pubmed.fetchall()
             cursor_pubmed.close()
             for value_pubmed in values_pubmed:
-                pmid  = value_pubmed[0]
-                title = value_pubmed[1]
-                pyear = value_pubmed[2]
+                pmid    = value_pubmed[0]
+                title   = value_pubmed[1]
+                pyear   = value_pubmed[2]
+                journal = value_pubmed[3]
                 dict_pubmed = {}
-                dict_pubmed['id']  = pmid
-                dict_pubmed['title'] = title
-                dict_pubmed['url']   = "https://pubmed.ncbi.nlm.nih.gov/" + str(pmid)
-                dict_pubmed['pyear'] = pyear
+                dict_pubmed['id']      = pmid
+                dict_pubmed['title']   = title
+                dict_pubmed['url']     = "https://pubmed.ncbi.nlm.nih.gov/" + str(pmid)
+                dict_pubmed['pyear']   = pyear
+                dict_pubmed['journal'] = journal
                 list_dict_cs.append(dict_pubmed)
 
     OBJ_MYSQL.close()
