@@ -47,29 +47,40 @@
 
 
 	function _construct_data_panel_ja_case_report(url_str){
-		let str = "<script type=\"module\" src=\"https:\/\/togostanza.github.io/metastanza/pagination-table.js\" async=\"\"><\/script>" +
+		let str = "<script type=\"module\" src=\"https:\/\/togostanza.github.io/metastanza/pagination-table.js\" async><\/script>" +
+				"<style>"+
+					"togostanza-pagination-table {--togostanza-tbody-font-size: 12px;--togostanza-background-color: #ffffff;}" +
+				"<\/style>"+
 				  "<togostanza-pagination-table " +
   					"data-url=\""+url_str+"\" " +
   					"data-type=\"json\" " +
-  					"padding=\"0\" " +
+  					"padding=\"0px\" " +
   					"page-size-option=\"10,20,50,100\" " +
   					"page-slider=\"false\" " +
-  					"columns=\"[{&quot;id&quot;:&quot;id&quot;,&quot;label&quot;:&quot;J-STAGE ID&quot;,&quot;link&quot;:&quot;url&quot;},"+
-							   "{&quot;id&quot;:&quot;pyear&quot;,&quot;label&quot;:&quot;Year&quot;},"+
-							   "{&quot;id&quot;:&quot;title&quot;,&quot;label&quot;:&quot;Title&quot;}]\">" +
+  					"columns=\"[{&quot;id&quot;:&quot;pyear&quot;,&quot;label&quot;:&quot;Year&quot;},"+
+						   "{&quot;id&quot;:&quot;title&quot;,&quot;label&quot;:&quot;Title&quot;},"+
+						   "{&quot;id&quot;:&quot;journal&quot;,&quot;label&quot;:&quot;Journal&quot;},"+
+						   "{&quot;id&quot;:&quot;id&quot;,&quot;label&quot;:&quot;J-STAG&quot;,&quot;link&quot;:&quot;url&quot;},"+
+						   "{&quot;id&quot;:&quot;id_jglobal&quot;,&quot;label&quot;:&quot;J-GLOBAL&quot;,&quot;link&quot;:&quot;url_jglobal&quot;}]\">" +
 				 "</togostanza-pagination-table>";
 		return str;
 	}
 
 	function _construct_data_panel_en_case_report(url_str){
 		let str = "<script type=\"module\" src=\"https:\/\/togostanza.github.io/metastanza/pagination-table.js\" async=\"\"><\/script>" +
+                                "<style>"+
+                                        "togostanza-pagination-table {--togostanza-tbody-font-size: 12px;--togostanza-background-color: #ffffff;}" +
+                                "<\/style>"+
 				  "<togostanza-pagination-table " +
 			  		"data-url=\""+url_str+"\" " +
   					"data-type=\"json\" " +
-  					"padding=\"0\" " +
+  					"padding=\"0px\" " +
   					"page-size-option=\"10,20,50,100\" " +
   					"page-slider=\"false\" " +
-					"columns=\"[{&quot;id&quot;:&quot;id&quot;,&quot;label&quot;:&quot;PMID&quot;,&quot;link&quot;:&quot;url&quot;},{&quot;id&quot;:&quot;pyear&quot;,&quot;label&quot;:&quot;Year&quot;},{&quot;id&quot;:&quot;title&quot;,&quot;label&quot;:&quot;Title&quot;}]\">"+
+					"columns=\"[{&quot;id&quot;:&quot;pyear&quot;,&quot;label&quot;:&quot;Year&quot;},"+
+						   "{&quot;id&quot;:&quot;title&quot;,&quot;label&quot;:&quot;Title&quot;},"+
+						   "{&quot;id&quot;:&quot;journal&quot;,&quot;label&quot;:&quot;Journal&quot;},"+
+						   "{&quot;id&quot;:&quot;id&quot;,&quot;label&quot;:&quot;PubMed&quot;,&quot;link&quot;:&quot;url&quot;}]\">" +
 				  "</togostanza-pagination-table>";
 		return str;
 	}

@@ -597,7 +597,7 @@ body {
 
 .list-content .list-content_right .list-show-panel {
   margin-top: 15px;
-  padding-left: 15px;
+  /*padding-left: 15px;*/
   display: none;
   width:   100%;
   min-height: 40px;
@@ -610,7 +610,7 @@ body {
 
 .list-content .list-content_right .list-show-panel.pcf-active {
   display: block;
-  background-color: #f5f5f5;
+  /*background-color: #f5f5f5;*/
   border: 1px solid #ddd;
 /*
   overflow-y:auto;
