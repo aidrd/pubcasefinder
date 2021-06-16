@@ -107,7 +107,7 @@ body {
   border-radius: 5px;
   background-color: #fff;
   padding: 2px 10px 2px 10px;
-  height: 108px;
+  height: 112px;
 }
 
 .search-header .search-header_wrapper .search-box_wrapper .search-box_form table {
@@ -489,6 +489,12 @@ body {
   border: 1.5px solid #067ABC;
 }
 
+.list-content .list-content_right .list-tag-wrapper .list-tag.list-tag_blue.pcf-active {
+  color: #fff;
+  background-color: #067ABC;
+  transition: 0.5s;
+}
+
 .list-content .list-content_right .list-tag-wrapper .list-tag.list-tag_blue:hover {
   color: #fff;
   background-color: #067ABC;
@@ -499,6 +505,12 @@ body {
 .list-content .list-content_right .list-tag-wrapper .list-tag.list-tag_green {
   color: #2F9145;
   border: 1.5px solid #2F9145;
+}
+
+.list-content .list-content_right .list-tag-wrapper .list-tag.list-tag_green.pcf-active {
+  color: #fff;
+  background-color: #2F9145;
+  transition: 0.5s;
 }
 
 .list-content .list-content_right .list-tag-wrapper .list-tag.list-tag_green:hover {
@@ -512,6 +524,12 @@ body {
   border: 1.5px solid #777777;
 }
 
+.list-content .list-content_right .list-tag-wrapper .list-tag.list-tag_gray.pcf-active {
+  color: #fff;
+  background-color: #777777;
+  transition: 0.5s;
+}
+
 .list-content .list-content_right .list-tag-wrapper .list-tag.list-tag_gray:hover {
   color: #fff;
   background-color: #777777;
@@ -521,6 +539,12 @@ body {
 .list-content .list-content_right .list-tag-wrapper .list-tag.list-tag_red {
   color: #d9534f;
   border: 1.5px solid #d9534f;
+}
+
+.list-content .list-content_right .list-tag-wrapper .list-tag.list-tag_red.pcf-active {
+  color: #fff;
+  background-color: #d9534f;
+  transition: 0.5s;
 }
 
 .list-content .list-content_right .list-tag-wrapper .list-tag.list-tag_red:hover {

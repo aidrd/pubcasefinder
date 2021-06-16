@@ -66,7 +66,7 @@
         <div class="wrapper search-header_wrapper">
             <div class="search-header_top">
                 <div class="brand">
-                    <a href="#" class="brand"><img src="/static/images/pcf/logo_color.svg" alt=""></a>
+                    <a href="/" class="brand"><img src="/static/images/pcf/logo_color.svg" alt=""></a>
                 </div>
                 <div class="search-header_left">
                     <span><a href="{{ request.path }}?lang=en">EN</a> / <a href="{{ request.path }}?lang=ja"></a>JA</a></span>
@@ -130,22 +130,22 @@
                     <div class="dropdown" id="search-button_download-wrapper">
                       <button id="search-button_download" class="dropdown-toggle material-icons" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">save_alt</button>
                       <div class="dropdown-menu" aria-labelledby="search-button_download">
-                      <form class="px-4 py-3">
+                      <form class="px-4 py-3" id="download-form">
                         <label><b>{{ _('search_share_modal_label_download') }}</b></label>
                         <table>
                           <tr>
                             <td style="vertical-align: middle;">Target:</td>
                             <td>
                                {% if r_target == "omim" %}
-                                 {{ _('index_stat_genetic') }}
+                                 Genetic Disease
                                {% elif r_target == "orphanet" %}
-                                 {{ _('index_stat_rare') }}
+                                 Rare Disease
                                {% elif r_target == "gene" %}
-                                 {{ _('index_stat_gene') }}
+                                 Gene
                                {% elif r_target == "case" %}
-                                 {{ _('index_stat_udp') }}
+                                 Case
                                {% else %}
-                                 {{ _('index_stat_genetic') }}
+                                 Genetic Disease
                                {% endif %}
                             </td>
                           </tr>
@@ -201,21 +201,21 @@
                           <tr>
                             <td style="vertical-align: middle;padding-left:0;padding-right:10px;">Format:</td>
                             <td>
-                              <select style="width:150px;" class="form-control custom-select">
-                                <option>Summary</option>
-                                <option>Detail</option>
+                              <select style="width:150px;" class="form-control custom-select" id="str_display_format">
+                                <option value="summary" {% if r_display_format == "summary" %} selected {% endif %}>Summary</option>
+                                <option value="full" {% if r_display_format == "full" %} selected {% endif %}>Detail</option>
                               </select>
                             </td>
                           </tr>
                           <tr>
                             <td style="vertical-align: middle; padding-right:10px;" nowrap>Per page:</td>
                             <td>
-                              <select style="width:150px;" class="form-control custom-select">
-                                <option>10</option>
-                                <option>20</option>
-                                <option>50</option>
-                                <option>100</option>
-                                <option>200</option>
+                              <select style="width:150px;" class="form-control custom-select" id="str_size">
+                                <option value="10"  {% if r_size == "10" %} selected {% endif %}>10</option>
+                                <option value="20"  {% if r_size == "20" %} selected {% endif %}>20</option>
+                                <option value="50"  {% if r_size == "50" %} selected {% endif %}>50</option>
+                                <option value="100" {% if r_size == "100" %} selected {% endif %}>100</option>
+                                <option value="200" {% if r_size == "200" %} selected {% endif %}>200</option>
                               </select>
                             </td>
                           </tr>
@@ -229,12 +229,16 @@
             <div class="search-advanced">
                 <div class="search-box-advanced_wrapper collapse" id="search-box-advanced">
                     <span><b>{{ _('search_textbox_title_narrowdown') }}</b></span>
-                    <textarea class="form-control" rows="1" id="tokeninput_genes" name="str_genes"></textarea>
+                    <textarea class="form-control" rows="1" id="tokeninput_genes" name="str_filters"></textarea>
                 </div>
             </div>
         </div>
     </header>
-
+{% if r_lang == "ja" %}
+    <input type=hidden id="r_lang" value="ja" />
+{% else %}
+    <input type=hidden id="r_lang" value="en" />
+{% endif %}
     <section class="content-wrapper">
         <div class="content-panel" id="pcf-content"></div>
         <div class='credit'></div>
@@ -354,7 +358,9 @@
     $(document).ready(function() {
         $("#tokeninput_hpo").tokenInput("/tokeninput_hpo", {
           theme: "facebook",
+          {% if json_phenotypes %}
           prePopulate: {{ json_phenotypes|safe }}
+          {% endif %}
         });
 
         $("#tokeninput_hpo").popupRelationHPO('/popup_hierarchy_hpo');
@@ -365,9 +371,12 @@
         });
 
         $("#tokeninput_genes").tokenInput_gene("/tokeninput_genes", {
-          theme: "facebook",
+          'theme': "facebook",
+          {% if r_lang %}
+          'language':   "{{ r_lang }}",
+          {% endif %}
           {% if json_genes %}
-          prePopulate: {{ json_genes|safe }}
+          'prePopulate': {{ json_genes|safe }}
           {% endif %}
         });
 
@@ -396,6 +405,18 @@
               'size':          {{ r_size }}
             {% endif %}
         });
+
+/*
+        $('#search-button_download-wrapper').on('show.bs.dropdown', function () {
+            let diff1 = $('#search-button_download').offset().left - $('#search-button_advanced').offset().left;
+            $('#search-button_download').attr('data-offset', '-'+ diff1 +'px,8px');
+        });
+        
+        $('#search-button_share-wrapper').on('show.bs.dropdown', function () {
+            let diff2 = $('#search-button_share').offset().left - $('#search-button_advanced').offset().left;
+            $('#search-button_share').attr('data-offset', '-'+ diff2 +'px,8px');
+        });
+*/
     });
 
     $("#phenotouch").click(function (e){
@@ -408,8 +429,50 @@
 
     
     $('#search_button').on('click', function (event) {
-        // trigger search 	
+        // trigger search
+        let form = document.createElement("form");
+        form.setAttribute("method", "get");
+        form.setAttribute("action", "/result");
+
+        let target = document.createElement("input");
+        target.setAttribute("type", "text");
+        target.setAttribute("name", "target");
+        target.setAttribute("value",$("#pcf-content").pcf_content('get_target'));
+        form.appendChild(target); 
+
+        let phenotype = document.createElement("input");
+        phenotype.setAttribute("type", "text");
+        phenotype.setAttribute("name", "phenotype");
+        phenotype.setAttribute("value",$("#tokeninput_hpo").val());                                                               
+        form.appendChild(phenotype);
+
+        let filter = document.createElement("input");
+        filter.setAttribute("type", "text");
+        filter.setAttribute("name", "filter");
+        filter.setAttribute("value",$("#tokeninput_genes").val());
+        form.appendChild(filter);  
+
+        let size = document.createElement("input");
+        size.setAttribute("type", "text");
+        size.setAttribute("name", "size");
+        size.setAttribute("value",$("#str_size").val());
+        form.appendChild(size);
+
+        let display_format = document.createElement("input");
+        display_format.setAttribute("type", "text");
+        display_format.setAttribute("name", "display_format");
+        display_format.setAttribute("value",$("#str_display_format").val());
+        form.appendChild(display_format); 
+
+        let lang = document.createElement("input");
+        lang.setAttribute("type", "text");
+        lang.setAttribute("name", "lang");
+        lang.setAttribute("value",$("#r_lang").val());
+        form.appendChild(lang);
+
+        $(form).appendTo('body').submit();
     });
+
 
 
     var resizeTimer = false;

@@ -181,32 +181,8 @@
 				[POPUP_TYPE_DISEASE]     : URL_PARA_MONDO_ID
 			};
 
-	const	INHERITANCE_LABEL_TO_ID = {
-			'Autosomal dominant inheritance': 'HP:0000006',
-			'Autosomal recessive inheritance':'HP:0000007',
-			'X-linked inheritance':'HP:0001417',
-			'X-linked recessive inheritance':'HP:0001419',
-			'X-linked dominant inheritance':'HP:0001423',
-			'Heterogeneous':'HP:0001425',
-			'Multifactorial inheritance':'HP:0001426',
-			'Mitochondrial inheritance':'HP:0001427',
-			'Somatic mutation':'HP:0001428',
-			'Somatic mosaicism':'HP:0001442',
-			'Autosomal dominant somatic cell mutation':'HP:0001444',
-			'Y-linked inheritance':'HP:0001450',
-			'Autosomal dominant contiguous gene syndrome':'HP:0001452',
-			'Contiguous gene syndrome':'HP:0001466',
-			'Sex-limited autosomal dominant':'HP:0001470',
-			'Familial predisposition':'HP:0001472',
-			'Male-limited autosomal dominant':'HP:0001475',
-			'Genetic anticipation':'HP:0003743',
-			'Genetic anticipation with paternal anticipation bias':'HP:0003744',
-			'Sporadic':'HP:0003745',
-			'Polygenic inheritance':'HP:0010982',
-			'Digenic inheritanec':'HP:0010984',
-			'Autosomal dominant inheritance with maternal imprinting':'HP:0012275',
-			'Autosomal dominant germline de novo mutation':'HP:0025352',
-			}
+        const   INHERITANCE_LABEL_TO_ID = {                        'Autosomal dominant inheritance': 'HP:0000006',                        'Autosomal recessive inheritance':'HP:0000007',                        'X-linked inheritance':'HP:0001417',                        'X-linked recessive inheritance':'HP:0001419',                        'X-linked dominant inheritance':'HP:0001423',                        'Heterogeneous':'HP:0001425',                        'Multifactorial inheritance':'HP:0001426',                        'Mitochondrial inheritance':'HP:0001427',                        'Somatic mutation':'HP:0001428',                        'Somatic mosaicism':'HP:0001442',                        'Autosomal dominant somatic cell mutation':'HP:0001444',                        'Y-linked inheritance':'HP:0001450',                        'Autosomal dominant contiguous gene syndrome':'HP:0001452',                        'Contiguous gene syndrome':'HP:0001466',                        'Sex-limited autosomal dominant':'HP:0001470',                        'Familial predisposition':'HP:0001472',                        'Male-limited autosomal dominant':'HP:0001475',                        'Genetic anticipation':'HP:0003743',                        'Genetic anticipation with paternal anticipation bias':'HP:0003744',                        'Sporadic':'HP:0003745',                        'Polygenic inheritance':'HP:0010982',                        'Digenic inheritanec':'HP:0010984',                        'Autosomal dominant inheritance with maternal imprinting':'HP:0012275',                        'Autosomal dominant germline de novo mutation':'HP:0025352',                        }
+
 
 	// KEY:detail data id, VAL:detail data(JSON object)
 	var pcf_detail_data_cache = {
@@ -677,6 +653,14 @@
 		return content;  
 	} 
 
+	function _contruct_popup_button(popup_type, key_popup_id, id,list_tag,text,class_popup){
+		return $('<span>').data(KEY_POPUP_TYPE,popup_type).data(key_popup_id,id)
+                                  .addClass("list-tag").addClass(list_tag).text(text)
+                                  .click(function(){$(this).toggleClass("pcf-active");})
+			          .popover({html:true,placement:'bottom',trigger:'hover click',content:_popoverContent,sanitize:false,
+					  template:'<div class=\"popover\" role=\"tooltip\"><div class=\"arrow\"></div><div class=\"popover-body '+class_popup+'\"></div></div>'});
+
+	}
 
 	function _contruct_detail(id, phenoList, item, lang, target,$container_panel){
 
@@ -710,10 +694,7 @@
 			phenoList.split(',').forEach(function(hpo_id){
 				let label_text = _get_phenotype_name_from_cache(hpo_id,lang);
 				if(_isEmpty(label_text)) label_text= hpo_id;
-				let $button = $('<span>').data(KEY_POPUP_TYPE,POPUP_TYPE_PHENOTYPE).data(KEY_POPUP_ID_PHENOTYPE,hpo_id)
-										 .addClass("list-tag").addClass("list-tag_blue").text(label_text).appendTo($container_list_query);
-				$button.popover({html:true,placement:'bottom',trigger:'hover',content:_popoverContent,sanitize:false,
-								template:'<div class=\"popover\" role=\"tooltip\"><div class=\"arrow\"></div><div class=\"popover-body '+CLASS_POPUP_PHENOTYPE+'\"></div></div>'});
+				_contruct_popup_button(POPUP_TYPE_PHENOTYPE, KEY_POPUP_ID_PHENOTYPE, hpo_id, "list-tag_blue", label_text, CLASS_POPUP_PHENOTYPE).appendTo($container_list_query);
 			});
 		}
 		
@@ -725,22 +706,10 @@
 				let $container_list_heredity = $('<div>').addClass("d-flex").addClass("flex-wrap").addClass("list-tag-wrapper").appendTo($container_panel);
 				
 				if(_isExistVal("inheritance_en",item)){
-					for(let i=0;i<item.inheritance_en.length;i++){
-						let text = item.inheritance_en[i];
-
-						if(isJA)text = item.inheritance_ja[i];						
-						
-						if(item.inheritance_en[i] in INHERITANCE_LABEL_TO_ID){
-							let hpo_id = INHERITANCE_LABEL_TO_ID[item.inheritance_en[i]];
-							let $button = $('<span>').data(KEY_POPUP_TYPE,POPUP_TYPE_INHERITANCE).data(KEY_POPUP_ID_INHERITANCE,hpo_id)
-										 .addClass("list-tag").addClass("list-tag_green").text(text).appendTo($container_list_heredity);
-							$button.popover({html:true,placement:'bottom',trigger:'hover',content:_popoverContent,sanitize:false,
-								template:'<div class=\"popover\" role=\"tooltip\"><div class=\"arrow\"></div><div class=\"popover-body '+CLASS_POPUP_INHERITANCE+'\"></div></div>'});
-						}else{
-							$('<span>').addClass("list-tag").addClass("list-tag_green").text(text).appendTo($container_list_heredity);
-						}
-						
-						
+					for(let hpo_id in item.inheritance_en){
+						let text = item.inheritance_en[hpo_id];
+						if(isJA)text = item.inheritance_ja[hpo_id];
+						_contruct_popup_button(POPUP_TYPE_INHERITANCE, KEY_POPUP_ID_INHERITANCE, hpo_id, "list-tag_green", text, CLASS_POPUP_INHERITANCE).appendTo($container_list_heredity);
 					}
 				}
 	
@@ -748,10 +717,7 @@
 					for(let i=0;i<item.hgnc_gene_symbol.length;i++){
 						let text = item.hgnc_gene_symbol[i];
 						let id    = item.ncbi_gene_id[i];
-						let $button = $('<span>').data(KEY_POPUP_TYPE,POPUP_TYPE_GENE).data(KEY_POPUP_ID_NCBI_GENE,id)
-												 .addClass("list-tag").addClass("list-tag_gray").text(text).appendTo($container_list_heredity);
-						$button.popover({html:true,placement:'bottom',trigger:'hover',content:_popoverContent,sanitize:false,
-										template:'<div class=\"popover\" role=\"tooltip\"><div class=\"arrow\"></div><div class=\"popover-body '+CLASS_POPUP_GENE+'\"></div></div>'});
+						_contruct_popup_button(POPUP_TYPE_GENE, KEY_POPUP_ID_NCBI_GENE, id, "list-tag_gray", text, CLASS_POPUP_GENE).appendTo($container_list_heredity);
 					}
 				}
 			}
@@ -762,11 +728,7 @@
 				for(let mondo_id in item.mondo_disease_name_en){
 					let text = item.mondo_disease_name_en[mondo_id];
 					if(isJA && _isExistVal(mondo_id, item.mondo_disease_name_ja)) text = item.mondo_disease_name_ja[mondo_id];
-					let $button=$('<span>').addClass("list-tag").addClass("list-tag_red").text(text)
-											.data(KEY_POPUP_TYPE,POPUP_TYPE_DISEASE).data(KEY_POPUP_ID_DISEASE,mondo_id)
-											.appendTo($container_list_diseasename);
-						$button.popover({html:true,placement:'bottom',trigger:'hover',content:_popoverContent,sanitize:false,
-										template:'<div class=\"popover\" role=\"tooltip\"><div class=\"arrow\"></div><div class=\"popover-body '+CLASS_POPUP_DISEASE+'\"></div></div>'});
+					_contruct_popup_button(POPUP_TYPE_DISEASE, KEY_POPUP_ID_DISEASE, mondo_id, "list-tag_red", text, CLASS_POPUP_DISEASE).appendTo($container_list_diseasename);
 					
 				}
 			}
@@ -780,10 +742,7 @@
 
 					if(item.inheritance_en[i] in INHERITANCE_LABEL_TO_ID){
 						let hpo_id = INHERITANCE_LABEL_TO_ID[item.inheritance_en[i]];
-						let $button = $('<span>').data(KEY_POPUP_TYPE,POPUP_TYPE_INHERITANCE).data(KEY_POPUP_ID_INHERITANCE,hpo_id)
-									 .addClass("list-tag").addClass("list-tag_green").text(text).appendTo($container_list_disease);
-						$button.popover({html:true,placement:'bottom',trigger:'hover',content:_popoverContent,sanitize:false,
-							template:'<div class=\"popover\" role=\"tooltip\"><div class=\"arrow\"></div><div class=\"popover-body '+CLASS_POPUP_INHERITANCE+'\"></div></div>'});
+						_contruct_popup_button(POPUP_TYPE_INHERITANCE, KEY_POPUP_ID_INHERITANCE, hpo_id, "list-tag_green", text, CLASS_POPUP_INHERITANCE).appendTo($container_list_disease);
 					}else{
 						$('<span>').addClass("list-tag").addClass("list-tag_green").text(text).appendTo($container_list_disease);
 					}
@@ -1253,6 +1212,9 @@
 			return this.each(function () {
 				$(this);
 			});
+		},
+		get_target: function() {
+			return _get_active_target();
 		},
 		search: function(options) {
 
