@@ -84,6 +84,42 @@
 				  "</togostanza-pagination-table>";
 		return str;
 	}
+	
+	function appendChildren(parentEl, children) {
+		let children_sorted = children.sort(function(a, b) {return a.id.localeCompare(b.id)});
+		for (let i = 0; i < children_sorted.length; i++) {
+			let child = children_sorted[i];
+
+			let $element = $('<div />');
+			if('hpo_id' in child){
+				$('<a>').attr('href',child.hpo_url).attr('target','_blank').text(child.id).appendTo($element);
+				$('<span class=\"material-icons\">post_add</span>')
+					.data(KEY_HPO_ID,child.hpo_id)
+					.data(KEY_HPO_NAME,child.id)
+					.click(function(){
+						let $span = $(this);
+						let hpo_id1 = $span.data(KEY_HPO_ID);
+						let hpo_name1 = $span.data(KEY_HPO_NAME);
+						$("#tokeninput_hpo").tokenInput("add", {id: hpo_id1, name: hpo_name1});
+					})
+					.appendTo($element);
+
+				$element.addClass('item');
+			}else{
+				$element.text(child.id);
+			}
+
+
+			if('children' in child){
+				$element.addClass('category');
+				appendChildren($element, child.children);
+			}
+
+
+			parentEl.append($element);
+		}
+	}
+
 
 	function _construct_data_panel_phenotype(url_str, lang, $container){
 		$.ajax({  
@@ -94,7 +130,65 @@
 			success:function(data){  
 
 				let json_data = JSON.parse(data);
+/*
+				{
+					"hpo_category_name_en": "Abnormality of the genitourinary system",
+					"hpo_category_name_ja": "泌尿生殖器異常",
+					"hpo_id": "HP:0000028",
+					"hpo_url": "http://purl.obolibrary.org/obo/HP_0000028",
+					"hpo_label_en": "Cryptorchidism",
+					"hpo_label_ja": "停留精巣"
+				}
+*/
+				let hash_id = {}, hash_parent_id = {};
+				json_data.forEach(function(item){
+					let parent_id = item.hpo_category_name_en;
+					let id        = item.hpo_label_en;
 
+					if(lang === LANG_JA && 'hpo_category_name_ja' in item){
+						parent_id = item.hpo_category_name_ja;
+					}
+					if(lang === LANG_JA && 'hpo_label_ja' in item){
+						id = item.hpo_label_ja;
+					}
+					item['id'] = id;
+					item['parent_id'] = parent_id;
+					
+					hash_id[id] = 1;
+					hash_parent_id[parent_id] = 1;
+				});
+
+				json_data.push({'id':'dummy_root','parent_id': null});
+
+				Object.keys(hash_parent_id).forEach(function(parrent_id){
+					if(!(parrent_id in hash_id)){
+						json_data.push({'id':parrent_id,'parent_id': 'dummy_root'});
+					}
+				});
+
+				const idMapping = json_data.reduce((acc, el, i) => {
+				  acc[el.id] = i;
+				  return acc;
+				}, {});
+
+				let root;
+				json_data.forEach(el => {
+					if (el.parent_id === null) {
+						root = el;
+						return;
+					}
+					let key = el.parent_id;
+					let i = idMapping[key];
+					let parentEl = json_data[i];
+					parentEl['children'] = [...(parentEl['children'] || []), el];
+				});
+
+				appendChildren($container, root.children);
+
+
+
+
+/*
 				// contruct data
 				let hash_data = {};
 				json_data.forEach(function(item){
@@ -147,7 +241,7 @@
 							.appendTo($td_hpo);
 					});
 				});
-					
+*/
 				$container.removeClass(CLASS_INIT).addClass(CLASS_DATA_LOADED);	
 			}  
 		});  

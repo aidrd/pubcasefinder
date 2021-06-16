@@ -634,29 +634,35 @@ body {
 
 .list-content .list-content_right .list-show-panel.pcf-active {
   display: block;
-  /*background-color: #f5f5f5;*/
+
   border: 1px solid #ddd;
-/*
-  overflow-y:auto;
-  max-height: 300px;
-*/
+
+  font-weight: normal;
+
+  padding-left: 20px;
 }
 
 .list-content .list-content_right .list-show-panel.pcf-active .category{
-  padding-top: 15px;
   font-weight: bold;
+  margin-top: 15px;
+  margin-bottom: 5px;
 }
 
 .list-content .list-content_right .list-show-panel.pcf-active .item{
-  padding-left: 20px;
-  padding-top: 5px;
-  padding-bottom: 5px;
+  margin-left: 20px;
+  margin-bottom: 5px;
 }
 
 .list-content .list-content_right .list-show-panel.pcf-active .item:before{
   content: '- ';
 }
 
+.list-content .list-content_right .list-show-panel.pcf-active .item a{
+  font-weight: normal;
+  color: #0431B4;
+  text-decoration: underline;
+  cursor: pointer;
+}
 
 .list-content .list-content_right .list-show-panel.pcf-active .item span{
   cursor: pointer;
