@@ -51,11 +51,16 @@
 	      </tr>
 	    </table>
           </div>
+          <input type="hidden" name="target" value="omim">
+          <input type="hidden" name="filter" value="">
+          <input type="hidden" name="size" value="10">
+          <input type="hidden" name="display_format" value="full">
           {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
           <input type="hidden" name="lang" value="ja">
           {% else %}
           <input type="hidden" name="lang" value="en">
           {% endif %}
+          
 	</form>
 	<br><!--br><br-->
       </div>

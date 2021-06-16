@@ -780,12 +780,12 @@
 
 					if(item.inheritance_en[i] in INHERITANCE_LABEL_TO_ID){
 						let hpo_id = INHERITANCE_LABEL_TO_ID[item.inheritance_en[i]];
-						let $button = $('<span>').data(KEY_POPUP_TYPE,POPUP_TYPE_INHERITANCE).data(KEY_POPUP_ID_PHENOTYPE,hpo_id)
-									 .addClass("list-tag").addClass("list-tag_green").text(text).appendTo($container_list_heredity);
+						let $button = $('<span>').data(KEY_POPUP_TYPE,POPUP_TYPE_INHERITANCE).data(KEY_POPUP_ID_INHERITANCE,hpo_id)
+									 .addClass("list-tag").addClass("list-tag_green").text(text).appendTo($container_list_disease);
 						$button.popover({html:true,placement:'bottom',trigger:'hover',content:_popoverContent,sanitize:false,
 							template:'<div class=\"popover\" role=\"tooltip\"><div class=\"arrow\"></div><div class=\"popover-body '+CLASS_POPUP_INHERITANCE+'\"></div></div>'});
 					}else{
-						$('<span>').addClass("list-tag").addClass("list-tag_green").text(text).appendTo($container_list_heredity);
+						$('<span>').addClass("list-tag").addClass("list-tag_green").text(text).appendTo($container_list_disease);
 					}
 				}
 			}
