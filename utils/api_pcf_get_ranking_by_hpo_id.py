@@ -135,7 +135,6 @@ def pcf_get_ranking_by_hpo_id(r_target, r_phenotype):
         if onto_id not in dict_AnnotationHPONum:
             continue
 
-
         dict_similar_disease = {}
         dict_similar_disease['score']                = float(dict_similar_diseases[onto_id]['sum_ic'] / dict_similar_diseases[onto_id]['sum_ic_denominator']) if dict_similar_diseases[onto_id]['sum_ic_denominator'] != 0 else 0
         dict_similar_disease['matched_hpo_id']       = ",".join(dict_similar_diseases[onto_id]['matched_hpo_id'])
@@ -146,6 +145,14 @@ def pcf_get_ranking_by_hpo_id(r_target, r_phenotype):
         elif r_target=="gene":
             onto_id = onto_id.replace('ENT', 'GENEID')
         dict_similar_disease['id']                   = onto_id
+        if r_target=="case":
+            if re.compile("DECIPHER").search(onto_id):
+                dict_similar_disease['url'] = "https://www.deciphergenomics.org/patient/" + onto_id.replace("DECIPHER:", "")
+            elif re.compile("MyGene2").search(onto_id):
+                dict_similar_disease['url'] = "https://mygene2.org/MyGene2/familyprofile/" + onto_id.replace("MyGene2:", "") + "/profile"
+            elif re.compile("UDN").search(onto_id):
+                dict_similar_disease['url'] = "https://undiagnosed.hms.harvard.edu/participants/participant-" + onto_id.replace("UDN:", "") + "/"
+            
         list_dict_similar_disease.append(dict_similar_disease)
 
     ####
