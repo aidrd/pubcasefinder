@@ -94,30 +94,20 @@
                 </div>
             </div>
             <div class="search-box_wrapper">
-                <div class="search-box_form">
-                    <table>
-                        <tr>
-                            <td class="action">
-                                <button onclick="window.location.href='/text2hpo';" class="round-button material-icons">text_snippet</button>
-                            </td>
-                            <td rowspan="2">
-                                <div style="height:100%;width:100%;overflow-x:hidden;overflow-y:auto;margin:0;padding:0;border-left: 1px solid rgba(0, 0, 0, 0.1);border-right: 1px solid rgba(0, 0, 0, 0.1);">
-                                    <textarea rows="1" id="tokeninput_hpo" name="str_phenotypes"></textarea>
-                                </div>
-                            </td>
-                            <td class="action-left">
-                                <button id="tokeninput_hpo_clear" class="round-button material-icons">clear</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="action">
-                                <button id="phenotouch" class="round-button material-icons">view_in_ar</button>
-                            </td>
-                            <td class="action-left">
-                                <button id="search_button" style="color:white; background-color:red;" class="round-button material-icons">search</button>
-                            </td>
-                        </tr>
-                    </table>
+                <div class="search-box_form d-flex flex-nowrap">
+                    <div class="d-flex flex-column">
+                        <div class="p-2"><button onclick="window.location.href='/text2hpo';" class="round-button material-icons">text_snippet</button></div>
+                        <div class="p-2"><button id="phenotouch" class="round-button material-icons">view_in_ar</button></div>
+                    </div>
+
+                    <div class="flex-grow-1 tokeninput_hpo_wrapper">
+                        <textarea rows="1" id="tokeninput_hpo" name="str_phenotypes"></textarea>
+                    </div>
+
+                    <div class="d-flex flex-column">
+                        <div class="p-2"><button id="tokeninput_hpo_clear" class="round-button material-icons">clear</button></div>
+                        <div class="p-2"><button id="search_button" style="color:white; background-color:red;" class="round-button material-icons">search</button></div>
+                    </div>
                 </div>
                 <div class="search-button" id="div_search_button">
 
@@ -429,6 +419,10 @@
 
     
     $('#search_button').on('click', function (event) {
+        submit_search();
+    });
+
+    var submit_search = function() {
         // trigger search
         let form = document.createElement("form");
         form.setAttribute("method", "get");
@@ -471,7 +465,7 @@
         form.appendChild(lang);
 
         $(form).appendTo('body').submit();
-    });
+    }
 
 
 
