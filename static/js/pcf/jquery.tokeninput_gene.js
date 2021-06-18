@@ -20,16 +20,18 @@
 	
 	var hintText = "Type in disease name, inheritance mode, causative genes (Gene Symbol or Entrez Gene ID)";
 	var searchformulaText = "Query box";
-	if(isWindowNavigatorLanguageJa()){
+/*	if(isWindowNavigatorLanguageJa()){
 		hintText = "疾患名・遺伝形式・疾患原因遺伝子を入力"
 		searchformulaText = "検索式";
 	}
+*/
 	var DEFAULT_SETTINGS = {
 		// Search settings
+		language: 'en',
 		method: "GET",
 		queryParam: "q",
 		searchDelay: 300,
-		minChars: 1,
+		minChars: 2,
 		propertyToSearch: "name",
 		jsonContainer: null,
 		contentType: "json",
@@ -53,9 +55,9 @@
 		
 		enableHTML: false,
 
-		tokenLogicaloperatorItemAndValue  : '+',
+		tokenLogicaloperatorItemAndValue  : 'AND_',
 		tokenLogicaloperatorItemORValue   : '',
-		tokenLogicaloperatorItemNOTValue  : '-',
+		tokenLogicaloperatorItemNOTValue  : 'NOT_',
 		tokenLogicaloperatorItemNONEValue : 'NONE',
 
 		resultsFormatter: function(item) {
@@ -86,9 +88,27 @@
 		},
 
 		tokenFormatter: function(item,index) {
-			var id = item['id'].replace(/_ja$/g,'');
+			var id = item['id'].replace(/_ja$/gi,'');
+			id = id.replace(/^NOT_/gi,'');
+			id = id.replace(/^AND_/gi,'');
+			id = id.replace(/^OR_/gi,'');
 			var name = item['name'];
-			var logicaloperator = item['logicaloperator'];
+			
+			var logicaloperator;
+			if('logicaloperator' in item){
+				logicaloperator = item['logicaloperator'];
+			}else if(item['id'].match(/NOT_/i)){
+				logicaloperator = DEFAULT_SETTINGS.tokenLogicaloperatorItemNOTValue;
+			}else if(item['id'].match(/AND_/i)){
+				logicaloperator = DEFAULT_SETTINGS.tokenLogicaloperatorItemAndValue;
+			}else if(item['id'].match(/OR_/)){
+				logicaloperator = DEFAULT_SETTINGS.tokenLogicaloperatorItemORValue;
+			}else {
+				logicaloperator = '';
+			}
+			
+			item['id'] = id;
+			
 			var id_prefix = '';
 			var id_suffix = '';
 			var add_arrow = false;
@@ -315,10 +335,25 @@
     });
   }
 
+  function _hasJA(str){
+	return ( str && str.match(/[\u30a0-\u30ff\u3040-\u309f\u3005-\u3006\u30e0-\u9fcf]+/) )? true : false;
+  }
+
+
+
   // Additional public (exposed) methods
   var methods = {
       init: function(url_or_data_or_function, options) {
           var settings = $.extend({}, DEFAULT_SETTINGS, options || {});
+
+          if(settings.language === 'ja'){
+              hintText = "疾患名・遺伝形式・疾患原因遺伝子を入力"
+              searchformulaText = "検索式";
+              DEFAULT_SETTINGS.placeholder = hintText;
+              DEFAULT_SETTINGS.searchformula = searchformulaText;
+              settings.placeholder = hintText; 
+              settings.searchformula = searchformulaText;
+          }
 
           return this.each(function () {
               $(this).data("settings", settings);
@@ -339,6 +374,22 @@
       },
       get: function() {
           return this.data("tokenInputObject").getTokens();
+      },
+      get_url_str: function(){
+        let tokenList = this.data("tokenInputObject").getTokens();
+        let retStr = "";
+        tokenList.forEach(function(item){
+            let id = item.id;
+            let name = item.name;
+            if(_hasJA(name)) id = id + "_ja";
+            if('logicaloperator' in item) id = item.logicaloperator + id;
+            if(retStr == "") {
+                retStr = id;
+            }else{
+                retStr = retStr + ',' + id;
+            }
+        });
+        return retStr;
       },
       toggleDisabled: function(disable) {
           this.data("tokenInputObject").toggleDisabled(disable);
@@ -429,7 +480,7 @@
       // Create a new text input an attach keyup events
       var input_box = $("<input type=\"text\" autocomplete=\"off\" autocapitalize=\"off\"/>")
           .css({
-              outline: "none"
+              "outline": "none"
           })
           .attr("id", $(input).data("settings").idPrefix + input.id)
           .focus(function () {
@@ -1370,7 +1421,8 @@
                   deselect_token($(selected_token), POSITION.AFTER);
               }
 
-              if(query.length >= $(input).data("settings").minChars) {
+              //if(query.length >= $(input).data("settings").minChars) {
+              if((new Blob([query])).size >= $(input).data("settings").minChars) {	
                   show_dropdown_searching();
                   clearTimeout(timeout);
 

@@ -45,6 +45,9 @@
 		[KEY_LANG]              : LANG_JA
 	};
 
+	function _hasJA(str){
+		return ( str && str.match(/[\u30a0-\u30ff\u3040-\u309f\u3005-\u3006\u30e0-\u9fcf]+/) )? true : false;
+	}
 
 	function _construct_data_panel_ja_case_report(url_str){
 		let str = "<script type=\"module\" src=\"https:\/\/togostanza.github.io/metastanza/pagination-table.js\" async><\/script>" +
@@ -100,6 +103,7 @@
 						let $span = $(this);
 						let hpo_id1 = $span.data(KEY_HPO_ID);
 						let hpo_name1 = $span.data(KEY_HPO_NAME);
+						if(_hasJA(hpo_name1)) hpo_id1 += '_ja';
 						$("#tokeninput_hpo").tokenInput("add", {id: hpo_id1, name: hpo_name1});
 					})
 					.appendTo($element);
@@ -185,63 +189,6 @@
 
 				appendChildren($container, root.children);
 
-
-
-
-/*
-				// contruct data
-				let hash_data = {};
-				json_data.forEach(function(item){
-					
-					let category_name = item.hpo_category_name_en;
-					let hpo_label     = item.hpo_label_en;
-					let hpo_id        = item.hpo_id;
-					let hpo_url       = item.hpo_url;
-					
-					if(lang === LANG_JA && 'hpo_category_name_ja' in item){
-						category_name = item.hpo_category_name_ja;
-					}
-
-					if(lang === LANG_JA && 'hpo_label_ja' in item){
-						hpo_label     = item.hpo_label_ja;
-					}
-					
-					if(category_name in hash_data){
-						hash_data[category_name].push({'id':hpo_id,'url':hpo_url,'label':hpo_label});
-					}else{
-						hash_data[category_name] = [];
-						let item_hpo = {'id':hpo_id,'url':hpo_url,'label':hpo_label};
-						hash_data[category_name].push(item_hpo);
-					}
-				});
-				
-				// contruct url
-				let $table = $('<table>').appendTo($container);
-				Object.keys(hash_data).sort().forEach(function(category_name){
-					let $tr_category = $('<tr>').appendTo($table);
-					$('<td>').text(category_name).addClass("category").appendTo($tr_category);
-					
-					let array = hash_data[category_name].sort(function(a, b) {
-    					return a.label.localeCompare(b.label);
-					}); 
-					array.forEach(function(item_hpo){
-						
-						let $tr_hpo = $('<tr>').appendTo($table);
-						let $td_hpo = $('<td>').addClass("item").appendTo($tr_hpo);
-						$('<a>').attr('href',item_hpo.url).attr('target','_blank').text(item_hpo.label).appendTo($td_hpo);
-						$('<span class=\"material-icons\">post_add</span>')
-							.data(KEY_HPO_ID,item_hpo.id)
-							.data(KEY_HPO_NAME,item_hpo.label)
-							.click(function(){
-								let $span = $(this);
-								let hpo_id = $span.data(KEY_HPO_ID);
-								let hpo_name = $span.data(KEY_HPO_NAME);
-								$("#tokeninput_hpo").tokenInput("add", {id: hpo_id, name: hpo_name});
-							})
-							.appendTo($td_hpo);
-					});
-				});
-*/
 				$container.removeClass(CLASS_INIT).addClass(CLASS_DATA_LOADED);	
 			}  
 		});  

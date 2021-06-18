@@ -61,6 +61,11 @@
 
 <body>
     <div id="fh5co-loader" style="display:none;"></div>
+    {% if num_list_query_filter_error > 0 %}
+    <script>
+      alert("The indicated filters " + "[ {{ str_list_query_filter_error }} ]" + " is malformed.")
+    </script>
+    {% endif %}
     <!-- <div id="fh5co-loader"></div> -->
     <header class="search-header">
         <div class="wrapper search-header_wrapper">
@@ -167,7 +172,7 @@
                         <table>
                           <tr>
                             <td style="vertical-align: middle;">
-                              <input style="width:340px;" type="text" id="share_link" value="https://pubcasefinder.dbcls.jp/result?target={{ r_target }}&phenotype={{ r_phenotype }}&filter={{ r_filter }}&size={{ r_size }}&display_format={{ r_display_format }}&lang={{ r_lang }}" readonly>
+                              <input style="width:340px;" type="text" id="share_link" value="https://pcf.dbcls.jp/result?target={{ r_target }}&phenotype={{ r_phenotype }}&filter={{ r_filter }}&size={{ r_size }}&display_format={{ r_display_format }}&lang={{ r_lang }}" readonly>
                             </td>
                           </tr>
                         </table>
@@ -365,8 +370,8 @@
           {% if r_lang %}
           'language':   "{{ r_lang }}",
           {% endif %}
-          {% if json_genes %}
-          'prePopulate': {{ json_genes|safe }}
+          {% if json_filters %}
+          'prePopulate': {{ json_filters|safe }}
           {% endif %}
         });
 
@@ -441,9 +446,12 @@
         form.appendChild(phenotype);
 
         let filter = document.createElement("input");
+        let filter_str = $("#tokeninput_genes").tokenInput_gene("get_url_str");
         filter.setAttribute("type", "text");
         filter.setAttribute("name", "filter");
-        filter.setAttribute("value",$("#tokeninput_genes").val());
+        filter.setAttribute("value",filter_str);
+        
+
         form.appendChild(filter);  
 
         let size = document.createElement("input");
@@ -487,6 +495,7 @@
     }).on('resizeend', function(){
 	//console.log('Done resizing the window');
         customizePopupPos();
+        customizeLevelPos();
     });
 
 
@@ -497,6 +506,29 @@
 
         let diff2 = $('#search-button_share').offset().left - $('#search-button_advanced').offset().left;
         $('#search-button_share').attr('data-offset', '-'+ diff2 +'px,8px');
+    }
+
+    function customizeLevelPos(){
+        if($.magnificPopup.instance.contentContainer && $('.mfp-wrap')){
+            let $inlineContentBase = $.magnificPopup.instance.contentContainer.find('div.popup-hierarchy-hpo-inline-content-base');
+            if($inlineContentBase){
+
+                let $table = $inlineContentBase.find('div.popup-hierarchy-hpo-table.popup-hierarchy-hpo-class-content-base');
+                let popup_hierarchy_hpo_table_border_spacing = 10;
+
+		let $popup_wrapper = $('.mfp-wrap');
+                if($popup_wrapper && $popup_wrapper.offset()){
+                    if($popup_wrapper.offset().top == 0){
+                        $table.css({'border-spacing': popup_hierarchy_hpo_table_border_spacing+'px','width':'100%','margin-top':'0','margin-left':'0'});
+                    }else{
+                        var left = $("#div_search_button").offset().left-popup_hierarchy_hpo_table_border_spacing;
+                        var width = $("#div_search_button").width() + (popup_hierarchy_hpo_table_border_spacing * 2);
+                        //$table.css({'margin-top':'-' + popup_hierarchy_hpo_table_border_spacing + 'px','width':width+'px','margin-left':left+'px'});
+                        $table.css({'width':width+'px','margin-left':left+'px'});
+                    }
+               } 
+            }
+        }
     }
 
 </script>

@@ -198,14 +198,9 @@
 
 		inputNodeName: 'textarea',
 		inputId : 'popup-hierarchy-hpo'
-
-//		,use_segments: ['bone','muscle','vessel','internal','other']
-//		,use_segments: ['internal','bone','muscle','vessel','other']
-//		,use_segments: ['internal','bone','muscle']
 		,use_segments: ['bone','internal','muscle']
 		,id_regexp : new RegExp("^(HP:[0-9]+)(.*)")
 		,obj_ext : '.obj'
-//		,obj_ext : '.ogz'
 		,obj_url : '/phenotouch/objs/'
 		,use_webgl : false
 		,active_webgl : false
