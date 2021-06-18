@@ -21,7 +21,7 @@ from datetime import datetime
 from pytz import timezone
 
 # check input
-from utils.check_input import process_input_phenotype, process_input_gene
+from utils.check_input import process_input_phenotype, process_input_gene, process_input_filter
 
 # API for PhenoTouch
 from utils.api_get_hpo_by_text import search_hpo_by_text
