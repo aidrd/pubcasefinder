@@ -604,7 +604,7 @@
 			content = content.replace(/popup_content_location/g,        _contruct_popup_content_val('location',popup_data));
 		}else if(popup_type === POPUP_TYPE_DISEASE){
 			content = content.replace(/popup_content_pcf-disease-id/g, popup_id);
-			content = content.replace(/popup_content_mondo_url/g, _contruct_popup_content_val('hpo_url',popup_data));	
+			content = content.replace(/popup_content_mondo_url/g, _contruct_popup_content_val('mondo_url',popup_data));	
 			content = content.replace(/popup_content_name_ja/g,   _contruct_popup_content_val('name_ja',popup_data));
 			content = content.replace(/popup_content_name_en/g,   _contruct_popup_content_val('name_en',popup_data));
 			content = content.replace(/popup_content_definition/g,_contruct_popup_content_val('definition',popup_data));	
