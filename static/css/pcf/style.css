@@ -1,7 +1,9 @@
 @charset "UTF-8";
 body {
-  overflow-x: hidden;
   font-family: 'IBM Plex Sans', sans-serif, 'Noto Sans JP';
+  -webkit-overflow-x: hidden; //ChromeやSafari用
+  -moz-overflow-x: hidden; //Firefox用
+  overflow-x: hidden;
 }
 
 #fh5co-loader {
@@ -401,7 +403,7 @@ body {
 
 .list-content .list-content_left {
   margin-right: 2em;
-  width:         120px;
+  width:         60px;
   text-align:    right;
   line-height:   1.15
 }
