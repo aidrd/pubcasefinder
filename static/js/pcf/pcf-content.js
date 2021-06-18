@@ -640,9 +640,13 @@
 				dataType: "text",
 				success:function(data){  
 					let json_data = JSON.parse(data);
-					$element.data(KEY_POPUP_DATA,json_data);
-					content = _contruct_popup_content(popup_id,popup_type,json_data);
-					$element.attr('data-content',content);
+					if(!_isEmpty(json_data)){
+						$element.data(KEY_POPUP_DATA,json_data);
+						content = _contruct_popup_content(popup_id,popup_type,json_data);
+						$element.attr('data-content',content);
+					}else{
+						content = "no data found";
+					}
 				}  
 			});  
 
