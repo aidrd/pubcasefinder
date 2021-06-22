@@ -1489,7 +1489,7 @@
 
                   // Attach the error callback
                   ajax_params.error = function(XMLHttpRequest, textStatus, errorThrown) {
-										console.warn(textStatus, errorThrown);
+										//console.warn(textStatus, errorThrown);
 									};
 
                   // Provide a beforeSend callback

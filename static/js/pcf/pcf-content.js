@@ -1300,10 +1300,21 @@
 						_set_detail_data_to_cache(json_data,target);
 					}
 				}
-				_search_phenotype_data_and_show_result(setting);
+				if(target === TARGET_OMIM || target === TARGET_ORPHANET){
+					_search_phenotype_data_and_show_result(setting);
+				}else{
+					_show_result(setting);
+					pcf_hide_loading();
+				}
 			});
 		} else {
-			_search_phenotype_data_and_show_result(setting);
+			if(target === TARGET_OMIM || target === TARGET_ORPHANET){
+				_search_phenotype_data_and_show_result(setting);
+			}else{
+				_show_result(setting);
+				pcf_hide_loading();
+			}
+
 		}
 	}
 
@@ -1318,7 +1329,7 @@
 				let gene_id = id.replace(/ENT/,"GENEID");
 				ranking_data_without_filter.forEach(function(item){
 					if(logical_type === LOGICAL_AND_NOT){
-						if(!(item.id !== gene_id)) retList[item.id]=1;
+						if(item.id !== gene_id) retList[item.id]=1;
 					}else{
 						if(item.id === gene_id)	retList[item.id]=1;
 					}
