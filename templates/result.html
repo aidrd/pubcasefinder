@@ -262,8 +262,8 @@
 </div>
 <div id="popover_html_gene" style="display:none;">
 	<table>
-		<tr><th>NCBI Gene ID</th><td><a href="popup_content_ncbi_gene_url">popup_content_pcf-gene-id</a></td></tr>
-		<tr><th>HGNC symbol</th><td><a href="popup_content_hgnc_gene_url">popup_content_hgnc_gene_symbol</a></td></tr>
+		<tr><th>NCBI Gene ID</th><td><a href="popup_content_ncbi_gene_url" target="_blank">popup_content_pcf-gene-id</a></td></tr>
+		<tr><th>HGNC symbol</th><td><a href="popup_content_hgnc_gene_url" target="_blank">popup_content_hgnc_gene_symbol</a></td></tr>
 		<tr><th>Synonym</th><td>popup_content_synonym</td></tr>
 		<tr><th>Full name</th><td>popup_content_full_name</td></tr>
 		<tr><th>Other full name</th><td>popup_content_other_full_name</td></tr>
@@ -403,11 +403,9 @@
 			{% endif %}
 			'onFilterChanged' : function(){
 				let filter_str = $("#tokeninput_genes").tokenInput_gene("get_url_str");
-				//alert(filter_str);
-				$("#pcf-content").pcf_content('update_filter', filter_str);
 				
 				let count = filter_str.split(',').length;
-				if(count > 0){
+				if(filter_str && count > 0){
 					$('#search-button_advanced').text("Filter("+count+")");
 				}else{
 					$('#search-button_advanced').text("Filter");
@@ -416,6 +414,11 @@
 				customizePopupPos();
 				
 				update_download_link();
+			
+				setTimeout(function() {
+					$("#pcf-content").pcf_content('update_filter', filter_str);
+                		}, 50);
+
 				return false;
 			},
 		});
@@ -619,6 +622,8 @@
 					}
 			   } 
 			}
+		}else{
+			$('header').css({'top': '24px'});
 		}
 	}
 
