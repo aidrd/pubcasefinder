@@ -754,14 +754,25 @@
 		let content = $("#"+popup_html_id).html();
 
 		if(popup_type === POPUP_TYPE_PHENOTYPE || popup_type === POPUP_TYPE_INHERITANCE){
+			let name_ja = _contruct_popup_content_val('name_ja',popup_data);
+			let name_en = _contruct_popup_content_val('name_en',popup_data);
+			if(_isEmpty(name_ja) && _isEmpty(name_en)){
+				//alert('no data found for '+ popup_id);
+				return '';
+			}
 			content = content.replace(/popup_content_pcf-phenotype-id/g, popup_id);	
 			content = content.replace(/popup_content_hpo_url/g,   _contruct_popup_content_val('hpo_url',popup_data));	
-			content = content.replace(/popup_content_name_ja/g,   _contruct_popup_content_val('name_ja',popup_data));
-			content = content.replace(/popup_content_name_en/g,   _contruct_popup_content_val('name_en',popup_data));
+			content = content.replace(/popup_content_name_ja/g,   name_ja);
+			content = content.replace(/popup_content_name_en/g,   name_en);
 			content = content.replace(/popup_content_definition/g,_contruct_popup_content_val('definition',popup_data));
 			content = content.replace(/popup_content_comment/g,   _contruct_popup_content_val('comment',popup_data));
 			content = content.replace(/popup_content_synonym/g,   _contruct_popup_content_val('synonym',popup_data));
 		}else if(popup_type === POPUP_TYPE_GENE){
+			let type_of_gene = _contruct_popup_content_val('type_of_gene',popup_data);
+			if(_isEmpty(type_of_gene)){
+				//alert('no data found for '+ popup_id);
+				return '';
+			}
 			content = content.replace(/popup_content_pcf-gene-id/g, popup_id);	
 			content = content.replace(/popup_content_ncbi_gene_url/g,   _contruct_popup_content_val('ncbi_gene_url',popup_data));
 			content = content.replace(/popup_content_hgnc_gene_url/g,   _contruct_popup_content_val('hgnc_gene_url',popup_data));
@@ -769,13 +780,19 @@
 			content = content.replace(/popup_content_synonym/g,         _contruct_popup_content_val('synonym',popup_data,'|'));
 			content = content.replace(/popup_content_full_name/g,       _contruct_popup_content_val('full_name',popup_data));
 			content = content.replace(/popup_content_other_full_name/g, _contruct_popup_content_val('other_full_name',popup_data));
-			content = content.replace(/popup_content_type_of_gene/g,    _contruct_popup_content_val('type_of_gene',popup_data));
+			content = content.replace(/popup_content_type_of_gene/g,    type_of_gene);
 			content = content.replace(/popup_content_location/g,        _contruct_popup_content_val('location',popup_data));
 		}else if(popup_type === POPUP_TYPE_DISEASE){
+			let name_ja = _contruct_popup_content_val('name_ja',popup_data);
+			let name_en = _contruct_popup_content_val('name_en',popup_data);
+			if(_isEmpty(name_ja) && _isEmpty(name_en)){
+				//alert('no data found for '+ popup_id);
+				return '';
+			}
 			content = content.replace(/popup_content_pcf-disease-id/g, popup_id);
 			content = content.replace(/popup_content_mondo_url/g, _contruct_popup_content_val('mondo_url',popup_data));	
-			content = content.replace(/popup_content_name_ja/g,   _contruct_popup_content_val('name_ja',popup_data));
-			content = content.replace(/popup_content_name_en/g,   _contruct_popup_content_val('name_en',popup_data));
+			content = content.replace(/popup_content_name_ja/g,   name_ja);
+			content = content.replace(/popup_content_name_en/g,   name_en);
 			content = content.replace(/popup_content_definition/g,_contruct_popup_content_val('definition',popup_data));	
 			content = content.replace(/popup_content_synonym/g,   _contruct_popup_content_val('synonym',popup_data));
 			content = content.replace(/popup_content_omim_list/g, _contruct_popup_content_val_hash('omim_id','omim_url',popup_data));
