@@ -606,13 +606,17 @@
 		}else if(url_key === URL_PCF_FILTER_GET_OMIM_ID_BY_MONDO_ID){
 			url_str = _contruct_url_str(URL_PCF_FILTER_GET_OMIM_ID_BY_MONDO_ID,{[URL_PARA_MONDO_ID]: setting[SETTING_KEY_ID_LST]});
 		}else if(url_key === URL_PCF_FILTER_GET_OMIM_ID_BY_NCBI_GENE_ID){
-			url_str = _contruct_url_str(URL_PCF_FILTER_GET_OMIM_ID_BY_NCBI_GENE_ID,{[URL_PARA_NCBI_ID]: setting[SETTING_KEY_ID_LST]});
+			let ent_id = setting[SETTING_KEY_ID_LST];
+			let ncbi_gene_id = ent_id.replace(/ENT/,"GENEID");
+			url_str = _contruct_url_str(URL_PCF_FILTER_GET_OMIM_ID_BY_NCBI_GENE_ID,{[URL_PARA_NCBI_GENE_ID]: ncbi_gene_id});
 		}else if(url_key === URL_PCF_FILTER_GET_OMIM_ID_BY_INHERITANCE_HPO_ID){
 			url_str = _contruct_url_str(URL_PCF_FILTER_GET_OMIM_ID_BY_INHERITANCE_HPO_ID,{[URL_PARA_HPO_ID]: setting[SETTING_KEY_ID_LST]});
 		}else if(url_key === URL_PCF_FILTER_GET_ORPHA_ID_BY_MONDO_ID){
 			url_str = _contruct_url_str(URL_PCF_FILTER_GET_ORPHA_ID_BY_MONDO_ID,{[URL_PARA_MONDO_ID]: setting[SETTING_KEY_ID_LST]});
 		}else if(url_key === URL_PCF_FILTER_GET_ORPHA_ID_BY_NCBI_GENE_ID){
-			url_str = _contruct_url_str(URL_PCF_FILTER_GET_ORPHA_ID_BY_NCBI_GENE_ID,{[URL_PARA_NCBI_ID]: setting[SETTING_KEY_ID_LST]});
+			let ent_id = setting[SETTING_KEY_ID_LST];
+			let ncbi_gene_id = ent_id.replace(/ENT/,"GENEID");
+			url_str = _contruct_url_str(URL_PCF_FILTER_GET_ORPHA_ID_BY_NCBI_GENE_ID,{[URL_PARA_NCBI_GENE_ID]: ncbi_gene_id});
 		}else if(url_key === URL_PCF_FILTER_GET_ORPHA_ID_BY_INHERITANCE_HPO_ID){
 			url_str = _contruct_url_str(URL_PCF_FILTER_GET_ORPHA_ID_BY_INHERITANCE_HPO_ID,{[URL_PARA_HPO_ID]: setting[SETTING_KEY_ID_LST]});
 		}else if(url_key === URL_PCF_FILTER_GET_GENE_ID_BY_MONDO_ID){
@@ -845,9 +849,9 @@
 
 	function _contruct_popup_button(popup_type, key_popup_id, id,list_tag,text,class_popup){
 		return $('<span>').data(KEY_POPUP_TYPE,popup_type).data(key_popup_id,id)
-                                  .addClass("list-tag").addClass(list_tag).text(text)
-                                  .click(function(){$(this).toggleClass("pcf-active");})
-			          .popover({html:true,placement:'bottom',trigger:'hover click',content:_popoverContent,sanitize:false,
+							.addClass("list-tag").addClass(list_tag).text(text)
+							.click(function(){$(this).toggleClass("pcf-active");})
+							.popover({html:true,placement:'bottom',trigger:'hover click',content:_popoverContent,sanitize:false,
 					  template:'<div class=\"popover\" role=\"tooltip\"><div class=\"arrow\"></div><div class=\"popover-body '+class_popup+'\"></div></div>'});
 
 	}
@@ -1311,11 +1315,12 @@
 		let url_str      = FILTER_URL_HASH[target][filter_type];
 		if(_isEmpty(url_str)){
 			if(target === TARGET_GENE && filter_type === FILTER_TYPE_ENT){
+				let gene_id = id.replace(/ENT/,"GENEID");
 				ranking_data_without_filter.forEach(function(item){
 					if(logical_type === LOGICAL_AND_NOT){
-						if(!(item.id !== id)) retList[item.id]=1;
+						if(!(item.id !== gene_id)) retList[item.id]=1;
 					}else{
-						if(item.id === id)	retList[item.id]=1;
+						if(item.id === gene_id)	retList[item.id]=1;
 					}
 				});
 			}
