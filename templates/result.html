@@ -7,242 +7,240 @@
 {% endif %}
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PubcaseFinder</title>
-    <!--css-->
-    <link rel='stylesheet' href="/static/css/pcf/bootstrap.css">
-    <link rel="stylesheet" href="https://unpkg.com/destyle.css@1.0.5/destyle.css">
-    <link rel='stylesheet' href="/static/css/pcf/branc.css">
-    <link rel='stylesheet' href="/static/css/pcf/branc-ie7.css">
-    <link rel='stylesheet' href="/static/css/pcf/branc-ie7-codes.css">
-    <link rel='stylesheet' href="/static/css/pcf/branc-embedded.css">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link rel="stylesheet" href="/static/css/pcf/style.css">
-    <link rel="stylesheet" href="/static/css/pcf/mobile.css">
-    <link
-        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Noto+Sans+JP:wght@100;300;400;500;700;900&display=swap"
-        rel="stylesheet">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>PubcaseFinder</title>
+	<!--css-->
+	<link rel='stylesheet' href="/static/css/pcf/bootstrap.css">
+	<link rel="stylesheet" href="https://unpkg.com/destyle.css@1.0.5/destyle.css">
+	<link rel='stylesheet' href="/static/css/pcf/branc.css">
+	<link rel='stylesheet' href="/static/css/pcf/branc-ie7.css">
+	<link rel='stylesheet' href="/static/css/pcf/branc-ie7-codes.css">
+	<link rel='stylesheet' href="/static/css/pcf/branc-embedded.css">
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link rel="stylesheet" href="/static/css/pcf/style.css">
+	<link rel="stylesheet" href="/static/css/pcf/mobile.css">
+	<link
+		href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Noto+Sans+JP:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-    <!-- <link rel="stylesheet" href="/static/css/animate.css"> -->
-    <!-- <link rel="stylesheet" href="/static/css/icomoon.css"> --> 
+	<!-- <link rel="stylesheet" href="/static/css/animate.css"> -->
+	<!-- <link rel="stylesheet" href="/static/css/icomoon.css"> --> 
 
-    <link rel="stylesheet" href="/static/css/pcf/magnific-popup.css">
-    <link rel="stylesheet" href="/static/css/pcf/token-input-facebook.css">
-    <link rel="stylesheet" href="/static/css/pcf/popup-hierarchy-hpo.css">
-    <link rel="stylesheet" href="/static/css/pcf/popup-hierarchy-gene.css">
+	<link rel="stylesheet" href="/static/css/pcf/magnific-popup.css">
+	<link rel="stylesheet" href="/static/css/pcf/token-input-facebook.css">
+	<link rel="stylesheet" href="/static/css/pcf/popup-hierarchy-hpo.css">
+	<link rel="stylesheet" href="/static/css/pcf/popup-hierarchy-gene.css">
 
-    <link rel="icon" href="/static/images/favicon.ico">
+	<link rel="icon" href="/static/images/favicon.ico">
 
-    <!-- favicon for mobile -->
-    <link rel="apple-touch-icon" sizes="180x180" href="/static/images/apple-touch-icon.png">
+	<!-- favicon for mobile -->
+	<link rel="apple-touch-icon" sizes="180x180" href="/static/images/apple-touch-icon.png">
 
-    <!--schema.rog-->
-    <script type="application/ld+json">
-      {
-      "@context": "http://schema.org/",
-      "@type": "Dataset",
-      "name": "PubCaseFinder",
-      "description": "PubCaseFinder (PCF) is a rare and genetic disease search system, always up-to-date",
-      "url": "https://pubcasefinder.dbcls.jp/",
-      "version": "1.0",
-      "keywords": "PubCaseFinder,PCF,Rare Disease,Phenotype,Gene,Match,Assist",
-      "creator": "Database Center for Life Science, DBCLS",
-      "license": "http://creativecommons.org/licenses/by/2.1/jp/",
-      "distribution": {
-        "contentUrl": "http://togodb.org/db/disease_phenotype_associations_20170720",
-        "fileFormat": "csv"
-        }
-      }
-    </script>
+	<!--schema.rog-->
+	<script type="application/ld+json">
+	  {
+	  "@context": "http://schema.org/",
+	  "@type": "Dataset",
+	  "name": "PubCaseFinder",
+	  "description": "PubCaseFinder (PCF) is a rare and genetic disease search system, always up-to-date",
+	  "url": "https://pubcasefinder.dbcls.jp/",
+	  "version": "1.0",
+	  "keywords": "PubCaseFinder,PCF,Rare Disease,Phenotype,Gene,Match,Assist",
+	  "creator": "Database Center for Life Science, DBCLS",
+	  "license": "http://creativecommons.org/licenses/by/2.1/jp/",
+	  "distribution": {
+		"contentUrl": "http://togodb.org/db/disease_phenotype_associations_20170720",
+		"fileFormat": "csv"
+		}
+	  }
+	</script>
 </head>
 
 <body>
-    <div id="fh5co-loader" style="display:none;"></div>
-    {% if num_list_query_filter_error > 0 %}
-    <script>
-      alert("The indicated filters " + "[ {{ str_list_query_filter_error }} ]" + " is malformed.")
-    </script>
-    {% endif %}
-    <!-- <div id="fh5co-loader"></div> -->
-    <header class="search-header">
-        <div class="wrapper search-header_wrapper">
-            <div class="search-header_top">
-                <div class="brand">
-                    <a href="/" class="brand"><img src="/static/images/pcf/logo_color.svg" alt=""></a>
-                </div>
-                <div class="search-header_left">
-                    <span><a href="{{ request.path }}?lang=en">EN</a> / <a href="{{ request.path }}?lang=ja"></a>JA</a></span>
-                    <nav class="nav">
-                        <ul>
-                            <li class="menu-item-has-children">
-                                <a href="#"><span class="material-icons">
-                                        menu
-                                    </span></a>
-                                <ul class="sub-menu">
-                                    <li><a href="#">About</a></li>
-                                    <li><a href="#">Datasets</a></li>
-                                    <li><a href="#">History</a></li>
-                                    <li><a href="#">Terms</a></li>
-                                    <li><a href="#">RDF</a></li>
-                                    <li><a href="#">API</a></li>
-                                    <li><a href="#">Contect</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </nav>
-                    <div class="site-header_end">
-                        <a class="button" href="#">Login<i class="material-icons">expand_more</i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="search-box_wrapper">
-                <div class="search-box_form d-flex flex-nowrap">
-                    <div class="d-flex flex-column">
-                        <div class="p-2"><button onclick="window.location.href='/text2hpo';" class="round-button material-icons">text_snippet</button></div>
-                        <div class="p-2"><button id="phenotouch" class="round-button material-icons">view_in_ar</button></div>
-                    </div>
+	<!-- <div id="fh5co-loader" style="display:none;"></div> -->
+	<div id="fh5co-loader"></div>
+	<header class="search-header">
+		<div class="wrapper search-header_wrapper">
+			<div class="search-header_top">
+				<div class="brand">
+					<a href="/" class="brand"><img src="/static/images/pcf/logo_color.svg" alt=""></a>
+				</div>
+				<div class="search-header_left">
+					<span><a href="/result?target={{ r_target }}&phenotype={{ r_phenotype }}&filter={{ r_filter }}&size={{ r_size }}&display_format={{ r_display_format }}&lang=en">EN</a> / <a href="/result?target={{ r_target }}&phenotype={{ r_phenotype }}&filter={{ r_filter }}&size={{ r_size }}&display_format={{ r_display_format }}&lang=ja">JA</a>
+					</span>
+					<nav class="nav">
+						<ul>
+							<li class="menu-item-has-children">
+								<a href="#"><span class="material-icons">menu</span></a>
+								<ul class="sub-menu">
+									<li><a href="#">About</a></li>
+									<li><a href="#">Datasets</a></li>
+									<li><a href="#">History</a></li>
+									<li><a href="#">Terms</a></li>
+									<li><a href="#">RDF</a></li>
+									<li><a href="#">API</a></li>
+									<li><a href="#">Contect</a></li>
+								</ul>
+							</li>
+						</ul>
+					</nav>
+					<div class="site-header_end">
+						<a class="button" href="#">Login<i class="material-icons">expand_more</i></a>
+					</div>
+				</div>
+			</div>
+			<div class="search-box_wrapper">
+				<div class="search-box_form d-flex flex-nowrap">
+					<div class="d-flex flex-column">
+						<div class="p-2"><button onclick="window.location.href='/text2hpo';" class="round-button material-icons">text_snippet</button></div>
+						<div class="p-2"><button id="phenotouch" class="round-button material-icons">view_in_ar</button></div>
+					</div>
+					<div class="flex-grow-1 tokeninput_hpo_wrapper">
+						<textarea rows="1" id="tokeninput_hpo" name="str_phenotypes"></textarea>
+					</div>
+					<div class="d-flex flex-column">
+						<div class="p-2"><button id="tokeninput_hpo_clear" class="round-button material-icons">clear</button></div>
+						<div class="p-2"><button id="search_button" style="color:white; background-color:red;" class="round-button material-icons">search</button></div>
+					</div>
+				</div>
+				<div class="search-button" id="div_search_button">
+					<!-- advanced button -->
+					<button id="search-button_advanced" data-toggle="collapse" data-target="#search-box-advanced" aria-expanded="false" aria-controls="search-box-advanced">
+						Filter<i class="material-icons">expand_more</i>
+					</button>
 
-                    <div class="flex-grow-1 tokeninput_hpo_wrapper">
-                        <textarea rows="1" id="tokeninput_hpo" name="str_phenotypes"></textarea>
-                    </div>
+					<!-- download button -->
+					<div class="dropdown" id="search-button_download-wrapper">
+						<button id="search-button_download" class="dropdown-toggle material-icons" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">save_alt</button>
+						<div class="dropdown-menu" aria-labelledby="search-button_download">
+						<form class="px-4 py-3" id="download-form">
+							<label><b>{{ _('search_share_modal_label_download') }}</b></label>
+							<table>
+								<tr>
+									<td style="vertical-align: middle;">Target:</td>
+									<td id="str_target">
+									   {% if r_target == "omim" %}
+									 Genetic Disease
+									   {% elif r_target == "orphanet" %}
+									 Rare Disease
+									   {% elif r_target == "gene" %}
+									 Gene
+									   {% elif r_target == "case" %}
+									 Case
+									   {% else %}
+									 Genetic Disease
+									   {% endif %}
+									</td>
+								</tr>
+								<tr>
+									<td style="vertical-align: middle;padding-left:0;padding-right:10px;">Selection:</td>
+									<td>
+									  <select style="width:200px;" class="form-control custom-select">
+										 <option>All displayed results</option>
+										 <option>Current Page</option>
+										 <option>Selection (n)</option>
+									  </select>
+									</td>
+								</tr>
+							</table>
+							<div class="btn-toolbar" style="margin-top:10px;">
+							  <button class="action-button">Download</button>
+							  <button class="cancel-button">Cancel</button>
+							</div>
+						</form>
+						</div>
+					</div>
 
-                    <div class="d-flex flex-column">
-                        <div class="p-2"><button id="tokeninput_hpo_clear" class="round-button material-icons">clear</button></div>
-                        <div class="p-2"><button id="search_button" style="color:white; background-color:red;" class="round-button material-icons">search</button></div>
-                    </div>
-                </div>
-                <div class="search-button" id="div_search_button">
+					<!-- share button -->
+					<div class="dropdown" id="search-button_share-wrapper">
+						<button class="dropdown-toggle material-icons" id="search-button_share" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">share</button>
+						<div class="dropdown-menu" aria-labelledby="search-button_share">
+						<form class="px-4 py-3">
+						<label><b>{{ _('search_share_modal_label_link') }}</b></label>
+							<table>
+								<tr>
+									<td style="vertical-align: middle;">
+										<input style="width:340px;" type="text" id="share_link" value="https://pcf.dbcls.jp/result?target={{ r_target }}&phenotype={{ r_phenotype }}&filter={{ r_filter }}&size={{ r_size }}&display_format={{ r_display_format }}&lang={{ r_lang }}" readonly>
+									</td>
+						  		</tr>
+							</table>
+							<div class="btn-toolbar" style="margin-top:10px;">
+								<button class="action-button" id="btn_copy_link">Copy Link</button>
+								<button class="action-button" id="btn_email_link">E-mail</button>
+							</div>
+						</form>
+						</div>
+					</div>
 
-                    <!-- advanced button -->
-                    <button id="search-button_advanced" data-toggle="collapse" data-target="#search-box-advanced" aria-expanded="false" aria-controls="search-box-advanced">
-                        Filter<i class="material-icons">expand_more</i>
-                    </button>
+					<!-- display button -->
+					<div class="dropdown" id="search-button_display-wrapper">
+						<button class="dropdown-toggle" type="button" id="search-button_display" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							Display options<i class="material-icons">expand_more</i>
+						</button>
+						<div class="dropdown-menu dropdown-menu-right" aria-labelledby="search-button_display">
+							<form class="px-4 py-3">
+								<label>
+									{% if r_lang == "ja" %}
+									<b>表示オプション</b>
+									{% else %}
+									<b>Display options</b>
+									{% endif %}
+								</label>
+								<table>
+									<tr>
+										<td style="vertical-align: middle;padding-left:0;padding-right:10px;">Format:</td>
+										<td>
+											<!-- <select style="width:150px;" class="form-control custom-select" id="str_display_format"> -->
+											<select style="width:150px;" class="custom-select" id="str_display_format">
+												<option value="summary" {% if r_display_format == "summary" %} selected {% endif %}>Summary</option>
+												<option value="full" {% if r_display_format == "full" %} selected {% endif %}>Full</option>
+									  		</select>
+										</td>
+									</tr>
+									<tr>
+										<td style="vertical-align: middle; padding-right:10px;" nowrap>Per page:</td>
+										<td>
+											<!-- <select style="width:150px;" class="form-control custom-select" id="str_size"> -->
+											<select style="width:150px;" class="custom-select" id="str_size">
+												<option value=10  {% if r_size == "10" %} selected {% endif %}>10</option>
+												<option value=20  {% if r_size == "20" %} selected {% endif %}>20</option>
+												<option value=50  {% if r_size == "50" %} selected {% endif %}>50</option>
+												<option value=100 {% if r_size == "100" %} selected {% endif %}>100</option>
+												<option value=200 {% if r_size == "200" %} selected {% endif %}>200</option>
+											</select>
+										</td>
+									</tr>
+								</table>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
 
-                    <!-- download button -->
-                    <div class="dropdown" id="search-button_download-wrapper">
-                      <button id="search-button_download" class="dropdown-toggle material-icons" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">save_alt</button>
-                      <div class="dropdown-menu" aria-labelledby="search-button_download">
-                      <form class="px-4 py-3" id="download-form">
-                        <label><b>{{ _('search_share_modal_label_download') }}</b></label>
-                        <table>
-                          <tr>
-                            <td style="vertical-align: middle;">Target:</td>
-                            <td>
-                               {% if r_target == "omim" %}
-                                 Genetic Disease
-                               {% elif r_target == "orphanet" %}
-                                 Rare Disease
-                               {% elif r_target == "gene" %}
-                                 Gene
-                               {% elif r_target == "case" %}
-                                 Case
-                               {% else %}
-                                 Genetic Disease
-                               {% endif %}
-                            </td>
-                          </tr>
-                          <tr>
-                            <td style="vertical-align: middle;padding-left:0;padding-right:10px;">Selection:</td>
-                            <td>
-                              <select style="width:200px;" class="form-control custom-select">
-                                 <option>All displayed results</option>
-                                 <option>Current Page</option>
-                                 <option>Selection (n)</option>
-                              </select>
-                            </td>
-                          </tr>
-                        </table>
-                        <div class="btn-toolbar" style="margin-top:10px;">
-                          <button class="action-button">Download</button>
-                          <button class="cancel-button">Cancel</button>
-                        </div>
-                      </form>
-                      </div>
-                    </div>
-
-                    <!-- share button -->
-                    <div class="dropdown" id="search-button_share-wrapper">
-                      <button class="dropdown-toggle material-icons" id="search-button_share" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">share</button>
-                      <div class="dropdown-menu" aria-labelledby="search-button_share">
-                      <form class="px-4 py-3">
-                        <label><b>{{ _('search_share_modal_label_link') }}</b></label>
-                        <table>
-                          <tr>
-                            <td style="vertical-align: middle;">
-                              <input style="width:340px;" type="text" id="share_link" value="https://pcf.dbcls.jp/result?target={{ r_target }}&phenotype={{ r_phenotype }}&filter={{ r_filter }}&size={{ r_size }}&display_format={{ r_display_format }}&lang={{ r_lang }}" readonly>
-                            </td>
-                          </tr>
-                        </table>
-                        <div class="btn-toolbar" style="margin-top:10px;">
-                          <button class="action-button">Copy Link</button>
-                          <button class="action-button">E-mail</button>
-                        </div>
-                      </form>
-                      </div>
-                    </div>
-
-                    <!-- display button -->
-                    <div class="dropdown" id="search-button_display-wrapper">
-                      <button class="dropdown-toggle" type="button" id="search-button_display" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Display options<i class="material-icons">expand_more</i>
-                      </button>
-                      <div class="dropdown-menu dropdown-menu-right" aria-labelledby="search-button_display">
-                      <form class="px-4 py-3">
-                        <label><b>表示オプション</b></label>
-                        <table>
-                          <tr>
-                            <td style="vertical-align: middle;padding-left:0;padding-right:10px;">Format:</td>
-                            <td>
-                              <select style="width:150px;" class="form-control custom-select" id="str_display_format">
-                                <option value="summary" {% if r_display_format == "summary" %} selected {% endif %}>Summary</option>
-                                <option value="full" {% if r_display_format == "full" %} selected {% endif %}>Detail</option>
-                              </select>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td style="vertical-align: middle; padding-right:10px;" nowrap>Per page:</td>
-                            <td>
-                              <select style="width:150px;" class="form-control custom-select" id="str_size">
-                                <option value="10"  {% if r_size == "10" %} selected {% endif %}>10</option>
-                                <option value="20"  {% if r_size == "20" %} selected {% endif %}>20</option>
-                                <option value="50"  {% if r_size == "50" %} selected {% endif %}>50</option>
-                                <option value="100" {% if r_size == "100" %} selected {% endif %}>100</option>
-                                <option value="200" {% if r_size == "200" %} selected {% endif %}>200</option>
-                              </select>
-                            </td>
-                          </tr>
-                        </table>
-                      </form>
-                      </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="search-advanced">
-                <div class="search-box-advanced_wrapper collapse" id="search-box-advanced">
-                    <span><b>{{ _('search_textbox_title_narrowdown') }}</b></span>
-                    <textarea class="form-control" rows="1" id="tokeninput_genes" name="str_filters"></textarea>
-                </div>
-            </div>
-        </div>
-    </header>
+			<div class="search-advanced">
+				<div class="search-box-advanced_wrapper collapse" id="search-box-advanced">
+					<span><b>{{ _('search_textbox_title_narrowdown') }}</b></span>
+					<textarea class="form-control" rows="1" id="tokeninput_genes" name="str_filters"></textarea>
+				</div>
+			</div>
+		</div>
+	</header>
 {% if r_lang == "ja" %}
-    <input type=hidden id="r_lang" value="ja" />
+	<input type=hidden id="r_lang" value="ja" />
 {% else %}
-    <input type=hidden id="r_lang" value="en" />
+	<input type=hidden id="r_lang" value="en" />
 {% endif %}
-    <section class="content-wrapper">
-        <div class="content-panel" id="pcf-content"></div>
-        <div class='credit'></div>
-    </section>
-    <div id="fh5co-wrapper"></div>
+	<section class="content-wrapper">
+		<div class="content-panel" id="pcf-content"></div>
+		<div class='credit'></div>
+	</section>
+
 <div id="popover_html_phenotype" style="display:none;">
 	<div>
 	<table>
-		<tr><th>HPO ID    </th><td><a href="popup_content_hpo_url" target="_blank">popup_content_pcf-phenotype-id</td></tr>
+		<tr><th>HPO ID	</th><td><a href="popup_content_hpo_url" target="_blank">popup_content_pcf-phenotype-id</td></tr>
 		<tr><th>Label(ja) </th><td>popup_content_name_ja</td></tr>
 		<tr><th>Label(en) </th><td>popup_content_name_en</td></tr>
 		<tr><th>Definition</th><td>popup_content_definition</td></tr>
@@ -258,7 +256,7 @@
 		<tr><th>Label(en) </th><td>popup_content_name_en</td></tr>
 		<tr><th>Definition</th><td>popup_content_definition</td></tr>
 		<tr><th>Synonym   </th><td>popup_content_synonym</td></tr>
-		<tr><th>OMIM      </th><td>popup_content_omim_list</td></tr>
+		<tr><th>OMIM	  </th><td>popup_content_omim_list</td></tr>
 		<tr><th>Orphanet  </th><td>popup_content_orpha_list</td></tr>
 	</table>
 </div>
@@ -285,16 +283,16 @@
 	</table>
 </div>
 </body>
-
+<script type="text/javascript" src="/static/js/pcf/jquery.min.js">
 <!-- START: Common footer -->
 <script type="text/javascript" src="https://pcf.dbcls.jp/static/common-header-and-footer/script/common-footer.js" id="common-footer__script"></script>
 <!-- END: Common footer -->
 
 <script type="text/javascript"
-    src="https://dbcls.rois.ac.jp/DBCLS-common-header-footer/v2/script/common-header-and-footer.js"
-    style="display: block" id="common-header-and-footer__script" data-width="976" data-color="mono"></script>
+	src="https://dbcls.rois.ac.jp/DBCLS-common-header-footer/v2/script/common-header-and-footer.js"
+	style="display: block" id="common-header-and-footer__script" data-width="976" data-color="mono"></script>
 
-<script type="text/javascript" src="/static/js/pcf/jquery.min.js"></script>
+<!-- <script type="text/javascript" src="/static/js/pcf/jquery.min.js"></script> -->
 <script src="/static/js/pcf/jquery.easing.1.3.js"></script>
 <script src="/static/js/pcf/bootstrap-4.6.0.bundle.js"></script>
 <script src="/static/js/pcf/jquery.waypoints.min.js"></script>
@@ -327,209 +325,297 @@
 
 <script>
 
-    var pcf_show_loading = function(){
-         if($('#fh5co-loader').css('display') == 'none') $("#fh5co-loader").fadeIn("normal");
+	var pcf_show_loading = function(){
+		 if($('#fh5co-loader').css('display') == 'none') $("#fh5co-loader").fadeIn("normal");
 	 
-    }
+	}
 
-    var pcf_hide_loading = function() {
-	if($('#fh5co-loader').css('display') == 'none') return;
-	$("#fh5co-loader").fadeOut("normal");
-    }
+	var pcf_hide_loading = function() {
+		if($('#fh5co-loader').css('display') == 'none') return;
+		$("#fh5co-loader").fadeOut("slow");
+	}
 
-    $('#search-button_advanced').on('click', function (event) {
-        $(this).toggleClass('pcf-active');
-    });
+	$('#search-button_advanced').on('click', function (event) {
+		$(this).toggleClass('pcf-active');
+	});
 
-
-    jQuery(window).on('scroll', function () {
-        if (jQuery('.search-header').height() < jQuery(this).scrollTop()) {
-            jQuery('.search-header').addClass('change-color');
-        } else {
-            jQuery('.search-header').removeClass('change-color');
-        }
-    });
-
-    $(document).ready(function() {
-        $("#tokeninput_hpo").tokenInput("/tokeninput_hpo", {
-          theme: "facebook",
-          {% if json_phenotypes %}
-          prePopulate: {{ json_phenotypes|safe }}
-          {% endif %}
-        });
-
-        $("#tokeninput_hpo").popupRelationHPO('/popup_hierarchy_hpo');
-
-        $("#tokeninput_hpo_clear").click(function (){
-          $("#tokeninput_hpo").tokenInput("clear");
-          return false;
-        });
-
-        $("#tokeninput_genes").tokenInput_gene("/tokeninput_genes", {
-          'theme': "facebook",
-          {% if r_lang %}
-          'language':   "{{ r_lang }}",
-          {% endif %}
-          {% if json_filters %}
-          'prePopulate': {{ json_filters|safe }}
-          {% endif %}
-        });
-
-        $("#tokeninput_gene_clear").click(function (){
-          $("#tokeninput_genes").tokenInput_gene("clear");
-          return false;
-        });
-
-        customizePopupPos();
+	$('#btn_copy_link').on('click', function (e) {
+		$(this).tooltip('show');
+		var copyTarget = document.getElementById("share_link");
+		copyTarget.select();
+		document.execCommand("Copy");
+		e.preventDefault();
+		e.stopPropagation();
+		return false;
+	})
+	.tooltip({ title: 'Copied!', trigger:'manual',placement:'bottom' })
+	.on('mouseleave', function (e) {
+		$(this).tooltip('hide');
+	});
 
 
-        $("#pcf-content").pcf_content({
-            {% if r_target %}
-            'target':         "{{ r_target }}",
-            {% endif %}
-            {% if r_phenotype %}
-            'phenotype':      "{{ r_phenotype }}",
-            {% endif %}
-            {% if r_filter %}
-                'filter':     "{{ r_filter }}",
-            {% endif %}
-            {% if r_lang %}
-              'lang':         "{{ r_lang }}",
-            {% endif %}
-            {% if r_size %}
-              'size':          {{ r_size }}
-            {% endif %}
-        });
+	$('#btn_email_link').on('click', function (e) {
+		var copyTarget = document.getElementById("share_link");
+		copyTarget.select();
+		var link_text = copyTarget.value;
+		var mail = 'mailto:?body=' + link_text;
+		var a = document.createElement('a');
+			a.href = mail;
+			a.click();
+		e.preventDefault();
+		e.stopPropagation();
+		return false;
+	});
 
-/*
-        $('#search-button_download-wrapper').on('show.bs.dropdown', function () {
-            let diff1 = $('#search-button_download').offset().left - $('#search-button_advanced').offset().left;
-            $('#search-button_download').attr('data-offset', '-'+ diff1 +'px,8px');
-        });
-        
-        $('#search-button_share-wrapper').on('show.bs.dropdown', function () {
-            let diff2 = $('#search-button_share').offset().left - $('#search-button_advanced').offset().left;
-            $('#search-button_share').attr('data-offset', '-'+ diff2 +'px,8px');
-        });
+	
+
+	jQuery(window).on('scroll', function () {
+		if (jQuery('.search-header').height() < jQuery(this).scrollTop()) {
+			jQuery('.search-header').addClass('change-color');
+		} else {
+			jQuery('.search-header').removeClass('change-color');
+		}
+	});
+
+	var hpo_id_list = "{{ r_phenotype }}";
+
+	$(document).ready(function() {
+
+/*		
+		if($.isPlainObject( window['tmripple']) && $.isFunction(window['tmripple'].init)){
+			$('#btn_copy_link').attr({'data-animation':'ripple'});
+			tmripple.init();
+		}
 */
-    });
 
-    $("#phenotouch").click(function (e){
-        $.PopupRelationHPOWithWebGL();
-        e.preventDefault();
-        e.stopPropagation();
-        return false;
-    });
+		$("#tokeninput_hpo").tokenInput("/tokeninput_hpo", {theme: "facebook"});
+		$("#tokeninput_hpo").popupRelationHPO('/popup_hierarchy_hpo');
+
+		$("#tokeninput_hpo_clear").click(function (){
+			$("#tokeninput_hpo").tokenInput("clear");
+			return false;
+		});
+
+		$("#tokeninput_genes").tokenInput_gene("/tokeninput_genes", {
+			'theme': "facebook",
+			{% if r_lang %}
+			'language':   "{{ r_lang }}",
+			{% endif %}
+			'onFilterChanged' : function(){
+				let filter_str = $("#tokeninput_genes").tokenInput_gene("get_url_str");
+				//alert(filter_str);
+				$("#pcf-content").pcf_content('update_filter', filter_str);
+				
+				let count = filter_str.split(',').length;
+				if(count > 0){
+					$('#search-button_advanced').text("Filter("+count+")");
+				}else{
+					$('#search-button_advanced').text("Filter");
+				}
+				
+				customizePopupPos();
+				
+				update_download_link();
+				return false;
+			},
+		});
+
+		customizePopupPos();
+
+		$("#pcf-content").pcf_content({
+			{% if r_target %}
+			'target':	"{{ r_target }}",
+			{% endif %}
+			{% if r_lang %}
+			'lang':		"{{ r_lang }}",
+			{% endif %}
+			{% if r_size %}
+			'size':		{{ r_size }},
+			{% endif %}
+			{% if r_display_format %}
+			'format':	"{{ r_display_format }}",
+			{% else %}
+			'format': 	"summary",
+			{% endif %}
+			'onSelectTab': function(tab_label_text){
+				$('#str_target').html(tab_label_text);
+				update_download_link();
+			}
+		});
+
+		if(hpo_id_list.length > 0){
+			let hpo_obj_list = $("#pcf-content").pcf_content('load_phenotype_objects_by_hpo_id_list',hpo_id_list);
+			let id_list = [];
+			hpo_obj_list.forEach(function(item){
+				$("#tokeninput_hpo").tokenInput("add", item);
+				id_list.push(item.id);
+			});
+			hpo_id_list = id_list.join(",");
+		}
+
+		let filter_id_list = "{{ r_filter }}";
+
+		if(filter_id_list.length > 0){
+			let filter_obj_list = $("#pcf-content").pcf_content('load_filter_objects_by_filter_id_list',filter_id_list);
+			filter_obj_list.forEach(function(item){
+				$("#tokeninput_genes").tokenInput_gene("add", item);
+			});
+			filter_id_list = $("#tokeninput_genes").tokenInput_gene("get_url_str");
+		}
+
+		if(hpo_id_list.length > 0){
+			$("#pcf-content").pcf_content('search',{'phenotype':hpo_id_list.replace(/_ja/gi,''),'filter':filter_id_list});
+		}else{
+			pcf_hide_loading();
+		}
+		
+	});
+
+	$("#str_display_format").change(function(){
+		let display_format = $(this).val();
+		$("#pcf-content").pcf_content('update_display_format', display_format);
+		$("#search-button_display").dropdown('hide');
+		update_download_link();
+		return false;
+	});
+
+	$("#str_size").change(function(){
+		let size = $(this).val();
+		$("#pcf-content").pcf_content('update_size', parseInt(size));
+		$("#search-button_display").dropdown('hide');
+		update_download_link();
+		return false;
+	});
+
+	$("#phenotouch").click(function (e){
+		$.PopupRelationHPOWithWebGL();
+		e.preventDefault();
+		e.stopPropagation();
+		return false;
+	});
+
+	var update_download_link = function() {
+		let target    = $("#pcf-content").pcf_content('get_target');
+		let phenotype = hpo_id_list;
+		let filter    = $("#tokeninput_genes").tokenInput_gene("get_url_str");
+		let size      = $("#str_size").val();
+		let format    = $("#str_display_format").val();
+		let lang      = $("#r_lang").val();
+		
+		let url_str = "https://pcf.dbcls.jp/result?target="+target+"&phenotype="+phenotype+"&filter="+filter+"&size="+size+"&display_format="+format+"&lang="+lang;
+		$('#share_link').val(url_str);
+		//location.replace(url_str);
+	}
+
+	
+	$('#search_button').on('click', function (event) {
+		submit_search();
+		return false;
+	});
+
+	var submit_search = function() {
+		// trigger search
+		let form = document.createElement("form");
+		form.setAttribute("method", "get");
+		form.setAttribute("action", "/result");
+
+		let target = document.createElement("input");
+		target.setAttribute("type", "text");
+		target.setAttribute("name", "target");
+		target.setAttribute("value",$("#pcf-content").pcf_content('get_target'));
+		form.appendChild(target); 
+
+		let phenotype = document.createElement("input");
+		phenotype.setAttribute("type", "text");
+		phenotype.setAttribute("name", "phenotype");
+		phenotype.setAttribute("value",$("#tokeninput_hpo").val());															   
+		form.appendChild(phenotype);
+
+		let filter = document.createElement("input");
+		let filter_str = $("#tokeninput_genes").tokenInput_gene("get_url_str");
+		filter.setAttribute("type", "text");
+		filter.setAttribute("name", "filter");
+		filter.setAttribute("value",filter_str);
+		
+
+		form.appendChild(filter);  
+
+		let size = document.createElement("input");
+		size.setAttribute("type", "text");
+		size.setAttribute("name", "size");
+		size.setAttribute("value",$("#str_size").val());
+		form.appendChild(size);
+
+		let display_format = document.createElement("input");
+		display_format.setAttribute("type", "text");
+		display_format.setAttribute("name", "display_format");
+		display_format.setAttribute("value",$("#str_display_format").val());
+		form.appendChild(display_format); 
+
+		let lang = document.createElement("input");
+		lang.setAttribute("type", "text");
+		lang.setAttribute("name", "lang");
+		lang.setAttribute("value",$("#r_lang").val());
+		form.appendChild(lang);
+
+		$(form).appendTo('body').submit();
+	}
 
 
-    
-    $('#search_button').on('click', function (event) {
-        submit_search();
-    });
 
-    var submit_search = function() {
-        // trigger search
-        let form = document.createElement("form");
-        form.setAttribute("method", "get");
-        form.setAttribute("action", "/result");
+	var resizeTimer = false;
 
-        let target = document.createElement("input");
-        target.setAttribute("type", "text");
-        target.setAttribute("name", "target");
-        target.setAttribute("value",$("#pcf-content").pcf_content('get_target'));
-        form.appendChild(target); 
+	$(window).on('resize', function(e) {
 
-        let phenotype = document.createElement("input");
-        phenotype.setAttribute("type", "text");
-        phenotype.setAttribute("name", "phenotype");
-        phenotype.setAttribute("value",$("#tokeninput_hpo").val());                                                               
-        form.appendChild(phenotype);
+		if( !resizeTimer ) {
+			$(window).trigger('resizestart');  	
+		}
 
-        let filter = document.createElement("input");
-        let filter_str = $("#tokeninput_genes").tokenInput_gene("get_url_str");
-        filter.setAttribute("type", "text");
-        filter.setAttribute("name", "filter");
-        filter.setAttribute("value",filter_str);
-        
-
-        form.appendChild(filter);  
-
-        let size = document.createElement("input");
-        size.setAttribute("type", "text");
-        size.setAttribute("name", "size");
-        size.setAttribute("value",$("#str_size").val());
-        form.appendChild(size);
-
-        let display_format = document.createElement("input");
-        display_format.setAttribute("type", "text");
-        display_format.setAttribute("name", "display_format");
-        display_format.setAttribute("value",$("#str_display_format").val());
-        form.appendChild(display_format); 
-
-        let lang = document.createElement("input");
-        lang.setAttribute("type", "text");
-        lang.setAttribute("name", "lang");
-        lang.setAttribute("value",$("#r_lang").val());
-        form.appendChild(lang);
-
-        $(form).appendTo('body').submit();
-    }
-
-
-
-    var resizeTimer = false;
-
-    $(window).on('resize', function(e) {
-
-        if( !resizeTimer ) {
-            $(window).trigger('resizestart');  	
-        }
-
-        clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(function() {
-            resizeTimer = false;
-            $(window).trigger('resizeend');
-        }, 250);
-    }).on('resizestart', function(){
+		clearTimeout(resizeTimer);
+		resizeTimer = setTimeout(function() {
+			resizeTimer = false;
+			$(window).trigger('resizeend');
+		}, 250);
+	}).on('resizestart', function(){
 	//console.log('Started resizing the window');
-    }).on('resizeend', function(){
+	}).on('resizeend', function(){
 	//console.log('Done resizing the window');
-        customizePopupPos();
-        customizeLevelPos();
-    });
+		customizePopupPos();
+		customizeLevelPos();
+	});
 
 
-    function customizePopupPos(){
-        let diff1 = $('#search-button_download').offset().left - $('#search-button_advanced').offset().left;
+	function customizePopupPos(){
+		let diff1 = $('#search-button_download').offset().left - $('#search-button_advanced').offset().left;
 
-        $('#search-button_download').attr('data-offset', '-'+ diff1 +'px,8px');
+		$('#search-button_download').attr('data-offset', '-'+ diff1 +'px,8px');
 
-        let diff2 = $('#search-button_share').offset().left - $('#search-button_advanced').offset().left;
-        $('#search-button_share').attr('data-offset', '-'+ diff2 +'px,8px');
-    }
+		let diff2 = $('#search-button_share').offset().left - $('#search-button_advanced').offset().left;
+		$('#search-button_share').attr('data-offset', '-'+ diff2 +'px,8px');
+	}
 
-    function customizeLevelPos(){
-        if($.magnificPopup.instance.contentContainer && $('.mfp-wrap')){
-            let $inlineContentBase = $.magnificPopup.instance.contentContainer.find('div.popup-hierarchy-hpo-inline-content-base');
-            if($inlineContentBase){
+	function customizeLevelPos(){
+		if($.magnificPopup.instance.contentContainer && $('.mfp-wrap')){
+			let $inlineContentBase = $.magnificPopup.instance.contentContainer.find('div.popup-hierarchy-hpo-inline-content-base');
+			if($inlineContentBase){
 
-                let $table = $inlineContentBase.find('div.popup-hierarchy-hpo-table.popup-hierarchy-hpo-class-content-base');
-                let popup_hierarchy_hpo_table_border_spacing = 10;
+				let $table = $inlineContentBase.find('div.popup-hierarchy-hpo-table.popup-hierarchy-hpo-class-content-base');
+				let popup_hierarchy_hpo_table_border_spacing = 10;
 
 		let $popup_wrapper = $('.mfp-wrap');
-                if($popup_wrapper && $popup_wrapper.offset()){
-                    if($popup_wrapper.offset().top == 0){
-                        $table.css({'border-spacing': popup_hierarchy_hpo_table_border_spacing+'px','width':'100%','margin-top':'0','margin-left':'0'});
-                    }else{
-                        var left = $("#div_search_button").offset().left-popup_hierarchy_hpo_table_border_spacing;
-                        var width = $("#div_search_button").width() + (popup_hierarchy_hpo_table_border_spacing * 2);
-                        //$table.css({'margin-top':'-' + popup_hierarchy_hpo_table_border_spacing + 'px','width':width+'px','margin-left':left+'px'});
-                        $table.css({'width':width+'px','margin-left':left+'px'});
-                    }
-               } 
-            }
-        }
-    }
+				if($popup_wrapper && $popup_wrapper.offset()){
+					if($popup_wrapper.offset().top == 0){
+						$table.css({'border-spacing': popup_hierarchy_hpo_table_border_spacing+'px','width':'100%','margin-top':'0','margin-left':'0'});
+					}else{
+						var left = $("#div_search_button").offset().left-popup_hierarchy_hpo_table_border_spacing;
+						var width = $("#div_search_button").width() + (popup_hierarchy_hpo_table_border_spacing * 2);
+						//$table.css({'margin-top':'-' + popup_hierarchy_hpo_table_border_spacing + 'px','width':width+'px','margin-left':left+'px'});
+						$table.css({'width':width+'px','margin-left':left+'px'});
+					}
+			   } 
+			}
+		}
+	}
 
 </script>
 

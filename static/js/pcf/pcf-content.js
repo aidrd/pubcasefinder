@@ -1,33 +1,43 @@
 ;(function ($) {
 
 	const URL_GET_RANKING_BY_HPO_ID                 = 'https://pcf.dbcls.jp/pcf_get_ranking_by_hpo_id',
+		  URL_GET_RANKING_BY_HPO_ID_WITH_FILTER     = 'get_ranking_by_hpo_id_with_filter',
+
 		  URL_GET_DATA_BY_ID                        = 'get_data_by_id',
 		  URL_GET_OMIM_DATA_BY_OMIM_ID              = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_get_omim_data_by_omim_id',
 		  URL_GET_ORPHA_DATA_BY_ORPHA_ID            = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_get_orpha_data_by_orpha_id',
 		  URL_GET_GENE_DATA_BY_NCBI_GENE_ID         = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_get_gene_data_by_ncbi_gene_id',
 		  URL_GET_CASE_DATA_BY_CASE_ID              = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_get_case_data_by_case_id',
+
 		  URL_GET_COUNT_CASE_REPORT_BY_MONDO_ID     = 'https://pcf.dbcls.jp/pcf_get_count_case_report_by_mondo_id',
+
 		  URL_GET_HPO_DATA_BY_OMIM_ID               = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_get_hpo_data_by_omim_id',
 		  URL_GET_HPO_DATA_BY_HPO_ID                = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_get_hpo_data_by_hpo_id',
 		  URL_GET_HPO_DATA_BY_ORPHA_ID              = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_get_hpo_data_by_orpha_id',
+
 		  URL_GET_HPO_TOOLTIP_DATA_BY_HPO_ID        = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_get_hpo_tooltip_data_by_hpo_id',
 		  URL_GET_GENE_TOOLTIP_DATA_BY_NCBI_GENE_ID = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_get_gene_tooltip_data_by_ncbi_gene_id',
 		  URL_GET_DISEASE_TOOLTIP_DATA_BY_MONDO_ID  = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_get_disease_tooltip_data_by_mondo_id',
+
 		  URL_GET_CASE_REPORT_BY_MONDO_ID           = 'https://pcf.dbcls.jp/pcf_get_case_report_by_mondo_id',
-		  URL_GET_COUNT_CASE_REPORT_BY_ORPHA_ID     = '/pcf_get_orpha_data_by_orpha_id',
+
 		  URL_SHARE                                 = '/pcf_share',
+
 		  URL_DOWNLOAD                              = '/pcf_download',
-		  URL_PCF_FILTER_GET_OMIM_ID_BY_MONDO_ID            = 'pcf_filter_get_omim_id_by_mondo_id',
-		  URL_PCF_FILTER_GET_OMIM_ID_BY_NCBI_GENE_ID        = 'pcf_filter_get_omim_id_by_ncbi_gene_id',
-		  URL_PCF_FILTER_GET_OMIM_ID_BY_INHERITANCE_HPO_ID  = 'pcf_filter_get_omim_id_by_inheritance_hpo_id',
-		  URL_PCF_FILTER_GET_ALL_OMIM_ID                    = 'pcf_filter_get_all_omim_id',
-		  URL_PCF_FILTER_GET_ORPHA_ID_BY_MONDO_ID           = 'pcf_filter_get_orpha_id_by_mondo_id',
-		  URL_PCF_FILTER_GET_ORPHA_ID_BY_NCBI_GENE_ID       = 'pcf_filter_get_orpha_id_by_ncbi_gene_id',
-		  URL_PCF_FILTER_GET_ORPHA_ID_BY_INHERITANCE_HPO_ID = 'pcf_filter_get_orpha_id_by_inheritance_hpo_id',
-		  URL_PCF_FILTER_GET_ALL_ORPHA_ID                   = 'pcf_filter_get_all_orpha_id',
-		  URL_PCF_FILTER_GET_GENE_ID_BY_MONDO_ID            = 'pcf_filter_get_gene_id_by_mondo_id',
-		  URL_PCF_FILTER_GET_GENE_ID_BY_INHERITANCE_HPO_ID  = 'pcf_filter_get_gene_id_by_inheritance_hpo_id',
-		  URL_PCF_FILTER_GET_ALL_GENE_ID                    = 'pcf_filter_get_all_gene_id';
+
+		  URL_PCF_FILTER_GET_OMIM_ID_BY_MONDO_ID            = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_filter_get_omim_id_by_mondo_id',
+		  URL_PCF_FILTER_GET_OMIM_ID_BY_NCBI_GENE_ID        = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_filter_get_omim_id_by_ncbi_gene_id',
+		  URL_PCF_FILTER_GET_OMIM_ID_BY_INHERITANCE_HPO_ID  = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_filter_get_omim_id_by_inheritance_hpo_id',
+		  URL_PCF_FILTER_GET_ALL_OMIM_ID                    = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_filter_get_all_omim_id',
+
+		  URL_PCF_FILTER_GET_ORPHA_ID_BY_MONDO_ID           = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_filter_get_orpha_id_by_mondo_id',
+		  URL_PCF_FILTER_GET_ORPHA_ID_BY_NCBI_GENE_ID       = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_filter_get_orpha_id_by_ncbi_gene_id',
+		  URL_PCF_FILTER_GET_ORPHA_ID_BY_INHERITANCE_HPO_ID = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_filter_get_orpha_id_by_inheritance_hpo_id',
+		  URL_PCF_FILTER_GET_ALL_ORPHA_ID                   = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_filter_get_all_orpha_id',
+
+		  URL_PCF_FILTER_GET_GENE_ID_BY_MONDO_ID            = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_filter_get_gene_id_by_mondo_id',
+		  URL_PCF_FILTER_GET_GENE_ID_BY_INHERITANCE_HPO_ID  = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_filter_get_gene_id_by_inheritance_hpo_id',
+		  URL_PCF_FILTER_GET_ALL_GENE_ID                    = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_filter_get_all_gene_id';
 
 	const URL_PARA_TARGET         = 'target',
 		  URL_PARA_PHENOTYPE      = 'phenotype',
@@ -120,7 +130,8 @@
 		  DISPLAY_FORMAT_SUMMARY     = 'summary',
 		  SETTING_KEY_DISPLAY_FORMAT = 'PCF-DISPLAY-FORMAT',
 		  SETTING_KEY_LANG           = 'PCF-LANG',
-		  SETTING_KEY_ID_LST         = 'PCF-ID-LST';
+		  SETTING_KEY_ID_LST         = 'PCF-ID-LST',
+		  SETTING_KEY_ONSELECTTAB    = 'onSelectTab';
 
 	var DEFAULT_SETTINGS = {
 		[SETTING_KEY_TARGET]:         TARGET_OMIM,
@@ -128,7 +139,8 @@
 		[SETTING_KEY_FILTER]:         '',
 		[SETTING_KEY_SIZE]:           10,
 		[SETTING_KEY_DISPLAY_FORMAT]: DISPLAY_FORMAT_FULL,
-		[SETTING_KEY_LANG]:           LANGUAGE_JA
+		[SETTING_KEY_LANG]:           LANGUAGE_JA,
+		[SETTING_KEY_ONSELECTTAB]:    null
 	};
 
 
@@ -177,11 +189,149 @@
 			POPUP_URL_PARA_HASH = {
 				[POPUP_TYPE_PHENOTYPE]   : URL_PARA_HPO_ID,
 				[POPUP_TYPE_INHERITANCE] : URL_PARA_HPO_ID,
-				[POPUP_TYPE_GENE]        : URL_PARA_NCBI_GENE_ID,
-				[POPUP_TYPE_DISEASE]     : URL_PARA_MONDO_ID
+				[POPUP_TYPE_GENE]        : SETTING_KEY_ID_LST,
+				[POPUP_TYPE_DISEASE]     : SETTING_KEY_ID_LST
 			};
 
-        const   INHERITANCE_LABEL_TO_ID = {                        'Autosomal dominant inheritance': 'HP:0000006',                        'Autosomal recessive inheritance':'HP:0000007',                        'X-linked inheritance':'HP:0001417',                        'X-linked recessive inheritance':'HP:0001419',                        'X-linked dominant inheritance':'HP:0001423',                        'Heterogeneous':'HP:0001425',                        'Multifactorial inheritance':'HP:0001426',                        'Mitochondrial inheritance':'HP:0001427',                        'Somatic mutation':'HP:0001428',                        'Somatic mosaicism':'HP:0001442',                        'Autosomal dominant somatic cell mutation':'HP:0001444',                        'Y-linked inheritance':'HP:0001450',                        'Autosomal dominant contiguous gene syndrome':'HP:0001452',                        'Contiguous gene syndrome':'HP:0001466',                        'Sex-limited autosomal dominant':'HP:0001470',                        'Familial predisposition':'HP:0001472',                        'Male-limited autosomal dominant':'HP:0001475',                        'Genetic anticipation':'HP:0003743',                        'Genetic anticipation with paternal anticipation bias':'HP:0003744',                        'Sporadic':'HP:0003745',                        'Polygenic inheritance':'HP:0010982',                        'Digenic inheritanec':'HP:0010984',                        'Autosomal dominant inheritance with maternal imprinting':'HP:0012275',                        'Autosomal dominant germline de novo mutation':'HP:0025352',                        }
+	const   INHERITANCE_LABEL_TO_ID = {
+		'Autosomal dominant inheritance': 'HP:0000006',
+		'Autosomal recessive inheritance':'HP:0000007',
+		'X-linked inheritance':'HP:0001417',
+		'X-linked recessive inheritance':'HP:0001419',
+		'X-linked dominant inheritance':'HP:0001423',
+		'Heterogeneous':'HP:0001425',
+		'Multifactorial inheritance':'HP:0001426',
+		'Mitochondrial inheritance':'HP:0001427',
+		'Somatic mutation':'HP:0001428',
+		'Somatic mosaicism':'HP:0001442',
+		'Autosomal dominant somatic cell mutation':'HP:0001444',
+		'Y-linked inheritance':'HP:0001450',
+		'Autosomal dominant contiguous gene syndrome':'HP:0001452',
+		'Contiguous gene syndrome':'HP:0001466',
+		'Sex-limited autosomal dominant':'HP:0001470',
+		'Familial predisposition':'HP:0001472',
+		'Male-limited autosomal dominant':'HP:0001475',
+		'Genetic anticipation':'HP:0003743',
+		'Genetic anticipation with paternal anticipation bias':'HP:0003744',
+		'Sporadic':'HP:0003745',
+		'Polygenic inheritance':'HP:0010982',
+		'Digenic inheritanec':'HP:0010984',
+		'Autosomal dominant inheritance with maternal imprinting':'HP:0012275',
+		'Autosomal dominant germline de novo mutation':'HP:0025352',
+	};
+
+	const LOGICAL_NOT = "LOGI-NOT",LOGICAL_AND = "LOGI-AND",LOGICAL_OR = "LOGI-OR",LOGICAL_AND_NOT = "LOGI-AND-NOT",LOGICAL_OR_NOT = "LOGI-OR-NOT",
+		FILTER_TYPE_ENT='ENT:',FILTER_TYPE_MONDO='MONDO:',FILTER_TYPE_HPO='HP:',FILTER_TYPE_ALL='ALL',
+		tokenLogicaloperatorItemAndValue='AND_',tokenLogicaloperatorItemORValue='',tokenLogicaloperatorItemNOTValue='NOT_',
+		RegExp_AND    = new RegExp(tokenLogicaloperatorItemAndValue, 'i'),RegExp_NOT    = new RegExp(tokenLogicaloperatorItemNOTValue, 'i'),
+		FILTER_URL_HASH = {
+			[TARGET_OMIM]:     {
+				[FILTER_TYPE_ENT]   : URL_PCF_FILTER_GET_OMIM_ID_BY_NCBI_GENE_ID,
+				[FILTER_TYPE_MONDO] : URL_PCF_FILTER_GET_OMIM_ID_BY_MONDO_ID,
+				[FILTER_TYPE_HPO]   : URL_PCF_FILTER_GET_OMIM_ID_BY_INHERITANCE_HPO_ID,
+				[FILTER_TYPE_ALL]   : URL_PCF_FILTER_GET_ALL_OMIM_ID
+			},
+			[TARGET_ORPHANET]: {
+				[FILTER_TYPE_ENT]   : URL_PCF_FILTER_GET_ORPHA_ID_BY_NCBI_GENE_ID,
+				[FILTER_TYPE_MONDO] : URL_PCF_FILTER_GET_ORPHA_ID_BY_MONDO_ID,
+				[FILTER_TYPE_HPO]   : URL_PCF_FILTER_GET_ORPHA_ID_BY_INHERITANCE_HPO_ID,
+				[FILTER_TYPE_ALL]   : URL_PCF_FILTER_GET_ALL_ORPHA_ID
+			},
+			[TARGET_GENE]:     {
+				[FILTER_TYPE_ENT]   : "",
+				[FILTER_TYPE_MONDO] : URL_PCF_FILTER_GET_GENE_ID_BY_MONDO_ID,
+				[FILTER_TYPE_HPO]   : URL_PCF_FILTER_GET_GENE_ID_BY_INHERITANCE_HPO_ID,
+				[FILTER_TYPE_ALL]   : URL_PCF_FILTER_GET_ALL_GENE_ID
+			},
+			[TARGET_CASE]:     {
+				[FILTER_TYPE_ENT]   : "",
+				[FILTER_TYPE_MONDO] : "",
+				[FILTER_TYPE_HPO]   : "",
+				[FILTER_TYPE_ALL]   : ""
+			}
+		},
+		FILTER_NAME_URL_HASH = {
+			[FILTER_TYPE_ENT]   : URL_GET_GENE_TOOLTIP_DATA_BY_NCBI_GENE_ID,
+			[FILTER_TYPE_MONDO] : URL_GET_DISEASE_TOOLTIP_DATA_BY_MONDO_ID,
+			[FILTER_TYPE_HPO]   : URL_GET_HPO_DATA_BY_HPO_ID
+		};
+
+	function _get_filter_url_all(target){
+		return FILTER_URL_HASH[target][FILTER_TYPE_ALL];
+	}
+	
+	function _get_filter_url_by_filter_id(target,filter_id){
+		let url_str="";
+		let filter_type = _get_filter_type_by_filter_id(filter_id);
+		if(filter_type) url_str=FILTER_URL_HASH[target][filter_type];
+		return url_str;
+	}
+	
+	// filter_id: ^(|AND_|OR_|NOT_)(ENT|MONDO|HP):\d+(|_ja)$
+	function _get_logical_by_filter_id(filter_id,order){
+		if(RegExp_AND.test(filter_id)){
+			return LOGICAL_AND;
+		}else if(RegExp_NOT.test(filter_id)){
+			return LOGICAL_AND_NOT;
+		}else if(order == 0){
+			return LOGICAL_AND;
+		}else{
+			return LOGICAL_OR;
+		}
+	}
+	
+	function _get_logical_str_by_filter_id(filter_id){
+
+		if(RegExp_AND.test(filter_id)){
+			return tokenLogicaloperatorItemAndValue;
+		}else if(RegExp_NOT.test(filter_id)){
+			return tokenLogicaloperatorItemNOTValue;
+		}else{
+			return tokenLogicaloperatorItemORValue;
+		}		
+	}
+
+	function _get_id_from_filter_id(filter_id){
+		var id = filter_id.replace(/_ja$/i,'');
+			id = id.replace(/^NOT_/i,'');
+			id = id.replace(/^AND_/i,'');
+			id = id.replace(/^OR_/i,'');
+
+		return id;
+	}	
+
+	function _get_filter_name(filter_type,lang,json_data,id){
+		let name = '';
+		if(filter_type === FILTER_TYPE_MONDO){
+			if('name_en' in json_data)	name = json_data.name_en;
+			if(lang === LANGUAGE_JA && 'name_ja' in json_data) name = json_data.name_ja;
+		}else if(filter_type === FILTER_TYPE_HPO){
+			if(id in json_data){
+				if('name_en' in json_data[id]) name = json_data[id].name_en;
+				if(lang === LANGUAGE_JA && 'name_ja' in json_data[id]) name = json_data[id].name_ja;
+			}
+		}else if("hgnc_gene_symbol" in json_data){
+			name = json_data["hgnc_gene_symbol"];
+		}
+		return name;
+	}
+
+	function _get_filter_type_by_filter_id(filter_id){
+		const RegExp_ENT   = new RegExp(FILTER_TYPE_ENT,   'i');
+		const RegExp_MONDO = new RegExp(FILTER_TYPE_MONDO, 'i');
+		const RegExp_HPO   = new RegExp(FILTER_TYPE_HPO,   'i');
+		if(RegExp_ENT.test(filter_id)){
+			return FILTER_TYPE_ENT;
+		}else if(RegExp_MONDO.test(filter_id)){
+			return FILTER_TYPE_MONDO;
+		}else if(RegExp_HPO.test(filter_id)){
+			return FILTER_TYPE_HPO;
+		}else{
+			alert('found unknown filter id('+filter_id+')');
+			return "";
+		}
+ 
+	}
 
 
 	// KEY:detail data id, VAL:detail data(JSON object)
@@ -249,7 +399,11 @@
 	// return key(urlstr) of the ranking cache, contructed by the indicated target in the setting.
 	function _contruct_ranking_cache_key(setting) {
 		// use url as pcf_ranking_cache key
-		return _contruct_url(URL_GET_RANKING_BY_HPO_ID, setting);
+		if(SETTING_KEY_FILTER in setting && !_isEmpty(setting[SETTING_KEY_FILTER])){
+			return _contruct_url(URL_GET_RANKING_BY_HPO_ID_WITH_FILTER, setting);
+		}else{
+			return _contruct_url(URL_GET_RANKING_BY_HPO_ID, setting);
+		}
 	}
 
 	// contruct key and return relative ranking data(json object) in ranking cache 
@@ -417,32 +571,26 @@
 		let url_str = "";
 		
 		if(url_key === URL_GET_RANKING_BY_HPO_ID){
-			
-			url_str = _contruct_url_str(URL_GET_RANKING_BY_HPO_ID, {[URL_PARA_TARGET] : setting[SETTING_KEY_TARGET], [URL_PARA_PHENOTYPE]: setting[SETTING_KEY_PHENOTYPE]});
-			
+			url_str = _contruct_url_str(URL_GET_RANKING_BY_HPO_ID, {[URL_PARA_TARGET]   : setting[SETTING_KEY_TARGET], 
+																	[URL_PARA_PHENOTYPE]: setting[SETTING_KEY_PHENOTYPE]});
+		}else if(url_key === URL_GET_RANKING_BY_HPO_ID_WITH_FILTER){
+			url_str = _contruct_url_str(URL_GET_RANKING_BY_HPO_ID_WITH_FILTER, {[URL_PARA_TARGET]   : setting[SETTING_KEY_TARGET], 
+																				[URL_PARA_PHENOTYPE]: setting[SETTING_KEY_PHENOTYPE],
+																				[URL_PARA_FILTER]   : setting[SETTING_KEY_FILTER]});
 		}else if(url_key === URL_GET_DATA_BY_ID && setting[SETTING_KEY_TARGET] === TARGET_OMIM){
-			
 			url_str = _contruct_url_str(URL_GET_OMIM_DATA_BY_OMIM_ID,{[URL_PARA_OMIM_ID]: setting[SETTING_KEY_ID_LST]});
-			
 		}else if(url_key === URL_GET_DATA_BY_ID && setting[SETTING_KEY_TARGET] === TARGET_ORPHANET){
-			
 			url_str = _contruct_url_str(URL_GET_ORPHA_DATA_BY_ORPHA_ID,{[URL_PARA_ORPHA_ID]: setting[SETTING_KEY_ID_LST]});
-			
 		}else if(url_key === URL_GET_DATA_BY_ID && setting[SETTING_KEY_TARGET] === TARGET_GENE){
-			
 			url_str = _contruct_url_str(URL_GET_GENE_DATA_BY_NCBI_GENE_ID,{[URL_PARA_NCBI_ID]: setting[SETTING_KEY_ID_LST]});
-			
 		}else if(url_key === URL_GET_DATA_BY_ID && setting[SETTING_KEY_TARGET] === TARGET_CASE){
-			
 			url_str = _contruct_url_str(URL_GET_CASE_DATA_BY_CASE_ID,{[URL_PARA_CASE_ID]: setting[SETTING_KEY_ID_LST]});
-
 		}else if(url_key === URL_GET_HPO_TOOLTIP_DATA_BY_HPO_ID){
 			url_str = _contruct_url_str(URL_GET_HPO_TOOLTIP_DATA_BY_HPO_ID,{[URL_PARA_HPO_ID]: setting[URL_PARA_HPO_ID]});
 		}else if(url_key === URL_GET_GENE_TOOLTIP_DATA_BY_NCBI_GENE_ID){
-			url_str = _contruct_url_str(URL_GET_GENE_TOOLTIP_DATA_BY_NCBI_GENE_ID,{[URL_PARA_NCBI_GENE_ID]: setting[URL_PARA_NCBI_GENE_ID]});
+			url_str = _contruct_url_str(URL_GET_GENE_TOOLTIP_DATA_BY_NCBI_GENE_ID,{[URL_PARA_NCBI_ID]: setting[SETTING_KEY_ID_LST]});
 		}else if(url_key === URL_GET_DISEASE_TOOLTIP_DATA_BY_MONDO_ID){
-			url_str = _contruct_url_str(URL_GET_DISEASE_TOOLTIP_DATA_BY_MONDO_ID,{[URL_PARA_MONDO_ID]: setting[URL_PARA_MONDO_ID]});
-			
+			url_str = _contruct_url_str(URL_GET_DISEASE_TOOLTIP_DATA_BY_MONDO_ID,{[URL_PARA_MONDO_ID]: setting[SETTING_KEY_ID_LST]});
 		}else if(url_key === URL_GET_HPO_DATA_BY_OMIM_ID){
 			url_str = _contruct_url_str(URL_GET_HPO_DATA_BY_OMIM_ID,{[URL_PARA_OMIM_ID]: setting[SETTING_KEY_ID_LST]});
 		}else if(url_key === URL_GET_HPO_DATA_BY_ORPHA_ID){
@@ -450,11 +598,28 @@
 		}else if(url_key === URL_GET_HPO_DATA_BY_HPO_ID){
 			url_str = _contruct_url_str(URL_GET_HPO_DATA_BY_HPO_ID,{[URL_PARA_HPO_ID]: setting[SETTING_KEY_ID_LST]});
 		}else if(url_key === URL_GET_COUNT_CASE_REPORT_BY_MONDO_ID){
-			url_str = _contruct_url_str(URL_GET_COUNT_CASE_REPORT_BY_MONDO_ID,{[URL_PARA_MONDO_ID]: setting[SETTING_KEY_ID_LST],[URL_PARA_LANG]: setting[SETTING_KEY_LANG]});
+			url_str = _contruct_url_str(URL_GET_COUNT_CASE_REPORT_BY_MONDO_ID,{ [URL_PARA_MONDO_ID]: setting[SETTING_KEY_ID_LST],
+																				[URL_PARA_LANG]: setting[SETTING_KEY_LANG]});
 		}else if(url_key === URL_GET_CASE_REPORT_BY_MONDO_ID){
-			url_str = _contruct_url_str(URL_GET_CASE_REPORT_BY_MONDO_ID,{[URL_PARA_MONDO_ID]: setting[SETTING_KEY_ID_LST],[URL_PARA_LANG]: setting[SETTING_KEY_LANG]});
+			url_str = _contruct_url_str(URL_GET_CASE_REPORT_BY_MONDO_ID,{[URL_PARA_MONDO_ID]: setting[SETTING_KEY_ID_LST],
+																		 [URL_PARA_LANG]: setting[SETTING_KEY_LANG]});
+		}else if(url_key === URL_PCF_FILTER_GET_OMIM_ID_BY_MONDO_ID){
+			url_str = _contruct_url_str(URL_PCF_FILTER_GET_OMIM_ID_BY_MONDO_ID,{[URL_PARA_MONDO_ID]: setting[SETTING_KEY_ID_LST]});
+		}else if(url_key === URL_PCF_FILTER_GET_OMIM_ID_BY_NCBI_GENE_ID){
+			url_str = _contruct_url_str(URL_PCF_FILTER_GET_OMIM_ID_BY_NCBI_GENE_ID,{[URL_PARA_NCBI_ID]: setting[SETTING_KEY_ID_LST]});
+		}else if(url_key === URL_PCF_FILTER_GET_OMIM_ID_BY_INHERITANCE_HPO_ID){
+			url_str = _contruct_url_str(URL_PCF_FILTER_GET_OMIM_ID_BY_INHERITANCE_HPO_ID,{[URL_PARA_HPO_ID]: setting[SETTING_KEY_ID_LST]});
+		}else if(url_key === URL_PCF_FILTER_GET_ORPHA_ID_BY_MONDO_ID){
+			url_str = _contruct_url_str(URL_PCF_FILTER_GET_ORPHA_ID_BY_MONDO_ID,{[URL_PARA_MONDO_ID]: setting[SETTING_KEY_ID_LST]});
+		}else if(url_key === URL_PCF_FILTER_GET_ORPHA_ID_BY_NCBI_GENE_ID){
+			url_str = _contruct_url_str(URL_PCF_FILTER_GET_ORPHA_ID_BY_NCBI_GENE_ID,{[URL_PARA_NCBI_ID]: setting[SETTING_KEY_ID_LST]});
+		}else if(url_key === URL_PCF_FILTER_GET_ORPHA_ID_BY_INHERITANCE_HPO_ID){
+			url_str = _contruct_url_str(URL_PCF_FILTER_GET_ORPHA_ID_BY_INHERITANCE_HPO_ID,{[URL_PARA_HPO_ID]: setting[SETTING_KEY_ID_LST]});
+		}else if(url_key === URL_PCF_FILTER_GET_GENE_ID_BY_MONDO_ID){
+			url_str = _contruct_url_str(URL_PCF_FILTER_GET_GENE_ID_BY_MONDO_ID,{[URL_PARA_MONDO_ID]: setting[SETTING_KEY_ID_LST]});
+		}else if(url_key === URL_PCF_FILTER_GET_GENE_ID_BY_INHERITANCE_HPO_ID){
+			url_str = _contruct_url_str(URL_PCF_FILTER_GET_GENE_ID_BY_INHERITANCE_HPO_ID,{[URL_PARA_HPO_ID]: setting[SETTING_KEY_ID_LST]});
 		}
-		
 		return url_str;
 	}
 
@@ -533,12 +698,13 @@
 	// clear all of the data and element in the tab page
 	// reset the setting data with the input
 	// set the tab page to the unload status.
-	function _clear_all(setting) {
+	function _clear_all_and_update_setting(setting) {
 		for(let target in tab_panel_lst){
 			let $panel = tab_panel_lst[target];
 			$panel.empty();
-			let current_setting = $.extend(true,{}, setting, {[SETTING_KEY_TARGET]: target});
-			$panel.data(KEY_SETTING_OBJECT,current_setting);
+			let old_setting = $panel.data(KEY_SETTING_OBJECT); 
+			let new_setting = $.extend(old_setting, setting);
+			$panel.data(KEY_SETTING_OBJECT,new_setting);
 			_set_target_status_init(target);
 		}
 	}
@@ -548,10 +714,13 @@
 		_set_active_target(target);
 
 		let $target_tab_panel = tab_panel_lst[target];
-
-		if(_is_target_status_data_loaded(target)) return;
-
 		let current_setting = $target_tab_panel.data(KEY_SETTING_OBJECT);
+
+		if(_isFunction(current_setting[SETTING_KEY_ONSELECTTAB])){
+			current_setting[SETTING_KEY_ONSELECTTAB](LANGUAGE[current_setting[SETTING_KEY_LANG]]['TAB_LABEL'][target]);
+		}
+		
+		if(_is_target_status_data_loaded(target)) return;
 
 		if(_isEmpty(current_setting[SETTING_KEY_PHENOTYPE])) return;
 
@@ -666,9 +835,10 @@
 
 	}
 
-	function _contruct_detail(id, phenoList, item, lang, target,$container_panel){
+	function _contruct_detail(id, phenoList, item, lang, target, display_format, $container_panel){
 
 		let isJA = (lang === LANGUAGE_JA);
+		let isDisplayFull = (display_format === DISPLAY_FORMAT_FULL);
 		
 		// 1. english title
 		let $h3 = $('<h3>').appendTo($container_panel);
@@ -756,7 +926,7 @@
 		
 		
 		// 5. description p
-		if(_isExistVal("description",item)){
+		if(isDisplayFull && _isExistVal("description",item)){
 			let $p = $('<p>').text(item.description).appendTo($container_panel);
 			let href_str = "https://translate.google.co.jp/?hl=ja#en/ja/" + item.description;
 			$("<a>").text(" >> Translate(Google)").attr( 'href', href_str).attr('target', '_blank').appendTo($p);
@@ -764,7 +934,7 @@
 		
 		
 		// 6. list link line
-		if(target !== TARGET_CASE){
+		if(isDisplayFull && target !== TARGET_CASE){
 			let $list_link_panel = $('<div>').addClass("d-flex").addClass("flex-wrap").addClass("list-link").appendTo($container_panel);
 			
 			if(_isExistVal("omim_url" ,item)){
@@ -842,7 +1012,7 @@
 		
 		
 		//7. list link line
-		if(target === TARGET_OMIM || target === TARGET_ORPHANET) {
+		if(isDisplayFull && (target === TARGET_OMIM || target === TARGET_ORPHANET)) {
 
 			let mondo_id = ""
 			if(_isExistVal("mondo_id",item)) mondo_id = item["mondo_id"][0];
@@ -868,36 +1038,17 @@
 				"COUNT_EN_CASE"          : case_report_count_en,
 				"PCF-LANGUAGE"           : lang
 			}).appendTo($container_panel);
-
-/*			let $list_show_panel = $('<div>').addClass("list-show").appendTo($container_panel);
-			
-			let $a_pheno_list = $('<a>').text(LANGUAGE[lang].DETAIL_LABEL.PHENOTYPE_LST).appendTo($list_show_panel);
-			$("<div class=\"list-show_click\"><i class=\"material-icons\">add_box</i><span>Show("+item.count_hpo_id+")</span></div>").appendTo($a_pheno_list);
-
-			let mondo_id = ""
-			if(_isExistVal("mondo_id",item)){
-				mondo_id = item["mondo_id"][0];
-			}
-
-			let case_report_count_ja = _get_case_report_count_data_from_cache(mondo_id, LANGUAGE_JA);
-			let $a_ja_report =$('<a>').addClass("v_line_left").text(LANGUAGE[lang].DETAIL_LABEL.JA_REPORT).appendTo($list_show_panel);
-			$("<div class=\"list-show_click\"><i class=\"material-icons\">add_box</i><span>Show("+case_report_count_ja+")</span></div>").appendTo($a_ja_report);
-                                       
-			let case_report_count_en = _get_case_report_count_data_from_cache(mondo_id, LANGUAGE_EN);
-			let $a_en_report= $('<a>').addClass("v_line_left").text(LANGUAGE[lang].DETAIL_LABEL.EN_REPORT).appendTo($list_show_panel);
-			$("<div class=\"list-show_click\"><i class=\"material-icons\">add_box</i><span>Show("+case_report_count_en+")</span></div>").appendTo($a_en_report);
-*/
-
 		}
-		
+
 		return $container_panel;
 	}
 
 	function _show_result(setting){
 		
-		let target       = setting[SETTING_KEY_TARGET];
-		let lang         = setting[SETTING_KEY_LANG];
-		let num_per_page = setting[SETTING_KEY_SIZE];
+		let target         = setting[SETTING_KEY_TARGET];
+		let lang           = setting[SETTING_KEY_LANG];
+		let num_per_page   = setting[SETTING_KEY_SIZE];
+		let display_format = setting[SETTING_KEY_DISPLAY_FORMAT];
 				
 		 
 		if(_is_target_status_data_loaded(target)) return;
@@ -966,7 +1117,8 @@
 
 			// left
 			let $rank = $('<div>').addClass('rank').appendTo($td_left);
-			let input_str = "<input type=\"checkbox\" value=\""+ranking_list[i].id+"\"><p>"+ranking_list[i].rank+"</p></input>";
+			//let input_str = "<input type=\"checkbox\" value=\""+ranking_list[i].id+"\"><p>"+ranking_list[i].rank+"</p></input>";
+			let input_str = "<input type=\"checkbox\" value=\""+ranking_list[i].id+"\"><p>"+(i+1)+"</p></input>";
 			$(input_str).appendTo($rank);
 			
 			
@@ -978,7 +1130,7 @@
 			
 			//right
 			if(ranking_list[i].id in detail_data ){
-				_contruct_detail(ranking_list[i].id, ranking_list[i].matched_hpo_id, detail_data[ranking_list[i].id], lang, target,$td_right);
+				_contruct_detail(ranking_list[i].id, ranking_list[i].matched_hpo_id, detail_data[ranking_list[i].id], lang, target, display_format, $td_right);
 			} else {
 				$td_right.text('No Search Results for ('+ranking_list[i].id+').').css({'text-align':'center','vertical-align':'middle'});
 			}
@@ -1073,6 +1225,7 @@
 	function _search_phenotype_data_and_show_result(setting){
 
 		let uncached_list = _find_unloaded_hpo_ids(setting);
+		let isDisplayFull = (setting[SETTING_KEY_DISPLAY_FORMAT] === DISPLAY_FORMAT_FULL);
 
 		// check if  needs to be load from interent	
 		if(!_isEmpty(uncached_list)){
@@ -1083,16 +1236,27 @@
 				if(!_isEmpty(data)){
 					var json_data = _parseJson(data);
 					_set_phenotype_name_data_to_cache(json_data);
-				} 
-				_search_case_report_data_and_show_result(setting);
+				}
+				if(isDisplayFull){ 
+					_search_case_report_data_and_show_result(setting);
+				}else{
+					_show_result(setting);
+	                                pcf_hide_loading();
+        	                }
 			});
 		} else {
-			_search_case_report_data_and_show_result(setting);
+			if(isDisplayFull){
+				_search_case_report_data_and_show_result(setting);
+			}else{
+				_show_result(setting);
+				pcf_hide_loading();
+			}	
 		}
-		
 	}
 	
 	function _search_detail_data_and_show_result(setting){
+
+		pcf_show_loading();
 
 		let target = setting[SETTING_KEY_TARGET];
 		
@@ -1108,39 +1272,166 @@
 		
 			let url_str = _contruct_url(URL_GET_DATA_BY_ID, setting);
 			_run_ajax(url_str,'GET', 'text', true, function(data){
+				
 				if(!_isEmpty(data)){
 					var json_data = _parseJson(data);
-					_set_detail_data_to_cache(json_data,target);
-					_search_phenotype_data_and_show_result(setting);
-				}else{
-					pcf_hide_loading();
+					if(!_isEmpty(json_data)){
+						_set_detail_data_to_cache(json_data,target);
+					}
 				}
+				_search_phenotype_data_and_show_result(setting);
 			});
 		} else {
 			_search_phenotype_data_and_show_result(setting);
 		}
 	}
 
-	function _run_pcf_search(setting){
+
+	function _loading_filter_data(target,id,filter_type, logical_type, ranking_data_without_filter){
+
+		let retList={};
 		
+		let url_str      = FILTER_URL_HASH[target][filter_type];
+		if(_isEmpty(url_str)){
+			if(target === TARGET_GENE && filter_type === FILTER_TYPE_ENT){
+				ranking_data_without_filter.forEach(function(item){
+					if(logical_type === LOGICAL_AND_NOT){
+						if(!(item.id !== id)) retList[item.id]=1;
+					}else{
+						if(item.id === id)	retList[item.id]=1;
+					}
+				});
+			}
+			return retList;
+		}
+		
+		let url_str_full = _contruct_url(url_str,{[SETTING_KEY_ID_LST]:id});
+
+		if(!_isEmpty(url_str_full)){
+			_run_ajax(url_str_full,'GET', 'text', false, function(data){
+
+				let json_data = _parseJson(data);
+				let hash = {};
+				if(!_isEmpty(json_data)){
+					for(jid in json_data){
+						if(!_isEmpty(json_data[jid])){
+							json_data[jid].forEach(function(target_data_id){
+								hash[target_data_id] = 1;
+							});
+						}
+					}
+				}
+
+				ranking_data_without_filter.forEach(function(item){
+					if(logical_type === LOGICAL_AND_NOT){
+						if(!(item.id in hash))	retList[item.id]=1;
+					}else{
+						if(item.id in hash)	retList[item.id]=1;
+					}
+				});
+			});
+		}
+		
+		return retList;
+	}
+
+	function _run_pcf_filter(setting){
+
+		let target = setting[SETTING_KEY_TARGET];
+		let ranking_data = _get_ranking_data_from_cache(setting);
+
+		if(_isEmpty(setting[SETTING_KEY_FILTER]) || !_isEmpty(ranking_data)){
+			_set_target_status_ranking_data_loaded(target);
+			_search_detail_data_and_show_result(setting);
+			return;
+		}
+		
+		let setting_without_filter = $.extend(true,{}, setting,{[SETTING_KEY_FILTER]:''});
+		let ranking_data_without_filter = _get_ranking_data_from_cache(setting_without_filter);
+		if(_isEmpty(ranking_data_without_filter)){
+			_set_target_status_ranking_data_loaded(target);
+			pcf_hide_loading();
+			return;
+		}
+
+		let ranking_id_list = {};
+		ranking_data_without_filter.forEach(function(item){
+			ranking_id_list[item.id] = 1;
+		});
+
+		let filter_list = setting[SETTING_KEY_FILTER].split(',');
+		for(let i=0; i<filter_list.length; i++){
+			let str_filter_id = filter_list[i];
+
+			let id           = _get_id_from_filter_id(str_filter_id);
+			
+			let filter_type  = _get_filter_type_by_filter_id(str_filter_id);
+			
+			let logical_type  = _get_logical_by_filter_id(str_filter_id, i);
+
+			let filter_id_list = _loading_filter_data(target,id,filter_type, logical_type, ranking_data_without_filter);
+			
+			if(logical_type === LOGICAL_AND || logical_type === LOGICAL_AND_NOT){
+				Object.keys(ranking_id_list).forEach(function(ranking_id){
+					if(!(ranking_id in filter_id_list)){
+						delete ranking_id_list[ranking_id];
+					}
+				});
+			} else {
+				Object.keys(filter_id_list).forEach(function(ranking_id){
+					ranking_id_list[ranking_id] = 1;
+				});
+			}
+		}
+		
+		if(_isEmpty(ranking_id_list)){
+			_set_ranking_data_into_cache([],setting);
+			_set_target_status_ranking_data_loaded(target);
+			pcf_hide_loading();
+			return;
+		}
+		
+		let ranking_data_new = [];
+		ranking_data_without_filter.forEach(function(item){
+			if(item.id in ranking_id_list) {
+				ranking_data_new.push(item);
+			}
+		});
+		
+		_set_ranking_data_into_cache(ranking_data_new,setting);
+		_set_target_status_ranking_data_loaded(target);
+		_search_detail_data_and_show_result(setting);
+	}
+
+	function _run_pcf_search(setting){
+
+		pcf_show_loading();
+	
 		let target = setting[SETTING_KEY_TARGET];
 
 		if(_is_target_status_init(target)){
-			//do searching ranking
-			let url_str = _contruct_url(URL_GET_RANKING_BY_HPO_ID,setting);
-
-			pcf_show_loading();
 			
-			_run_ajax(url_str,'GET', 'text', true, function(data){
-
+			let ranking_data = _get_ranking_data_from_cache(setting)
+			if(!_isEmpty(ranking_data)){
 				_set_target_status_ranking_data_loaded(target);
-				
+				_search_detail_data_and_show_result(setting);
+				return false;
+			}
+			
+			//do searching ranking(without filter)
+			let setting_without_filter = $.extend(true,{}, setting,{[SETTING_KEY_FILTER]:''});
+			let url_str = _contruct_url(URL_GET_RANKING_BY_HPO_ID,setting_without_filter);
+
+			_run_ajax(url_str,'GET', 'text', true, function(data){
 				var json_data = _parseJson(data);
 				if(!_isEmpty(json_data)){
-					_set_ranking_data_into_cache(json_data,setting);
-					_search_detail_data_and_show_result(setting);
+					// the ranking data without filtered
+					_set_ranking_data_into_cache(json_data,setting_without_filter);
+					_run_pcf_filter(setting);
 				}else{
-					_set_ranking_data_into_cache([],setting);
+					// no data found by hpo lists,no need to proceed do filtering.
+					_set_target_status_ranking_data_loaded(target);
+					_set_ranking_data_into_cache([],setting_without_filter);
 					pcf_hide_loading();
 				}
 			});
@@ -1148,22 +1439,23 @@
 		} else {
 			_search_detail_data_and_show_result(setting);
 		}
+		
+		return false;
 	}
 
-	function _run_ajax(url_str,http_type, response_dataType, async, callback,callback_fail){
+	function _run_ajax(url_str,http_type,response_dataType,async,callback,callback_fail){
 		$.ajax({	
 			url:      url_str,  // 通信先のURL
-			type:     http_type,		// 使用するHTTPメソッド(get/post)
-			async:    async,          	// 使用するHTTPメソッド(true/false)
+			type:     http_type,// 使用するHTTPメソッド(get/post)
+			async:    async,    // 使用するHTTPメソッド(true/false)
 			dataType: response_dataType,
 		}).done(function(data1,textStatus,jqXHR) {
 			if(_isFunction(callback))callback(data1);
 		}).fail(function(jqXHR, textStatus, errorThrown ) {
-			alert(textStatus + errorThrown);
+			alert('Server access error:' + textStatus + ":" + errorThrown + '\nURL: ' + url_str);
 			if(_isFunction(callback_fail)) callback_fail();
 			pcf_hide_loading();
-		}).always(function(){
-		});	
+		});
 	}
 
 
@@ -1174,12 +1466,13 @@
 			
 			let setting = $.extend(true,{}, DEFAULT_SETTINGS);
 
-			if(_isExistVal(URL_PARA_PHENOTYPE, options)) setting[SETTING_KEY_PHENOTYPE] = options[URL_PARA_PHENOTYPE];
-			if(_isExistVal(URL_PARA_FILTER   , options)) setting[SETTING_KEY_FILTER]    = options[URL_PARA_FILTER];
-			if(_isExistVal(URL_PARA_FORMAT   , options)) setting[SETTING_KEY_FORMAT]    = options[URL_PARA_FORMAT];
-			if(_isExistVal(URL_PARA_LANG     , options)) setting[SETTING_KEY_LANG]      = options[URL_PARA_LANG];
+			if(_isExistVal(URL_PARA_PHENOTYPE, options)) setting[SETTING_KEY_PHENOTYPE]      = options[URL_PARA_PHENOTYPE];
+			if(_isExistVal(URL_PARA_FILTER   , options)) setting[SETTING_KEY_FILTER]         = options[URL_PARA_FILTER];
+			if(_isExistVal(URL_PARA_FORMAT   , options)) setting[SETTING_KEY_DISPLAY_FORMAT] = options[URL_PARA_FORMAT];
+			if(_isExistVal(URL_PARA_LANG     , options)) setting[SETTING_KEY_LANG]           = options[URL_PARA_LANG];
 			if(_isExistVal(URL_PARA_SIZE     , options) &&options[URL_PARA_SIZE] > 0) setting[SETTING_KEY_SIZE] = options[URL_PARA_SIZE];
-
+			if(_isExistVal(SETTING_KEY_ONSELECTTAB,options)) setting[SETTING_KEY_ONSELECTTAB]= options[SETTING_KEY_ONSELECTTAB];
+			
 			
 			$tab_button_panel    = $('<div>').addClass("tab-button-panel").appendTo(this);
 			$tab_content_wrapper = $('<div>').addClass("tab-content-wrapper").appendTo(this);
@@ -1208,10 +1501,15 @@
 											
 				_set_target_status_init(target);
 			});
+
+			if(_isExistVal(URL_PARA_TARGET, options)){
+				_selectTab(options[URL_PARA_TARGET]);
+			}else{
+				_selectTab(setting[SETTING_KEY_TARGET]);				
+			}			
 			
-			_selectTab(setting[SETTING_KEY_TARGET]);
 			
-			if(!_isExistVal(URL_PARA_PHENOTYPE, options)) pcf_hide_loading();
+			//if(!_isExistVal(URL_PARA_PHENOTYPE, options)) pcf_hide_loading();
 			
 			return this.each(function () {
 				$(this);
@@ -1220,29 +1518,102 @@
 		get_target: function() {
 			return _get_active_target();
 		},
-		search: function(options) {
-
-			let current_setting = $.extend(true,{}, DEFAULT_SETTINGS);
-
+		search: function(options){
+			let setting = {};
+			if(_isExistVal(URL_PARA_PHENOTYPE, options)) setting[SETTING_KEY_PHENOTYPE] = options[URL_PARA_PHENOTYPE];
+			if(_isExistVal(URL_PARA_FILTER   , options)) setting[SETTING_KEY_FILTER]    = options[URL_PARA_FILTER];
+			_clear_all_and_update_setting(setting);
 			let current_target = _get_active_target();
-			
-			if(_isExistVal(URL_PARA_TARGET, options)) {
-				if(!_isExistVal(options[URL_PARA_TARGET], tab_panel_lst)){
-					alert("SystemError: unknown target["+options[URL_PARA_TARGET]+"]");
-					return;
-				}
-				current_target = options[URL_PARA_TARGET];
-			}
-
-			if(_isExistVal(URL_PARA_PHENOTYPE, options)) current_setting[SETTING_KEY_PHENOTYPE] = options[URL_PARA_PHENOTYPE];
-			if(_isExistVal(URL_PARA_FILTER   , options)) current_setting[SETTING_KEY_FILTER]    = options[URL_PARA_FILTER];
-			if(_isExistVal(URL_PARA_SIZE     , options)) current_setting[SETTING_KEY_SIZE]      = options[URL_PARA_SIZE];
-			if(_isExistVal(URL_PARA_FORMAT   , options)) current_setting[SETTING_KEY_FORMAT]    = options[URL_PARA_FORMAT];
-			if(_isExistVal(URL_PARA_LANG     , options)) current_setting[SETTING_KEY_LANG]      = options[URL_PARA_LANG];
-
-			_clear_all(current_setting);
-
 			_selectTab(current_target);
+		},
+		update_filter: function(filter_str){
+			let new_setting = {[SETTING_KEY_FILTER]: filter_str};
+			_clear_all_and_update_setting(new_setting);
+			let current_target = _get_active_target();
+			_selectTab(current_target);
+		},
+		update_size: function(size){
+			let new_setting = {[SETTING_KEY_SIZE]: size};
+			_clear_all_and_update_setting(new_setting);
+			let current_target = _get_active_target();
+			_selectTab(current_target);
+		},
+		update_display_format: function(format){
+			let new_setting = {[SETTING_KEY_DISPLAY_FORMAT]: format};
+			_clear_all_and_update_setting(new_setting);
+			let current_target = _get_active_target();
+			_selectTab(current_target);
+		},
+		load_phenotype_objects_by_hpo_id_list(hpo_id_list){
+			
+			let id_list = hpo_id_list.replace(/_ja/gi, '');
+			
+			let url_str = _contruct_url(URL_GET_HPO_DATA_BY_HPO_ID, {[SETTING_KEY_ID_LST]:id_list});
+			
+			let phenotype_object_list = [];
+			
+			_run_ajax(url_str,'GET', 'text', false, function(data){
+
+				if(!_isEmpty(data)){
+					
+					json_data = _parseJson(data);
+					
+					hpo_id_list.split(',').forEach(function(str_hpo_id){
+						if(str_hpo_id.match(/_ja$/i)){
+							hpo_id =str_hpo_id.replace(/_ja$/i,"");
+							if(hpo_id in json_data){
+								let obj = {'id'   : str_hpo_id, 'name' : json_data[hpo_id].name_ja}
+								phenotype_object_list.push(obj);
+							}
+						}else{
+							if(str_hpo_id in json_data){
+								let obj = {'id':str_hpo_id, 'name':json_data[str_hpo_id].name_en}
+								phenotype_object_list.push(obj);
+							}
+						}
+					});
+					_set_phenotype_name_data_to_cache(json_data);
+				}
+			});
+			return phenotype_object_list;
+		},
+		load_filter_objects_by_filter_id_list(filter_id_list){
+
+			let filter_object_list = [];
+			filter_id_list.split(',').forEach(function(str_filter_id){
+				
+				if(str_filter_id.match(/^(|NOT_|AND_|OR_)(ENT|MONDO|HP):(\d+)(|_ja)$/i)){
+					let lang = LANGUAGE_EN;
+					if(str_filter_id.match(/_ja$/i))lang = LANGUAGE_JA;
+					let id           = _get_id_from_filter_id(str_filter_id);
+					let filter_type  = _get_filter_type_by_filter_id(str_filter_id);
+					if(!_isEmpty(filter_type)){
+						let logical_str  = _get_logical_str_by_filter_id(str_filter_id);
+						let url_str      = FILTER_NAME_URL_HASH[filter_type];
+						let url_str_full = _contruct_url(url_str,{[SETTING_KEY_ID_LST]:id});
+						_run_ajax(url_str_full,'GET', 'text', false, function(data){
+							if(!_isEmpty(data)){
+								json_data = _parseJson(data);
+								let name = _get_filter_name(filter_type,lang,json_data,id);
+								if(!_isEmpty(name)){
+									
+									let obj = {
+										'id':   str_filter_id,
+										'name': name,
+										'logicaloperator':logical_str
+									}
+									filter_object_list.push(obj);
+								}
+							}
+						});
+					}else{
+						alert('indicated filter ['+str_filter_id+'] is malformed');
+					}
+				}else{
+					alert('indicated filter ['+str_filter_id+'] is malformed');
+				}
+			});
+			return filter_object_list;
 		}
 	};
 	

@@ -10,21 +10,9 @@
 ;(function ($) {
 	var ua = navigator.userAgent.toLowerCase();
 	var isSafari = (ua.indexOf('safari') > -1) && (ua.indexOf('chrome') == -1);
-	var windowNavigatorLanguage = (window.navigator.languages && window.navigator.languages[0]) ||
-			window.navigator.language ||
-			window.navigator.userLanguage ||
-			window.navigator.browserLanguage;
-	function isWindowNavigatorLanguageJa(){
-		return windowNavigatorLanguage === "ja" || windowNavigatorLanguage.toLowerCase() === "ja-jp";
-	}
 	
 	var hintText = "Type in disease name, inheritance mode, causative genes (Gene Symbol or Entrez Gene ID)";
 	var searchformulaText = "Query box";
-/*	if(isWindowNavigatorLanguageJa()){
-		hintText = "疾患名・遺伝形式・疾患原因遺伝子を入力"
-		searchformulaText = "検索式";
-	}
-*/
 	var DEFAULT_SETTINGS = {
 		// Search settings
 		language: 'en',
@@ -231,14 +219,15 @@
 		autoSelectFirstResult: false,
 
 		// Callbacks
-		onResult: null,
-		onCachedResult: null,
-		onAdd: null,
+		onResult:         null,
+		onCachedResult:   null,
+		onAdd:            null,
 		onFreeTaggingAdd: null,
-		onDelete: null,
+		onDelete:         null,
 		onDeleteAfterAdd: null,
-		onDropAfterAdd: null,
-		onReady: null,
+		onDropAfterAdd:   null,
+		onReady:          null,
+		onFilterChanged:  null,
 		
 		onSelectDropdownItem: null,
 		onShowDropdownItem: null,
@@ -568,6 +557,13 @@
                         if (selected_token) {
                           delete_token($(selected_token));
                           hiddenInput.change();
+                          //onFilterChanged();
+                          let callback1 = $(input).data("settings").onFilterChanged;
+                          // Execute the onDelete callback if defined
+                          if($.isFunction(callback1)) {
+                            callback1();
+                          }
+
                         } else if(previous_token.length) {
                           select_token($(previous_token.get(0)));
                         }
@@ -589,6 +585,12 @@
                     if(selected_dropdown_item) {
                       add_token($(selected_dropdown_item).data("tokeninput"));
                       hiddenInput.change();
+                      //onFilterChanged();
+                      let callback1 = $(input).data("settings").onFilterChanged;
+                      // Execute the onDelete callback if defined
+                      if($.isFunction(callback1)) {
+                        callback1();
+                      }
                     } else {
                       if(event.keyCode===KEY.ENTER && $(this).val() === "") {
                         //return true;
@@ -672,15 +674,9 @@
           return false;
         })
       ;
-//      var searchformulaIcon = $('<div>')
-//        .appendTo(searchformulaLink)
-      ;
 
-//      var logicaloperatorInput = $('<textarea>')
       var logicaloperatorInput = $('<div>')
         .hide()
-//        .addClass('form-control')
-//        .attr({id:'logicaloperatorInput'})
         .addClass($(input).data("settings").classes.logicaloperatorInput)
         .css({'color':'#828282'})
         .prop({readonly:true})
@@ -734,9 +730,20 @@
               }
           })
           .appendTo($token_list_wrapper_table_td_left);
-          //.insertBefore(hiddenInput);
+
       var $token_list_wrapper_table_td_right = $('<td />').css({'vertical-align': 'middle','padding-right':'10px'}).appendTo($token_list_wrapper_table_tr);  
-      $('<button>clear</button>').addClass("round-button").addClass("material-icons").attr('id','tokeninput_gene_clear').appendTo($token_list_wrapper_table_td_right);
+      $('<button>clear</button>').addClass("round-button").addClass("material-icons").attr('id','tokeninput_gene_clear')
+								.click(function(){
+									$("#tokeninput_genes").tokenInput_gene("clear");
+									//onFilterChanged();
+			                          let callback1 = $(input).data("settings").onFilterChanged;
+			                          // Execute the onDelete callback if defined
+			                          if($.isFunction(callback1)) {
+			                            callback1();
+			                          }
+
+								})
+								.appendTo($token_list_wrapper_table_td_right);
       // The token holding the input box
       var input_token = $("<li />")
           .addClass($(input).data("settings").classes.inputToken)
@@ -824,6 +831,13 @@
                   }
               }
           });
+          //onFilterChanged();
+          let callback1 = $(input).data("settings").onFilterChanged;
+          // Execute the onDelete callback if defined
+          if($.isFunction(callback1)) {
+            callback1();
+          }
+
       };
 
       this.getTokens = function() {
@@ -872,36 +886,6 @@
       }
 
       function resize_input() {
-//          if(input_val === (input_val = input_box.val())) {return;}
-//          if(input_val === (input_val = input_box.val()) && input_val.length) {return;}
-
-          // Get width left on the current line
-//          var width_left = token_list.width() - input_box.offset().left - token_list.offset().left;
-//          var width_left;
-//          if(saved_tokens.length){
-//              width_left = token_list.width() - input_box.offset().left - token_list.offset().left;
-//          }else{
-//              width_left = token_list.width() - (input_box.offset().left - token_list.offset().left);
-//          }
-////          console.log(token_list.width(),input_box.offset().left,token_list.offset().left,width_left);
-
-          // Enter new content into resizer and resize input accordingly
-//          input_resizer.html(_escapeHTML(input_val) || _escapeHTML(settings.placeholder));
-          // Get maximum width, minimum the size of input and maximum the widget's width
-//          var token_list_width;
-//          input_box.width(input_resizer.width());
-//          if(saved_tokens.length){
-//            token_list_width = (token_list.width() - (input_box.offset().left - token_list.offset().left)) - ($(input_box).outerWidth()-$(input_box).width());
-//          }else{
-//            token_list_width = token_list.width() - ($(input_box).outerWidth()-$(input_box).width());
-//          }
-//          input_box.width(Math.min(token_list.width(),
-//                                   Math.max(width_left, input_resizer.width() + 30)));
-
-//          input_box.width(token_list_width);
-//          input_box.width(token_list_width-input_box.prev('div.'+$(input).data("settings").classes.dragdrop).width());
-//          input_box.width(token_list_width-35);
-
           var token_list_width = 0;
           token_list.children('li.token-input-token-term-facebook').each(function(){
             var outerWidth = $(this).outerWidth(true);
@@ -911,7 +895,6 @@
           if(token_list_width<40) token_list_width = token_list.width();
 
           input_box.outerWidth(Math.ceil(token_list_width)-$('div.token-input-dragdrop-facebook').outerWidth(true)-1);
-
       }
 
       function add_freetagging_tokens() {
@@ -957,6 +940,13 @@
 //            console.log(item);
             $.data($this_token.get(0),'tokeninput',item);
             update_hiddenInput(saved_tokens, hiddenInput);
+            //onFilterChanged();
+          let callback1 = $(input).data("settings").onFilterChanged;
+          // Execute the onDelete callback if defined
+          if($.isFunction(callback1)) {
+            callback1();
+          }
+
             hiddenInput.change();
           })
           ;
@@ -973,6 +963,13 @@
 //                        delete_token($(this).parent());
                         delete_token($(this).closest('li'));
                         hiddenInput.change();
+                        //onFilterChanged();
+                          let callback1 = $(input).data("settings").onFilterChanged;
+                          // Execute the onDelete callback if defined
+                          if($.isFunction(callback1)) {
+                            callback1();
+                          }
+
                         return false;
                     }
                 });
@@ -1108,7 +1105,6 @@
           if(index > selected_token_index) index--;
 
           // Delete the token
-//          token.prev('li.'+$(input).data("settings").classes.dragdrop).remove();
           token.remove();
           selected_token = null;
 
@@ -1161,54 +1157,41 @@
       }
 
       // Update the hidden input box value
-      function update_hiddenInput(saved_tokens, hiddenInput) {
-/*
-          var token_values = $.map(saved_tokens, function (el) {
-              if(typeof $(input).data("settings").tokenValue == 'function')
-                return $(input).data("settings").tokenValue.call(this, el);
+		function update_hiddenInput(saved_tokens, hiddenInput) {
+			var settings = $(input).data("settings");
+			var tokenValue = settings.tokenValue;
+			if(typeof tokenValue == 'function'){
+				token_values = $.map(saved_tokens, function (el,index) {
+					return tokenValue.call(this, el, index);
+				});
+			}
+			else{
+				token_values = $.map(saved_tokens, function (el) {
+					return el[tokenValue];
+				});
+			}
+			hiddenInput.val(token_values.join(settings.tokenDelimiter));
 
-              return el[$(input).data("settings").tokenValue];
-          });
-          hiddenInput.val(token_values.join($(input).data("settings").tokenDelimiter));
-*/
-				var settings = $(input).data("settings");
-				var tokenValue = settings.tokenValue;
-				if(typeof tokenValue == 'function'){
-					token_values = $.map(saved_tokens, function (el,index) {
-						return tokenValue.call(this, el, index);
-					});
+			var logicaloperatorInput_value = settings.tokenLogicaloperatorItemORValue;
+			$.each(token_values, function (index, token_value) {
+				var space = '';
+				if(index) space = ' ';
+				token_value = token_value.replace(/_ja$/g,'');
+				if(token_value.indexOf(settings.tokenLogicaloperatorItemAndValue)==0){
+					logicaloperatorInput_value = '('+logicaloperatorInput_value+space+'AND <span class="'+settings.classes.logicaloperatorInputItemId+'">'+token_value.substring(1)+'</span>)';
+				}
+				else if(token_value.indexOf(settings.tokenLogicaloperatorItemNOTValue)==0){
+					logicaloperatorInput_value = '('+logicaloperatorInput_value+space+'NOT <span class="'+settings.classes.logicaloperatorInputItemId+'">'+token_value.substring(1)+'</span>)';
+				}
+				else if(index){
+					logicaloperatorInput_value = '('+logicaloperatorInput_value+space+'OR <span class="'+settings.classes.logicaloperatorInputItemId+'">'+token_value+'</span>)';
 				}
 				else{
-					token_values = $.map(saved_tokens, function (el) {
-						return el[tokenValue];
-					});
+					logicaloperatorInput_value = '(<span class="'+settings.classes.logicaloperatorInputItemId+'">'+token_value+'</span>)';
 				}
-				hiddenInput.val(token_values.join(settings.tokenDelimiter));
-
-				var logicaloperatorInput_value = settings.tokenLogicaloperatorItemORValue;
-				$.each(token_values, function (index, token_value) {
-					var space = '';
-					if(index) space = ' ';
-					token_value = token_value.replace(/_ja$/g,'');
-					if(token_value.indexOf(settings.tokenLogicaloperatorItemAndValue)==0){
-						logicaloperatorInput_value = '('+logicaloperatorInput_value+space+'AND <span class="'+settings.classes.logicaloperatorInputItemId+'">'+token_value.substring(1)+'</span>)';
-					}
-					else if(token_value.indexOf(settings.tokenLogicaloperatorItemNOTValue)==0){
-						logicaloperatorInput_value = '('+logicaloperatorInput_value+space+'NOT <span class="'+settings.classes.logicaloperatorInputItemId+'">'+token_value.substring(1)+'</span>)';
-					}
-					else if(index){
-						logicaloperatorInput_value = '('+logicaloperatorInput_value+space+'OR <span class="'+settings.classes.logicaloperatorInputItemId+'">'+token_value+'</span>)';
-					}
-					else{
-						logicaloperatorInput_value = '(<span class="'+settings.classes.logicaloperatorInputItemId+'">'+token_value+'</span>)';
-					}
-				});
-//				logicaloperatorInput.val(logicaloperatorInput_value);
-//				logicaloperatorInput.text(logicaloperatorInput_value);
-				logicaloperatorInput.html(logicaloperatorInput_value);
-//				hiddenInput.val(logicaloperatorInput_value);
-
-      }
+			});
+			logicaloperatorInput.html(logicaloperatorInput_value);
+		}
 
       // Hide and clear the results dropdown
       function hide_dropdown () {
@@ -1288,8 +1271,6 @@
       }
 
       function find_value_and_highlight_term(template, value, term) {
-//          return template.replace(new RegExp("(?![^&;]+;)(?!<[^<>]*)(" + regexp_escape(value) + ")(?![^<>]*>)(?![^&;]+;)", "g"), highlight_term(value, term));
-//          return template.replace(new RegExp("(?![^&;]+;)(?!<[^<>]*)(" + regexp_escape(value) + ")(?![^<>]*>)(?![^&;]+;)", "g"), $(input).data("settings").highlightTerm(value, term));
           var zenhan = $(input).data("settings").zenhan;
           return zenhan(template).replace(new RegExp("(?![^&;]+;)(?!<[^<>]*)(" + regexp_escape( escapeHTML(zenhan(value)) ) + ")(?![^<>]*>)(?![^&;]+;)", "gi"), $(input).data("settings").highlightTerm(value, term));
       }
@@ -1335,6 +1316,13 @@
                   .mousedown(function (event) {
                       add_token($(event.target).closest("li").data("tokeninput"));
                       hiddenInput.change();
+                      //onFilterChanged();
+                          let callback1 = $(input).data("settings").onFilterChanged;
+                          // Execute the onDelete callback if defined
+                          if($.isFunction(callback1)) {
+                            callback1();
+                          }
+
                       return false;
                   })
                   .hide();
@@ -1514,7 +1502,6 @@
                     jqxhr.abort();
                   }
                   // Make the request
-//                  $.ajax(ajax_params);
                   jqxhr = $.ajax(ajax_params);
               } else if($(input).data("settings").local_data) {
                   // Do the search through local data
@@ -1556,19 +1543,16 @@
 				var $target = $(e.target);
 
 				$target.on('dragend', function(e){
-//					token_list.find('li.'+$(input).data("settings").classes.token).off('dragend dragover drop dragenter dragleave')
 					token_list.find('li').off('dragend dragover drop dragenter dragleave')
 					token_list.find('div.'+$(input).data("settings").classes.dragdrop).css({'box-shadow':'none'});
 				});
 
-//				token_list.find('li.'+$(input).data("settings").classes.token).each(function(){
 				token_list.find('li').each(function(){
 					var $this = $(this);
 					if($target.is($this)) return true;
 
 					$this.on('dragover', function(e){
 						e.preventDefault();
-//						$(e.target).closest('li.'+$(input).data("settings").classes.token).find('div.'+$(input).data("settings").classes.dragdrop).css({'box-shadow':'0 0 2px 1px blue'});
 						token_list.find('div.'+$(input).data("settings").classes.dragdrop).css({'box-shadow':'none'});
 						$(e.target).closest('li').find('div.'+$(input).data("settings").classes.dragdrop).css({'box-shadow':'0 0 2px 1px blue'});
 					});
@@ -1578,17 +1562,13 @@
 						token_list.find('li').off('dragend dragover drop dragenter dragleave')
 						token_list.find('div.'+$(input).data("settings").classes.dragdrop).css({'box-shadow':'none'});
 
-//						$target.insertBefore($(e.target).closest('li.'+$(input).data("settings").classes.token));
 						$target.insertBefore($(e.target).closest('li'));
-//						console.log($target.closest('li').data('tokeninput'));
 
 						var local_saved_tokens = token_list.find('li.'+$(input).data("settings").classes.token).map(function(){
 							return $(this).data('tokeninput');
 						}).toArray();
-//						console.log(saved_tokens);
 
 						self.clear();
-//						console.log(saved_tokens);
 						var callback = $(input).data("settings").onDropAfterAdd;
 						$.each(local_saved_tokens, function(){
 							add_token(this);
@@ -1597,46 +1577,20 @@
 							}
 						});
 
-//						update_hiddenInput(saved_tokens, hiddenInput);
-//						console.log(saved_tokens);
 
 
 					});
 					$this.on('dragenter', function(e){
-//						$(e.target).closest('li.'+$(input).data("settings").classes.token).find('div.'+$(input).data("settings").classes.dragdrop).css({'box-shadow':'0 0 2px 1px blue'});
 						$(e.target).closest('li').find('div.'+$(input).data("settings").classes.dragdrop).css({'box-shadow':'0 0 2px 1px blue'});
 					});
 					$this.on('dragleave', function(e){
 						if($(e.target).hasClass($(input).data("settings").classes.token)){
-//							$(e.target).closest('li.'+$(input).data("settings").classes.token).find('div.'+$(input).data("settings").classes.dragdrop).css({'box-shadow':'none'});
 							token_list.find('div.'+$(input).data("settings").classes.dragdrop).css({'box-shadow':'none'});
 						}
 					});
 				});
 
 			});
-
-//			token_list.on('dragend','li.'+$(input).data("settings").classes.token, function(e){
-//				console.log('dragend',$(e.target).data('tokeninput'));
-//			});
-
-/*
-			token_list.on('dragover', function(e){
-				e.preventDefault();
-				console.log('dragover',e);
-			});
-			token_list.on('drop', function(e){
-				e.preventDefault();
-				var jsonstr = e.originalEvent.dataTransfer.getData("text/plain");
-				console.log('drop',$.parseJSON(jsonstr),e);
-			});
-			token_list.on('dragenter', function(e){
-				console.log('dragenter',e);
-			});
-			token_list.on('dragleave', function(e){
-				console.log('dragleave',e);
-			});
-*/
   };
 
   // Really basic cache for the results

@@ -1138,7 +1138,8 @@
                   deselect_token($(selected_token), POSITION.AFTER);
               }
 
-              if(query.length >= $(input).data("settings").minChars) {
+              //if(query.length >= $(input).data("settings").minChars) {
+			if((new Blob([query])).size >= $(input).data("settings").minChars) {
                   show_dropdown_searching();
                   clearTimeout(timeout);
 

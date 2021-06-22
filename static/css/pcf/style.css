@@ -16,17 +16,6 @@ body {
   background: url(../../images/pcf/loader.gif) center no-repeat #fff;
 }
 
-#fh5co-wrapper {
-  display: none;
-  position: fixed;
-  left: 0px;
-  top: 0px;
-  width: 100%;
-  height: 100%;
-  opacity: 0.1;
-  z-index: 999999;
-}
-
 .search-header {
   z-index: 99;
   position: sticky;
@@ -910,11 +899,13 @@ nav li.menu-item-has-children li a:hover {
   white-space: nowrap;
   padding-top: 5px;
   padding-bottom: 5px;
+  font-weight:  400
 }
 
 .pcf-popup table tr td {
   padding-top: 5px;
   padding-bottom: 5px;
+  font-weight: 600;
 }
 
 .pcf-popup table tr td a {

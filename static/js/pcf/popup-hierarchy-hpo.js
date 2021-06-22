@@ -2393,12 +2393,13 @@
 			}
 
 			if(current_settings.use_webgl){
-                                $('.mfp-bg').css({'top':'0'});
+                                $('.mfp-bg').css({'top':'0','opacity':'0.8'});
                                 $('.mfp-wrap').css({'top':'0'});
+                                
 			}else{
 				$('header').css({'top': 0});
 				var pos = $("#div_search_button").offset().top;
-				$('.mfp-bg').css({'top': pos+'px'});
+				$('.mfp-bg').css({'top': pos+'px','opacity':'0'});
 				$('.mfp-wrap').css({'top': pos+'px'});
 			}
 		}

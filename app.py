@@ -21,7 +21,7 @@ from datetime import datetime
 from pytz import timezone
 
 # check input
-from utils.check_input import process_input_phenotype, process_input_gene, process_input_filter
+from utils.check_input import process_input_phenotype
 
 # API for PhenoTouch
 from utils.api_get_hpo_by_text import search_hpo_by_text
@@ -198,19 +198,10 @@ def result():
         filters = re.sub(r',+$', '', filters)
         r_filter = filters
 
-    list_dict_phenotype, phenotypes_remove_error, phenotypes_remove_error_ja = process_input_phenotype(r_phenotype)
-
-    list_dict_filter, filters_remove_error, list_query_filter_error = process_input_filter(r_filter)
-    num_list_query_filter_error = len(list_query_filter_error)
-
     return render_template('result.html',
                            r_target=r_target,
-                           r_phenotype=phenotypes_remove_error,
-                           json_phenotypes=json.dumps(list_dict_phenotype),
-                           r_filter=filters_remove_error,
-                           json_filters=json.dumps(list_dict_filter),
-                           str_list_query_filter_error = ', '.join(list_query_filter_error),
-                           num_list_query_filter_error = num_list_query_filter_error,
+                           r_phenotype=r_phenotype,
+                           r_filter=r_filter,
                            r_size=r_size,
                            r_display_format=r_display_format,
                            r_lang=r_lang)
