@@ -402,15 +402,8 @@
 			'language':   "{{ r_lang }}",
 			{% endif %}
 			'onFilterChanged' : function(){
-				let filter_str = $("#tokeninput_genes").tokenInput_gene("get_url_str");
-				
-				let count = filter_str.split(',').length;
-				if(filter_str && count > 0){
-					$('#search-button_advanced').text("Filter("+count+")");
-				}else{
-					$('#search-button_advanced').text("Filter");
-				}
-				
+				set_filter_num();
+	
 				customizePopupPos();
 				
 				update_download_link();
@@ -446,6 +439,41 @@
 			}
 		});
 
+		let filter_id_list = "{{ r_filter }}";
+		var set_filter_num = function(){
+                                let filter_str = $("#tokeninput_genes").tokenInput_gene("get_url_str");
+
+                                let count = filter_str.split(',').length;
+                                if(filter_str && count > 0){
+                                        $('#search-button_advanced').text("Filter("+count+")");
+                                }else{
+                                        $('#search-button_advanced').text("Filter");
+                                }
+		};
+
+		$("#pcf-content").pcf_content('load_phenotype_and_filter_objects_by_ids',hpo_id_list,filter_id_list,function(hpo_obj_list, filter_obj_list){
+			let id_list = [];
+                        hpo_obj_list.forEach(function(item){
+                                $("#tokeninput_hpo").tokenInput("add", item);
+                                id_list.push(item.id);
+                        });
+                        hpo_id_list = id_list.join(",");
+
+			filter_obj_list.forEach(function(item){
+                                $("#tokeninput_genes").tokenInput_gene("add", item);
+                        });
+                        filter_id_list = $("#tokeninput_genes").tokenInput_gene("get_url_str");
+
+			if(hpo_id_list.length > 0){
+				$("#pcf-content").pcf_content('search',{'phenotype':hpo_id_list.replace(/_ja/gi,''),'filter':filter_id_list});
+			}else{
+				pcf_hide_loading();
+	                }
+
+			update_download_link();
+			set_filter_num();
+		});
+/*
 		if(hpo_id_list.length > 0){
 			let hpo_obj_list = $("#pcf-content").pcf_content('load_phenotype_objects_by_hpo_id_list',hpo_id_list);
 			let id_list = [];
@@ -471,6 +499,7 @@
 		}else{
 			pcf_hide_loading();
 		}
+*/
 		
 	});
 

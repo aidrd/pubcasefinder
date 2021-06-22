@@ -1492,7 +1492,62 @@
 	}
 
 
+	function _load_filter_objects(filter_id_list, filter_object_list, phenotype_object_list, callback){
 
+		if(filter_id_list === 0){
+			if(_isFunction(callback)){
+				callback(phenotype_object_list, filter_object_list);
+			}
+			return
+		}
+
+		let tmp = filter_id_list.split(',');
+
+		let str_filter_id = tmp[0];
+
+		let lang = LANGUAGE_EN;
+
+		if(str_filter_id.match(/_ja$/i))lang = LANGUAGE_JA;
+
+		let id           = _get_id_from_filter_id(str_filter_id);
+
+		let filter_type  = _get_filter_type_by_filter_id(str_filter_id);
+
+		if(!_isEmpty(filter_type)){
+			
+			let logical_str  = _get_logical_str_by_filter_id(str_filter_id);
+			
+			let url_str      = FILTER_NAME_URL_HASH[filter_type];
+			
+			let url_str_full = _contruct_url(url_str,{[SETTING_KEY_ID_LST]:id});
+			
+			_run_ajax(url_str_full,'GET', 'text', true, function(data){
+				if(!_isEmpty(data)){
+					json_data = _parseJson(data);
+					let name = _get_filter_name(filter_type,lang,json_data,id);
+					if(!_isEmpty(name)){
+						let obj = {'id':str_filter_id,'name':name,'logicaloperator':logical_str};
+						filter_object_list.push(obj);
+					}
+				}
+				
+				if(tmp.length === 1){
+					if(_isFunction(callback)){
+						callback(phenotype_object_list, filter_object_list);
+					}
+				}else{
+					tmp.shift();
+					_load_filter_objects(tmp.join(','), filter_object_list, phenotype_object_list, callback);
+				}
+				return false;
+			});
+		}else{
+			alert('indicated filter ['+str_filter_id+'] is malformed');
+		}
+		
+
+		
+	}
 	
 	var methods = {
 		init: function(options) {
@@ -1577,6 +1632,51 @@
 			let current_target = _get_active_target();
 			_selectTab(current_target);
 		},
+		load_phenotype_and_filter_objects_by_ids(hpo_id_list,filter_id_list,callback){
+			
+			let phenotype_id_list = hpo_id_list.replace(/_ja/gi, '');
+			
+			let phenotype_url_str = _contruct_url(URL_GET_HPO_DATA_BY_HPO_ID, {[SETTING_KEY_ID_LST]:phenotype_id_list});
+			
+			let phenotype_object_list = [];
+			
+			let filter_object_list = [];
+			
+			_run_ajax(phenotype_url_str,'GET', 'text', true, function(data){
+
+				if(!_isEmpty(data)){
+					
+					json_data = _parseJson(data);
+					
+					hpo_id_list.split(',').forEach(function(str_hpo_id){
+						if(str_hpo_id.match(/_ja$/i)){
+							hpo_id =str_hpo_id.replace(/_ja$/i,"");
+							if(hpo_id in json_data){
+								let obj = {'id'   : str_hpo_id, 'name' : json_data[hpo_id].name_ja}
+								phenotype_object_list.push(obj);
+							}
+						}else{
+							if(str_hpo_id in json_data){
+								let obj = {'id':str_hpo_id, 'name':json_data[str_hpo_id].name_en}
+								phenotype_object_list.push(obj);
+							}
+						}
+					});
+					_set_phenotype_name_data_to_cache(json_data);
+				}else{
+					return false;
+				}
+				
+				if(filter_id_list.length === 0){
+					if(_isFunction(callback)){
+						callback(phenotype_object_list, filter_object_list);
+					}
+					return false;
+				}
+				
+				_load_filter_objects(filter_id_list, filter_object_list, phenotype_object_list, callback);
+			});
+		},		
 		load_phenotype_objects_by_hpo_id_list(hpo_id_list){
 			
 			let id_list = hpo_id_list.replace(/_ja/gi, '');
@@ -1608,6 +1708,7 @@
 					_set_phenotype_name_data_to_cache(json_data);
 				}
 			});
+			
 			return phenotype_object_list;
 		},
 		load_filter_objects_by_filter_id_list(filter_id_list){
