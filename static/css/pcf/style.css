@@ -1,9 +1,6 @@
 @charset "UTF-8";
 body {
   font-family: 'IBM Plex Sans', sans-serif, 'Noto Sans JP';
-  -webkit-overflow-x: hidden; //ChromeやSafari用
-  -moz-overflow-x: hidden; //Firefox用
-  overflow-x: hidden;
 }
 
 #fh5co-loader {
@@ -23,6 +20,7 @@ body {
   top: 24px; /*skip the common-header*/
   background-size: cover;
   background-color: #f0f0f0;
+  overflow: hidden;
 }
 
 .search-header .search-header_wrapper {
