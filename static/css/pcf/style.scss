@@ -1,8 +1,5 @@
 body {
     font-family: 'IBM Plex Sans', sans-serif, 'Noto Sans JP';
-    -webkit-overflow-x: hidden; //ChromeやSafari用
-    -moz-overflow-x: hidden; //Firefox用
-    overflow-x: hidden;
 }
 
 
@@ -13,6 +10,7 @@ body {
     top: 0;
     background-size: cover;
     background-color: #f0f0f0;
+    overflow: hidden;
 
     .search-header_wrapper {
         justify-content: space-between;
