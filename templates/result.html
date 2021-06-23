@@ -409,6 +409,7 @@
 				update_download_link();
 			
 				setTimeout(function() {
+					let filter_str = $("#tokeninput_genes").tokenInput_gene("get_url_str");
 					$("#pcf-content").pcf_content('update_filter', filter_str);
                 		}, 50);
 

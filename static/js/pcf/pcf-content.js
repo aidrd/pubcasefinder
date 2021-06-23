@@ -1514,7 +1514,7 @@
 		if(str_filter_id.match(/_ja$/i))lang = LANGUAGE_JA;
 
 		let id           = _get_id_from_filter_id(str_filter_id);
-
+		let gene_id      = id.replace(/ENT/i, 'GENEID');
 		let filter_type  = _get_filter_type_by_filter_id(str_filter_id);
 
 		if(!_isEmpty(filter_type)){
@@ -1523,7 +1523,7 @@
 			
 			let url_str      = FILTER_NAME_URL_HASH[filter_type];
 			
-			let url_str_full = _contruct_url(url_str,{[SETTING_KEY_ID_LST]:id});
+			let url_str_full = _contruct_url(url_str,{[SETTING_KEY_ID_LST]:gene_id});
 			
 			_run_ajax(url_str_full,'GET', 'text', true, function(data){
 				if(!_isEmpty(data)){
@@ -1681,7 +1681,7 @@
 				_load_filter_objects(filter_id_list, filter_object_list, phenotype_object_list, callback);
 			});
 		},		
-		load_phenotype_objects_by_hpo_id_list(hpo_id_list){
+/*		load_phenotype_objects_by_hpo_id_list(hpo_id_list){
 			
 			let id_list = hpo_id_list.replace(/_ja/gi, '');
 			
@@ -1753,6 +1753,7 @@
 			});
 			return filter_object_list;
 		}
+*/
 	};
 	
 	$.fn.pcf_content = function (method) {
