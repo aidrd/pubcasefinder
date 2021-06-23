@@ -571,62 +571,104 @@
 		let url_str = "";
 		
 		if(url_key === URL_GET_RANKING_BY_HPO_ID){
+			
 			url_str = _contruct_url_str(URL_GET_RANKING_BY_HPO_ID, {[URL_PARA_TARGET]   : setting[SETTING_KEY_TARGET], 
 																	[URL_PARA_PHENOTYPE]: setting[SETTING_KEY_PHENOTYPE]});
+																	
 		}else if(url_key === URL_GET_RANKING_BY_HPO_ID_WITH_FILTER){
+			
 			url_str = _contruct_url_str(URL_GET_RANKING_BY_HPO_ID_WITH_FILTER, {[URL_PARA_TARGET]   : setting[SETTING_KEY_TARGET], 
 																				[URL_PARA_PHENOTYPE]: setting[SETTING_KEY_PHENOTYPE],
 																				[URL_PARA_FILTER]   : setting[SETTING_KEY_FILTER]});
+																				
 		}else if(url_key === URL_GET_DATA_BY_ID && setting[SETTING_KEY_TARGET] === TARGET_OMIM){
+			
 			url_str = _contruct_url_str(URL_GET_OMIM_DATA_BY_OMIM_ID,{[URL_PARA_OMIM_ID]: setting[SETTING_KEY_ID_LST]});
+			
 		}else if(url_key === URL_GET_DATA_BY_ID && setting[SETTING_KEY_TARGET] === TARGET_ORPHANET){
+			
 			url_str = _contruct_url_str(URL_GET_ORPHA_DATA_BY_ORPHA_ID,{[URL_PARA_ORPHA_ID]: setting[SETTING_KEY_ID_LST]});
+			
 		}else if(url_key === URL_GET_DATA_BY_ID && setting[SETTING_KEY_TARGET] === TARGET_GENE){
+			
 			url_str = _contruct_url_str(URL_GET_GENE_DATA_BY_NCBI_GENE_ID,{[URL_PARA_NCBI_GENE_ID]: setting[SETTING_KEY_ID_LST]});
+			
 		}else if(url_key === URL_GET_DATA_BY_ID && setting[SETTING_KEY_TARGET] === TARGET_CASE){
+			
 			url_str = _contruct_url_str(URL_GET_CASE_DATA_BY_CASE_ID,{[URL_PARA_CASE_ID]: setting[SETTING_KEY_ID_LST]});
+			
 		}else if(url_key === URL_GET_HPO_TOOLTIP_DATA_BY_HPO_ID){
+			
 			url_str = _contruct_url_str(URL_GET_HPO_TOOLTIP_DATA_BY_HPO_ID,{[URL_PARA_HPO_ID]: setting[URL_PARA_HPO_ID]});
+			
 		}else if(url_key === URL_GET_GENE_TOOLTIP_DATA_BY_NCBI_GENE_ID){
-			if(setting[SETTING_KEY_ID_LST].match(/ENT/i)){
-				url_str = _contruct_url_str(URL_GET_GENE_TOOLTIP_DATA_BY_NCBI_GENE_ID,{[URL_PARA_NCBI_ID]: setting[SETTING_KEY_ID_LST]});
-			}else {
-				url_str = _contruct_url_str(URL_GET_GENE_TOOLTIP_DATA_BY_NCBI_GENE_ID,{[URL_PARA_NCBI_GENE_ID]: setting[SETTING_KEY_ID_LST]});
-			}
+
+			let ent_id = setting[SETTING_KEY_ID_LST];
+			let ncbi_gene_id = ent_id.replace(/ENT/,"GENEID");
+			url_str = _contruct_url_str(URL_GET_GENE_TOOLTIP_DATA_BY_NCBI_GENE_ID,{[URL_PARA_NCBI_GENE_ID]:ncbi_gene_id});
+			
 		}else if(url_key === URL_GET_DISEASE_TOOLTIP_DATA_BY_MONDO_ID){
+			
 			url_str = _contruct_url_str(URL_GET_DISEASE_TOOLTIP_DATA_BY_MONDO_ID,{[URL_PARA_MONDO_ID]: setting[SETTING_KEY_ID_LST]});
+			
 		}else if(url_key === URL_GET_HPO_DATA_BY_OMIM_ID){
+			
 			url_str = _contruct_url_str(URL_GET_HPO_DATA_BY_OMIM_ID,{[URL_PARA_OMIM_ID]: setting[SETTING_KEY_ID_LST]});
+			
 		}else if(url_key === URL_GET_HPO_DATA_BY_ORPHA_ID){
+			
 			url_str = _contruct_url_str(URL_GET_HPO_DATA_BY_ORPHA_ID,{[URL_PARA_ORPHA_ID]: setting[SETTING_KEY_ID_LST]});
+			
 		}else if(url_key === URL_GET_HPO_DATA_BY_HPO_ID){
+			
 			url_str = _contruct_url_str(URL_GET_HPO_DATA_BY_HPO_ID,{[URL_PARA_HPO_ID]: setting[SETTING_KEY_ID_LST]});
+			
 		}else if(url_key === URL_GET_COUNT_CASE_REPORT_BY_MONDO_ID){
+			
 			url_str = _contruct_url_str(URL_GET_COUNT_CASE_REPORT_BY_MONDO_ID,{ [URL_PARA_MONDO_ID]: setting[SETTING_KEY_ID_LST],
 																				[URL_PARA_LANG]: setting[SETTING_KEY_LANG]});
+																				
 		}else if(url_key === URL_GET_CASE_REPORT_BY_MONDO_ID){
+			
 			url_str = _contruct_url_str(URL_GET_CASE_REPORT_BY_MONDO_ID,{[URL_PARA_MONDO_ID]: setting[SETTING_KEY_ID_LST],
 																		 [URL_PARA_LANG]: setting[SETTING_KEY_LANG]});
+																	
 		}else if(url_key === URL_PCF_FILTER_GET_OMIM_ID_BY_MONDO_ID){
+			
 			url_str = _contruct_url_str(URL_PCF_FILTER_GET_OMIM_ID_BY_MONDO_ID,{[URL_PARA_MONDO_ID]: setting[SETTING_KEY_ID_LST]});
+			
 		}else if(url_key === URL_PCF_FILTER_GET_OMIM_ID_BY_NCBI_GENE_ID){
+			
 			let ent_id = setting[SETTING_KEY_ID_LST];
 			let ncbi_gene_id = ent_id.replace(/ENT/,"GENEID");
 			url_str = _contruct_url_str(URL_PCF_FILTER_GET_OMIM_ID_BY_NCBI_GENE_ID,{[URL_PARA_NCBI_GENE_ID]: ncbi_gene_id});
+			
 		}else if(url_key === URL_PCF_FILTER_GET_OMIM_ID_BY_INHERITANCE_HPO_ID){
+			
 			url_str = _contruct_url_str(URL_PCF_FILTER_GET_OMIM_ID_BY_INHERITANCE_HPO_ID,{[URL_PARA_HPO_ID]: setting[SETTING_KEY_ID_LST]});
+			
 		}else if(url_key === URL_PCF_FILTER_GET_ORPHA_ID_BY_MONDO_ID){
+			
 			url_str = _contruct_url_str(URL_PCF_FILTER_GET_ORPHA_ID_BY_MONDO_ID,{[URL_PARA_MONDO_ID]: setting[SETTING_KEY_ID_LST]});
+			
 		}else if(url_key === URL_PCF_FILTER_GET_ORPHA_ID_BY_NCBI_GENE_ID){
+			
 			let ent_id = setting[SETTING_KEY_ID_LST];
 			let ncbi_gene_id = ent_id.replace(/ENT/,"GENEID");
 			url_str = _contruct_url_str(URL_PCF_FILTER_GET_ORPHA_ID_BY_NCBI_GENE_ID,{[URL_PARA_NCBI_GENE_ID]: ncbi_gene_id});
+			
 		}else if(url_key === URL_PCF_FILTER_GET_ORPHA_ID_BY_INHERITANCE_HPO_ID){
+			
 			url_str = _contruct_url_str(URL_PCF_FILTER_GET_ORPHA_ID_BY_INHERITANCE_HPO_ID,{[URL_PARA_HPO_ID]: setting[SETTING_KEY_ID_LST]});
+			
 		}else if(url_key === URL_PCF_FILTER_GET_GENE_ID_BY_MONDO_ID){
+			
 			url_str = _contruct_url_str(URL_PCF_FILTER_GET_GENE_ID_BY_MONDO_ID,{[URL_PARA_MONDO_ID]: setting[SETTING_KEY_ID_LST]});
+			
 		}else if(url_key === URL_PCF_FILTER_GET_GENE_ID_BY_INHERITANCE_HPO_ID){
+			
 			url_str = _contruct_url_str(URL_PCF_FILTER_GET_GENE_ID_BY_INHERITANCE_HPO_ID,{[URL_PARA_HPO_ID]: setting[SETTING_KEY_ID_LST]});
+			
 		}
 		return url_str;
 	}
@@ -1251,7 +1293,8 @@
 
 		let uncached_list = _find_unloaded_hpo_ids(setting);
 		let isDisplayFull = (setting[SETTING_KEY_DISPLAY_FORMAT] === DISPLAY_FORMAT_FULL);
-
+		let target        = setting[SETTING_KEY_TARGET];
+		
 		// check if  needs to be load from interent	
 		if(!_isEmpty(uncached_list)){
 			// search detail data from internet and draw result
@@ -1262,15 +1305,16 @@
 					var json_data = _parseJson(data);
 					_set_phenotype_name_data_to_cache(json_data);
 				}
-				if(isDisplayFull){ 
+				if(isDisplayFull && (target === TARGET_OMIM || target === TARGET_ORPHANET)){ 
 					_search_case_report_data_and_show_result(setting);
+					
 				}else{
 					_show_result(setting);
-	                                pcf_hide_loading();
-        	                }
+					pcf_hide_loading();
+				}
 			});
 		} else {
-			if(isDisplayFull){
+			if(isDisplayFull && (target === TARGET_OMIM || target === TARGET_ORPHANET)){
 				_search_case_report_data_and_show_result(setting);
 			}else{
 				_show_result(setting);
@@ -1304,21 +1348,10 @@
 						_set_detail_data_to_cache(json_data,target);
 					}
 				}
-				if(target === TARGET_OMIM || target === TARGET_ORPHANET){
-					_search_phenotype_data_and_show_result(setting);
-				}else{
-					_show_result(setting);
-					pcf_hide_loading();
-				}
+				_search_phenotype_data_and_show_result(setting);
 			});
 		} else {
-			if(target === TARGET_OMIM || target === TARGET_ORPHANET){
-				_search_phenotype_data_and_show_result(setting);
-			}else{
-				_show_result(setting);
-				pcf_hide_loading();
-			}
-
+			_search_phenotype_data_and_show_result(setting);
 		}
 	}
 
@@ -1514,16 +1547,13 @@
 		if(str_filter_id.match(/_ja$/i))lang = LANGUAGE_JA;
 
 		let id           = _get_id_from_filter_id(str_filter_id);
-		let gene_id      = id.replace(/ENT/i, 'GENEID');
 		let filter_type  = _get_filter_type_by_filter_id(str_filter_id);
 
 		if(!_isEmpty(filter_type)){
 			
 			let logical_str  = _get_logical_str_by_filter_id(str_filter_id);
-			
 			let url_str      = FILTER_NAME_URL_HASH[filter_type];
-			
-			let url_str_full = _contruct_url(url_str,{[SETTING_KEY_ID_LST]:gene_id});
+			let url_str_full = _contruct_url(url_str,{[SETTING_KEY_ID_LST]:id});
 			
 			_run_ajax(url_str_full,'GET', 'text', true, function(data){
 				if(!_isEmpty(data)){
@@ -1549,6 +1579,7 @@
 			alert('indicated filter ['+str_filter_id+'] is malformed');
 		}
 		
+		return false;
 
 		
 	}
@@ -1681,79 +1712,6 @@
 				_load_filter_objects(filter_id_list, filter_object_list, phenotype_object_list, callback);
 			});
 		},		
-/*		load_phenotype_objects_by_hpo_id_list(hpo_id_list){
-			
-			let id_list = hpo_id_list.replace(/_ja/gi, '');
-			
-			let url_str = _contruct_url(URL_GET_HPO_DATA_BY_HPO_ID, {[SETTING_KEY_ID_LST]:id_list});
-			
-			let phenotype_object_list = [];
-			
-			_run_ajax(url_str,'GET', 'text', false, function(data){
-
-				if(!_isEmpty(data)){
-					
-					json_data = _parseJson(data);
-					
-					hpo_id_list.split(',').forEach(function(str_hpo_id){
-						if(str_hpo_id.match(/_ja$/i)){
-							hpo_id =str_hpo_id.replace(/_ja$/i,"");
-							if(hpo_id in json_data){
-								let obj = {'id'   : str_hpo_id, 'name' : json_data[hpo_id].name_ja}
-								phenotype_object_list.push(obj);
-							}
-						}else{
-							if(str_hpo_id in json_data){
-								let obj = {'id':str_hpo_id, 'name':json_data[str_hpo_id].name_en}
-								phenotype_object_list.push(obj);
-							}
-						}
-					});
-					_set_phenotype_name_data_to_cache(json_data);
-				}
-			});
-			
-			return phenotype_object_list;
-		},
-		load_filter_objects_by_filter_id_list(filter_id_list){
-
-			let filter_object_list = [];
-			filter_id_list.split(',').forEach(function(str_filter_id){
-				
-				if(str_filter_id.match(/^(|NOT_|AND_|OR_)(ENT|MONDO|HP):(\d+)(|_ja)$/i)){
-					let lang = LANGUAGE_EN;
-					if(str_filter_id.match(/_ja$/i))lang = LANGUAGE_JA;
-					let id           = _get_id_from_filter_id(str_filter_id);
-					let filter_type  = _get_filter_type_by_filter_id(str_filter_id);
-					if(!_isEmpty(filter_type)){
-						let logical_str  = _get_logical_str_by_filter_id(str_filter_id);
-						let url_str      = FILTER_NAME_URL_HASH[filter_type];
-						let url_str_full = _contruct_url(url_str,{[SETTING_KEY_ID_LST]:id});
-						_run_ajax(url_str_full,'GET', 'text', false, function(data){
-							if(!_isEmpty(data)){
-								json_data = _parseJson(data);
-								let name = _get_filter_name(filter_type,lang,json_data,id);
-								if(!_isEmpty(name)){
-									
-									let obj = {
-										'id':   str_filter_id,
-										'name': name,
-										'logicaloperator':logical_str
-									}
-									filter_object_list.push(obj);
-								}
-							}
-						});
-					}else{
-						alert('indicated filter ['+str_filter_id+'] is malformed');
-					}
-				}else{
-					alert('indicated filter ['+str_filter_id+'] is malformed');
-				}
-			});
-			return filter_object_list;
-		}
-*/
 	};
 	
 	$.fn.pcf_content = function (method) {

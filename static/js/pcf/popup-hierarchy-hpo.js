@@ -47,7 +47,6 @@
 
 		cssSelectedPhenotypeClass: CSS_PREFIX+'selectedphenotype',
 
-//		cssButtonPrefixClass: CSS_PREFIX+'button-',
 		cssButtonDisabledClass: CSS_PREFIX+'button-disabled',
 		cssButtonAddClass: CSS_PREFIX+'button-add',
 		cssButtonReplaceClass: CSS_PREFIX+'button-replace',
@@ -63,8 +62,6 @@
 		cssContentCopyClass: CSS_PREFIX+'content-copy',
 
 		cssWebGLContentClass: CSS_PREFIX+'webgl-content',
-//		cssWebGLSpeechBalloonBaseClass: CSS_PREFIX+'webgl-speechballoon-base',
-//		cssWebGLSpeechBalloonContentClass: CSS_PREFIX+'webgl-speechballoon-content',
 
 		cssFMATreeListContentClass: CSS_PREFIX+'fmatreelist-content',
 
@@ -97,7 +94,6 @@
 			'ja' : {
 				superclass : '上位概念',
 				subclass : '下位概念',
-//				selectedphenotype: '選択した症状',
 				selectedphenotype: '患者の徴候および症状',
 				replace : '置換',
 				add : '追加',
@@ -146,7 +142,6 @@
 			'en' : {
 				superclass : 'Superclass',
 				subclass : 'Subclass',
-//				selectedphenotype: 'selected phenotype',
 				selectedphenotype: 'patient\’s signs and symptoms',
 				replace : 'Replace',
 				add : 'Add',
@@ -171,7 +166,6 @@
 				webgloperationhelp : 'Select: Click<br>Move: Drag<br>Rotate: Shift + Drag<br>Zoom: Scroll',
 				fmatreelisttitle : 'Touched body parts',
 				fmalisttitle : 'Select proper parts you inducated.',
-//				hpolisttitle : 'Add phenotype related to selected parts.',
 				hpolisttitle : 'Signs and symptoms related to __FMANAME__ (__FMAID__)',
 
 				bone : 'Bone',
@@ -210,7 +204,10 @@
 		,copy_items: ['id','name','English']
 		,copy_delimiter: ','
 		,use_annotation_score : true
-		,annotation_score_url : 'https://api.monarchinitiative.org/api/sim/score'
+		,annotation_score_url : 'https://api.monarchinitiative.org/api/sim/score',
+		
+		modify_modal_on_show  : null,
+		after_modal_close     : null
 	};
 
 	var TOKENINPUT_SETTINGS_KEY = 'settings';
@@ -2303,11 +2300,12 @@
 					}
 				}
 
-
-
 				magnificPopup.close();
 			}
-			$('header').css({'top': '24px'});
+
+			if(isFunction(current_settings.after_modal_close)){
+				current_settings.after_modal_close();
+			}
 		}
 		var timeoutID = null;
 		function openMagnificPopup(params){
@@ -2392,15 +2390,12 @@
 				});
 			}
 
-			if(current_settings.use_webgl){
-                                $('.mfp-bg').css({'top':'0','opacity':'0.8'});
-                                $('.mfp-wrap').css({'top':'0'});
-                                
-			}else{
-				$('header').css({'top': '0'});
-				var pos = $("#div_search_button").offset().top;
-				$('.mfp-bg').css({'top': pos+'px','opacity':'0'});
-				$('.mfp-wrap').css({'top': pos+'px'});
+			if(isFunction(current_settings.modify_modal_on_show)){
+				let isFullScreen = false;
+				if(current_settings.use_webgl){
+					isFullScreen = true;
+				}
+				current_settings.modify_modal_on_show(isFullScreen);
 			}
 		}
 
@@ -2425,8 +2420,9 @@
 				});
 			}
 
-                        $('.mfp-bg').css({'top':'0'});
-                        $('.mfp-wrap').css({'top':'0'});
+			if(isFunction(current_settings.modify_modal_on_show)){
+				current_settings.modify_modal_on_show(true);
+			}
 		}
 
 

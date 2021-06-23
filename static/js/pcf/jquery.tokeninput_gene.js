@@ -238,6 +238,7 @@
 		
 		// Keep track if the input is currently in disabled mode
 		disabled: false
+
 	};
 
   // Default classes to use when theming
@@ -328,7 +329,10 @@
 	return ( str && str.match(/[\u30a0-\u30ff\u3040-\u309f\u3005-\u3006\u30e0-\u9fcf]+/) )? true : false;
   }
 
-
+  function isTriggeredFromPopup(){
+	if($.magnificPopup.instance.contentContainer) return true;
+	return false;
+  }
 
   // Additional public (exposed) methods
   var methods = {
@@ -559,8 +563,7 @@
                           hiddenInput.change();
                           //onFilterChanged();
                           let callback1 = $(input).data("settings").onFilterChanged;
-                          // Execute the onDelete callback if defined
-                          if($.isFunction(callback1)) {
+                          if(!isTriggeredFromPopup() && $.isFunction(callback1)) {
                             callback1();
                           }
 
@@ -586,11 +589,10 @@
                       add_token($(selected_dropdown_item).data("tokeninput"));
                       hiddenInput.change();
                       //onFilterChanged();
-                      let callback1 = $(input).data("settings").onFilterChanged;
-                      // Execute the onDelete callback if defined
-                      if($.isFunction(callback1)) {
-                        callback1();
-                      }
+                          let callback1 = $(input).data("settings").onFilterChanged;
+                          if(!isTriggeredFromPopup() && $.isFunction(callback1)) {
+                            callback1();
+                          }
                     } else {
                       if(event.keyCode===KEY.ENTER && $(this).val() === "") {
                         //return true;
@@ -736,11 +738,10 @@
 								.click(function(){
 									$("#tokeninput_genes").tokenInput_gene("clear");
 									//onFilterChanged();
-			                          let callback1 = $(input).data("settings").onFilterChanged;
-			                          // Execute the onDelete callback if defined
-			                          if($.isFunction(callback1)) {
-			                            callback1();
-			                          }
+									  let callback1 = $(input).data("settings").onFilterChanged;
+									  if(!isTriggeredFromPopup() && $.isFunction(callback1)) {
+									    callback1();
+									  }
 
 								})
 								.appendTo($token_list_wrapper_table_td_right);
@@ -833,8 +834,7 @@
           });
           //onFilterChanged();
           let callback1 = $(input).data("settings").onFilterChanged;
-          // Execute the onDelete callback if defined
-          if($.isFunction(callback1)) {
+          if(!isTriggeredFromPopup() && $.isFunction(callback1)) {
             callback1();
           }
 
@@ -942,8 +942,7 @@
             update_hiddenInput(saved_tokens, hiddenInput);
             //onFilterChanged();
           let callback1 = $(input).data("settings").onFilterChanged;
-          // Execute the onDelete callback if defined
-          if($.isFunction(callback1)) {
+          if(!isTriggeredFromPopup() && $.isFunction(callback1)) {
             callback1();
           }
 
@@ -965,8 +964,7 @@
                         hiddenInput.change();
                         //onFilterChanged();
                           let callback1 = $(input).data("settings").onFilterChanged;
-                          // Execute the onDelete callback if defined
-                          if($.isFunction(callback1)) {
+                          if(!isTriggeredFromPopup() && $.isFunction(callback1)) {
                             callback1();
                           }
 
@@ -1318,8 +1316,7 @@
                       hiddenInput.change();
                       //onFilterChanged();
                           let callback1 = $(input).data("settings").onFilterChanged;
-                          // Execute the onDelete callback if defined
-                          if($.isFunction(callback1)) {
+                          if(!isTriggeredFromPopup() && $.isFunction(callback1)) {
                             callback1();
                           }
 

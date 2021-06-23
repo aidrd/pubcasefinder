@@ -210,8 +210,11 @@
 		,annotation_score_url : 'https://api.monarchinitiative.org/api/sim/score'
 		,tokenInputFunctionName : 'tokenInput_gene'
 		,tokenInputListClassName : 'TokenList_gene'
-		,use_number_of_hits : true
+		,use_number_of_hits : true,
 
+		modify_modal_on_show  : null,
+		after_modal_close     : null,
+		after_init_gui        : null
 	};
 
 	var TOKENINPUT_SETTINGS_KEY = 'settings';
@@ -319,6 +322,11 @@
 					$(input)[functionName]('add',temp);
 				});
 				$.PopupRelationGENETokenTooltip();
+
+				let callback1 = $(input).data("settings").onFilterChanged;
+				if(isFunction(callback1)) {
+					callback1();
+				}
 			}
 		}
 		function getOriginalTokenInputItemFromName(gene_name){
@@ -1256,7 +1264,10 @@
 
 			if(current_settings.use_webgl && current_settings.active_webgl){
 			}
-
+			
+			if(isFunction(current_settings.after_init_gui)){
+				current_settings.after_init_gui();
+			}
 		}
 
 		function eventKeydown(e){
@@ -1327,11 +1338,13 @@
 					else{
 					}
 				}
-
-
-
 				magnificPopup.close();
 			}
+			
+			if(isFunction(current_settings.after_modal_close)){
+				current_settings.after_modal_close();
+			}
+
 		}
 		var timeoutID = null;
 		function openMagnificPopup(params){
@@ -1415,6 +1428,12 @@
 					modal: true,
 				});
 			}
+			
+			if(isFunction(current_settings.modify_modal_on_show)){
+				let isFullScreen = true;
+				current_settings.modify_modal_on_show(isFullScreen);
+			}
+
 		}
 
 		var windowNavigatorLanguage = (window.navigator.languages && window.navigator.languages[0]) ||
