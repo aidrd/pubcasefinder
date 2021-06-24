@@ -330,7 +330,7 @@
   }
 
   function isTriggeredFromPopup(){
-	if($.magnificPopup.instance.contentContainer) return true;
+	if($.magnificPopup.instance.contentContainer && $('.mfp-wrap')) return true;
 	return false;
   }
 
