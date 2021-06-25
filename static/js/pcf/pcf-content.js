@@ -1000,7 +1000,9 @@
 		// 5. description p
 		if(isDisplayFull && _isExistVal("description",item)){
 			let $p = $('<p>').text(item.description).appendTo($container_panel);
-			let href_str = "https://translate.google.co.jp/?hl=ja#en/ja/" + item.description;
+			let href_str = encodeURIComponent(item.description);
+			    href_str = "https://translate.google.co.jp/?sl=en&tl=ja&text=" + href_str + "&op=translate&hl=ja";
+			
 			$("<a>").text(" >> Translate(Google)").attr( 'href', href_str).attr('target', '_blank').appendTo($p);
 		}
 		
