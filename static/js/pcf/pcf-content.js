@@ -87,8 +87,8 @@
 				'DETAIL_LABEL': {
 					'FIND_IMAGES':  '画像検索(Google)',
 					'PHENOTYPE_LST':'症状一覧',
-					'JA_REPORT':    '日本語症例報告',
-					'EN_REPORT':    '英語症例報告',
+					'JA_REPORT':    '症例報告（J-STAGE & J-GLOBAL）',
+					'EN_REPORT':    '症例報告（PubMed）',
 					'UR_DBMS':      '日本語疾患詳細(UR-DBMS)',
 				}
 			},
@@ -115,8 +115,8 @@
 				'DETAIL_LABEL': {
 					'FIND_IMAGES':   'Find images(Google)',
 					'PHENOTYPE_LST': 'Symptom List',
-					'JA_REPORT':     'Case Report(JP)',
-					'EN_REPORT':     'Case Report(EN)',
+					'JA_REPORT':     'Case Report(J-STAGE & J-GLOBAL)',
+					'EN_REPORT':     'Case Report(PubMed)',
 					'UR_DBMS':       'UR-DBMS'
 				}
 			}
@@ -1123,7 +1123,8 @@
 		let lang           = setting[SETTING_KEY_LANG];
 		let num_per_page   = setting[SETTING_KEY_SIZE];
 		let display_format = setting[SETTING_KEY_DISPLAY_FORMAT];
-				
+
+		let isDisplayFull = (display_format === DISPLAY_FORMAT_FULL);				
 		 
 		if(_is_target_status_data_loaded(target)) return;
 
@@ -1198,9 +1199,17 @@
 			
 			let percentage_str = "<span>("+ (ranking_list[i].score * 100).toFixed(1)+"%)</span>";
 			$(percentage_str).appendTo($td_left);
-			let $list_content_left_bt = $('<div>').addClass('list-content_left_bt').appendTo($td_left);
-			$('<a>').text("Copy").append("<i class=\"material-icons\">content_copy</i>").appendTo($list_content_left_bt);
-			$('<a>').text("Like").append("<i class=\"material-icons\">favorite_border</i>").appendTo($list_content_left_bt);
+			
+			
+			if(isDisplayFull){
+				let $list_content_left_bt = $('<div>').addClass('list-content_left_bt').appendTo($td_left);
+				$('<a>').text("Copy").append("<i class=\"material-icons\">content_copy</i>").appendTo($list_content_left_bt);
+				$('<a>').text("Like").append("<i class=\"material-icons\">favorite_border</i>").appendTo($list_content_left_bt);
+			}else{
+				let $list_content_left_bt = $('<div>').addClass('list-content_left_bt').addClass('summary').appendTo($td_left);
+				$('<a>').append("<i class=\"material-icons\">content_copy</i>").appendTo($list_content_left_bt);
+				$('<a>').append("<i class=\"material-icons\">favorite_border</i>").appendTo($list_content_left_bt);
+			}
 			
 			//right
 			if(ranking_list[i].id in detail_data ){

@@ -370,7 +370,7 @@ body {
 .list-content {
   display: flex;
   margin: 15px 0 0 0;
-  padding-bottom: 15px;
+  padding-bottom: 5px;
   border-bottom: 1px solid #ddd;
 }
 
@@ -417,6 +417,10 @@ body {
   cursor: pointer;
 }
 
+.list-content .list-content_left .list-content_left_bt.summary a {
+  display: inline-block;
+  margin-left: 5px;
+}
 .list-content .list-content_left .list-content_left_bt a:hover {
   color: #0431B4;
 }
