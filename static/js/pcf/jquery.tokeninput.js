@@ -137,6 +137,8 @@
     onShowDropdownItem: null,
     onHideDropdownItem: null,
 
+    doSubmit: null,
+
     // Other settings
     idPrefix: "token-input-",
 
@@ -435,7 +437,13 @@
                       if(event.keyCode===KEY.ENTER && $(this).val() === "") {
                         //return true;
 //                        $(input).closest('form').submit();
-                        if(saved_tokens.length) $(input).closest('form').submit();
+                        //if(saved_tokens.length) $(input).closest('form').submit();
+			if(saved_tokens.length){
+				var callback = $(input).data("settings").doSubmit;
+				if($.isFunction(callback)) {
+			              callback();
+          			}
+			}
                         event.stopPropagation();
                         event.preventDefault();
                         return false;

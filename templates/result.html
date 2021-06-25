@@ -383,7 +383,7 @@
 
 	$(document).ready(function() {
 
-		$("#tokeninput_hpo").tokenInput("/tokeninput_hpo", {theme: "facebook"});
+		$("#tokeninput_hpo").tokenInput("/tokeninput_hpo", {theme: "facebook", doSubmit: runSubmit});
 
 		$("#tokeninput_hpo").popupRelationHPO('/popup_hierarchy_hpo',{'modify_modal_on_show':modify_modal_on_show,'after_modal_close':after_modal_close});
 
@@ -526,7 +526,9 @@
 	}
 
 	
-	$('#search_button').on('click', function (event) {
+	$('#search_button').on('click', runSubmit);
+
+	var runSubmit = function(){
 		// trigger search
 		let form = document.createElement("form");
 		form.setAttribute("method", "get");
@@ -574,7 +576,7 @@
 		$(form).appendTo('body').submit();
 
 		return false;
-	});
+	}
 
 	var resizeTimer = false;
 
@@ -655,6 +657,7 @@
 			$('header').css({'top': '24px'});
 		}
 	}
+
 </script>
 
 </html>

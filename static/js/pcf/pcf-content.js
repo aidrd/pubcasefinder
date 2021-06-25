@@ -350,7 +350,6 @@
 		return pcf_detail_data_cache[target];
 	}
 
-
 	// key: hpo_id, val: {name_en, name_js}
 	var pcf_phenotype_name_cache = {};
 	
@@ -519,7 +518,6 @@
 		
 		return Object.keys(retLst);
 	}
-
 
 	function _find_unloaded_case_report_count_data_ids(setting, lang){
 		let retLst = {};
@@ -934,7 +932,14 @@
 			let $container_list_query = $('<div>').addClass("d-flex").addClass("flex-wrap").addClass("list-tag-wrapper").appendTo($container_panel);
 			phenoList.split(',').forEach(function(hpo_id){
 				let label_text = _get_phenotype_name_from_cache(hpo_id,lang);
-				if(_isEmpty(label_text)) label_text= hpo_id;
+				if(_isEmpty(label_text)){
+					let label_text_en = _get_phenotype_name_from_cache(hpo_id,LANGUAGE_EN);
+					if(!_isEmpty(label_text_en)){
+						label_text= label_text_en;	
+					}else{
+						label_text= hpo_id;
+					}
+				}
 				_contruct_popup_button(POPUP_TYPE_PHENOTYPE, KEY_POPUP_ID_PHENOTYPE, hpo_id, "list-tag_blue", label_text, CLASS_POPUP_PHENOTYPE).appendTo($container_list_query);
 			});
 		}
@@ -1355,30 +1360,133 @@
 		}
 	}
 
+	function _run_pcf_filter_logical(ranking_data_without_filter,items_total_hash,result_ranking_id_hash,target,setting){
+		let ranking_id_list = {};
+		ranking_data_without_filter.forEach(function(item){
+			ranking_id_list[item.id] = 1;
+		});
 
-	function _loading_filter_data(target,id,filter_type, logical_type, ranking_data_without_filter){
+		Object.keys(items_total_hash).sort().forEach(function(i_str){
+			let logical_type   = items_total_hash[i_str].logical_type;
+			let filter_id_list = result_ranking_id_hash[i_str];
 
-		let retList={};
-		
-		let url_str      = FILTER_URL_HASH[target][filter_type];
-		if(_isEmpty(url_str)){
-			if(target === TARGET_GENE && filter_type === FILTER_TYPE_ENT){
-				let gene_id = id.replace(/ENT/,"GENEID");
-				ranking_data_without_filter.forEach(function(item){
-					if(logical_type === LOGICAL_AND_NOT){
-						if(item.id !== gene_id) retList[item.id]=1;
-					}else{
-						if(item.id === gene_id)	retList[item.id]=1;
+			if(logical_type === LOGICAL_AND || logical_type === LOGICAL_AND_NOT){
+				Object.keys(ranking_id_list).forEach(function(ranking_id){
+					if(!(ranking_id in filter_id_list)){
+						delete ranking_id_list[ranking_id];
 					}
 				});
+			} else {
+				Object.keys(filter_id_list).forEach(function(ranking_id){
+					ranking_id_list[ranking_id] = 1;
+				});
 			}
-			return retList;
+		});
+		
+		let ranking_data_new = [];
+		ranking_data_without_filter.forEach(function(item){
+			if(item.id in ranking_id_list) {
+				ranking_data_new.push(item);
+			}
+		});
+		
+		_set_ranking_data_into_cache(ranking_data_new,setting);
+		_set_target_status_ranking_data_loaded(target);
+		_search_detail_data_and_show_result(setting);
+	}
+
+
+	function _run_pcf_filter_load_data(setting, ranking_data_without_filter){
+
+		let target = setting[SETTING_KEY_TARGET];
+		
+		if(_isEmpty(setting[SETTING_KEY_FILTER])){
+			// no filter, go to next step directly
+			_set_target_status_ranking_data_loaded(target);
+			_search_detail_data_and_show_result(setting);
+			return;
+		}
+
+		let filter_list = setting[SETTING_KEY_FILTER].split(',');
+
+		// parameters for ajax calls
+		var items_ajax_list = [];
+		var items_total_hash = {};
+		var result_ranking_id_hash = {};
+		
+		// analyze filter one by one
+		for(let i=0; i<filter_list.length; i++){
+
+			let str_filter_id = filter_list[i];
+			let id            = _get_id_from_filter_id(str_filter_id);
+			let filter_type   = _get_filter_type_by_filter_id(str_filter_id);
+			let logical_type  = _get_logical_by_filter_id(str_filter_id, i);
+			let url_str       = FILTER_URL_HASH[target][filter_type];
+
+			// keep the item 
+			items_total_hash[i] ={
+				'index'        : i,
+				'str_filter_id': str_filter_id,
+				'id'           : id,
+				'filter_type'  : filter_type,
+				'logical_type' : logical_type,
+			};
+			
+			// check if need get data through ajax
+			if(!_isEmpty(url_str)){
+				let url_str_full = _contruct_url(url_str,{[SETTING_KEY_ID_LST]:id});
+				items_ajax_list.push({
+					'index'        : i,
+					'str_filter_id': str_filter_id,
+					'id'           : id,
+					'filter_type'  : filter_type,
+					'logical_type' : logical_type,
+					'url_str_full' : url_str_full
+				});
+			}else{
+				// no need to get data through ajax
+				if(target === TARGET_GENE && filter_type === FILTER_TYPE_ENT){
+
+					let gene_id = id.replace(/ENT/,"GENEID");
+					
+					result_ranking_id_hash[i] = {};
+		
+					ranking_data_without_filter.forEach(function(data_item){
+						if(logical_type === LOGICAL_AND_NOT){
+							if(data_item.id !== gene_id) result_ranking_id_hash[i][data_item.id]=1;
+						}else{
+							if(data_item.id === gene_id) result_ranking_id_hash[i][data_item.id]=1;
+						}
+					});
+				}else{
+
+					result_ranking_id_hash[i] = {};
+					if(logical_type === LOGICAL_AND_NOT){	
+						ranking_data_without_filter.forEach(function(data_item){
+							result_ranking_id_hash[i][data_item.id]=1;
+						});
+					}
+				}
+			}
 		}
 		
-		let url_str_full = _contruct_url(url_str,{[SETTING_KEY_ID_LST]:id});
+		if(items_ajax_list.length === 0){
+			if(Object.keys(result_ranking_id_hash).length >0){
+				// no need to do ajax
+				// do logical ,create ranking list, and continue
+				_run_pcf_filter_logical(ranking_data_without_filter,items_total_hash,result_ranking_id_hash,target,setting);
+				return;
+			}else{
+				_set_ranking_data_into_cache([],setting);
+				_set_target_status_ranking_data_loaded(target);
+				pcf_hide_loading();
+				return;
+			}
+		}
 
-		if(!_isEmpty(url_str_full)){
-			_run_ajax(url_str_full,'GET', 'text', false, function(data){
+		if(items_ajax_list.length === 1){
+			
+			_run_ajax(items_ajax_list[0].url_str_full,'GET', 'text', true, function(data){
 
 				let json_data = _parseJson(data);
 				let hash = {};
@@ -1392,85 +1500,93 @@
 					}
 				}
 
-				ranking_data_without_filter.forEach(function(item){
-					if(logical_type === LOGICAL_AND_NOT){
-						if(!(item.id in hash))	retList[item.id]=1;
+				let idx = "" +items_ajax_list[0].index;
+				let isLogicalNot = (items_ajax_list[0].logical_type === LOGICAL_AND_NOT);
+				result_ranking_id_hash[idx] = {};
+				ranking_data_without_filter.forEach(function(data_item){
+					if(isLogicalNot){
+						if(!(data_item.id in hash))	result_ranking_id_hash[idx][data_item.id]=1;
 					}else{
-						if(item.id in hash)	retList[item.id]=1;
+						if(data_item.id in hash) result_ranking_id_hash[idx][data_item.id]=1;
 					}
 				});
+				
+				// do logical ,create ranking list, and continue
+				_run_pcf_filter_logical(ranking_data_without_filter,items_total_hash,result_ranking_id_hash,target,setting);
+				return;
 			});
-		}
-		
-		return retList;
-	}
-
-	function _run_pcf_filter(setting){
-
-		let target = setting[SETTING_KEY_TARGET];
-		let ranking_data = _get_ranking_data_from_cache(setting);
-
-		if(_isEmpty(setting[SETTING_KEY_FILTER]) || !_isEmpty(ranking_data)){
-			_set_target_status_ranking_data_loaded(target);
-			_search_detail_data_and_show_result(setting);
-			return;
-		}
-		
-		let setting_without_filter = $.extend(true,{}, setting,{[SETTING_KEY_FILTER]:''});
-		let ranking_data_without_filter = _get_ranking_data_from_cache(setting_without_filter);
-		if(_isEmpty(ranking_data_without_filter)){
-			_set_target_status_ranking_data_loaded(target);
-			pcf_hide_loading();
+			
 			return;
 		}
 
-		let ranking_id_list = {};
-		ranking_data_without_filter.forEach(function(item){
-			ranking_id_list[item.id] = 1;
-		});
+		// function to trigger the ajax call
+		var ajax_request = function(item) {
 
-		let filter_list = setting[SETTING_KEY_FILTER].split(',');
-		for(let i=0; i<filter_list.length; i++){
-			let str_filter_id = filter_list[i];
+			var deferred = $.Deferred();
 
-			let id           = _get_id_from_filter_id(str_filter_id);
-			
-			let filter_type  = _get_filter_type_by_filter_id(str_filter_id);
-			
-			let logical_type  = _get_logical_by_filter_id(str_filter_id, i);
-
-			let filter_id_list = _loading_filter_data(target,id,filter_type, logical_type, ranking_data_without_filter);
-			
-			if(logical_type === LOGICAL_AND || logical_type === LOGICAL_AND_NOT){
-				Object.keys(ranking_id_list).forEach(function(ranking_id){
-					if(!(ranking_id in filter_id_list)){
-						delete ranking_id_list[ranking_id];
+			$.ajax({
+				url: item.url_str_full,
+				dataType: "text",
+				type: 'GET',
+				success: function(data) {
+					// do something here
+					//console.log(data.results[0]);
+					
+					let json_data = _parseJson(data);
+					let hash = {};
+					if(!_isEmpty(json_data)){
+						for(jid in json_data){
+							if(!_isEmpty(json_data[jid])){
+								json_data[jid].forEach(function(target_data_id){
+									hash[target_data_id] = 1;
+								});
+							}
+						}
 					}
-				});
-			} else {
-				Object.keys(filter_id_list).forEach(function(ranking_id){
-					ranking_id_list[ranking_id] = 1;
-				});
-			}
-		}
-		
-		if(_isEmpty(ranking_id_list)){
-			_set_ranking_data_into_cache([],setting);
-			_set_target_status_ranking_data_loaded(target);
+	
+					result_ranking_id_hash[item.index] = {}
+					let isLogicalNot = (item.logical_type === LOGICAL_AND_NOT);
+					ranking_data_without_filter.forEach(function(data_item){
+						if(isLogicalNot){
+							if(!(data_item.id in hash))	result_ranking_id_hash[item.index][data_item.id]=1;
+						}else{
+							if(data_item.id in hash)	result_ranking_id_hash[item.index][data_item.id]=1;
+						}
+					});
+					
+					// mark the ajax call as completed
+					deferred.resolve(data);
+				},
+				error: function(error) {
+					// mark the ajax call as failed
+					deferred.reject(error);
+				}
+			});
+
+			return deferred.promise();
+		};
+
+		var looper = $.Deferred().resolve();
+
+		// go through each item and call the ajax function
+		$.when.apply($, $.map(items_ajax_list, function(item, i) {
+			looper = looper.then(function() {
+			// trigger ajax call with item data
+				return ajax_request(item);
+			});
+			return looper;
+		})).then(function() {
+			// run this after all ajax calls have completed
+			// do logical ,create ranking list, and continue
+			_run_pcf_filter_logical(ranking_data_without_filter,items_total_hash,result_ranking_id_hash,target,setting);
+			return;
+			//console.log('Done!');
+		}).fail(function() {
+			//console.log( 'I fire if one or more requests failed.' );
+			alert("Failed loading filtering data["+setting[SETTING_KEY_FILTER]+"]");
 			pcf_hide_loading();
 			return;
-		}
-		
-		let ranking_data_new = [];
-		ranking_data_without_filter.forEach(function(item){
-			if(item.id in ranking_id_list) {
-				ranking_data_new.push(item);
-			}
 		});
-		
-		_set_ranking_data_into_cache(ranking_data_new,setting);
-		_set_target_status_ranking_data_loaded(target);
-		_search_detail_data_and_show_result(setting);
 	}
 
 	function _run_pcf_search(setting){
@@ -1490,22 +1606,32 @@
 			
 			//do searching ranking(without filter)
 			let setting_without_filter = $.extend(true,{}, setting,{[SETTING_KEY_FILTER]:''});
-			let url_str = _contruct_url(URL_GET_RANKING_BY_HPO_ID,setting_without_filter);
 
-			_run_ajax(url_str,'GET', 'text', true, function(data){
-				var json_data = _parseJson(data);
-				if(!_isEmpty(json_data)){
-					// the ranking data without filtered
-					_set_ranking_data_into_cache(json_data,setting_without_filter);
-					_run_pcf_filter(setting);
-				}else{
-					// no data found by hpo lists,no need to proceed do filtering.
-					_set_target_status_ranking_data_loaded(target);
-					_set_ranking_data_into_cache([],setting_without_filter);
-					pcf_hide_loading();
-				}
-			});
+			let ranking_data_without_filter = _get_ranking_data_from_cache(setting_without_filter);
 
+			if(_isEmpty(ranking_data_without_filter)){
+				let url_str = _contruct_url(URL_GET_RANKING_BY_HPO_ID,setting_without_filter);
+				_run_ajax(url_str,'GET', 'text', true, function(data){
+					var json_data_without_filter = _parseJson(data);
+					if(!_isEmpty(json_data_without_filter)){
+						// the ranking data without filtered
+						_set_ranking_data_into_cache(json_data_without_filter,setting_without_filter);
+						//_run_pcf_filter(setting);
+						_run_pcf_filter_load_data(setting, json_data_without_filter);
+						return false;
+					}else{
+						// no data found by hpo lists,no need to proceed do filtering.
+						_set_ranking_data_into_cache([],setting_without_filter);
+						_set_target_status_ranking_data_loaded(target);
+						pcf_hide_loading();
+						return false;
+					}
+				});
+			}else{
+				//_run_pcf_filter(setting);
+				_run_pcf_filter_load_data(setting, ranking_data_without_filter);
+				return false;
+			}
 		} else {
 			_search_detail_data_and_show_result(setting);
 		}
