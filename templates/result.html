@@ -94,8 +94,20 @@
 			<div class="search-box_wrapper">
 				<div class="search-box_form d-flex flex-nowrap">
 					<div class="d-flex flex-column">
-						<div class="p-2"><button onclick="window.location.href='/text2hpo';" class="round-button material-icons">text_snippet</button></div>
-						<div class="p-2"><button id="phenotouch" class="round-button material-icons">view_in_ar</button></div>
+						<div class="p-2" id="text2hpo">
+							{% if r_lang == "ja" %}
+							<a href="/text2hpo" target="_blank" class="round-button material-icons" data-toggle="tooltip" data-placement="top" title="文章から症状(HPO)を抽出">text_snippet</a>
+							{% else %}
+							<a href="https://impact.dbmi.columbia.edu/doc2hpo/" target="_blank" class="round-button material-icons" data-toggle="tooltip" data-placement="top" title="Input Free-Text (doc2hpo)">text_snippet</a>
+							{% endif %}
+						</div>
+						<div class="p-2">
+							{% if r_lang == "ja" %}
+							<button id="phenotouch" class="round-button material-icons" data-toggle="tooltip" data-placement="top" title="ヒト3Dモデルを利用して症状を検索">view_in_ar</button>
+							{% else %}
+							<button id="phenotouch" class="round-button material-icons" data-toggle="tooltip" data-placement="top" title="Find Phenotypes using Human 3D Model">view_in_ar</button>
+							{% endif %}
+						</div>
 					</div>
 					<div class="flex-grow-1 tokeninput_hpo_wrapper">
 						<textarea rows="1" id="tokeninput_hpo" name="str_phenotypes"></textarea>
@@ -107,13 +119,19 @@
 				</div>
 				<div class="search-button" id="div_search_button">
 					<!-- advanced button -->
-					<button id="search-button_advanced" data-toggle="collapse" data-target="#search-box-advanced" aria-expanded="false" aria-controls="search-box-advanced">
+					<button id="btn_search_advanced" data-toggle="collapse" data-target="#search-box-advanced" aria-expanded="false" aria-controls="search-box-advanced">
 						Filter<i class="material-icons">expand_more</i>
 					</button>
 
 					<!-- download button -->
 					<div class="dropdown" id="search-button_download-wrapper">
-						<button id="search-button_download" class="dropdown-toggle material-icons" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">save_alt</button>
+						<button id="search-button_download" class="dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							{% if r_lang == "ja" %}
+							<span class="material-icons" data-toggle="tooltip" data-placement="top" title="ダウンロード">save_alt</span>
+							{% else %}
+							<span class="material-icons" data-toggle="tooltip" data-placement="top" title="Download">save_alt</span>
+							{% endif %}
+						</button>
 						<div class="dropdown-menu" aria-labelledby="search-button_download">
 						<form class="px-4 py-3" id="download-form">
 							<label><b>{{ _('search_share_modal_label_download') }}</b></label>
@@ -137,17 +155,26 @@
 								<tr>
 									<td style="vertical-align: middle;padding-left:0;padding-right:10px;">Selection:</td>
 									<td>
-									  <select style="width:200px;" class="form-control custom-select">
-										 <option>All displayed results</option>
-										 <option>Current Page</option>
-										 <option>Selection (n)</option>
+									  <select style="width:200px;" class="form-control custom-select" id="sel_download_option">
+										 <option value="all_shown">All displayed results</option>
+										 <option value="all">All results</option>
+										 <option value="sel">Selection (n)</option>
+									  </select>
+									</td>
+								</tr>
+								<tr>
+									<td style="vertical-align: middle;padding-left:0;padding-right:10px;">Format:</td>
+									<td>
+									  <select style="width:200px;" class="form-control custom-select" id="sel_download_format">
+										 <option value="tsv">TSV</option>
+										 <option value="json">JSON</option>
 									  </select>
 									</td>
 								</tr>
 							</table>
 							<div class="btn-toolbar" style="margin-top:10px;">
-							  <button class="action-button">Download</button>
-							  <button class="cancel-button">Cancel</button>
+							  <button class="action-button" id="btn_download">Download</button>
+							  <button class="cancel-button" id="btn_cancel">Cancel</button>
 							</div>
 						</form>
 						</div>
@@ -155,7 +182,13 @@
 
 					<!-- share button -->
 					<div class="dropdown" id="search-button_share-wrapper">
-						<button class="dropdown-toggle material-icons" id="search-button_share" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">share</button>
+						<button class="dropdown-toggle" id="search-button_share" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							{% if r_lang == "ja" %}
+							<span class="material-icons" data-toggle="tooltip" data-placement="top" title="共有">share</span>
+							{% else %}
+							<span class="material-icons" data-toggle="tooltip" data-placement="top" title="Share">share</span>
+							{% endif %}
+						</button>
 						<div class="dropdown-menu" aria-labelledby="search-button_share">
 						<form class="px-4 py-3">
 						<label><b>{{ _('search_share_modal_label_link') }}</b></label>
@@ -219,8 +252,8 @@
 				</div>
 			</div>
 
-			<div class="search-advanced">
-				<div class="search-box-advanced_wrapper collapse" id="search-box-advanced">
+			<div class="search-advanced collapse" id="search-box-advanced">
+				<div class="search-box-advanced_wrapper">
 					<span><b>{{ _('search_textbox_title_narrowdown') }}</b></span>
 					<textarea class="form-control" rows="1" id="tokeninput_genes" name="str_filters"></textarea>
 				</div>
@@ -282,6 +315,58 @@
 		</tr>
 	</table>
 </div>
+
+<button onclick="topFunction()" id="btn_back_to_top" title="Go to top">Top</button>
+
+<div class="modal fade" tabindex="-1" role="dialog" id="alert_dialog">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="alertModalLabel">New message</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="message-text" class="col-form-label">Server Response:</label>
+            <textarea class="form-control" id="alert_response_text" readonly></textarea>
+          </div>
+          <div class="form-group">
+            <label for="message-text" class="col-form-label">URL:</label>
+            <textarea class="form-control" id="alert_url" readonly></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" id="btn_copy_alert_url">Copy URL to clipboard</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" tabindex="-1" role="dialog" id="alert_dialog_msg">
+  <div class="modal-dialog modal-dialog-centered"  role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="alert_dialog_msg_title">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p id="alert_dialog_msg_body">Modal body text goes here.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 </body>
 
 <script type="text/javascript" src="/static/js/pcf/jquery.min.js">
@@ -322,28 +407,46 @@
 <script>
 
 	var pcf_show_loading = function(){
-		if($('#fh5co-loader').css('display') == 'none') $("#fh5co-loader").fadeIn("normal");
+		if($('#fh5co-loader').css('display') === 'none') $("#fh5co-loader").fadeIn("normal");
 		$('.popover').popover('hide');
 	};
 
 	var pcf_hide_loading = function() {
-		if($('#fh5co-loader').css('display') == 'none') return;
+		if($('#fh5co-loader').css('display') === 'none') return;
 		$("#fh5co-loader").fadeOut("slow");
 	};
 
-	$('#search-button_advanced').on('click', function() {
+	$('#btn_search_advanced').on('click', function() {
 		$(this).toggleClass('pcf-active');
+	});
+
+	$('#btn_cancel').on('click', function (e) {
+		$("#search-button_download").dropdown('hide');
+		e.preventDefault();
+		e.stopPropagation();
+		return false;
+	});
+
+	$('#btn_download').on('click', function (e) {
+		$("#search-button_download").dropdown('hide');
+		// do download
+		// hpo_id_list
+		$("#pcf-content").pcf_content('download',hpo_id_list,$('#sel_download_option').val(), $('#sel_download_format').val());
+		e.preventDefault();
+		e.stopPropagation();
+		return false;
 	});
 
 	$('#btn_copy_link')
 		.tooltip({'title':'URL Copied to clipboard!', 'trigger':'manual', 'placement':'bottom'})
 		.on('click', function (e) {
 			$(this).tooltip('show');
-			
-			var copyTarget = document.getElementById("share_link");
+			let copyTarget = document.getElementById("share_link");
 			copyTarget.select();
 			document.execCommand("Copy");
-
+			
+			$("#pcf-content").pcf_content('send_share_url', copyTarget.value);
+			
 			e.preventDefault();
 			e.stopPropagation();
 			return false;
@@ -352,128 +455,113 @@
 			$(this).tooltip('hide');
 		});
 
+	$('#btn_copy_alert_url')
+		.tooltip({'title':'URL Copied to clipboard!', 'trigger':'manual', 'placement':'bottom'})
+		.on('click', function (e) {
+			$(this).tooltip('show');
+			let copyTarget = document.getElementById("alert_url");
+			copyTarget.select();
+			document.execCommand("Copy");
+			e.preventDefault();
+			e.stopPropagation();
+			return false;
+		})
+		.on('mouseleave', function () {
+			$(this).tooltip('hide');
+		});
+
+	$('#alert_dialog').on('shown.bs.modal', function () {
+		$('#alert_response_text').trigger('focus');
+	});
 
 	$('#btn_email_link').on('click', function (e) {
-
 		let copyTarget = document.getElementById("share_link");
 		copyTarget.select();
-		
 		let link_text = copyTarget.value;
+
+		$("#pcf-content").pcf_content('send_share_url', link_text);
+
 		let mail = 'mailto:?body=' + link_text;
 		let a = document.createElement('a');
-		
 		a.href = mail;
 		a.click();
-			
+		
 		e.preventDefault();
 		e.stopPropagation();
 		return false;
 	});
 
-	
-	jQuery(window).on('scroll', function () {
-		if (jQuery('.search-header').height() < jQuery(this).scrollTop()) {
-			jQuery('.search-header').addClass('change-color');
-		} else {
-			jQuery('.search-header').removeClass('change-color');
-		}
+	var iev=0;
+	var ieold = (/MSIE (\d+\.\d+);/.test(navigator.userAgent));
+	var trident = !!navigator.userAgent.match(/Trident\/7.0/);
+	var rv=navigator.userAgent.indexOf("rv:11.0");
 
-		$('.dropdown.show').dropdown('toggle');
-	});
+	if (ieold) iev=new Number(RegExp.$1);
+	if (navigator.appVersion.indexOf("MSIE 10") != -1) iev=10;
+	if (trident&&rv!=-1) iev=11;
+	// Firefox or IE 11
+	if(typeof InstallTrigger !== 'undefined' || iev == 11) {
+		var lastScrollTop = 0;
+		$(window).on('scroll', function(e) {
 
-	var hpo_id_list = "{{ r_phenotype }}";
+			if(e.target.getAttribute('id') === 'alert_response_text' || e.target.getAttribute('id') === 'alert_url') return;
 
-	$(document).ready(function() {
+			st = $(this).scrollTop();
+			if(st < lastScrollTop) {
+				//console.log('Up');
+				$('header').show();
+			}
+			else if(st > lastScrollTop) {
+				//console.log('Down');
+				$('header').hide();
+			}
+			lastScrollTop = st;
 
-		$("#tokeninput_hpo").tokenInput("/tokeninput_hpo", {theme: "facebook", doSubmit: runSubmit});
+			$('.dropdown.show').dropdown('toggle');
+			$('.list-tag').removeClass('pcf-active');
+			$('.popover').popover('hide');
 
-		$("#tokeninput_hpo").popupRelationHPO('/popup_hierarchy_hpo',{'modify_modal_on_show':modify_modal_on_show,'after_modal_close':after_modal_close});
-
-		$("#tokeninput_hpo_clear").click(function(){
-			$("#tokeninput_hpo").tokenInput("clear");
-			return false;
-		});
-
-		$("#tokeninput_genes").tokenInput_gene("/tokeninput_genes", {
-			'theme': "facebook",
-			{% if r_lang %}
-			'language':   "{{ r_lang }}",
-			{% endif %}
-			'onFilterChanged' : function(){
-				set_filter_num();
-	
-				update_download_link();
-			
-				setTimeout(function() {
-					let filter_str = $("#tokeninput_genes").tokenInput_gene("get_url_str");
-					$("#pcf-content").pcf_content('update_filter', filter_str);
-				}, 100);
-
-				return false;
-			},
-		});
-
-		$("#tokeninput_genes").popupRelationGENE('/popup_hierarchy_genes',{'modify_modal_on_show':modify_modal_on_show,'after_modal_close':after_modal_close,'after_init_gui':after_init_gui});
-
-
-		$("#pcf-content").pcf_content({
-			{% if r_target %}
-			'target':	"{{ r_target }}",
-			{% endif %}
-			{% if r_lang %}
-			'lang':		"{{ r_lang }}",
-			{% endif %}
-			{% if r_size %}
-			'size':		{{ r_size }},
-			{% endif %}
-			{% if r_display_format %}
-			'format':	"{{ r_display_format }}",
-			{% else %}
-			'format': 	"summary",
-			{% endif %}
-			'onSelectTab': function(tab_label_text){
-				$('#str_target').html(tab_label_text);
-				update_download_link();
+			if (document.body.scrollTop > 110 || document.documentElement.scrollTop > 110) {
+				$('#btn_back_to_top').show();
+			} else {                        
+				$('#btn_back_to_top').hide();  
 			}
 		});
+	}
+	// Other browsers
+	else {
+		$('body').on('mousewheel', function(e){
 
-		let filter_id_list = "{{ r_filter }}";
+			if(e.target.getAttribute('id') === 'alert_response_text' || e.target.getAttribute('id') === 'alert_url') return;
 
-		var set_filter_num = function(){
-
-			let filter_str = $("#tokeninput_genes").tokenInput_gene("get_url_str");
-
-			let count = filter_str.split(',').length;
-			if(filter_str && count > 0){
-				$('#search-button_advanced').html("Filter("+count+")<i class=\"material-icons\">expand_more</i>");
-			}else{
-				$('#search-button_advanced').html("Filter<i class=\"material-icons\">expand_more</i>");
+			if(e.originalEvent.wheelDelta > 0) {
+				//console.log('Up');
+				$('header').show();
 			}
-		};
-
-		$("#pcf-content").pcf_content('load_phenotype_and_filter_objects_by_ids',hpo_id_list,filter_id_list,function(hpo_obj_list, filter_obj_list){
-			let id_list = [];
-			hpo_obj_list.forEach(function(item){
-				$("#tokeninput_hpo").tokenInput("add", item);
-				id_list.push(item.id);
-			});
-			hpo_id_list = id_list.join(",");
-
-			filter_obj_list.forEach(function(item){
-				$("#tokeninput_genes").tokenInput_gene("add", item);
-			});
-			filter_id_list = $("#tokeninput_genes").tokenInput_gene("get_url_str");
-
-			if(hpo_id_list.length > 0){
-				$("#pcf-content").pcf_content('search',{'phenotype':hpo_id_list.replace(/_ja/gi,''),'filter':filter_id_list});
-			}else{
-				pcf_hide_loading();
+			else if(e.originalEvent.wheelDelta < 0) {
+				//console.log('Down');
+				$('header').hide();
 			}
 
-			update_download_link();
-			set_filter_num();
+			$('.dropdown.show').dropdown('toggle');
+			$('.list-tag').removeClass('pcf-active');
+			$('.popover').popover('hide');
+
+			if (document.body.scrollTop > 110 || document.documentElement.scrollTop > 110) {
+				$('#btn_back_to_top').show();
+			} else {
+				$('#btn_back_to_top').hide();  
+			}
 		});
-	});
+	}
+
+	function topFunction() {
+		$('header').show();
+		document.body.scrollTop = 0;
+		document.documentElement.scrollTop = 0;
+		$('#btn_back_to_top').hide();
+	}
+
 
 	$("#str_display_format").change(function(){
 		let display_format = $(this).val();
@@ -575,11 +663,15 @@
 		$(form).appendTo('body').submit();
 
 		return false;
-	}
+	};
 
 	var resizeTimer = false;
 
 	$(window).on('resize', function(e) {
+
+		$('.dropdown.show').dropdown('toggle');
+
+		$("#tokeninput_genes").tokenInput_gene("resize_input_box");
 
 		if( !resizeTimer ) {
 			$(window).trigger('resizestart');  	
@@ -625,30 +717,30 @@
 		setTimeout(function () {
 			dropdown.find('.dropdown-menu').css({
 					'top': dropdown.offset().top - $(window).scrollTop() + 8, 
-					'left': $('#search-button_advanced').offset().left - $(window).scrollLeft(), 
+					'left': $('#btn_search_advanced').offset().left - $(window).scrollLeft(), 
 					'position': 'fixed'});
 		}, 1);
 	});
 
-        $('#search-button_share-wrapper').on('shown.bs.dropdown', function () {
-                const dropdown = $(this);
-                setTimeout(function () {
-                        dropdown.find('.dropdown-menu').css({
-                                        'top': dropdown.offset().top - $(window).scrollTop() + 8,
-                                        'left': $('#search-button_advanced').offset().left - $(window).scrollLeft(),
-                                        'position': 'fixed'});
-                }, 1);
-        });
+	$('#search-button_share-wrapper').on('shown.bs.dropdown', function () {
+		let dropdown = $(this);
+		setTimeout(function () {
+			dropdown.find('.dropdown-menu').css({
+				'top':      dropdown.offset().top - $(window).scrollTop() + 8,
+				'left':     $('#btn_search_advanced').offset().left - $(window).scrollLeft(),
+				'position': 'fixed'});
+		}, 1);
+	});
 
-        $('#search-button_display-wrapper').on('shown.bs.dropdown', function () {
-                const dropdown = $(this);
-                setTimeout(function () {
-                        dropdown.find('.dropdown-menu').css({
-                                        'top': dropdown.offset().top - $(window).scrollTop() + 8,
-                                        'left': dropdown.offset().left - $(window).scrollLeft(),
-                                        'position': 'fixed'});
-                }, 1);
-        });
+	$('#search-button_display-wrapper').on('shown.bs.dropdown', function () {
+		let dropdown = $(this);
+		setTimeout(function () {
+			dropdown.find('.dropdown-menu').css({
+				'top': dropdown.offset().top - $(window).scrollTop() + 8,
+				'left': dropdown.offset().left - $(window).scrollLeft(),
+				'position': 'fixed'});
+		}, 1);
+	});
 
 
 	function customizeLevelPos(){
@@ -664,12 +756,12 @@
 					}else{
 						$('header').css({'top': 0});
 						$div_search_button = $("#div_search_button");
-						var pos = $div_search_button.offset().top;
-						var left = $div_search_button.offset().left-popup_hierarchy_hpo_table_border_spacing;
-						var width = $div_search_button.width() + (popup_hierarchy_hpo_table_border_spacing * 2);
+						var pos = $div_search_button.offset().top +2;
+						//var left = $div_search_button.offset().left-popup_hierarchy_hpo_table_border_spacing;
+						//var width = $div_search_button.width() + (popup_hierarchy_hpo_table_border_spacing * 2);
 						$('.mfp-bg').css({'top': pos+'px','opacity':'0'});
 						$('.mfp-wrap').css({'top': pos+'px'});
-						$table.css({'width':width+'px','margin-left':left+'px'});
+						$table.css({'width':'100%','margin-left':'0'});
 					}
 			   } 
 			}
@@ -677,6 +769,111 @@
 			$('header').css({'top': '24px'});
 		}
 	}
+
+	var hpo_id_list = "{{ r_phenotype }}";
+
+	$(document).ready(function() {
+
+		$("#tokeninput_hpo")
+			.tokenInput("/tokeninput_hpo", {theme: "facebook", doSubmit: runSubmit});
+
+		$("#tokeninput_hpo")
+			.popupRelationHPO('/popup_hierarchy_hpo',{'modify_modal_on_show':modify_modal_on_show,'after_modal_close':after_modal_close});
+
+		$("#tokeninput_hpo_clear").click(function(){
+			$("#tokeninput_hpo").tokenInput("clear");
+			return false;
+		});
+
+		$("#tokeninput_genes").tokenInput_gene("/tokeninput_genes", {
+			'theme': "facebook",
+			{% if r_lang %}
+			'language':   "{{ r_lang }}",
+			{% endif %}
+			'onFilterChanged' : function(){
+				set_filter_num();
+	
+				update_download_link();
+			
+				setTimeout(function() {
+					let filter_str = $("#tokeninput_genes").tokenInput_gene("get_url_str");
+					$("#pcf-content").pcf_content('update_filter', filter_str);
+				}, 10);
+
+				return false;
+			},
+		});
+
+		$("#tokeninput_genes")
+			.popupRelationGENE('/popup_hierarchy_genes',{'modify_modal_on_show':modify_modal_on_show,'after_modal_close':after_modal_close,'after_init_gui':after_init_gui});
+
+		$("#pcf-content").pcf_content({
+			{% if r_target %}
+			'target':	"{{ r_target }}",
+			{% endif %}
+			{% if r_lang %}
+			'lang':		"{{ r_lang }}",
+			{% endif %}
+			{% if r_size %}
+			'size':		{{ r_size }},
+			{% endif %}
+			{% if r_display_format %}
+			'format':	"{{ r_display_format }}",
+			{% else %}
+			'format': 	"summary",
+			{% endif %}
+			'onSelectTab': function(tab_label_text,target){
+				$('#str_target').html(tab_label_text);
+				if(target === 'case'){
+					$('#btn_download').prop('disabled', true);
+				}else{
+					$('#btn_download').prop('disabled', false);
+				}
+				update_download_link();
+			}
+		});
+
+		let filter_id_list = "{{ r_filter }}";
+
+		var set_filter_num = function(){
+
+			let filter_str = $("#tokeninput_genes").tokenInput_gene("get_url_str");
+
+			let count = filter_str.split(',').length;
+			if(filter_str && count > 0){
+				$('#btn_search_advanced').html("Filter("+count+")<i class=\"material-icons\">expand_more</i>");
+			}else{
+				$('#btn_search_advanced').html("Filter<i class=\"material-icons\">expand_more</i>");
+			}
+		};
+
+		$("#token-input-tokeninput_genes").css({'width':'450px'});
+
+		$("#pcf-content").pcf_content('load_phenotype_and_filter_objects_by_ids',hpo_id_list,filter_id_list,function(hpo_obj_list, filter_obj_list){
+			let id_list = [];
+			hpo_obj_list.forEach(function(item){
+				$("#tokeninput_hpo").tokenInput("add", item);
+				id_list.push(item.id);
+			});
+			hpo_id_list = id_list.join(",");
+
+			filter_obj_list.forEach(function(item){
+				$("#tokeninput_genes").tokenInput_gene("add", item);
+			});
+			filter_id_list = $("#tokeninput_genes").tokenInput_gene("get_url_str");
+
+			if(hpo_id_list.length > 0){
+				$("#pcf-content").pcf_content('search',{'phenotype':hpo_id_list.replace(/_ja/gi,''),'filter':filter_id_list});
+			}else{
+				pcf_hide_loading();
+			}
+
+			update_download_link();
+			set_filter_num();
+		});
+
+		 $('[data-toggle="tooltip"]').tooltip();
+	});
 
 </script>
 

@@ -693,8 +693,8 @@
 			let $inlineContentBase = getContentBaseElement();			
 			let $table = $inlineContentBase.find(current_settings.nodeName+'.'+current_settings.cssTableClass+'.'+current_settings.cssClassContentBaseClass);
 
+/*
 			let $popup_hierarchy_hpo_table_border_spacing = 10;
-
 			if(current_settings.use_webgl){
 				// .popup-hierarchy-hpo-table border-spacing: 10px
 				$table.css({'border-spacing':$popup_hierarchy_hpo_table_border_spacing+'px','width':'100%','margin-top':'0','margin-left':'0'});
@@ -704,6 +704,7 @@
 				var width = $("#div_search_button").width() + ($popup_hierarchy_hpo_table_border_spacing * 2);
 				$table.css({'margin-top':'-' + $popup_hierarchy_hpo_table_border_spacing + 'px','width':width+'px','margin-left':left+'px'});
 			}
+*/
 		}
 
 		function addPhenoTouchButtons(){
@@ -1288,7 +1289,7 @@
 
 					var $tr = $('<'+current_settings.nodeName+'>').addClass(current_settings.cssTrClass).appendTo($webgl_content_base_table);
 					var $td = $('<'+current_settings.nodeName+'>').addClass(current_settings.cssTdClass).appendTo($tr);
-					$td.css({'width':'65%'});
+					//$td.css({'width':'65%'});
 
 					var $webgl_content_base = $('<'+current_settings.nodeName+'>').addClass(current_settings.cssBaseClass).addClass(current_settings.cssWebGLContentClass).appendTo($td);
 					$webgl_content_base.css({'position':'relative'});

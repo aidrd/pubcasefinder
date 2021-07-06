@@ -21,9 +21,9 @@
 
 		  URL_GET_CASE_REPORT_BY_MONDO_ID           = 'https://pcf.dbcls.jp/pcf_get_case_report_by_mondo_id',
 
-		  URL_SHARE                                 = '/pcf_share',
+		  URL_SHARE                                 = 'https://pcf.dbcls.jp/pcf_share',
 
-		  URL_DOWNLOAD                              = '/pcf_download',
+		  URL_DOWNLOAD                              = 'https://pcf.dbcls.jp/pcf_download',
 
 		  URL_PCF_FILTER_GET_OMIM_ID_BY_MONDO_ID            = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_filter_get_omim_id_by_mondo_id',
 		  URL_PCF_FILTER_GET_OMIM_ID_BY_NCBI_GENE_ID        = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_filter_get_omim_id_by_ncbi_gene_id',
@@ -43,24 +43,32 @@
 		  URL_PARA_PHENOTYPE      = 'phenotype',
 		  URL_PARA_FILTER         = 'filter',
 		  URL_PARA_SIZE           = 'size',
-		  URL_PARA_DISPLAY_FORMAT = 'display_format',
 		  URL_PARA_LANG           = 'lang',
 		  URL_PARA_OMIM_ID        = 'omim_id',
 		  URL_PARA_MONDO_ID       = 'mondo_id',
 		  URL_PARA_NCBI_GENE_ID   = 'ncbi_gene_id',
-		  URL_PARA_NCBI_ID        = 'ncbi_id',
 		  URL_PARA_CASE_ID        = 'case_id',
 		  URL_PARA_HPO_ID         = 'hpo_id',
 		  URL_PARA_ORPHA_ID       = 'orpha_id',
-  		  URL_PARA_TARGET_ID      = 'target_id',
-		  URL_PARA_RANK           = 'rank',
-		  URL_PARA_SCORE          = 'score',
 		  URL_PARA_FORMAT         = 'format',
+		  URL_PARA_TARGET_ID      = 'target_id',
 		  URL_PARA_SHARE          = 'share',
-		  URL_PARA_URL            = 'url';
+		  URL_PARA_URL            = 'url',
+		  URL_PARA_RANGE          = 'r_range';
 
-	const TARGET_OMIM='omim',TARGET_ORPHANET='orphanet',TARGET_GENE='gene',TARGET_CASE='case',
-		  TARGET_LST=[TARGET_OMIM,TARGET_ORPHANET,TARGET_GENE,TARGET_CASE];
+	const TARGET_OMIM     = 'omim',
+		  TARGET_ORPHANET = 'orphanet',
+		  TARGET_GENE     = 'gene',
+		  TARGET_CASE     = 'case',
+		  TARGET_LST = [TARGET_OMIM,TARGET_ORPHANET,TARGET_GENE,TARGET_CASE],
+		  TARGET_ID_PREFIX_OMIM  = 'OMIM:', 
+		  TARGET_ID_PREFIX_ORPHA = 'ORPHA:',
+		  TARGET_ID_PREFIX_GENE  = 'GENEID:',
+		  TARGET_ID_PREFIX_CASE  = 'CASEID:',
+		  RegExp_OMIM  = new RegExp(TARGET_ID_PREFIX_OMIM, 'i'),
+		  RegExp_ORPHA = new RegExp(TARGET_ID_PREFIX_ORPHA, 'i'),
+		  RegExp_GENE  = new RegExp(TARGET_ID_PREFIX_GENE, 'i'),
+		  RegExp_CASE  = new RegExp(TARGET_ID_PREFIX_CASE, 'i');
 
 	const LANGUAGE_JA = 'ja',LANGUAGE_EN = 'en',
 		  LANGUAGE = {
@@ -87,8 +95,8 @@
 				'DETAIL_LABEL': {
 					'FIND_IMAGES':  '画像検索(Google)',
 					'PHENOTYPE_LST':'症状一覧',
-					'JA_REPORT':    '症例報告（J-STAGE & J-GLOBAL）',
-					'EN_REPORT':    '症例報告（PubMed）',
+					'JA_REPORT':    '症例報告(J-STAGE & J-GLOBAL)',
+					'EN_REPORT':    '症例報告(PubMed)',
 					'UR_DBMS':      '日本語疾患詳細(UR-DBMS)',
 				}
 			},
@@ -131,7 +139,23 @@
 		  SETTING_KEY_DISPLAY_FORMAT = 'PCF-DISPLAY-FORMAT',
 		  SETTING_KEY_LANG           = 'PCF-LANG',
 		  SETTING_KEY_ID_LST         = 'PCF-ID-LST',
-		  SETTING_KEY_ONSELECTTAB    = 'onSelectTab';
+		  SETTING_KEY_ONSELECTTAB    = 'onSelectTab',
+		  SETTING_KEY_URL            = 'PCF-URL',
+		  SHARE_TYPE_URL             = 'url',
+		  SHARE_TYPE_LIKE            = 'like',
+		  SETTING_KEY_SHARE          = 'PCF-SHARE',
+		  SETTING_KEY_TARGET_ID      = 'PCF-TARGET-ID',
+		  SETTING_KEY_RANK           = 'PCF-RANK',
+		  SETTING_KEY_DETAIL         = 'PCF-DETAIL',
+		  DOWNLOAD_MODE_ALL_SHOWN    = "all_shown",
+		  DOWNLOAD_MODE_ALL          = "all",
+		  DOWNLOAD_MODE_SELECTION    = "sel",
+		  RANGE_FULL                 = "full",
+		  RANGE_PARTIAL              = "partial",
+		  SETTING_KEY_DOWNLOAD_MODE  = 'PCF-DOWNLOAD_MODE',
+		  DOWNLOAD_FORMAT_TSV        = "tsv",
+		  DOWNLOAD_FORMAT_JSON       = "json",
+		  SETTING_KEY_DOWNLOAD_FORMAT= 'PCF-DOWNLOAD_FORMAT';
 
 	var DEFAULT_SETTINGS = {
 		[SETTING_KEY_TARGET]:         TARGET_OMIM,
@@ -304,22 +328,24 @@
 		let name = '';
 		if(filter_type === FILTER_TYPE_MONDO){
 			if('name_en' in json_data)	name = json_data.name_en;
-			if(lang === LANGUAGE_JA && 'name_ja' in json_data) name = json_data.name_ja;
+			if(lang === LANGUAGE_JA && 'name_ja' in json_data && !_isEmpty(json_data[id].name_ja)) name = json_data.name_ja;
+			
 		}else if(filter_type === FILTER_TYPE_HPO){
 			if(id in json_data){
 				if('name_en' in json_data[id]) name = json_data[id].name_en;
-				if(lang === LANGUAGE_JA && 'name_ja' in json_data[id]) name = json_data[id].name_ja;
+				if(lang === LANGUAGE_JA && 'name_ja' in json_data[id] && !_isEmpty(json_data[id].name_ja)) name = json_data[id].name_ja;
 			}
 		}else if("hgnc_gene_symbol" in json_data){
 			name = json_data["hgnc_gene_symbol"];
 		}
+		
 		return name;
 	}
 
+	const RegExp_ENT   = new RegExp(FILTER_TYPE_ENT,   'i');
+	const RegExp_MONDO = new RegExp(FILTER_TYPE_MONDO, 'i');
+	const RegExp_HPO   = new RegExp(FILTER_TYPE_HPO,   'i');
 	function _get_filter_type_by_filter_id(filter_id){
-		const RegExp_ENT   = new RegExp(FILTER_TYPE_ENT,   'i');
-		const RegExp_MONDO = new RegExp(FILTER_TYPE_MONDO, 'i');
-		const RegExp_HPO   = new RegExp(FILTER_TYPE_HPO,   'i');
 		if(RegExp_ENT.test(filter_id)){
 			return FILTER_TYPE_ENT;
 		}else if(RegExp_MONDO.test(filter_id)){
@@ -330,9 +356,7 @@
 			alert('found unknown filter id('+filter_id+')');
 			return "";
 		}
- 
-	}
-
+ 	}
 
 	// KEY:detail data id, VAL:detail data(JSON object)
 	var pcf_detail_data_cache = {
@@ -367,7 +391,6 @@
 		return pcf_phenotype_name_cache[hpo_id].name_ja;
 	}
 
-
 	// key: [lang][mondo_id], val: count
 	var pcf_case_report_count_cache = {
 		[LANGUAGE_EN]:{},
@@ -391,7 +414,6 @@
 		return pcf_case_report_count_cache[lang][mondo_id];
 	}
 
-
 	// KEY:urlstr, VAL:array of Ranking data(JSON object)
 	var pcf_ranking_cache = {};
 
@@ -399,9 +421,9 @@
 	function _contruct_ranking_cache_key(setting) {
 		// use url as pcf_ranking_cache key
 		if(SETTING_KEY_FILTER in setting && !_isEmpty(setting[SETTING_KEY_FILTER])){
-			return _contruct_url(URL_GET_RANKING_BY_HPO_ID_WITH_FILTER, setting);
+			return _construct_url(URL_GET_RANKING_BY_HPO_ID_WITH_FILTER, setting);
 		}else{
-			return _contruct_url(URL_GET_RANKING_BY_HPO_ID, setting);
+			return _construct_url(URL_GET_RANKING_BY_HPO_ID, setting);
 		}
 	}
 
@@ -409,6 +431,12 @@
 	function _get_ranking_data_from_cache(setting){
 		let key = _contruct_ranking_cache_key(setting);
 		return pcf_ranking_cache[key];
+	}
+
+	function _get_ranking_data_without_filter_from_cache(setting){
+		let setting_without_filter = $.extend(true,{}, setting,{[SETTING_KEY_FILTER]:''});
+		let ranking_data_without_filter = _get_ranking_data_from_cache(setting_without_filter);
+		return ranking_data_without_filter;
 	}
 	
 	// save the ranking data array into cache with the url as key.
@@ -459,8 +487,6 @@
 		$target_tab_panel.removeClass(CLASS_STATUS_DETAIL_DATA_LOADED);
 	}
 
-	
-	
 	// for load data for new page , return an array of ids,which are not loaded into tab content panel yet.
 	// 1. get all ids from ranking data cache.
 	// 2. find the start position
@@ -555,7 +581,7 @@
 
 
 	// return [address]?[para1]=[val1]&[para2]=[val2]&...
-	function _contruct_url_str(url, datalst){
+	function _construct_url_str(url, datalst){
 		let str = url + "?";
 		for(let para_name in datalst){
 			str = str + para_name + "=" + datalst[para_name] + "&";
@@ -564,110 +590,133 @@
 	}
 	
 	//contruct url
-	function _contruct_url(url_key, setting){
+	function _construct_url(url_key, setting){
 		
 		let url_str = "";
 		
 		if(url_key === URL_GET_RANKING_BY_HPO_ID){
 			
-			url_str = _contruct_url_str(URL_GET_RANKING_BY_HPO_ID, {[URL_PARA_TARGET]   : setting[SETTING_KEY_TARGET], 
+			url_str = _construct_url_str(URL_GET_RANKING_BY_HPO_ID, {[URL_PARA_TARGET]   : setting[SETTING_KEY_TARGET], 
 																	[URL_PARA_PHENOTYPE]: setting[SETTING_KEY_PHENOTYPE]});
 																	
 		}else if(url_key === URL_GET_RANKING_BY_HPO_ID_WITH_FILTER){
 			
-			url_str = _contruct_url_str(URL_GET_RANKING_BY_HPO_ID_WITH_FILTER, {[URL_PARA_TARGET]   : setting[SETTING_KEY_TARGET], 
+			url_str = _construct_url_str(URL_GET_RANKING_BY_HPO_ID_WITH_FILTER, {[URL_PARA_TARGET]   : setting[SETTING_KEY_TARGET], 
 																				[URL_PARA_PHENOTYPE]: setting[SETTING_KEY_PHENOTYPE],
 																				[URL_PARA_FILTER]   : setting[SETTING_KEY_FILTER]});
 																				
 		}else if(url_key === URL_GET_DATA_BY_ID && setting[SETTING_KEY_TARGET] === TARGET_OMIM){
 			
-			url_str = _contruct_url_str(URL_GET_OMIM_DATA_BY_OMIM_ID,{[URL_PARA_OMIM_ID]: setting[SETTING_KEY_ID_LST]});
+			url_str = _construct_url_str(URL_GET_OMIM_DATA_BY_OMIM_ID,{[URL_PARA_OMIM_ID]: setting[SETTING_KEY_ID_LST]});
 			
 		}else if(url_key === URL_GET_DATA_BY_ID && setting[SETTING_KEY_TARGET] === TARGET_ORPHANET){
 			
-			url_str = _contruct_url_str(URL_GET_ORPHA_DATA_BY_ORPHA_ID,{[URL_PARA_ORPHA_ID]: setting[SETTING_KEY_ID_LST]});
+			url_str = _construct_url_str(URL_GET_ORPHA_DATA_BY_ORPHA_ID,{[URL_PARA_ORPHA_ID]: setting[SETTING_KEY_ID_LST]});
 			
 		}else if(url_key === URL_GET_DATA_BY_ID && setting[SETTING_KEY_TARGET] === TARGET_GENE){
 			
-			url_str = _contruct_url_str(URL_GET_GENE_DATA_BY_NCBI_GENE_ID,{[URL_PARA_NCBI_GENE_ID]: setting[SETTING_KEY_ID_LST]});
+			url_str = _construct_url_str(URL_GET_GENE_DATA_BY_NCBI_GENE_ID,{[URL_PARA_NCBI_GENE_ID]: setting[SETTING_KEY_ID_LST]});
 			
 		}else if(url_key === URL_GET_DATA_BY_ID && setting[SETTING_KEY_TARGET] === TARGET_CASE){
 			
-			url_str = _contruct_url_str(URL_GET_CASE_DATA_BY_CASE_ID,{[URL_PARA_CASE_ID]: setting[SETTING_KEY_ID_LST]});
+			url_str = _construct_url_str(URL_GET_CASE_DATA_BY_CASE_ID,{[URL_PARA_CASE_ID]: setting[SETTING_KEY_ID_LST]});
 			
 		}else if(url_key === URL_GET_HPO_TOOLTIP_DATA_BY_HPO_ID){
 			
-			url_str = _contruct_url_str(URL_GET_HPO_TOOLTIP_DATA_BY_HPO_ID,{[URL_PARA_HPO_ID]: setting[URL_PARA_HPO_ID]});
+			url_str = _construct_url_str(URL_GET_HPO_TOOLTIP_DATA_BY_HPO_ID,{[URL_PARA_HPO_ID]: setting[URL_PARA_HPO_ID]});
 			
 		}else if(url_key === URL_GET_GENE_TOOLTIP_DATA_BY_NCBI_GENE_ID){
 
 			let ent_id = setting[SETTING_KEY_ID_LST];
 			let ncbi_gene_id = ent_id.replace(/ENT/,"GENEID");
-			url_str = _contruct_url_str(URL_GET_GENE_TOOLTIP_DATA_BY_NCBI_GENE_ID,{[URL_PARA_NCBI_GENE_ID]:ncbi_gene_id});
+			url_str = _construct_url_str(URL_GET_GENE_TOOLTIP_DATA_BY_NCBI_GENE_ID,{[URL_PARA_NCBI_GENE_ID]:ncbi_gene_id});
 			
 		}else if(url_key === URL_GET_DISEASE_TOOLTIP_DATA_BY_MONDO_ID){
 			
-			url_str = _contruct_url_str(URL_GET_DISEASE_TOOLTIP_DATA_BY_MONDO_ID,{[URL_PARA_MONDO_ID]: setting[SETTING_KEY_ID_LST]});
+			url_str = _construct_url_str(URL_GET_DISEASE_TOOLTIP_DATA_BY_MONDO_ID,{[URL_PARA_MONDO_ID]: setting[SETTING_KEY_ID_LST]});
 			
 		}else if(url_key === URL_GET_HPO_DATA_BY_OMIM_ID){
 			
-			url_str = _contruct_url_str(URL_GET_HPO_DATA_BY_OMIM_ID,{[URL_PARA_OMIM_ID]: setting[SETTING_KEY_ID_LST]});
+			url_str = _construct_url_str(URL_GET_HPO_DATA_BY_OMIM_ID,{[URL_PARA_OMIM_ID]: setting[SETTING_KEY_ID_LST]});
 			
 		}else if(url_key === URL_GET_HPO_DATA_BY_ORPHA_ID){
 			
-			url_str = _contruct_url_str(URL_GET_HPO_DATA_BY_ORPHA_ID,{[URL_PARA_ORPHA_ID]: setting[SETTING_KEY_ID_LST]});
+			url_str = _construct_url_str(URL_GET_HPO_DATA_BY_ORPHA_ID,{[URL_PARA_ORPHA_ID]: setting[SETTING_KEY_ID_LST]});
 			
 		}else if(url_key === URL_GET_HPO_DATA_BY_HPO_ID){
 			
-			url_str = _contruct_url_str(URL_GET_HPO_DATA_BY_HPO_ID,{[URL_PARA_HPO_ID]: setting[SETTING_KEY_ID_LST]});
+			url_str = _construct_url_str(URL_GET_HPO_DATA_BY_HPO_ID,{[URL_PARA_HPO_ID]: setting[SETTING_KEY_ID_LST]});
 			
 		}else if(url_key === URL_GET_COUNT_CASE_REPORT_BY_MONDO_ID){
 			
-			url_str = _contruct_url_str(URL_GET_COUNT_CASE_REPORT_BY_MONDO_ID,{ [URL_PARA_MONDO_ID]: setting[SETTING_KEY_ID_LST],
+			url_str = _construct_url_str(URL_GET_COUNT_CASE_REPORT_BY_MONDO_ID,{ [URL_PARA_MONDO_ID]: setting[SETTING_KEY_ID_LST],
 																				[URL_PARA_LANG]: setting[SETTING_KEY_LANG]});
 																				
 		}else if(url_key === URL_GET_CASE_REPORT_BY_MONDO_ID){
 			
-			url_str = _contruct_url_str(URL_GET_CASE_REPORT_BY_MONDO_ID,{[URL_PARA_MONDO_ID]: setting[SETTING_KEY_ID_LST],
+			url_str = _construct_url_str(URL_GET_CASE_REPORT_BY_MONDO_ID,{[URL_PARA_MONDO_ID]: setting[SETTING_KEY_ID_LST],
 																		 [URL_PARA_LANG]: setting[SETTING_KEY_LANG]});
 																	
 		}else if(url_key === URL_PCF_FILTER_GET_OMIM_ID_BY_MONDO_ID){
 			
-			url_str = _contruct_url_str(URL_PCF_FILTER_GET_OMIM_ID_BY_MONDO_ID,{[URL_PARA_MONDO_ID]: setting[SETTING_KEY_ID_LST]});
+			url_str = _construct_url_str(URL_PCF_FILTER_GET_OMIM_ID_BY_MONDO_ID,{[URL_PARA_MONDO_ID]: setting[SETTING_KEY_ID_LST]});
 			
 		}else if(url_key === URL_PCF_FILTER_GET_OMIM_ID_BY_NCBI_GENE_ID){
 			
 			let ent_id = setting[SETTING_KEY_ID_LST];
 			let ncbi_gene_id = ent_id.replace(/ENT/,"GENEID");
-			url_str = _contruct_url_str(URL_PCF_FILTER_GET_OMIM_ID_BY_NCBI_GENE_ID,{[URL_PARA_NCBI_GENE_ID]: ncbi_gene_id});
+			url_str = _construct_url_str(URL_PCF_FILTER_GET_OMIM_ID_BY_NCBI_GENE_ID,{[URL_PARA_NCBI_GENE_ID]: ncbi_gene_id});
 			
 		}else if(url_key === URL_PCF_FILTER_GET_OMIM_ID_BY_INHERITANCE_HPO_ID){
 			
-			url_str = _contruct_url_str(URL_PCF_FILTER_GET_OMIM_ID_BY_INHERITANCE_HPO_ID,{[URL_PARA_HPO_ID]: setting[SETTING_KEY_ID_LST]});
+			url_str = _construct_url_str(URL_PCF_FILTER_GET_OMIM_ID_BY_INHERITANCE_HPO_ID,{[URL_PARA_HPO_ID]: setting[SETTING_KEY_ID_LST]});
 			
 		}else if(url_key === URL_PCF_FILTER_GET_ORPHA_ID_BY_MONDO_ID){
 			
-			url_str = _contruct_url_str(URL_PCF_FILTER_GET_ORPHA_ID_BY_MONDO_ID,{[URL_PARA_MONDO_ID]: setting[SETTING_KEY_ID_LST]});
+			url_str = _construct_url_str(URL_PCF_FILTER_GET_ORPHA_ID_BY_MONDO_ID,{[URL_PARA_MONDO_ID]: setting[SETTING_KEY_ID_LST]});
 			
 		}else if(url_key === URL_PCF_FILTER_GET_ORPHA_ID_BY_NCBI_GENE_ID){
 			
 			let ent_id = setting[SETTING_KEY_ID_LST];
 			let ncbi_gene_id = ent_id.replace(/ENT/,"GENEID");
-			url_str = _contruct_url_str(URL_PCF_FILTER_GET_ORPHA_ID_BY_NCBI_GENE_ID,{[URL_PARA_NCBI_GENE_ID]: ncbi_gene_id});
+			url_str = _construct_url_str(URL_PCF_FILTER_GET_ORPHA_ID_BY_NCBI_GENE_ID,{[URL_PARA_NCBI_GENE_ID]: ncbi_gene_id});
 			
 		}else if(url_key === URL_PCF_FILTER_GET_ORPHA_ID_BY_INHERITANCE_HPO_ID){
 			
-			url_str = _contruct_url_str(URL_PCF_FILTER_GET_ORPHA_ID_BY_INHERITANCE_HPO_ID,{[URL_PARA_HPO_ID]: setting[SETTING_KEY_ID_LST]});
+			url_str = _construct_url_str(URL_PCF_FILTER_GET_ORPHA_ID_BY_INHERITANCE_HPO_ID,{[URL_PARA_HPO_ID]: setting[SETTING_KEY_ID_LST]});
 			
 		}else if(url_key === URL_PCF_FILTER_GET_GENE_ID_BY_MONDO_ID){
 			
-			url_str = _contruct_url_str(URL_PCF_FILTER_GET_GENE_ID_BY_MONDO_ID,{[URL_PARA_MONDO_ID]: setting[SETTING_KEY_ID_LST]});
+			url_str = _construct_url_str(URL_PCF_FILTER_GET_GENE_ID_BY_MONDO_ID,{[URL_PARA_MONDO_ID]: setting[SETTING_KEY_ID_LST]});
 			
 		}else if(url_key === URL_PCF_FILTER_GET_GENE_ID_BY_INHERITANCE_HPO_ID){
 			
-			url_str = _contruct_url_str(URL_PCF_FILTER_GET_GENE_ID_BY_INHERITANCE_HPO_ID,{[URL_PARA_HPO_ID]: setting[SETTING_KEY_ID_LST]});
+			url_str = _construct_url_str(URL_PCF_FILTER_GET_GENE_ID_BY_INHERITANCE_HPO_ID,{[URL_PARA_HPO_ID]: setting[SETTING_KEY_ID_LST]});
 			
+		}else if(url_key === URL_SHARE){
+			if(setting[SETTING_KEY_SHARE] === SHARE_TYPE_URL){
+				// share url
+				url_str = _construct_url_str(URL_SHARE,{[URL_PARA_SHARE]:SHARE_TYPE_URL, [URL_PARA_URL]:setting[SETTING_KEY_URL]});
+			}else{
+				// share like
+				url_str = _construct_url_str(URL_SHARE,{[URL_PARA_SHARE]:SHARE_TYPE_LIKE, [URL_PARA_TARGET]:setting[SETTING_KEY_TARGET], [URL_PARA_PHENOTYPE]:setting[SETTING_KEY_ID_LST], [URL_PARA_TARGET_ID]:setting[SETTING_KEY_TARGET_ID]});
+			}
+		}else if(url_key === URL_DOWNLOAD){
+
+			let target_id = setting[SETTING_KEY_TARGET_ID];
+			let r_range   = RANGE_PARTIAL;
+			if(setting[SETTING_KEY_DOWNLOAD_MODE] === DOWNLOAD_MODE_ALL){
+				r_range   = RANGE_FULL;
+				target_id = '';
+			}
+
+			url_str = _construct_url_str(URL_DOWNLOAD,{	[URL_PARA_TARGET]    : setting[SETTING_KEY_TARGET],
+														[URL_PARA_PHENOTYPE] : setting[SETTING_KEY_PHENOTYPE].replace(/_ja/gi,""),
+														[URL_PARA_TARGET_ID] : target_id,
+														[URL_PARA_FORMAT]    : setting[SETTING_KEY_DOWNLOAD_FORMAT],
+														[URL_PARA_RANGE]     : r_range});
 		}
+		
 		return url_str;
 	}
 
@@ -765,14 +814,14 @@
 		let current_setting = $target_tab_panel.data(KEY_SETTING_OBJECT);
 
 		if(_isFunction(current_setting[SETTING_KEY_ONSELECTTAB])){
-			current_setting[SETTING_KEY_ONSELECTTAB](LANGUAGE[current_setting[SETTING_KEY_LANG]]['TAB_LABEL'][target]);
+			current_setting[SETTING_KEY_ONSELECTTAB](LANGUAGE[current_setting[SETTING_KEY_LANG]]['TAB_LABEL'][target],target);
 		}
 		
 		if(_is_target_status_data_loaded(target)) return;
 
 		if(_isEmpty(current_setting[SETTING_KEY_PHENOTYPE])) return;
 
-		_run_pcf_search(current_setting);
+		_run_pcf_search_ranking_data(current_setting);
 	}
 
 	function _contruct_popup_content_val(key,hash,delimer){
@@ -806,7 +855,7 @@
 			let name_en = _contruct_popup_content_val('name_en',popup_data);
 			if(_isEmpty(name_ja) && _isEmpty(name_en)){
 				//alert('no data found for '+ popup_id);
-				return '';
+				return 'no data found for '+ popup_id;
 			}
 			content = content.replace(/popup_content_pcf-phenotype-id/g, popup_id);	
 			content = content.replace(/popup_content_hpo_url/g,   _contruct_popup_content_val('hpo_url',popup_data));	
@@ -819,7 +868,7 @@
 			let type_of_gene = _contruct_popup_content_val('type_of_gene',popup_data);
 			if(_isEmpty(type_of_gene)){
 				//alert('no data found for '+ popup_id);
-				return '';
+				return 'no data found for '+ popup_id;
 			}
 			content = content.replace(/popup_content_pcf-gene-id/g, popup_id);	
 			content = content.replace(/popup_content_ncbi_gene_url/g,   _contruct_popup_content_val('ncbi_gene_url',popup_data));
@@ -835,7 +884,7 @@
 			let name_en = _contruct_popup_content_val('name_en',popup_data);
 			if(_isEmpty(name_ja) && _isEmpty(name_en)){
 				//alert('no data found for '+ popup_id);
-				return '';
+				return 'no data found for '+ popup_id;
 			}
 			content = content.replace(/popup_content_pcf-disease-id/g, popup_id);
 			content = content.replace(/popup_content_mondo_url/g, _contruct_popup_content_val('mondo_url',popup_data));	
@@ -865,7 +914,7 @@
 
 			let url_str    = POPUP_URL_HASH[popup_type];
 			let url_id_key = POPUP_URL_PARA_HASH[popup_type];
-			url_str = _contruct_url(url_str,{[url_id_key]: popup_id}); 
+			url_str = _construct_url(url_str,{[url_id_key]: popup_id}); 
 			
 			$.ajax({  
 				url:    url_str,  
@@ -912,7 +961,7 @@
 		}else if("orpha_disease_name_en"in item){
 			$h3.text(item.orpha_disease_name_en);
 		}else if("hgnc_gene_symbol" in item){
-			$h3.text(item.hgnc_gene_symbol + " (NCBI "+id+")");
+			$h3.text(item.hgnc_gene_symbol + " - " + item.full_name);
 		}else{
 			$h3.text(id);
 		}
@@ -922,6 +971,10 @@
 			$("<h2>").text(item.omim_disease_name_ja).appendTo($container_panel);
 		}else if(isJA && ("orpha_disease_name_ja" in item)){
 			$("<h2>").text(item.orpha_disease_name_ja).appendTo($container_panel);
+		}else if(target === TARGET_GENE){
+			if(!_isEmpty(item.synonym)){
+				$("<h2>").text('Also known as: ' + item.synonym.join(', ')).appendTo($container_panel);
+			}
 		}else{
 			$h3.css({'margin-bottom':'0.5em'});
 		}
@@ -1093,10 +1146,10 @@
 
 			let case_report_count_ja = _get_case_report_count_data_from_cache(mondo_id, LANGUAGE_JA);
 			let case_report_count_en = _get_case_report_count_data_from_cache(mondo_id, LANGUAGE_EN);
-			let url_phenotype        = _contruct_url(URL_GET_HPO_DATA_BY_OMIM_ID,{[SETTING_KEY_ID_LST]:id});
-			if(target === TARGET_ORPHANET) url_phenotype = _contruct_url(URL_GET_HPO_DATA_BY_ORPHA_ID,{[SETTING_KEY_ID_LST]:id});
-			let url_case_report_en   = _contruct_url(URL_GET_CASE_REPORT_BY_MONDO_ID,{[SETTING_KEY_ID_LST]: mondo_id,[SETTING_KEY_LANG]: LANGUAGE_EN});
-			let url_case_report_ja   = _contruct_url(URL_GET_CASE_REPORT_BY_MONDO_ID,{[SETTING_KEY_ID_LST]: mondo_id,[SETTING_KEY_LANG]: LANGUAGE_JA});
+			let url_phenotype        = _construct_url(URL_GET_HPO_DATA_BY_OMIM_ID,{[SETTING_KEY_ID_LST]:id});
+			if(target === TARGET_ORPHANET) url_phenotype = _construct_url(URL_GET_HPO_DATA_BY_ORPHA_ID,{[SETTING_KEY_ID_LST]:id});
+			let url_case_report_en   = _construct_url(URL_GET_CASE_REPORT_BY_MONDO_ID,{[SETTING_KEY_ID_LST]: mondo_id,[SETTING_KEY_LANG]: LANGUAGE_EN});
+			let url_case_report_ja   = _construct_url(URL_GET_CASE_REPORT_BY_MONDO_ID,{[SETTING_KEY_ID_LST]: mondo_id,[SETTING_KEY_LANG]: LANGUAGE_JA});
 		
 			$('<div>').css({'width':'100%'}).pcf_collapse_panel({
 				"LABEL_PHENOTYPE"   : LANGUAGE[lang].DETAIL_LABEL.PHENOTYPE_LST,
@@ -1115,6 +1168,175 @@
 		}
 
 		return $container_panel;
+	}
+
+	function _copy_to_clipboard(rank,detail_data,lang){
+		let isJA      = (lang===LANGUAGE_JA);
+		let target_id = rank.id;
+		let score     = (rank.score * 100).toFixed(1)+"%";
+
+		let phenotype_list_str = "";
+		rank.matched_hpo_id.split(',').forEach(function(hpo_id){
+			let label_text = _get_phenotype_name_from_cache(hpo_id,lang);
+			if(_isEmpty(label_text)){
+				let label_text_en = _get_phenotype_name_from_cache(hpo_id,LANGUAGE_EN);
+				if(!_isEmpty(label_text_en)){
+					label_text= label_text_en;	
+				}else{
+					label_text= hpo_id;
+				}
+			}
+			if(phenotype_list_str.length === 0){
+				phenotype_list_str = label_text;
+			}else{
+				phenotype_list_str = phenotype_list_str + ',' + label_text;
+			}
+		});
+		
+		let text = score;
+		if(RegExp_OMIM.test(target_id)){
+
+			let inheritance_list_str = "";								
+			if(_isExistVal("inheritance_en",detail_data)){
+				for(let hpo_id in detail_data.inheritance_en){
+					let inheritance_text = detail_data.inheritance_en[hpo_id];
+					
+					if(isJA)inheritance_text = detail_data.inheritance_ja[hpo_id];
+
+					if(inheritance_list_str.length === 0){
+						inheritance_list_str = inheritance_text;
+					}else{
+						inheritance_list_str = inheritance_list_str + ',' + inheritance_text;
+					}
+				}
+			}
+
+			let gene_list_str = "";
+			for(let i=0;i<detail_data.hgnc_gene_symbol.length;i++){
+				let gene_text = detail_data.hgnc_gene_symbol[i];
+
+				if(gene_list_str.length === 0){
+					gene_list_str = gene_text;
+				}else{
+					gene_list_str = gene_list_str + ',' + gene_text;
+				}
+
+			}
+
+			text = text + "\n" + detail_data.omim_disease_name_ja + "\n" + 
+								 detail_data.omim_disease_name_en + "\n" +
+								 phenotype_list_str               + "\n" +
+								 inheritance_list_str             + "\n" +
+								 gene_list_str                    + "\n" +
+								 detail_data.description          + "\n" +
+								 detail_data.omim_url;
+
+		}else if(RegExp_ORPHA.test(target_id)){
+
+			let inheritance_list_str = "";								
+			if(_isExistVal("inheritance_en",detail_data)){
+				for(let hpo_id in detail_data.inheritance_en){
+					let inheritance_text = detail_data.inheritance_en[hpo_id];
+					
+					if(isJA)inheritance_text = detail_data.inheritance_ja[hpo_id];
+
+					if(inheritance_list_str.length === 0){
+						inheritance_list_str = inheritance_text;
+					}else{
+						inheritance_list_str = inheritance_list_str + ',' + inheritance_text;
+					}
+				}
+			}
+
+			let gene_list_str = "";
+			for(let i=0;i<detail_data.hgnc_gene_symbol.length;i++){
+				let gene_text = detail_data.hgnc_gene_symbol[i];
+
+				if(gene_list_str.length === 0){
+					gene_list_str = gene_text;
+				}else{
+					gene_list_str = gene_list_str + ',' + gene_text;
+				}
+
+			}
+
+			text = text + "\n" + detail_data.orpha_disease_name_ja  
+						+ "\n" + detail_data.orpha_disease_name_en 
+						+ "\n" + phenotype_list_str  
+						+ "\n" + inheritance_list_str 
+						+ "\n" + gene_list_str 
+						+ "\n" + detail_data.description 
+						+ "\n" + detail_data.orpha_url;
+
+		}else if(RegExp_GENE.test(target_id)){
+
+			let disease_list_str = "";
+			if(_isExistVal("mondo_disease_name_en",detail_data)){
+				for(let mondo_id in detail_data.mondo_disease_name_en){
+					let disease_text = detail_data.mondo_disease_name_en[mondo_id];
+					if(isJA && _isExistVal(mondo_id, detail_data.mondo_disease_name_ja)) disease_text = detail_data.mondo_disease_name_ja[mondo_id];
+		
+					if(disease_list_str.length === 0){
+						disease_list_str = disease_text;
+					}else{
+						disease_list_str = disease_list_str + ',' + disease_text;
+					}
+				}
+			}
+
+			let inheritance_list_str = "";	
+			for(let i=0;i<detail_data.inheritance_en.length;i++){
+				
+				let inheritance_text = detail_data.inheritance_en[i];
+				
+				if(isJA) inheritance_text = detail_data.inheritance_ja[i];
+
+				if(inheritance_list_str.length === 0){
+					inheritance_list_str = inheritance_text;
+				}else{
+					inheritance_list_str = inheritance_list_str + ',' + inheritance_text;
+				}
+			}
+			
+			text = text + "\n" + detail_data.hgnc_gene_symbol + "," + detail_data.ncbi_gene_id 
+						+ "\n" + phenotype_list_str 
+						+ "\n" + disease_list_str 
+						+ "\n" + inheritance_list_str 
+						+ "\n" + detail_data.hgnc_gene_url;
+
+		}else if(RegExp_CASE.test(target_id)){
+			text = text + "\n" + rank.id 
+						+ "\n" + phenotype_list_str;
+		}
+
+		if (window.clipboardData && window.clipboardData.setData) {
+			// Internet Explorer-specific code path to prevent textarea being shown while dialog is visible.
+			window.clipboardData.setData("Text", text);
+		}
+		else if (document.queryCommandSupported && document.queryCommandSupported("copy")) {
+			let textarea = document.createElement("textarea");
+			textarea.style = "position: absolute; left: -1000px; top: -1000px";
+			textarea.textContent = text;
+			document.body.appendChild(textarea);
+			//textarea.select();
+			try {
+				let selection = document.getSelection();
+				selection.removeAllRanges();
+
+				let range = document.createRange();
+				range.selectNodeContents(textarea);
+				selection.addRange(range);
+				
+				document.execCommand('copy');
+				selection.removeAllRanges();
+			}
+			catch (ex) {
+				console.warn("Copy to clipboard failed.", ex);
+			}
+			finally {
+				document.body.removeChild(textarea);
+			}
+		}
 	}
 
 	function _show_result(setting){
@@ -1193,23 +1415,72 @@
 			// left
 			let $rank = $('<div>').addClass('rank').appendTo($td_left);
 			//let input_str = "<input type=\"checkbox\" value=\""+ranking_list[i].id+"\"><p>"+ranking_list[i].rank+"</p></input>";
-			let input_str = "<input type=\"checkbox\" value=\""+ranking_list[i].id+"\"><p>"+(i+1)+"</p></input>";
+			let input_str = "<input type=\"checkbox\" value=\""+ranking_list[i].id+"\" name=\"target_id\"><p>"+(i+1)+"</p></input>";
 			$(input_str).appendTo($rank);
+
+			let score = (ranking_list[i].score * 100).toFixed(1)+"%";
+			let $percentage = $("<span>("+ score+")</span>").appendTo($td_left);
+			if(!isDisplayFull) $percentage.addClass('summary');
 			
 			
-			let percentage_str = "<span>("+ (ranking_list[i].score * 100).toFixed(1)+"%)</span>";
-			$(percentage_str).appendTo($td_left);
-			
-			
+			let $list_content_left_bt = $('<div>').addClass('list-content_left_bt').appendTo($td_left);
+			let $copy_button = $('<a>').appendTo($list_content_left_bt);
+			let $like_button = $('<a>').appendTo($list_content_left_bt);
+
 			if(isDisplayFull){
-				let $list_content_left_bt = $('<div>').addClass('list-content_left_bt').appendTo($td_left);
-				$('<a>').text("Copy").append("<i class=\"material-icons\">content_copy</i>").appendTo($list_content_left_bt);
-				$('<a>').text("Like").append("<i class=\"material-icons\">favorite_border</i>").appendTo($list_content_left_bt);
+				$copy_button.text("Copy").append("<i class=\"material-icons\">content_copy</i>");
+				$like_button.text("Like").append("<i class=\"material-icons\">favorite_border</i>");
 			}else{
-				let $list_content_left_bt = $('<div>').addClass('list-content_left_bt').addClass('summary').appendTo($td_left);
-				$('<a>').append("<i class=\"material-icons\">content_copy</i>").appendTo($list_content_left_bt);
-				$('<a>').append("<i class=\"material-icons\">favorite_border</i>").appendTo($list_content_left_bt);
+				$list_content_left_bt.addClass('summary');
+				$copy_button.append("<i class=\"material-icons\">content_copy</i>");
+				$like_button.append("<i class=\"material-icons\">favorite_border</i>");
 			}
+
+			if(ranking_list[i].id in detail_data ){
+				// ranking_list[i]
+				// detail_data[ranking_list[i].id] 
+				$copy_button.tooltip({'title':'Summary successfully copied', 'trigger':'manual', 'placement':'bottom'})
+						.data(SETTING_KEY_DETAIL, detail_data[ranking_list[i].id])
+						.data(SETTING_KEY_RANK,   ranking_list[i])
+						.data(SETTING_KEY_LANG,   lang)
+						.on('click', function (e) {
+							let $btn = $(this) 
+							$btn.tooltip('show');
+							$btn.addClass('copied');
+							let rank        = $btn.data(SETTING_KEY_RANK);
+							let detail_data = $btn.data(SETTING_KEY_DETAIL);
+							let lang        = $btn.data(SETTING_KEY_LANG);
+							_copy_to_clipboard(rank,detail_data,lang);
+							e.preventDefault();
+							e.stopPropagation();
+							return false;
+						})
+						.on('mouseleave', function () {
+							$(this).tooltip('hide');
+						});
+			}
+
+			//[URL_PARA_TARGET]:setting[SETTING_KEY_TARGET], [URL_PARA_PHENOTYPE]:setting[SETTING_KEY_ID_LST], [URL_PARA_TARGET_ID]:setting[SETTING_KEY_TARGET_ID]});
+			$like_button.data(SETTING_KEY_TARGET,target)
+						.data(SETTING_KEY_ID_LST,ranking_list[i].matched_hpo_id)
+						.data(SETTING_KEY_TARGET_ID,ranking_list[i].id)
+						.on('click', function (e) {
+							let $btn = $(this) 
+							
+							let like_url_str = _construct_url(URL_SHARE,{	[SETTING_KEY_SHARE]:     SHARE_TYPE_LIKE,
+																	[SETTING_KEY_TARGET]:    $btn.data(SETTING_KEY_TARGET),
+																	[SETTING_KEY_ID_LST]:    $btn.data(SETTING_KEY_ID_LST),
+																	[SETTING_KEY_TARGET_ID]: $btn.data(SETTING_KEY_TARGET_ID)});
+							_run_ajax(like_url_str,'GET', 'text', true, null);
+							$btn.addClass('liked');
+							$btn.find('i').text('favorite');
+							e.preventDefault();
+							e.stopPropagation();
+							return false;
+						});
+
+
+
 			
 			//right
 			if(ranking_list[i].id in detail_data ){
@@ -1256,7 +1527,7 @@
 			// search detail data from internet and draw result
 			let id_lst = uncached_list.join(",");
 			
-			let url_str = _contruct_url(URL_GET_COUNT_CASE_REPORT_BY_MONDO_ID, {[SETTING_KEY_ID_LST]:id_lst, [SETTING_KEY_LANG]:LANGUAGE_EN});
+			let url_str = _construct_url(URL_GET_COUNT_CASE_REPORT_BY_MONDO_ID, {[SETTING_KEY_ID_LST]:id_lst, [SETTING_KEY_LANG]:LANGUAGE_EN});
 
 			_run_ajax(url_str,'GET', 'text', true, function(data){
 	
@@ -1268,7 +1539,7 @@
 				let uncached_list1 = _find_unloaded_case_report_count_data_ids(setting,LANGUAGE_JA);
 				if(!_isEmpty(uncached_list1)){
 					let id_lst1 = uncached_list1.join(",");
-					let url_str1 = _contruct_url(URL_GET_COUNT_CASE_REPORT_BY_MONDO_ID, {[SETTING_KEY_ID_LST]:id_lst1, [SETTING_KEY_LANG]:LANGUAGE_JA});
+					let url_str1 = _construct_url(URL_GET_COUNT_CASE_REPORT_BY_MONDO_ID, {[SETTING_KEY_ID_LST]:id_lst1, [SETTING_KEY_LANG]:LANGUAGE_JA});
 					_run_ajax(url_str1,'GET', 'text', true, function(data1){
 						if(!_isEmpty(data1)){
 							var json_data1 = _parseJson(data1);
@@ -1287,7 +1558,7 @@
 			let uncached_list1 = _find_unloaded_case_report_count_data_ids(setting,LANGUAGE_JA);
 			if(!_isEmpty(uncached_list1)){
 				let id_lst1 = uncached_list1.join(",");
-				let url_str1 = _contruct_url(URL_GET_COUNT_CASE_REPORT_BY_MONDO_ID, {[SETTING_KEY_ID_LST]:id_lst1, [SETTING_KEY_LANG]:LANGUAGE_JA});
+				let url_str1 = _construct_url(URL_GET_COUNT_CASE_REPORT_BY_MONDO_ID, {[SETTING_KEY_ID_LST]:id_lst1, [SETTING_KEY_LANG]:LANGUAGE_JA});
 				_run_ajax(url_str1,'GET', 'text', true, function(data1){
 					if(!_isEmpty(data1)){
 						var json_data1 = _parseJson(data1);
@@ -1315,7 +1586,7 @@
 		if(!_isEmpty(uncached_list)){
 			// search detail data from internet and draw result
 			setting[SETTING_KEY_ID_LST] = uncached_list.join(",");
-			let url_str = _contruct_url(URL_GET_HPO_DATA_BY_HPO_ID, setting);
+			let url_str = _construct_url(URL_GET_HPO_DATA_BY_HPO_ID, setting);
 			_run_ajax(url_str,'GET', 'text', true, function(data){
 				if(!_isEmpty(data)){
 					var json_data = _parseJson(data);
@@ -1355,7 +1626,7 @@
 			// search detail data from internet and draw result
 			setting[SETTING_KEY_ID_LST] = uncached_list.join(",");
 		
-			let url_str = _contruct_url(URL_GET_DATA_BY_ID, setting);
+			let url_str = _construct_url(URL_GET_DATA_BY_ID, setting);
 			_run_ajax(url_str,'GET', 'text', true, function(data){
 				
 				if(!_isEmpty(data)){
@@ -1372,282 +1643,226 @@
 	}
 
 	function _run_pcf_filter_logical(ranking_data_without_filter,items_total_hash,result_ranking_id_hash,target,setting){
-		let ranking_id_list = {};
-		ranking_data_without_filter.forEach(function(item){
-			ranking_id_list[item.id] = 1;
-		});
 
-		Object.keys(items_total_hash).sort().forEach(function(i_str){
-			let logical_type   = items_total_hash[i_str].logical_type;
-			let filter_id_list = result_ranking_id_hash[i_str];
-
-			if(logical_type === LOGICAL_AND || logical_type === LOGICAL_AND_NOT){
-				Object.keys(ranking_id_list).forEach(function(ranking_id){
-					if(!(ranking_id in filter_id_list)){
-						delete ranking_id_list[ranking_id];
-					}
-				});
-			} else {
-				Object.keys(filter_id_list).forEach(function(ranking_id){
-					ranking_id_list[ranking_id] = 1;
-				});
-			}
-		});
+		if(!ranking_data_without_filter || (_isEmpty(ranking_data_without_filter))){		
+			_set_ranking_data_into_cache([],setting);
+			_set_target_status_ranking_data_loaded(target);
+			pcf_hide_loading();
+			return false;
+		}
 		
-		let ranking_data_new = [];
-		ranking_data_without_filter.forEach(function(item){
-			if(item.id in ranking_id_list) {
-				ranking_data_new.push(item);
-			}
-		});
-		
-		_set_ranking_data_into_cache(ranking_data_new,setting);
-		_set_target_status_ranking_data_loaded(target);
-		_search_detail_data_and_show_result(setting);
-	}
-
-
-	function _run_pcf_filter_load_data(setting, ranking_data_without_filter){
-
-		let target = setting[SETTING_KEY_TARGET];
-		
-		if(_isEmpty(setting[SETTING_KEY_FILTER])){
-			// no filter, go to next step directly
+		let filter_list_str    = setting[SETTING_KEY_FILTER];		
+		if(filter_list_str.length === 0){
+			_set_ranking_data_into_cache(ranking_data_without_filter,setting); 
 			_set_target_status_ranking_data_loaded(target);
 			_search_detail_data_and_show_result(setting);
-			return;
+		}else{
+			
+			let ranking_id_list = {};
+			
+			ranking_data_without_filter.forEach(function(item){
+				ranking_id_list[item.id] = 1;
+			});
+			
+			Object.keys(items_total_hash).sort().forEach(function(i_str){
+
+				let logical_type   = items_total_hash[i_str].logical_type;
+
+				let hash = result_ranking_id_hash[i_str];
+				
+				let isLogicalNot = (logical_type === LOGICAL_AND_NOT);
+				
+				let filter_id_list = {};
+				ranking_data_without_filter.forEach(function(data_item){
+					if(isLogicalNot){
+						if(!(data_item.id in hash)) filter_id_list[data_item.id]=1;
+					}else{
+						if(data_item.id in hash) filter_id_list[data_item.id]=1;
+					}
+				});
+				
+
+				if(logical_type === LOGICAL_AND || logical_type === LOGICAL_AND_NOT){
+					Object.keys(ranking_id_list).forEach(function(ranking_id){
+						if(!(ranking_id in filter_id_list)){
+							delete ranking_id_list[ranking_id];
+						}
+					});
+				} else {
+					Object.keys(filter_id_list).forEach(function(ranking_id){
+						ranking_id_list[ranking_id] = 1;
+					});
+				}
+			});
+			
+			let ranking_data_new = [];
+			ranking_data_without_filter.forEach(function(item){
+				if(item.id in ranking_id_list) {
+					ranking_data_new.push(item);
+				}
+			});
+			
+			_set_ranking_data_into_cache(ranking_data_new,setting);
+			_set_target_status_ranking_data_loaded(target);
+			_search_detail_data_and_show_result(setting);
+		}
+	}
+
+	function _run_pcf_search_ranking_data(setting){
+
+		pcf_show_loading();
+	
+		let target_str   = setting[SETTING_KEY_TARGET];
+		let ranking_data = _get_ranking_data_from_cache(setting);
+		
+		if((!_is_target_status_init(target_str))  && (!_isEmpty(ranking_data))){
+			// target panel already loaded ranking data.go to next step directly.
+			_search_detail_data_and_show_result(setting);
+			return false;
+		}
+		
+		if(ranking_data){
+			_set_target_status_ranking_data_loaded(target_str);
+			if(_isEmpty(ranking_data)){
+				// 0 result, no need to continue.
+				pcf_hide_loading();
+			}else{
+				//use the ranking data in cache, go to next step directly.
+				_search_detail_data_and_show_result(setting);
+			}
+			return false;
 		}
 
-		let filter_list = setting[SETTING_KEY_FILTER].split(',');
-
-		// parameters for ajax calls
-		var items_ajax_list = [];
-		var items_total_hash = {};
-		var result_ranking_id_hash = {};
+		// need to load ranking data from server.
+		 
+		let ajax_item_list=[];
 		
-		// analyze filter one by one
-		for(let i=0; i<filter_list.length; i++){
-
-			let str_filter_id = filter_list[i];
-			let id            = _get_id_from_filter_id(str_filter_id);
-			let filter_type   = _get_filter_type_by_filter_id(str_filter_id);
-			let logical_type  = _get_logical_by_filter_id(str_filter_id, i);
-			let url_str       = FILTER_URL_HASH[target][filter_type];
-
-			// keep the item 
-			items_total_hash[i] ={
-				'index'        : i,
-				'str_filter_id': str_filter_id,
-				'id'           : id,
-				'filter_type'  : filter_type,
-				'logical_type' : logical_type,
-			};
 			
-			// check if need get data through ajax
-			if(!_isEmpty(url_str)){
-				let url_str_full = _contruct_url(url_str,{[SETTING_KEY_ID_LST]:id});
-				items_ajax_list.push({
+		// 1. ranking data based on phenotype,no filter. 		
+		let setting_without_filter = $.extend(true,{}, setting,{[SETTING_KEY_FILTER]:''});
+		
+		let ranking_data_without_filter = _get_ranking_data_without_filter_from_cache(setting);
+		
+		let type_ranking = 'ranking';
+		if(!ranking_data_without_filter){
+			// never load before,need to do ajax
+			let url_str = _construct_url(URL_GET_RANKING_BY_HPO_ID,setting_without_filter);
+			let obj = {[SETTING_KEY_URLSTR]:url_str, 'type': type_ranking};
+			ajax_item_list.push(obj);
+		}else if(_isEmpty(ranking_data_without_filter)){
+			// load ranking data before, and 0 result. no need to continue
+			_set_ranking_data_into_cache([],setting);
+			_set_target_status_ranking_data_loaded(target_str);
+			pcf_hide_loading();
+			return false;
+		}
+		
+		// 2. filter
+		let items_total_hash = {};
+		let result_ranking_id_hash = {};
+		let filter_list_str    = setting[SETTING_KEY_FILTER];		
+		if(filter_list_str.length > 0){
+			// analyze filter one by one
+			let filter_list = filter_list_str.split(',');
+			for(let i=0; i<filter_list.length; i++){
+	
+				let str_filter_id = filter_list[i];
+				let id            = _get_id_from_filter_id(str_filter_id);
+				let filter_type   = _get_filter_type_by_filter_id(str_filter_id);
+				let logical_type  = _get_logical_by_filter_id(str_filter_id, i);
+				let url_str       = FILTER_URL_HASH[target_str][filter_type];
+	
+				// keep the item 
+				items_total_hash[i] ={
 					'index'        : i,
 					'str_filter_id': str_filter_id,
 					'id'           : id,
 					'filter_type'  : filter_type,
 					'logical_type' : logical_type,
-					'url_str_full' : url_str_full
-				});
-			}else{
-				// no need to get data through ajax
-				if(target === TARGET_GENE && filter_type === FILTER_TYPE_ENT){
-
-					let gene_id = id.replace(/ENT/,"GENEID");
-					
-					result_ranking_id_hash[i] = {};
-		
-					ranking_data_without_filter.forEach(function(data_item){
-						if(logical_type === LOGICAL_AND_NOT){
-							if(data_item.id !== gene_id) result_ranking_id_hash[i][data_item.id]=1;
-						}else{
-							if(data_item.id === gene_id) result_ranking_id_hash[i][data_item.id]=1;
-						}
-					});
+				};
+				
+				// check if need get data through ajax
+				if(!_isEmpty(url_str)){
+					let url_str_full = _construct_url(url_str,{[SETTING_KEY_ID_LST]:id});
+					let obj = {[SETTING_KEY_URLSTR]:url_str_full, 'type': 'filter', 'index': i};
+					ajax_item_list.push(obj);
 				}else{
-
-					result_ranking_id_hash[i] = {};
-					if(logical_type === LOGICAL_AND_NOT){	
-						ranking_data_without_filter.forEach(function(data_item){
-							result_ranking_id_hash[i][data_item.id]=1;
-						});
+					// no need to get data through ajax
+					if(target_str === TARGET_GENE && filter_type === FILTER_TYPE_ENT){
+						let gene_id = id.replace(/ENT/,"GENEID");
+						result_ranking_id_hash[i] = {};
+						result_ranking_id_hash[i][gene_id]=1;
+					}else{
+						result_ranking_id_hash[i] = {};
 					}
 				}
-			}
+			}		
 		}
 		
-		if(items_ajax_list.length === 0){
-			if(Object.keys(result_ranking_id_hash).length >0){
-				// no need to do ajax
-				// do logical ,create ranking list, and continue
-				_run_pcf_filter_logical(ranking_data_without_filter,items_total_hash,result_ranking_id_hash,target,setting);
-				return;
+		var callback_success = function(data,item){
+
+			let json_data = _parseJson(data);
+
+			if(item.type === type_ranking){
+				ranking_data_without_filter = json_data;
+				_set_ranking_data_into_cache(ranking_data_without_filter,setting_without_filter);
 			}else{
-				_set_ranking_data_into_cache([],setting);
-				_set_target_status_ranking_data_loaded(target);
-				pcf_hide_loading();
-				return;
-			}
-		}
 
-		if(items_ajax_list.length === 1){
-			
-			_run_ajax(items_ajax_list[0].url_str_full,'GET', 'text', true, function(data){
-
-				let json_data = _parseJson(data);
-				let hash = {};
+				let idx = item.index;
+				result_ranking_id_hash[idx] = {};
 				if(!_isEmpty(json_data)){
 					for(jid in json_data){
 						if(!_isEmpty(json_data[jid])){
 							json_data[jid].forEach(function(target_data_id){
-								hash[target_data_id] = 1;
+								result_ranking_id_hash[idx][target_data_id] = 1;
 							});
 						}
 					}
 				}
-
-				let idx = "" +items_ajax_list[0].index;
-				let isLogicalNot = (items_ajax_list[0].logical_type === LOGICAL_AND_NOT);
-				result_ranking_id_hash[idx] = {};
-				ranking_data_without_filter.forEach(function(data_item){
-					if(isLogicalNot){
-						if(!(data_item.id in hash))	result_ranking_id_hash[idx][data_item.id]=1;
-					}else{
-						if(data_item.id in hash) result_ranking_id_hash[idx][data_item.id]=1;
-					}
-				});
-				
+			}
+		};
+		
+		var callback_fail = function() {
+			alert('Server access error!');
+		};
+		
+		var callback_after_all_call = function(){
+			_run_pcf_filter_logical(ranking_data_without_filter,items_total_hash,result_ranking_id_hash,target_str,setting);
+		};
+		
+		var callback_fail_after_all_call = function(){
+			pcf_hide_loading();
+		}
+		
+		if(ajax_item_list.length === 0){
+			if(Object.keys(result_ranking_id_hash).length >0){
+				// no need to do ajax
 				// do logical ,create ranking list, and continue
-				_run_pcf_filter_logical(ranking_data_without_filter,items_total_hash,result_ranking_id_hash,target,setting);
+				_run_pcf_filter_logical(ranking_data_without_filter,items_total_hash,result_ranking_id_hash,target_str,setting);
+				return;
+			}else{
+				_set_ranking_data_into_cache([],setting);
+				_set_target_status_ranking_data_loaded(target_str);
+				pcf_hide_loading();
+				return;
+			}
+		}else if(ajax_item_list.length === 1){
+			
+			_run_ajax(ajax_item_list[0][SETTING_KEY_URLSTR],'GET', 'text', true, function(data){
+
+				callback_success(data,ajax_item_list[0]);
+
+				// do logical ,create ranking list, and continue
+				_run_pcf_filter_logical(ranking_data_without_filter,items_total_hash,result_ranking_id_hash,target_str,setting);
 				return;
 			});
 			
 			return;
-		}
-
-		// function to trigger the ajax call
-		var ajax_request = function(item) {
-
-			var deferred = $.Deferred();
-
-			$.ajax({
-				url: item.url_str_full,
-				dataType: "text",
-				type: 'GET',
-				success: function(data) {
-					// do something here
-					//console.log(data.results[0]);
-					
-					let json_data = _parseJson(data);
-					let hash = {};
-					if(!_isEmpty(json_data)){
-						for(jid in json_data){
-							if(!_isEmpty(json_data[jid])){
-								json_data[jid].forEach(function(target_data_id){
-									hash[target_data_id] = 1;
-								});
-							}
-						}
-					}
-	
-					result_ranking_id_hash[item.index] = {}
-					let isLogicalNot = (item.logical_type === LOGICAL_AND_NOT);
-					ranking_data_without_filter.forEach(function(data_item){
-						if(isLogicalNot){
-							if(!(data_item.id in hash))	result_ranking_id_hash[item.index][data_item.id]=1;
-						}else{
-							if(data_item.id in hash)	result_ranking_id_hash[item.index][data_item.id]=1;
-						}
-					});
-					
-					// mark the ajax call as completed
-					deferred.resolve(data);
-				},
-				error: function(error) {
-					// mark the ajax call as failed
-					deferred.reject(error);
-				}
-			});
-
-			return deferred.promise();
-		};
-
-		var looper = $.Deferred().resolve();
-
-		// go through each item and call the ajax function
-		$.when.apply($, $.map(items_ajax_list, function(item, i) {
-			looper = looper.then(function() {
-			// trigger ajax call with item data
-				return ajax_request(item);
-			});
-			return looper;
-		})).then(function() {
-			// run this after all ajax calls have completed
-			// do logical ,create ranking list, and continue
-			_run_pcf_filter_logical(ranking_data_without_filter,items_total_hash,result_ranking_id_hash,target,setting);
-			return;
-			//console.log('Done!');
-		}).fail(function() {
-			//console.log( 'I fire if one or more requests failed.' );
-			alert("Failed loading filtering data["+setting[SETTING_KEY_FILTER]+"]");
-			pcf_hide_loading();
-			return;
-		});
-	}
-
-	function _run_pcf_search(setting){
-
-		pcf_show_loading();
-	
-		let target = setting[SETTING_KEY_TARGET];
-
-		if(_is_target_status_init(target)){
-			
-			let ranking_data = _get_ranking_data_from_cache(setting)
-			if(!_isEmpty(ranking_data)){
-				_set_target_status_ranking_data_loaded(target);
-				_search_detail_data_and_show_result(setting);
-				return false;
-			}
-			
-			//do searching ranking(without filter)
-			let setting_without_filter = $.extend(true,{}, setting,{[SETTING_KEY_FILTER]:''});
-
-			let ranking_data_without_filter = _get_ranking_data_from_cache(setting_without_filter);
-
-			if(_isEmpty(ranking_data_without_filter)){
-				let url_str = _contruct_url(URL_GET_RANKING_BY_HPO_ID,setting_without_filter);
-				_run_ajax(url_str,'GET', 'text', true, function(data){
-					var json_data_without_filter = _parseJson(data);
-					if(!_isEmpty(json_data_without_filter)){
-						// the ranking data without filtered
-						_set_ranking_data_into_cache(json_data_without_filter,setting_without_filter);
-						//_run_pcf_filter(setting);
-						_run_pcf_filter_load_data(setting, json_data_without_filter);
-						return false;
-					}else{
-						// no data found by hpo lists,no need to proceed do filtering.
-						_set_ranking_data_into_cache([],setting_without_filter);
-						_set_target_status_ranking_data_loaded(target);
-						pcf_hide_loading();
-						return false;
-					}
-				});
-			}else{
-				//_run_pcf_filter(setting);
-				_run_pcf_filter_load_data(setting, ranking_data_without_filter);
-				return false;
-			}
-		} else {
-			_search_detail_data_and_show_result(setting);
+		}else {
+			_run_ajax_sequential(ajax_item_list, callback_success, callback_fail, callback_after_all_call, callback_fail_after_all_call);
 		}
 		
-		return false;
+		return;
 	}
 
 	function _run_ajax(url_str,http_type,response_dataType,async,callback,callback_fail){
@@ -1659,71 +1874,108 @@
 		}).done(function(data1,textStatus,jqXHR) {
 			if(_isFunction(callback))callback(data1);
 		}).fail(function(jqXHR, textStatus, errorThrown ) {
-			alert('Server access error:' + textStatus + ":" + errorThrown + '\nURL: ' + url_str);
+			//alert('Server access error:' + textStatus + ":" + errorThrown + '\nURL: ' + url_str);
 			if(_isFunction(callback_fail)) callback_fail();
 			pcf_hide_loading();
+			_show_alert_dialog(jqXHR, textStatus, errorThrown,url_str);
 		});
 	}
 
-
-	function _load_filter_objects(filter_id_list, filter_object_list, phenotype_object_list, callback){
-
-		if(filter_id_list === 0){
-			if(_isFunction(callback)){
-				callback(phenotype_object_list, filter_object_list);
-			}
-			return
-		}
-
-		let tmp = filter_id_list.split(',');
-
-		let str_filter_id = tmp[0];
-
-		let lang = LANGUAGE_EN;
-
-		if(str_filter_id.match(/_ja$/i))lang = LANGUAGE_JA;
-
-		let id           = _get_id_from_filter_id(str_filter_id);
-		let filter_type  = _get_filter_type_by_filter_id(str_filter_id);
-
-		if(!_isEmpty(filter_type)){
-			
-			let logical_str  = _get_logical_str_by_filter_id(str_filter_id);
-			let url_str      = FILTER_NAME_URL_HASH[filter_type];
-			let url_str_full = _contruct_url(url_str,{[SETTING_KEY_ID_LST]:id});
-			
-			_run_ajax(url_str_full,'GET', 'text', true, function(data){
-				if(!_isEmpty(data)){
-					json_data = _parseJson(data);
-					let name = _get_filter_name(filter_type,lang,json_data,id);
-					if(!_isEmpty(name)){
-						let obj = {'id':str_filter_id,'name':name,'logicaloperator':logical_str};
-						filter_object_list.push(obj);
-					}
-				}
-				
-				if(tmp.length === 1){
-					if(_isFunction(callback)){
-						callback(phenotype_object_list, filter_object_list);
-					}
-				}else{
-					tmp.shift();
-					_load_filter_objects(tmp.join(','), filter_object_list, phenotype_object_list, callback);
-				}
-				return false;
-			});
-		}else{
-			alert('indicated filter ['+str_filter_id+'] is malformed');
-		}
+	function _getTimeStamp(){
+		let date = new Date();
+		let year_str = date.getFullYear();
+		let month_str = 1 + date.getMonth();
+		let day_str = date.getDate();
+		let hour_str = date.getHours();
+		let minute_str = date.getMinutes();
+		let second_str = date.getSeconds();
+		month_str = ('0' + month_str).slice(-2);
+		day_str = ('0' + day_str).slice(-2); 
+		hour_str = ('0' + hour_str).slice(-2);
+		minute_str = ('0' + minute_str).slice(-2);
+		second_str = ('0' + second_str).slice(-2);
 		
-		return false;
-
+		let format_str = 'YYYYMMDD-hhmmss';
+		format_str = format_str.replace(/YYYY/g, year_str);
+		format_str = format_str.replace(/MM/g, month_str);
+		format_str = format_str.replace(/DD/g, day_str);
+		format_str = format_str.replace(/hh/g, hour_str);
+		format_str = format_str.replace(/mm/g, minute_str);
+		format_str = format_str.replace(/ss/g, second_str);
 		
+		return format_str;
 	}
-	
+
+	function _show_alert_dialog(jqXHR, textStatus, errorThrown,url_str){
+		let $alert_dialog = $("#alert_dialog");
+		$('#alertModalLabel').text(errorThrown);
+		$('#alert_response_text').text(jqXHR.responseText);
+		$('#alert_url').text(url_str);
+		$alert_dialog.modal('show');
+		$('header').show();
+	}
+
+	function _show_alert_dialog_msg(title,msg){
+		let $alert_dialog = $("#alert_dialog_msg");
+		$('#alert_dialog_msg_title').text(title);
+		$('#alert_dialog_msg_body').text(msg);
+		$alert_dialog.modal('show');
+		$('header').show();
+	}
+
+	const SETTING_KEY_URLSTR = 'url_str_full';
+	function _run_ajax_sequential(ajax_item_list, callback_success, callback_fail, callback_after_all_call, callback_fail_after_all_call){
+
+		// function to trigger the ajax call
+		var ajax_request = function(item) {
+
+			var deferred = $.Deferred();
+
+			$.ajax({
+				url: item[SETTING_KEY_URLSTR],
+				dataType: "text",
+				type: 'GET',
+				success: function(data) {
+					// do something here
+					callback_success(data,item);
+					// mark the ajax call as completed
+					deferred.resolve(data);
+				},
+				error: function(error) {
+					// mark the ajax call as failed
+					callback_fail(error);
+					deferred.reject(error);
+				}
+			});
+
+			return deferred.promise();
+		};
+
+		var looper = $.Deferred().resolve();
+
+		// go through each item and call the ajax function
+		$.when.apply($, $.map(ajax_item_list, function(item, i) {
+			looper = looper.then(function() {
+			// trigger ajax call with item data
+				return ajax_request(item);
+			});
+			return looper;
+		})).then(function() {
+			// run this after all ajax calls have completed
+			callback_after_all_call();
+			return;
+			//console.log('Done!');
+		}).fail(function() {
+			//console.log( 'I fire if one or more requests failed.' );
+			callback_fail_after_all_call();
+			pcf_hide_loading();
+			return;
+		});
+	}
+
 	var methods = {
 		init: function(options) {
-			
+
 			let setting = $.extend(true,{}, DEFAULT_SETTINGS);
 
 			if(_isExistVal(URL_PARA_PHENOTYPE, options)) setting[SETTING_KEY_PHENOTYPE]      = options[URL_PARA_PHENOTYPE];
@@ -1804,27 +2056,112 @@
 			let current_target = _get_active_target();
 			_selectTab(current_target);
 		},
-		load_phenotype_and_filter_objects_by_ids(hpo_id_list,filter_id_list,callback){
-			
-			let phenotype_id_list = hpo_id_list.replace(/_ja/gi, '');
-			
-			let phenotype_url_str = _contruct_url(URL_GET_HPO_DATA_BY_HPO_ID, {[SETTING_KEY_ID_LST]:phenotype_id_list});
-			
-			let phenotype_object_list = [];
-			
-			let filter_object_list = [];
-			
-			_run_ajax(phenotype_url_str,'GET', 'text', true, function(data){
+		send_share_url: function(urlstr){
+			let share_url_str = _construct_url(URL_SHARE, {[SETTING_KEY_SHARE]: SHARE_TYPE_URL,[SETTING_KEY_URL]:encodeURIComponent(urlstr)});
+			_run_ajax(share_url_str,'GET', 'text', true, null);
+		},
+		download: function(hpo_id_list, mode, format){
 
-				if(!_isEmpty(data)){
-					
-					json_data = _parseJson(data);
-					
-					hpo_id_list.split(',').forEach(function(str_hpo_id){
+			let target = _get_active_target();
+			let target_id = '';
+			if(mode === DOWNLOAD_MODE_ALL_SHOWN){
+				let tmp = [];
+				let $panel = tab_panel_lst[target];
+				$panel.find("input[name='target_id']").each(function(){
+					tmp.push($(this).val());
+  				});
+				if(tmp.length === 0){
+					_show_alert_dialog_msg('Info','no records');
+					return;
+				}else{
+					target_id = tmp.join(',');
+				}
+			}else if(mode === DOWNLOAD_MODE_SELECTION) {
+				let tmp = [];
+				let $panel = tab_panel_lst[target];
+				$panel.find("input[name='target_id']:checked").each(function(){
+					tmp.push($(this).val());
+  				});
+				if(tmp.length === 0){
+					_show_alert_dialog_msg('Info','no records selected');
+					return;
+				}else{
+					target_id = tmp.join(',');
+				}
+			}else{
+				//DOWNLOAD_MODE_ALL
+				
+			}
+
+			let url_str = _construct_url(URL_DOWNLOAD, {[SETTING_KEY_TARGET]:         target,
+														[SETTING_KEY_PHENOTYPE]:      hpo_id_list,
+														[SETTING_KEY_TARGET_ID]:      target_id,
+														[SETTING_KEY_DOWNLOAD_FORMAT]:format,
+														[SETTING_KEY_DOWNLOAD_MODE]:  mode});
+
+			_run_ajax(url_str,'GET', 'text', true, function(data){
+				//Convert the Byte Data to BLOB object.
+				var blob = new Blob([data], { type: "application/octetstream" });
+				
+				let fileName = 'pubcasefinder_' + _getTimeStamp() + '.' + format; 
+				//Check the Browser type and download the File.
+				var isIE = false || !!document.documentMode;
+				if (isIE) {
+					window.navigator.msSaveBlob(blob, fileName);
+				} else {
+					var url = window.URL || window.webkitURL;
+					link = url.createObjectURL(blob);
+					var a = $("<a />");
+					a.attr("download", fileName);
+					a.attr("href", link);
+					$("body").append(a);
+					a[0].click();
+					$("body").remove(a);
+				}
+			});
+		},
+		load_phenotype_and_filter_objects_by_ids(hpo_id_list,filter_id_list,callback){
+
+			pcf_show_loading();
+
+			let phenotype_object_list = [];
+			let filter_object_list = [];
+
+			// need to load ranking data from server.
+			let ajax_item_list = [];
+			let result_filter_hash = {};
+
+			// 1. phenotype list
+			let phenotype_id_list = hpo_id_list.trim().replace(/_ja/gi, '');
+			let phenotype_url_str = _construct_url(URL_GET_HPO_DATA_BY_HPO_ID, {[SETTING_KEY_ID_LST]:phenotype_id_list});
+			let type_phenotype = 'type_phenotype';
+			ajax_item_list.push({[SETTING_KEY_URLSTR]:phenotype_url_str, 'type': type_phenotype});
+
+			let type_filter = 'type_filter';
+			let filter_id_list_str =filter_id_list.trim(); 
+			if(filter_id_list_str.length > 0){
+				let filter_id_list_tmp = filter_id_list_str.split(',');
+				for(let i=0; i<filter_id_list_tmp.length;i++){
+					let str_filter_id= filter_id_list_tmp[i];
+					let logical_str  = _get_logical_str_by_filter_id(str_filter_id);
+					let id           = _get_id_from_filter_id(str_filter_id);
+					let filter_type  = _get_filter_type_by_filter_id(str_filter_id);
+					let url_str      = FILTER_NAME_URL_HASH[filter_type];
+					let url_str_full = _construct_url(url_str,{[SETTING_KEY_ID_LST]:id});
+					ajax_item_list.push({[SETTING_KEY_URLSTR]:url_str_full, 'type': type_filter, 'str_filter_id':str_filter_id, 'index': i,'filter_type':filter_type, 'id':id,'logical_str':logical_str});
+				}
+			}
+			
+			var callback_success = function(data,item){
+				let json_data = _parseJson(data);
+				if(item.type === type_phenotype){
+					hpo_id_list.trim().split(',').forEach(function(str_hpo_id){
 						if(str_hpo_id.match(/_ja$/i)){
-							hpo_id =str_hpo_id.replace(/_ja$/i,"");
+							hpo_id = str_hpo_id.replace(/_ja$/i,"");
 							if(hpo_id in json_data){
-								let obj = {'id'   : str_hpo_id, 'name' : json_data[hpo_id].name_ja}
+								let name_text = json_data[hpo_id].name_ja;
+								if(_isEmpty(name_text)) name_text = json_data[hpo_id].name_en;
+								let obj = {'id':str_hpo_id, 'name':name_text};
 								phenotype_object_list.push(obj);
 							}
 						}else{
@@ -1836,19 +2173,55 @@
 					});
 					_set_phenotype_name_data_to_cache(json_data);
 				}else{
-					return false;
-				}
-				
-				if(filter_id_list.length === 0){
-					if(_isFunction(callback)){
-						callback(phenotype_object_list, filter_object_list);
+					let idx = item.index;
+					result_filter_hash[idx] = {};
+					if(!_isEmpty(json_data)){
+						let lang = LANGUAGE_EN;
+						if(item.str_filter_id.match(/_ja$/i))lang = LANGUAGE_JA;
+						let name = _get_filter_name(item.filter_type, lang, json_data, item.id);
+						if(!_isEmpty(name)){
+							result_filter_hash[idx] = {'id':item.str_filter_id, 'name':name, 'logicaloperator':item.logical_str};
+						}
 					}
-					return false;
 				}
+			};
+		
+			var callback_fail = function() {
+				alert('Server access error!');
+			};
+		
+			var callback_after_all_call = function(){
+				Object.keys(result_filter_hash).sort().forEach(function(idx){
+					filter_object_list.push(result_filter_hash[idx]);
+				});
 				
-				_load_filter_objects(filter_id_list, filter_object_list, phenotype_object_list, callback);
-			});
-		},		
+				if(_isFunction(callback)){
+					callback(phenotype_object_list, filter_object_list);
+				}
+				return
+			};
+		
+			var callback_fail_after_all_call = function(){
+				pcf_hide_loading();
+			}
+		
+			if(ajax_item_list.length === 0){
+				pcf_hide_loading();
+				return;
+			}else if(ajax_item_list.length === 1){
+				_run_ajax(ajax_item_list[0][SETTING_KEY_URLSTR],'GET', 'text', true, function(data){
+					callback_success(data,ajax_item_list[0]);
+					// do logical ,create ranking list, and continue
+					if(_isFunction(callback)) callback(phenotype_object_list, filter_object_list);
+					return;
+				});
+				return;
+			}else {
+				_run_ajax_sequential(ajax_item_list, callback_success, callback_fail, callback_after_all_call, callback_fail_after_all_call);
+			}
+
+			return;
+		},
 	};
 	
 	$.fn.pcf_content = function (method) {

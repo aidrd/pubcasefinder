@@ -57,38 +57,6 @@
     margin: 8px auto 0;
     min-width: 620px;
   }
-  .search-header .search-header_wrapper .search-box_wrapper .search-button {
-    display: flex;
-    flex-wrap: wrap;
-    padding-top: 0.5rem;
-  }
-  .search-header .search-header_wrapper .search-box_wrapper .search-button span {
-    border-radius: 5px;
-    padding: 5px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-right: 0.5rem;
-  }
-  .search-header .search-header_wrapper .search-box_wrapper .search-button .active {
-    border: solid 1px #394466;
-    background-color: #394466;
-    color: #fff;
-  }
-  .search-header .search-header_wrapper .search-box_wrapper .search-button .active i {
-    transform: rotateX(180deg);
-    transition: all 0.2s;
-  }
-  .search-header .search-header_wrapper .search-box_wrapper .search-button .search-button_start {
-    padding-left: 0.6em;
-    font-weight: 500;
-  }
-  .search-header .search-header_wrapper .search-box_wrapper .search-button .search-button_end {
-    margin-right: 0;
-    left: 0;
-    margin-left: auto;
-    font-weight: 500;
-  }
 
   .search-header .search-header_wrapper .search-advanced .search-box-advanced_wrapper {
     width: 90%;
