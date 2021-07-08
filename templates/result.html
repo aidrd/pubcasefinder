@@ -33,6 +33,8 @@
 	<link rel="stylesheet" href="/static/css/pcf/popup-hierarchy-hpo.css">
 	<link rel="stylesheet" href="/static/css/pcf/popup-hierarchy-gene.css">
 
+	<link rel="stylesheet" href="https://unpkg.com/tippy.js@6/animations/scale.css" />
+	
 	<link rel="icon" href="/static/images/favicon.ico">
 
 	<!-- favicon for mobile -->
@@ -271,39 +273,37 @@
 	</section>
 
 <div id="popover_html_phenotype" style="display:none;">
-	<div>
 	<table>
-		<tr><th>HPO ID	</th><td><a href="popup_content_hpo_url" target="_blank">popup_content_pcf-phenotype-id</td></tr>
-		<tr><th>Label(ja) </th><td>popup_content_name_ja</td></tr>
-		<tr><th>Label(en) </th><td>popup_content_name_en</td></tr>
-		<tr><th>Definition</th><td>popup_content_definition</td></tr>
-		<tr><th>Comment   </th><td>popup_content_comment</td></tr>
-		<tr><th>Synonym   </th><td>popup_content_synonym</td></tr>
+		<tr><th class="popup_content_class">HPO ID	</th><td><a href="popup_content_hpo_url" target="_blank">popup_content_pcf-phenotype-id</td></tr>
+		<tr><th class="popup_content_class">Label(ja) </th><td>popup_content_name_ja</td></tr>
+		<tr><th class="popup_content_class">Label(en) </th><td>popup_content_name_en</td></tr>
+		<tr><th class="popup_content_class">Definition</th><td>popup_content_definition</td></tr>
+		<tr><th class="popup_content_class">Comment   </th><td>popup_content_comment</td></tr>
+		<tr><th class="popup_content_class">Synonym   </th><td>popup_content_synonym</td></tr>
 	</table>
-	</div>
 </div>
 <div id="popover_html_disease" style="display:none;">
 	<table>
-		<tr><th>MONDO ID  </th><td><a href="popup_content_mondo_url" target="_blank">popup_content_pcf-disease-id</td></tr>
-		<tr><th>Label(ja) </th><td>popup_content_name_ja</td></tr>
-		<tr><th>Label(en) </th><td>popup_content_name_en</td></tr>
-		<tr><th>Definition</th><td>popup_content_definition</td></tr>
-		<tr><th>Synonym   </th><td>popup_content_synonym</td></tr>
-		<tr><th>OMIM	  </th><td>popup_content_omim_list</td></tr>
-		<tr><th>Orphanet  </th><td>popup_content_orpha_list</td></tr>
+		<tr><th class="popup_content_class">MONDO ID  </th><td><a href="popup_content_mondo_url" target="_blank">popup_content_pcf-disease-id</td></tr>
+		<tr><th class="popup_content_class">Label(ja) </th><td>popup_content_name_ja</td></tr>
+		<tr><th class="popup_content_class">Label(en) </th><td>popup_content_name_en</td></tr>
+		<tr><th class="popup_content_class">Definition</th><td>popup_content_definition</td></tr>
+		<tr><th class="popup_content_class">Synonym   </th><td>popup_content_synonym</td></tr>
+		<tr><th class="popup_content_class">OMIM	  </th><td>popup_content_omim_list</td></tr>
+		<tr><th class="popup_content_class">Orphanet  </th><td>popup_content_orpha_list</td></tr>
 	</table>
 </div>
 <div id="popover_html_gene" style="display:none;">
 	<table>
-		<tr><th>NCBI Gene ID</th><td><a href="popup_content_ncbi_gene_url" target="_blank">popup_content_pcf-gene-id</a></td></tr>
-		<tr><th>HGNC symbol</th><td><a href="popup_content_hgnc_gene_url" target="_blank">popup_content_hgnc_gene_symbol</a></td></tr>
-		<tr><th>Synonym</th><td>popup_content_synonym</td></tr>
-		<tr><th>Full name</th><td>popup_content_full_name</td></tr>
-		<tr><th>Other full name</th><td>popup_content_other_full_name</td></tr>
-		<tr><th>Type of gene</th><td>popup_content_type_of_gene</td></tr>
-		<tr><th>Location</th><td>popup_content_location</td></tr>
+		<tr><th class="popup_content_class">NCBI Gene ID</th><td><a href="popup_content_ncbi_gene_url" target="_blank">popup_content_pcf-gene-id</a></td></tr>
+		<tr><th class="popup_content_class">HGNC symbol</th><td><a href="popup_content_hgnc_gene_url" target="_blank">popup_content_hgnc_gene_symbol</a></td></tr>
+		<tr><th class="popup_content_class">Synonym</th><td>popup_content_synonym</td></tr>
+		<tr><th class="popup_content_class">Full name</th><td>popup_content_full_name</td></tr>
+		<tr><th class="popup_content_class">Other full name</th><td>popup_content_other_full_name</td></tr>
+		<tr><th class="popup_content_class">Type of gene</th><td>popup_content_type_of_gene</td></tr>
+		<tr><th class="popup_content_class">Location</th><td>popup_content_location</td></tr>
 		<tr>
-			<th>Link</th>
+			<th class="popup_content_class">Link</th>
 			<td>
 				<a href="http://www.hgmd.cf.ac.uk/ac/gene.php?gene=popup_content_hgnc_gene_symbol" target="_blank">HGMD</a>
 				<a href="https://www.ncbi.nlm.nih.gov/clinvar/?term=popup_content_hgnc_gene_symbol" target="_blank">ClinVar</a>
@@ -381,6 +381,9 @@
 
 <script src="/static/js/pcf/jquery.easing.1.3.js"></script>
 <script src="/static/js/pcf/bootstrap-4.6.0.bundle.js"></script>
+<script src="https://unpkg.com/@popperjs/core@2"></script>
+<script src="https://unpkg.com/tippy.js@6"></script>
+
 <script src="/static/js/pcf/jquery.waypoints.min.js"></script>
 <script src="/static/js/jquery.countTo.js"></script>
 <script src="/static/js/pcf/jquery.magnific-popup.min.js"></script>
@@ -408,7 +411,8 @@
 
 	var pcf_show_loading = function(){
 		if($('#fh5co-loader').css('display') === 'none') $("#fh5co-loader").fadeIn("normal");
-		$('.popover').popover('hide');
+		//$('.popover').popover('hide');
+		tippy.hideAll();
 	};
 
 	var pcf_hide_loading = function() {
@@ -519,7 +523,8 @@
 
 			$('.dropdown.show').dropdown('toggle');
 			$('.list-tag').removeClass('pcf-active');
-			$('.popover').popover('hide');
+			//$('.popover').popover('hide');
+			tippy.hideAll();
 
 			if (document.body.scrollTop > 110 || document.documentElement.scrollTop > 110) {
 				$('#btn_back_to_top').show();
@@ -545,7 +550,8 @@
 
 			$('.dropdown.show').dropdown('toggle');
 			$('.list-tag').removeClass('pcf-active');
-			$('.popover').popover('hide');
+			//$('.popover').popover('hide');
+			tippy.hideAll();
 
 			if (document.body.scrollTop > 110 || document.documentElement.scrollTop > 110) {
 				$('#btn_back_to_top').show();

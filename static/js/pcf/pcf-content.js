@@ -54,7 +54,7 @@
 		  URL_PARA_TARGET_ID      = 'target_id',
 		  URL_PARA_SHARE          = 'share',
 		  URL_PARA_URL            = 'url',
-		  URL_PARA_RANGE          = 'r_range';
+		  URL_PARA_RANGE          = 'range';
 
 	const TARGET_OMIM     = 'omim',
 		  TARGET_ORPHANET = 'orphanet',
@@ -177,10 +177,10 @@
 		  CLASS_TAB_BUTTON_PREFIX         = "tab-button-",
 		  CLASS_TAB_BUTTON_ICON_PREFIX    = "icon-",
 		  CLASS_ROW                       = "list-content",
-		  CLASS_POPUP_PHENOTYPE           = "pcf-popup px-4 py-3 pcf-popup-pheotype",
-		  CLASS_POPUP_INHERITANCE         = "pcf-popup px-4 py-3 pcf-popup-inheritance",
-		  CLASS_POPUP_GENE                = "pcf-popup px-4 py-3 pcf-popup-gene",
-		  CLASS_POPUP_DISEASE             = "pcf-popup px-4 py-3 pcf-popup-disease";
+		  CLASS_POPUP_PHENOTYPE           = "pcf-popup-pheotype",
+		  CLASS_POPUP_INHERITANCE         = "pcf-popup-inheritance",
+		  CLASS_POPUP_GENE                = "pcf-popup-gene",
+		  CLASS_POPUP_DISEASE             = "pcf-popup-disease";
 
 	const	POPUP_TYPE_PHENOTYPE    = "popup-phenotype",
 			POPUP_TYPE_INHERITANCE  = "popup-inheritance",
@@ -845,108 +845,197 @@
 		return ret;
 	}
 
-	function _contruct_popup_content(popup_id,popup_type,popup_data){
+	function _contruct_popup_content(popup_id, popup_type, popup_data, popup_class){
 		
 		let popup_html_id = POPUP_HTML_ID_HASH[popup_type];
-		let content = $("#"+popup_html_id).html();
+		let content       = $("#"+popup_html_id).html();
+		let max_text_len  = popup_id.length;
 
 		if(popup_type === POPUP_TYPE_PHENOTYPE || popup_type === POPUP_TYPE_INHERITANCE){
+
 			let name_ja = _contruct_popup_content_val('name_ja',popup_data);
 			let name_en = _contruct_popup_content_val('name_en',popup_data);
 			if(_isEmpty(name_ja) && _isEmpty(name_en)){
 				//alert('no data found for '+ popup_id);
-				return 'no data found for '+ popup_id;
+				return ['no data found for '+ popup_id, max_text_len];
 			}
-			content = content.replace(/popup_content_pcf-phenotype-id/g, popup_id);	
-			content = content.replace(/popup_content_hpo_url/g,   _contruct_popup_content_val('hpo_url',popup_data));	
-			content = content.replace(/popup_content_name_ja/g,   name_ja);
-			content = content.replace(/popup_content_name_en/g,   name_en);
-			content = content.replace(/popup_content_definition/g,_contruct_popup_content_val('definition',popup_data));
-			content = content.replace(/popup_content_comment/g,   _contruct_popup_content_val('comment',popup_data));
-			content = content.replace(/popup_content_synonym/g,   _contruct_popup_content_val('synonym',popup_data));
+			
+			if(max_text_len < name_ja.length) max_text_len =name_ja.length; 
+			if(max_text_len < name_en.length) max_text_len =name_en.length;
+			
+			content = content.replace(/popup_content_class/g, popup_class);
+			content = content.replace(/popup_content_pcf-phenotype-id/g, popup_id);
+			
+			let hpo_url = _contruct_popup_content_val('hpo_url',popup_data);
+			if(max_text_len < hpo_url.length) max_text_len =hpo_url.length;	
+			content = content.replace(/popup_content_hpo_url/g, hpo_url);	
+			content = content.replace(/popup_content_name_ja/g, name_ja);
+			content = content.replace(/popup_content_name_en/g, name_en);
+			
+			let definition = _contruct_popup_content_val('definition',popup_data);
+			if(max_text_len < definition.length) max_text_len = definition.length;
+			content = content.replace(/popup_content_definition/g, definition);
+			
+			let comment = _contruct_popup_content_val('comment',popup_data);
+			if(max_text_len < comment.length) max_text_len = comment.length;
+			content = content.replace(/popup_content_comment/g, comment);
+			
+			let synonym = _contruct_popup_content_val('synonym',popup_data);
+			if(max_text_len < synonym.length) max_text_len = synonym.length;
+			content = content.replace(/popup_content_synonym/g, synonym);
+			
 		}else if(popup_type === POPUP_TYPE_GENE){
+			
 			let type_of_gene = _contruct_popup_content_val('type_of_gene',popup_data);
 			if(_isEmpty(type_of_gene)){
 				//alert('no data found for '+ popup_id);
-				return 'no data found for '+ popup_id;
+				return ['no data found for '+ popup_id, max_text_len];
 			}
-			content = content.replace(/popup_content_pcf-gene-id/g, popup_id);	
+			content = content.replace(/popup_content_class/g, popup_class);
+			content = content.replace(/popup_content_pcf-gene-id/g, popup_id);
+			
+				
 			content = content.replace(/popup_content_ncbi_gene_url/g,   _contruct_popup_content_val('ncbi_gene_url',popup_data));
 			content = content.replace(/popup_content_hgnc_gene_url/g,   _contruct_popup_content_val('hgnc_gene_url',popup_data));
-			content = content.replace(/popup_content_hgnc_gene_symbol/g,_contruct_popup_content_val('hgnc_gene_symbol',popup_data));
-			content = content.replace(/popup_content_synonym/g,         _contruct_popup_content_val('synonym',popup_data,'|'));
-			content = content.replace(/popup_content_full_name/g,       _contruct_popup_content_val('full_name',popup_data));
-			content = content.replace(/popup_content_other_full_name/g, _contruct_popup_content_val('other_full_name',popup_data));
+			
+			let hgnc_gene_symbol = _contruct_popup_content_val('hgnc_gene_symbol',popup_data);
+			if(hgnc_gene_symbol) max_text_len  = 60;// based on the letter count of Link
+			content = content.replace(/popup_content_hgnc_gene_symbol/g, hgnc_gene_symbol);
+			
+			let synonym = _contruct_popup_content_val('synonym',popup_data,'|');
+			if(max_text_len < synonym.length) max_text_len = synonym.length;
+			content = content.replace(/popup_content_synonym/g, synonym);
+			
+			let full_name = _contruct_popup_content_val('full_name',popup_data);
+			if(max_text_len < full_name.length) max_text_len = full_name.length;
+			content = content.replace(/popup_content_full_name/g, full_name);
+			
+			let other_full_name = _contruct_popup_content_val('other_full_name',popup_data);
+			if(max_text_len < other_full_name.length) max_text_len = other_full_name.length;
+			content = content.replace(/popup_content_other_full_name/g, other_full_name);
+			
+			if(max_text_len < type_of_gene.length) max_text_len = type_of_gene.length;
 			content = content.replace(/popup_content_type_of_gene/g,    type_of_gene);
-			content = content.replace(/popup_content_location/g,        _contruct_popup_content_val('location',popup_data));
+			
+			let location = _contruct_popup_content_val('location',popup_data);
+			if(max_text_len < location.length) max_text_len = location.length;
+			content = content.replace(/popup_content_location/g, location);
+			
 		}else if(popup_type === POPUP_TYPE_DISEASE){
 			let name_ja = _contruct_popup_content_val('name_ja',popup_data);
 			let name_en = _contruct_popup_content_val('name_en',popup_data);
 			if(_isEmpty(name_ja) && _isEmpty(name_en)){
 				//alert('no data found for '+ popup_id);
-				return 'no data found for '+ popup_id;
+				return ['no data found for '+ popup_id, max_text_len];
 			}
+
+			if(max_text_len < name_ja.length) max_text_len =name_ja.length; 
+			if(max_text_len < name_en.length) max_text_len =name_en.length;
+
+			content = content.replace(/popup_content_class/g, popup_class);
 			content = content.replace(/popup_content_pcf-disease-id/g, popup_id);
 			content = content.replace(/popup_content_mondo_url/g, _contruct_popup_content_val('mondo_url',popup_data));	
+			
 			content = content.replace(/popup_content_name_ja/g,   name_ja);
 			content = content.replace(/popup_content_name_en/g,   name_en);
-			content = content.replace(/popup_content_definition/g,_contruct_popup_content_val('definition',popup_data));	
-			content = content.replace(/popup_content_synonym/g,   _contruct_popup_content_val('synonym',popup_data));
-			content = content.replace(/popup_content_omim_list/g, _contruct_popup_content_val_hash('omim_id','omim_url',popup_data));
-			content = content.replace(/popup_content_orpha_list/g,_contruct_popup_content_val_hash('orpha_id','orpha_url',popup_data));
+			
+			let definition = _contruct_popup_content_val('definition',popup_data);
+			if(max_text_len < definition.length) max_text_len = definition.length;
+			content = content.replace(/popup_content_definition/g, definition);
+
+			let synonym = _contruct_popup_content_val('synonym',popup_data);
+			if(max_text_len < synonym.length) max_text_len = synonym.length;
+			content = content.replace(/popup_content_synonym/g, synonym);
+
+			let omim_list = _contruct_popup_content_val_hash('omim_id','omim_url',popup_data);
+			if(max_text_len < omim_list.length) max_text_len = omim_list.length;
+			content = content.replace(/popup_content_omim_list/g, omim_list);
+
+			let orpha_list = _contruct_popup_content_val_hash('orpha_id','orpha_url',popup_data);
+			if(max_text_len < orpha_list.length) max_text_len = orpha_list.length;
+			content = content.replace(/popup_content_orpha_list/g,orpha_list);
 		}else {
 			//ありえない
 		}
 
-		return content;
+		return [content, max_text_len];
 	}
-	
-	function _popoverContent() {  
+
+	function _contruct_popup_button(popup_type, key_popup_id, id,list_tag,text,popup_class){
+		let button = document.createElement('button');
+		button.textContent = text;
+		button.classList.add("list-tag");
+		button.classList.add(list_tag);
 		
-		let content = '';  
-		let $element = $(this);// popover trigger 
-		let popup_type   = $element.data(KEY_POPUP_TYPE);
-		let popup_id_key = POPUP_ID_KEY_HASH[popup_type]; 
-		let popup_id     = $element.data(popup_id_key);
+		tippy(button, {
+			arrow:         false,
+	  		allowHTML:     true,
+	 		appendTo:      document.body,
+			animation:     'scale',
+			animationFill: true,
+			maxWidth:      400,
+			strategy:     'fixed',
+			interactive:  true,
+			theme:        'pcf-popup',
+			placement:    'bottom-start',
+	  		content:      'Loading...',
+			offset:       [0,0],
+			popup_type:   popup_type,
+			popup_id:     id,
+			popup_class:  popup_class,
+			onCreate(instance) {
+			    // Setup our own custom state properties
+			    instance._isFetching = false;
+			    instance._src = null;
+			    instance._error = null;
+			},
+			onShow(instance) {
+				if (instance._isFetching || instance._src || instance._error) {
+					return;
+				}
 
-		let popup_data = $element.data(KEY_POPUP_DATA);
-		if(_isEmpty(popup_data)){
+				instance._isFetching = true;
+ 
+				let popup_type   = instance.props.popup_type;
+				let popup_id     = instance.props.popup_id;
+				let popup_class  = instance.props.popup_class;
+				
+				let url_str      = POPUP_URL_HASH[popup_type];
+				let url_id_key   = POPUP_URL_PARA_HASH[popup_type];
+				let url_str_full = _construct_url(url_str,{[url_id_key]: popup_id}); 
 
-			let url_str    = POPUP_URL_HASH[popup_type];
-			let url_id_key = POPUP_URL_PARA_HASH[popup_type];
-			url_str = _construct_url(url_str,{[url_id_key]: popup_id}); 
-			
-			$.ajax({  
-				url:    url_str,  
-				method: "GET",  
-				async:  false,  	
-				dataType: "text",
-				success:function(data){  
-					let json_data = JSON.parse(data);
-					if(!_isEmpty(json_data)){
-						$element.data(KEY_POPUP_DATA,json_data);
-						content = _contruct_popup_content(popup_id,popup_type,json_data);
-						$element.attr('data-content',content);
-					}else{
-						content = "no data found";
-					}
-				}  
-			});  
-
-		}else{
-			content = _contruct_popup_content(popup_id,popup_type,popup_data);
-		}
+				$.ajax({	
+					url:      url_str_full,
+					type:     'GET',
+					async:    true,
+					dataType: 'text',
+				}).done(function(data,textStatus,jqXHR) {
+						let json_data = JSON.parse(data);
+						let [content, max_text_len] = _contruct_popup_content(popup_id,popup_type,json_data, popup_class);
+						if(max_text_len<40){
+							instance.setProps({maxWidth: 500});
+						}else if(max_text_len<60){
+							instance.setProps({maxWidth: 600});
+						}else if(max_text_len<80){
+							instance.setProps({maxWidth: 700});
+						}else if(max_text_len<120){
+							instance.setProps({maxWidth: 800});
+						}else{
+							instance.setProps({maxWidth: 850});
+						}
+						instance.setContent(content);
+						instance._src = 'done';
+				}).fail(function(jqXHR, textStatus, errorThrown ) {
+		        	// Fallback if the network request failed
+					instance.setContent(`Request failed from server.`);
+					instance._src = null;
+				}).always(function(){
+					instance._isFetching = false;
+				});
+			},
+		});
 		
-		return content;  
-	} 
-
-	function _contruct_popup_button(popup_type, key_popup_id, id,list_tag,text,class_popup){
-		return $('<span>').data(KEY_POPUP_TYPE,popup_type).data(key_popup_id,id)
-							.addClass("list-tag").addClass(list_tag).text(text)
-							.click(function(){$(this).toggleClass("pcf-active");})
-							.popover({html:true,placement:'bottom',trigger:'hover click',content:_popoverContent,sanitize:false,
-					  template:'<div class=\"popover\" role=\"tooltip\"><div class=\"arrow\"></div><div class=\"popover-body '+class_popup+'\"></div></div>'});
-
+		return $(button);
 	}
 
 	function _contruct_detail(id, phenoList, item, lang, target, display_format, $container_panel){
@@ -1517,99 +1606,91 @@
 		_set_target_status_detail_data_loaded(target);
 	}
 
-	function _search_case_report_data_and_show_result(setting){
 
-		let uncached_list = _find_unloaded_case_report_count_data_ids(setting,LANGUAGE_EN);
+	function _search_phenotypename_casereportnum_and_show_result(setting){
 
-		// check if  needs to be load from interent	
-		if(!_isEmpty(uncached_list)){
-
-			// search detail data from internet and draw result
-			let id_lst = uncached_list.join(",");
-			
-			let url_str = _construct_url(URL_GET_COUNT_CASE_REPORT_BY_MONDO_ID, {[SETTING_KEY_ID_LST]:id_lst, [SETTING_KEY_LANG]:LANGUAGE_EN});
-
-			_run_ajax(url_str,'GET', 'text', true, function(data){
-	
-				if(!_isEmpty(data)){
-					var json_data = _parseJson(data);
-					_set_case_report_count_data_to_cache(json_data,LANGUAGE_EN);
-				}
-				
-				let uncached_list1 = _find_unloaded_case_report_count_data_ids(setting,LANGUAGE_JA);
-				if(!_isEmpty(uncached_list1)){
-					let id_lst1 = uncached_list1.join(",");
-					let url_str1 = _construct_url(URL_GET_COUNT_CASE_REPORT_BY_MONDO_ID, {[SETTING_KEY_ID_LST]:id_lst1, [SETTING_KEY_LANG]:LANGUAGE_JA});
-					_run_ajax(url_str1,'GET', 'text', true, function(data1){
-						if(!_isEmpty(data1)){
-							var json_data1 = _parseJson(data1);
-							_set_case_report_count_data_to_cache(json_data1,LANGUAGE_JA);
-						}
-						_show_result(setting);
-						pcf_hide_loading();
-					});
-				} else {
-					_show_result(setting);
-					pcf_hide_loading();
-				}
-			});
-		} else {
-
-			let uncached_list1 = _find_unloaded_case_report_count_data_ids(setting,LANGUAGE_JA);
-			if(!_isEmpty(uncached_list1)){
-				let id_lst1 = uncached_list1.join(",");
-				let url_str1 = _construct_url(URL_GET_COUNT_CASE_REPORT_BY_MONDO_ID, {[SETTING_KEY_ID_LST]:id_lst1, [SETTING_KEY_LANG]:LANGUAGE_JA});
-				_run_ajax(url_str1,'GET', 'text', true, function(data1){
-					if(!_isEmpty(data1)){
-						var json_data1 = _parseJson(data1);
-						_set_case_report_count_data_to_cache(json_data1,LANGUAGE_JA);
-					}
-					_show_result(setting);
-					pcf_hide_loading();
-				});
-			} else {
-				_show_result(setting);
-				pcf_hide_loading();
-			}
-		}
-		
-	}
-
-
-	function _search_phenotype_data_and_show_result(setting){
-
-		let uncached_list = _find_unloaded_hpo_ids(setting);
-		let isDisplayFull = (setting[SETTING_KEY_DISPLAY_FORMAT] === DISPLAY_FORMAT_FULL);
 		let target        = setting[SETTING_KEY_TARGET];
-		
-		// check if  needs to be load from interent	
-		if(!_isEmpty(uncached_list)){
-			// search detail data from internet and draw result
-			setting[SETTING_KEY_ID_LST] = uncached_list.join(",");
+		let isDisplayFull = (setting[SETTING_KEY_DISPLAY_FORMAT] === DISPLAY_FORMAT_FULL);
+
+
+		let ajax_item_list=[];
+
+
+		let type_phenotypename = 'phenotypename';
+		let uncached_phenotypename_list = _find_unloaded_hpo_ids(setting);
+		if(!_isEmpty(uncached_phenotypename_list)){
+			setting[SETTING_KEY_ID_LST] = uncached_phenotypename_list.join(",");
 			let url_str = _construct_url(URL_GET_HPO_DATA_BY_HPO_ID, setting);
-			_run_ajax(url_str,'GET', 'text', true, function(data){
-				if(!_isEmpty(data)){
-					var json_data = _parseJson(data);
+			let obj = {[SETTING_KEY_URLSTR]:url_str, 'type': type_phenotypename};
+			ajax_item_list.push(obj);
+		} 
+
+		let type_casereportcount_en = 'casereportcount_en';
+		let type_casereportcount_ja = 'casereportcount_ja';
+		if(isDisplayFull && (target === TARGET_OMIM || target === TARGET_ORPHANET)){
+
+			let uncached_casereportcount_en_list = _find_unloaded_case_report_count_data_ids(setting,LANGUAGE_EN);
+			if(!_isEmpty(uncached_casereportcount_en_list)){
+				let id_lst = uncached_casereportcount_en_list.join(",");
+				let url_str = _construct_url(URL_GET_COUNT_CASE_REPORT_BY_MONDO_ID, {[SETTING_KEY_ID_LST]:id_lst, [SETTING_KEY_LANG]:LANGUAGE_EN});
+				let obj = {[SETTING_KEY_URLSTR]:url_str, 'type': type_casereportcount_en};
+				ajax_item_list.push(obj);
+			}
+			
+			let uncached_casereportcount_ja_list = _find_unloaded_case_report_count_data_ids(setting,LANGUAGE_JA);
+			if(!_isEmpty(uncached_casereportcount_ja_list)){
+				let id_lst = uncached_casereportcount_ja_list.join(",");
+				let url_str = _construct_url(URL_GET_COUNT_CASE_REPORT_BY_MONDO_ID, {[SETTING_KEY_ID_LST]:id_lst, [SETTING_KEY_LANG]:LANGUAGE_JA});
+				let obj = {[SETTING_KEY_URLSTR]:url_str, 'type': type_casereportcount_ja};
+				ajax_item_list.push(obj);
+			} 
+		}
+
+		var callback_success = function(data,item){
+			if(!_isEmpty(data)){
+				let json_data = _parseJson(data);
+				if(item.type === type_phenotypename){
 					_set_phenotype_name_data_to_cache(json_data);
+				}else if(item.type === type_casereportcount_en){
+					_set_case_report_count_data_to_cache(json_data,LANGUAGE_EN);
+				}else if(item.type === type_casereportcount_ja){
+					_set_case_report_count_data_to_cache(json_data,LANGUAGE_JA);
 				}
-				if(isDisplayFull && (target === TARGET_OMIM || target === TARGET_ORPHANET)){ 
-					_search_case_report_data_and_show_result(setting);
-					
-				}else{
-					_show_result(setting);
-					pcf_hide_loading();
-				}
-			});
-		} else {
-			if(isDisplayFull && (target === TARGET_OMIM || target === TARGET_ORPHANET)){
-				_search_case_report_data_and_show_result(setting);
-			}else{
+			}
+		};
+		
+		var callback_fail = function() {
+			alert('Server access error!');
+		};
+		
+		var callback_after_all_call = function(){
+			_show_result(setting);
+			pcf_hide_loading();
+		};
+		
+		var callback_fail_after_all_call = function(){
+			pcf_hide_loading();
+		}
+		
+		if(ajax_item_list.length === 0){
+			_show_result(setting);
+			pcf_hide_loading();
+		}else if(ajax_item_list.length === 1){
+			_run_ajax(ajax_item_list[0][SETTING_KEY_URLSTR],'GET', 'text', true, function(data){
+				callback_success(data,ajax_item_list[0]);
 				_show_result(setting);
 				pcf_hide_loading();
-			}	
+				return;
+			});
+			return;
+		}else {
+			_run_ajax_sequential(ajax_item_list, callback_success, callback_fail, callback_after_all_call, callback_fail_after_all_call);
 		}
+		
+		return;
 	}
-	
+
+
 	function _search_detail_data_and_show_result(setting){
 
 		pcf_show_loading();
@@ -1635,10 +1716,10 @@
 						_set_detail_data_to_cache(json_data,target);
 					}
 				}
-				_search_phenotype_data_and_show_result(setting);
+				_search_phenotypename_casereportnum_and_show_result(setting);
 			});
 		} else {
-			_search_phenotype_data_and_show_result(setting);
+			_search_phenotypename_casereportnum_and_show_result(setting);
 		}
 	}
 
@@ -1908,7 +1989,11 @@
 
 	function _show_alert_dialog(jqXHR, textStatus, errorThrown,url_str){
 		let $alert_dialog = $("#alert_dialog");
-		$('#alertModalLabel').text(errorThrown);
+		if(errorThrown){
+			$('#alertModalLabel').text(errorThrown + " status:" + jqXHR.status);
+		}else{
+			$('#alertModalLabel').text("Error occured. Status: " + jqXHR.status);
+		}
 		$('#alert_response_text').text(jqXHR.responseText);
 		$('#alert_url').text(url_str);
 		$alert_dialog.modal('show');
@@ -1937,13 +2022,13 @@
 				type: 'GET',
 				success: function(data) {
 					// do something here
-					callback_success(data,item);
+					if(_isFunction(callback_success)) callback_success(data,item);
 					// mark the ajax call as completed
 					deferred.resolve(data);
 				},
 				error: function(error) {
 					// mark the ajax call as failed
-					callback_fail(error);
+					if(_isFunction(callback_fail)) callback_fail(error);
 					deferred.reject(error);
 				}
 			});
@@ -1962,12 +2047,12 @@
 			return looper;
 		})).then(function() {
 			// run this after all ajax calls have completed
-			callback_after_all_call();
+			if(_isFunction(callback_after_all_call)) callback_after_all_call();
 			return;
 			//console.log('Done!');
 		}).fail(function() {
 			//console.log( 'I fire if one or more requests failed.' );
-			callback_fail_after_all_call();
+			if(_isFunction(callback_fail_after_all_call)) callback_fail_after_all_call();
 			pcf_hide_loading();
 			return;
 		});
