@@ -24,12 +24,15 @@
 			CLASS_DATA_LOADED     = "pcf-data-loaded",
 			KEY_TARGET            = "pcf-target",
 			KEY_URL               = "pcf-url",
+			KEY_COUNT             = "pcf-count",
 			LANG_EN               = "en",
 			LANG_JA               = "ja",
 			KEY_LANG              = "PCF-LANGUAGE",
 			KEY_HPO_ID            = "PCF-HPO-ID",
 			KEY_HPO_NAME          = "PCF-HPO-NAME";
-		
+
+	const PHENOTYPE_TABLE_HEADER = ['Add','HPO:ID','Label','Description'];
+			
 	var DEFAULT_SETTINGS = {
 		[KEY_LABEL_PHENOTYPE]   : '',
 		[KEY_LABEL_JA_CASE]     : '',
@@ -141,53 +144,66 @@
 					"hpo_id": "HP:0000028",
 					"hpo_url": "http://purl.obolibrary.org/obo/HP_0000028",
 					"hpo_label_en": "Cryptorchidism",
-					"hpo_label_ja": "停留精巣"
+					"hpo_label_ja": "停留精巣",
+					"definition": "Testis in inguinal canal. That is, absence of one or both testes from the scrotum owing to failure of the testis or testes to descend through the inguinal canal to the scrotum."
 				}
 */
-				let hash_id = {}, hash_parent_id = {};
+				let hash = {};
 				json_data.forEach(function(item){
-					let parent_id = item.hpo_category_name_en;
-					let id        = item.hpo_label_en;
 
-					if(lang === LANG_JA && 'hpo_category_name_ja' in item){
-						parent_id = item.hpo_category_name_ja;
+					let category = item.hpo_category_name_en;
+					if(lang === LANG_JA && 'hpo_category_name_ja' in item && item.hpo_category_name_ja){
+						category = item.hpo_category_name_ja;
 					}
-					if(lang === LANG_JA && 'hpo_label_ja' in item){
-						id = item.hpo_label_ja;
+
+					if(!(category in hash)){
+						hash[category] = {};
 					}
-					item['id'] = id;
-					item['parent_id'] = parent_id;
+
+					hash[category][item.hpo_id] = item;
+				});
+
+				Object.keys(hash).sort().forEach(function(category){
+					$('<label>').text(category).appendTo($container);
+					let $table = $('<table>').appendTo($container);
+					let $thead = $('<thead>').appendTo($table);
+					let $thead_row = $('<tr>').appendTo($thead);
 					
-					hash_id[id] = 1;
-					hash_parent_id[parent_id] = 1;
+					PHENOTYPE_TABLE_HEADER.forEach(function(th_text){
+						$('<th>').text(th_text).appendTo($thead_row);
+					});
+					
+					let $tbody = $('<tbody>').appendTo($table);
+					Object.keys(hash[category]).sort().forEach(function(hpo_id){
+						let item = hash[category][hpo_id];
+						let $row = $('<tr>').appendTo($tbody);
+
+						let hpo_name = item.hpo_label_en;
+						if(lang === LANG_JA && 'hpo_label_ja' in item && item.hpo_label_ja){
+							hpo_name = item.hpo_label_ja;
+						}
+						let $td1 = $('<td nowrap=\"nowrap\">').appendTo($row);
+						//$('<a>').attr('href',item.hpo_url).attr('target','_blank').text(item.hpo_id).appendTo($td1);
+						$('<span class=\"material-icons\">post_add</span>')
+							.data(KEY_HPO_ID,   item.hpo_id)
+							.data(KEY_HPO_NAME, hpo_name)
+							.click(function(){
+								let $span = $(this);
+								let hpo_id1 = $span.data(KEY_HPO_ID);
+								let hpo_name1 = $span.data(KEY_HPO_NAME);
+								if(_hasJA(hpo_name1)) hpo_id1 += '_ja';
+								$("#tokeninput_hpo").tokenInput("add", {id: hpo_id1, name: hpo_name1});
+							})
+							.appendTo($td1);
+						
+						let $td2 = $('<td>').appendTo($row);
+						$('<a>').attr('href',item.hpo_url).attr('target','_blank').text(item.hpo_id).appendTo($td2);
+						
+						$('<td>').text(hpo_name).appendTo($row);
+						
+						$('<td>').text(item.definition).appendTo($row);
+					});
 				});
-
-				json_data.push({'id':'dummy_root','parent_id': null});
-
-				Object.keys(hash_parent_id).forEach(function(parrent_id){
-					if(!(parrent_id in hash_id)){
-						json_data.push({'id':parrent_id,'parent_id': 'dummy_root'});
-					}
-				});
-
-				const idMapping = json_data.reduce((acc, el, i) => {
-				  acc[el.id] = i;
-				  return acc;
-				}, {});
-
-				let root;
-				json_data.forEach(el => {
-					if (el.parent_id === null) {
-						root = el;
-						return;
-					}
-					let key = el.parent_id;
-					let i = idMapping[key];
-					let parentEl = json_data[i];
-					parentEl['children'] = [...(parentEl['children'] || []), el];
-				});
-
-				appendChildren($container, root.children);
 
 				$container.removeClass(CLASS_INIT).addClass(CLASS_DATA_LOADED);	
 			}  
@@ -255,14 +271,21 @@
 						  .data(KEY_TARGET,target).data(KEY_URL,setting[url_key]).data(KEY_LANG,setting[KEY_LANG])
 						  .appendTo($container);				
 
-				let $a = $('<a>').data(KEY_TARGET,target).text(setting[label_key]).appendTo($list_show_button_panel);
+				let $a = $('<a>').data(KEY_TARGET,target).data(KEY_COUNT,setting[count_key]).text(setting[label_key]).appendTo($list_show_button_panel);
 				if(i>0) $a.addClass("v_line_left");
 				$("<span>Show("+setting[count_key]+")</span>").appendTo($a);
 				if(setting[count_key] > 0){
 					$a.click(function(){
 						let $button =$(this);
-						let target_b =  $button.data(KEY_TARGET);
+						let target_b = $button.data(KEY_TARGET);
+						let count    = $button.data(KEY_COUNT);
 						$button.toggleClass(CLASS_ACTIVE);
+						if($button.hasClass(CLASS_ACTIVE)){
+							$button.find('span').text('Hide('+count+')');
+						}else{
+							$button.find('span').text('Show('+count+')');
+						}
+						
 						$button.siblings().removeClass(CLASS_ACTIVE);
 						$button.parent().siblings().each( function () {
 							let $panel = $(this); 
