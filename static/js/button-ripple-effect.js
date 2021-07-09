@@ -173,7 +173,7 @@ function attachRippleToSelectors(selectors, rippleColor, eventListener) {
     if (selectorsEl.length > 0) {
         attachRipple(selectorsEl, rippleColor, eventListener);
     } else {
-        console.warn("No element found with this selector: ", selectors);
+        //console.warn("No element found with this selector: ", selectors);
     }
 }
 
@@ -196,7 +196,7 @@ module.exports = {
             onDrag(eventListener);
             attachRippleToAttribute(area, color, eventListener);
         } catch (e) {
-            console.warn(e.message);
+            //console.warn(e.message);
         }
     },
     attachToSelectors: function attachToSelectors() {
@@ -213,7 +213,7 @@ module.exports = {
 
             attachRippleToSelectors(data.selectors, color, eventListener);
         } catch (e) {
-            console.warn(e.message);
+            //console.warn(e.message);
         }
     },
     setOffsetEl: function setOffsetEl(el) {
