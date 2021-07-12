@@ -66,7 +66,8 @@ def pcf_get_ranking_by_hpo_id(r_target, r_phenotype):
     ### http://stackoverflow.com/questions/4574609/executing-select-where-in-using-mysqldb
     sql_index = ""
     if r_target=="omim":
-        sql_index = u"select a.OntoIDOMIM, a.IndexOntoIDHP, a.DiseaseOntoIDHP, a.CommonRootHPIC, (b.IC - a.CommonRootHPIC) from IndexDiseaseHPOMIM as a left join IC as b on a.IndexOntoIDHP=b.OntoID where a.IndexOntoIDHP in (%s) and b.OntoName='HP' order by field(a.IndexOntoIDHP, %s)"
+        #sql_index = u"select a.OntoIDOMIM, a.IndexOntoIDHP, a.DiseaseOntoIDHP, a.CommonRootHPIC, (b.IC - a.CommonRootHPIC) from IndexDiseaseHPOMIM as a left join IC as b on a.IndexOntoIDHP=b.OntoID where a.IndexOntoIDHP in (%s) and b.OntoName='HP' order by field(a.IndexOntoIDHP, %s)"
+        sql_index = u"select a.DiseaseID, a.IndexOntoIDHP, a.DiseaseOntoIDHP, a.CommonRootHPIC, (b.IC - a.CommonRootHPIC) from IndexDPAOMIM as a left join IC as b on a.IndexOntoIDHP=b.OntoID where a.IndexOntoIDHP in (%s) and b.OntoName='HP' order by field(a.IndexOntoIDHP, %s)"
     elif r_target=="orphanet":
         sql_index = u"select a.OntoIDORDO, a.IndexOntoIDHP, a.DiseaseOntoIDHP, a.CommonRootHPIC, (b.IC - a.CommonRootHPIC) from IndexDiseaseHP as a left join IC as b on a.IndexOntoIDHP=b.OntoID where a.OntoIDORDO in (select distinct OntoID from Orphanet where RareDiseaseFlg=1) and a.IndexOntoIDHP in (%s) and b.OntoName='HP' order by field(a.IndexOntoIDHP, %s)"
     elif r_target=="gene":
@@ -90,6 +91,20 @@ def pcf_get_ranking_by_hpo_id(r_target, r_phenotype):
     # t10
     thres_delta_ic, thres_count, thres_weight = 7.5, 3, 0.25
 
+    # 入力HPOとCommonHPOの差分カウント
+    for value in values_index:
+        onto_id            = value[0]
+        onto_id_hp_index   = value[1]
+        onto_id_hp_disease = value[2]
+        ic                 = 0 if value[3] == "" else float(value[3])
+        delta_ic           = float(value[4])
+        weight             = 1
+
+        if onto_id not in dict_over_thres_count:
+            dict_over_thres_count[onto_id] = 0
+        if delta_ic < thres_delta_ic:
+            dict_over_thres_count[onto_id] += 1
+
     for value in values_index:
         onto_id       = value[0]
         onto_id_hp_index   = value[1]
@@ -99,12 +114,15 @@ def pcf_get_ranking_by_hpo_id(r_target, r_phenotype):
         weight             = 1
 
         # 入力HPOとCommonHPOの差分カウントおよびカウント回数の条件を満たした場合のweight設定
-        if onto_id not in dict_over_thres_count:
-            dict_over_thres_count[onto_id] = 0
-        if delta_ic < thres_delta_ic:
-            dict_over_thres_count[onto_id] += 1
         if delta_ic >= thres_delta_ic and dict_over_thres_count[onto_id] >= thres_count:
             weight = thres_weight
+
+        ## test
+        if onto_id == "OMIM:234200":
+            app.logger.error(onto_id_hp_index)
+            app.logger.error(onto_id_hp_disease)
+            app.logger.error("weight: " + str(weight))
+            app.logger.error("weight: " + str(ic * weight))
 
         if onto_id not in dict_similar_diseases:
             dict_similar_diseases[onto_id] = {}
@@ -145,6 +163,12 @@ def pcf_get_ranking_by_hpo_id(r_target, r_phenotype):
                 continue
 
         dict_similar_disease = {}
+
+        ## test ##
+        if onto_id == "OMIM:234200":
+            app.logger.error(dict_similar_diseases[onto_id]['sum_ic'])
+            app.logger.error(dict_similar_diseases[onto_id]['sum_ic_denominator'])
+
         dict_similar_disease['score']                = float(dict_similar_diseases[onto_id]['sum_ic'] / dict_similar_diseases[onto_id]['sum_ic_denominator']) if dict_similar_diseases[onto_id]['sum_ic_denominator'] != 0 else 0
         list_matched_hpo_id = []
         for x in dict_similar_diseases[onto_id]['matched_hpo_id']:
@@ -152,6 +176,11 @@ def pcf_get_ranking_by_hpo_id(r_target, r_phenotype):
                 list_matched_hpo_id.append(x)
         #dict_similar_disease['matched_hpo_id']       = ",".join(dict_similar_diseases[onto_id]['matched_hpo_id'])
         dict_similar_disease['matched_hpo_id']       = ",".join(list_matched_hpo_id)
+
+        ## test ##
+        if onto_id == "OMIM:234200":
+            app.logger.error(dict_similar_disease['matched_hpo_id'])
+
         dict_similar_disease['annotation_hp_num']    = dict_AnnotationHPONum[onto_id] if not r_target=="gene" else dict_AnnotationHPONum[geneid]
         dict_similar_disease['annotation_hp_sum_ic'] = dict_AnnotationHPOSumIC[onto_id] if not r_target=="gene" else dict_AnnotationHPOSumIC[geneid]
         if r_target=="orphanet":
