@@ -535,6 +535,8 @@
 		var lastScrollTop = 0;
 		$(window).on('scroll', function(e) {
 
+			 if($.magnificPopup.instance.contentContainer && $('.mfp-wrap')) return;
+
 			if(e.target.getAttribute('id') === 'alert_response_text' || e.target.getAttribute('id') === 'alert_url') return;
 
 			st = $(this).scrollTop();
@@ -572,6 +574,9 @@
 	// Other browsers
 	else {
 		$('body').on('mousewheel', function(e){
+
+			 if($.magnificPopup.instance.contentContainer && $('.mfp-wrap')) return;
+
 
 			if(e.target.getAttribute('id') === 'alert_response_text' || e.target.getAttribute('id') === 'alert_url') return;
 
