@@ -116,7 +116,7 @@
 					</div>
 					<div class="d-flex flex-column">
 						<div class="p-2"><button id="tokeninput_hpo_clear" class="round-button material-icons">clear</button></div>
-						<div class="p-2"><button id="search_button" style="color:white; background-color:red;" class="round-button material-icons">search</button></div>
+						<div class="p-2"><button id="search_button" style="color:white; background-color:red;opacity=1.0;" class="round-button material-icons">search</button></div>
 					</div>
 				</div>
 				<div class="search-button" id="div_search_button">
@@ -284,6 +284,16 @@
 		<tr><th class="popup_content_class">Synonym   </th><td>popup_content_synonym</td></tr>
 	</table>
 </div>
+<div id="popover_html_phenotype_en" style="display:none;">
+        <table>
+                <tr><th class="popup_content_class">HPO ID      </th><td><a href="popup_content_hpo_url" target="_blank">popup_content_pcf-phenotype-id</td></tr>
+                <tr><th class="popup_content_class">Label</th><td>popup_content_name_en</td></tr>
+                <tr><th class="popup_content_class">Definition</th><td>popup_content_definition</td></tr>
+                <tr><th class="popup_content_class">Comment   </th><td>popup_content_comment</td></tr>
+                <tr><th class="popup_content_class">Synonym   </th><td>popup_content_synonym</td></tr>
+        </table>
+</div>
+
 <div id="popover_html_disease" style="display:none;">
 	<table>
 		<tr><th class="popup_content_class">MONDO ID  </th><td><a href="popup_content_mondo_url" target="_blank">popup_content_pcf-disease-id</td></tr>
@@ -295,6 +305,18 @@
 		<tr><th class="popup_content_class">Orphanet  </th><td>popup_content_orpha_list</td></tr>
 	</table>
 </div>
+<div id="popover_html_disease_en" style="display:none;">
+        <table>
+                <tr><th class="popup_content_class">MONDO ID  </th><td><a href="popup_content_mondo_url" target="_blank">popup_content_pcf-disease-id</td></tr>
+                <tr><th class="popup_content_class">Label     </th><td>popup_content_name_en</td></tr>
+                <tr><th class="popup_content_class">Definition</th><td>popup_content_definition</td></tr>
+                <tr><th class="popup_content_class">Synonym   </th><td>popup_content_synonym</td></tr>
+                <tr><th class="popup_content_class">OMIM          </th><td>popup_content_omim_list</td></tr>
+                <tr><th class="popup_content_class">Orphanet  </th><td>popup_content_orpha_list</td></tr>
+        </table>
+</div>
+
+
 <div id="popover_html_gene" style="display:none;">
 	<table>
 		<tr><th class="popup_content_class">NCBI Gene ID</th><td><a href="popup_content_ncbi_gene_url" target="_blank">popup_content_pcf-gene-id</a></td></tr>
