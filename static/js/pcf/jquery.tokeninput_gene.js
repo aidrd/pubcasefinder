@@ -155,7 +155,7 @@
 
 			var select_class = this.classes.tokenLogicaloperator;
 			if(isSafari) select_class += ' ios-safari';
-			var html = '<li class="'+li_class.join(' ')+'" draggable="true" style="-khtml-user-drag:element;">'+
+			var html = '<li class="'+li_class.join(' ')+'" draggable="true" style="-khtml-user-drag:element;-webkit-user-drag:element;">'+
 			'<div class="'+this.classes.dragdrop+'"></div>'+
 			'<div class="'+li_class.join(' ')+'">'+
 				'<div class="'+this.classes.tokenWord+' '+this.classes.tokenLogicaloperator+'">'+
@@ -738,7 +738,7 @@
 			.appendTo($token_list_wrapper_table_td_right);
 
 		// The token holding the input box
-		var input_token = $("<li />")
+		var input_token = $("<li id=\"li_input_token\" draggable=\"false\"  style=\"-webkit-user-drag:none;\" />")
 			.addClass($(input).data("settings").classes.inputToken)
 			.appendTo(token_list)
 			.append(input_box);
@@ -1535,6 +1535,7 @@
 			token_list.find('li').each(function(){
 				var $this = $(this);
 				if($target.is($this)) return true;
+				if($this.id === "li_input_token") return true;
 
 				$this.on('dragover', function(e){
 					e.preventDefault();

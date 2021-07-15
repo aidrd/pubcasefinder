@@ -98,7 +98,7 @@
 					<div class="d-flex flex-column">
 						<div class="p-2" id="text2hpo">
 							{% if r_lang == "ja" %}
-							<a href="/text2hpo" target="_blank" class="round-button material-icons" data-toggle="tooltip" data-placement="top" title="文章から症状(HPO)を抽出">text_snippet</a>
+							<a href="/text2hpo" target="_blank" class="round-button material-icons" data-toggle="tooltip" data-placement="top" title="文章から症状を自動抽出">text_snippet</a>
 							{% else %}
 							<a href="https://impact.dbmi.columbia.edu/doc2hpo/" target="_blank" class="round-button material-icons" data-toggle="tooltip" data-placement="top" title="Input Free-Text (doc2hpo)">text_snippet</a>
 							{% endif %}
@@ -228,7 +228,8 @@
 										<td style="vertical-align: middle;padding-left:0;padding-right:10px;">Format:</td>
 										<td>
 											<!-- <select style="width:150px;" class="form-control custom-select" id="str_display_format"> -->
-											<select style="width:150px;" class="custom-select" id="str_display_format">
+											<!-- <select style="width:150px;" class="custom-select" id="str_display_format"> -->
+											<select style="width:150px;" class="custom-select" id="str_display_format" onchange="str_display_format_onchange(this.value);">
 												<option value="summary" {% if r_display_format == "summary" %} selected {% endif %}>Summary</option>
 												<option value="full" {% if r_display_format == "full" %} selected {% endif %}>Full</option>
 									  		</select>
@@ -238,7 +239,8 @@
 										<td style="vertical-align: middle; padding-right:10px;" nowrap>Per page:</td>
 										<td>
 											<!-- <select style="width:150px;" class="form-control custom-select" id="str_size"> -->
-											<select style="width:150px;" class="custom-select" id="str_size">
+											<!-- <select style="width:150px;" class="custom-select" id="str_size"> -->
+											<select style="width:150px;" class="custom-select" id="str_size" onchange="str_size_onchange(this.value);">
 												<option value=10  {% if r_size == "10" %} selected {% endif %}>10</option>
 												<option value=20  {% if r_size == "20" %} selected {% endif %}>20</option>
 												<option value=50  {% if r_size == "50" %} selected {% endif %}>50</option>
@@ -386,7 +388,10 @@
 
 <script src="/static/js/pcf/jquery.waypoints.min.js"></script>
 <script src="/static/js/jquery.countTo.js"></script>
-<script src="/static/js/pcf/jquery.magnific-popup.min.js"></script>
+<!-- modify start for chrome 91.0.4472.123-->
+<!-- <script src="/static/js/pcf/jquery.magnific-popup.min.js"></script>  -->
+<script src="/static/js/pcf/jquery.magnific_popup.min.js"></script>
+<!-- modify end for chrome 91.0.4472.123-->
 <script src="/static/js/pcf/magnific-popup-options.js"></script>
 <script src="/static/js/pcf/jquery.stellar.min.js"></script>
 <script src="/static/js/pcf/rater.js"></script>
@@ -495,6 +500,16 @@
 		return false;
 	});
 
+
+	function getDocHeight() {
+		var D = document;
+		return Math.max(
+			D.body.scrollHeight, D.documentElement.scrollHeight,
+			D.body.offsetHeight, D.documentElement.offsetHeight,
+			D.body.clientHeight, D.documentElement.clientHeight
+		);
+	}
+
 	var iev=0;
 	var ieold = (/MSIE (\d+\.\d+);/.test(navigator.userAgent));
 	var trident = !!navigator.userAgent.match(/Trident\/7.0/);
@@ -513,16 +528,22 @@
 			st = $(this).scrollTop();
 			if(st < lastScrollTop) {
 				//console.log('Up');
-				$('header').show();
+				//$('header').show();
+				//$('header').fadeIn("slow");
+				$('header').slideDown(500);
 			}
 			else if(st > lastScrollTop) {
 				//console.log('Down');
-				$('header').hide();
+				//$('header').hide();
+				//$('header').fadeOut("slow");
+				if($(window).scrollTop() + $(window).height() < getDocHeight()-50) {
+					$('header').slideUp(500);
+				}
 			}
 			lastScrollTop = st;
 
 			$('.dropdown.show').dropdown('toggle');
-			$('.list-tag').removeClass('pcf-active');
+			//$('.list-tag').removeClass('pcf-active');
 			//$('.popover').popover('hide');
 			tippy.hideAll();
 
@@ -531,6 +552,11 @@
 			} else {                        
 				$('#btn_back_to_top').hide();  
 			}
+			
+			if($(window).scrollTop() + $(window).height() >= getDocHeight()-50) {
+				$('header').slideDown(500);
+			}
+			
 		});
 	}
 	// Other browsers
@@ -541,15 +567,21 @@
 
 			if(e.originalEvent.wheelDelta > 0) {
 				//console.log('Up');
-				$('header').show();
+				//$('header').show();
+				//$('header').fadeIn("slow");
+				$('header').slideDown(500);
 			}
 			else if(e.originalEvent.wheelDelta < 0) {
 				//console.log('Down');
-				$('header').hide();
+				//$('header').hide();
+				//$('header').fadeOut("slow");
+				if($(window).scrollTop() + $(window).height() < getDocHeight()-50) {
+					$('header').slideUp(500);
+				}
 			}
 
 			$('.dropdown.show').dropdown('toggle');
-			$('.list-tag').removeClass('pcf-active');
+			//$('.list-tag').removeClass('pcf-active');
 			//$('.popover').popover('hide');
 			tippy.hideAll();
 
@@ -558,6 +590,12 @@
 			} else {
 				$('#btn_back_to_top').hide();  
 			}
+			
+			if($(window).scrollTop() + $(window).height() >= getDocHeight()-50) {
+				$('header').slideDown(500);
+			}
+
+			
 		});
 	}
 
@@ -568,7 +606,7 @@
 		$('#btn_back_to_top').hide();
 	}
 
-
+/*
 	$("#str_display_format").change(function(){
 		let display_format = $(this).val();
 		$("#pcf-content").pcf_content('update_display_format', display_format);
@@ -577,6 +615,7 @@
 		return false;
 	});
 
+
 	$("#str_size").change(function(){
 		let size = $(this).val();
 		$("#pcf-content").pcf_content('update_size', parseInt(size));
@@ -584,6 +623,23 @@
 		update_download_link();
 		return false;
 	});
+*/
+
+	function str_display_format_onchange(display_format) {
+                //let display_format = $(this).val();
+                $("#pcf-content").pcf_content('update_display_format', display_format);
+                $("#search-button_display").dropdown('hide');
+                update_download_link();
+                return false;
+	}
+
+	function str_size_onchange(size) {
+                //let size = $(this).val();
+                $("#pcf-content").pcf_content('update_size', parseInt(size));
+                $("#search-button_display").dropdown('hide');
+                update_download_link();
+                return false;
+	}
 
 	$("#phenotouch").click(function (e){
 		$.PopupRelationHPOWithWebGL();
@@ -600,13 +656,13 @@
 		let format    = $("#str_display_format").val();
 		let lang      = $("#r_lang").val();
 		
-		let url_str = window.location.protocol + "//" + window.location.host + "/" + window.location.pathname +
+		let url_str = window.location.protocol + "//" + window.location.host + window.location.pathname +
 					"?target="+target+"&phenotype="+phenotype+"&filter="+filter+"&size="+size+"&display_format="+format+"&lang="+lang;
 
-		let url_str_en = window.location.protocol + "//" + window.location.host + "/" + window.location.pathname +
+		let url_str_en = window.location.protocol + "//" + window.location.host + window.location.pathname +
 					"?target="+target+"&phenotype="+phenotype+"&filter="+filter+"&size="+size+"&display_format="+format+"&lang=en";
 
-		let url_str_ja = window.location.protocol + "//" + window.location.host + "/" + window.location.pathname +
+		let url_str_ja = window.location.protocol + "//" + window.location.host + window.location.pathname +
 					"?target="+target+"&phenotype="+phenotype+"&filter="+filter+"&size="+size+"&display_format="+format+"&lang=ja";
 
 		$('#share_link').val(url_str);
@@ -616,11 +672,9 @@
 		$('#link_ja').attr('href',url_str_ja);
 
 		//location.replace(url_str);
-	}
+	};
 
 	
-	$('#search_button').on('click', runSubmit);
-
 	var runSubmit = function(){
 		// trigger search
 		let form = document.createElement("form");
@@ -790,6 +844,10 @@
 			$("#tokeninput_hpo").tokenInput("clear");
 			return false;
 		});
+		
+		$('#search_button').on('click', function(){
+			runSubmit();			
+		});		
 
 		$("#tokeninput_genes").tokenInput_gene("/tokeninput_genes", {
 			'theme': "facebook",
@@ -853,7 +911,9 @@
 			}
 		};
 
-		$("#token-input-tokeninput_genes").css({'width':'450px'});
+		if(!filter_id_list){
+			$("#token-input-tokeninput_genes").css({'width':'600px'});
+		}
 
 		$("#pcf-content").pcf_content('load_phenotype_and_filter_objects_by_ids',hpo_id_list,filter_id_list,function(hpo_obj_list, filter_obj_list){
 			let id_list = [];

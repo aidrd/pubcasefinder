@@ -90,7 +90,16 @@
       var id = item['id'].replace(/_ja$/g,'');
       var name = item['name'];
       var theme = this.theme ? '-'+this.theme : '';
-      return '<li class="token-input-token-term'+theme+'"><p><span class="token-input-token-word'+theme+' token-input-token-id'+theme+'">' + (this.enableHTML ? id : _escapeHTML(id)) + '</span><span class="token-input-token-word'+theme+' token-input-token-name'+theme+'">' + (this.enableHTML ? name : _escapeHTML(name)) + '</span></p><div class="token-input-token-word'+theme+' token-input-token-icon'+theme+'"><div class="arrow"></div></div></li>';
+      return '<li class="token-input-token-term'+theme+'">'+
+				'<p>'+
+					'<span class="token-input-token-word'+theme+' token-input-token-id'+theme+'">' + (this.enableHTML ? id : _escapeHTML(id)) + '</span>'+
+					'<span class="token-input-token-word'+theme+' token-input-token-name'+theme+'">' + (this.enableHTML ? name : _escapeHTML(name)) + '</span>'+
+				'</p>'+
+				//'<div class="token-input-token-word'+theme+' token-input-token-icon'+theme+'"><div class="arrow"></div></div>'+
+				'<div style="position:relative;" class="token-input-token-word'+theme+' token-input-token-icon'+theme+'">'+
+					'<div class="material-icons" style="position:absolute;top:50%;left:50%;transform: translate(-50%, -50%);">expand_more</div>'+
+				'</div>'+
+			'</li>';
     },
 
     highlightTerm: function(value, term) {
@@ -746,6 +755,7 @@
 //                        delete_token($(this).parent());
                         delete_token($(this).closest('li'));
                         hiddenInput.change();
+                        resize_input();
                         return false;
                     }
                 });

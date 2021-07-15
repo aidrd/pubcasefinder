@@ -327,10 +327,6 @@
 		function getTokenInputItemNodes(){
 
 			var tmp = 'ul.'+tokeninput_classes['tokenList'].split(/\s+/).join('.')+'.'+current_settings.cssTokenListClass+'>li.'+tokeninput_classes['token']+'.'+current_settings.cssTokenClass;
-//			if(current_settings.use_webgl){
-//			} else {
-//				tmp = 'ul.hpo-token-input-list.token-input-list-facebook>li.token-input-token-term-facebook.token-input-token-facebook';
-//			}
 			return $(tmp).toArray();
 		}
 
@@ -689,24 +685,6 @@
 			return;
 		}
 
-		function modifySize(){
-			let $inlineContentBase = getContentBaseElement();			
-			let $table = $inlineContentBase.find(current_settings.nodeName+'.'+current_settings.cssTableClass+'.'+current_settings.cssClassContentBaseClass);
-
-/*
-			let $popup_hierarchy_hpo_table_border_spacing = 10;
-			if(current_settings.use_webgl){
-				// .popup-hierarchy-hpo-table border-spacing: 10px
-				$table.css({'border-spacing':$popup_hierarchy_hpo_table_border_spacing+'px','width':'100%','margin-top':'0','margin-left':'0'});
-			}else{
-				// .popup-hierarchy-hpo-table border-spacing: 10px
-				var left = $("#div_search_button").offset().left-$popup_hierarchy_hpo_table_border_spacing;
-				var width = $("#div_search_button").width() + ($popup_hierarchy_hpo_table_border_spacing * 2);
-				$table.css({'margin-top':'-' + $popup_hierarchy_hpo_table_border_spacing + 'px','width':width+'px','margin-left':left+'px'});
-			}
-*/
-		}
-
 		function addPhenoTouchButtons(){
 			var $button_base = $('<'+current_settings.nodeName+'>').addClass(current_settings.cssButtonBaseClass);
 			var language = current_settings.language[getCurrentLanguage()];
@@ -727,7 +705,6 @@
 					$button.css({'margin-right':'20px'});
 				}
 				if(current_settings.clearButtonAlign=='left'){
-//					$button.css({'margin-left':'140px'});
 					$button.css({'margin-left':'0px'});
 				}
 
@@ -1059,8 +1036,6 @@
 			else{
 				$table = $('<'+current_settings.nodeName+'>').addClass(current_settings.cssTableClass).addClass(current_settings.cssClassContentBaseClass).appendTo($inlineContentBase);
 			}
-
-			modifySize();
 
 			var $tr = $('<'+current_settings.nodeName+'>').addClass(current_settings.cssTrClass).appendTo($table);
 

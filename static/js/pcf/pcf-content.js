@@ -95,7 +95,7 @@
 				'DETAIL_LABEL': {
 					'FIND_IMAGES':  '画像検索(Google)',
 					'PHENOTYPE_LST':'症状一覧',
-					'JA_REPORT':    '症例報告(J-STAGE & J-GLOBAL)',
+					'JA_REPORT':    '症例報告(J-STAGE)',
 					'EN_REPORT':    '症例報告(PubMed)',
 					'UR_DBMS':      '日本語疾患詳細(UR-DBMS)',
 				}
@@ -122,8 +122,8 @@
 				},
 				'DETAIL_LABEL': {
 					'FIND_IMAGES':   'Find images(Google)',
-					'PHENOTYPE_LST': 'Symptom List',
-					'JA_REPORT':     'Case Report(J-STAGE & J-GLOBAL)',
+					'PHENOTYPE_LST': 'Clinical features',
+					'JA_REPORT':     'Case Report(J-STAGE)',
 					'EN_REPORT':     'Case Report(PubMed)',
 					'UR_DBMS':       'UR-DBMS'
 				}
@@ -902,7 +902,7 @@
 			if(hgnc_gene_symbol) max_text_len  = 60;// based on the letter count of Link
 			content = content.replace(/popup_content_hgnc_gene_symbol/g, hgnc_gene_symbol);
 			
-			let synonym = _contruct_popup_content_val('synonym',popup_data,'|');
+			let synonym = _contruct_popup_content_val('synonym',popup_data,',');
 			if(max_text_len < synonym.length) max_text_len = synonym.length;
 			content = content.replace(/popup_content_synonym/g, synonym);
 			
@@ -973,6 +973,7 @@
 	 		appendTo:      document.body,
 			animation:     'scale',
 			animationFill: true,
+			delay:         [500, null],
 			maxWidth:      400,
 			strategy:     'fixed',
 			interactive:  true,
