@@ -267,6 +267,8 @@
 
 				let target=TARGET_LIST[i],url_key=URL_KEY_LIST[i],count_key=COUNT_KEY_LIST[i],label_key=LABEL_KEY_LIST[i];
 				
+				if(setting[KEY_LANG] === LANG_EN && target === TARGET_JA_CASE_LIST) continue; 
+	
 				$("<div>").addClass("list-show-panel").addClass(CLASS_INIT)
 						  .data(KEY_TARGET,target).data(KEY_URL,setting[url_key]).data(KEY_LANG,setting[KEY_LANG])
 						  .appendTo($container);				

@@ -389,7 +389,13 @@
 			var hidden = options.hidden ? true : false;
 			var $td = $('<'+current_settings.nodeName+'>').addClass(current_settings.cssTdClass).addClass(current_settings.cssOtherContentClass); //.appendTo($tr);
 			if(!hidden && $.isArray(values) && values.length){
-				var $base = $('<'+current_settings.nodeName+'>').addClass(current_settings.cssBaseClass).addClass(current_settings.cssOtherContentClass).appendTo($td);
+				var $base = $('<'+current_settings.nodeName+'>').addClass(current_settings.cssBaseClass).addClass(current_settings.cssOtherContentClass)
+																.click(function(e){
+																	e.stopPropagation();
+																	e.preventDefault();
+																	return false;
+																})
+																.appendTo($td);
 				if(isString(options.classname)) $base.addClass(options.classname);
 				if(isString(options['title']) && options['title'].length){
 					var $title = $('<'+current_settings.nodeName+'>').addClass(current_settings.cssTopBarClass).text(options['title']).appendTo($base);
@@ -1050,7 +1056,13 @@
 			// self class content
 			var $td = $('<'+current_settings.nodeName+'>').addClass(current_settings.cssTdClass).addClass(current_settings.cssSelfContentClass).appendTo($tr);
 			if($.isArray(results[current_settings.keySelfclass]) && results[current_settings.keySelfclass].length){
-				var $base = $('<'+current_settings.nodeName+'>').addClass(current_settings.cssBaseClass).appendTo($td);
+				var $base = $('<'+current_settings.nodeName+'>').addClass(current_settings.cssBaseClass)
+																.click(function(e){
+																	e.stopPropagation();
+																	e.preventDefault();
+																	return false;
+																})
+																.appendTo($td);
 				var $title = null;
 				if(isString(current_settings.titleSelfclass) && current_settings.titleSelfclass.length){
 					$title = $('<'+current_settings.nodeName+'>').addClass(current_settings.cssTopBarClass).text(current_settings.titleSelfclass).appendTo($base);
@@ -2147,6 +2159,9 @@
 				getLoadingElement().hide();
 
 				$(document.body).off('keydown', eventKeydown);
+				if(!current_settings.use_webgl){
+					$(document.body).off('click', eventClick);
+				}
 
 				var timeoutID;
 				var func = function(){
@@ -2160,6 +2175,9 @@
 						$a.get(0).focus();
 						setTimeout(function(){ $a.get(0).focus(); },10); //←追加行
 						$(document.body).on('keydown', eventKeydown);
+						if(!current_settings.use_webgl){
+							$(document.body).on('click', eventClick);
+						}
 					}
 					else{
 						timeoutID = setTimeout(func,100);
@@ -2205,6 +2223,17 @@
 				__threeBitsRenderer.fireEvent('progress',__threeBitsRenderer,'Please wait...');
 			}
 
+		}
+
+		function eventClick(e){
+			let $target = $(e.target);
+			if( !$target.hasClass('token-input-li')){
+				$('li').removeClass(tokeninput_classes['selectedToken']);
+				$('li').removeClass(tokeninput_classes['highlightedToken']); 
+				$('li').removeClass('selected_at_popup');
+				setTimeout(function(){closeMagnificPopup(); },51);
+				return false; 
+			} 
 		}
 
 		function eventKeydown(e){
@@ -2319,6 +2348,9 @@
 								$a.addClass(current_settings.cssLinkFocusClass);
 								$a.get(0).focus();
 								$(document.body).on('keydown', eventKeydown);
+								if(!current_settings.use_webgl){
+									$(document.body).on('click', eventClick);
+								}
 							}
 							else{
 								timeoutID = setTimeout(func,100);
@@ -2331,6 +2363,9 @@
 					},
 					close: function() {
 						$(document.body).off('keydown', eventKeydown);
+						if(!current_settings.use_webgl){
+							$(document.body).off('click', eventClick);
+						}
 					},
 					afterClose: function() {
 					},
@@ -2346,6 +2381,10 @@
 		}
 
 		function showLoading() {
+/*			if(!current_settings.use_webgl){
+				$('div.mfp-content').on('click', eventClick);
+			}
+*/
 			var $loadingElement = getLoadingElement();
 			if($loadingElement.length){
 				$loadingElement.show();
@@ -2546,6 +2585,9 @@
 				tokeninput_selector = 'ul.'+tokeninput_classes['tokenList'].split(/\s+/).join('.')+'>li.'+tokeninput_classes['token'];//+'>p';
 
 				$(document).on('click', tokeninput_selector, function(e){
+					e.stopPropagation();
+					e.preventDefault();
+
 					var click_text = '';
 					var $li_node;
 					if($(this).get(0).nodeName.toLowerCase()==='li'){
@@ -2579,17 +2621,6 @@
 							tokenInputItems = getOriginalTokenInputItems();
 							tokenInputItemNodes = getOriginalTokenInputItemNodes();
 							tokenInputItem = getOriginalTokenInputItemFromName(click_text);
-
-							//if($.magnificPopup.instance.contentContainer && 
-							//   $li_node.hasClass(tokeninput_classes['selectedToken']) &&
-							//   $li_node.hasClass(tokeninput_classes['highlightedToken'])){
-							//	setTimeout(function(){
-							//		$(tokenInputItemNodes).removeClass(tokeninput_classes['selectedToken']);
-							//		$(tokenInputItemNodes).removeClass(tokeninput_classes['highlightedToken']);
-				                         //      		closeMagnificPopup();
-							//	},51);
-							//	return;
-							//}
 						}
 						if(tokenInputItem){
 							options.hasJA = hasJA(tokenInputItem.name);
