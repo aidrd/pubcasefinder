@@ -845,15 +845,13 @@
 		return ret;
 	}
 
-	function _contruct_popup_content(popup_id, popup_type, popup_data, popup_class, lang){
+	function _contruct_popup_content(popup_id, popup_type, popup_data, popup_class){
 		
 		let popup_html_id = POPUP_HTML_ID_HASH[popup_type];
 		let content       = $("#"+popup_html_id).html();
 		let max_text_len  = popup_id.length;
 
 		if(popup_type === POPUP_TYPE_PHENOTYPE || popup_type === POPUP_TYPE_INHERITANCE){
-
-			if(lang === LANGUAGE_EN) content = $("#"+popup_html_id + "_en").html();
 
 			let name_ja = _contruct_popup_content_val('name_ja',popup_data);
 			let name_en = _contruct_popup_content_val('name_en',popup_data);
@@ -923,8 +921,6 @@
 			content = content.replace(/popup_content_location/g, location);
 			
 		}else if(popup_type === POPUP_TYPE_DISEASE){
-			 if(lang === LANGUAGE_EN) content = $("#"+popup_html_id + "_en").html();
-
 			let name_ja = _contruct_popup_content_val('name_ja',popup_data);
 			let name_en = _contruct_popup_content_val('name_en',popup_data);
 			if(_isEmpty(name_ja) && _isEmpty(name_en)){
@@ -964,7 +960,7 @@
 		return [content, max_text_len];
 	}
 
-	function _contruct_popup_button(popup_type, key_popup_id, id,list_tag,text,popup_class,lang){
+	function _contruct_popup_button(popup_type, key_popup_id, id,list_tag,text,popup_class){
 		let button = document.createElement('button');
 		button.textContent = text;
 		button.classList.add("list-tag");
@@ -987,7 +983,6 @@
 			popup_type:   popup_type,
 			popup_id:     id,
 			popup_class:  popup_class,
-			lang:         lang,
 			onCreate(instance) {
 			    // Setup our own custom state properties
 			    instance._isFetching = false;
@@ -1004,7 +999,6 @@
 				let popup_type   = instance.props.popup_type;
 				let popup_id     = instance.props.popup_id;
 				let popup_class  = instance.props.popup_class;
-				let lang         = instance.props.lang;
 				
 				let url_str      = POPUP_URL_HASH[popup_type];
 				let url_id_key   = POPUP_URL_PARA_HASH[popup_type];
@@ -1017,7 +1011,7 @@
 					dataType: 'text',
 				}).done(function(data,textStatus,jqXHR) {
 						let json_data = JSON.parse(data);
-						let [content, max_text_len] = _contruct_popup_content(popup_id,popup_type,json_data, popup_class, lang);
+						let [content, max_text_len] = _contruct_popup_content(popup_id,popup_type,json_data, popup_class);
 						if(max_text_len<40){
 							instance.setProps({maxWidth: 500});
 						}else if(max_text_len<60){
@@ -1088,7 +1082,7 @@
 						label_text= hpo_id;
 					}
 				}
-				_contruct_popup_button(POPUP_TYPE_PHENOTYPE, KEY_POPUP_ID_PHENOTYPE, hpo_id, "list-tag_blue", label_text, CLASS_POPUP_PHENOTYPE,lang).appendTo($container_list_query);
+				_contruct_popup_button(POPUP_TYPE_PHENOTYPE, KEY_POPUP_ID_PHENOTYPE, hpo_id, "list-tag_blue", label_text, CLASS_POPUP_PHENOTYPE).appendTo($container_list_query);
 			});
 		}
 		
@@ -1103,7 +1097,7 @@
 					for(let hpo_id in item.inheritance_en){
 						let text = item.inheritance_en[hpo_id];
 						if(isJA)text = item.inheritance_ja[hpo_id];
-						_contruct_popup_button(POPUP_TYPE_INHERITANCE, KEY_POPUP_ID_INHERITANCE, hpo_id, "list-tag_green", text, CLASS_POPUP_INHERITANCE, lang).appendTo($container_list_heredity);
+						_contruct_popup_button(POPUP_TYPE_INHERITANCE, KEY_POPUP_ID_INHERITANCE, hpo_id, "list-tag_green", text, CLASS_POPUP_INHERITANCE).appendTo($container_list_heredity);
 					}
 				}
 	
@@ -1111,7 +1105,7 @@
 					for(let i=0;i<item.hgnc_gene_symbol.length;i++){
 						let text = item.hgnc_gene_symbol[i];
 						let id    = item.ncbi_gene_id[i];
-						_contruct_popup_button(POPUP_TYPE_GENE, KEY_POPUP_ID_NCBI_GENE, id, "list-tag_gray", text, CLASS_POPUP_GENE,lang).appendTo($container_list_heredity);
+						_contruct_popup_button(POPUP_TYPE_GENE, KEY_POPUP_ID_NCBI_GENE, id, "list-tag_gray", text, CLASS_POPUP_GENE).appendTo($container_list_heredity);
 					}
 				}
 			}
@@ -1122,7 +1116,7 @@
 				for(let mondo_id in item.mondo_disease_name_en){
 					let text = item.mondo_disease_name_en[mondo_id];
 					if(isJA && _isExistVal(mondo_id, item.mondo_disease_name_ja)) text = item.mondo_disease_name_ja[mondo_id];
-					_contruct_popup_button(POPUP_TYPE_DISEASE, KEY_POPUP_ID_DISEASE, mondo_id, "list-tag_red", text, CLASS_POPUP_DISEASE,lang).appendTo($container_list_diseasename);
+					_contruct_popup_button(POPUP_TYPE_DISEASE, KEY_POPUP_ID_DISEASE, mondo_id, "list-tag_red", text, CLASS_POPUP_DISEASE).appendTo($container_list_diseasename);
 					
 				}
 			}
@@ -1136,7 +1130,7 @@
 
 					if(item.inheritance_en[i] in INHERITANCE_LABEL_TO_ID){
 						let hpo_id = INHERITANCE_LABEL_TO_ID[item.inheritance_en[i]];
-						_contruct_popup_button(POPUP_TYPE_INHERITANCE, KEY_POPUP_ID_INHERITANCE, hpo_id, "list-tag_green", text, CLASS_POPUP_INHERITANCE,lang).appendTo($container_list_disease);
+						_contruct_popup_button(POPUP_TYPE_INHERITANCE, KEY_POPUP_ID_INHERITANCE, hpo_id, "list-tag_green", text, CLASS_POPUP_INHERITANCE).appendTo($container_list_disease);
 					}else{
 						$('<span>').addClass("list-tag").addClass("list-tag_green").text(text).appendTo($container_list_disease);
 					}

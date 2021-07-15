@@ -277,45 +277,35 @@
 <div id="popover_html_phenotype" style="display:none;">
 	<table>
 		<tr><th class="popup_content_class">HPO ID	</th><td><a href="popup_content_hpo_url" target="_blank">popup_content_pcf-phenotype-id</td></tr>
+
+{% if r_lang == "en" %}
+		<tr><th class="popup_content_class">Label</th><td>popup_content_name_en</td></tr>
+{% else %}
 		<tr><th class="popup_content_class">Label(ja) </th><td>popup_content_name_ja</td></tr>
 		<tr><th class="popup_content_class">Label(en) </th><td>popup_content_name_en</td></tr>
+{% endif %}
+
 		<tr><th class="popup_content_class">Definition</th><td>popup_content_definition</td></tr>
 		<tr><th class="popup_content_class">Comment   </th><td>popup_content_comment</td></tr>
 		<tr><th class="popup_content_class">Synonym   </th><td>popup_content_synonym</td></tr>
 	</table>
 </div>
-<div id="popover_html_phenotype_en" style="display:none;">
-        <table>
-                <tr><th class="popup_content_class">HPO ID      </th><td><a href="popup_content_hpo_url" target="_blank">popup_content_pcf-phenotype-id</td></tr>
-                <tr><th class="popup_content_class">Label</th><td>popup_content_name_en</td></tr>
-                <tr><th class="popup_content_class">Definition</th><td>popup_content_definition</td></tr>
-                <tr><th class="popup_content_class">Comment   </th><td>popup_content_comment</td></tr>
-                <tr><th class="popup_content_class">Synonym   </th><td>popup_content_synonym</td></tr>
-        </table>
-</div>
 
 <div id="popover_html_disease" style="display:none;">
 	<table>
 		<tr><th class="popup_content_class">MONDO ID  </th><td><a href="popup_content_mondo_url" target="_blank">popup_content_pcf-disease-id</td></tr>
+{% if r_lang == "en" %}
+		<tr><th class="popup_content_class">Label     </th><td>popup_content_name_en</td></tr>
+{% else %}
 		<tr><th class="popup_content_class">Label(ja) </th><td>popup_content_name_ja</td></tr>
 		<tr><th class="popup_content_class">Label(en) </th><td>popup_content_name_en</td></tr>
+{% endif %}
 		<tr><th class="popup_content_class">Definition</th><td>popup_content_definition</td></tr>
 		<tr><th class="popup_content_class">Synonym   </th><td>popup_content_synonym</td></tr>
 		<tr><th class="popup_content_class">OMIM	  </th><td>popup_content_omim_list</td></tr>
 		<tr><th class="popup_content_class">Orphanet  </th><td>popup_content_orpha_list</td></tr>
 	</table>
 </div>
-<div id="popover_html_disease_en" style="display:none;">
-        <table>
-                <tr><th class="popup_content_class">MONDO ID  </th><td><a href="popup_content_mondo_url" target="_blank">popup_content_pcf-disease-id</td></tr>
-                <tr><th class="popup_content_class">Label     </th><td>popup_content_name_en</td></tr>
-                <tr><th class="popup_content_class">Definition</th><td>popup_content_definition</td></tr>
-                <tr><th class="popup_content_class">Synonym   </th><td>popup_content_synonym</td></tr>
-                <tr><th class="popup_content_class">OMIM          </th><td>popup_content_omim_list</td></tr>
-                <tr><th class="popup_content_class">Orphanet  </th><td>popup_content_orpha_list</td></tr>
-        </table>
-</div>
-
 
 <div id="popover_html_gene" style="display:none;">
 	<table>
@@ -564,9 +554,7 @@
 			}
 			lastScrollTop = st;
 
-			$('.dropdown.show').dropdown('toggle');
-			//$('.list-tag').removeClass('pcf-active');
-			//$('.popover').popover('hide');
+			$('.dropdown.show').dropdown('hide');
 			tippy.hideAll();
 
 			if (document.body.scrollTop > 110 || document.documentElement.scrollTop > 110) {
@@ -602,9 +590,7 @@
 				}
 			}
 
-			$('.dropdown.show').dropdown('toggle');
-			//$('.list-tag').removeClass('pcf-active');
-			//$('.popover').popover('hide');
+			$('.dropdown.show').dropdown('hide');
 			tippy.hideAll();
 
 			if (document.body.scrollTop > 110 || document.documentElement.scrollTop > 110) {
@@ -628,27 +614,7 @@
 		$('#btn_back_to_top').hide();
 	}
 
-/*
-	$("#str_display_format").change(function(){
-		let display_format = $(this).val();
-		$("#pcf-content").pcf_content('update_display_format', display_format);
-		$("#search-button_display").dropdown('hide');
-		update_download_link();
-		return false;
-	});
-
-
-	$("#str_size").change(function(){
-		let size = $(this).val();
-		$("#pcf-content").pcf_content('update_size', parseInt(size));
-		$("#search-button_display").dropdown('hide');
-		update_download_link();
-		return false;
-	});
-*/
-
 	function str_display_format_onchange(display_format) {
-                //let display_format = $(this).val();
                 $("#pcf-content").pcf_content('update_display_format', display_format);
                 $("#search-button_display").dropdown('hide');
                 update_download_link();
@@ -656,7 +622,6 @@
 	}
 
 	function str_size_onchange(size) {
-                //let size = $(this).val();
                 $("#pcf-content").pcf_content('update_size', parseInt(size));
                 $("#search-button_display").dropdown('hide');
                 update_download_link();
