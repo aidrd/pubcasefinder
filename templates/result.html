@@ -96,27 +96,46 @@
 			<div class="search-box_wrapper">
 				<div class="search-box_form d-flex flex-nowrap">
 					<div class="d-flex flex-column">
-						<div class="p-2" id="text2hpo">
+						<div class=""  style="height:50%;" id="text2hpo">
 							{% if r_lang == "ja" %}
-							<a href="/text2hpo" target="_blank" class="round-button material-icons" data-toggle="tooltip" data-placement="top" title="文章から症状を自動抽出">text_snippet</a>
+							<button href="/text2hpo" 
 							{% else %}
-							<a href="https://impact.dbmi.columbia.edu/doc2hpo/" target="_blank" class="round-button material-icons" data-toggle="tooltip" data-placement="top" title="Input Free-Text (doc2hpo)">text_snippet</a>
+							<button href="https://impact.dbmi.columbia.edu/doc2hpo/"
 							{% endif %}
+							   target="_blank" 
+							   class="text-button"
+							   data-toggle="tooltip"
+							   data-placement="top"
+							{% if r_lang == "ja" %}
+							   title="文章から症状を自動抽出">
+							{% else %}
+							   title="Input Free-Text (doc2hpo)">
+							{% endif %}
+							  <img src="/static/images/pcf/text_black.svg"></img>
+							</button>
 						</div>
-						<div class="p-2">
+						<div class=""  style="height:50%;">
+							<button id="phenotouch"
+							    class="phenotouch-button"
+							    data-toggle="tooltip"
+							    data-placement="top"
 							{% if r_lang == "ja" %}
-							<button id="phenotouch" class="round-button material-icons" data-toggle="tooltip" data-placement="top" title="ヒト3Dモデルを利用して症状を検索">view_in_ar</button>
+							    title="ヒト3Dモデルを利用して症状を検索">
 							{% else %}
-							<button id="phenotouch" class="round-button material-icons" data-toggle="tooltip" data-placement="top" title="Find Phenotypes using Human 3D Model">view_in_ar</button>
+							    title="Find Phenotypes using Human 3D Model">
 							{% endif %}
+							    <img src="/static/images/pcf/3d_black.svg"></img>
+							</button>
 						</div>
 					</div>
 					<div class="flex-grow-1 tokeninput_hpo_wrapper">
 						<textarea rows="1" id="tokeninput_hpo" name="str_phenotypes"></textarea>
 					</div>
 					<div class="d-flex flex-column">
-						<div class="p-2"><button id="tokeninput_hpo_clear" class="round-button material-icons">clear</button></div>
-						<div class="p-2"><button id="search_button" style="color:white; background-color:red;opacity=1.0;" class="round-button material-icons">search</button></div>
+						<div class="" style="height:50%;"><button id="tokeninput_hpo_clear" class="round-button material-icons">clear</button></div>
+						<div class="" style="height:50%;">
+							<button id="search_button" style="color:white;background-color:#f8516d;opacity=1.0;border:0;" class="round-button material-icons">search</button>
+						</div>
 					</div>
 				</div>
 				<div class="search-button" id="div_search_button">
@@ -537,7 +556,7 @@
 
                          if($.magnificPopup.instance.contentContainer && $('.mfp-wrap')) {
                                 let $inlineContentBase = $.magnificPopup.instance.contentContainer.find('div.popup-hierarchy-hpo-inline-content-base');
-                                if(!$inlineContentBase){
+                                if($inlineContentBase){
                                         return;
                                 }
                         }
@@ -582,7 +601,7 @@
 
 			 if($.magnificPopup.instance.contentContainer && $('.mfp-wrap')) {
 	                        let $inlineContentBase = $.magnificPopup.instance.contentContainer.find('div.popup-hierarchy-hpo-inline-content-base');
-	                        if(!$inlineContentBase){
+	                        if($inlineContentBase){
 					return;
 				}
 			}
@@ -832,8 +851,22 @@
 		}
 	}
 
-	var hpo_id_list = "{{ r_phenotype }}";
 
+	function set_filter_num(){
+
+		let filter_str = $("#tokeninput_genes").tokenInput_gene("get_url_str");
+
+                let count = filter_str.split(',').length;
+                if(filter_str && count > 0){
+	                $('#btn_search_advanced').html("Filter("+count+")<i class=\"material-icons\">expand_more</i>");
+                }else{
+                        $('#btn_search_advanced').html("Filter<i class=\"material-icons\">expand_more</i>");
+                }
+        };
+
+
+	var hpo_id_list = "{{ r_phenotype }}";
+	var filter_id_list = "{{ r_filter }}";
 	$(document).ready(function() {
 
 		$("#tokeninput_hpo")
@@ -857,13 +890,11 @@
 			'language':   "{{ r_lang }}",
 			{% endif %}
 			'onFilterChanged' : function(){
-				set_filter_num();
-	
-				update_download_link();
-			
 				setTimeout(function() {
 					let filter_str = $("#tokeninput_genes").tokenInput_gene("get_url_str");
 					$("#pcf-content").pcf_content('update_filter', filter_str);
+					set_filter_num();
+					update_download_link();
 				}, 10);
 
 				return false;
@@ -899,20 +930,6 @@
 			}
 		});
 
-		let filter_id_list = "{{ r_filter }}";
-
-		var set_filter_num = function(){
-
-			let filter_str = $("#tokeninput_genes").tokenInput_gene("get_url_str");
-
-			let count = filter_str.split(',').length;
-			if(filter_str && count > 0){
-				$('#btn_search_advanced').html("Filter("+count+")<i class=\"material-icons\">expand_more</i>");
-			}else{
-				$('#btn_search_advanced').html("Filter<i class=\"material-icons\">expand_more</i>");
-			}
-		};
-
 		if(!filter_id_list){
 			$("#token-input-tokeninput_genes").css({'width':'600px'});
 		}
@@ -940,7 +957,7 @@
 			set_filter_num();
 		});
 
-		 $('[data-toggle="tooltip"]').tooltip();
+		 $('[data-toggle="tooltip"]').tooltip({'trigger':'hover'});
 	});
 
 </script>
