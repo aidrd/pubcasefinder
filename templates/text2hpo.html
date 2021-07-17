@@ -159,48 +159,6 @@
   <!-- STARRT: body -->
   <body>
 
-    <!-- 8.13:追加:モーダルボタン・リンククリック後に表示される画面の内容 -->
-    <div class="modal fade" id="modal_photo" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-          <div class="modal-header">
-            <div align="middle"><a href="/"><img src="/static/images/logo_PubCaseFinder.png" width="250"></a></div>
-            <!--h5 class="modal-title" id="label1">Modal title</h5-->
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <div class="embed-responsive embed-responsive-16by9">
-              <iframe width="951" height="533" src="https://www.youtube.com/embed/g6SZWbb0Fk4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- モーダルを終わりボタン・リンク -->
-
-    <!-- 8.13:追加:モーダルボタン・リンククリック後に表示される画面の内容 -->
-    <div class="modal fade" id="modal_usage_1" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-          <div class="modal-header">
-            <div align="middle"><a href="/"><img src="/static/images/logo_PubCaseFinder.png" width="250"></a></div>
-            <!--h5 class="modal-title" id="label1">Modal usage_1</h5-->
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <div class="embed-responsive embed-responsive-16by9">
-              <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/zpOULjyy-n8?rel=0" allowfullscreen></iframe>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- モーダルを終わりボタン・リンク -->
-
     <!-- START: navigation -->
     <div class="fh5co-loader"></div>
     <div id="page">
@@ -276,7 +234,8 @@
             </div>
           </div>
           <br />
-          <div class="row" style="display: none" id="div_ResultsPanel">
+          <!-- <div class="row" style="display: none" id="div_ResultsPanel"> -->
+          <div class="row" id="div_ResultsPanel">
             <div class="col-sm-12">
               <div class="panel panel-default">
                 <div class="panel-heading">
@@ -288,6 +247,7 @@
                       <p id="p_parsed_text"></p>
                       <div id='div_selectionPopup'>
                         <ul class='selectionPopupActions' id="ul_popup"></ul>
+                        <textarea class="form-control" rows="1" id="tokeninput_popup" name="str_phenotypes_popup"></textarea>
                       </div>
                     </div>
                     <div class="col-sm-6" style="padding:0px 15px 0px 5px;height:500px;">
@@ -352,26 +312,6 @@
                           <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="btn_download" style="border:1px solid black;border-radius:5px;" disabled>
                             <b>共有・ダウンロード</b>
                           </button>
-<!---
-			  <div class="dropdown-menu" x-placement="right-start" style="padding-left:10px;padding-right:10px;margin:0px; position: absolute; top: 0px; left: 195px; will-change: transform;">
-			    <a class="dropdown-item" onclick="_save_matches('csv');" >CSV形式で出力</a><br>
-			    <a class="dropdown-item" onclick="_save_matches('tsv');" >TSV形式で出力</a>
-			    <a class="dropdown-item" onclick="_save_matches('json');">PhenoPackets(JSON)形式で出力</a>
-			  </div>
---->
-                          <ul class="dropdown-menu" role="menu"  style="margin:0px; position: absolute; top: 0px; left: 195px; will-change: transform;">
-                            <li class="dropdown-item" role="presentation"><a style="padding-left:10px;" onclick="_save_matches('csv');">CSV形式で出力</a></li>
-                            <li class="dropdown-item" role="presentation"><a style="padding-left:10px;" onclick="_save_matches('tsv');">TSV形式で出力</a></li>
-                            <li class="dropdown-item" role="presentation"><a style="padding-left:10px;" onclick="_save_matches('json');">PhenoPackets(JSON)形式で出力</a></li>
-                          </ul>
-
-<!---
-                          <ul class="dropdown-menu" role="menu">
-                            <li role="presentation"><a style="padding-left:10px;padding-right:10px;" onclick="_save_matches('csv');">CSV形式で出力</a></li>
-                            <li role="presentation"><a onclick="_save_matches('tsv');">TSV形式で出力</a></li>
-                            <li role="presentation"><a onclick="_save_matches('json');">PhenoPackets(JSON)形式で出力</a></li>
-                          </ul>
---->
                         </div>
                       </div>
                     </div>
@@ -389,8 +329,6 @@
       <div id="fh5co-project" style="display:none;">
         <div class="container">
           <form name="search" action="/search_disease" method="post" class="form-group">
-            <div align="middle"><a href="/"><img src="/static/images/logo_PubCaseFinder.png" width="550"></a></div>
-            <br />
             <!--div style="text-align:center;font-size:1px;"><div class="rater" id="rater"></div></div-->
             <div align="middle">
               <table width="70%">
@@ -400,45 +338,16 @@
                       <tr>
                         <td width="100%">
                           <textarea class="form-control" rows="2" id="tokeninput_hpo" name="str_phenotypes"></textarea>
-                        <tr align="right">
-                          <td valign="top">
-                          </td>
-                        </tr>
-                    </td>
-            </tr>
-          </table>
-        </td>
-          </tr>
-          <tr><td><br><br></td></tr>
-          <tr align="middle">
-        <td>
-          <table>
-            <tr>
-              <td>
-            <button id="phenotouch" class="btn btn-default"><span class="icon-icon-symptoms"></span>症状入力支援</button>
-            <button id="tokeninput_hpo_clear" class="btn btn-default">クリア</button>
-            <button type="submit" class="btn btn-primary"><span class="icon-icon-search"></span>疾患を検索</button>
-                      </td>
-                    </tr>
-                  </table>
-            </td>
-          <tr><td><br></td></tr>
-          <tr align="middle">
-            <td valign="top">
-          <a href="#" id="ex_phenotypes"><font color="#0431B4">ex) <font size="4">小顎、尺骨低形成、短い指、上口唇裂、眼瞼裂</font></font></a>
-            </td>
-          </tr>
-        </table>
-          </div>
-      <input type="hidden" name="str_genes" value="">
-      <input type="hidden" name="page_orphanet" value="1">
-      <input type="hidden" name="page_omim" value="1">
-      <input type="hidden" name="changesize_selector_orphanet" value="10">
-      <input type="hidden" name="changesize_selector_omim" value="10">
-    </form>
-    <br><!--br><br-->
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </form>
+        </div>
       </div>
-    </div>
       <!-- END: FORM -->
         
     <!-- START: Import JavaScript -->    
@@ -453,7 +362,8 @@
     <!-- countTo -->
     <script src="/static/js/jquery.countTo.js"></script>
     <!-- Magnific Popup -->
-    <script src="/static/js/jquery.magnific-popup.min.js"></script>
+    <!-- <script src="/static/js/jquery.magnific-popup.min.js"></script> -->
+    <script src="/static/js/jquery.magnific_popup.min.js"></script>
     <script src="/static/js/magnific-popup-options.js"></script>
     <!-- Stellar -->
     <script src="/static/js/jquery.stellar.min.js"></script>
@@ -472,26 +382,16 @@
 
     <!-- START: jquery-tokeninput -->
     <script type="text/javascript" src="/static/js/jquery.tokeninput.js"></script>
+    <script type="text/javascript" src="/static/js/jquery.tokeninput_popup.js"></script>
     <script type="text/javascript">
       $(document).ready(function() {
         $("#tokeninput_hpo").tokenInput("/tokeninput_hpo", {
           theme: "facebook"
         });
-        $("#tokeninput_hpo_clear").click(function (){
-          $("#tokeninput_hpo").tokenInput("clear");
-          return false;
+
+        $("#tokeninput_popup").tokenInputPopup("/tokeninput_hpo", {
+          theme: "facebook"
         });
-      });
-      $("#phenotouch").click(function (e){
-        $.PopupRelationHPOWithWebGL();
-        e.preventDefault();
-        e.stopPropagation();
-        return false;
-      });
-      $('.rater').rate({
-        max_value: 5,
-        step_size: 0.1,
-        initial_value: 0
       });
     </script>
     <!-- END: jquery-tokeninput -->
@@ -529,22 +429,15 @@
 
   <!-- START: Common header and footer -->
   <script type="text/javascript" src="/static/common-header-and-footer/script/common-footer.js" id="common-footer__script"></script>
-  <!-- script
-     type="text/javascript"
-     src="https://dbcls.rois.ac.jp/DBCLS-common-header-footer/v2/script/common-header-and-footer.js"
-     style="display: block"
-     id="common-header-and-footer__script"
-     data-header-menu-type="deployed"
-     data-show-footer="true"
-     data-show-footer-license="true"
-     data-show-footer-links="true"
-  ></script -->
   <!-- END: Common header and fotter -->
 
   <!-- START: activate tool-tip -->
   <script type="text/javascript">
     $(document).ready(function () {
       $('[data-toggle="tooltip"]').tooltip()
+
+      $("#div_selectionPopup").css("display","none");
+      $("#div_ResultsPanel").css("display","none");
     });
   </script>
   <!-- END: activate tool-tip -->

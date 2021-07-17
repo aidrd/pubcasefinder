@@ -98,11 +98,11 @@
 					<div class="d-flex flex-column">
 						<div class=""  style="height:50%;" id="text2hpo">
 							{% if r_lang == "ja" %}
-							<button href="/text2hpo" 
+							<button id="/text2hpo"
 							{% else %}
-							<button href="https://impact.dbmi.columbia.edu/doc2hpo/"
+							<button id="https://impact.dbmi.columbia.edu/doc2hpo/"
 							{% endif %}
-							   target="_blank" 
+							   onclick="goDoc(this);"
 							   class="text-button"
 							   data-toggle="tooltip"
 							   data-placement="top"
@@ -195,7 +195,6 @@
 							</table>
 							<div class="btn-toolbar" style="margin-top:10px;">
 							  <button class="action-button" id="btn_download">Download</button>
-							  <button class="cancel-button" id="btn_cancel">Cancel</button>
 							</div>
 						</form>
 						</div>
@@ -580,7 +579,8 @@
 			}
 			lastScrollTop = st;
 
-			$('.dropdown.show').dropdown('hide');
+			//$('.dropdown.show').dropdown('hide');
+			$('.dropdown-toggle[aria-expanded="true"]').dropdown('hide');
 			tippy.hideAll();
 
 			if (document.body.scrollTop > 110 || document.documentElement.scrollTop > 110) {
@@ -624,7 +624,8 @@
 				}
 			}
 
-			$('.dropdown.show').dropdown('hide');
+			//$('.dropdown.show').dropdown('hide');
+			$('.dropdown-toggle[aria-expanded="true"]').dropdown('hide');
 			tippy.hideAll();
 
 			if (document.body.scrollTop > 110 || document.documentElement.scrollTop > 110) {
@@ -646,6 +647,10 @@
 		document.body.scrollTop = 0;
 		document.documentElement.scrollTop = 0;
 		$('#btn_back_to_top').hide();
+	}
+
+	function goDoc(obj){
+		window.open(obj.id,'_blank');
 	}
 
 	function str_display_format_onchange(display_format) {
@@ -750,7 +755,8 @@
 
 	$(window).on('resize', function(e) {
 
-		$('.dropdown.show').dropdown('toggle');
+		//$('.dropdown.show').dropdown('toggle');
+		$('.dropdown-toggle[aria-expanded="true"]').dropdown('hide');
 
 		$("#tokeninput_genes").tokenInput_gene("resize_input_box");
 
@@ -792,6 +798,7 @@
 		$('header').css({'top': '24px'});
 		$('#tokeninput_gene_clear').css({'display':'block'});
 	}
+
 
 	$('#search-button_download-wrapper').on('shown.bs.dropdown', function () {
 		const dropdown = $(this);
@@ -864,6 +871,15 @@
                 }
         };
 
+	function onFilterChanged(){
+		set_filter_num();
+		update_download_link();
+		setTimeout(function() {
+			let filter_str = $("#tokeninput_genes").tokenInput_gene("get_url_str");
+			$("#pcf-content").pcf_content('update_filter', filter_str);
+		}, 10);
+		return false;
+	};
 
 	var hpo_id_list = "{{ r_phenotype }}";
 	var filter_id_list = "{{ r_filter }}";
@@ -889,20 +905,15 @@
 			{% if r_lang %}
 			'language':   "{{ r_lang }}",
 			{% endif %}
-			'onFilterChanged' : function(){
-				setTimeout(function() {
-					let filter_str = $("#tokeninput_genes").tokenInput_gene("get_url_str");
-					$("#pcf-content").pcf_content('update_filter', filter_str);
-					set_filter_num();
-					update_download_link();
-				}, 10);
-
-				return false;
-			},
+			'onFilterChanged' : onFilterChanged
 		});
 
 		$("#tokeninput_genes")
-			.popupRelationGENE('/popup_hierarchy_genes',{'modify_modal_on_show':modify_modal_on_show,'after_modal_close':after_modal_close,'after_init_gui':after_init_gui});
+			.popupRelationGENE('/popup_hierarchy_genes',{'modify_modal_on_show': modify_modal_on_show,
+								     'after_modal_close':    after_modal_close,
+								     'after_init_gui':       after_init_gui,
+								     'onFilterChanged':      onFilterChanged 
+								    });
 
 		$("#pcf-content").pcf_content({
 			{% if r_target %}
