@@ -555,9 +555,7 @@
 
                          if($.magnificPopup.instance.contentContainer && $('.mfp-wrap')) {
                                 let $inlineContentBase = $.magnificPopup.instance.contentContainer.find('div.popup-hierarchy-hpo-inline-content-base');
-                                if($inlineContentBase){
-                                        return;
-                                }
+				if($inlineContentBase && $inlineContentBase.is(":visible")) return true;
                         }
 
 			if(e.target.getAttribute('id') === 'alert_response_text' || e.target.getAttribute('id') === 'alert_url') return;
@@ -601,9 +599,7 @@
 
 			 if($.magnificPopup.instance.contentContainer && $('.mfp-wrap')) {
 	                        let $inlineContentBase = $.magnificPopup.instance.contentContainer.find('div.popup-hierarchy-hpo-inline-content-base');
-	                        if($inlineContentBase){
-					return;
-				}
+				if($inlineContentBase && $inlineContentBase.is(":visible")) return true;
 			}
 
 
