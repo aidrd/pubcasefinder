@@ -66,7 +66,7 @@
   					"columns=\"[{&quot;id&quot;:&quot;pyear&quot;,&quot;label&quot;:&quot;Year&quot;},"+
 						   "{&quot;id&quot;:&quot;title&quot;,&quot;label&quot;:&quot;Title&quot;},"+
 						   "{&quot;id&quot;:&quot;journal&quot;,&quot;label&quot;:&quot;Journal&quot;},"+
-						   "{&quot;id&quot;:&quot;id&quot;,&quot;label&quot;:&quot;J-STAG&quot;,&quot;link&quot;:&quot;url&quot;},"+
+						   "{&quot;id&quot;:&quot;id&quot;,&quot;label&quot;:&quot;J-STAGE&quot;,&quot;link&quot;:&quot;url&quot;},"+
 						   "{&quot;id&quot;:&quot;id_jglobal&quot;,&quot;label&quot;:&quot;J-GLOBAL&quot;,&quot;link&quot;:&quot;url_jglobal&quot;}]\">" +
 				 "</togostanza-pagination-table>";
 		return str;
@@ -288,7 +288,17 @@
 							$button.find('span').text('Show('+count+')');
 						}
 						
-						$button.siblings().removeClass(CLASS_ACTIVE);
+						$button.siblings().each(function(){
+							let $b       = $(this);
+							let target_s = $b.data(KEY_TARGET);
+							let c        = $b.data(KEY_COUNT);
+							if(target_s !== target_b){
+								$b.removeClass(CLASS_ACTIVE);
+								$b.find('span').text('Show('+c+')');
+							}
+						});
+
+
 						$button.parent().siblings().each( function () {
 							let $panel = $(this); 
 							let target_panel = $panel.data(KEY_TARGET);
