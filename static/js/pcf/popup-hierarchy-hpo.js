@@ -325,8 +325,11 @@
 		}
 
 		function getTokenInputItemNodes(){
-
+			
 			var tmp = 'ul.'+tokeninput_classes['tokenList'].split(/\s+/).join('.')+'.'+current_settings.cssTokenListClass+'>li.'+tokeninput_classes['token']+'.'+current_settings.cssTokenClass;
+			if(!current_settings.use_webgl){
+				return getOriginalTokenInputItemNodes();
+			}
 			return $(tmp).toArray();
 		}
 
@@ -359,7 +362,12 @@
 			return getTokenInputElement().tokenInput('clear');
 		}
 		function getSelectedTokenInputItems(){
-			return $(getTokenInputItemNodes()).filter('.'+tokeninput_classes['selectedToken']).toArray();
+			let nodes = getTokenInputItemNodes();
+			if(current_settings.use_webgl){
+				return $(nodes).filter('.'+tokeninput_classes['selectedToken']).toArray();
+			}else{
+				return $(nodes).filter('.selected_at_popup').toArray();
+			}
 		}
 		function clearSelectedTokenInputItems(){
 			return $(getSelectedTokenInputItems()).removeClass(tokeninput_classes['selectedToken']);
@@ -438,7 +446,7 @@
 
 					//subclass
 					if(isString(options.classname) && options.classname === CSS_PREFIX+current_settings.keySubclass){
-						addExecuteButtons(data, existsTokenInputItemFromID(this.id)).appendTo($link_base).css(add_css);
+						addExecuteButtons(data, existsTokenInputItemFromID(this.id), false).appendTo($link_base).css(add_css);
 						if($number_html) $number_html.appendTo($('<'+current_settings.nodeName+'>').css({'display':'table-cell','vertical-align':'top','text-align':'right','width':'1px'}).appendTo($link_base));
 					}
 
@@ -480,7 +488,7 @@
 					//superclass
 					if(isString(options.classname) && options.classname === CSS_PREFIX+current_settings.keySuperclass){
 						if($number_html) $number_html.appendTo($('<'+current_settings.nodeName+'>').css({'display':'table-cell','vertical-align':'top','text-align':'right','width':'1px'}).appendTo($link_base));
-						addExecuteButtons(data, existsTokenInputItemFromID(this.id)).appendTo($link_base).css(add_css);
+						addExecuteButtons(data, existsTokenInputItemFromID(this.id), false).appendTo($link_base).css(add_css);
 					}
 
 				});
@@ -548,19 +556,30 @@
 
 			var params = $button.data(OBJECT_KEY) || {};
 
-//			var new_token = {id: params.self.id, name: params.self.id+' '+params.self.name};
 			var new_token = {id: params.self.id, name: params.self.name};
 			if(runSearchOptions.hasJA && isString(params.self.name_ja)){
 				new_token['id'] =  new_token['id'].replace(/_[a-z]+/,'') +  '_ja';
-//				new_token['name'] = params.self.id+' '+params.self.name_ja;
 				new_token['name'] = params.self.name_ja;
 			}
 
 			if(params.exec==='add'){
-				addTokenInputItem(new_token);
+				if(current_settings.use_webgl){
+					addTokenInputItem(new_token);
+				}else{
+					let id = params.self.id;
+					let name = params.self.name;
+					if(runSearchOptions.hasJA && isString(params.self.name_ja)){
+						id =  id.replace(/_[a-z]+/,'') +  '_ja';
+		                                name = params.self.name_ja;
+					}
+					$("#tokeninput_hpo").tokenInput("add", {id: id, name: name});
+				}
 			}
 			else if(params.exec==='replace'){
 				var $selectedToken = $('li.'+tokeninput_classes['selectedToken']+'.'+current_settings.cssTokenClass);
+				if(!current_settings.use_webgl){
+					$selectedToken = $('li.selected_at_popup');
+				}
 				var selectedToken = null;
 				if($selectedToken && $selectedToken.length) selectedToken = $selectedToken.data(TOKENINPUT_ITEM_SETTINGS_KEY);
 
@@ -582,12 +601,21 @@
 					}
 				}
 				if(new_arr.length){
-					tokeninput_target = $.extend(true, {},params.self);
+					if(!current_settings.use_webgl){
+						$("#tokeninput_hpo").tokenInput("clear");
+						$.each(new_arr, function(index){
+							$("#tokeninput_hpo").tokenInput("add", this);
+						});
+						let tokenInputItemNodes = getOriginalTokenInputItemNodes();
+						$(tokenInputItemNodes[new_index]).addClass(tokeninput_classes['selectedToken']).addClass('selected_at_popup');
+					}else{
+						tokeninput_target = $.extend(true, {},params.self);
 
-					removeTokenInputItems();
-					$.each(new_arr, function(index){
-						addTokenInputItem(this,new_index === index);
-					});
+						removeTokenInputItems();
+						$.each(new_arr, function(index){
+							addTokenInputItem(this,new_index === index);
+						});
+					}
 				}
 			}
 
@@ -603,22 +631,42 @@
 					$button.get(0).focus();
 				},51);
 			}else{
+/*
 				addOriginalTokenInputItem();
+
 				setTimeout(function(){
                                 	closeMagnificPopup();
 				},51);
+*/
 			}
 			return false;
 		}
 
-		function addExecuteButtons(data,disabled){
+		function addExecuteButtons(data,disabled, isBig){
 			if(!isBoolean(disabled)) disabled = disabled ? true : false;
 
 			var $button_base = $('<'+current_settings.nodeName+'>').addClass(current_settings.cssButtonBaseClass);
 
 			$.each(['add','replace'], function(){
 				var key = this;
-				var $button = $('<button>').addClass('btn btn-primary').addClass(key=='add'?current_settings.cssButtonAddClass:current_settings.cssButtonReplaceClass).data(OBJECT_KEY,  $.extend(true, {},data,{'exec' : key.toLowerCase()})   ).text(current_settings.language[getCurrentLanguage()][key]).appendTo($button_base);
+/*				var $button = $('<button>').addClass('btn btn-primary').addClass(key=='add'?current_settings.cssButtonAddClass:current_settings.cssButtonReplaceClass).data(OBJECT_KEY,  $.extend(true, {},data,{'exec' : key.toLowerCase()})   ).text(current_settings.language[getCurrentLanguage()][key]).appendTo($button_base);
+*/
+
+				var $button;
+				if(isBig){
+                                        $button = $('<button>').addClass('btn btn-primary')
+                                                        .addClass(key=='add'?current_settings.cssButtonAddClass:current_settings.cssButtonReplaceClass)
+                                                        .html(key=='add'?'<span class="material-icons" style="font-size:20px;vertical-align:sub;">post_add</span> &nbsp; ' + current_settings.language[getCurrentLanguage()][key] :
+									 '<span class="material-icons" style="font-size:20px;vertical-align:sub;">published_with_changes</span> &nbsp; ' + current_settings.language[getCurrentLanguage()][key])
+                                                        .data(OBJECT_KEY,  $.extend(true, {},data,{'exec' : key.toLowerCase()})   )
+                                                        .appendTo($button_base);
+				} else {
+					$button = $('<button>').addClass('material-icons').addClass('btn btn-primary')
+							.addClass(key=='add'?current_settings.cssButtonAddClass:current_settings.cssButtonReplaceClass)
+							.text(key=='add'?'post_add':'published_with_changes')
+							.data(OBJECT_KEY,  $.extend(true, {},data,{'exec' : key.toLowerCase()})   )
+							.appendTo($button_base);
+				}
 				$button.on('click',executionAddOrReplace);
 			});
 
@@ -1083,7 +1131,7 @@
 				};
 
 				var $buttons = $('<'+current_settings.nodeName+'>').addClass(current_settings.cssButtonsClass).appendTo($base);
-				var $button_base = addExecuteButtons(data,target_arr.length!==0).appendTo($buttons);
+				var $button_base = addExecuteButtons(data,target_arr.length!==0, true).appendTo($buttons);
 
 				var $separator = $('<div>')
 					.css({
@@ -2633,6 +2681,8 @@
 						if(!$.magnificPopup.instance.contentContainer){
 							$(tokenInputItemNodes).removeClass('selected_at_popup');
 							$li_node.addClass('selected_at_popup');
+							$(tokenInputItemNodes).removeClass(tokeninput_classes['selectedToken']);
+							$li_node.addClass(tokeninput_classes['selectedToken']);
 						}else{
 							if($li_node.hasClass('selected_at_popup')){
 								$li_node.removeClass('selected_at_popup');
@@ -2645,6 +2695,8 @@
 							}else{
 								$(tokenInputItemNodes).removeClass('selected_at_popup');
 								$li_node.addClass('selected_at_popup');
+								$(tokenInputItemNodes).removeClass(tokeninput_classes['selectedToken']);
+								$li_node.addClass(tokeninput_classes['selectedToken']);
 							}
 						}
 					}

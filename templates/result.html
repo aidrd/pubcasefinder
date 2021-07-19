@@ -193,8 +193,8 @@
 									</td>
 								</tr>
 							</table>
-							<div class="btn-toolbar" style="margin-top:10px;">
-							  <button class="action-button" id="btn_download">Download</button>
+							<div class="btn-toolbar d-flex flex-row-reverse" style="margin-top:10px;">
+							  <button class="action-button" id="btn_download" style="margin-right:0px;">Download</button>
 							</div>
 						</form>
 						</div>
@@ -248,8 +248,8 @@
 											<!-- <select style="width:150px;" class="form-control custom-select" id="str_display_format"> -->
 											<!-- <select style="width:150px;" class="custom-select" id="str_display_format"> -->
 											<select style="width:150px;" class="custom-select" id="str_display_format" onchange="str_display_format_onchange(this.value);">
-												<option value="summary" {% if r_display_format == "summary" %} selected {% endif %}>Summary</option>
 												<option value="full" {% if r_display_format == "full" %} selected {% endif %}>Full</option>
+												<option value="summary" {% if r_display_format == "summary" %} selected {% endif %}>Summary</option>
 									  		</select>
 										</td>
 									</tr>
@@ -264,6 +264,15 @@
 												<option value=50  {% if r_size == "50" %} selected {% endif %}>50</option>
 												<option value=100 {% if r_size == "100" %} selected {% endif %}>100</option>
 												<option value=200 {% if r_size == "200" %} selected {% endif %}>200</option>
+											</select>
+										</td>
+									</tr>
+									<tr>
+										<td style="vertical-align: middle; padding-right:10px;" nowrap>Header:</td>
+										<td>
+											<select style="width:150px;" class="custom-select" id="str_header" onchange="str_header_onchange(this.value);">
+												<option value=false>Fixed</option>
+												<option value=true>Auto Hide</option>
 											</select>
 										</td>
 									</tr>
@@ -548,94 +557,127 @@
 	if (ieold) iev=new Number(RegExp.$1);
 	if (navigator.appVersion.indexOf("MSIE 10") != -1) iev=10;
 	if (trident&&rv!=-1) iev=11;
-	// Firefox or IE 11
+
 	if(typeof InstallTrigger !== 'undefined' || iev == 11) {
-		var lastScrollTop = 0;
-		$(window).on('scroll', function(e) {
+		// Firefox or IE 11
+		$(window).on('scroll', function(e){
 
-                         if($.magnificPopup.instance.contentContainer && $('.mfp-wrap')) {
-                                let $inlineContentBase = $.magnificPopup.instance.contentContainer.find('div.popup-hierarchy-hpo-inline-content-base');
-				if($inlineContentBase && $inlineContentBase.is(":visible")) return true;
-                        }
+			if($.magnificPopup.instance.contentContainer && $('.mfp-wrap')) {
+				let $inlineContentBase = $.magnificPopup.instance.contentContainer.find('div.popup-hierarchy-hpo-inline-content-base');
+				if($inlineContentBase && $inlineContentBase.is(":visible")) return;
+			}
 
 			if(e.target.getAttribute('id') === 'alert_response_text' || e.target.getAttribute('id') === 'alert_url') return;
 
-			st = $(this).scrollTop();
-			if(st < lastScrollTop) {
-				//console.log('Up');
-				//$('header').show();
-				//$('header').fadeIn("slow");
-				$('header').slideDown(500);
-			}
-			else if(st > lastScrollTop) {
-				//console.log('Down');
-				//$('header').hide();
-				//$('header').fadeOut("slow");
-				if($(window).scrollTop() + $(window).height() < getDocHeight()-50) {
-					$('header').slideUp(500);
-				}
-			}
-			lastScrollTop = st;
-
-			//$('.dropdown.show').dropdown('hide');
-			$('.dropdown-toggle[aria-expanded="true"]').dropdown('hide');
-			tippy.hideAll();
-
-			if (document.body.scrollTop > 110 || document.documentElement.scrollTop > 110) {
-				$('#btn_back_to_top').show();
-			} else {                        
-				$('#btn_back_to_top').hide();  
-			}
-			
-			if($(window).scrollTop() + $(window).height() >= getDocHeight()-50) {
-				$('header').slideDown(500);
-			}
-			
-		});
-	}
-	// Other browsers
-	else {
-		$('body').on('mousewheel', function(e){
-
-			 if($.magnificPopup.instance.contentContainer && $('.mfp-wrap')) {
-	                        let $inlineContentBase = $.magnificPopup.instance.contentContainer.find('div.popup-hierarchy-hpo-inline-content-base');
-				if($inlineContentBase && $inlineContentBase.is(":visible")) return true;
-			}
-
-
-			if(e.target.getAttribute('id') === 'alert_response_text' || e.target.getAttribute('id') === 'alert_url') return;
-
-			if(e.originalEvent.wheelDelta > 0) {
-				//console.log('Up');
-				//$('header').show();
-				//$('header').fadeIn("slow");
-				$('header').slideDown(500);
-			}
-			else if(e.originalEvent.wheelDelta < 0) {
-				//console.log('Down');
-				//$('header').hide();
-				//$('header').fadeOut("slow");
-				if($(window).scrollTop() + $(window).height() < getDocHeight()-50) {
-					$('header').slideUp(500);
-				}
-			}
-
-			//$('.dropdown.show').dropdown('hide');
 			$('.dropdown-toggle[aria-expanded="true"]').dropdown('hide');
 			tippy.hideAll();
 
 			if (document.body.scrollTop > 110 || document.documentElement.scrollTop > 110) {
 				$('#btn_back_to_top').show();
 			} else {
-				$('#btn_back_to_top').hide();  
+				$('#btn_back_to_top').hide();
 			}
-			
-			if($(window).scrollTop() + $(window).height() >= getDocHeight()-50) {
-				$('header').slideDown(500);
+		});
+	} else {
+		$('body').on('mousewheel', function(e){
+
+			if($.magnificPopup.instance.contentContainer && $('.mfp-wrap')) {
+				let $inlineContentBase = $.magnificPopup.instance.contentContainer.find('div.popup-hierarchy-hpo-inline-content-base');
+				if($inlineContentBase && $inlineContentBase.is(":visible")) return;
 			}
 
-			
+			if(e.target.getAttribute('id') === 'alert_response_text' || e.target.getAttribute('id') === 'alert_url') return;
+
+			$('.dropdown-toggle[aria-expanded="true"]').dropdown('hide');                
+			tippy.hideAll();
+
+			if (document.body.scrollTop > 110 || document.documentElement.scrollTop > 110) {
+				$('#btn_back_to_top').show();
+			} else {
+				$('#btn_back_to_top').hide();
+			}   
 		});
+	}
+
+
+	var lastScrollTop = 0;
+	function str_header_onchange(isAutoHide){
+		if(isAutoHide === 'true') {
+			lastScrollTop = 0;
+			if(typeof InstallTrigger !== 'undefined' || iev == 11) {
+				// Firefox or IE 11
+				$(window).on('scroll', window_on_scroll);
+			} else {
+				$('body').on('mousewheel', window_on_wheel);
+			}
+		}else{
+			if(typeof InstallTrigger !== 'undefined' || iev == 11) {
+				$(window).off('scroll', window_on_scroll);
+			} else {
+				$('body').off('mousewheel', window_on_wheel);
+			}
+		}
+
+		$("#search-button_display").dropdown('hide');
+	}
+
+	function window_on_scroll(e){
+		if($.magnificPopup.instance.contentContainer && $('.mfp-wrap')) {
+			let $inlineContentBase = $.magnificPopup.instance.contentContainer.find('div.popup-hierarchy-hpo-inline-content-base');
+			if($inlineContentBase && $inlineContentBase.is(":visible")) return true;
+		}
+
+		if(e.target.getAttribute('id') === 'alert_response_text' || e.target.getAttribute('id') === 'alert_url') return;
+
+		st = $(this).scrollTop();
+		if(st < lastScrollTop) {
+			//console.log('Up');
+			//$('header').show();
+			//$('header').fadeIn("slow");
+			$('header').slideDown(500);
+		}
+		else if(st > lastScrollTop) {
+			//console.log('Down');
+			//$('header').hide();
+			//$('header').fadeOut("slow");
+			if($(window).scrollTop() + $(window).height() < getDocHeight()-50) {
+				$('header').slideUp(500);
+			}
+		}
+		lastScrollTop = st;
+
+		if($(window).scrollTop() + $(window).height() >= getDocHeight()-50) {
+			$('header').slideDown(500);
+		}
+
+	}
+
+	function window_on_wheel(e){
+		if($.magnificPopup.instance.contentContainer && $('.mfp-wrap')) {
+			let $inlineContentBase = $.magnificPopup.instance.contentContainer.find('div.popup-hierarchy-hpo-inline-content-base');
+			if($inlineContentBase && $inlineContentBase.is(":visible")) return true;
+		}
+
+		if(e.target.getAttribute('id') === 'alert_response_text' || e.target.getAttribute('id') === 'alert_url') return;
+
+		if(e.originalEvent.wheelDelta > 0) {
+			//console.log('Up');
+			//$('header').show();
+			//$('header').fadeIn("slow");
+			$('header').slideDown(500);
+		}
+		else if(e.originalEvent.wheelDelta < 0) {
+			//console.log('Down');
+			//$('header').hide();
+			//$('header').fadeOut("slow");
+			if($(window).scrollTop() + $(window).height() < getDocHeight()-50) {
+				$('header').slideUp(500);
+			}
+		}
+
+		if($(window).scrollTop() + $(window).height() >= getDocHeight()-50) {
+			$('header').slideDown(500);
+		}
 	}
 
 	function topFunction() {
@@ -650,17 +692,17 @@
 	}
 
 	function str_display_format_onchange(display_format) {
-                $("#pcf-content").pcf_content('update_display_format', display_format);
-                $("#search-button_display").dropdown('hide');
-                update_download_link();
-                return false;
+		$("#pcf-content").pcf_content('update_display_format', display_format);
+		$("#search-button_display").dropdown('hide');
+		update_download_link();
+		return false;
 	}
 
 	function str_size_onchange(size) {
-                $("#pcf-content").pcf_content('update_size', parseInt(size));
-                $("#search-button_display").dropdown('hide');
-                update_download_link();
-                return false;
+		$("#pcf-content").pcf_content('update_size', parseInt(size));
+		$("#search-button_display").dropdown('hide');
+		update_download_link();
+		return false;
 	}
 
 	$("#phenotouch").click(function (e){
@@ -934,6 +976,9 @@
 					$('#btn_download').prop('disabled', false);
 				}
 				update_download_link();
+			},
+			'load_filter_ids': function(){
+				return $("#tokeninput_genes").tokenInput_gene("get");
 			}
 		});
 

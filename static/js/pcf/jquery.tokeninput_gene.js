@@ -331,7 +331,10 @@
 	}
 
 	function isTriggeredFromPopup(){
-		if($.magnificPopup.instance.contentContainer && $('.mfp-wrap')) return true;
+		if($.magnificPopup.instance.contentContainer && $('.mfp-wrap')) {
+			let $inlineContentBase = $.magnificPopup.instance.contentContainer.find('div.popup-hierarchy-gene-inline-content-base');
+			if($inlineContentBase && $inlineContentBase.is(":visible")) return true;
+		}
 		return false;
 	}
 

@@ -2,42 +2,32 @@
 
 	const URL_GET_RANKING_BY_HPO_ID                 = 'https://pcf.dbcls.jp/pcf_get_ranking_by_hpo_id',
 		  URL_GET_RANKING_BY_HPO_ID_WITH_FILTER     = 'get_ranking_by_hpo_id_with_filter',
-
 		  URL_GET_DATA_BY_ID                        = 'get_data_by_id',
 		  URL_GET_OMIM_DATA_BY_OMIM_ID              = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_get_omim_data_by_omim_id',
 		  URL_GET_ORPHA_DATA_BY_ORPHA_ID            = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_get_orpha_data_by_orpha_id',
 		  URL_GET_GENE_DATA_BY_NCBI_GENE_ID         = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_get_gene_data_by_ncbi_gene_id',
-		  URL_GET_CASE_DATA_BY_CASE_ID              = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_get_case_data_by_case_id',
-
 		  URL_GET_COUNT_CASE_REPORT_BY_MONDO_ID     = 'https://pcf.dbcls.jp/pcf_get_count_case_report_by_mondo_id',
-
 		  URL_GET_HPO_DATA_BY_OMIM_ID               = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_get_hpo_data_by_omim_id',
 		  URL_GET_HPO_DATA_BY_HPO_ID                = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_get_hpo_data_by_hpo_id',
 		  URL_GET_HPO_DATA_BY_ORPHA_ID              = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_get_hpo_data_by_orpha_id',
-
 		  URL_GET_HPO_TOOLTIP_DATA_BY_HPO_ID        = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_get_hpo_tooltip_data_by_hpo_id',
 		  URL_GET_GENE_TOOLTIP_DATA_BY_NCBI_GENE_ID = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_get_gene_tooltip_data_by_ncbi_gene_id',
 		  URL_GET_DISEASE_TOOLTIP_DATA_BY_MONDO_ID  = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_get_disease_tooltip_data_by_mondo_id',
-
 		  URL_GET_CASE_REPORT_BY_MONDO_ID           = 'https://pcf.dbcls.jp/pcf_get_case_report_by_mondo_id',
-
 		  URL_SHARE                                 = 'https://pcf.dbcls.jp/pcf_share',
-
 		  URL_DOWNLOAD                              = 'https://pcf.dbcls.jp/pcf_download',
-
 		  URL_PCF_FILTER_GET_OMIM_ID_BY_MONDO_ID            = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_filter_get_omim_id_by_mondo_id',
 		  URL_PCF_FILTER_GET_OMIM_ID_BY_NCBI_GENE_ID        = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_filter_get_omim_id_by_ncbi_gene_id',
 		  URL_PCF_FILTER_GET_OMIM_ID_BY_INHERITANCE_HPO_ID  = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_filter_get_omim_id_by_inheritance_hpo_id',
 		  URL_PCF_FILTER_GET_ALL_OMIM_ID                    = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_filter_get_all_omim_id',
-
 		  URL_PCF_FILTER_GET_ORPHA_ID_BY_MONDO_ID           = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_filter_get_orpha_id_by_mondo_id',
 		  URL_PCF_FILTER_GET_ORPHA_ID_BY_NCBI_GENE_ID       = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_filter_get_orpha_id_by_ncbi_gene_id',
 		  URL_PCF_FILTER_GET_ORPHA_ID_BY_INHERITANCE_HPO_ID = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_filter_get_orpha_id_by_inheritance_hpo_id',
 		  URL_PCF_FILTER_GET_ALL_ORPHA_ID                   = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_filter_get_all_orpha_id',
-
 		  URL_PCF_FILTER_GET_GENE_ID_BY_MONDO_ID            = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_filter_get_gene_id_by_mondo_id',
 		  URL_PCF_FILTER_GET_GENE_ID_BY_INHERITANCE_HPO_ID  = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_filter_get_gene_id_by_inheritance_hpo_id',
-		  URL_PCF_FILTER_GET_ALL_GENE_ID                    = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_filter_get_all_gene_id';
+		  URL_PCF_FILTER_GET_ALL_GENE_ID                    = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_filter_get_all_gene_id',
+		  URL_PCF_FILTER_GET_CASE_ID_BY_NCBI_GENE_ID        = 'https://pcf.dbcls.jp/pcf_filter_get_case_id_by_ncbi_gene_id';
 
 	const URL_PARA_TARGET         = 'target',
 		  URL_PARA_PHENOTYPE      = 'phenotype',
@@ -47,7 +37,6 @@
 		  URL_PARA_OMIM_ID        = 'omim_id',
 		  URL_PARA_MONDO_ID       = 'mondo_id',
 		  URL_PARA_NCBI_GENE_ID   = 'ncbi_gene_id',
-		  URL_PARA_CASE_ID        = 'case_id',
 		  URL_PARA_HPO_ID         = 'hpo_id',
 		  URL_PARA_ORPHA_ID       = 'orpha_id',
 		  URL_PARA_FORMAT         = 'format',
@@ -140,6 +129,7 @@
 		  SETTING_KEY_LANG           = 'PCF-LANG',
 		  SETTING_KEY_ID_LST         = 'PCF-ID-LST',
 		  SETTING_KEY_ONSELECTTAB    = 'onSelectTab',
+		  SETTING_KEY_LOAD_FILTER_IDS= 'load_filter_ids',
 		  SETTING_KEY_URL            = 'PCF-URL',
 		  SHARE_TYPE_URL             = 'url',
 		  SHARE_TYPE_LIKE            = 'like',
@@ -153,8 +143,6 @@
 		  RANGE_FULL                 = "full",
 		  RANGE_PARTIAL              = "partial",
 		  SETTING_KEY_DOWNLOAD_MODE  = 'PCF-DOWNLOAD_MODE',
-		  DOWNLOAD_FORMAT_TSV        = "tsv",
-		  DOWNLOAD_FORMAT_JSON       = "json",
 		  SETTING_KEY_DOWNLOAD_FORMAT= 'PCF-DOWNLOAD_FORMAT';
 
 	var DEFAULT_SETTINGS = {
@@ -164,7 +152,8 @@
 		[SETTING_KEY_SIZE]:           10,
 		[SETTING_KEY_DISPLAY_FORMAT]: DISPLAY_FORMAT_FULL,
 		[SETTING_KEY_LANG]:           LANGUAGE_JA,
-		[SETTING_KEY_ONSELECTTAB]:    null
+		[SETTING_KEY_ONSELECTTAB]:    null,
+		[SETTING_KEY_LOAD_FILTER_IDS]:null
 	};
 
 
@@ -186,18 +175,6 @@
 			POPUP_TYPE_INHERITANCE  = "popup-inheritance",
 			POPUP_TYPE_GENE         = "popup-gene",
 			POPUP_TYPE_DISEASE      = "popup-disease",
-			KEY_POPUP_TYPE          = 'pcf-popup-type',
-			KEY_POPUP_ID_PHENOTYPE  = 'pcf-phenotype-id',
-			KEY_POPUP_ID_INHERITANCE = 'pcf-inheritance-id',
-			KEY_POPUP_ID_NCBI_GENE  = 'pcf-gene-id',
-			KEY_POPUP_ID_DISEASE    = 'pcf-disease-id',
-			POPUP_ID_KEY_HASH = {
-				[POPUP_TYPE_PHENOTYPE]   : KEY_POPUP_ID_PHENOTYPE,
-				[POPUP_TYPE_INHERITANCE] : KEY_POPUP_ID_INHERITANCE,
-				[POPUP_TYPE_GENE]        : KEY_POPUP_ID_NCBI_GENE,
-				[POPUP_TYPE_DISEASE]     : KEY_POPUP_ID_DISEASE
-			},
-			KEY_POPUP_DATA         = 'pcf-popup-data',
 			POPUP_HTML_ID_HASH = {
 				[POPUP_TYPE_PHENOTYPE]   : "popover_html_phenotype",
 				[POPUP_TYPE_INHERITANCE] : "popover_html_phenotype",
@@ -247,7 +224,6 @@
 	const LOGICAL_NOT = "LOGI-NOT",LOGICAL_AND = "LOGI-AND",LOGICAL_OR = "LOGI-OR",LOGICAL_AND_NOT = "LOGI-AND-NOT",LOGICAL_OR_NOT = "LOGI-OR-NOT",
 		FILTER_TYPE_ENT='ENT:',FILTER_TYPE_MONDO='MONDO:',FILTER_TYPE_HPO='HP:',FILTER_TYPE_ALL='ALL',
 		tokenLogicaloperatorItemAndValue='AND_',tokenLogicaloperatorItemORValue='',tokenLogicaloperatorItemNOTValue='NOT_',
-		RegExp_AND    = new RegExp(tokenLogicaloperatorItemAndValue, 'i'),RegExp_NOT    = new RegExp(tokenLogicaloperatorItemNOTValue, 'i'),
 		FILTER_URL_HASH = {
 			[TARGET_OMIM]:     {
 				[FILTER_TYPE_ENT]   : URL_PCF_FILTER_GET_OMIM_ID_BY_NCBI_GENE_ID,
@@ -268,7 +244,7 @@
 				[FILTER_TYPE_ALL]   : URL_PCF_FILTER_GET_ALL_GENE_ID
 			},
 			[TARGET_CASE]:     {
-				[FILTER_TYPE_ENT]   : "",
+				[FILTER_TYPE_ENT]   : URL_PCF_FILTER_GET_CASE_ID_BY_NCBI_GENE_ID,
 				[FILTER_TYPE_MONDO] : "",
 				[FILTER_TYPE_HPO]   : "",
 				[FILTER_TYPE_ALL]   : ""
@@ -280,18 +256,9 @@
 			[FILTER_TYPE_HPO]   : URL_GET_HPO_DATA_BY_HPO_ID
 		};
 
-	function _get_filter_url_all(target){
-		return FILTER_URL_HASH[target][FILTER_TYPE_ALL];
-	}
-	
-	function _get_filter_url_by_filter_id(target,filter_id){
-		let url_str="";
-		let filter_type = _get_filter_type_by_filter_id(filter_id);
-		if(filter_type) url_str=FILTER_URL_HASH[target][filter_type];
-		return url_str;
-	}
-	
 	// filter_id: ^(|AND_|OR_|NOT_)(ENT|MONDO|HP):\d+(|_ja)$
+	const RegExp_AND = new RegExp(tokenLogicaloperatorItemAndValue, 'i');
+	const RegExp_NOT = new RegExp(tokenLogicaloperatorItemNOTValue, 'i');
 	function _get_logical_by_filter_id(filter_id,order){
 		if(RegExp_AND.test(filter_id)){
 			return LOGICAL_AND;
@@ -305,7 +272,6 @@
 	}
 	
 	function _get_logical_str_by_filter_id(filter_id){
-
 		if(RegExp_AND.test(filter_id)){
 			return tokenLogicaloperatorItemAndValue;
 		}else if(RegExp_NOT.test(filter_id)){
@@ -317,10 +283,9 @@
 
 	function _get_id_from_filter_id(filter_id){
 		var id = filter_id.replace(/_ja$/i,'');
-			id = id.replace(/^NOT_/i,'');
-			id = id.replace(/^AND_/i,'');
-			id = id.replace(/^OR_/i,'');
-
+		id = id.replace(/^NOT_/i,'');
+		id = id.replace(/^AND_/i,'');
+		id = id.replace(/^OR_/i,'');
 		return id;
 	}	
 
@@ -617,10 +582,6 @@
 			
 			url_str = _construct_url_str(URL_GET_GENE_DATA_BY_NCBI_GENE_ID,{[URL_PARA_NCBI_GENE_ID]: setting[SETTING_KEY_ID_LST]});
 			
-		}else if(url_key === URL_GET_DATA_BY_ID && setting[SETTING_KEY_TARGET] === TARGET_CASE){
-			
-			url_str = _construct_url_str(URL_GET_CASE_DATA_BY_CASE_ID,{[URL_PARA_CASE_ID]: setting[SETTING_KEY_ID_LST]});
-			
 		}else if(url_key === URL_GET_HPO_TOOLTIP_DATA_BY_HPO_ID){
 			
 			url_str = _construct_url_str(URL_GET_HPO_TOOLTIP_DATA_BY_HPO_ID,{[URL_PARA_HPO_ID]: setting[URL_PARA_HPO_ID]});
@@ -692,6 +653,12 @@
 		}else if(url_key === URL_PCF_FILTER_GET_GENE_ID_BY_INHERITANCE_HPO_ID){
 			
 			url_str = _construct_url_str(URL_PCF_FILTER_GET_GENE_ID_BY_INHERITANCE_HPO_ID,{[URL_PARA_HPO_ID]: setting[SETTING_KEY_ID_LST]});
+	
+		}else if(url_key === URL_PCF_FILTER_GET_CASE_ID_BY_NCBI_GENE_ID){
+			
+			let ent_id = setting[SETTING_KEY_ID_LST];
+			let ncbi_gene_id = ent_id.replace(/ENT/,"GENEID");
+			url_str = _construct_url_str(URL_PCF_FILTER_GET_CASE_ID_BY_NCBI_GENE_ID,{[URL_PARA_NCBI_GENE_ID]: ncbi_gene_id});
 			
 		}else if(url_key === URL_SHARE){
 			if(setting[SETTING_KEY_SHARE] === SHARE_TYPE_URL){
@@ -724,28 +691,21 @@
 	var _isObject   = function(value) {return $.isPlainObject(value);},
 		_isArray    = function(value) {return $.isArray(value);},
 		_isFunction = function(value) {return $.isFunction(value);},
-		_isNumeric  = function(value) {return $.isNumeric(value);},
-		_isString   = function(value) {return typeof value === 'string';},
-		_isBoolean  = function(value) {return typeof value === 'boolean';},
 		_isEmpty    = function(value, allowEmptyString) {
 			return	(value === null) || (value === undefined) || 
 					(!allowEmptyString ? value === '' : false) || 
 					(_isArray(value) && value.length === 0)||
 					(_isObject(value) && Object.keys(value).length === 0);	
 		},
-		_isDefined  = function(value) {return typeof value !== 'undefined';},
 		_isExistVal = function(key, hash){
 			if(_isEmpty(hash))  return false;
-			
 			if (!(key in hash)) return false;
-			
 			return !_isEmpty(hash[key]);
 		},
-		_hasJA = function( str ) {return ( str && str.match(/[\u30a0-\u30ff\u3040-\u309f\u3005-\u3006\u30e0-\u9fcf]+/) )? true : false},
 		_parseJson= function(text) {
 			var json_data = null;
 			try {
-			    json_data = JSON.parse(text);
+				json_data = JSON.parse(text);
 			} catch (d) {}
 			return json_data;
 		},
@@ -806,7 +766,6 @@
 		}
 	}
 
-	// 
 	function _selectTab(target){
 		_set_active_target(target);
 
@@ -856,7 +815,6 @@
 			let name_ja = _contruct_popup_content_val('name_ja',popup_data);
 			let name_en = _contruct_popup_content_val('name_en',popup_data);
 			if(_isEmpty(name_ja) && _isEmpty(name_en)){
-				//alert('no data found for '+ popup_id);
 				return ['no data found for '+ popup_id, max_text_len];
 			}
 			
@@ -880,14 +838,13 @@
 			if(max_text_len < comment.length) max_text_len = comment.length;
 			content = content.replace(/popup_content_comment/g, comment);
 			
-			let synonym = _contruct_popup_content_val('synonym',popup_data);
+			let synonym = _contruct_popup_content_val('synonym',popup_data,', ');
 			if(max_text_len < synonym.length) max_text_len = synonym.length;
 			content = content.replace(/popup_content_synonym/g, synonym);
 			
 		}else if(popup_type === POPUP_TYPE_GENE){
 			let type_of_gene = _contruct_popup_content_val('type_of_gene',popup_data);
 			if(_isEmpty(type_of_gene)){
-				//alert('no data found for '+ popup_id);
 				return ['no data found for '+ popup_id, max_text_len];
 			}
 			content = content.replace(/popup_content_class/g, popup_class);
@@ -901,7 +858,7 @@
 			if(hgnc_gene_symbol) max_text_len  = 60;// based on the letter count of Link
 			content = content.replace(/popup_content_hgnc_gene_symbol/g, hgnc_gene_symbol);
 			
-			let synonym = _contruct_popup_content_val('synonym',popup_data,',');
+			let synonym = _contruct_popup_content_val('synonym',popup_data,', ');
 			if(max_text_len < synonym.length) max_text_len = synonym.length;
 			content = content.replace(/popup_content_synonym/g, synonym);
 			
@@ -924,7 +881,6 @@
 			let name_ja = _contruct_popup_content_val('name_ja',popup_data);
 			let name_en = _contruct_popup_content_val('name_en',popup_data);
 			if(_isEmpty(name_ja) && _isEmpty(name_en)){
-				//alert('no data found for '+ popup_id);
 				return ['no data found for '+ popup_id, max_text_len];
 			}
 
@@ -942,7 +898,7 @@
 			if(max_text_len < definition.length) max_text_len = definition.length;
 			content = content.replace(/popup_content_definition/g, definition);
 
-			let synonym = _contruct_popup_content_val('synonym',popup_data);
+			let synonym = _contruct_popup_content_val('synonym',popup_data,', ');
 			if(max_text_len < synonym.length) max_text_len = synonym.length;
 			content = content.replace(/popup_content_synonym/g, synonym);
 
@@ -960,7 +916,7 @@
 		return [content, max_text_len];
 	}
 
-	function _contruct_popup_button(popup_type, key_popup_id, id,list_tag,text,popup_class){
+	function _contruct_popup_button(popup_type,id,list_tag,text,popup_class){
 		let button = document.createElement('button');
 		button.textContent = text;
 		button.classList.add("list-tag");
@@ -972,7 +928,7 @@
 	 		appendTo:      document.body,
 			animation:     'scale',
 			animationFill: true,
-			delay:         [500, null],
+			delay:         [400, null],
 			maxWidth:      400,
 			strategy:     'fixed',
 			interactive:  true,
@@ -1038,14 +994,16 @@
 		return $(button);
 	}
 
-	function _contruct_detail(id, phenoList, item, lang, target, display_format, $container_panel){
+	function _contruct_detail(id, phenoList, item, lang, target, display_format, $container_panel, ranking_item){
 
 		let isJA = (lang === LANGUAGE_JA);
 		let isDisplayFull = (display_format === DISPLAY_FORMAT_FULL);
 		
 		// 1. english title
 		let $h3 = $('<h3>').appendTo($container_panel);
-		if("omim_disease_name_en" in item){
+		if(target === TARGET_CASE){
+			$h3.html("<a href=\""+ranking_item.url+"\" target=\"_blank\">"+id+"</a>");
+		}else if("omim_disease_name_en" in item){
 			$h3.text(item.omim_disease_name_en);
 		}else if("orpha_disease_name_en"in item){
 			$h3.text(item.orpha_disease_name_en);
@@ -1056,7 +1014,9 @@
 		}
 
 		// 2. japanese title
-		if(isJA && ("omim_disease_name_ja" in item)){
+		if(target === TARGET_CASE){
+			$h3.css({'margin-bottom':'0.5em'});
+		} else if(isJA && ("omim_disease_name_ja" in item)){
 			$("<h2>").text(item.omim_disease_name_ja).appendTo($container_panel);
 		}else if(isJA && ("orpha_disease_name_ja" in item)){
 			$("<h2>").text(item.orpha_disease_name_ja).appendTo($container_panel);
@@ -1070,7 +1030,6 @@
 
 		// 3. phenotypes list
 		if(!_isEmpty(phenoList)){
-			//let $container_list_query = $('<div>').addClass("list-query").appendTo($container_panel);
 			let $container_list_query = $('<div>').addClass("d-flex").addClass("flex-wrap").addClass("list-tag-wrapper").appendTo($container_panel);
 			phenoList.split(',').forEach(function(hpo_id){
 				let label_text = _get_phenotype_name_from_cache(hpo_id,lang);
@@ -1082,7 +1041,7 @@
 						label_text= hpo_id;
 					}
 				}
-				_contruct_popup_button(POPUP_TYPE_PHENOTYPE, KEY_POPUP_ID_PHENOTYPE, hpo_id, "list-tag_blue", label_text, CLASS_POPUP_PHENOTYPE).appendTo($container_list_query);
+				_contruct_popup_button(POPUP_TYPE_PHENOTYPE,hpo_id, "list-tag_blue", label_text, CLASS_POPUP_PHENOTYPE).appendTo($container_list_query);
 			});
 		}
 		
@@ -1097,7 +1056,7 @@
 					for(let hpo_id in item.inheritance_en){
 						let text = item.inheritance_en[hpo_id];
 						if(isJA)text = item.inheritance_ja[hpo_id];
-						_contruct_popup_button(POPUP_TYPE_INHERITANCE, KEY_POPUP_ID_INHERITANCE, hpo_id, "list-tag_green", text, CLASS_POPUP_INHERITANCE).appendTo($container_list_heredity);
+						_contruct_popup_button(POPUP_TYPE_INHERITANCE,hpo_id, "list-tag_green", text, CLASS_POPUP_INHERITANCE).appendTo($container_list_heredity);
 					}
 				}
 	
@@ -1105,7 +1064,7 @@
 					for(let i=0;i<item.hgnc_gene_symbol.length;i++){
 						let text = item.hgnc_gene_symbol[i];
 						let id    = item.ncbi_gene_id[i];
-						_contruct_popup_button(POPUP_TYPE_GENE, KEY_POPUP_ID_NCBI_GENE, id, "list-tag_gray", text, CLASS_POPUP_GENE).appendTo($container_list_heredity);
+						_contruct_popup_button(POPUP_TYPE_GENE,id, "list-tag_gray", text, CLASS_POPUP_GENE).appendTo($container_list_heredity);
 					}
 				}
 			}
@@ -1116,7 +1075,7 @@
 				for(let mondo_id in item.mondo_disease_name_en){
 					let text = item.mondo_disease_name_en[mondo_id];
 					if(isJA && _isExistVal(mondo_id, item.mondo_disease_name_ja)) text = item.mondo_disease_name_ja[mondo_id];
-					_contruct_popup_button(POPUP_TYPE_DISEASE, KEY_POPUP_ID_DISEASE, mondo_id, "list-tag_red", text, CLASS_POPUP_DISEASE).appendTo($container_list_diseasename);
+					_contruct_popup_button(POPUP_TYPE_DISEASE,mondo_id, "list-tag_red", text, CLASS_POPUP_DISEASE).appendTo($container_list_diseasename);
 					
 				}
 			}
@@ -1130,17 +1089,27 @@
 
 					if(item.inheritance_en[i] in INHERITANCE_LABEL_TO_ID){
 						let hpo_id = INHERITANCE_LABEL_TO_ID[item.inheritance_en[i]];
-						_contruct_popup_button(POPUP_TYPE_INHERITANCE, KEY_POPUP_ID_INHERITANCE, hpo_id, "list-tag_green", text, CLASS_POPUP_INHERITANCE).appendTo($container_list_disease);
+						_contruct_popup_button(POPUP_TYPE_INHERITANCE,hpo_id, "list-tag_green", text, CLASS_POPUP_INHERITANCE).appendTo($container_list_disease);
 					}else{
 						$('<span>').addClass("list-tag").addClass("list-tag_green").text(text).appendTo($container_list_disease);
 					}
 				}
 			}
+		}else if(target === TARGET_CASE){
+			if(_isExistVal("hgnc_gene_symbol",ranking_item)){
+
+				//let $container_list_heredity = $('<div>').addClass("list-heredity-disease").appendTo($container_panel);
+				let $container_list_heredity = $('<div>').addClass("d-flex").addClass("flex-wrap").addClass("list-tag-wrapper").appendTo($container_panel);
+
+				Object.keys(ranking_item.hgnc_gene_symbol).forEach(function(id){
+					let text = ranking_item["hgnc_gene_symbol"][id];
+					_contruct_popup_button(POPUP_TYPE_GENE,id, "list-tag_gray", text, CLASS_POPUP_GENE).appendTo($container_list_heredity);
+				});
+			}
 		}
 		
-		
 		// 5. description p
-		if(isDisplayFull && _isExistVal("description",item)){
+		if(target !== TARGET_CASE && isDisplayFull && _isExistVal("description",item)){
 			let $p = $('<p>').text(item.description).appendTo($container_panel);
 			let href_str = encodeURIComponent(item.description);
 			    href_str = "https://translate.google.co.jp/?sl=en&tl=ja&text=" + href_str + "&op=translate&hl=ja";
@@ -1223,9 +1192,7 @@
 					$('<a>').text("GTR").attr('href',url_str).attr('target','_blank').appendTo($list_link_panel);
 				});
 			}
-		
 		}
-		
 		
 		//7. list link line
 		if(isDisplayFull && (target === TARGET_OMIM || target === TARGET_ORPHANET)) {
@@ -1301,17 +1268,18 @@
 			}
 
 			let gene_list_str = "";
-			for(let i=0;i<detail_data.hgnc_gene_symbol.length;i++){
-				let gene_text = detail_data.hgnc_gene_symbol[i];
+			if(_isExistVal("hgnc_gene_symbol",detail_data)){
+				for(let i=0;i<detail_data.hgnc_gene_symbol.length;i++){
+					let gene_text = detail_data.hgnc_gene_symbol[i];
+	
+					if(gene_list_str.length === 0){
+						gene_list_str = gene_text;
+					}else{
+						gene_list_str = gene_list_str + ',' + gene_text;
+					}
 
-				if(gene_list_str.length === 0){
-					gene_list_str = gene_text;
-				}else{
-					gene_list_str = gene_list_str + ',' + gene_text;
 				}
-
 			}
-
 			text = text + "\n" + detail_data.omim_disease_name_ja + "\n" + 
 								 detail_data.omim_disease_name_en + "\n" +
 								 phenotype_list_str               + "\n" +
@@ -1444,8 +1412,11 @@
 		let ranking_list = _get_ranking_data_from_cache(setting);
 		if(_isEmpty(ranking_list)) return;
 		
-		let detail_data = _get_detail_data_from_cache(target);
-		if(_isEmpty(detail_data)) return;
+		let detail_data = null;
+		if(target !== TARGET_CASE){
+			detail_data = _get_detail_data_from_cache(target);
+			if(_isEmpty(detail_data)) return;
+		}
 
 
 		let loaded_num  = _get_target_loaded_num(target);
@@ -1511,73 +1482,74 @@
 			let $percentage = $("<span>("+ score+")</span>").appendTo($td_left);
 			if(!isDisplayFull) $percentage.addClass('summary');
 			
-			
-			let $list_content_left_bt = $('<div>').addClass('list-content_left_bt').appendTo($td_left);
-			let $copy_button = $('<a>').appendTo($list_content_left_bt);
-			let $like_button = $('<a>').appendTo($list_content_left_bt);
-
-			if(isDisplayFull){
-				$copy_button.text("Copy").append("<i class=\"material-icons\">content_copy</i>");
-				$like_button.text("Like").append("<i class=\"material-icons\">favorite_border</i>");
-			}else{
-				$list_content_left_bt.addClass('summary');
-				$copy_button.append("<i class=\"material-icons\">content_copy</i>");
-				$like_button.append("<i class=\"material-icons\">favorite_border</i>");
+			if(target !== TARGET_CASE){
+				let $list_content_left_bt = $('<div>').addClass('list-content_left_bt').appendTo($td_left);
+				let $copy_button = $('<a>').appendTo($list_content_left_bt);
+				let $like_button = $('<a>').appendTo($list_content_left_bt);
+	
+				if(isDisplayFull){
+					$copy_button.text("Copy").append("<i class=\"material-icons\">content_copy</i>");
+					$like_button.text("Like").append("<i class=\"material-icons\">favorite_border</i>");
+				}else{
+					$list_content_left_bt.addClass('summary');
+					$copy_button.append("<i class=\"material-icons\">content_copy</i>");
+					$like_button.append("<i class=\"material-icons\">favorite_border</i>");
+				}
+	
+				if(ranking_list[i].id in detail_data ){
+					// ranking_list[i]
+					// detail_data[ranking_list[i].id] 
+					$copy_button.tooltip({'title':'Summary successfully copied', 'trigger':'manual', 'placement':'bottom'})
+							.data(SETTING_KEY_DETAIL, detail_data[ranking_list[i].id])
+							.data(SETTING_KEY_RANK,   ranking_list[i])
+							.data(SETTING_KEY_LANG,   lang)
+							.on('click', function (e) {
+								let $btn = $(this) 
+								$btn.tooltip('show');
+								let rank        = $btn.data(SETTING_KEY_RANK);
+								let detail_data = $btn.data(SETTING_KEY_DETAIL);
+								let lang        = $btn.data(SETTING_KEY_LANG);
+								_copy_to_clipboard(rank,detail_data,lang);
+								e.preventDefault();
+								e.stopPropagation();
+								return false;
+							})
+							.on('mouseleave', function () {
+								$(this).tooltip('hide');
+							});
+				}
+	
+				//[URL_PARA_TARGET]:setting[SETTING_KEY_TARGET], [URL_PARA_PHENOTYPE]:setting[SETTING_KEY_ID_LST], [URL_PARA_TARGET_ID]:setting[SETTING_KEY_TARGET_ID]});
+				$like_button.data(SETTING_KEY_TARGET,target)
+							.data(SETTING_KEY_ID_LST,ranking_list[i].matched_hpo_id)
+							.data(SETTING_KEY_TARGET_ID,ranking_list[i].id)
+							.on('click', function (e) {
+								let $btn = $(this) 
+							
+								if($btn.hasClass('liked')){
+									$btn.removeClass('liked');
+									$btn.find('i').text('favorite_border');
+								}else{
+									let like_url_str = _construct_url(URL_SHARE,{	[SETTING_KEY_SHARE]:     SHARE_TYPE_LIKE,
+																		[SETTING_KEY_TARGET]:    $btn.data(SETTING_KEY_TARGET),
+																		[SETTING_KEY_ID_LST]:    $btn.data(SETTING_KEY_ID_LST),
+																		[SETTING_KEY_TARGET_ID]: $btn.data(SETTING_KEY_TARGET_ID)});
+									_run_ajax(like_url_str,'GET', 'text', true, null);
+									$btn.addClass('liked');
+									$btn.find('i').text('favorite');
+								}
+								e.preventDefault();
+								e.stopPropagation();
+								return false;
+							});
 			}
-
-			if(ranking_list[i].id in detail_data ){
-				// ranking_list[i]
-				// detail_data[ranking_list[i].id] 
-				$copy_button.tooltip({'title':'Summary successfully copied', 'trigger':'manual', 'placement':'bottom'})
-						.data(SETTING_KEY_DETAIL, detail_data[ranking_list[i].id])
-						.data(SETTING_KEY_RANK,   ranking_list[i])
-						.data(SETTING_KEY_LANG,   lang)
-						.on('click', function (e) {
-							let $btn = $(this) 
-							$btn.tooltip('show');
-							let rank        = $btn.data(SETTING_KEY_RANK);
-							let detail_data = $btn.data(SETTING_KEY_DETAIL);
-							let lang        = $btn.data(SETTING_KEY_LANG);
-							_copy_to_clipboard(rank,detail_data,lang);
-							e.preventDefault();
-							e.stopPropagation();
-							return false;
-						})
-						.on('mouseleave', function () {
-							$(this).tooltip('hide');
-						});
-			}
-
-			//[URL_PARA_TARGET]:setting[SETTING_KEY_TARGET], [URL_PARA_PHENOTYPE]:setting[SETTING_KEY_ID_LST], [URL_PARA_TARGET_ID]:setting[SETTING_KEY_TARGET_ID]});
-			$like_button.data(SETTING_KEY_TARGET,target)
-						.data(SETTING_KEY_ID_LST,ranking_list[i].matched_hpo_id)
-						.data(SETTING_KEY_TARGET_ID,ranking_list[i].id)
-						.on('click', function (e) {
-							let $btn = $(this) 
-						
-							if($btn.hasClass('liked')){
-								$btn.removeClass('liked');
-                                                                $btn.find('i').text('favorite_border');
-							}else{
-								let like_url_str = _construct_url(URL_SHARE,{	[SETTING_KEY_SHARE]:     SHARE_TYPE_LIKE,
-																	[SETTING_KEY_TARGET]:    $btn.data(SETTING_KEY_TARGET),
-																	[SETTING_KEY_ID_LST]:    $btn.data(SETTING_KEY_ID_LST),
-																	[SETTING_KEY_TARGET_ID]: $btn.data(SETTING_KEY_TARGET_ID)});
-								_run_ajax(like_url_str,'GET', 'text', true, null);
-								$btn.addClass('liked');
-								$btn.find('i').text('favorite');
-							}
-							e.preventDefault();
-							e.stopPropagation();
-							return false;
-						});
-
-
 
 			
 			//right
-			if(ranking_list[i].id in detail_data ){
-				_contruct_detail(ranking_list[i].id, ranking_list[i].matched_hpo_id, detail_data[ranking_list[i].id], lang, target, display_format, $td_right);
+			if(target === TARGET_CASE){
+				_contruct_detail(ranking_list[i].id, ranking_list[i].matched_hpo_id, null, lang, target, display_format, $td_right, ranking_list[i]);
+			}else if(ranking_list[i].id in detail_data ){
+				_contruct_detail(ranking_list[i].id, ranking_list[i].matched_hpo_id, detail_data[ranking_list[i].id], lang, target, display_format, $td_right,ranking_list[i]);
 			} else {
 				$td_right.text('No Search Results for ('+ranking_list[i].id+').').css({'text-align':'center','vertical-align':'middle'});
 			}
@@ -1627,7 +1599,7 @@
 			let url_str = _construct_url(URL_GET_HPO_DATA_BY_HPO_ID, setting);
 			let obj = {[SETTING_KEY_URLSTR]:url_str, 'type': type_phenotypename};
 			ajax_item_list.push(obj);
-		} 
+		}
 
 		let type_casereportcount_en = 'casereportcount_en';
 		let type_casereportcount_ja = 'casereportcount_ja';
@@ -1708,24 +1680,121 @@
 		// check if  needs to be load from interent	
 		if(!_isEmpty(uncached_list)){
 
-			// search detail data from internet and draw result
-			setting[SETTING_KEY_ID_LST] = uncached_list.join(",");
-		
-			let url_str = _construct_url(URL_GET_DATA_BY_ID, setting);
-			_run_ajax(url_str,'GET', 'text', true, function(data){
-				
-				if(!_isEmpty(data)){
-					var json_data = _parseJson(data);
-					if(!_isEmpty(json_data)){
-						_set_detail_data_to_cache(json_data,target);
-					}
-				}
+			if(target === TARGET_CASE){
 				_search_phenotypename_casereportnum_and_show_result(setting);
-			});
+			}else{
+				// search detail data from internet and draw result
+				setting[SETTING_KEY_ID_LST] = uncached_list.join(",");
+		
+				let url_str = _construct_url(URL_GET_DATA_BY_ID, setting);
+				_run_ajax(url_str,'GET', 'text', true, function(data){
+				
+					if(!_isEmpty(data)){
+						var json_data = _parseJson(data);
+						if(!_isEmpty(json_data)){
+							_set_detail_data_to_cache(json_data,target);
+						}
+					}
+					_search_phenotypename_casereportnum_and_show_result(setting);
+				});
+			}
 		} else {
 			_search_phenotypename_casereportnum_and_show_result(setting);
 		}
 	}
+
+	function _run_pcf_filter_logical_case(ranking_data_without_filter,items_total_hash,result_ranking_id_hash,target,setting){
+
+		let ranking_id_list = {};
+		ranking_data_without_filter.forEach(function(item){
+			ranking_id_list[item.id] = "";
+		});
+		
+		Object.keys(items_total_hash).sort().forEach(function(i_str){
+			let filter_type = items_total_hash[i_str].filter_type;
+			if(filter_type !== FILTER_TYPE_ENT) return;
+			
+			let logical_type = items_total_hash[i_str].logical_type;
+			let gene_id      = items_total_hash[i_str].id;
+			let hash = result_ranking_id_hash[i_str];
+			
+			let isLogicalNot = (logical_type === LOGICAL_AND_NOT);
+			
+			let filter_id_list = {};
+			ranking_data_without_filter.forEach(function(data_item){
+				if(isLogicalNot){
+					if(!(data_item.id in hash)) filter_id_list[data_item.id]=1;
+				}else{
+					if(data_item.id in hash) filter_id_list[data_item.id]=1;
+				}
+			});
+			
+
+			if(logical_type === LOGICAL_AND || logical_type === LOGICAL_AND_NOT){
+				Object.keys(ranking_id_list).forEach(function(ranking_id){
+					if(!(ranking_id in filter_id_list)){
+						delete ranking_id_list[ranking_id];
+					}else{
+						if(ranking_id_list[ranking_id] === ""){
+							ranking_id_list[ranking_id] = gene_id;
+						}else{
+							ranking_id_list[ranking_id] = ranking_id_list[ranking_id] + "," + gene_id;
+						}
+					}
+				});
+			} else {
+				Object.keys(filter_id_list).forEach(function(ranking_id){
+					if(ranking_id in ranking_id_list){
+						if(ranking_id_list[ranking_id] === ""){
+							ranking_id_list[ranking_id] = gene_id;
+						}else{
+							ranking_id_list[ranking_id] = ranking_id_list[ranking_id] + "," + gene_id;
+						}
+
+					}else{
+						ranking_id_list[ranking_id] = gene_id;
+					}
+				});
+			}
+		});
+		
+		let ranking_data_new = [];
+		let gene_id_hash = {};
+		let load_filter_ids_func = setting[SETTING_KEY_LOAD_FILTER_IDS];
+		if(_isFunction(load_filter_ids_func)){
+			let tokenList = load_filter_ids_func();				
+			tokenList.forEach(function(item){
+				let id = item.id;
+				let name = item.name;
+				gene_id_hash[id] = name;
+			});
+		}			
+					
+		ranking_data_without_filter.forEach(function(item){
+			if(item.id in ranking_id_list) {
+				let gene_id_lst_str = ranking_id_list[item.id];
+				
+				let obj = $.extend(true,{}, item);
+				
+				if(gene_id_lst_str.length > 0){
+					obj['hgnc_gene_symbol'] = {};
+					gene_id_lst_str.split(',').forEach(function(gene_id){
+						let gene_name = gene_id;
+						if(gene_id in gene_id_hash){
+							gene_name = gene_id_hash[gene_id];
+						}
+						obj['hgnc_gene_symbol'][gene_id] = gene_name;
+					});
+				}
+				ranking_data_new.push(obj);
+			}
+		});
+		
+		_set_ranking_data_into_cache(ranking_data_new,setting);
+		_set_target_status_ranking_data_loaded(target);
+		_search_detail_data_and_show_result(setting);
+	}
+
 
 	function _run_pcf_filter_logical(ranking_data_without_filter,items_total_hash,result_ranking_id_hash,target,setting){
 
@@ -1742,6 +1811,11 @@
 			_set_target_status_ranking_data_loaded(target);
 			_search_detail_data_and_show_result(setting);
 		}else{
+			
+			if(target === TARGET_CASE){
+				_run_pcf_filter_logical_case(ranking_data_without_filter,items_total_hash,result_ranking_id_hash,target,setting);
+				return;
+			}
 			
 			let ranking_id_list = {};
 			
@@ -1896,11 +1970,19 @@
 				let idx = item.index;
 				result_ranking_id_hash[idx] = {};
 				if(!_isEmpty(json_data)){
-					for(jid in json_data){
-						if(!_isEmpty(json_data[jid])){
-							json_data[jid].forEach(function(target_data_id){
+					if(target_str === TARGET_CASE){
+						if(!_isEmpty(json_data) && _isArray(json_data)){
+							json_data.forEach(function(target_data_id){
 								result_ranking_id_hash[idx][target_data_id] = 1;
 							});
+						}
+					}else{
+						for(jid in json_data){
+							if(!_isEmpty(json_data[jid])){
+								json_data[jid].forEach(function(target_data_id){
+									result_ranking_id_hash[idx][target_data_id] = 1;
+								});
+							}
 						}
 					}
 				}
@@ -1934,9 +2016,7 @@
 		}else if(ajax_item_list.length === 1){
 			
 			_run_ajax(ajax_item_list[0][SETTING_KEY_URLSTR],'GET', 'text', true, function(data){
-
 				callback_success(data,ajax_item_list[0]);
-
 				// do logical ,create ranking list, and continue
 				_run_pcf_filter_logical(ranking_data_without_filter,items_total_hash,result_ranking_id_hash,target_str,setting);
 				return;
@@ -2073,7 +2153,8 @@
 			if(_isExistVal(URL_PARA_LANG     , options)) setting[SETTING_KEY_LANG]           = options[URL_PARA_LANG];
 			if(_isExistVal(URL_PARA_SIZE     , options) &&options[URL_PARA_SIZE] > 0) setting[SETTING_KEY_SIZE] = options[URL_PARA_SIZE];
 			if(_isExistVal(SETTING_KEY_ONSELECTTAB,options)) setting[SETTING_KEY_ONSELECTTAB]= options[SETTING_KEY_ONSELECTTAB];
-			
+			if(_isExistVal(SETTING_KEY_LOAD_FILTER_IDS,options)) setting[SETTING_KEY_LOAD_FILTER_IDS]= options[SETTING_KEY_LOAD_FILTER_IDS];
+
 			
 			$tab_button_panel    = $('<div>').addClass("tab-button-panel").appendTo(this);
 			$tab_content_wrapper = $('<div>').addClass("tab-content-wrapper").appendTo(this);
@@ -2200,12 +2281,13 @@
 				} else {
 					var url = window.URL || window.webkitURL;
 					link = url.createObjectURL(blob);
-					var a = $("<a />");
-					a.attr("download", fileName);
-					a.attr("href", link);
-					$("body").append(a);
-					a[0].click();
-					$("body").remove(a);
+					var $a = $("<a />");
+					$a.attr("download", fileName);
+					$a.attr("href", link);
+					$("body").append($a);
+					$a[0].click();
+					//$("body").remove(a);
+					$a.remove();
 				}
 			});
 		},

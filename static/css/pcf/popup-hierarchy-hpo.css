@@ -384,6 +384,11 @@ ul.hpo-token-input-list.token-input-list-facebook li.token-input-token-facebook.
 	color: #fff;
 }
 
+ul.hpo-token-input-list.token-input-list-facebook li.token-input-token-facebook.selected_at_popup {
+        background-color: #5670a6;
+        color: white;
+}
+
 ul.hpo-token-input-list.token-input-list-facebook li.token-input-token-facebook p {
 	display: block  !important;
 	line-height: 15px;

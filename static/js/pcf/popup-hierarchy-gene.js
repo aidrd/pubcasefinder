@@ -212,6 +212,7 @@
 		,tokenInputListClassName : 'TokenList_gene'
 		,use_number_of_hits : true,
 
+		onFilterChanged       : null,
 		modify_modal_on_show  : null,
 		after_modal_close     : null,
 		after_init_gui        : null
@@ -1327,7 +1328,7 @@
 		function closeMagnificPopup(){
 			var magnificPopup = $.magnificPopup.instance;
 			if(magnificPopup && isFunction(magnificPopup.close)){
-
+/*
 				if(window.__threeBitsRenderer){
 					var $domElement = $(__threeBitsRenderer.domElement());
 					$domElement.off('pick').off('rotate').off('zoom').off('load').off('progress');
@@ -1338,6 +1339,7 @@
 					else{
 					}
 				}
+*/
 				magnificPopup.close();
 			}
 			
