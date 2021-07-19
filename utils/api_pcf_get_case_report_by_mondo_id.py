@@ -42,11 +42,13 @@ def pcf_get_case_report_by_mondo_id(r_mondo_id, r_lang):
                 journal_ja = journal_ja.replace("　", " ")
                 journal = journal_ja.translate(str.maketrans({chr(0xFF01 + i): chr(0x21 + i) for i in range(94)})) if journal_ja != "" else journal_en
                 dict_jstage = {}
-                dict_jstage['id']         = id_jstage
+                #dict_jstage['id']         = id_jstage
+                dict_jstage['id']         = "Go to J-STAGE"
                 dict_jstage['title']      = title_ja
                 dict_jstage['url']        = url_ja
                 dict_jstage['pyear']      = pdate
-                dict_jstage['id_jglobal'] = id_jglobal
+                #dict_jstage['id_jglobal'] = id_jglobal
+                dict_jstage['id_jglobal'] = "Go to J-GLOBAL"
                 dict_jstage['url_jglobal'] = "https://jglobal.jst.go.jp/detail?JGLOBAL_ID=" + id_jglobal
                 dict_jstage['journal']    = journal
                 list_dict_cs.append(dict_jstage)
