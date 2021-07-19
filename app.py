@@ -461,11 +461,11 @@ def popup_hierarchy_hpo():
         dict_json = {}
 
         # OntoTermHPInformationテーブルから情報取得
-        sql_information = u"select OntoName, OntoSynonym, OntoDefinition, OntoComment, OntoParentNum, OntoChildNum, OntoNameJa from OntoTermHPInformation where OntoVersion='20190603' and OntoID=%s"
-        sql_informations_fmt = u"select OntoID, OntoName, OntoSynonym, OntoDefinition, OntoComment, OntoChildNum, OntoNameJa from OntoTermHPInformation where OntoVersion='20190603' and OntoID in (%s)"
+        sql_information = u"select OntoName, OntoSynonym, OntoDefinition, OntoComment, OntoParentNum, OntoChildNum, OntoNameJa from OntoTermHPInformation where OntoID=%s"
+        sql_informations_fmt = u"select OntoID, OntoName, OntoSynonym, OntoDefinition, OntoComment, OntoChildNum, OntoNameJa from OntoTermHPInformation where OntoID in (%s)"
 
-        sql_hierarchy_parent = u"select OntoParentID from OntoTermHPHierarchy where OntoVersion='20190603' and OntoID=%s"
-        sql_hierarchy_child  = u"select OntoID from OntoTermHPHierarchy where OntoVersion='20190603' and OntoParentID=%s"
+        sql_hierarchy_parent = u"select OntoParentID from OntoTermHPHierarchy where OntoID=%s"
+        sql_hierarchy_child  = u"select OntoID from OntoTermHPHierarchy where OntoParentID=%s"
 
         # OntoTermHPInformationテーブルからクエリにマッチするレコードを取得
         cursor_information = OBJ_MYSQL.cursor()
@@ -796,10 +796,8 @@ def popup_hierarchy_genes():
         onto_id = onto_id_pre.replace('_ja', '')
         onto_id_prefix = re.search(r'^(HP|MONDO)', onto_id)
         onto_name = "MONDO"
-        onto_version = "20200405"
         if onto_id_prefix and onto_id_prefix.group() == "HP":
             onto_name = "HP"
-            onto_version = "20170630"
 
         # MySQLへ接続
         OBJ_MYSQL = MySQLdb.connect(unix_socket=db_sock, host="localhost", db=db_name, user=db_user, passwd=db_pw, charset="utf8")
@@ -811,11 +809,11 @@ def popup_hierarchy_genes():
         dict_json['subclass']   = []
 
         # OntoTermMONDOInformationテーブルから情報取得
-        sql_information = u"select OntoName, OntoSynonym, OntoDefinition, OntoComment, OntoParentNum, OntoChildNum, OntoNameJa from OntoTerm{0}Information where OntoVersion='{1}' and OntoID=%s".format(onto_name,onto_version)
-        sql_informations_fmt = u"select OntoID, OntoName, OntoChildNum, OntoNameJa from OntoTerm{0}Information where OntoVersion='{1}' and OntoID in (%s)".format(onto_name,onto_version)
+        sql_information = u"select OntoName, OntoSynonym, OntoDefinition, OntoComment, OntoParentNum, OntoChildNum, OntoNameJa from OntoTerm{0}Information where OntoID=%s".format(onto_name)
+        sql_informations_fmt = u"select OntoID, OntoName, OntoChildNum, OntoNameJa from OntoTerm{0}Information where OntoID in (%s)".format(onto_name)
 
-        sql_hierarchy_parent = u"select OntoParentID from OntoTerm{0}Hierarchy where OntoVersion='{1}' and OntoID=%s".format(onto_name,onto_version)
-        sql_hierarchy_child  = u"select OntoID from OntoTerm{0}Hierarchy where OntoVersion='{1}' and OntoParentID=%s".format(onto_name,onto_version)
+        sql_hierarchy_parent = u"select OntoParentID from OntoTerm{0}Hierarchy where OntoID=%s".format(onto_name)
+        sql_hierarchy_child  = u"select OntoID from OntoTerm{0}Hierarchy where OntoParentID=%s".format(onto_name)
 
         # OntoTermMONDOInformationテーブルからクエリにマッチするレコードを取得
         cursor_information = OBJ_MYSQL.cursor()
