@@ -1411,6 +1411,42 @@
 			}
 		}
 
+		function get_prefix(id){
+			let ret = "";
+			let idx = id.indexOf(':');
+			if(idx > 0){
+				ret = id.substring(0,idx);
+			}
+			return ret;
+		}
+		
+		function compare_result(a,b){
+			// compare id prefix
+			let a_pre = get_prefix(a.id);
+			let b_pre = get_prefix(b.id);
+			
+			if(a_pre !== b_pre){
+				if(a_pre === 'HP') {
+					return 1;
+				}else if(b_pre === 'HP') {
+					return -1;
+				}else if(a_pre === 'ENT') {
+					return 1;
+				}else{
+					return -1;
+				}
+			}
+			
+			// compare name
+			if ( a.name < b.name ){
+				return -1;
+			}
+			if ( a.name > b.name ){
+				return 1;
+			}
+			return 0;
+		}
+
 		// Do the actual search
 		function run_search(query) {
 			var cache_key = query + computeURL();
@@ -1464,15 +1500,16 @@
 
 					// Attach the success callback
 					ajax_params.success = function(results) {
-					cache.add(cache_key, $(input).data("settings").jsonContainer ? results[$(input).data("settings").jsonContainer] : results);
-					if($.isFunction($(input).data("settings").onResult)) {
-						results = $(input).data("settings").onResult.call(hiddenInput, results);
-					}
-
-					// only populate the dropdown if the results are associated with the active search query
-					if(input_box.val() === query) {
-						populateDropdown(query, $(input).data("settings").jsonContainer ? results[$(input).data("settings").jsonContainer] : results);
-					}
+						results = results.sort( compare_result );
+						cache.add(cache_key, $(input).data("settings").jsonContainer ? results[$(input).data("settings").jsonContainer] : results);
+						if($.isFunction($(input).data("settings").onResult)) {
+							results = $(input).data("settings").onResult.call(hiddenInput, results);
+						}
+	
+						// only populate the dropdown if the results are associated with the active search query
+						if(input_box.val() === query) {
+							populateDropdown(query, $(input).data("settings").jsonContainer ? results[$(input).data("settings").jsonContainer] : results);
+						}
 					};
 
 					// Attach the error callback

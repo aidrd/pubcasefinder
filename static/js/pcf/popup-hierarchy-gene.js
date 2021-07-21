@@ -445,7 +445,7 @@
 
 					//superclass
 					if(isString(options.classname) && options.classname === CSS_PREFIX+current_settings.keySubclass){
-						addExecuteButtons(data, existsTokenInputItemFromID(this.id)).appendTo($link_base).css(add_css);
+						addExecuteButtons(data, existsTokenInputItemFromID(this.id),false).appendTo($link_base).css(add_css);
 						if($number_html) $number_html.appendTo($('<'+current_settings.nodeName+'>').css({'display':'table-cell','vertical-align':'top','text-align':'right','width':'1px'}).appendTo($link_base));
 					}
 
@@ -487,7 +487,7 @@
 					//subclass
 					if(isString(options.classname) && options.classname === CSS_PREFIX+current_settings.keySuperclass){
 						if($number_html) $number_html.appendTo($('<'+current_settings.nodeName+'>').css({'display':'table-cell','vertical-align':'top','text-align':'right','width':'1px'}).appendTo($link_base));
-						addExecuteButtons(data, existsTokenInputItemFromID(this.id)).appendTo($link_base).css(add_css);
+						addExecuteButtons(data, existsTokenInputItemFromID(this.id), false).appendTo($link_base).css(add_css);
 					}
 
 				});
@@ -610,14 +610,29 @@
 			return false;
 		}
 
-		function addExecuteButtons(data,disabled){
+		function addExecuteButtons(data,disabled,isBig){
 			if(!isBoolean(disabled)) disabled = disabled ? true : false;
 
 			var $button_base = $('<'+current_settings.nodeName+'>').addClass(current_settings.cssButtonBaseClass);
 
 			$.each(['add','replace'], function(){
 				var key = this;
-				var $button = $('<button>').addClass('btn btn-primary').addClass(key=='add'?current_settings.cssButtonAddClass:current_settings.cssButtonReplaceClass).data(OBJECT_KEY,  $.extend(true, {},data,{'exec' : key.toLowerCase()})   ).text(current_settings.language[getCurrentLanguage()][key]).appendTo($button_base);
+				//var $button = $('<button>').addClass('btn btn-primary').addClass(key=='add'?current_settings.cssButtonAddClass:current_settings.cssButtonReplaceClass).data(OBJECT_KEY,  $.extend(true, {},data,{'exec' : key.toLowerCase()})   ).text(current_settings.language[getCurrentLanguage()][key]).appendTo($button_base);
+				var $button;
+				if(isBig){
+					$button = $('<button>').addClass('btn btn-primary')
+							.addClass(key=='add'?current_settings.cssButtonAddClass:current_settings.cssButtonReplaceClass)
+							.html(key=='add'?'<span class="material-icons" style="font-size:20px;vertical-align:sub;">post_add</span>&nbsp;' + current_settings.language[getCurrentLanguage()][key] :
+									 '<span class="material-icons" style="font-size:20px;vertical-align:sub;">autorenew</span>&nbsp;' + current_settings.language[getCurrentLanguage()][key])
+							.data(OBJECT_KEY,  $.extend(true, {},data,{'exec' : key.toLowerCase()})   )
+							.appendTo($button_base);
+				}else{
+					$button = $('<button>').addClass('material-icons').addClass('btn btn-primary')
+                                                        .addClass(key=='add'?current_settings.cssButtonAddClass:current_settings.cssButtonReplaceClass)
+                                                        .text(key=='add'?'post_add':'autorenew')
+                                                        .data(OBJECT_KEY,  $.extend(true, {},data,{'exec' : key.toLowerCase()})   )
+                                                        .appendTo($button_base);
+				}
 				$button.on('click',executionAddOrReplace);
 			});
 
@@ -1074,7 +1089,7 @@
 				};
 
 				var $buttons = $('<'+current_settings.nodeName+'>').addClass(current_settings.cssButtonsClass).appendTo($base);
-				var $button_base = addExecuteButtons(data,target_arr.length!==0).appendTo($buttons);
+				var $button_base = addExecuteButtons(data,target_arr.length!==0,true).appendTo($buttons);
 
 				var $separator = $('<div>')
 					.css({

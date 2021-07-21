@@ -656,16 +656,26 @@
 				if(isBig){
                                         $button = $('<button>').addClass('btn btn-primary')
                                                         .addClass(key=='add'?current_settings.cssButtonAddClass:current_settings.cssButtonReplaceClass)
-                                                        .html(key=='add'?'<span class="material-icons" style="font-size:20px;vertical-align:sub;">post_add</span> &nbsp; ' + current_settings.language[getCurrentLanguage()][key] :
-									 '<span class="material-icons" style="font-size:20px;vertical-align:sub;">published_with_changes</span> &nbsp; ' + current_settings.language[getCurrentLanguage()][key])
+                                                        .html(key=='add'?'<span class="material-icons" style="font-size:20px;vertical-align:sub;">post_add</span>&nbsp;' + current_settings.language[getCurrentLanguage()][key] :
+									 //'<img src="/static/images/pcf/replace-red.svg" style="width:18px;height:18px;vertical-align:sub;margin-right:5px"></img>&nbsp;' + current_settings.language[getCurrentLanguage()][key])
+									'<span class="material-icons" style="font-size:20px;vertical-align:sub;">autorenew</span>&nbsp;' + current_settings.language[getCurrentLanguage()][key])
                                                         .data(OBJECT_KEY,  $.extend(true, {},data,{'exec' : key.toLowerCase()})   )
                                                         .appendTo($button_base);
 				} else {
-					$button = $('<button>').addClass('material-icons').addClass('btn btn-primary')
-							.addClass(key=='add'?current_settings.cssButtonAddClass:current_settings.cssButtonReplaceClass)
-							.text(key=='add'?'post_add':'published_with_changes')
+					if(key=='add'){
+						$button = $('<button>').addClass('material-icons').addClass('btn btn-primary')
+							.addClass(current_settings.cssButtonAddClass)
+							.text('post_add')
 							.data(OBJECT_KEY,  $.extend(true, {},data,{'exec' : key.toLowerCase()})   )
 							.appendTo($button_base);
+					}else{
+						$button = $('<button>').addClass('material-icons').addClass('btn btn-primary').addClass(current_settings.cssButtonReplaceClass)
+							//.css({'padding-top':'0px','padding-bottom':'0px'})
+							//.html('<img src="/static/images/pcf/replace-red.svg" style="width:8px;height:8px;vertical-align:baseline;"></img>')
+							.text('autorenew')
+							.data(OBJECT_KEY,  $.extend(true, {},data,{'exec' : key.toLowerCase()})   )
+							.appendTo($button_base);
+					}
 				}
 				$button.on('click',executionAddOrReplace);
 			});

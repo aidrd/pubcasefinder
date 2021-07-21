@@ -118,41 +118,42 @@ body {
 .round-button{
   border: solid 1px #AEB0B5;
   border-radius: 50%;
-  margin: 12px 8px 12px 8px;
+  margin: 8px 8px 8px 8px;
   padding: 4px;
-  width: 33px;
-  height: 33px;
+  width:   37px;
+  height:   37px;
   color:     #AEB0B5;
   font-size: 18px;
 }
 .text-button {
   border: solid 1px #AEB0B5;
   border-radius: 50%;
-  margin: 12px 8px 12px 8px;
+  margin: 8px 8px 8px 8px;
   padding: 2px;
-  width: 32px;
-  height: 32px;
+  width: 36px;
+  height: 36px;
 }
 .text-button img {
-  height:        18px;
-  width:         18px;
-  margin-bottom: 3px;
+  height:        22px;
+  width:         22px;
+  margin-bottom: 1px;
   margin-left:   3px;
 }
 
 #phenotouch {
   border: solid 1px #AEB0B5;
   border-radius: 50%;
-  margin: 12px 8px 12px 8px;
+  margin: 8px 8px 8px 8px;
   padding: 2px;
-  width: 32px;
-  height: 32px;
+  width:  36px;
+  height: 36px;
 }
 #phenotouch img {
-  height:        20px;
-  width:         20px;
-  margin-bottom: 2px;
+  height:        32px;
+  width:         24px;
+  margin-bottom: 0px;
 }
+
 
 .search-header .search-header_wrapper .search-box_wrapper .search-button {
   display: flex;
@@ -450,7 +451,6 @@ body {
 
 .list-content .list-content_left .list-content_left_bt.summary a {
   display: inline-block;
-  margin-left: 5px;
 }
 
 .list-content .list-content_left .list-content_left_bt a:hover {
@@ -1049,13 +1049,16 @@ nav li.menu-item-has-children li a:hover {
   border: solid 1px #AEB0B5;
   /*outline: none;*/
   cursor: pointer;
-  padding: 15px;
+  /*padding: 15px;*/
   border-radius: 4px;
+  background-color: #394466;
+  color: #fff;
 }
-
-#btn_back_to_top:hover {
-  background-color: #555;
-  color: white;
+#btn_back_to_top span {
+  background-color: #394466;
+  color: #fff;
+  width: 100%;
+  transform: rotateX(90deg);
 }
 
 .dropdown-menu {
@@ -1088,4 +1091,3 @@ nav li.menu-item-has-children li a:hover {
   opacity: 1 !important;
   filter: alpha(opacity=100);
 }
-

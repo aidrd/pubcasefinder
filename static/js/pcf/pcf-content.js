@@ -866,7 +866,7 @@
 			if(max_text_len < full_name.length) max_text_len = full_name.length;
 			content = content.replace(/popup_content_full_name/g, full_name);
 			
-			let other_full_name = _contruct_popup_content_val('other_full_name',popup_data);
+			let other_full_name = _contruct_popup_content_val('other_full_name',popup_data,', ');
 			if(max_text_len < other_full_name.length) max_text_len = other_full_name.length;
 			content = content.replace(/popup_content_other_full_name/g, other_full_name);
 			
@@ -1168,13 +1168,15 @@
 				//if (isJA) href_str = "http://www.google.com/search?q="+item.orpha_disease_name_ja+"&amp;tbm=isch";
 				$('<a>').text(LANGUAGE[lang].DETAIL_LABEL.FIND_IMAGES).attr('href',href_str).attr('target','_blank').appendTo($list_link_panel);
 			}
-			
-			if(_isExistVal("mondo_url",item)){
-				for(let i=0;i<item.mondo_url.length;i++){
-					$('<a>').text("Monarch").attr('href',item.mondo_url[i]).attr('target','_blank').appendTo($list_link_panel);
+		
+			if(target !== TARGET_GENE){
+				if(_isExistVal("mondo_url",item)){
+					for(let i=0;i<item.mondo_url.length;i++){
+						$('<a>').text(item.mondo_id[i]).attr('href',item.mondo_url[i]).attr('target','_blank').appendTo($list_link_panel);
+					}
 				}
 			}
-	
+
 			if(_isExistVal("kegg_url",item)){
 				item.kegg_url.forEach(function(url_str){
 					$('<a>').text("KEGG:" + _get_id_from_url(url_str)).attr('href',url_str).attr('target','_blank').appendTo($list_link_panel);
@@ -1494,6 +1496,7 @@
 					$list_content_left_bt.addClass('summary');
 					$copy_button.append("<i class=\"material-icons\">content_copy</i>");
 					$like_button.append("<i class=\"material-icons\">favorite_border</i>");
+					$like_button.css({'margin-left': '15px'});
 				}
 	
 				if(ranking_list[i].id in detail_data ){
