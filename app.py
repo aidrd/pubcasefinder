@@ -102,10 +102,7 @@ def index():
 # /datasets
 @app.route('/datasets')
 def datasets():
-    if get_locale() == "ja" or get_locale() == "ja_JP":
-        return render_template('/datasets/v1.3.0/datasets_ja.html')
-    else:
-        return render_template('/datasets/v1.3.0/datasets_en.html')
+    return render_template('/datasets/datasets_v2.0.0.html')
 
 
 #####
@@ -582,7 +579,7 @@ def tokeninput_genes():
 
         # requestから値を取得
         #tokeninput = request.args.get("q")
-        tokeninputs = request.args.get("q").replace(u'　', u' ').replace('HP','hp')..split()
+        tokeninputs = request.args.get("q").replace(u'　', u' ').replace('HP','hp').split()
         sql_params = []
         in_tokeninputs = []
         for v in tokeninputs:
