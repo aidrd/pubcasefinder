@@ -168,7 +168,12 @@ def result():
     if request.args.get('filter') is not None:
         r_filter = request.args.get('filter')
     if request.args.get('size') is not None:
-        r_size = request.args.get('size')
+        if request.args.get('size') in  ['10','20','50','100','200']:
+            r_size = request.args.get('size')
+        else:
+            r_size = '10'
+    else:
+        r_size = '10'
     if request.args.get('display_format') is not None:
         r_display_format = request.args.get('display_format')
     if request.args.get('lang') is not None:
