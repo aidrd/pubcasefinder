@@ -695,6 +695,7 @@ body {
 .list-content .list-content_right .list-show-panel.pcf-active table > thead > tr > th:first-child {
     padding-left: 20px;
     padding-right: 20px;
+    width: 50px;
 }
 
 .list-content .list-content_right .list-show-panel.pcf-active table > thead > tr > th {
@@ -725,6 +726,7 @@ body {
 
 .list-content .list-content_right .list-show-panel.pcf-active table > tbody > tr > td:first-child {
     padding-left: 20px;
+    width: 50px;
 }
 
 .list-content .list-content_right .list-show-panel.pcf-active table > tbody > tr > td {
