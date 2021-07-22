@@ -29,9 +29,13 @@
 			LANG_JA               = "ja",
 			KEY_LANG              = "PCF-LANGUAGE",
 			KEY_HPO_ID            = "PCF-HPO-ID",
-			KEY_HPO_NAME          = "PCF-HPO-NAME";
+			KEY_HPO_NAME          = "PCF-HPO-NAME",
+			KEY_POPUP_TYPE        = "popup_type",
+			KEY_POPUP_LIST_TAG    = "list_tag",
+			KEY_POPUP_CLASS       = "popup_class",
+			KEY_POPUP_FUNC        = "popup_func";
 
-	const PHENOTYPE_TABLE_HEADER = ['Add','HPO:ID','Label','Description'];
+	const PHENOTYPE_TABLE_HEADER = ['Add','Label','Description'];
 			
 	var DEFAULT_SETTINGS = {
 		[KEY_LABEL_PHENOTYPE]   : '',
@@ -45,7 +49,12 @@
 		[KEY_COUNT_PHENOTYPE]   : 0,
 		[KEY_COUNT_JA_CASE]     : 0,
 		[KEY_COUNT_EN_CASE]     : 0,
-		[KEY_LANG]              : LANG_JA
+		[KEY_LANG]              : LANG_JA,
+		[KEY_POPUP_TYPE]        : "",
+		[KEY_POPUP_LIST_TAG]    : "",
+		[KEY_POPUP_CLASS]       : "",
+		[KEY_POPUP_FUNC]        : null
+
 	};
 
 	function _hasJA(str){
@@ -74,9 +83,9 @@
 
 	function _construct_data_panel_en_case_report(url_str){
 		let str = "<script type=\"module\" src=\"https:\/\/togostanza.github.io/metastanza/pagination-table.js\" async=\"\"><\/script>" +
-                                "<style>"+
-                                        "togostanza-pagination-table {--togostanza-tbody-font-size: 12px;--togostanza-background-color: #ffffff;}" +
-                                "<\/style>"+
+				  "<style>"+
+					"togostanza-pagination-table {--togostanza-tbody-font-size: 12px;--togostanza-background-color: #ffffff;}" +
+				  "<\/style>"+
 				  "<togostanza-pagination-table " +
 			  		"data-url=\""+url_str+"\" " +
   					"data-type=\"json\" " +
@@ -91,48 +100,17 @@
 		return str;
 	}
 	
-	function appendChildren(parentEl, children) {
-		let children_sorted = children.sort(function(a, b) {return a.id.localeCompare(b.id)});
-		for (let i = 0; i < children_sorted.length; i++) {
-			let child = children_sorted[i];
-
-			let $element = $('<div />');
-			if('hpo_id' in child){
-				$('<a>').attr('href',child.hpo_url).attr('target','_blank').text(child.id).appendTo($element);
-				$('<span class=\"material-icons\">post_add</span>')
-					.data(KEY_HPO_ID,child.hpo_id)
-					.data(KEY_HPO_NAME,child.id)
-					.click(function(){
-						let $span = $(this);
-						let hpo_id1 = $span.data(KEY_HPO_ID);
-						let hpo_name1 = $span.data(KEY_HPO_NAME);
-						if(_hasJA(hpo_name1)) hpo_id1 += '_ja';
-						$("#tokeninput_hpo").tokenInput("add", {id: hpo_id1, name: hpo_name1});
-					})
-					.appendTo($element);
-
-				$element.addClass('item');
-			}else{
-				$element.text(child.id);
-			}
-
-
-			if('children' in child){
-				$element.addClass('category');
-				appendChildren($element, child.children);
-			}
-
-
-			parentEl.append($element);
-		}
-	}
-
-
 	function _construct_data_panel_phenotype(url_str, lang, $container){
+		
+		let popup_type  = $container.data(KEY_POPUP_TYPE);
+		let list_tag    = $container.data(KEY_POPUP_LIST_TAG);
+		let popup_class = $container.data(KEY_POPUP_CLASS);
+		let popup_func  = $container.data(KEY_POPUP_FUNC);
+		
 		$.ajax({  
-			url:    url_str,  
-			method: "GET",  
-			async:  true,  	
+			url:      url_str,  
+			method:   "GET",  
+			async:    true,  	
 			dataType: "text",
 			success:function(data){  
 
@@ -174,7 +152,27 @@
 					});
 					
 					let $tbody = $('<tbody>').appendTo($table);
-					Object.keys(hash[category]).sort().forEach(function(hpo_id){
+					Object.keys(hash[category]).sort(function(hpo_id_a,hpo_id_b){
+						let item_a = hash[category][hpo_id_a];
+						let item_b = hash[category][hpo_id_b];
+
+						let hpo_name_a = item_a.hpo_label_en;
+						if(lang === LANG_JA && 'hpo_label_ja' in item_a && item_a.hpo_label_ja){
+							hpo_name_a = item_a.hpo_label_ja;
+						}
+
+						let hpo_name_b = item_b.hpo_label_en;
+						if(lang === LANG_JA && 'hpo_label_ja' in item_b && item_b.hpo_label_ja){
+							hpo_name_b = item_b.hpo_label_ja;
+						}
+						
+						if(hpo_name_a > hpo_name_b) return 1;
+						
+						if(hpo_name_a < hpo_name_b) return -1;
+						
+						return 0;
+						
+					}).forEach(function(hpo_id){
 						let item = hash[category][hpo_id];
 						let $row = $('<tr>').appendTo($tbody);
 
@@ -183,25 +181,38 @@
 							hpo_name = item.hpo_label_ja;
 						}
 						let $td1 = $('<td nowrap=\"nowrap\">').appendTo($row);
-						//$('<a>').attr('href',item.hpo_url).attr('target','_blank').text(item.hpo_id).appendTo($td1);
 						$('<span class=\"material-icons\">post_add</span>')
+							.tooltip({'title':'Phenotype successfully added to the list!', 'trigger':'manual', 'placement':'bottom'})
 							.data(KEY_HPO_ID,   item.hpo_id)
 							.data(KEY_HPO_NAME, hpo_name)
 							.click(function(){
 								let $span = $(this);
+								$span.tooltip('show');
 								let hpo_id1 = $span.data(KEY_HPO_ID);
 								let hpo_name1 = $span.data(KEY_HPO_NAME);
 								if(_hasJA(hpo_name1)) hpo_id1 += '_ja';
 								$("#tokeninput_hpo").tokenInput("add", {id: hpo_id1, name: hpo_name1});
 							})
+							.on('mouseleave', function () {
+								$(this).tooltip('hide');
+							})
 							.appendTo($td1);
 						
-						let $td2 = $('<td>').appendTo($row);
-						$('<a>').attr('href',item.hpo_url).attr('target','_blank').text(item.hpo_id).appendTo($td2);
+						let $label_td = $('<td>').appendTo($row);
+						if($.isFunction(popup_func)){
+							popup_func(popup_type,hpo_id,list_tag,hpo_name,popup_class).css({'width':'100%'}).appendTo($label_td);
+						}else{
+							$('<a>').attr('href',item.hpo_url).attr('target','_blank').text(item.hpo_id).appendTo($label_td);
+						}
 						
-						$('<td>').text(hpo_name).appendTo($row);
-						
-						$('<td>').text(item.definition).appendTo($row);
+						if(lang === LANG_JA){
+							let $desc_td = $('<td>').text(item.definition).appendTo($row);
+							let href_str = encodeURIComponent(item.definition);
+							href_str = "https://translate.google.co.jp/?sl=en&tl=ja&text=" + href_str + "&op=translate&hl=ja";
+							$("<a>").text(" >> Translate(Google)").attr( 'href', href_str).attr('target', '_blank').appendTo($desc_td);
+						}else{
+							$('<td>').text(item.definition).appendTo($row);
+						}
 					});
 				});
 
@@ -220,21 +231,6 @@
 			newScript.appendChild(document.createTextNode(oldScript.innerHTML));
 			oldScript.parentNode.replaceChild(newScript, oldScript);
 		});
-	}
-
-	function insertAndExecute(id, text) {
-		document.getElementById(id).innerHTML = text;
-		var scripts = Array.prototype.slice.call(document.getElementById(id).getElementsByTagName("script"));
-		for (var i = 0; i < scripts.length; i++) {
-			if (scripts[i].src != "") {
-				var tag = document.createElement("script");
-				tag.src = scripts[i].src;
-				document.getElementsByTagName("head")[0].appendChild(tag);
-			}
-			else {
-				eval(scripts[i].innerHTML);
-			}
-		}
 	}
 
 	function _construct_data_panel(target, url_str, lang, container_dom){
@@ -269,18 +265,28 @@
 				
 				if(setting[KEY_LANG] === LANG_EN && target === TARGET_JA_CASE_LIST) continue; 
 	
-				$("<div>").addClass("list-show-panel").addClass(CLASS_INIT)
-						  .data(KEY_TARGET,target).data(KEY_URL,setting[url_key]).data(KEY_LANG,setting[KEY_LANG])
-						  .appendTo($container);				
+				let $panel = $("<div>").addClass("list-show-panel").addClass(CLASS_INIT)
+										.data(KEY_TARGET,target)
+										.data(KEY_URL,   setting[url_key])
+										.data(KEY_LANG,  setting[KEY_LANG])
+										.appendTo($container);				
+
+				if(target === TARGET_PHENOTYPE_LIST) {
+					$panel.data(KEY_POPUP_TYPE,     setting[KEY_POPUP_TYPE]);
+					$panel.data(KEY_POPUP_LIST_TAG, setting[KEY_POPUP_LIST_TAG]);
+					$panel.data(KEY_POPUP_CLASS,    setting[KEY_POPUP_CLASS]);
+					$panel.data(KEY_POPUP_FUNC,     setting[KEY_POPUP_FUNC]);
+				}
 
 				let $a = $('<a>').data(KEY_TARGET,target).data(KEY_COUNT,setting[count_key]).text(setting[label_key]).appendTo($list_show_button_panel);
 				if(i>0) $a.addClass("v_line_left");
 				$("<span>Show("+setting[count_key]+")</span>").appendTo($a);
 				if(setting[count_key] > 0){
 					$a.click(function(){
-						let $button =$(this);
+						let $button  = $(this);
 						let target_b = $button.data(KEY_TARGET);
 						let count    = $button.data(KEY_COUNT);
+						
 						$button.toggleClass(CLASS_ACTIVE);
 						if($button.hasClass(CLASS_ACTIVE)){
 							$button.find('span').text('Hide('+count+')');
@@ -304,6 +310,7 @@
 							let target_panel = $panel.data(KEY_TARGET);
 							let target_url   = $panel.data(KEY_URL);
 							let lang         = $panel.data(KEY_LANG);
+							
 							if(target_panel === target_b){
 								$panel.toggleClass(CLASS_ACTIVE);
 

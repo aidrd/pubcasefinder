@@ -695,6 +695,7 @@ body {
 .list-content .list-content_right .list-show-panel.pcf-active table > thead > tr > th:first-child {
     padding-left: 20px;
     padding-right: 20px;
+    width: 50px;
 }
 
 .list-content .list-content_right .list-show-panel.pcf-active table > thead > tr > th {
@@ -725,6 +726,7 @@ body {
 
 .list-content .list-content_right .list-show-panel.pcf-active table > tbody > tr > td:first-child {
     padding-left: 20px;
+    width: 50px;
 }
 
 .list-content .list-content_right .list-show-panel.pcf-active table > tbody > tr > td {
@@ -736,10 +738,33 @@ body {
 .list-content .list-content_right .list-show-panel.pcf-active table > tbody > tr > td > span {
   cursor: pointer;
   color:  #256D80;
-  font-size: 14px;
+  font-size: 22px;
   vertical-align: text-top;
 }
 
+.list-content .list-content_right .list-show-panel.pcf-active table > tbody > tr > td > button {
+  border-radius: 5px;
+  padding: 3px;
+  color:   #067ABC;
+  border:  1.5px solid #067ABC;
+  white-space: nowrap;
+}
+
+.list-content .list-content_right .list-show-panel.pcf-active table > tbody > tr > td > button:hover {
+  color:   #fff;
+  background-color: #067ABC;
+}
+
+.list-content .list-content_right .list-show-panel.pcf-active table > tbody > tr > td > button[aria-expanded="true"] {
+  
+  color:   #fff;
+  background-color: #067ABC;
+}
+
+
+.list-content .list-content_right .list-show-panel.pcf-active table > tbody > tr > td > a {
+    color: #0431B4;
+}
 
 .list-footer {
   border-bottom: 1px solid #ddd;

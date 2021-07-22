@@ -1221,7 +1221,11 @@
 				"COUNT_PHENOTYPE"        : item.count_hpo_id,
 				"COUNT_JA_CASE"          : case_report_count_ja,
 				"COUNT_EN_CASE"          : case_report_count_en,
-				"PCF-LANGUAGE"           : lang
+				"PCF-LANGUAGE"           : lang,
+				"popup_type"             : POPUP_TYPE_PHENOTYPE,
+				"list_tag"               : "list-tag_blue",
+				"popup_class"            : CLASS_POPUP_PHENOTYPE,
+				"popup_func"             : _contruct_popup_button
 			}).appendTo($container_panel);
 		}
 
