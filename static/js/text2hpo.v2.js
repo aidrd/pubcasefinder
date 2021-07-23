@@ -1106,6 +1106,17 @@ function _add_match(rangeStart,rangeEnd,idx) {
     matches_list.push(obj);
     _sort_match(matches_list);
 
+
+    let send_url_str = "https://pcf.dbcls.jp/pcf_share?share=annotation&text="+encodeURIComponent(term_in_text)+"&phenotype="+ encodeURIComponent(matches_from_server[idx].HPO_ID);
+    $.ajax({	
+        url:      send_url_str,  // 通信先のURL
+        type:     "GET",// 使用するHTTPメソッド(get/post)
+        async:    true,    // 使用するHTTPメソッド(true/false)
+    }).done(function(data1,textStatus,jqXHR) {
+    }).fail(function(jqXHR, textStatus, errorThrown ) {
+        alert('Server access error:' + textStatus + ":" + errorThrown + '\nURL: ' + send_url_str);
+    });
+
     _clear_result_contents();
    
     _create_and_set_result_contents(normalized_text,matches_list); 
