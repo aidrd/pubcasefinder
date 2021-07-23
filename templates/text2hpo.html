@@ -247,7 +247,7 @@
                       <p id="p_parsed_text"></p>
                       <div id='div_selectionPopup'>
                         <ul class='selectionPopupActions' id="ul_popup"></ul>
-                        <textarea class="form-control" rows="1" id="tokeninput_popup" name="str_phenotypes_popup"></textarea>
+                        <!-- <textarea class="form-control" rows="1" id="tokeninput_popup" name="str_phenotypes_popup"></textarea> -->
                       </div>
                     </div>
                     <div class="col-sm-6" style="padding:0px 15px 0px 5px;height:500px;">
@@ -382,16 +382,16 @@
 
     <!-- START: jquery-tokeninput -->
     <script type="text/javascript" src="/static/js/jquery.tokeninput.js"></script>
-    <script type="text/javascript" src="/static/js/jquery.tokeninput_popup.js"></script>
+    <!-- <script type="text/javascript" src="/static/js/jquery.tokeninput_popup.js"></script> -->
     <script type="text/javascript">
       $(document).ready(function() {
         $("#tokeninput_hpo").tokenInput("/tokeninput_hpo", {
           theme: "facebook"
         });
 
-        $("#tokeninput_popup").tokenInputPopup("/tokeninput_hpo", {
-          theme: "facebook"
-        });
+        //$("#tokeninput_popup").tokenInputPopup("/tokeninput_hpo", {
+        //  theme: "facebook"
+        //});
       });
     </script>
     <!-- END: jquery-tokeninput -->
