@@ -60,17 +60,27 @@ def pcf_get_ranking_by_hpo_id(r_target, r_phenotype):
         ic                  = value[1]
         dict_IC[onto_id_hp] = ic
 
+    ## IDOMIMOrphanetGeneテーブルからランキング対象となるNCBI Gene IDを取得
+    dict_UniqID = {}
+    if r_target=="gene":
+        sql_IDOMIMOrphanetGene = u"select UniqID from IDOMIMOrphanetGene"
+        cursor_IDOMIMOrphanetGene = OBJ_MYSQL.cursor()
+        cursor_IDOMIMOrphanetGene.execute(sql_IDOMIMOrphanetGene)
+        values = cursor_IDOMIMOrphanetGene.fetchall()
+        cursor_IDOMIMOrphanetGene.close()
+        for value in values:
+            uniq_id = value[0]
+            dict_UniqID[uniq_id] = 1
+
     ####
     ## 各疾患とのスコアを算出し、データを収納
     ### インデックステーブルを利用して、各疾患でのICの合計を取得
     ### http://stackoverflow.com/questions/4574609/executing-select-where-in-using-mysqldb
     sql_index = ""
     if r_target=="omim":
-        #sql_index = u"select a.OntoIDOMIM, a.IndexOntoIDHP, a.DiseaseOntoIDHP, a.CommonRootHPIC, (b.IC - a.CommonRootHPIC) from IndexDiseaseHPOMIM as a left join IC as b on a.IndexOntoIDHP=b.OntoID where a.IndexOntoIDHP in (%s) and b.OntoName='HP' order by field(a.IndexOntoIDHP, %s)"
-        sql_index = u"select a.DiseaseID, a.IndexOntoIDHP, a.DiseaseOntoIDHP, a.CommonRootHPIC, (b.IC - a.CommonRootHPIC) from IndexDPAOMIM as a left join IC as b on a.IndexOntoIDHP=b.OntoID where a.IndexOntoIDHP in (%s) and b.OntoName='HP' order by field(a.IndexOntoIDHP, %s)"
+        sql_index = u"select a.DiseaseID, a.IndexOntoIDHP, a.DiseaseOntoIDHP, a.CommonRootHPIC, (b.IC - a.CommonRootHPIC) from IndexDPAOMIM as a left join IC as b on a.IndexOntoIDHP=b.OntoID where a.IndexOntoIDHP in (%s) and b.OntoName='HP' and a.DiseaseID in (select UniqID from IDOMIMOrphanetGene) order by field(a.IndexOntoIDHP, %s)"
     elif r_target=="orphanet":
-        #sql_index = u"select a.OntoIDORDO, a.IndexOntoIDHP, a.DiseaseOntoIDHP, a.CommonRootHPIC, (b.IC - a.CommonRootHPIC) from IndexDiseaseHP as a left join IC as b on a.IndexOntoIDHP=b.OntoID where a.OntoIDORDO in (select distinct OntoID from Orphanet where RareDiseaseFlg=1) and a.IndexOntoIDHP in (%s) and b.OntoName='HP' order by field(a.IndexOntoIDHP, %s)"
-        sql_index = u"select REPLACE(a.DiseaseID, 'ORPHA', 'ORDO'), a.IndexOntoIDHP, a.DiseaseOntoIDHP, a.CommonRootHPIC, (b.IC - a.CommonRootHPIC) from IndexDPAOrphanet as a left join IC as b on a.IndexOntoIDHP=b.OntoID where REPLACE(a.DiseaseID, 'ORPHA', 'ORDO') in (select distinct OntoID from Orphanet where RareDiseaseFlg=1) and a.IndexOntoIDHP in (%s) and b.OntoName='HP' order by field(a.IndexOntoIDHP, %s)"
+        sql_index = u"select REPLACE(a.DiseaseID, 'ORPHA', 'ORDO'), a.IndexOntoIDHP, a.DiseaseOntoIDHP, a.CommonRootHPIC, (b.IC - a.CommonRootHPIC) from IndexDPAOrphanet as a left join IC as b on a.IndexOntoIDHP=b.OntoID where REPLACE(a.DiseaseID, 'ORPHA', 'ORDO') in (select distinct OntoID from Orphanet where RareDiseaseFlg=1) and a.IndexOntoIDHP in (%s) and b.OntoName='HP' and a.DiseaseID in (select UniqID from IDOMIMOrphanetGene) order by field(a.IndexOntoIDHP, %s)"
     elif r_target=="gene":
         sql_index = u"select a.NCBIGeneID_MONDOID, a.IndexOntoIDHP, a.GeneOntoIDHP, a.CommonRootHPIC, (b.IC - a.CommonRootHPIC) from IndexGPA as a left join IC as b on a.IndexOntoIDHP=b.OntoID where a.IndexOntoIDHP in (%s) and b.OntoName='HP' order by field(a.IndexOntoIDHP, %s)"
     elif r_target=="case":
@@ -161,6 +171,11 @@ def pcf_get_ranking_by_hpo_id(r_target, r_phenotype):
                 continue
         else:
             if onto_id not in dict_AnnotationHPONum:
+                continue
+
+        # ランキング対象のNCBI Gene IDでない場合は処理を飛ばす
+        if r_target=="gene":
+            if geneid.replace('ENT', 'GENEID') not in dict_UniqID:
                 continue
 
         dict_similar_disease = {}
