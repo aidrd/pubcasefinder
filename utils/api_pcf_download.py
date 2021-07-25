@@ -94,7 +94,8 @@ def pcf_download(r_target, r_phenotype, r_target_id, r_format, r_range):
                 # Orphanet
                 elif r_target == "orphanet":
                     hgnc_gene_symbol = json_data[entry["id"]]["hgnc_gene_symbol"] if "hgnc_gene_symbol" in json_data[entry["id"]] else ""
-                    list_row = (str(entry["rank"]), str(entry["score"]), str(entry["id"]), str(json_data[entry["id"]]["orpha_disease_name_en"]), str(entry["matched_hpo_id"]), str(",".join(json_data[entry["id"]]["hgnc_gene_symbol"])))
+                    #list_row = (str(entry["rank"]), str(entry["score"]), str(entry["id"]), str(json_data[entry["id"]]["orpha_disease_name_en"]), str(entry["matched_hpo_id"]), str(",".join(json_data[entry["id"]]["hgnc_gene_symbol"])))
+                    list_row = (str(entry["rank"]), str(entry["score"]), str(entry["id"]), str(json_data[entry["id"]]["orpha_disease_name_en"]), str(entry["matched_hpo_id"]), str(",".join(hgnc_gene_symbol)))
                     tsv_data.append("\t".join(list_row))
                 # Gene
                 elif r_target == "gene":
