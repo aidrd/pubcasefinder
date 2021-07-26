@@ -401,9 +401,16 @@ ul.hpo-token-input-list.token-input-list-facebook li.token-input-token-facebook 
 	border-radius: 50%;
 	height: 20px;
 	width: 20px;
-	background-color:#D5EBFF;
+	/*background-color:#D5EBFF;*/
+	background-color: transparent;
 	margin: auto;
 }
+
+ul.hpo-token-input-list.token-input-list-facebook li.token-input-token-facebook.selected_at_popup .token-input-token-word-facebook.token-input-token-icon-facebook {
+	transform: rotateX(180deg);
+	transition: all 0.5s;
+}
+
 
 ul.hpo-token-input-list.token-input-list-facebook li.token-input-token-facebook .token-input-token-word-facebook.token-input-token-icon-facebook .arrow{
 	display: block !important;
