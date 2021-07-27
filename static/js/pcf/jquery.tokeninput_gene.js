@@ -891,7 +891,9 @@
 				if(token_list_width - outerWidth < 0) token_list_width = token_list.width();
 				token_list_width -= outerWidth;
 			});
-			if(token_list_width<40) token_list_width = token_list.width();
+			if(token_list_width===0){
+				token_list_width = 500;
+			}else if(token_list_width<40) token_list_width = token_list.width();
 			input_box.outerWidth(Math.ceil(token_list_width)-$('div.token-input-dragdrop-facebook').outerWidth(true)-1);
 		}
 
