@@ -72,6 +72,9 @@
 				<div class="search-header_left">
 					<span><a id="link_en" href="/result?target={{ r_target }}&phenotype={{ r_phenotype }}&filter={{ r_filter }}&size={{ r_size }}&display_format={{ r_display_format }}&lang=en">EN</a> / <a id="link_ja" href="/result?target={{ r_target }}&phenotype={{ r_phenotype }}&filter={{ r_filter }}&size={{ r_size }}&display_format={{ r_display_format }}&lang=ja">JA</a>
 					</span>
+
+					<button id="btn_menu"><span class="material-icons">menu</span></button>
+<!--
 					<nav class="nav">
 						<ul>
 							<li class="menu-item-has-children">
@@ -88,6 +91,7 @@
 							</li>
 						</ul>
 					</nav>
+-->
 					<div class="site-header_end">
 						<a class="button" href="#">Login<i class="material-icons">expand_more</i></a>
 					</div>
@@ -143,7 +147,15 @@
 					<button id="btn_search_advanced" data-toggle="collapse" data-target="#search-box-advanced" aria-expanded="false" aria-controls="search-box-advanced">
 						Filter<i class="material-icons">expand_more</i>
 					</button>
-
+<!--
+					<button id="btn_search_download">
+						{% if r_lang == "ja" %}
+						<span class="material-icons" data-toggle="tooltip" data-placement="top" title="ダウンロード">save_alt</span>
+						{% else %}
+						<span class="material-icons" data-toggle="tooltip" data-placement="top" title="Download">save_alt</span>
+						{% endif %}
+					</button>
+-->
 					<!-- download button -->
 					<div class="dropdown" id="search-button_download-wrapper">
 						<button id="search-button_download" class="dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -153,7 +165,7 @@
 							<span class="material-icons" data-toggle="tooltip" data-placement="top" title="Download">save_alt</span>
 							{% endif %}
 						</button>
-						<div class="dropdown-menu" aria-labelledby="search-button_download">
+						<div id="dropdown-menu_download" class="dropdown-menu" aria-labelledby="search-button_download">
 						<form class="px-4 py-3" id="download-form">
 							<label><b>{{ _('search_share_modal_label_download') }}</b></label>
 							<table>
@@ -899,6 +911,51 @@
 	}
 
 
+	function _copy_to_clipboard(copy_button){
+		let $copy_button = $(copy_button);
+		let text = $copy_button.parent().prev().find("p").text();
+		/*
+		$copy_button.tooltip({'title':'Summary successfully copied', 'trigger':'manual', 'placement':'top'})
+							.on('mouseleave', function () {
+								$(this).tooltip('hide');
+							});
+		*/
+		$copy_button.tooltip('show');
+		
+		if (window.clipboardData && window.clipboardData.setData) {
+			// Internet Explorer-specific code path to prevent textarea being shown while dialog is visible.
+			window.clipboardData.setData("Text", text);
+		}
+		else if (document.queryCommandSupported && document.queryCommandSupported("copy")) {
+			let textarea = document.createElement("textarea");
+			textarea.style = "position: absolute; left: -1000px; top: -1000px";
+			textarea.textContent = text;
+			document.body.appendChild(textarea);
+			//textarea.select();
+			try {
+				let selection = document.getSelection();
+				selection.removeAllRanges();
+
+				let range = document.createRange();
+				range.selectNodeContents(textarea);
+				selection.addRange(range);
+				
+				document.execCommand('copy');
+				selection.removeAllRanges();
+			}
+			catch (ex) {
+				console.warn("Copy to clipboard failed.", ex);
+			}
+			finally {
+				document.body.removeChild(textarea);
+			}
+		}
+		return false;
+	}
+
+
+
+
 	function set_filter_num(){
 
 		let filter_str = $("#tokeninput_genes").tokenInput_gene("get_url_str");
@@ -925,6 +982,42 @@
 	var filter_id_list = "{{ r_filter }}";
 	$(document).ready(function() {
 
+/*
+		const template_download = document.getElementById('dropdown-menu_download');
+		tippy('#btn_search_download', {
+			arrow:         false,
+	  		allowHTML:     true,
+	 		appendTo:      document.body,
+			maxWidth:      400,
+			strategy:     'fixed',
+			interactive:   true,
+			trigger:      'click',
+			theme:        'pcf-popup',
+			placement:    'bottom-start',
+	  		content:      template_download.innerHTML,
+		});
+*/
+		
+		tippy('#btn_menu', {
+                        arrow:         false,
+                        allowHTML:     true,
+                        appendTo:      document.body,
+                        strategy:     'fixed',
+                        interactive:   true,
+                        placement:    'bottom-start',
+			theme:        'pcf_menu',
+                        content(reference){
+				return	"<ul id=\"ul_menu\" class=\"sub-menu\">" +
+					  "<li><a href=\"#\">About</a></li>" +
+					  "<li><a href=\"#\">Datasets</a></li>" +
+					  "<li><a href=\"#\">History</a></li>" +
+					  "<li><a href=\"#\">Terms</a></li>" +
+					  "<li><a href=\"#\">RDF</a></li>" +
+					  "<li><a href=\"#\">API</a></li>" +
+					  "<li><a href=\"#\">Contect</a></li>"+
+					"</ul>";
+			},
+		});
 		$("#tokeninput_hpo")
 			.tokenInput("/tokeninput_hpo", {theme: "facebook", doSubmit: runSubmit});
 
@@ -1011,7 +1104,7 @@
 			set_filter_num();
 		});
 
-		 $('[data-toggle="tooltip"]').tooltip({'trigger':'hover'});
+		$('[data-toggle="tooltip"]').tooltip({'trigger':'hover'});
 	});
 
 </script>

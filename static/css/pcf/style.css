@@ -50,14 +50,6 @@ body {
   align-items: center;
 }
 
-.search-header .search-header_wrapper .search-header_top .search-header_left .nav .nav_toggle {
-  color: #000;
-}
-
-.search-header .search-header_wrapper .search-header_top .search-header_left .nav .nav_wrapper {
-  display: none;
-}
-
 .search-header .search-header_wrapper .search-header_top .search-header_left span {
   margin-right: 11px;
   display: block;
@@ -457,6 +449,10 @@ body {
   color: #0431B4;
 }
 
+.list-content .list-content_left .list-content_left_bt a[aria-expanded="true"] {
+  color: #0431B4;
+}
+
 .list-content .list-content_left .list-content_left_bt a.liked {
   color: #0431B4;
 }
@@ -694,7 +690,7 @@ body {
 
 .list-content .list-content_right .list-show-panel.pcf-active table > thead > tr > th:first-child {
     padding-left: 20px;
-    padding-right: 20px;
+    padding-right: 10px;
     width: 50px;
 }
 
@@ -899,57 +895,37 @@ body {
   font-size: 1.2em;
 }
 
-/* 親メニュー - Parent nav */
-nav > ul > li {
-  position: relative;
-  float: left;
-}
-
-nav a {
-  text-decoration: none;
-}
-
-nav ul a:hover {
-  color: #394466;
-}
-
 /* 子メニュー - .sub-menu */
-nav .sub-menu {
-  position: absolute;
-  width: 180px;
+.tippy-box[data-theme~='pcf_menu'] {
+  background-color: #394466;
+  padding: 0;
+}
+.tippy-box[data-theme~='pcf_menu'] .tippy-content {
+  padding: 0;
+}
+#ul_menu {
+  width: 90px;
   background: #394466;
-  top: 35px;
-  opacity: 0;
-  visibility: hidden;
-  transition: .5s;
 }
 
-nav .sub-menu a {
+#ul_menu a {
   color: #fff;
   padding: 10px 15px;
   display: block;
 }
 
-nav .sub-menu a:hover {
+#ul_menu a:hover {
   color: #fff;
 }
 
 /* ホバーで子メニュー表示 */
-nav .menu-item-has-children:hover ul {
-  opacity: 1;
-  visibility: visible;
-}
-
-nav li.menu-item-has-children li a:hover {
+#ul_menu li a:hover {
   background: #121a36;
 }
 
 .global-header {
   top: 24px;
 }
-
-
-
 
 
 .btn {
@@ -1058,12 +1034,6 @@ nav li.menu-item-has-children li a:hover {
     cursor: pointer;
 }
 
-/*		
-	button[data-tippy-content][aria-expanded="true"]{
- 			background-color: #42DCA3;
-	}
-*/
-
 #btn_back_to_top {
   display: none;
   position: fixed;
@@ -1072,9 +1042,7 @@ nav li.menu-item-has-children li a:hover {
   z-index: 99;
   font-size: 18px;
   border: solid 1px #AEB0B5;
-  /*outline: none;*/
   cursor: pointer;
-  /*padding: 15px;*/
   border-radius: 4px;
   background-color: #394466;
   color: #fff;
@@ -1116,3 +1084,4 @@ nav li.menu-item-has-children li a:hover {
   opacity: 1 !important;
   filter: alpha(opacity=100);
 }
+
