@@ -72,26 +72,7 @@
 				<div class="search-header_left">
 					<span><a id="link_en" href="/result?target={{ r_target }}&phenotype={{ r_phenotype }}&filter={{ r_filter }}&size={{ r_size }}&display_format={{ r_display_format }}&lang=en">EN</a> / <a id="link_ja" href="/result?target={{ r_target }}&phenotype={{ r_phenotype }}&filter={{ r_filter }}&size={{ r_size }}&display_format={{ r_display_format }}&lang=ja">JA</a>
 					</span>
-
 					<button id="btn_menu"><span class="material-icons">menu</span></button>
-<!--
-					<nav class="nav">
-						<ul>
-							<li class="menu-item-has-children">
-								<a href="#"><span class="material-icons">menu</span></a>
-								<ul class="sub-menu">
-									<li><a href="#">About</a></li>
-									<li><a href="#">Datasets</a></li>
-									<li><a href="#">History</a></li>
-									<li><a href="#">Terms</a></li>
-									<li><a href="#">RDF</a></li>
-									<li><a href="#">API</a></li>
-									<li><a href="#">Contect</a></li>
-								</ul>
-							</li>
-						</ul>
-					</nav>
--->
 					<div class="site-header_end">
 						<a class="button" href="#">Login<i class="material-icons">expand_more</i></a>
 					</div>
@@ -147,15 +128,7 @@
 					<button id="btn_search_advanced" data-toggle="collapse" data-target="#search-box-advanced" aria-expanded="false" aria-controls="search-box-advanced">
 						Filter<i class="material-icons">expand_more</i>
 					</button>
-<!--
-					<button id="btn_search_download">
-						{% if r_lang == "ja" %}
-						<span class="material-icons" data-toggle="tooltip" data-placement="top" title="ダウンロード">save_alt</span>
-						{% else %}
-						<span class="material-icons" data-toggle="tooltip" data-placement="top" title="Download">save_alt</span>
-						{% endif %}
-					</button>
--->
+
 					<!-- download button -->
 					<div class="dropdown" id="search-button_download-wrapper">
 						<button id="search-button_download" class="dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -206,7 +179,7 @@
 								</tr>
 							</table>
 							<div class="btn-toolbar d-flex flex-row-reverse" style="margin-top:10px;">
-							  <button class="action-button" id="btn_download" style="margin-right:0px;">Download</button>
+							  <button onclick="btn_download_click(event);" class="action-button" id="btn_download" style="margin-right:0px;">Download</button>
 							</div>
 						</form>
 						</div>
@@ -482,22 +455,15 @@
 		$(this).toggleClass('pcf-active');
 	});
 
-	$('#btn_cancel').on('click', function (e) {
-		$("#search-button_download").dropdown('hide');
-		e.preventDefault();
-		e.stopPropagation();
-		return false;
-	});
+	function btn_download_click(e) {
 
-	$('#btn_download').on('click', function (e) {
-		$("#search-button_download").dropdown('hide');
-		// do download
-		// hpo_id_list
 		$("#pcf-content").pcf_content('download',hpo_id_list,$('#sel_download_option').val(), $('#sel_download_format').val());
+	
+		$("#search-button_download").dropdown('hide');	
 		e.preventDefault();
 		e.stopPropagation();
 		return false;
-	});
+	};
 
 	$('#btn_copy_link')
 		.tooltip({'title':'URL Copied to clipboard!', 'trigger':'manual', 'placement':'bottom'})
@@ -726,7 +692,7 @@
 		return false;
 	});
 
-	var update_download_link = function() {
+	function update_download_link() {
 		let target    = $("#pcf-content").pcf_content('get_target');
 		let phenotype = hpo_id_list;
 		let filter    = $("#tokeninput_genes").tokenInput_gene("get_url_str");
@@ -911,16 +877,11 @@
 	}
 
 
-	function _copy_to_clipboard(copy_button){
+	function _copy_to_clipboard(copy_button,copy_button_id){
 		let $copy_button = $(copy_button);
+		//let $div = $copy_button.parent().prev();
+		//$div.css({'border': '2px solid #9ecae', 'box-shadow': '0 0 10px #9ecaed'});
 		let text = $copy_button.parent().prev().find("p").text();
-		/*
-		$copy_button.tooltip({'title':'Summary successfully copied', 'trigger':'manual', 'placement':'top'})
-							.on('mouseleave', function () {
-								$(this).tooltip('hide');
-							});
-		*/
-		$copy_button.tooltip('show');
 		
 		if (window.clipboardData && window.clipboardData.setData) {
 			// Internet Explorer-specific code path to prevent textarea being shown while dialog is visible.
@@ -950,6 +911,16 @@
 				document.body.removeChild(textarea);
 			}
 		}
+		
+                setTimeout(function() {
+			tippy.hideAll();
+                }, 10);
+
+		$("#" + copy_button_id).tooltip('show');
+		setTimeout(function() {
+                        $("#" + copy_button_id).tooltip('hide');
+                }, 600);
+
 		return false;
 	}
 
@@ -982,22 +953,6 @@
 	var filter_id_list = "{{ r_filter }}";
 	$(document).ready(function() {
 
-/*
-		const template_download = document.getElementById('dropdown-menu_download');
-		tippy('#btn_search_download', {
-			arrow:         false,
-	  		allowHTML:     true,
-	 		appendTo:      document.body,
-			maxWidth:      400,
-			strategy:     'fixed',
-			interactive:   true,
-			trigger:      'click',
-			theme:        'pcf-popup',
-			placement:    'bottom-start',
-	  		content:      template_download.innerHTML,
-		});
-*/
-		
 		tippy('#btn_menu', {
                         arrow:         false,
                         allowHTML:     true,
@@ -1070,6 +1025,7 @@
 				}else{
 					$('#btn_download').prop('disabled', false);
 				}
+			
 				update_download_link();
 			},
 			'load_filter_ids': function(){

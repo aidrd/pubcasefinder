@@ -1232,7 +1232,7 @@
 		return $container_panel;
 	}
 
-	function _copy_to_clipboard(rank,detail_data,lang){
+	function _contruct_copy_content(rank,detail_data,lang){
 		let isJA      = (lang===LANGUAGE_JA);
 		let target_id = rank.id;
 		let score     = (rank.score * 100).toFixed(1)+"%";
@@ -1286,12 +1286,12 @@
 
 				}
 			}
-			text = text + "\n" + detail_data.omim_disease_name_ja + "\n" + 
-								 detail_data.omim_disease_name_en + "\n" +
-								 phenotype_list_str               + "\n" +
-								 inheritance_list_str             + "\n" +
-								 gene_list_str                    + "\n" +
-								 detail_data.description          + "\n" +
+			text = text + "\n<br>" + detail_data.omim_disease_name_ja + "\n<br>" + 
+								 detail_data.omim_disease_name_en + "\n<br>" +
+								 phenotype_list_str               + "\n<br>" +
+								 inheritance_list_str             + "\n<br>" +
+								 gene_list_str                    + "\n<br>" +
+								 detail_data.description          + "\n<br>" +
 								 detail_data.omim_url;
 
 		}else if(RegExp_ORPHA.test(target_id)){
@@ -1312,24 +1312,25 @@
 			}
 
 			let gene_list_str = "";
-			for(let i=0;i<detail_data.hgnc_gene_symbol.length;i++){
-				let gene_text = detail_data.hgnc_gene_symbol[i];
+			if("hgnc_gene_symbol" in detail_data){
+				for(let i=0;i<detail_data.hgnc_gene_symbol.length;i++){
+					let gene_text = detail_data.hgnc_gene_symbol[i];
 
-				if(gene_list_str.length === 0){
-					gene_list_str = gene_text;
-				}else{
-					gene_list_str = gene_list_str + ',' + gene_text;
+					if(gene_list_str.length === 0){
+						gene_list_str = gene_text;
+					}else{
+						gene_list_str = gene_list_str + ',' + gene_text;
+					}
 				}
-
 			}
 
-			text = text + "\n" + detail_data.orpha_disease_name_ja  
-						+ "\n" + detail_data.orpha_disease_name_en 
-						+ "\n" + phenotype_list_str  
-						+ "\n" + inheritance_list_str 
-						+ "\n" + gene_list_str 
-						+ "\n" + detail_data.description 
-						+ "\n" + detail_data.orpha_url;
+			text = text + "\n<br>" + detail_data.orpha_disease_name_ja  
+						+ "\n<br>" + detail_data.orpha_disease_name_en 
+						+ "\n<br>" + phenotype_list_str  
+						+ "\n<br>" + inheritance_list_str 
+						+ "\n<br>" + gene_list_str 
+						+ "\n<br>" + detail_data.description 
+						+ "\n<br>" + detail_data.orpha_url;
 
 		}else if(RegExp_GENE.test(target_id)){
 
@@ -1348,59 +1349,31 @@
 			}
 
 			let inheritance_list_str = "";	
-			for(let i=0;i<detail_data.inheritance_en.length;i++){
+			if("inheritance_en" in detail_data){
+				for(let i=0;i<detail_data.inheritance_en.length;i++){
 				
-				let inheritance_text = detail_data.inheritance_en[i];
+					let inheritance_text = detail_data.inheritance_en[i];
 				
-				if(isJA) inheritance_text = detail_data.inheritance_ja[i];
+					if(isJA) inheritance_text = detail_data.inheritance_ja[i];
 
-				if(inheritance_list_str.length === 0){
-					inheritance_list_str = inheritance_text;
-				}else{
-					inheritance_list_str = inheritance_list_str + ',' + inheritance_text;
+					if(inheritance_list_str.length === 0){
+						inheritance_list_str = inheritance_text;
+					}else{
+						inheritance_list_str = inheritance_list_str + ',' + inheritance_text;
+					}
 				}
 			}
-			
-			text = text + "\n" + detail_data.hgnc_gene_symbol + "," + detail_data.ncbi_gene_id 
-						+ "\n" + phenotype_list_str 
-						+ "\n" + disease_list_str 
-						+ "\n" + inheritance_list_str 
-						+ "\n" + detail_data.hgnc_gene_url;
+			text = text + "\n<br>" + detail_data.hgnc_gene_symbol + "," + detail_data.ncbi_gene_id 
+						+ "\n<br>" + phenotype_list_str 
+						+ "\n<br>" + disease_list_str 
+						+ "\n<br>" + inheritance_list_str 
+						+ "\n<br>" + detail_data.hgnc_gene_url;
 
-		}else if(RegExp_CASE.test(target_id)){
-			text = text + "\n" + rank.id 
-						+ "\n" + phenotype_list_str;
 		}
 
-		if (window.clipboardData && window.clipboardData.setData) {
-			// Internet Explorer-specific code path to prevent textarea being shown while dialog is visible.
-			window.clipboardData.setData("Text", text);
-		}
-		else if (document.queryCommandSupported && document.queryCommandSupported("copy")) {
-			let textarea = document.createElement("textarea");
-			textarea.style = "position: absolute; left: -1000px; top: -1000px";
-			textarea.textContent = text;
-			document.body.appendChild(textarea);
-			//textarea.select();
-			try {
-				let selection = document.getSelection();
-				selection.removeAllRanges();
-
-				let range = document.createRange();
-				range.selectNodeContents(textarea);
-				selection.addRange(range);
-				
-				document.execCommand('copy');
-				selection.removeAllRanges();
-			}
-			catch (ex) {
-				console.warn("Copy to clipboard failed.", ex);
-			}
-			finally {
-				document.body.removeChild(textarea);
-			}
-		}
+		return text;
 	}
+	
 
 	function _show_result(setting){
 		
@@ -1489,24 +1462,55 @@
 			if(!isDisplayFull) $percentage.addClass('summary');
 			
 			if(target !== TARGET_CASE){
+
 				let $list_content_left_bt = $('<div>').addClass('list-content_left_bt').appendTo($td_left);
-				let $copy_button = $('<a>').appendTo($list_content_left_bt);
-				let $like_button = $('<a>').appendTo($list_content_left_bt);
+
+
+				let copy_button = document.createElement('a');
 	
 				if(isDisplayFull){
-					$copy_button.text("Copy").append("<i class=\"material-icons\">content_copy</i>");
-					$like_button.text("Like").append("<i class=\"material-icons\">favorite_border</i>");
+					copy_button.innerHTML = "Copy<i class=\"material-icons\">content_copy</i>";
 				}else{
-					$list_content_left_bt.addClass('summary');
-					$copy_button.append("<i class=\"material-icons\">content_copy</i>");
-					$like_button.append("<i class=\"material-icons\">favorite_border</i>");
-					$like_button.css({'margin-left': '15px'});
+					copy_button.innerHTML = "<i class=\"material-icons\">content_copy</i>";
 				}
-	
+
+				let copy_button_id = 'btn_copy_' + target + "_" + i;
+
+				$(copy_button).attr('id',copy_button_id)
+						.attr('data-toggle',     "tooltip")
+						.attr('data-container',"body")
+						.attr('data-placement',"top")
+						.attr('data-trigger',  "manual")
+						.attr('data-title',    "Summary successfully copied");
+
 				if(ranking_list[i].id in detail_data ){
+					tippy(copy_button, {
+						allowHTML:   true,
+						appendTo:    document.body,
+						trigger:     'click',
+						strategy:    'fixed',
+						interactive: true,
+						theme:       'pcf-popup',
+						placement:   'right',
+						//delay:         [300,0],
+						//offset:      [-10, 0],
+						content(reference) {
+							const text_content = _contruct_copy_content(ranking_list[i],detail_data[ranking_list[i].id],lang);
+							return	"<label>Copy</label>" +
+								"<div style=\"width:100%;overflow-x:hidden;overflow-y:scroll;height:150px;border: dashed 1px #AEB0B5;\">" +
+									"<p>"+ text_content +"</p>"+
+								"</div>"+
+								"<div class=\"btn-toolbar d-flex flex-row\" style=\"margin-top:10px;\">" +
+									"<button class=\"action-button\" "+
+											" style=\"margin-right:0px;\" "+
+											" onClick=\"_copy_to_clipboard(this,'"+ copy_button_id +"');\">Copy to the clipboard</button>"+
+								"</div>";
+						},
+					});
+
 					// ranking_list[i]
 					// detail_data[ranking_list[i].id] 
-					$copy_button.tooltip({'title':'Summary successfully copied', 'trigger':'manual', 'placement':'bottom'})
+/*					$copy_button.tooltip({'title':'Summary successfully copied', 'trigger':'manual', 'placement':'bottom'})
 							.data(SETTING_KEY_DETAIL, detail_data[ranking_list[i].id])
 							.data(SETTING_KEY_RANK,   ranking_list[i])
 							.data(SETTING_KEY_LANG,   lang)
@@ -1524,8 +1528,20 @@
 							.on('mouseleave', function () {
 								$(this).tooltip('hide');
 							});
+*/
 				}
-	
+
+				$(copy_button).appendTo($list_content_left_bt);
+
+				let $like_button = $('<a>').appendTo($list_content_left_bt);
+				if(isDisplayFull){
+					$like_button.text("Like").append("<i class=\"material-icons\">favorite_border</i>");
+				}else{
+					$list_content_left_bt.addClass('summary');
+					$like_button.append("<i class=\"material-icons\">favorite_border</i>");
+					$like_button.css({'margin-left': '15px'});
+				}
+
 				//[URL_PARA_TARGET]:setting[SETTING_KEY_TARGET], [URL_PARA_PHENOTYPE]:setting[SETTING_KEY_ID_LST], [URL_PARA_TARGET_ID]:setting[SETTING_KEY_TARGET_ID]});
 				$like_button.data(SETTING_KEY_TARGET,target)
 							.data(SETTING_KEY_ID_LST,ranking_list[i].matched_hpo_id)

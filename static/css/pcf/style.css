@@ -191,10 +191,6 @@ body {
   margin-right: 0.5em;
 }
 
-/*.search-header .search-header_wrapper .search-box_wrapper .search-button .dropdown .dropdown-toggle::after {
-    display: none !important;
-}
-*/
 
 .dropdown .dropdown-toggle::after {
     display: none !important;
@@ -752,7 +748,6 @@ body {
 }
 
 .list-content .list-content_right .list-show-panel.pcf-active table > tbody > tr > td > button[aria-expanded="true"] {
-  
   color:   #fff;
   background-color: #067ABC;
 }

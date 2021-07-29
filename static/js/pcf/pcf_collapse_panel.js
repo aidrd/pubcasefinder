@@ -182,7 +182,7 @@
 						}
 						let $td1 = $('<td nowrap=\"nowrap\">').appendTo($row);
 						$('<span class=\"material-icons\">post_add</span>')
-							.tooltip({'title':'Phenotype successfully added to the list!', 'trigger':'manual', 'placement':'bottom'})
+							.tooltip({'title':'Phenotype successfully added to the list!', 'trigger':'manual', 'placement':'top'})
 							.data(KEY_HPO_ID,   item.hpo_id)
 							.data(KEY_HPO_NAME, hpo_name)
 							.click(function(){
