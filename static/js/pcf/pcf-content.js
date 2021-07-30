@@ -1465,35 +1465,31 @@
 
 				let $list_content_left_bt = $('<div>').addClass('list-content_left_bt').appendTo($td_left);
 
-
-				let copy_button = document.createElement('a');
-	
-				if(isDisplayFull){
-					copy_button.innerHTML = "Copy<i class=\"material-icons\">content_copy</i>";
-				}else{
-					copy_button.innerHTML = "<i class=\"material-icons\">content_copy</i>";
-				}
-
-				let copy_button_id = 'btn_copy_' + target + "_" + i;
-
-				$(copy_button).attr('id',copy_button_id)
-						.attr('data-toggle',     "tooltip")
-						.attr('data-container',"body")
-						.attr('data-placement',"top")
-						.attr('data-trigger',  "manual")
-						.attr('data-title',    "Summary successfully copied");
-
 				if(ranking_list[i].id in detail_data ){
+
+					let copy_button = document.createElement('a');
+		
+					if(isDisplayFull){
+						copy_button.innerHTML = "Copy<i class=\"material-icons\">content_copy</i>";
+					}else{
+						copy_button.innerHTML = "<i class=\"material-icons\">content_copy</i>";
+					}
+	
+					let copy_button_id = 'btn_copy_' + target + "_" + i;
+					$(copy_button).attr('id',copy_button_id)
+							.attr('data-toggle', "tooltip").attr('data-container',"body")
+							.attr('data-placement',"top").attr('data-trigger',  "manual")
+							.attr('data-title', "Summary successfully copied");
+
 					tippy(copy_button, {
 						allowHTML:   true,
 						appendTo:    document.body,
+						maxWidth:    500,
 						trigger:     'click',
 						strategy:    'fixed',
 						interactive: true,
 						theme:       'pcf-popup',
 						placement:   'right',
-						//delay:         [300,0],
-						//offset:      [-10, 0],
 						content(reference) {
 							const text_content = _contruct_copy_content(ranking_list[i],detail_data[ranking_list[i].id],lang);
 							return	"<label>Copy</label>" +
@@ -1508,63 +1504,39 @@
 						},
 					});
 
-					// ranking_list[i]
-					// detail_data[ranking_list[i].id] 
-/*					$copy_button.tooltip({'title':'Summary successfully copied', 'trigger':'manual', 'placement':'bottom'})
-							.data(SETTING_KEY_DETAIL, detail_data[ranking_list[i].id])
-							.data(SETTING_KEY_RANK,   ranking_list[i])
-							.data(SETTING_KEY_LANG,   lang)
-							.on('click', function (e) {
-								let $btn = $(this) 
-								$btn.tooltip('show');
-								let rank        = $btn.data(SETTING_KEY_RANK);
-								let detail_data = $btn.data(SETTING_KEY_DETAIL);
-								let lang        = $btn.data(SETTING_KEY_LANG);
-								_copy_to_clipboard(rank,detail_data,lang);
-								e.preventDefault();
-								e.stopPropagation();
-								return false;
-							})
-							.on('mouseleave', function () {
-								$(this).tooltip('hide');
-							});
-*/
+					$(copy_button).appendTo($list_content_left_bt);
+	
+					let $like_button = $('<a>').appendTo($list_content_left_bt);
+					if(isDisplayFull){
+						$like_button.text("Like").append("<i class=\"material-icons\">favorite_border</i>");
+					}else{
+						$list_content_left_bt.addClass('summary');
+						$like_button.append("<i class=\"material-icons\">favorite_border</i>");
+						$like_button.css({'margin-left': '15px'});
+					}
+	
+					$like_button.data(SETTING_KEY_TARGET,target).data(SETTING_KEY_ID_LST,ranking_list[i].matched_hpo_id)
+								.data(SETTING_KEY_TARGET_ID,ranking_list[i].id)
+								.on('click', function (e) {
+									let $btn = $(this) 
+								
+									if($btn.hasClass('liked')){
+										$btn.removeClass('liked');
+										$btn.find('i').text('favorite_border');
+									}else{
+										let like_url_str = _construct_url(URL_SHARE,{	[SETTING_KEY_SHARE]:     SHARE_TYPE_LIKE,
+																			[SETTING_KEY_TARGET]:    $btn.data(SETTING_KEY_TARGET),
+																			[SETTING_KEY_ID_LST]:    $btn.data(SETTING_KEY_ID_LST),
+																			[SETTING_KEY_TARGET_ID]: $btn.data(SETTING_KEY_TARGET_ID)});
+										_run_ajax(like_url_str,'GET', 'text', true, null);
+										$btn.addClass('liked');
+										$btn.find('i').text('favorite');
+									}
+									e.preventDefault();
+									e.stopPropagation();
+									return false;
+								});
 				}
-
-				$(copy_button).appendTo($list_content_left_bt);
-
-				let $like_button = $('<a>').appendTo($list_content_left_bt);
-				if(isDisplayFull){
-					$like_button.text("Like").append("<i class=\"material-icons\">favorite_border</i>");
-				}else{
-					$list_content_left_bt.addClass('summary');
-					$like_button.append("<i class=\"material-icons\">favorite_border</i>");
-					$like_button.css({'margin-left': '15px'});
-				}
-
-				//[URL_PARA_TARGET]:setting[SETTING_KEY_TARGET], [URL_PARA_PHENOTYPE]:setting[SETTING_KEY_ID_LST], [URL_PARA_TARGET_ID]:setting[SETTING_KEY_TARGET_ID]});
-				$like_button.data(SETTING_KEY_TARGET,target)
-							.data(SETTING_KEY_ID_LST,ranking_list[i].matched_hpo_id)
-							.data(SETTING_KEY_TARGET_ID,ranking_list[i].id)
-							.on('click', function (e) {
-								let $btn = $(this) 
-							
-								if($btn.hasClass('liked')){
-									$btn.removeClass('liked');
-									$btn.find('i').text('favorite_border');
-								}else{
-									let like_url_str = _construct_url(URL_SHARE,{	[SETTING_KEY_SHARE]:     SHARE_TYPE_LIKE,
-																		[SETTING_KEY_TARGET]:    $btn.data(SETTING_KEY_TARGET),
-																		[SETTING_KEY_ID_LST]:    $btn.data(SETTING_KEY_ID_LST),
-																		[SETTING_KEY_TARGET_ID]: $btn.data(SETTING_KEY_TARGET_ID)});
-									_run_ajax(like_url_str,'GET', 'text', true, null);
-									$btn.addClass('liked');
-									$btn.find('i').text('favorite');
-								}
-								e.preventDefault();
-								e.stopPropagation();
-								return false;
-							});
 			}
 
 			
