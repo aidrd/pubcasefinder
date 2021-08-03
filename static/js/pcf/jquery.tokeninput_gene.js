@@ -1056,7 +1056,7 @@
 		function deselect_token (token, position) {
 			token.removeClass($(input).data("settings").classes.selectedToken);
 			selected_token = null;
-
+			/*
 			if(position === POSITION.BEFORE) {
 				input_token.insertBefore(token);
 				selected_token_index--;
@@ -1067,7 +1067,7 @@
 				input_token.appendTo(token_list);
 				selected_token_index = token_count;
 			}
-
+			*/
 			// Show the input box and give it focus again
 			focusWithTimeout(input_box);
 		}
