@@ -633,6 +633,11 @@
                                                         .data(OBJECT_KEY,  $.extend(true, {},data,{'exec' : key.toLowerCase()})   )
                                                         .appendTo($button_base);
 				}
+
+				if(key=='replace'){
+					$button.css({'background-color':'#0096AA','border-color':'#0096AA'});
+				}
+
 				$button.on('click',executionAddOrReplace);
 			});
 
