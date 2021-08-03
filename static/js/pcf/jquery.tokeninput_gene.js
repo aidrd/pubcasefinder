@@ -1170,11 +1170,16 @@
 				var space = '';
 				if(index) space = ' ';
 				token_value = token_value.replace(/_ja$/g,'');
+				token_value_pure = token_value.replace(/AND_/,'');
+				token_value_pure = token_value_pure.replace(/NOT_/,'');
+				token_value_pure = token_value_pure.replace(/OR_/,'');
 				if(token_value.indexOf(settings.tokenLogicaloperatorItemAndValue)==0){
-					logicaloperatorInput_value = '('+logicaloperatorInput_value+space+'AND <span class="'+settings.classes.logicaloperatorInputItemId+'">'+token_value.substring(1)+'</span>)';
+					//logicaloperatorInput_value = '('+logicaloperatorInput_value+space+'AND <span class="'+settings.classes.logicaloperatorInputItemId+'">'+token_value.substring(1)+'</span>)';
+					logicaloperatorInput_value = '('+logicaloperatorInput_value+space+'AND <span class="'+settings.classes.logicaloperatorInputItemId+'">'+token_value_pure+'</span>)';
 				}
 				else if(token_value.indexOf(settings.tokenLogicaloperatorItemNOTValue)==0){
-					logicaloperatorInput_value = '('+logicaloperatorInput_value+space+'NOT <span class="'+settings.classes.logicaloperatorInputItemId+'">'+token_value.substring(1)+'</span>)';
+					//logicaloperatorInput_value = '('+logicaloperatorInput_value+space+'NOT <span class="'+settings.classes.logicaloperatorInputItemId+'">'+token_value.substring(1)+'</span>)';
+					logicaloperatorInput_value = '('+logicaloperatorInput_value+space+'NOT <span class="'+settings.classes.logicaloperatorInputItemId+'">'+token_value_pure+'</span>)';
 				}
 				else if(index){
 					logicaloperatorInput_value = '('+logicaloperatorInput_value+space+'OR <span class="'+settings.classes.logicaloperatorInputItemId+'">'+token_value+'</span>)';
