@@ -1434,22 +1434,22 @@
 			
 			if(a_pre !== b_pre){
 				if(a_pre === 'HP') {
-					return 1;
+					return -1;
 				}else if(b_pre === 'HP') {
-					return -1;
-				}else if(a_pre === 'ENT') {
 					return 1;
-				}else{
+				}else if(a_pre === 'ENT') {
 					return -1;
+				}else{
+					return 1;
 				}
 			}
 			
 			// compare name
 			if ( a.name < b.name ){
-				return -1;
+				return 1;
 			}
 			if ( a.name > b.name ){
-				return 1;
+				return -1;
 			}
 			return 0;
 		}

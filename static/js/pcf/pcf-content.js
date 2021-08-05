@@ -87,6 +87,7 @@
 					'JA_REPORT':    '症例報告(J-STAGE)',
 					'EN_REPORT':    '症例報告(PubMed)',
 					'UR_DBMS':      '日本語疾患詳細(UR-DBMS)',
+					'nando':        '難病情報',
 				}
 			},
 			[LANGUAGE_EN] : {
@@ -113,8 +114,9 @@
 					'FIND_IMAGES':   'Find images(Google)',
 					'PHENOTYPE_LST': 'Clinical features',
 					'JA_REPORT':     'Case Report(J-STAGE)',
-					'EN_REPORT':     'Case Report(PubMed)',
-					'UR_DBMS':       'UR-DBMS'
+					'EN_REPORT':     'Case reports(PubMed)',
+					'UR_DBMS':       'UR-DBMS',
+					'nando':        '難病情報',
 				}
 			}
 		};
@@ -1156,6 +1158,12 @@
 			
 			if(isJA && (_isExistVal("ur_dbms_url", item))){
 				$('<a>').text(LANGUAGE[lang].DETAIL_LABEL.UR_DBMS).attr('href',item.ur_dbms_url).attr('target','_blank').appendTo($list_link_panel);
+			}
+
+			if(isJA && (_isExistVal("nando_url", item))){
+				item.nando_url.forEach(function(nando_url_str){
+					$('<a>').text(LANGUAGE[lang].DETAIL_LABEL.nando).attr('href',nando_url_str).attr('target','_blank').appendTo($list_link_panel);
+				});
 			}
 			
 			

@@ -649,9 +649,6 @@
 
 			$.each(['add','replace'], function(){
 				var key = this;
-/*				var $button = $('<button>').addClass('btn btn-primary').addClass(key=='add'?current_settings.cssButtonAddClass:current_settings.cssButtonReplaceClass).data(OBJECT_KEY,  $.extend(true, {},data,{'exec' : key.toLowerCase()})   ).text(current_settings.language[getCurrentLanguage()][key]).appendTo($button_base);
-*/
-
 				var $button;
 				if(isBig){
                                         $button = $('<button>').addClass('btn btn-primary')
@@ -667,11 +664,13 @@
 					if(key=='add'){
 						$button = $('<button>').addClass('material-icons').addClass('btn btn-primary')
 							.addClass(current_settings.cssButtonAddClass)
+							.css({'font-size':'0.9em'})
 							.text('post_add')
 							.data(OBJECT_KEY,  $.extend(true, {},data,{'exec' : key.toLowerCase()})   )
 							.appendTo($button_base);
 					}else{
-						$button = $('<button>').addClass('material-icons').addClass('btn btn-primary').addClass(current_settings.cssButtonReplaceClass).css({'background-color':'#0096AA','border-color':'#0096AA'})
+						$button = $('<button>').addClass('material-icons').addClass('btn btn-primary').addClass(current_settings.cssButtonReplaceClass)
+							.css({'background-color':'#0096AA','border-color':'#0096AA','font-size':'0.9em'})
 							.text('autorenew')
 							.data(OBJECT_KEY,  $.extend(true, {},data,{'exec' : key.toLowerCase()})   )
 							.appendTo($button_base);

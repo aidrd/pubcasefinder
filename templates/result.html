@@ -34,6 +34,7 @@
 	<link rel="stylesheet" href="/static/css/pcf/popup-hierarchy-gene.css">
 
 	<link rel="stylesheet" href="https://unpkg.com/tippy.js@6/animations/scale.css" />
+	<link rel="stylesheet" href="https://unpkg.com/tippy.js@6/animations/scale-extreme.css" />
 	
 	<link rel="icon" href="/static/images/favicon.ico">
 
@@ -61,7 +62,6 @@
 </head>
 
 <body>
-	<!-- <div id="fh5co-loader" style="display:none;"></div> -->
 	<div id="fh5co-loader"></div>
 	<header class="search-header">
 		<div class="wrapper search-header_wrapper">
@@ -130,141 +130,24 @@
 					</button>
 
 					<!-- download button -->
-					<div class="dropdown" id="search-button_download-wrapper">
-						<button id="search-button_download" class="dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							{% if r_lang == "ja" %}
-							<span class="material-icons" data-toggle="tooltip" data-placement="top" title="ダウンロード">save_alt</span>
-							{% else %}
-							<span class="material-icons" data-toggle="tooltip" data-placement="top" title="Download">save_alt</span>
-							{% endif %}
-						</button>
-						<div id="dropdown-menu_download" class="dropdown-menu" aria-labelledby="search-button_download">
-						<form class="px-4 py-3" id="download-form">
-							<label><b>{{ _('search_share_modal_label_download') }}</b></label>
-							<table>
-								<tr>
-									<td style="vertical-align: middle;">Target:</td>
-									<td id="str_target">
-									   {% if r_target == "omim" %}
-									 Genetic Disease
-									   {% elif r_target == "orphanet" %}
-									 Rare Disease
-									   {% elif r_target == "gene" %}
-									 Gene
-									   {% elif r_target == "case" %}
-									 Case
-									   {% else %}
-									 Genetic Disease
-									   {% endif %}
-									</td>
-								</tr>
-								<tr>
-									<td style="vertical-align: middle;padding-left:0;padding-right:10px;">Selection:</td>
-									<td>
-									  <select style="width:200px;" class="form-control custom-select" id="sel_download_option">
-										 <option value="all_shown">All displayed results</option>
-										 <option value="all">All results</option>
-										 <option value="sel">Selection (n)</option>
-									  </select>
-									</td>
-								</tr>
-								<tr>
-									<td style="vertical-align: middle;padding-left:0;padding-right:10px;">Format:</td>
-									<td>
-									  <select style="width:200px;" class="form-control custom-select" id="sel_download_format">
-										 <option value="tsv">TSV</option>
-										 <option value="json">JSON</option>
-									  </select>
-									</td>
-								</tr>
-							</table>
-							<div class="btn-toolbar d-flex flex-row-reverse" style="margin-top:10px;">
-							  <button onclick="btn_download_click(event);" class="action-button" id="btn_download" style="margin-right:0px;">Download</button>
-							</div>
-						</form>
-						</div>
-					</div>
+					<button id="btn_search_download">
+						<span class="material-icons">save_alt</span>
+					</button>
+
 
 					<!-- share button -->
-					<div class="dropdown" id="search-button_share-wrapper">
-						<button class="dropdown-toggle" id="search-button_share" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							{% if r_lang == "ja" %}
-							<span class="material-icons" data-toggle="tooltip" data-placement="top" title="共有">share</span>
-							{% else %}
-							<span class="material-icons" data-toggle="tooltip" data-placement="top" title="Share">share</span>
-							{% endif %}
-						</button>
-						<div class="dropdown-menu" aria-labelledby="search-button_share">
-						<form class="px-4 py-3">
-						<label><b>{{ _('search_share_modal_label_link') }}</b></label>
-							<table>
-								<tr>
-									<td style="vertical-align: middle;">
-										<input style="width:340px;" type="text" id="share_link" value="https://pcf.dbcls.jp/result?target={{ r_target }}&phenotype={{ r_phenotype }}&filter={{ r_filter }}&size={{ r_size }}&display_format={{ r_display_format }}&lang={{ r_lang }}" readonly>
-									</td>
-						  		</tr>
-							</table>
-							<div class="btn-toolbar" style="margin-top:10px;">
-								<button class="action-button" id="btn_copy_link">Copy Link</button>
-								<button class="action-button" id="btn_email_link">E-mail</button>
-							</div>
-						</form>
-						</div>
-					</div>
+					<button id="btn_search_share">
+						{% if r_lang == "ja" %}
+						<span class="material-icons" data-toggle="tooltip" data-placement="top" title="共有">share</span>
+						{% else %}
+						<span class="material-icons" data-toggle="tooltip" data-placement="top" title="Share">share</span>
+						{% endif %}
+					</button>
 
 					<!-- display button -->
-					<div class="dropdown" id="search-button_display-wrapper">
-						<button class="dropdown-toggle" type="button" id="search-button_display" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							Display options<i class="material-icons">expand_more</i>
-						</button>
-						<div class="dropdown-menu dropdown-menu-right" aria-labelledby="search-button_display">
-							<form class="px-4 py-3">
-								<label>
-									{% if r_lang == "ja" %}
-									<b>表示オプション</b>
-									{% else %}
-									<b>Display options</b>
-									{% endif %}
-								</label>
-								<table>
-									<tr>
-										<td style="vertical-align: middle;padding-left:0;padding-right:10px;">Format:</td>
-										<td>
-											<!-- <select style="width:150px;" class="form-control custom-select" id="str_display_format"> -->
-											<!-- <select style="width:150px;" class="custom-select" id="str_display_format"> -->
-											<select style="width:150px;" class="custom-select" id="str_display_format" onchange="str_display_format_onchange(this.value);">
-												<option value="full" {% if r_display_format == "full" %} selected {% endif %}>Full</option>
-												<option value="summary" {% if r_display_format == "summary" %} selected {% endif %}>Summary</option>
-									  		</select>
-										</td>
-									</tr>
-									<tr>
-										<td style="vertical-align: middle; padding-right:10px;" nowrap>Per page:</td>
-										<td>
-											<!-- <select style="width:150px;" class="form-control custom-select" id="str_size"> -->
-											<!-- <select style="width:150px;" class="custom-select" id="str_size"> -->
-											<select style="width:150px;" class="custom-select" id="str_size" onchange="str_size_onchange(this.value);">
-												<option value=10  {% if r_size == "10" %} selected {% endif %}>10</option>
-												<option value=20  {% if r_size == "20" %} selected {% endif %}>20</option>
-												<option value=50  {% if r_size == "50" %} selected {% endif %}>50</option>
-												<option value=100 {% if r_size == "100" %} selected {% endif %}>100</option>
-												<option value=200 {% if r_size == "200" %} selected {% endif %}>200</option>
-											</select>
-										</td>
-									</tr>
-									<tr>
-										<td style="vertical-align: middle; padding-right:10px;" nowrap>Header:</td>
-										<td>
-											<select style="width:150px;" class="custom-select" id="str_header" onchange="str_header_onchange(this.value);">
-												<option value=false>Fixed</option>
-												<option value=true>Auto Hide</option>
-											</select>
-										</td>
-									</tr>
-								</table>
-							</form>
-						</div>
-					</div>
+					<button id="btn_search_display">
+						Display options<i class="material-icons">expand_more</i>
+					</button>
 				</div>
 			</div>
 
@@ -394,6 +277,119 @@
   </div>
 </div>
 
+<div id="dropdown-menu_download" style="display: none;">
+<form class="px-1 py-2" id="download-form">
+	<label><b>{{ _('search_share_modal_label_download') }}</b></label>
+	<table>
+		<tr style="border:0;">
+			<td style="vertical-align: middle;">Target:</td>
+			<td id="str_target">
+			   {% if r_target == "omim" %}
+			 Genetic Disease
+			   {% elif r_target == "orphanet" %}
+			 Rare Disease
+			   {% elif r_target == "gene" %}
+			 Gene
+			   {% elif r_target == "case" %}
+			 Case
+			   {% else %}
+			 Genetic Disease
+			   {% endif %}
+			</td>
+		</tr>
+		<tr style="border:0;">
+			<td style="vertical-align: middle;padding-left:0;padding-right:10px;">Selection:</td>
+			<td>
+			  <select style="width:200px;" class="form-control custom-select" id="sel_download_option">
+				 <option value="all_shown">All displayed results</option>
+				 <option value="all">All results</option>
+				 <option value="sel">Selection (n)</option>
+			  </select>
+			</td>
+		</tr>
+		<tr style="border:0;">
+			<td style="vertical-align: middle;padding-left:0;padding-right:10px;">Format:</td>
+			<td>
+			  <select style="width:200px;" class="form-control custom-select" id="sel_download_format">
+				 <option value="tsv">TSV</option>
+				 <option value="json">JSON</option>
+			  </select>
+			</td>
+		</tr>
+	</table>
+	<div class="btn-toolbar d-flex flex-row-reverse" style="margin-top:10px;">
+	  <button onclick="btn_download_click(event);" class="action-button" id="btn_download" style="margin-right:0px;">Download</button>
+	</div>
+</form>
+</div>
+
+<div id="dropdown-menu_share" style="display: none;">
+<form class="px-2 py-2">
+<label><b>{{ _('search_share_modal_label_link') }}</b></label>
+	<table>
+		<tr>
+			<td style="vertical-align: middle;">
+				<input style="width:340px;" type="text" id="share_link" value="https://pcf.dbcls.jp/result?target={{ r_target }}&phenotype={{ r_phenotype }}&filter={{ r_filter }}&size={{ r_size }}&display_format={{ r_display_format }}&lang={{ r_lang }}" readonly>
+			</td>
+  		</tr>
+	</table>
+	<div class="btn-toolbar" style="margin-top:10px;">
+		<button class="action-button" id="btn_copy_link">Copy Link</button>
+		<button class="action-button" id="btn_email_link">E-mail</button>
+	</div>
+</form>
+</div>
+
+
+<div id="dropdown-menu_display" style="display: none;">
+	<form class="px-3 py-2">
+		<label>
+			{% if r_lang == "ja" %}
+			<b>表示オプション</b>
+			{% else %}
+			<b>Display options</b>
+			{% endif %}
+		</label>
+		<table>
+			<tr style="border:0;">
+				<td style="vertical-align: middle;padding-left:0;padding-right:10px;">Format:</td>
+				<td>
+					<!-- <select style="width:150px;" class="form-control custom-select" id="str_display_format"> -->
+					<!-- <select style="width:150px;" class="custom-select" id="str_display_format"> -->
+					<select style="width:150px;" class="custom-select" id="str_display_format" onchange="str_display_format_onchange(this.value);">
+						<option value="full" {% if r_display_format == "full" %} selected {% endif %}>Full</option>
+						<option value="summary" {% if r_display_format == "summary" %} selected {% endif %}>Summary</option>
+			  		</select>
+				</td>
+			</tr>
+			<tr style="border:0;">
+				<td style="vertical-align: middle; padding-right:10px;" nowrap>Per page:</td>
+				<td>
+					<!-- <select style="width:150px;" class="form-control custom-select" id="str_size"> -->
+					<!-- <select style="width:150px;" class="custom-select" id="str_size"> -->
+					<select style="width:150px;" class="custom-select" id="str_size" onchange="str_size_onchange(this.value);">
+						<option value=10  {% if r_size == "10" %} selected {% endif %}>10</option>
+						<option value=20  {% if r_size == "20" %} selected {% endif %}>20</option>
+						<option value=50  {% if r_size == "50" %} selected {% endif %}>50</option>
+						<option value=100 {% if r_size == "100" %} selected {% endif %}>100</option>
+						<option value=200 {% if r_size == "200" %} selected {% endif %}>200</option>
+					</select>
+				</td>
+			</tr>
+			<tr style="border:0;">
+				<td style="vertical-align: middle; padding-right:10px;" nowrap>Header:</td>
+				<td>
+					<select style="width:150px;" class="custom-select" id="str_header" onchange="str_header_onchange(this.value);">
+						<option value=false>Fixed</option>
+						<option value=true>Auto Hide</option>
+					</select>
+				</td>
+			</tr>
+		</table>
+	</form>
+</div>
+
+
 
 </body>
 
@@ -455,11 +451,19 @@
 		$(this).toggleClass('pcf-active');
 	});
 
+	$('#btn_cancel').on('click', function (e) {
+		$("#search-button_download").dropdown('hide');
+		e.preventDefault();
+		e.stopPropagation();
+		return false;
+	});
+
 	function btn_download_click(e) {
 
 		$("#pcf-content").pcf_content('download',hpo_id_list,$('#sel_download_option').val(), $('#sel_download_format').val());
 	
-		$("#search-button_download").dropdown('hide');	
+		tippy.hideAll();
+	
 		e.preventDefault();
 		e.stopPropagation();
 		return false;
@@ -718,7 +722,6 @@
 		//location.replace(url_str);
 	};
 
-	
 	var runSubmit = function(){
 		// trigger search
 		let form = document.createElement("form");
@@ -877,11 +880,16 @@
 	}
 
 
-	function _copy_to_clipboard(copy_button,copy_button_id){
+	function _copy_to_clipboard(copy_button){
 		let $copy_button = $(copy_button);
-		//let $div = $copy_button.parent().prev();
-		//$div.css({'border': '2px solid #9ecae', 'box-shadow': '0 0 10px #9ecaed'});
 		let text = $copy_button.parent().prev().find("p").text();
+		/*
+		$copy_button.tooltip({'title':'Summary successfully copied', 'trigger':'manual', 'placement':'top'})
+							.on('mouseleave', function () {
+								$(this).tooltip('hide');
+							});
+		*/
+		$copy_button.tooltip('show');
 		
 		if (window.clipboardData && window.clipboardData.setData) {
 			// Internet Explorer-specific code path to prevent textarea being shown while dialog is visible.
@@ -911,33 +919,20 @@
 				document.body.removeChild(textarea);
 			}
 		}
-		
-                setTimeout(function() {
-			tippy.hideAll();
-                }, 10);
-
-		$("#" + copy_button_id).tooltip('show');
-		setTimeout(function() {
-                        $("#" + copy_button_id).tooltip('hide');
-                }, 600);
-
 		return false;
 	}
-
-
-
 
 	function set_filter_num(){
 
 		let filter_str = $("#tokeninput_genes").tokenInput_gene("get_url_str");
 
-                let count = filter_str.split(',').length;
-                if(filter_str && count > 0){
-	                $('#btn_search_advanced').html("Filter("+count+")<i class=\"material-icons\">expand_more</i>");
-                }else{
-                        $('#btn_search_advanced').html("Filter<i class=\"material-icons\">expand_more</i>");
-                }
-        };
+		let count = filter_str.split(',').length;
+		if(filter_str && count > 0){
+		    $('#btn_search_advanced').html("Filter("+count+")<i class=\"material-icons\">expand_more</i>");
+		}else{
+		        $('#btn_search_advanced').html("Filter<i class=\"material-icons\">expand_more</i>");
+		}
+	};
 
 	function onFilterChanged(){
 		set_filter_num();
@@ -951,17 +946,87 @@
 
 	var hpo_id_list = "{{ r_phenotype }}";
 	var filter_id_list = "{{ r_filter }}";
+
+	{% if r_target == "omim" %}
+	var str_target_label = "Genetic Disease";
+	{% elif r_target == "orphanet" %}
+	var str_target_label = "Rare Disease";
+	{% elif r_target == "gene" %}
+	var str_target_label = "Gene";
+	{% elif r_target == "case" %}
+	var str_target_label = "Case";
+	{% else %}
+	var str_target_label = "Genetic Disease";
+	{% endif %}
+	
 	$(document).ready(function() {
 
+		const template_download = document.getElementById('dropdown-menu_download');
+		template_download.style.display = 'block';
+		tippy('#btn_search_download', {
+			arrow:         true,
+			allowHTML:     true,
+			appendTo:      document.body,
+			animation:     'scale-extreme',
+			maxWidth:      400,
+			strategy:     'fixed',
+			interactive:   true,
+			trigger:      'click',
+			theme:        'pcf-popup',
+			placement:    'bottom',
+			content:      template_download,
+			onShown(instance) {
+				$('#str_target').html(str_target_label);
+                        },
+		});
+
+		const template_share = document.getElementById('dropdown-menu_share');
+		template_share.style.display = 'block';
+		tippy('#btn_search_share', {
+			arrow:         true,
+			allowHTML:     true,
+			appendTo:      document.body,
+			animation:     'scale-extreme',
+			maxWidth:      500,
+			strategy:     'fixed',
+			interactive:   true,
+			trigger:      'click',
+			theme:        'pcf-popup',
+			placement:    'bottom',
+			content:       template_share,
+		});
+		
+		tippy('#btn_copy_link', {
+			content:     'URL copied to the clipboard!',
+			trigger:     'click',
+		});
+
+		const template_display = document.getElementById('dropdown-menu_display');
+		template_display.style.display = 'block';
+		tippy('#btn_search_display', {
+			arrow:         false,
+			allowHTML:     true,
+			appendTo:      document.body,
+			animation:     'scale-extreme',
+			maxWidth:      400,
+			strategy:     'fixed',
+			interactive:   true,
+			trigger:      'click',
+			theme:        'pcf-popup',
+			placement:    'bottom-end',
+			content:       template_display,
+		});
+
+		
 		tippy('#btn_menu', {
-                        arrow:         false,
-                        allowHTML:     true,
-                        appendTo:      document.body,
-                        strategy:     'fixed',
-                        interactive:   true,
-                        placement:    'bottom-start',
+			arrow:         false,
+			allowHTML:     true,
+			appendTo:      document.body,
+			strategy:     'fixed',
+			interactive:   true,
+			placement:    'bottom-start',
 			theme:        'pcf_menu',
-                        content(reference){
+			content(reference){
 				return	"<ul id=\"ul_menu\" class=\"sub-menu\">" +
 					  "<li><a href=\"#\">About</a></li>" +
 					  "<li><a href=\"#\">Datasets</a></li>" +
@@ -1019,13 +1084,35 @@
 			'format': 	"summary",
 			{% endif %}
 			'onSelectTab': function(tab_label_text,target){
-				$('#str_target').html(tab_label_text);
 				if(target === 'case'){
-					$('#btn_download').prop('disabled', true);
+					$('#btn_search_download').prop('disabled', true);
+
+					{% if r_lang == "ja" %}
+					$('#btn_search_download').find('span')
+								.tooltip('dispose')
+								.tooltip({title: 'Caseはダウンロードできません'});
+					{% else %}
+					$('#btn_search_download').find('span')
+								.tooltip('dispose')
+								.tooltip({title: 'Case is not available for download'});
+					{% endif %}
 				}else{
-					$('#btn_download').prop('disabled', false);
+					$('#btn_search_download').prop('disabled', false);
+
+					{% if r_lang == "ja" %}
+					$('#btn_search_download').find('span')
+								.tooltip('dispose')
+								.tooltip({title: 'ダウンロード'});
+					{% else %}
+					$('#btn_search_download').find('span')
+								.tooltip('dispose')
+								.tooltip({title: 'Download'});
+					{% endif %}
 				}
 			
+				str_target_label = tab_label_text;
+				$('#str_target').html(tab_label_text);			
+
 				update_download_link();
 			},
 			'load_filter_ids': function(){
