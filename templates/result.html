@@ -354,8 +354,6 @@
 			<tr style="border:0;">
 				<td style="vertical-align: middle;padding-left:0;padding-right:10px;">Format:</td>
 				<td>
-					<!-- <select style="width:150px;" class="form-control custom-select" id="str_display_format"> -->
-					<!-- <select style="width:150px;" class="custom-select" id="str_display_format"> -->
 					<select style="width:150px;" class="custom-select" id="str_display_format" onchange="str_display_format_onchange(this.value);">
 						<option value="full" {% if r_display_format == "full" %} selected {% endif %}>Full</option>
 						<option value="summary" {% if r_display_format == "summary" %} selected {% endif %}>Summary</option>
@@ -365,8 +363,6 @@
 			<tr style="border:0;">
 				<td style="vertical-align: middle; padding-right:10px;" nowrap>Per page:</td>
 				<td>
-					<!-- <select style="width:150px;" class="form-control custom-select" id="str_size"> -->
-					<!-- <select style="width:150px;" class="custom-select" id="str_size"> -->
 					<select style="width:150px;" class="custom-select" id="str_size" onchange="str_size_onchange(this.value);">
 						<option value=10  {% if r_size == "10" %} selected {% endif %}>10</option>
 						<option value=20  {% if r_size == "20" %} selected {% endif %}>20</option>
@@ -449,13 +445,6 @@
 
 	$('#btn_search_advanced').on('click', function() {
 		$(this).toggleClass('pcf-active');
-	});
-
-	$('#btn_cancel').on('click', function (e) {
-		$("#search-button_download").dropdown('hide');
-		e.preventDefault();
-		e.stopPropagation();
-		return false;
 	});
 
 	function btn_download_click(e) {
@@ -553,7 +542,6 @@
 
 			if(e.target.getAttribute('id') === 'alert_response_text' || e.target.getAttribute('id') === 'alert_url') return;
 
-			$('.dropdown-toggle[aria-expanded="true"]').dropdown('hide');
 			tippy.hideAll();
 
 			if (document.body.scrollTop > 110 || document.documentElement.scrollTop > 110) {
@@ -572,7 +560,6 @@
 
 			if(e.target.getAttribute('id') === 'alert_response_text' || e.target.getAttribute('id') === 'alert_url') return;
 
-			$('.dropdown-toggle[aria-expanded="true"]').dropdown('hide');                
 			tippy.hideAll();
 
 			if (document.body.scrollTop > 110 || document.documentElement.scrollTop > 110) {
@@ -602,7 +589,6 @@
 			}
 		}
 
-		$("#search-button_display").dropdown('hide');
 	}
 
 	function window_on_scroll(e){
@@ -665,7 +651,7 @@
 	}
 
 	function topFunction() {
-		$('header').show();
+		if($('header').is(":visible")===false) $('header').show();
 		document.body.scrollTop = 0;
 		document.documentElement.scrollTop = 0;
 		$('#btn_back_to_top').hide();
@@ -675,16 +661,20 @@
 		window.open(obj.id,'_blank');
 	}
 
+	var r_display_format_val = "{{ r_display_format }}";
 	function str_display_format_onchange(display_format) {
 		$("#pcf-content").pcf_content('update_display_format', display_format);
-		$("#search-button_display").dropdown('hide');
+		r_display_format_val = display_format;
+		tippy.hideAll();
 		update_download_link();
 		return false;
 	}
 
+	var r_size_val = "{{ r_size }}";
 	function str_size_onchange(size) {
 		$("#pcf-content").pcf_content('update_size', parseInt(size));
-		$("#search-button_display").dropdown('hide');
+		r_size_val = size;
+		tippy.hideAll();
 		update_download_link();
 		return false;
 	}
@@ -696,12 +686,15 @@
 		return false;
 	});
 
+	var share_link_val = "https://pcf.dbcls.jp/result?target={{ r_target }}&phenotype={{ r_phenotype }}&filter={{ r_filter }}&size={{ r_size }}&display_format={{ r_display_format }}&lang={{ r_lang }}";
 	function update_download_link() {
 		let target    = $("#pcf-content").pcf_content('get_target');
 		let phenotype = hpo_id_list;
 		let filter    = $("#tokeninput_genes").tokenInput_gene("get_url_str");
-		let size      = $("#str_size").val();
-		let format    = $("#str_display_format").val();
+		//let size      = $("#str_size").val();
+		let size      = r_size_val;
+		//let format    = $("#str_display_format").val();
+		let format    = r_display_format_val;
 		let lang      = $("#r_lang").val();
 		
 		let url_str = window.location.protocol + "//" + window.location.host + window.location.pathname +
@@ -713,7 +706,8 @@
 		let url_str_ja = window.location.protocol + "//" + window.location.host + window.location.pathname +
 					"?target="+target+"&phenotype="+phenotype+"&filter="+filter+"&size="+size+"&display_format="+format+"&lang=ja";
 
-		$('#share_link').val(url_str);
+		//$('#share_link').val(url_str);
+		share_link_val = url_str;
 
 		$('#link_en').attr('href',url_str_en);
 
@@ -752,13 +746,15 @@
 		let size = document.createElement("input");
 		size.setAttribute("type", "text");
 		size.setAttribute("name", "size");
-		size.setAttribute("value",$("#str_size").val());
+		//size.setAttribute("value",$("#str_size").val());
+		size.setAttribute("value",r_size_val);
 		form.appendChild(size);
 
 		let display_format = document.createElement("input");
 		display_format.setAttribute("type", "text");
 		display_format.setAttribute("name", "display_format");
-		display_format.setAttribute("value",$("#str_display_format").val());
+		//display_format.setAttribute("value",$("#str_display_format").val());
+		display_format.setAttribute("value",r_display_format_val);
 		form.appendChild(display_format); 
 
 		let lang = document.createElement("input");
@@ -775,10 +771,8 @@
 	var resizeTimer = false;
 
 	$(window).on('resize', function(e) {
-
-		//$('.dropdown.show').dropdown('toggle');
-		$('.dropdown-toggle[aria-expanded="true"]').dropdown('hide');
-
+		tippy.hideAll();
+		
 		$("#tokeninput_genes").tokenInput_gene("resize_input_box");
 
 		if( !resizeTimer ) {
@@ -994,12 +988,13 @@
 			theme:        'pcf-popup',
 			placement:    'bottom',
 			content:       template_share,
+			onShown(instance) {
+				$('#share_link').val(share_link_val);
+			},
 		});
-		
-		tippy('#btn_copy_link', {
-			content:     'URL copied to the clipboard!',
-			trigger:     'click',
-		});
+
+		r_size_val = $("#str_size").val();
+		r_display_format_val = $("#str_display_format").val();
 
 		const template_display = document.getElementById('dropdown-menu_display');
 		template_display.style.display = 'block';
