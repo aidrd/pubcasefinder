@@ -160,8 +160,8 @@
 }
 
 .popup-hierarchy-gene-link-base button {
-	font-size: 0.8em;
-
+	font-size: 1.0em;
+	height:    24px;
 	padding-top: 0px;
 	padding-bottom: 0px;
 	padding-left: 4px;

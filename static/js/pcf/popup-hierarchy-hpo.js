@@ -664,13 +664,13 @@
 					if(key=='add'){
 						$button = $('<button>').addClass('material-icons').addClass('btn btn-primary')
 							.addClass(current_settings.cssButtonAddClass)
-							.css({'font-size':'0.9em'})
+							//.css({'font-size':'1.0em'})
 							.text('post_add')
 							.data(OBJECT_KEY,  $.extend(true, {},data,{'exec' : key.toLowerCase()})   )
 							.appendTo($button_base);
 					}else{
 						$button = $('<button>').addClass('material-icons').addClass('btn btn-primary').addClass(current_settings.cssButtonReplaceClass)
-							.css({'background-color':'#0096AA','border-color':'#0096AA','font-size':'0.9em'})
+							.css({'background-color':'#0096AA','border-color':'#0096AA'})
 							.text('autorenew')
 							.data(OBJECT_KEY,  $.extend(true, {},data,{'exec' : key.toLowerCase()})   )
 							.appendTo($button_base);
