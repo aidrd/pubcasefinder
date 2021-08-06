@@ -851,244 +851,246 @@
 			/////////////////////////////////////////////////////////////////////////
 			// tokeninput contents
 			/////////////////////////////////////////////////////////////////////////
-			var $table = $inlineContentBase.find(current_settings.nodeName+'.'+current_settings.cssTableClass+'.'+current_settings.cssTokenInputContentBaseClass);
-			if($table.length==0){
-				$table = $('<'+current_settings.nodeName+'>').addClass(current_settings.cssTableClass).addClass(current_settings.cssTokenInputContentBaseClass).appendTo($inlineContentBase);
-				$table.css({
-					'border-spacing':'5px',
-					'margin-top':'104px',
-					'margin-left':'0',
-					'margin-right':'0',
-					'margin-bottom':'15px'
-				});
-
-				var $tr = $('<'+current_settings.nodeName+'>').addClass(current_settings.cssTrClass).appendTo($table);
-				var $td = $('<'+current_settings.nodeName+'>').addClass(current_settings.cssTdClass).css({'width':'8.5%'}).appendTo($tr);
-				var $td = $('<'+current_settings.nodeName+'>').addClass(current_settings.cssTdClass).css({'width':'83%'}).appendTo($tr);
-
-				var $selectedphenotype_base = $('<'+current_settings.nodeName+'>').addClass(current_settings.cssBaseClass).addClass(current_settings.cssSelectedPhenotypeClass).css({'width':'100%'}).appendTo($td);
-
-				var $selectedphenotype_title = $('<'+current_settings.nodeName+'>').addClass(current_settings.cssTopBarClass).appendTo($selectedphenotype_base);
-				$selectedphenotype_title.empty();
-				var $selectedphenotype_title_table = $('<'+current_settings.nodeName+'>').css({'display':'table','border-collapse':'collapse','empty-cells':'hide','width':'100%'}).appendTo($selectedphenotype_title);
-				var $selectedphenotype_title_tr = $('<'+current_settings.nodeName+'>').css({'display':'table-row'}).appendTo($selectedphenotype_title_table);
-
-				var $selectedphenotype_title_td_left = $('<'+current_settings.nodeName+'>').css({'display':'table-cell','text-align':'left'}).appendTo($selectedphenotype_title_tr);
-
-				var $selectedphenotype_title_td_center = $('<'+current_settings.nodeName+'>').css({'display':'table-cell','text-align':'center','width':'100%'}).appendTo($selectedphenotype_title_tr);
-				$selectedphenotype_title_td_center.attr({'data-language-key':'selectedphenotype'}).text(language['selectedphenotype']);
-
-				if(current_settings.use_webgl){
-					var $selectedphenotype_title_td_right = $('<'+current_settings.nodeName+'>').css({'display':'table-cell','text-align':'right','padding-right':'8px','position':'relative'}).appendTo($selectedphenotype_title_tr);
-
-					var $language_button = $('<button>')
-						.addClass(current_settings.cssLanguageChangeClass)
-						.addClass('btn btn-default')
-						.appendTo($selectedphenotype_title_td_right)
-						.text('')
-						.click(function(e){
-							e.preventDefault();
-							e.stopPropagation();
-							return false;
-						});
-
-					var $language_select = $('<select>')
-						.attr({'name':'language'})
-						.addClass(current_settings.cssLanguageChangeClass)
-						.appendTo($selectedphenotype_title_td_right)
-						.change(function(){
-							var $select = $(this);
-							var $select_option = $select.find('option:selected');
-							$select.prev('button').html($select_option.text()+'&nbsp;▼');
-							runSearchOptions.hasJA = $select_option.val()==='ja';
-							if(executionLanguage_timeoutID){
-								clearTimeout(executionLanguage_timeoutID);
-							}
-							executionLanguage_timeoutID = setTimeout(function(){
-								executionLanguage_timeoutID = null;
-								showLoading();
-								showResults();
-							},100);
-
-						});
-					var $language_option_en = $('<option>').attr({'data-language-key':'eng','name':'en'}).val('en').text(language['eng']).appendTo($language_select);
-					var $language_option_jp = $('<option>').attr({'data-language-key':'jpn','name':'ja'}).val('ja').text(language['jpn']).appendTo($language_select);
-
-				}
-
-				var $td = $('<'+current_settings.nodeName+'>').addClass(current_settings.cssTdClass).css({'width':'8.5%'}).appendTo($tr);
-				if(current_settings.use_webgl){
-					$('<'+current_settings.nodeName+'>')
-						.addClass(current_settings.cssWebGLSwitchContentClass)
-						.appendTo($td)
-						.data(OBJECT_KEY, $.extend(true, {},{'exec' : 'phenotouch'}) )
-						.click(executionPhenoTouch);
-				}
-
-				var onResult = function(results){
-					getTokenInputElement().off('add.tokenInput').on('add.tokenInput', function(token){
-						var $li = _addTokenInputItem(token,true);
-						changeStateAddOrReplace();
-						$li.trigger('click');
-					});
-					$.PopupRelationHPOTokenTooltip();
-					return results;
-				};
-
-
-				var $selectedphenotype_textarea = $('<'+current_settings.inputNodeName+'>').attr({'id':current_settings.inputId}).appendTo($selectedphenotype_base);
-				$selectedphenotype_textarea.tokenInput(tokeninput_settings.url, $.extend(true, {}, tokeninput_settings, {zindex: 1444,
-					onResult: onResult,
-					onCachedResult: onResult,
-					onAdd: function(token){
-						getTokenInputElement().trigger('add.tokenInput',[token]);
-						getTokenInputElement().trigger('add.tokenInput2',[token]);
-						$.PopupRelationHPOTokenTooltip();
-					},
-					onFreeTaggingAdd: function(token){
-					},
-					onDelete: function(token){
-						if(isObject(runSearchOptions)){
-							if(isArray(runSearchOptions.tokenInputItems)) runSearchOptions.tokenInputItems = $.grep(runSearchOptions.tokenInputItems || [],function(data){return token.id!==data.id;});
-							if(isArray(runSearchOptions.tokenInputItemNodes)) runSearchOptions.tokenInputItemNodes = getTokenInputItemNodes();
-						}
-						changeStateAddOrReplace();
-						getTokenInputElement().trigger('delete.tokenInput2',[token]);
-
-						//tooltipのノードが残る為、強制的削除する
-//						$.PopupRelationHPOTokenTooltip();
-						if(current_settings.use_tooltip){
-							var title;
-							if(current_settings.tooltip_type === 'fixed'){
-								title = current_settings.language[getCurrentLanguage()]['tooltip_title'];
-							}
-							else{
-								title = token.name;
-							}
-							var tooltip_selector = 'ul.'+tokeninput_classes['tokenList'].split(/\s+/).join('.')+'>div.tooltip';
-							$(tooltip_selector).each(function(){
-								if($(this).text()===title) $(this).remove();
-							});
-						}
-
-					},
-					onReady: function(){
-						var $ul = $(current_settings.nodeName+'.'+current_settings.cssSelectedPhenotypeClass+ ' ul.'+tokeninput_classes['tokenList'].split(/\s+/).join('.')).addClass(current_settings.cssTokenListClass);
-						$ul.on('mousedown', function(e){
-							var $li_node;
-							if($(e.target).get(0).nodeName.toLowerCase()==='li'){
-								$li_node = $(e.target);
-							}
-							else if($(e.target).get(0).nodeName.toLowerCase()==='p'){
-								$li_node = $(e.target).parent('li');
-							}
-							else if($(e.target).get(0).nodeName.toLowerCase()==='span'){
-								$li_node = $(e.target).parent('li');
-							}
-							if($li_node && $li_node.hasClass(current_settings.cssTokenClass)){
-							}
-							else{
-								clearSelectedTokenInputItems();
-								if(isObject(runSearchOptions)){
-									if(isArray(runSearchOptions.tokenInputItems)) runSearchOptions.tokenInputItems = getTokenInputItems();
-									if(isArray(runSearchOptions.tokenInputItemNodes)) runSearchOptions.tokenInputItemNodes = getTokenInputItemNodes();
-								}
-								changeStateAddOrReplace();
-							}
-						}).on('keydown', function(e){
-							e.stopPropagation();
-						});
-					},
-//					onSelectDropdownItem: function(token_data){
-//						$.PopupRelationHPOResultsTooltip(this,token_data);
-//					},
-					onShowDropdownItem: function(count){
-						var node = this;
-						var $count_node = $('<div>').addClass(current_settings.cssNumberOfHitsClass).text(current_settings.language[getCurrentLanguage()]['number_of_hits'].replace('__NUMBER__', count));
-						if(node.get(0).firstElementChild){
-							var $firstElementChild = $(node.get(0).firstElementChild);
-							$count_node.insertBefore($firstElementChild);
-							if(count==0) $firstElementChild.remove();
-						}
-						else{
-							$count_node.appendTo(node);
-						}
-					},
-					onHideDropdownItem: function(){
-						$.PopupRelationHPOResultsTooltip();
-					}
-				}));
-
-
-				if(runSearchOptions.tokenInputItems && runSearchOptions.tokenInputItems.length){
-					runSearchOptions.tokenInputItems.forEach(function(tokenInputItem,index){
-						var selectedToken = isArray(runSearchOptions.tokenInputItemNodes) && $(runSearchOptions.tokenInputItemNodes).eq(index).hasClass(tokeninput_classes['selectedToken']) ? true : false;
-						addTokenInputItem(tokenInputItem,selectedToken);
-					});
-				}
-
-
-
-				var $selectedphenotype_bottom_bar = $('<'+current_settings.nodeName+'>').addClass(current_settings.cssBottomBarClass).appendTo($selectedphenotype_base);
-				$selectedphenotype_bottom_bar.empty();
-
-				var $selectedphenotype_bottom_bar_table = $('<'+current_settings.nodeName+'>').css({'display':'table','border-collapse':'collapse','empty-cells':'hide','width':'100%'}).appendTo($selectedphenotype_bottom_bar);
-				var $selectedphenotype_bottom_bar_tr = $('<'+current_settings.nodeName+'>').css({'display':'table-row'}).appendTo($selectedphenotype_bottom_bar_table);
-
-				var $selectedphenotype_bottom_bar_td_left = $('<'+current_settings.nodeName+'>').css({'display':'table-cell','text-align':'left','padding-left':'4px'}).appendTo($selectedphenotype_bottom_bar_tr);
-				var $selectedphenotype_bottom_bar_td_center = $('<'+current_settings.nodeName+'>').css({'display':'table-cell','text-align':'center'}).appendTo($selectedphenotype_bottom_bar_tr);
-				var $selectedphenotype_bottom_bar_td_right = $('<'+current_settings.nodeName+'>').css({'display':'table-cell','text-align':'right','padding-right':'4px'}).appendTo($selectedphenotype_bottom_bar_tr);
-
-
-				if(current_settings.clearButtonAlign=='left'){
-					addClearButtons().appendTo($selectedphenotype_bottom_bar_td_left);
-				}
-				else if(current_settings.clearButtonAlign=='center'){
-					addClearButtons().appendTo($selectedphenotype_bottom_bar_td_center);
-				}
-				else{
-					addClearButtons().appendTo($selectedphenotype_bottom_bar_td_right);
-				}
-
-
-				if(current_settings.okcancelButtonsAlign=='left'){
-					addOKCancelButtons().appendTo($selectedphenotype_bottom_bar_td_left);
-				}
-				else if(current_settings.okcancelButtonsAlign=='center'){
-					addOKCancelButtons().appendTo($selectedphenotype_bottom_bar_td_center);
-				}
-				else{
-					addOKCancelButtons().appendTo($selectedphenotype_bottom_bar_td_right);
-				}
-			}
-
+			var $table;
 			if(current_settings.use_webgl){
-				var $language_select = $('select[name=language]');
-				$language_select.find('option').prop('selected', false);
-				$language_select.prev('button').html($language_select.find('option[name='+getCurrentLanguage()+']').prop('selected', true).text()+'&nbsp;▼');
-			
-				$('*[data-language-key]').each(function(){
-					var $this = $(this);
-					var key = $this.attr('data-language-key');
-					$this.text(language[key]);
-				});
-
-				$('*[data-language-tooltip-key]').each(function(){
-					var $this = $(this);
-					var key = $this.attr('data-language-tooltip-key');
-					if(isEmpty(language[key])){
-						$this.attr({'data-original-title':key});
+				$table = $inlineContentBase.find(current_settings.nodeName+'.'+current_settings.cssTableClass+'.'+current_settings.cssTokenInputContentBaseClass);
+				if($table.length==0){
+					$table = $('<'+current_settings.nodeName+'>').addClass(current_settings.cssTableClass).addClass(current_settings.cssTokenInputContentBaseClass).appendTo($inlineContentBase);
+					$table.css({
+						'border-spacing':'5px',
+						'margin-top':'104px',
+						'margin-left':'0',
+						'margin-right':'0',
+						'margin-bottom':'15px'
+					});
+	
+					var $tr = $('<'+current_settings.nodeName+'>').addClass(current_settings.cssTrClass).appendTo($table);
+					var $td = $('<'+current_settings.nodeName+'>').addClass(current_settings.cssTdClass).css({'width':'8.5%'}).appendTo($tr);
+					var $td = $('<'+current_settings.nodeName+'>').addClass(current_settings.cssTdClass).css({'width':'83%'}).appendTo($tr);
+	
+					var $selectedphenotype_base = $('<'+current_settings.nodeName+'>').addClass(current_settings.cssBaseClass).addClass(current_settings.cssSelectedPhenotypeClass).css({'width':'100%'}).appendTo($td);
+	
+					var $selectedphenotype_title = $('<'+current_settings.nodeName+'>').addClass(current_settings.cssTopBarClass).appendTo($selectedphenotype_base);
+					$selectedphenotype_title.empty();
+					var $selectedphenotype_title_table = $('<'+current_settings.nodeName+'>').css({'display':'table','border-collapse':'collapse','empty-cells':'hide','width':'100%'}).appendTo($selectedphenotype_title);
+					var $selectedphenotype_title_tr = $('<'+current_settings.nodeName+'>').css({'display':'table-row'}).appendTo($selectedphenotype_title_table);
+	
+					var $selectedphenotype_title_td_left = $('<'+current_settings.nodeName+'>').css({'display':'table-cell','text-align':'left'}).appendTo($selectedphenotype_title_tr);
+	
+					var $selectedphenotype_title_td_center = $('<'+current_settings.nodeName+'>').css({'display':'table-cell','text-align':'center','width':'100%'}).appendTo($selectedphenotype_title_tr);
+					$selectedphenotype_title_td_center.attr({'data-language-key':'selectedphenotype'}).text(language['selectedphenotype']);
+	
+					if(current_settings.use_webgl){
+						var $selectedphenotype_title_td_right = $('<'+current_settings.nodeName+'>').css({'display':'table-cell','text-align':'right','padding-right':'8px','position':'relative'}).appendTo($selectedphenotype_title_tr);
+	
+						var $language_button = $('<button>')
+							.addClass(current_settings.cssLanguageChangeClass)
+							.addClass('btn btn-default')
+							.appendTo($selectedphenotype_title_td_right)
+							.text('')
+							.click(function(e){
+								e.preventDefault();
+								e.stopPropagation();
+								return false;
+							});
+	
+						var $language_select = $('<select>')
+							.attr({'name':'language'})
+							.addClass(current_settings.cssLanguageChangeClass)
+							.appendTo($selectedphenotype_title_td_right)
+							.change(function(){
+								var $select = $(this);
+								var $select_option = $select.find('option:selected');
+								$select.prev('button').html($select_option.text()+'&nbsp;▼');
+								runSearchOptions.hasJA = $select_option.val()==='ja';
+								if(executionLanguage_timeoutID){
+									clearTimeout(executionLanguage_timeoutID);
+								}
+								executionLanguage_timeoutID = setTimeout(function(){
+									executionLanguage_timeoutID = null;
+									showLoading();
+									showResults();
+								},100);
+	
+							});
+						var $language_option_en = $('<option>').attr({'data-language-key':'eng','name':'en'}).val('en').text(language['eng']).appendTo($language_select);
+						var $language_option_jp = $('<option>').attr({'data-language-key':'jpn','name':'ja'}).val('ja').text(language['jpn']).appendTo($language_select);
+	
+					}
+	
+					var $td = $('<'+current_settings.nodeName+'>').addClass(current_settings.cssTdClass).css({'width':'8.5%'}).appendTo($tr);
+					if(current_settings.use_webgl){
+						$('<'+current_settings.nodeName+'>')
+							.addClass(current_settings.cssWebGLSwitchContentClass)
+							.appendTo($td)
+							.data(OBJECT_KEY, $.extend(true, {},{'exec' : 'phenotouch'}) )
+							.click(executionPhenoTouch);
+					}
+	
+					var onResult = function(results){
+						getTokenInputElement().off('add.tokenInput').on('add.tokenInput', function(token){
+							var $li = _addTokenInputItem(token,true);
+							changeStateAddOrReplace();
+							$li.trigger('click');
+						});
+						$.PopupRelationHPOTokenTooltip();
+						return results;
+					};
+	
+	
+					var $selectedphenotype_textarea = $('<'+current_settings.inputNodeName+'>').attr({'id':current_settings.inputId}).appendTo($selectedphenotype_base);
+					$selectedphenotype_textarea.tokenInput(tokeninput_settings.url, $.extend(true, {}, tokeninput_settings, {zindex: 1444,
+						onResult: onResult,
+						onCachedResult: onResult,
+						onAdd: function(token){
+							getTokenInputElement().trigger('add.tokenInput',[token]);
+							getTokenInputElement().trigger('add.tokenInput2',[token]);
+							$.PopupRelationHPOTokenTooltip();
+						},
+						onFreeTaggingAdd: function(token){
+						},
+						onDelete: function(token){
+							if(isObject(runSearchOptions)){
+								if(isArray(runSearchOptions.tokenInputItems)) runSearchOptions.tokenInputItems = $.grep(runSearchOptions.tokenInputItems || [],function(data){return token.id!==data.id;});
+								if(isArray(runSearchOptions.tokenInputItemNodes)) runSearchOptions.tokenInputItemNodes = getTokenInputItemNodes();
+							}
+							changeStateAddOrReplace();
+							getTokenInputElement().trigger('delete.tokenInput2',[token]);
+	
+							//tooltipのノードが残る為、強制的削除する
+	//						$.PopupRelationHPOTokenTooltip();
+							if(current_settings.use_tooltip){
+								var title;
+								if(current_settings.tooltip_type === 'fixed'){
+									title = current_settings.language[getCurrentLanguage()]['tooltip_title'];
+								}
+								else{
+									title = token.name;
+								}
+								var tooltip_selector = 'ul.'+tokeninput_classes['tokenList'].split(/\s+/).join('.')+'>div.tooltip';
+								$(tooltip_selector).each(function(){
+									if($(this).text()===title) $(this).remove();
+								});
+							}
+	
+						},
+						onReady: function(){
+							var $ul = $(current_settings.nodeName+'.'+current_settings.cssSelectedPhenotypeClass+ ' ul.'+tokeninput_classes['tokenList'].split(/\s+/).join('.')).addClass(current_settings.cssTokenListClass);
+							$ul.on('mousedown', function(e){
+								var $li_node;
+								if($(e.target).get(0).nodeName.toLowerCase()==='li'){
+									$li_node = $(e.target);
+								}
+								else if($(e.target).get(0).nodeName.toLowerCase()==='p'){
+									$li_node = $(e.target).parent('li');
+								}
+								else if($(e.target).get(0).nodeName.toLowerCase()==='span'){
+									$li_node = $(e.target).parent('li');
+								}
+								if($li_node && $li_node.hasClass(current_settings.cssTokenClass)){
+								}
+								else{
+									clearSelectedTokenInputItems();
+									if(isObject(runSearchOptions)){
+										if(isArray(runSearchOptions.tokenInputItems)) runSearchOptions.tokenInputItems = getTokenInputItems();
+										if(isArray(runSearchOptions.tokenInputItemNodes)) runSearchOptions.tokenInputItemNodes = getTokenInputItemNodes();
+									}
+									changeStateAddOrReplace();
+								}
+							}).on('keydown', function(e){
+								e.stopPropagation();
+							});
+						},
+	//					onSelectDropdownItem: function(token_data){
+	//						$.PopupRelationHPOResultsTooltip(this,token_data);
+	//					},
+						onShowDropdownItem: function(count){
+							var node = this;
+							var $count_node = $('<div>').addClass(current_settings.cssNumberOfHitsClass).text(current_settings.language[getCurrentLanguage()]['number_of_hits'].replace('__NUMBER__', count));
+							if(node.get(0).firstElementChild){
+								var $firstElementChild = $(node.get(0).firstElementChild);
+								$count_node.insertBefore($firstElementChild);
+								if(count==0) $firstElementChild.remove();
+							}
+							else{
+								$count_node.appendTo(node);
+							}
+						},
+						onHideDropdownItem: function(){
+							$.PopupRelationHPOResultsTooltip();
+						}
+					}));
+	
+	
+					if(runSearchOptions.tokenInputItems && runSearchOptions.tokenInputItems.length){
+						runSearchOptions.tokenInputItems.forEach(function(tokenInputItem,index){
+							var selectedToken = isArray(runSearchOptions.tokenInputItemNodes) && $(runSearchOptions.tokenInputItemNodes).eq(index).hasClass(tokeninput_classes['selectedToken']) ? true : false;
+							addTokenInputItem(tokenInputItem,selectedToken);
+						});
+					}
+	
+	
+	
+					var $selectedphenotype_bottom_bar = $('<'+current_settings.nodeName+'>').addClass(current_settings.cssBottomBarClass).appendTo($selectedphenotype_base);
+					$selectedphenotype_bottom_bar.empty();
+	
+					var $selectedphenotype_bottom_bar_table = $('<'+current_settings.nodeName+'>').css({'display':'table','border-collapse':'collapse','empty-cells':'hide','width':'100%'}).appendTo($selectedphenotype_bottom_bar);
+					var $selectedphenotype_bottom_bar_tr = $('<'+current_settings.nodeName+'>').css({'display':'table-row'}).appendTo($selectedphenotype_bottom_bar_table);
+	
+					var $selectedphenotype_bottom_bar_td_left = $('<'+current_settings.nodeName+'>').css({'display':'table-cell','text-align':'left','padding-left':'4px'}).appendTo($selectedphenotype_bottom_bar_tr);
+					var $selectedphenotype_bottom_bar_td_center = $('<'+current_settings.nodeName+'>').css({'display':'table-cell','text-align':'center'}).appendTo($selectedphenotype_bottom_bar_tr);
+					var $selectedphenotype_bottom_bar_td_right = $('<'+current_settings.nodeName+'>').css({'display':'table-cell','text-align':'right','padding-right':'4px'}).appendTo($selectedphenotype_bottom_bar_tr);
+	
+	
+					if(current_settings.clearButtonAlign=='left'){
+						addClearButtons().appendTo($selectedphenotype_bottom_bar_td_left);
+					}
+					else if(current_settings.clearButtonAlign=='center'){
+						addClearButtons().appendTo($selectedphenotype_bottom_bar_td_center);
 					}
 					else{
-						$this.attr({'data-original-title':language[key]});
+						addClearButtons().appendTo($selectedphenotype_bottom_bar_td_right);
 					}
-				}).tooltip();
+	
+	
+					if(current_settings.okcancelButtonsAlign=='left'){
+						addOKCancelButtons().appendTo($selectedphenotype_bottom_bar_td_left);
+					}
+					else if(current_settings.okcancelButtonsAlign=='center'){
+						addOKCancelButtons().appendTo($selectedphenotype_bottom_bar_td_center);
+					}
+					else{
+						addOKCancelButtons().appendTo($selectedphenotype_bottom_bar_td_right);
+					}
+				}
+	
+				if(current_settings.use_webgl){
+					var $language_select = $('select[name=language]');
+					$language_select.find('option').prop('selected', false);
+					$language_select.prev('button').html($language_select.find('option[name='+getCurrentLanguage()+']').prop('selected', true).text()+'&nbsp;▼');
+				
+					$('*[data-language-key]').each(function(){
+						var $this = $(this);
+						var key = $this.attr('data-language-key');
+						$this.text(language[key]);
+					});
+	
+					$('*[data-language-tooltip-key]').each(function(){
+						var $this = $(this);
+						var key = $this.attr('data-language-tooltip-key');
+						if(isEmpty(language[key])){
+							$this.attr({'data-original-title':key});
+						}
+						else{
+							$this.attr({'data-original-title':language[key]});
+						}
+					}).tooltip();
+				}
 			}
-
-			if(!current_settings.use_webgl){
+/*			if(!current_settings.use_webgl){
 				$table.hide();
 			}
-			/////////////////////////////////////////////////////////////////////////
+*/			/////////////////////////////////////////////////////////////////////////
 			// class contents
 			/////////////////////////////////////////////////////////////////////////
 			$table = $inlineContentBase.find(current_settings.nodeName+'.'+current_settings.cssTableClass+'.'+current_settings.cssClassContentBaseClass);
