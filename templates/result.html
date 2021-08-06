@@ -797,11 +797,17 @@
 			$('.mfp-bg').css({'top':'0','opacity':'0.8'});
 			$('.mfp-wrap').css({'top':'0'});
 			$('header').css({'top': '24px'});
+			$('.mfp-container').css({'max-height':'','overflow-x':'','overflow-y':''});
 		}else{
 			$('header').css({'top': '0'});
-			var pos = $("#div_search_button").offset().top;
+			var pos = Math.ceil($("#div_search_button").offset().top);
 			$('.mfp-bg').css({'top': pos+'px','opacity':'0'});
 			$('.mfp-wrap').css({'top': pos+'px'});
+
+			//popup-hierarchy-hpo-inline-content-base
+			let max_height= Math.floor(document.documentElement.clientHeight) - Math.ceil(pos);
+			$('.mfp-container').css({'max-height':max_height+'px','overflow-x':'hidden','overflow-y':'scroll'});
+
 		}
 	}
 
