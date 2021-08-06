@@ -410,7 +410,7 @@
 				}
 				var $content = $('<'+current_settings.nodeName+'>').addClass(current_settings.cssContentClass).appendTo($base);
 
-				$content.css({'display':'table','width':'100%','border-spacing':'0'});
+				$content.css({'display':'table','width':'100%','border-spacing':'0 5px'});
 
 				var add_css = {
 					'display':'table-cell',
