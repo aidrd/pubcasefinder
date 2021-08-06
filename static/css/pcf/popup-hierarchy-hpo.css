@@ -228,6 +228,14 @@
 	height: 24px;
 }
 
+.popup-hierarchy-hpo-button-replace{
+  background-color:#0096AA;
+  border-color:#0096AA;
+}
+.popup-hierarchy-hpo-button-replace:hover {
+	background-color: #A8D8E0;
+	border-color:#A8D8E0;
+}
 
 .popup-hierarchy-hpo-close-button {
 /*

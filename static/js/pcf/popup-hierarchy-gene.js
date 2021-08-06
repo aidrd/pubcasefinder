@@ -620,7 +620,8 @@
 				//var $button = $('<button>').addClass('btn btn-primary').addClass(key=='add'?current_settings.cssButtonAddClass:current_settings.cssButtonReplaceClass).data(OBJECT_KEY,  $.extend(true, {},data,{'exec' : key.toLowerCase()})   ).text(current_settings.language[getCurrentLanguage()][key]).appendTo($button_base);
 				var $button;
 				if(isBig){
-					$button = $('<button>').addClass('btn btn-primary')
+					$button = $('<button>')
+							.addClass(key=='add'?'btn btn-primary':'btn')
 							.addClass(key=='add'?current_settings.cssButtonAddClass:current_settings.cssButtonReplaceClass)
 							.html(key=='add'?'<span class="material-icons" style="font-size:20px;vertical-align:sub;">post_add</span>&nbsp;' + current_settings.language[getCurrentLanguage()][key] :
 									 //'<span class="material-icons" style="font-size:20px;vertical-align:sub;">autorenew</span>&nbsp;' + current_settings.language[getCurrentLanguage()][key])
@@ -634,15 +635,11 @@
                                                         .data(OBJECT_KEY,  $.extend(true, {},data,{'exec' : key.toLowerCase()})   )
                                                         .appendTo($button_base);
 					}else{
-						$button = $('<button>').addClass('btn btn-primary').addClass(current_settings.cssButtonReplaceClass)
+						$button = $('<button>').addClass('btn').addClass(current_settings.cssButtonReplaceClass)
 									.html('<img src="/static/images/pcf/replace-green.svg" style="width:12px;height:12px;vertical-align:baseline;"></img>')
 									.data(OBJECT_KEY,  $.extend(true, {},data,{'exec' : key.toLowerCase()})   )
 									.appendTo($button_base);
 					}
-				}
-
-				if(key=='replace'){
-					$button.css({'background-color':'#0096AA','border-color':'#0096AA'});
 				}
 
 				$button.on('click',executionAddOrReplace);
