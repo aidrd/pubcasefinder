@@ -86,7 +86,7 @@
 					'PHENOTYPE_LST':'症状一覧',
 					'JA_REPORT':    '症例報告(J-STAGE)',
 					'EN_REPORT':    '症例報告(PubMed)',
-					'UR_DBMS':      '日本語疾患詳細(UR-DBMS)',
+					'UR_DBMS':      '日本語疾患情報(UR-DBMS)',
 					'nando':        '難病情報',
 				}
 			},
