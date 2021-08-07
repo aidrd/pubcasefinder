@@ -1351,26 +1351,25 @@
 
 		function closeMagnificPopup(){
 			var magnificPopup = $.magnificPopup.instance;
+			var needtorestorescrollpos = false;
+			if(magnificPopup.contentContainer && $('.mfp-wrap')) {
+				let $inlineContentBase = $.magnificPopup.instance.contentContainer.find('div.popup-hierarchy-gene-inline-content-base');
+				if($inlineContentBase && $inlineContentBase.is(":visible")) needtorestorescrollpos = true;
+			}
+
 			if(magnificPopup && isFunction(magnificPopup.close)){
-/*
-				if(window.__threeBitsRenderer){
-					var $domElement = $(__threeBitsRenderer.domElement());
-					$domElement.off('pick').off('rotate').off('zoom').off('load').off('progress');
-					if($domElement.parent().get(0)!=document.body){
-						$domElement.appendTo(document.body);
-						$domElement.hide();
-					}
-					else{
-					}
-				}
-*/
 				magnificPopup.close();
 			}
 			
 			if(isFunction(current_settings.after_modal_close)){
 				current_settings.after_modal_close();
 			}
-
+			
+			if(needtorestorescrollpos) {
+				setTimeout(function(){
+					document.documentElement.scrollTop = document.body.scrollTop = window_y_offset;
+				},1);
+			}
 		}
 		var timeoutID = null;
 		function openMagnificPopup(params){
@@ -1434,7 +1433,17 @@
 			return $.magnificPopup.instance.contentContainer ? $.magnificPopup.instance.contentContainer.find(current_settings.nodeName+'.'+current_settings.cssTableClass+'.'+current_settings.cssLoadingClass) : $();
 		}
 
+		var window_y_offset = 0;
 		function showLoading() {
+			if($.magnificPopup.instance.contentContainer && $('.mfp-wrap')) {
+				let $inlineContentBase = $.magnificPopup.instance.contentContainer.find('div.popup-hierarchy-gene-inline-content-base');
+				if($inlineContentBase && $inlineContentBase.is(":visible") === false){
+					window_y_offset = window.pageYOffset;
+				}
+			}else{
+				window_y_offset = window.pageYOffset;
+			}
+
 			var $loadingElement = getLoadingElement();
 			if($loadingElement.length){
 				$loadingElement.show();
