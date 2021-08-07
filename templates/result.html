@@ -226,7 +226,7 @@
 </div>
 
 <div onclick="topFunction()" id="btn_back_to_top" title="Go to top">
-  <img src="/static/images/pcf/TOP.png"></img>
+  <img style="height:60px;width:60px;" src="/static/images/pcf/TOP.png"></img>
 </div>
 
 <div class="modal fade" tabindex="-1" role="dialog" id="alert_dialog">
@@ -562,7 +562,10 @@
 
 			tippy.hideAll();
 
-			if (document.body.scrollTop > 110 || document.documentElement.scrollTop > 110) {
+			if (document.body.scrollTop > 110 || 
+			    document.documentElement.scrollTop > 110 ||
+			    $('html').scrollTop() > 110 || 
+			    $('body').scrollTop() > 110) {
 				$('#btn_back_to_top').show();
 			} else {
 				$('#btn_back_to_top').hide();
@@ -820,38 +823,6 @@
 		$('#tokeninput_gene_clear').css({'display':'block'});
 	}
 
-
-	$('#search-button_download-wrapper').on('shown.bs.dropdown', function () {
-		const dropdown = $(this);
-		setTimeout(function () {
-			dropdown.find('.dropdown-menu').css({
-					'top': dropdown.offset().top - $(window).scrollTop() + 8, 
-					'left': $('#btn_search_advanced').offset().left - $(window).scrollLeft(), 
-					'position': 'fixed'});
-		}, 1);
-	});
-
-	$('#search-button_share-wrapper').on('shown.bs.dropdown', function () {
-		let dropdown = $(this);
-		setTimeout(function () {
-			dropdown.find('.dropdown-menu').css({
-				'top':      dropdown.offset().top - $(window).scrollTop() + 8,
-				'left':     $('#btn_search_advanced').offset().left - $(window).scrollLeft(),
-				'position': 'fixed'});
-		}, 1);
-	});
-
-	$('#search-button_display-wrapper').on('shown.bs.dropdown', function () {
-		let dropdown = $(this);
-		setTimeout(function () {
-			dropdown.find('.dropdown-menu').css({
-				'top': dropdown.offset().top - $(window).scrollTop() + 8,
-				'left': dropdown.offset().left - $(window).scrollLeft(),
-				'position': 'fixed'});
-		}, 1);
-	});
-
-
 	function customizeLevelPos(){
 		if($.magnificPopup.instance.contentContainer && $('.mfp-wrap')){
 			let $inlineContentBase = $.magnificPopup.instance.contentContainer.find('div.popup-hierarchy-hpo-inline-content-base');
@@ -890,12 +861,6 @@
 	function _copy_to_clipboard(copy_button){
 		let $copy_button = $(copy_button);
 		let text = $copy_button.parent().prev().find("p").text();
-		/*
-		$copy_button.tooltip({'title':'Summary successfully copied', 'trigger':'manual', 'placement':'top'})
-							.on('mouseleave', function () {
-								$(this).tooltip('hide');
-							});
-		*/
 		$copy_button.tooltip('show');
 		
 		if (window.clipboardData && window.clipboardData.setData) {
@@ -1012,7 +977,7 @@
 		const template_display = document.getElementById('dropdown-menu_display');
 		template_display.style.display = 'block';
 		tippy('#btn_search_display', {
-			arrow:         false,
+			arrow:         true,
 			allowHTML:     true,
 			appendTo:      document.body,
 			animation:     'scale-extreme',
