@@ -1070,3 +1070,9 @@ body {
 .popover .popover-body {
   padding: 0;
 }
+
+.title-case a{
+  color: blue;
+}
+
+

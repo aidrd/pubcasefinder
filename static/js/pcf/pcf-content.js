@@ -1005,6 +1005,7 @@
 		let $h3 = $('<h3>').appendTo($container_panel);
 		if(target === TARGET_CASE){
 			$h3.html("<a href=\""+ranking_item.url+"\" target=\"_blank\">"+id+"</a>");
+			$h3.addClass('title-case');
 		}else if("omim_disease_name_en" in item){
 			$h3.text(item.omim_disease_name_en);
 		}else if("orpha_disease_name_en"in item){
@@ -1497,11 +1498,10 @@
 						strategy:    'fixed',
 						interactive: true,
 						theme:       'pcf-popup',
-						placement:   'right',
+						placement:   'bottom-start',
 						content(reference) {
 							const text_content = _contruct_copy_content(ranking_list[i],detail_data[ranking_list[i].id],lang);
-							return	"<label>Copy</label>" +
-								"<div style=\"width:100%;overflow-x:hidden;overflow-y:scroll;height:150px;border: dashed 1px #AEB0B5;\">" +
+							return	"<div style=\"width:100%;margin-top:10px;overflow-x:hidden;overflow-y:scroll;height:150px;border: dashed 2px #AEB0B5;\">" +
 									"<p>"+ text_content +"</p>"+
 								"</div>"+
 								"<div class=\"btn-toolbar d-flex flex-row\" style=\"margin-top:10px;\">" +
