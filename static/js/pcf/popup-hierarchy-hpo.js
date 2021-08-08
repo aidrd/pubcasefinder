@@ -2839,7 +2839,9 @@
 		$.PopupRelationHPOWithWebGL = function(query, options, settings){
 
 			if($.magnificPopup.instance.contentContainer){
+				var bk = window_y_offset;
 				closeMagnificPopup();
+				setTimeout(function(){ window_y_offset = bk; }, 50);
 			}
 
 			showLoadingFullScreen();

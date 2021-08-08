@@ -200,7 +200,8 @@
 						
 						let $label_td = $('<td>').appendTo($row);
 						if($.isFunction(popup_func)){
-							popup_func(popup_type,hpo_id,list_tag,hpo_name,popup_class).css({'width':'100%'}).appendTo($label_td);
+							//popup_func(popup_type,hpo_id,list_tag,hpo_name,popup_class).css({'width':'100%'}).appendTo($label_td);
+							popup_func(popup_type,hpo_id,list_tag,hpo_name,popup_class).appendTo($label_td);
 						}else{
 							$('<a>').attr('href',item.hpo_url).attr('target','_blank').text(item.hpo_id).appendTo($label_td);
 						}

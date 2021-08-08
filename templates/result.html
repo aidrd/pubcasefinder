@@ -683,6 +683,8 @@
 	}
 
 	$("#phenotouch").click(function (e){
+		$('.selected_at_popup').removeClass('selected_at_popup');
+		$('.token-input-selected-token-facebook').removeClass('token-input-selected-token-facebook');
 		$.PopupRelationHPOWithWebGL();
 		e.preventDefault();
 		e.stopPropagation();
