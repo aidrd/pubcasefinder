@@ -85,7 +85,7 @@
 							{% if r_lang == "ja" %}
 							<button id="/text2hpo"
 							{% else %}
-							<button id="https://impact.dbmi.columbia.edu/doc2hpo/"
+							<button id="https://doc2hpo.wglab.org/"
 							{% endif %}
 							   onclick="goDoc(this);"
 							   class="text-button"
@@ -153,7 +153,13 @@
 
 			<div class="search-advanced collapse" id="search-box-advanced">
 				<div class="search-box-advanced_wrapper">
-					<span><b>{{ _('search_textbox_title_narrowdown') }}</b></span>
+					<span>
+						{% if r_lang == "ja" %}
+						<b>結果を絞り込む</b>
+						{% else %}
+						<b>Filter to narrow your search results</b>
+						{% endif %}
+					</span>
 					<textarea class="form-control" rows="1" id="tokeninput_genes" name="str_filters"></textarea>
 				</div>
 			</div>
@@ -279,7 +285,13 @@
 
 <div id="dropdown-menu_download" style="display: none;">
 <form class="px-1 py-2" id="download-form">
-	<label><b>{{ _('search_share_modal_label_download') }}</b></label>
+	<label>
+		{% if r_lang == "ja" %}
+			<b>ダウンロード</b>
+		{% else %}
+			<b>Download</b>
+		{% endif %}
+	</label>
 	<table>
 		<tr style="border:0;">
 			<td style="vertical-align: middle;">Target:</td>
@@ -325,7 +337,13 @@
 
 <div id="dropdown-menu_share" style="display: none;">
 <form class="px-2 py-2">
-<label><b>{{ _('search_share_modal_label_link') }}</b></label>
+<label>
+	{% if r_lang == "ja" %}
+	<b>共有リンク</b>
+	{% else %}
+	<b>Link</b>
+	{% endif %}
+</label>
 	<table>
 		<tr>
 			<td style="vertical-align: middle;">
@@ -443,9 +461,11 @@
 		$("#fh5co-loader").fadeOut("slow");
 	};
 
+/*
 	$('#btn_search_advanced').on('click', function() {
 		$(this).toggleClass('pcf-active');
 	});
+*/
 
 	function btn_download_click(e) {
 
@@ -1111,6 +1131,10 @@
 				$("#tokeninput_genes").tokenInput_gene("add", item);
 			});
 			filter_id_list = $("#tokeninput_genes").tokenInput_gene("get_url_str");
+
+			if(filter_obj_list && filter_obj_list.length > 0){
+				$('#btn_search_advanced').trigger('click');
+			}
 
 			if(hpo_id_list.length > 0){
 				$("#pcf-content").pcf_content('search',{'phenotype':hpo_id_list.replace(/_ja/gi,''),'filter':filter_id_list});
