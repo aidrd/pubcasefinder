@@ -560,7 +560,10 @@
 				if($inlineContentBase && $inlineContentBase.is(":visible")) return;
 			}
 
-			if(e.target.getAttribute('id') === 'alert_response_text' || e.target.getAttribute('id') === 'alert_url') return;
+			let tid = e.target.getAttribute('id');
+			if(tid && ( tid === 'alert_response_text' || 
+				    tid === 'alert_url' ||
+				    tid.startsWith('copy_content_'))) return;
 
 			tippy.hideAll();
 
@@ -578,7 +581,12 @@
 				if($inlineContentBase && $inlineContentBase.is(":visible")) return;
 			}
 
-			if(e.target.getAttribute('id') === 'alert_response_text' || e.target.getAttribute('id') === 'alert_url') return;
+			let tid = e.target.getAttribute('id');
+                        if(tid && ( tid === 'alert_response_text' ||                   
+                                    tid === 'alert_url' ||
+                                    tid.startsWith('copy_content_'))) return;
+
+
 
 			tippy.hideAll();
 
@@ -877,43 +885,6 @@
 		}else{
 			$('header').css({'top': '24px'});
 		}
-	}
-
-
-	function _copy_to_clipboard(copy_button){
-		let $copy_button = $(copy_button);
-		let text = $copy_button.parent().prev().find("p").text();
-		$copy_button.tooltip('show');
-		
-		if (window.clipboardData && window.clipboardData.setData) {
-			// Internet Explorer-specific code path to prevent textarea being shown while dialog is visible.
-			window.clipboardData.setData("Text", text);
-		}
-		else if (document.queryCommandSupported && document.queryCommandSupported("copy")) {
-			let textarea = document.createElement("textarea");
-			textarea.style = "position: absolute; left: -1000px; top: -1000px";
-			textarea.textContent = text;
-			document.body.appendChild(textarea);
-			//textarea.select();
-			try {
-				let selection = document.getSelection();
-				selection.removeAllRanges();
-
-				let range = document.createRange();
-				range.selectNodeContents(textarea);
-				selection.addRange(range);
-				
-				document.execCommand('copy');
-				selection.removeAllRanges();
-			}
-			catch (ex) {
-				console.warn("Copy to clipboard failed.", ex);
-			}
-			finally {
-				document.body.removeChild(textarea);
-			}
-		}
-		return false;
 	}
 
 	function set_filter_num(){

@@ -718,7 +718,16 @@
 				ret = tmp[1];
 			}
 			return ret;
+		},
+		_get_id_from_url_v2 = function(url_str){
+			let ret = "";
+			let tmp = url_str.split("/");
+			if(tmp.length > 1){  
+				ret = tmp[tmp.length -1];
+			}
+			return ret;  
 		};
+
 	
 	// use target as key
 	var tab_button_lst = {}, tab_panel_lst  = {};
@@ -1258,13 +1267,13 @@
 				}
 			}
 			if(phenotype_list_str.length === 0){
-				phenotype_list_str = label_text;
+				phenotype_list_str = label_text + "("+hpo_id+")";
 			}else{
-				phenotype_list_str = phenotype_list_str + ',' + label_text;
+				phenotype_list_str = phenotype_list_str + ',' + label_text + "("+hpo_id+")";
 			}
 		});
 		
-		let text = score;
+		let text = 'ID: ' + target_id;
 		if(RegExp_OMIM.test(target_id)){
 
 			let inheritance_list_str = "";								
@@ -1275,9 +1284,9 @@
 					if(isJA)inheritance_text = detail_data.inheritance_ja[hpo_id];
 
 					if(inheritance_list_str.length === 0){
-						inheritance_list_str = inheritance_text;
+						inheritance_list_str = inheritance_text  + "("+hpo_id+")";
 					}else{
-						inheritance_list_str = inheritance_list_str + ',' + inheritance_text;
+						inheritance_list_str = inheritance_list_str + ',' + inheritance_text  + "("+hpo_id+")";
 					}
 				}
 			}
@@ -1288,20 +1297,47 @@
 					let gene_text = detail_data.hgnc_gene_symbol[i];
 	
 					if(gene_list_str.length === 0){
-						gene_list_str = gene_text;
+						gene_list_str = gene_text + "("+ detail_data.ncbi_gene_id[i] +")";
 					}else{
-						gene_list_str = gene_list_str + ',' + gene_text;
+						gene_list_str = gene_list_str + ',' + gene_text + "("+ detail_data.ncbi_gene_id[i] +")";
 					}
 
 				}
 			}
-			text = text + "\n<br>" + detail_data.omim_disease_name_ja + "\n<br>" + 
-								 detail_data.omim_disease_name_en + "\n<br>" +
-								 phenotype_list_str               + "\n<br>" +
-								 inheritance_list_str             + "\n<br>" +
-								 gene_list_str                    + "\n<br>" +
-								 detail_data.description          + "\n<br>" +
-								 detail_data.omim_url;
+
+			if(isJA) text = text + "\n<br>" + "Name(ja): " + detail_data.omim_disease_name_ja;
+			text = text + "\n<br>" +  "Name(en): "             + detail_data.omim_disease_name_en;
+			text = text + "\n<br>" +  "Matched Phenotype: "    + phenotype_list_str;
+			text = text + "\n<br>" +  "Modes of Inheritance: " + inheritance_list_str;
+			text = text + "\n<br>" +  "Causative Gene: "       + gene_list_str;
+			text = text + "\n<br>" +  "Definiution: "          + detail_data.description;
+			text = text + "\n<br>" +  "LINKS:\n<br>"           + target_id + ', ' + detail_data.omim_url;
+			if(isJA){
+				if(_isExistVal("ur_dbms_url", detail_data)) text = text + "\n<br>" + "UR-DBMS" + ', ' + detail_data.ur_dbms_url;
+				
+				if(_isExistVal("nando_url", detail_data)){
+					detail_data.nando_url.forEach(function(nando_url_str){
+						nando_url_str = nando_url_str.replace("_",":");
+						let nando_id = _get_id_from_url_v2(nando_url_str);
+						text = text + "\n<br>" + nando_id + ', ' + nando_url_str;
+					});
+				}
+			}
+			
+			if(_isExistVal("mondo_url",detail_data)){
+				for(let i=0;i<detail_data.mondo_url.length;i++){
+					text = text + "\n<br>" + detail_data.mondo_id[i] + ', ' + detail_data.mondo_url[i];
+				}
+			}
+			
+			if(_isExistVal("gtr_url",detail_data)){
+				detail_data.gtr_url.forEach(function(url_str){
+					let gtr_id= _get_id_from_url(url_str);
+					gtr_id = gtr_id.replace("term=",'GTR:').replace('/',"");
+					text = text + "\n<br>" + gtr_id + ', ' + url_str;
+				});
+			}
+			
 
 		}else if(RegExp_ORPHA.test(target_id)){
 
@@ -1313,33 +1349,60 @@
 					if(isJA)inheritance_text = detail_data.inheritance_ja[hpo_id];
 
 					if(inheritance_list_str.length === 0){
-						inheritance_list_str = inheritance_text;
+						inheritance_list_str = inheritance_text  + "("+hpo_id+")";
 					}else{
-						inheritance_list_str = inheritance_list_str + ',' + inheritance_text;
+						inheritance_list_str = inheritance_list_str + ',' + inheritance_text  + "("+hpo_id+")";
 					}
 				}
 			}
 
 			let gene_list_str = "";
-			if("hgnc_gene_symbol" in detail_data){
+			if(_isExistVal("hgnc_gene_symbol",detail_data)){
 				for(let i=0;i<detail_data.hgnc_gene_symbol.length;i++){
 					let gene_text = detail_data.hgnc_gene_symbol[i];
-
+	
 					if(gene_list_str.length === 0){
-						gene_list_str = gene_text;
+						gene_list_str = gene_text + "("+ detail_data.ncbi_gene_id[i] +")";
 					}else{
-						gene_list_str = gene_list_str + ',' + gene_text;
+						gene_list_str = gene_list_str + ',' + gene_text + "("+ detail_data.ncbi_gene_id[i] +")";
 					}
+
 				}
 			}
 
-			text = text + "\n<br>" + detail_data.orpha_disease_name_ja  
-						+ "\n<br>" + detail_data.orpha_disease_name_en 
-						+ "\n<br>" + phenotype_list_str  
-						+ "\n<br>" + inheritance_list_str 
-						+ "\n<br>" + gene_list_str 
-						+ "\n<br>" + detail_data.description 
-						+ "\n<br>" + detail_data.orpha_url;
+			if(isJA) text = text + "\n<br>" + "Name(ja): " + detail_data.orpha_disease_name_ja;
+			text = text + "\n<br>" +  "Name(en): "             + detail_data.orpha_disease_name_en;
+			text = text + "\n<br>" +  "Matched Phenotype: "    + phenotype_list_str;
+			text = text + "\n<br>" +  "Modes of Inheritance: " + inheritance_list_str;
+			text = text + "\n<br>" +  "Causative Gene: "       + gene_list_str;
+			text = text + "\n<br>" +  "Definiution: "          + detail_data.description;
+			text = text + "\n<br>" +  "LINKS:\n<br>"           + target_id + ', ' + detail_data.orpha_url;
+			if(isJA){
+				if(_isExistVal("ur_dbms_url", detail_data)) text = text + "\n<br>" + "UR-DBMS" + ', ' + detail_data.ur_dbms_url;
+				
+				if(_isExistVal("nando_url", detail_data)){
+					detail_data.nando_url.forEach(function(nando_url_str){
+						nando_url_str = nando_url_str.replace("_",":");
+						let nando_id = _get_id_from_url_v2(nando_url_str);
+						text = text + "\n<br>" + nando_id + ', ' + nando_url_str;
+					});
+				}
+			}
+			
+			if(_isExistVal("mondo_url",detail_data)){
+				for(let i=0;i<detail_data.mondo_url.length;i++){
+					text = text + "\n<br>" + detail_data.mondo_id[i] + ', ' + detail_data.mondo_url[i];
+				}
+			}
+			
+			if(_isExistVal("gtr_url",detail_data)){
+				detail_data.gtr_url.forEach(function(url_str){
+					let gtr_id= _get_id_from_url(url_str);
+					gtr_id = gtr_id.replace("term=",'GTR:').replace('/',"");
+					text = text + "\n<br>" + gtr_id + ', ' + url_str;
+				});
+			}
+
 
 		}else if(RegExp_GENE.test(target_id)){
 
@@ -1350,9 +1413,9 @@
 					if(isJA && _isExistVal(mondo_id, detail_data.mondo_disease_name_ja)) disease_text = detail_data.mondo_disease_name_ja[mondo_id];
 		
 					if(disease_list_str.length === 0){
-						disease_list_str = disease_text;
+						disease_list_str = disease_text + "("+mondo_id+")";
 					}else{
-						disease_list_str = disease_list_str + ',' + disease_text;
+						disease_list_str = disease_list_str + ',' + disease_text + "("+mondo_id+")";
 					}
 				}
 			}
@@ -1366,18 +1429,23 @@
 					if(isJA) inheritance_text = detail_data.inheritance_ja[i];
 
 					if(inheritance_list_str.length === 0){
-						inheritance_list_str = inheritance_text;
+						inheritance_list_str = inheritance_text + "("+INHERITANCE_LABEL_TO_ID[detail_data.inheritance_en[i]]+")";
 					}else{
-						inheritance_list_str = inheritance_list_str + ',' + inheritance_text;
+						inheritance_list_str = inheritance_list_str + ',' + inheritance_text  + "("+INHERITANCE_LABEL_TO_ID[detail_data.inheritance_en[i]]+")";
 					}
 				}
 			}
-			text = text + "\n<br>" + detail_data.hgnc_gene_symbol + "," + detail_data.ncbi_gene_id 
-						+ "\n<br>" + phenotype_list_str 
-						+ "\n<br>" + disease_list_str 
-						+ "\n<br>" + inheritance_list_str 
-						+ "\n<br>" + detail_data.hgnc_gene_url;
-
+			text = text + "\n<br>" +  "Name(en): "             + detail_data.hgnc_gene_symbol + "," + detail_data.full_name ;
+			text = text + "\n<br>" +  "Matched Phenotype: "    + phenotype_list_str;
+			text = text + "\n<br>" +  "Diseases: "             + disease_list_str;
+			text = text + "\n<br>" +  "Modes of Inheritance: " + inheritance_list_str;
+			text = text + "\n<br>" +  "LINKS:\n<br>"           + detail_data.hgnc_gene_id + ', ' + detail_data.hgnc_gene_url;
+			
+			if(_isExistVal("mondo_url",detail_data)){
+				for(let i=0;i<detail_data.mondo_url.length;i++){
+					text = text + "\n<br>" + detail_data.mondo_id[i] + ', ' + detail_data.mondo_url[i];
+				}
+			}
 		}
 
 		return text;
@@ -1483,31 +1551,90 @@
 					}else{
 						copy_button.innerHTML = "<i class=\"material-icons\">content_copy</i>";
 					}
+
 	
 					let copy_button_id = 'btn_copy_' + target + "_" + i;
-					$(copy_button).attr('id',copy_button_id)
+/*					$(copy_button).attr('id',copy_button_id);
 							.attr('data-toggle', "tooltip").attr('data-container',"body")
 							.attr('data-placement',"top").attr('data-trigger',  "manual")
 							.attr('data-title', "Summary successfully copied");
-
+*/
 					tippy(copy_button, {
-						allowHTML:   true,
-						appendTo:    document.body,
-						maxWidth:    500,
-						trigger:     'click',
-						strategy:    'fixed',
-						interactive: true,
-						theme:       'pcf-popup',
-						placement:   'bottom-start',
+						allowHTML:      true,
+						appendTo:       document.body,
+						maxWidth:       550,
+						trigger:        'click',
+						strategy:       'fixed',
+						interactive:    true,
+						theme:          'pcf-popup',
+						placement:      'bottom-start',
+						copy_button_id: copy_button_id,
+						onCreate(instance) {
+			    			// Setup our own custom state properties
+							instance._isSetClickEvent = false;
+						},
+						onShown(instance) {
+							let copy_button_id = instance.props.copy_button_id;							
+							let pid = "copy_content_"+copy_button_id;
+							$("#" + pid).focus();
+							
+							if (instance._isSetClickEvent) {
+								return;
+							}
+
+							// set click event
+							$("#"+copy_button_id).tooltip({'title':'Summary successfully copied', 'trigger':'manual', 'placement':'bottom'})
+											.on('click', function (e) {
+												let $copy_button = $(this);
+												$copy_button.tooltip('show');
+												let text = $copy_button.parent().prev().find("p").text();
+												
+												if (window.clipboardData && window.clipboardData.setData) {
+												        // Internet Explorer-specific code path to prevent textarea being shown while dialog is visible.                        window.clipboardData.setData("Text", text);
+												}
+												else if (document.queryCommandSupported && document.queryCommandSupported("copy")) {
+												        let textarea = document.createElement("textarea");
+												        textarea.style = "position: absolute; left: -1000px; top: -1000px";
+												        textarea.textContent = text;
+												        document.body.appendChild(textarea);
+												        //textarea.select();
+												        try {
+													            let selection = document.getSelection();
+												                selection.removeAllRanges();
+												
+												                let range = document.createRange();
+												                range.selectNodeContents(textarea);
+												                selection.addRange(range);
+												
+												                document.execCommand('copy');
+												                selection.removeAllRanges();
+												        }
+												        catch (ex) {
+												                console.warn("Copy to clipboard failed.", ex);
+												        }
+												        finally {
+												                document.body.removeChild(textarea);
+												        }
+												}
+												return false;
+											})
+											.on('mouseleave', function () {
+												$(this).tooltip('hide');
+											});
+							instance._isSetClickEvent = true;
+						},
 						content(reference) {
 							const text_content = _contruct_copy_content(ranking_list[i],detail_data[ranking_list[i].id],lang);
 							return	"<div style=\"width:100%;margin-top:10px;overflow-x:hidden;overflow-y:scroll;height:150px;border: dashed 2px #AEB0B5;\">" +
-									"<p>"+ text_content +"</p>"+
+									"<p id=\"copy_content_"+copy_button_id+"\">"+ text_content +"</p>"+
 								"</div>"+
 								"<div class=\"btn-toolbar d-flex flex-row\" style=\"margin-top:10px;\">" +
-									"<button class=\"action-button\" "+
+									"<button  id=\""+copy_button_id+"\" " +
+											" class=\"cancel-button\" "+
 											" style=\"margin-right:0px;\" "+
-											" onClick=\"_copy_to_clipboard(this,'"+ copy_button_id +"');\">Copy to the clipboard</button>"+
+											//" onClick=\"_copy_to_clipboard(this);\">"+
+											" >"+
+											"<i style=\"font-size:18px;vertical-align:sub;\" class=\"material-icons\">content_copy</i>Copy to the clipboard</button>"+
 								"</div>";
 						},
 					});
