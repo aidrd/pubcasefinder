@@ -23,8 +23,9 @@
 	<link rel="stylesheet" href="/static/css/pcf/mobile.css">
 	<link
 		href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Noto+Sans+JP:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
+	<!-- <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> -->
+	<link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined" rel="stylesheet">
 	<!-- <link rel="stylesheet" href="/static/css/animate.css"> -->
 	<!-- <link rel="stylesheet" href="/static/css/icomoon.css"> --> 
 
@@ -461,11 +462,6 @@
 		$("#fh5co-loader").fadeOut("slow");
 	};
 
-/*
-	$('#btn_search_advanced').on('click', function() {
-		$(this).toggleClass('pcf-active');
-	});
-*/
 
 	function btn_download_click(e) {
 
@@ -720,13 +716,12 @@
 	});
 
 	var share_link_val = "https://pcf.dbcls.jp/result?target={{ r_target }}&phenotype={{ r_phenotype }}&filter={{ r_filter }}&size={{ r_size }}&display_format={{ r_display_format }}&lang={{ r_lang }}";
+
 	function update_download_link() {
 		let target    = $("#pcf-content").pcf_content('get_target');
 		let phenotype = hpo_id_list;
 		let filter    = $("#tokeninput_genes").tokenInput_gene("get_url_str");
-		//let size      = $("#str_size").val();
 		let size      = r_size_val;
-		//let format    = $("#str_display_format").val();
 		let format    = r_display_format_val;
 		let lang      = $("#r_lang").val();
 		
@@ -739,14 +734,12 @@
 		let url_str_ja = window.location.protocol + "//" + window.location.host + window.location.pathname +
 					"?target="+target+"&phenotype="+phenotype+"&filter="+filter+"&size="+size+"&display_format="+format+"&lang=ja";
 
-		//$('#share_link').val(url_str);
 		share_link_val = url_str;
 
 		$('#link_en').attr('href',url_str_en);
 
 		$('#link_ja').attr('href',url_str_ja);
 
-		//location.replace(url_str);
 	};
 
 	var runSubmit = function(){
@@ -779,14 +772,12 @@
 		let size = document.createElement("input");
 		size.setAttribute("type", "text");
 		size.setAttribute("name", "size");
-		//size.setAttribute("value",$("#str_size").val());
 		size.setAttribute("value",r_size_val);
 		form.appendChild(size);
 
 		let display_format = document.createElement("input");
 		display_format.setAttribute("type", "text");
 		display_format.setAttribute("name", "display_format");
-		//display_format.setAttribute("value",$("#str_display_format").val());
 		display_format.setAttribute("value",r_display_format_val);
 		form.appendChild(display_format); 
 
@@ -845,12 +836,14 @@
 	}
 
 	function after_init_gui(){
+		$('#tokeninput_gene_clear').parent().css({'border-left':'0'});
 		$('#tokeninput_gene_clear').css({'display':'none'});
 	}
 
 	function after_modal_close(){
 		$('header').css({'top': '24px'});
 		$('#tokeninput_gene_clear').css({'display':'block'});
+		$('#tokeninput_gene_clear').parent().css({'border-left':'1px solid rgb(221,221,221)'});
 	}
 
 	function customizeLevelPos(){

@@ -867,24 +867,27 @@ def popup_hierarchy_genes():
                     list_parent_child_onto_id.append(child_onto_id)
 
             # OntoTermMONDOInformations_fmtテーブルからクエリにマッチするレコードを取得
-            in_onto_id=', '.join(map(lambda x: '%s', list_parent_child_onto_id))
-            sql_informations_fmt = sql_informations_fmt % in_onto_id
-            cursor_informations_fmt = OBJ_MYSQL.cursor()
-            cursor_informations_fmt.execute(sql_informations_fmt, list_parent_child_onto_id)
-            values_informations_fmt = cursor_informations_fmt.fetchall()
-            cursor_informations_fmt.close()
-
             dict_all_class = {}
-            for value_informations_fmt in values_informations_fmt:
-                onto_id         = value_informations_fmt[0]
-                onto_name       = value_informations_fmt[1]
-                onto_child_num  = value_informations_fmt[2]
-                onto_name_ja    = value_informations_fmt[3]
-                dict_all_class[onto_id] = {}
-                dict_all_class[onto_id]['id']      = onto_id
-                dict_all_class[onto_id]['name']    = onto_name
-                dict_all_class[onto_id]['name_ja'] = onto_name_ja if onto_name_ja != "" else onto_name
-                dict_all_class[onto_id]['count']   = onto_child_num
+
+            if list_parent_child_onto_id:
+                in_onto_id=', '.join(map(lambda x: '%s', list_parent_child_onto_id))
+                sql_informations_fmt = sql_informations_fmt % in_onto_id
+
+                cursor_informations_fmt = OBJ_MYSQL.cursor()
+                cursor_informations_fmt.execute(sql_informations_fmt, list_parent_child_onto_id)
+                values_informations_fmt = cursor_informations_fmt.fetchall()
+                cursor_informations_fmt.close()
+
+                for value_informations_fmt in values_informations_fmt:
+                    onto_id         = value_informations_fmt[0]
+                    onto_name       = value_informations_fmt[1]
+                    onto_child_num  = value_informations_fmt[2]
+                    onto_name_ja    = value_informations_fmt[3]
+                    dict_all_class[onto_id] = {}
+                    dict_all_class[onto_id]['id']      = onto_id
+                    dict_all_class[onto_id]['name']    = onto_name
+                    dict_all_class[onto_id]['name_ja'] = onto_name_ja if onto_name_ja != "" else onto_name
+                    dict_all_class[onto_id]['count']   = onto_child_num
 
             # JSON作成
             ## self class リスト
@@ -895,13 +898,15 @@ def popup_hierarchy_genes():
             list_super_class = []
             if len(list_parent_onto_id) > 0:
                 for parent_onto_id in list_parent_onto_id:
-                    list_super_class.append(dict_all_class[parent_onto_id])
+                    if parent_onto_id in dict_all_class.keys():
+                        list_super_class.append(dict_all_class[parent_onto_id])
 
             ## child class リスト
             list_sub_class = []
             if len(list_child_onto_id) > 0:
                 for child_onto_id in list_child_onto_id:
-                    list_sub_class.append(dict_all_class[child_onto_id])
+                    if child_onto_id in dict_all_class.keys():
+                        list_sub_class.append(dict_all_class[child_onto_id])
             
             ## dict_json に収納
             dict_json['selfclass']  = list_self_class

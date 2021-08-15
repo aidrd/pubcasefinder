@@ -35,7 +35,7 @@
 			KEY_POPUP_CLASS       = "popup_class",
 			KEY_POPUP_FUNC        = "popup_func";
 
-	const PHENOTYPE_TABLE_HEADER = ['Add','Label','Description'];
+	const PHENOTYPE_TABLE_HEADER = ['Add to Query','HPO ID','Label','Search'];
 			
 	var DEFAULT_SETTINGS = {
 		[KEY_LABEL_PHENOTYPE]   : '',
@@ -123,7 +123,7 @@
 					"hpo_url": "http://purl.obolibrary.org/obo/HP_0000028",
 					"hpo_label_en": "Cryptorchidism",
 					"hpo_label_ja": "停留精巣",
-					"definition": "Testis in inguinal canal. That is, absence of one or both testes from the scrotum owing to failure of the testis or testes to descend through the inguinal canal to the scrotum."
+					"definition": "Testis in inguinal canal."
 				}
 */
 				let hash = {};
@@ -198,22 +198,32 @@
 							})
 							.appendTo($td1);
 						
-						let $label_td = $('<td>').appendTo($row);
+						let $hpo_id_td = $('<td>').appendTo($row);
 						if($.isFunction(popup_func)){
-							//popup_func(popup_type,hpo_id,list_tag,hpo_name,popup_class).css({'width':'100%'}).appendTo($label_td);
-							popup_func(popup_type,hpo_id,list_tag,hpo_name,popup_class).appendTo($label_td);
+							popup_func(popup_type,hpo_id,list_tag,hpo_id,popup_class).appendTo($hpo_id_td);
 						}else{
-							$('<a>').attr('href',item.hpo_url).attr('target','_blank').text(item.hpo_id).appendTo($label_td);
+							$('<a>').attr('href',item.hpo_url).attr('target','_blank').text(item.hpo_id).appendTo($hpo_id_td);
 						}
+
+						let $label_td = $('<td>').css({'width':'80%','font-size':'1.0rem','vertical-align':'middle'}).appendTo($row);
+						$label_td.text(hpo_name);				
+	
+
+						let $search_td = $('<td>').css({'white-space':'nowrap'}).appendTo($row);
+
+						let search_image_href_str = "http://www.google.com/search?q=" + hpo_name +"&tbm=isch";
+						$('<a class=\"material-icons-outlined\">image</a>')
+							.attr('href',  search_image_href_str)
+							.attr('target','_blank')
+							.appendTo($search_td);
 						
-						if(lang === LANG_JA){
-							let $desc_td = $('<td>').text(item.definition).appendTo($row);
-							let href_str = encodeURIComponent(item.definition);
-							href_str = "https://translate.google.co.jp/?sl=en&tl=ja&text=" + href_str + "&op=translate&hl=ja";
-							$("<a>").text(" >> Translate(Google)").attr( 'href', href_str).attr('target', '_blank').appendTo($desc_td);
-						}else{
-							$('<td>').text(item.definition).appendTo($row);
-						}
+						let search_href_str = encodeURIComponent(hpo_name);
+						search_href_str = "https://www.google.com/search?q=" + search_href_str;
+						$('<a class=\"material-icons-outlined\">textsms</a>')
+							.attr('href',  search_href_str)
+							.attr('target','_blank')
+							.css({'margin-left':'20px'})
+							.appendTo($search_td);
 					});
 				});
 

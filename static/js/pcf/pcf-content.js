@@ -168,7 +168,8 @@
 		  CLASS_TAB_BUTTON_PREFIX         = "tab-button-",
 		  CLASS_TAB_BUTTON_ICON_PREFIX    = "icon-",
 		  CLASS_ROW                       = "list-content",
-		  CLASS_POPUP_PHENOTYPE           = "pcf-popup-pheotype",
+		  CLASS_POPUP_PHENOTYPE           = "pcf-popup-phenotype",
+		  CLASS_POPUP_PHENOTYPE_INLIST    = "pcf-popup-phenotype_inlist",
 		  CLASS_POPUP_INHERITANCE         = "pcf-popup-inheritance",
 		  CLASS_POPUP_GENE                = "pcf-popup-gene",
 		  CLASS_POPUP_DISEASE             = "pcf-popup-disease";
@@ -1242,7 +1243,7 @@
 				"PCF-LANGUAGE"           : lang,
 				"popup_type"             : POPUP_TYPE_PHENOTYPE,
 				"list_tag"               : "list-tag_blue",
-				"popup_class"            : CLASS_POPUP_PHENOTYPE,
+				"popup_class"            : CLASS_POPUP_PHENOTYPE_INLIST,
 				"popup_func"             : _contruct_popup_button
 			}).appendTo($container_panel);
 		}
@@ -1625,7 +1626,7 @@
 						},
 						content(reference) {
 							const text_content = _contruct_copy_content(ranking_list[i],detail_data[ranking_list[i].id],lang);
-							return	"<div style=\"width:100%;margin-top:10px;overflow-x:hidden;overflow-y:scroll;height:150px;border: dashed 2px #AEB0B5;\">" +
+							return	"<div class=\"copy-content\">" +
 									"<p id=\"copy_content_"+copy_button_id+"\">"+ text_content +"</p>"+
 								"</div>"+
 								"<div class=\"btn-toolbar d-flex flex-row\" style=\"margin-top:10px;\">" +
