@@ -1311,7 +1311,7 @@
 			text = text + "\n<br>" +  "Matched Phenotype: "    + phenotype_list_str;
 			text = text + "\n<br>" +  "Modes of Inheritance: " + inheritance_list_str;
 			text = text + "\n<br>" +  "Causative Gene: "       + gene_list_str;
-			text = text + "\n<br>" +  "Definiution: "          + detail_data.description;
+			text = text + "\n<br>" +  "Definition: "          + detail_data.description;
 			text = text + "\n<br>" +  "LINKS:\n<br>"           + target_id + ', ' + detail_data.omim_url;
 			if(isJA){
 				if(_isExistVal("ur_dbms_url", detail_data)) text = text + "\n<br>" + "UR-DBMS" + ', ' + detail_data.ur_dbms_url;
@@ -1376,7 +1376,7 @@
 			text = text + "\n<br>" +  "Matched Phenotype: "    + phenotype_list_str;
 			text = text + "\n<br>" +  "Modes of Inheritance: " + inheritance_list_str;
 			text = text + "\n<br>" +  "Causative Gene: "       + gene_list_str;
-			text = text + "\n<br>" +  "Definiution: "          + detail_data.description;
+			text = text + "\n<br>" +  "Definition: "          + detail_data.description;
 			text = text + "\n<br>" +  "LINKS:\n<br>"           + target_id + ', ' + detail_data.orpha_url;
 			if(isJA){
 				if(_isExistVal("ur_dbms_url", detail_data)) text = text + "\n<br>" + "UR-DBMS" + ', ' + detail_data.ur_dbms_url;
