@@ -237,20 +237,25 @@ def POST_API_GET_HPO_BY_TEXT():
 # API: get ranking using HPO IDs as query
 # GET method
 # /pcf_get_ranking_by_hpo_id?target=[TARGET]&phenotype=[HPO_ID]
+# /pcf_get_ranking_by_hpo_id?target=[TARGET]&phenotype=[HPO_ID]&weight=[WEIGHT]
 @app.route('/pcf_get_ranking_by_hpo_id', methods=['GET'])
 def api_pcf_get_ranking_by_hpo_id():
-    r_target = ""
+    r_target    = ""
     r_phenotype = ""
+    r_weight    = 1.0
     if request.args.get('target') is not None:
         r_target = request.args.get('target')
     if request.args.get('phenotype') is not None:
         r_phenotype = request.args.get('phenotype')
+    if request.args.get('weight') is not None:
+        r_weight = float(request.args.get('weight'))
 
     # check query : phenotypes
+    #list_dict_phenotype, phenotypes_remove_error, phenotypes_remove_error_ja = process_input_phenotype(r_phenotype)
     list_dict_phenotype, phenotypes_remove_error, phenotypes_remove_error_ja = process_input_phenotype(r_phenotype)
 
     if request.method == 'GET':
-        dict_result = pcf_get_ranking_by_hpo_id(r_target, phenotypes_remove_error_ja)
+        dict_result = pcf_get_ranking_by_hpo_id(r_target, phenotypes_remove_error_ja, r_weight)
         return jsonify(dict_result)
 
 
@@ -328,6 +333,7 @@ def api_pcf_get_share():
 # API: Download
 # GET method
 # /pcf_download?target=[TARGET]&phenotype=[HPO_ID]&target_id=[TARGET_ID]&format=[FORMAT]&r_range=[RANGE]
+# /pcf_download?target=[TARGET]&phenotype=[HPO_ID]&target_id=[TARGET_ID]&format=[FORMAT]&r_range=[RANGE]&r_weight=[WEIGHT]
 @app.route('/pcf_download', methods=['GET'])
 def api_pcf_download():
     r_target    = ""
@@ -335,6 +341,7 @@ def api_pcf_download():
     r_target_id = ""
     r_format    = ""
     r_range     = ""
+    r_weight    = 1.0
     if request.args.get('target') is not None:
         r_target = request.args.get('target')
     if request.args.get('phenotype') is not None:
@@ -345,6 +352,8 @@ def api_pcf_download():
         r_format = request.args.get('format')
     if request.args.get('range') is not None:
         r_range = request.args.get('range')
+    if request.args.get('weight') is not None:
+        r_weight = request.args.get('weight')
         
     utc_now = datetime.now(timezone('UTC'))
     jst_now = utc_now.astimezone(timezone('Asia/Tokyo'))
@@ -352,14 +361,14 @@ def api_pcf_download():
 
     if request.method == 'GET':
         if r_format == "json":
-            json_data = pcf_download(r_target, r_phenotype, r_target_id, r_format, r_range)
+            json_data = pcf_download(r_target, r_phenotype, r_target_id, r_format, r_range, r_weight)
             res = make_response(json.dumps(json_data, indent=4))
             res.headers["Content-Type"] = "application/json"
             res.headers["Content-disposition"] = "attachment; filename=" + "pubcasefinder_" + ts + ".json"
             #res.headers["Content-Encoding"] = "gzip"
             return res
         elif r_format == "tsv":
-            tsv_data = pcf_download(r_target, r_phenotype, r_target_id, r_format, r_range)
+            tsv_data = pcf_download(r_target, r_phenotype, r_target_id, r_format, r_range, r_weight)
             res = make_response("\n".join(tsv_data))
             res.headers["Content-Type"] = "text/tab-separated-values"
             res.headers["Content-disposition"] = "attachment; filename=" + "pubcasefinder_" + ts + ".tsv"

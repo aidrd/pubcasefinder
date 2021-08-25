@@ -25,7 +25,7 @@ db_pw   = app.config['DBPW']
 # カンマ区切りのHPO IDを返す
 # マッチするものがない場合はnoneを返す
 #####
-def pcf_download(r_target, r_phenotype, r_target_id, r_format, r_range):
+def pcf_download(r_target, r_phenotype, r_target_id, r_format, r_range, r_weight):
 
     # full or partial
     if r_range == "partial":
@@ -33,7 +33,8 @@ def pcf_download(r_target, r_phenotype, r_target_id, r_format, r_range):
 
     # get ranking
     url_api_pcf_get_ranking_by_hpo_id         = "https://pcf.dbcls.jp/pcf_get_ranking_by_hpo_id"
-    dict_param_api_pcf_get_ranking_by_hpo_id  = {"target":r_target, "phenotype":r_phenotype}
+    #dict_param_api_pcf_get_ranking_by_hpo_id  = {"target":r_target, "phenotype":r_phenotype}
+    dict_param_api_pcf_get_ranking_by_hpo_id  = {"target":r_target, "phenotype":r_phenotype, "weight":r_weight}
     r_ranking = requests.get(url_api_pcf_get_ranking_by_hpo_id, params=dict_param_api_pcf_get_ranking_by_hpo_id)
 
     # get data for each result

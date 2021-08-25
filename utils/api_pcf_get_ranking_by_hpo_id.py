@@ -18,7 +18,7 @@ db_pw   = app.config['DBPW']
 
 #####
 # pcf_get_ranking_by_hpo_id
-def pcf_get_ranking_by_hpo_id(r_target, r_phenotype):
+def pcf_get_ranking_by_hpo_id(r_target, r_phenotype, r_weight):
     list_phenotypes = r_phenotype.split(",")
 
     # MySQL接続　初期設定
@@ -72,6 +72,32 @@ def pcf_get_ranking_by_hpo_id(r_target, r_phenotype):
             uniq_id = value[0]
             dict_UniqID[uniq_id] = 1
 
+    ## WeightMONDOテーブルから情報抽出
+    dict_weight = {}
+    #sql_Weight = u"select MONDOID, HPOID from WeightMONDO"
+    sql_Weight = u"select a.MONDOID, a.HPOID, b.OntoIDOMIM from WeightMONDO as a left join OntoTermMONDO as b on a.MONDOID=b.OntoID"
+    cursor_Weight = OBJ_MYSQL.cursor()
+    cursor_Weight.execute(sql_Weight)
+    values = cursor_Weight.fetchall()
+    cursor_Weight.close()
+    for value in values:
+        id_mondo    = value[0]
+        id_hpo      = value[1]
+        id_omim     = value[2]
+
+        if id_mondo in dict_weight:
+            dict_weight[id_mondo][id_hpo] = 1
+        else:
+            dict_weight[id_mondo] = {}
+            dict_weight[id_mondo][id_hpo] = 1
+
+        if id_omim is not None and id_omim != "":
+            if id_omim in dict_weight:
+                dict_weight[id_omim][id_hpo]  = 1
+            else:
+                dict_weight[id_omim]  = {}
+                dict_weight[id_omim][id_hpo]  = 1
+
     ####
     ## 各疾患とのスコアを算出し、データを収納
     ### インデックステーブルを利用して、各疾患でのICの合計を取得
@@ -117,7 +143,7 @@ def pcf_get_ranking_by_hpo_id(r_target, r_phenotype):
             dict_over_thres_count[onto_id] += 1
 
     for value in values_index:
-        onto_id       = value[0]
+        onto_id            = value[0]
         onto_id_hp_index   = value[1]
         onto_id_hp_disease = value[2]
         ic                 = 0 if value[3] == "" else float(value[3])
@@ -128,13 +154,18 @@ def pcf_get_ranking_by_hpo_id(r_target, r_phenotype):
         if delta_ic >= thres_delta_ic and dict_over_thres_count[onto_id] >= thres_count:
             weight = thres_weight
 
-        ## test
-        if onto_id == "OMIM:234200":
-            app.logger.error(onto_id_hp_index)
-            app.logger.error(onto_id_hp_disease)
-            app.logger.error("weight: " + str(weight))
-            app.logger.error("weight: " + str(ic * weight))
-
+        # ユーザがWightMONDOにあるHPOに対して重みを設定する
+        ## OMIMとGeneのみ対応
+        if r_target=="omim":
+            if onto_id in dict_weight:
+                if onto_id_hp_index in dict_weight[onto_id]:
+                    weight = weight * r_weight
+        if r_target=="gene":
+            id_mondo = (onto_id.split("_"))[1]
+            if id_mondo in dict_weight:
+                if onto_id_hp_index in dict_weight[id_mondo]:
+                    weight = weight * r_weight
+                    
         if onto_id not in dict_similar_diseases:
             dict_similar_diseases[onto_id] = {}
             dict_similar_diseases[onto_id]['matched_hpo_id']     = []
@@ -171,7 +202,10 @@ def pcf_get_ranking_by_hpo_id(r_target, r_phenotype):
                 continue
         else:
             if onto_id not in dict_AnnotationHPONum:
-                continue
+                dict_AnnotationHPONum[onto_id] = 0
+                dict_AnnotationHPOSumIC[onto_id] = 0
+                app.logger.error(onto_id)
+                #continue
 
         # ランキング対象のNCBI Gene IDでない場合は処理を飛ばす
         if r_target=="gene":
@@ -179,11 +213,6 @@ def pcf_get_ranking_by_hpo_id(r_target, r_phenotype):
                 continue
 
         dict_similar_disease = {}
-
-        ## test ##
-        if onto_id == "OMIM:234200":
-            app.logger.error(dict_similar_diseases[onto_id]['sum_ic'])
-            app.logger.error(dict_similar_diseases[onto_id]['sum_ic_denominator'])
 
         dict_similar_disease['score']                = float(dict_similar_diseases[onto_id]['sum_ic'] / dict_similar_diseases[onto_id]['sum_ic_denominator']) if dict_similar_diseases[onto_id]['sum_ic_denominator'] != 0 else 0
         list_matched_hpo_id = []
@@ -193,16 +222,10 @@ def pcf_get_ranking_by_hpo_id(r_target, r_phenotype):
         #dict_similar_disease['matched_hpo_id']       = ",".join(dict_similar_diseases[onto_id]['matched_hpo_id'])
         dict_similar_disease['matched_hpo_id']       = ",".join(list_matched_hpo_id)
 
-        ## test ##
-        if onto_id == "OMIM:234200":
-            app.logger.error(dict_similar_disease['matched_hpo_id'])
-
         dict_similar_disease['annotation_hp_num']    = dict_AnnotationHPONum[onto_id] if not r_target=="gene" else dict_AnnotationHPONum[geneid]
         dict_similar_disease['annotation_hp_sum_ic'] = dict_AnnotationHPOSumIC[onto_id] if not r_target=="gene" else dict_AnnotationHPOSumIC[geneid]
         if r_target=="orphanet":
             onto_id = onto_id.replace('ORDO', 'ORPHA')
-        #elif r_target=="gene":
-        #    onto_id = onto_id.replace('ENT', 'GENEID')
         dict_similar_disease['id']                   = onto_id
         if r_target=="case":
             if re.compile("DECIPHER").search(onto_id):
@@ -230,6 +253,8 @@ def pcf_get_ranking_by_hpo_id(r_target, r_phenotype):
             list_NCBIGeneID_MONDOID = (dict_similar_disease['id']).split("_")
             NCBIGeneID = list_NCBIGeneID_MONDOID[0]
             MONDOID    = list_NCBIGeneID_MONDOID[1]
+
+            # ランキングした遺伝子については，最上位のランキングだけを残して，それ以降は処理を飛ばす（つまり，遺伝子に関連する複数の疾患の中で，最もスコアの高いもののみを残す）
             if NCBIGeneID in dict_rank_NCBIGeneID:
                 continue
 
