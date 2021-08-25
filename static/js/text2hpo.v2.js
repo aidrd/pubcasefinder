@@ -81,6 +81,7 @@ function _onload() {
            }
            offset = $(offsetEl).offset();
 
+           $("#div_selectionPopup").attr("rangeStart",Math.min(range.start,range.end)).attr("rangeEnd",Math.max(range.start,range.end));
            $("#div_selectionPopup").css("display","block");
            $("#div_selectionPopup").css("top",event.pageY - offset.top);
            $("#div_selectionPopup").css("left",event.pageX - offset.left);
@@ -896,14 +897,14 @@ function _search_hpomatch_from_text(text) {
          "HPO_ID": "HP:0012806",
          "ET": "Proboscis",
          "JT": "吻",
-         "DEF": "A fleshy, tube-like structure usually located in the midline of the face or just to one side of the midline. [HPO:probinson, PMID:19152422]"
+         "DEF": "A fleshy, tube-like structhe midline. "
     }
     {
          "SEARCH_KEY": "PROBOSCIS",
          "PARENTS": "",
          "HPO_ID": "HP:0012806",
          "ET": "Proboscis",
-         "JT": "吻",         "DEF": "A fleshy, tube-like structure usually located in the midline of the face or just to one side of the midline. [HPO:probinson, PMID:19152422]"
+         "JT": "吻",         "DEF": "A flesthe midline."
     }
 
  */
@@ -1081,6 +1082,82 @@ function _create_popuplist(hpolst_from_server,rangeStart,rangeEnd){
     }
 }
 
+function _add_match_by_tokeninput(hpo_id,hpo_name){
+
+    _hidePopup();
+
+    let $div =  $("#div_selectionPopup");
+    let rangeStart = parseInt($div.attr('rangeStart'));
+    let rangeEnd   = parseInt($div.attr('rangeEnd'));
+
+    let normalized_text = _get_normalized_text();
+    let term_in_text = normalized_text.substring(rangeStart, rangeEnd + 1);
+
+    let obj = {start:         rangeStart,
+               end:           rangeEnd,
+               term_in_text:  term_in_text,
+               with_symptoms: true
+    };
+
+
+    let hpo_dic = _get_HPO_DIC();
+    for(let i=0; i< hpo_dic.length; i++){
+        if(hpo_dic[i].HPO_ID === hpo_id && hpo_dic[i].SEARCH_KEY === hpo_name){
+            obj['id_in_dic']    = hpo_id;
+            obj['term_in_dic']  = hpo_name;
+            obj['jterm_in_dic'] = hpo_dic[i].JT;
+            obj['eterm_in_dic'] = hpo_dic[i].ET;
+            obj['def']          = hpo_dic[i].DEF;
+
+            break;
+        }
+    }
+
+    if(!('id_in_dic' in obj)){
+        alert('indicated hpo ' + hpo_id + ' not found in dic data!');
+        return;
+    }
+
+    let matches_list = _get_matches();
+    let overlap_lst = _find_overlap(rangeStart,rangeEnd,matches_list);
+    if(overlap_lst.length > 0){
+        for(let i=overlap_lst.length-1; i >= 0; i--){
+            matches_list.splice(overlap_lst[i],1);
+       }
+    }
+
+    matches_list.push(obj);
+    _sort_match(matches_list);
+
+    _clear_result_contents();
+
+    _create_and_set_result_contents(normalized_text,matches_list);
+
+    // find idx and call select
+    for(let i=0; i<matches_list.length; i++){
+        let start_m = matches_list[i].start;
+        let end_m   = matches_list[i].end;
+
+        if(start_m === rangeStart && end_m === rangeEnd){
+            _choose_match_from_list(i);
+            let element = document.getElementById("li_hpo_" + i);
+            if(element) element.scrollIntoViewIfNeeded();
+            break;
+        }
+    }
+
+
+    let send_url_str = "https://pcf.dbcls.jp/pcf_share?share=annotation&text="+encodeURIComponent(term_in_text)+"&phenotype="+ encodeURIComponent(hpo_id);
+    $.ajax({
+        url:      send_url_str,  // 通信先のURL
+        type:     "GET",// 使用するHTTPメソッド(get/post)
+        async:    true,    // 使用するHTTPメソッド(true/false)
+    }).done(function(data1,textStatus,jqXHR) {
+    }).fail(function(jqXHR, textStatus, errorThrown ) {
+        alert('Server access error:' + textStatus + ":" + errorThrown + '\nURL: ' + send_url_str);
+    });
+}
+
 
 
 function _add_match(rangeStart,rangeEnd,idx) {
@@ -1094,6 +1171,7 @@ function _add_match(rangeStart,rangeEnd,idx) {
         matches_list.splice(overlap_lst[i],1);
       }
     }
+  
     let obj = {start:         rangeStart,
                end:           rangeEnd,
                id_in_dic:     matches_from_server[idx].HPO_ID,
