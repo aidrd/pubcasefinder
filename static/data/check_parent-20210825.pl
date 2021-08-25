@@ -37,7 +37,7 @@ while(defined ($line = <FH>)){
     $key = "$key-$ID";
 
     if(exists $data{$key}){
-        print STDERR "INFO: duplicated key $ID \n";
+        #print STDERR "INFO: duplicated key $ID \n";
     } else {
         $data{$key} = $line1;
         push @lst_keys, $key;
@@ -46,7 +46,7 @@ while(defined ($line = <FH>)){
     my $key_en = uc($English_term);
     $key_en = "$key_en-$ID";
     if(exists $data{$key_en}){
-        print STDERR "INFO: duplicated EN key $key_en \n";
+        #print STDERR "INFO: duplicated EN key $key_en \n";
     } else {
         $data{$key_en} = $line2;
         push @lst_keys, $key_en;
