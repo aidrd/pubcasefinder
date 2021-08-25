@@ -156,9 +156,15 @@
 				<div class="search-box-advanced_wrapper">
 					<span>
 						{% if r_lang == "ja" %}
-						<b>結果を絞り込む</b>
+						<b>結果を絞り込む</b>  | Examples: 
+						<a class="filter-sample" href="/result?target=omim&phenotype=HP:0000347_ja,HP:0003022_ja,HP:0009381_ja,HP:0000204_ja,HP:0000625_ja&filter=MONDO:0007179&size=10&display_format=full&lang=ja">Example1</a>
+						<a class="filter-sample" href="/result?target=omim&phenotype=HP:0001903_ja,HP:0000952_ja,HP:0001744_ja,HP:0004444_ja&filter=ENT:2038,ENT:6708,ENT:6521,ENT:286,ENT:6710,AND_HP:0000006&size=10&display_format=full&lang=ja">Example2</a>
+						<a class="filter-sample" href="/result?target=omim&phenotype=HP:0000347_ja,HP:0003022_ja,HP:0009381_ja,HP:0000204_ja,HP:0000625_ja&filter=HP:0000007,AND_MONDO:0019056,NOT_MONDO:0020124&size=10&display_format=full&lang=ja">Example3</a>
 						{% else %}
-						<b>Filter to narrow your search results</b>
+						<b>Filter to narrow your search results</b>  | Examples:
+						<a class="filter-sample" href="/result?target=omim&phenotype=HP:0000347,HP:0003022,HP:0009381,HP:0000204,HP:0000625&filter=MONDO:0007179&size=10&display_format=full&lang=en">Example1</a>
+						<a class="filter-sample" href="/result?target=omim&phenotype=HP:0001903,HP:0000952,HP:0001744,HP:0004444&filter=ENT:2038,ENT:6708,ENT:6521,ENT:286,ENT:6710,AND_HP:0000006&size=10&display_format=full&lang=en">Example2</a>
+						<a class="filter-sample" href="/result?target=omim&phenotype=HP:0000347,HP:0003022,HP:0009381,HP:0000204,HP:0000625&filter=HP:0000007,AND_MONDO:0019056,NOT_MONDO:0020124&size=10&display_format=full&lang=ja">Example3</a>
 						{% endif %}
 					</span>
 					<textarea class="form-control" rows="1" id="tokeninput_genes" name="str_filters"></textarea>
@@ -891,6 +897,25 @@
 		        $('#btn_search_advanced').html("Filter<i class=\"material-icons\">expand_more</i>");
 		}
 	};
+
+	function addFilterSample(sample_no){
+		
+		if(sample_no === '1'){
+			$("#tokeninput_genes").tokenInput_gene("add", {
+				id: "MONDO:0007179",
+				logicaloperator: "",
+				{% if r_lang == "ja" %}
+				name: "自己免疫疾患"
+				{% else %}
+				name: "autoimmune disease"
+				{% endif %}
+			});
+		}
+
+		onFilterChanged();
+
+                return false;
+	}
 
 	function onFilterChanged(){
 		set_filter_num();

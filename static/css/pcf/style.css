@@ -1095,4 +1095,8 @@ body {
   color: blue;
 }
 
-
+.filter-sample {
+  background-color: #adf;
+  padding-left: 10px;
+  padding-right: 10px;
+}
