@@ -1451,7 +1451,39 @@
 
 		return text;
 	}
+
+	function clear_selection(){
+		let target       = _get_active_target();
+		let $panel       = tab_panel_lst[target];
+		let id_selectnum = target + "_selected_num";
+                let id_clear     = target + "_clear_select";
+
+		$('#'+id_selectnum).hide();
+		$('#'+id_clear).hide();
+
+		$panel.find("input[name='target_id']:checked").prop('checked',false); 
+
+	}
 	
+	function on_select_changed(){
+
+		let target = _get_active_target();
+		let $panel = tab_panel_lst[target];
+
+		let id_num       = target + "_list-results";
+		let id_selectnum = target + "_selected_num";
+		let id_clear     = target + "_clear_select";
+
+		let setting = $panel.data(KEY_SETTING_OBJECT);	
+		
+		let num = $panel.find("input[name='target_id']:checked").length;
+		$('#'+id_selectnum).text('' + num + " item selected");
+
+		if(num > 0){
+			$('#'+id_selectnum).show();
+			$('#'+id_clear).show();
+		}
+	}
 
 	function _show_result(setting){
 		
@@ -1486,7 +1518,15 @@
 		// top
 		if(isFirstLoad){
 			let $top_panel = $('<div>').addClass("list-header").appendTo($target_tab_panel);
-			$('<div>').addClass("list-results").text(total_num_str + " results").appendTo($top_panel);
+			$('<div>').attr('id', target + "_list-results").addClass("list-results").text(total_num_str + " results").appendTo($top_panel);
+			$('<div>').attr('id', target + "_selected_num").addClass("list-results-select-num").text("0 item selected").css({'display':'none'}).appendTo($top_panel);
+			$('<div>').attr('id', target + "_clear_select").addClass("list-results-clear-select").text("x clear selection")
+				.click(function(){
+                                	clear_selection();
+	                        })
+				.css({'display':'none'})
+				.appendTo($top_panel);
+
 			let $tag_sample_container = $('<div>').addClass("list-tag_sample").appendTo($top_panel);
 			LANGUAGE[lang]['SAMPLE_TAG_LABEL'][target].forEach(function(item){
 				//$('<span>').text(item.TEXT).addClass(item.CLASS).css({'margin-left':'5px'}).appendTo($tag_sample_container);
@@ -1533,7 +1573,11 @@
 			let $rank = $('<div>').addClass('rank').appendTo($td_left);
 			//let input_str = "<input type=\"checkbox\" value=\""+ranking_list[i].id+"\"><p>"+ranking_list[i].rank+"</p></input>";
 			let input_str = "<input type=\"checkbox\" value=\""+ranking_list[i].id+"\" name=\"target_id\"><p>"+(i+1)+"</p></input>";
-			$(input_str).appendTo($rank);
+			let $input_checkbox = $(input_str).appendTo($rank);
+			$input_checkbox.change(function(){
+				on_select_changed();
+			});
+			
 
 			let score = (ranking_list[i].score * 100).toFixed(1)+"%";
 			let $percentage = $("<span>("+ score+")</span>").appendTo($td_left);
@@ -1555,11 +1599,6 @@
 
 	
 					let copy_button_id = 'btn_copy_' + target + "_" + i;
-/*					$(copy_button).attr('id',copy_button_id);
-							.attr('data-toggle', "tooltip").attr('data-container',"body")
-							.attr('data-placement',"top").attr('data-trigger',  "manual")
-							.attr('data-title', "Summary successfully copied");
-*/
 					tippy(copy_button, {
 						allowHTML:      true,
 						appendTo:       document.body,
@@ -2360,6 +2399,11 @@
 		send_share_url: function(urlstr){
 			let share_url_str = _construct_url(URL_SHARE, {[SETTING_KEY_SHARE]: SHARE_TYPE_URL,[SETTING_KEY_URL]:encodeURIComponent(urlstr)});
 			_run_ajax(share_url_str,'GET', 'text', true, null);
+		},
+		get_selected_num: function(){
+			let target = _get_active_target();
+			let $panel = tab_panel_lst[target];
+			return $panel.find("input[name='target_id']:checked").length;
 		},
 		download: function(hpo_id_list, mode, format){
 

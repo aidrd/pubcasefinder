@@ -137,12 +137,12 @@
 
 
 					<!-- share button -->
-					<button id="btn_search_share">
-						{% if r_lang == "ja" %}
-						<span class="material-icons" data-toggle="tooltip" data-placement="top" title="共有">share</span>
-						{% else %}
-						<span class="material-icons" data-toggle="tooltip" data-placement="top" title="Share">share</span>
-						{% endif %}
+					{% if r_lang == "ja" %}
+					<button id="btn_search_share" data-toggle="tooltip" data-placement="top" title="共有">
+					{% else %}
+					<button id="btn_search_share" data-toggle="tooltip" data-placement="top" title="Share">
+					{% endif %}
+						<span class="material-icons">share</span>
 					</button>
 
 					<!-- display button -->
@@ -960,6 +960,11 @@
 			content:      template_download,
 			onShown(instance) {
 				$('#str_target').html(str_target_label);
+
+				let selected_num = $("#pcf-content").pcf_content('get_selected_num');
+
+				let options = $('#sel_download_option').find('option');
+				$(options[2]).text('Selection (' + selected_num + ')');
                         },
 		});
 
@@ -1072,25 +1077,17 @@
 					$('#btn_search_download').prop('disabled', true);
 
 					{% if r_lang == "ja" %}
-					$('#btn_search_download').find('span')
-								.tooltip('dispose')
-								.tooltip({title: 'Caseはダウンロードできません'});
+					$('#btn_search_download').tooltip('dispose').tooltip({title: 'Caseはダウンロードできません',trigger:'hover'});
 					{% else %}
-					$('#btn_search_download').find('span')
-								.tooltip('dispose')
-								.tooltip({title: 'Case is not available for download'});
+					$('#btn_search_download').tooltip('dispose').tooltip({title: 'Case is not available for download',trigger:'hover'});
 					{% endif %}
 				}else{
 					$('#btn_search_download').prop('disabled', false);
 
 					{% if r_lang == "ja" %}
-					$('#btn_search_download').find('span')
-								.tooltip('dispose')
-								.tooltip({title: 'ダウンロード'});
+					$('#btn_search_download').tooltip('dispose').tooltip({title: 'ダウンロード',trigger:'hover'});
 					{% else %}
-					$('#btn_search_download').find('span')
-								.tooltip('dispose')
-								.tooltip({title: 'Download'});
+					$('#btn_search_download').tooltip('dispose').tooltip({title: 'Download',trigger:'hover'});
 					{% endif %}
 				}
 			

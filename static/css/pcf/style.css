@@ -329,6 +329,15 @@ body {
   color: #555555;
 }
 
+.list-header .list-results-select-num {
+  margin-left: 15px;
+}
+
+.list-header .list-results-clear-select {
+  margin-left: 15px;
+  color: #555555;
+}
+
 .list-header .list-tag_sample {
   margin: 0 0 0 auto;
 }
@@ -1092,7 +1101,7 @@ body {
 }
 
 .title-case a{
-  color: blue;
+  color: #0431B4;
 }
 
 .filter-sample {
