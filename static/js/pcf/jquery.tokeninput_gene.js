@@ -692,7 +692,9 @@
 		//var $token_list_wrapper_table_tr = $("<tr />").css({'width':'100%','nowrap':'nowrap'}).appendTo($token_list_wrapper_table);
 		//var $token_list_wrapper_table_td_left = $('<td />').css({'width':'100%'}).appendTo($token_list_wrapper_table_tr);
 
-		var $token_list_wrapper_table_td_left = $('<div>').addClass('flex-fill').css({'padding-left':'5px'}).appendTo($token_list_wrapper_table);
+		var $token_list_wrapper_table_td_left = $('<div>').addClass('flex-fill')
+								  .css({'border-radius':'5px','margin':'1px'})
+								  .appendTo($token_list_wrapper_table);
 		//var $token_list_wrapper_table_td_left = $('<div>').css({'width':'100%'}).appendTo($token_list_wrapper_table);
 		var token_list = $("<ul />")
 			.addClass($(input).data("settings").classes.tokenList)
