@@ -761,10 +761,10 @@ def tokeninput_genes():
             #            source_arr.append(source)
 
             if isinstance(name_ja,str) and len(name_ja):
-                dict_json['id']   = value[0]+"_ja"
+                dict_json['id']   = value[0].replace('ENT:','GENEID:') + "_ja"
                 dict_json['name'] = value[3]
             else:
-                dict_json['id']   = value[0]
+                dict_json['id']   = value[0].replace('ENT:','GENEID:')
                 dict_json['name'] = value[1]
             if len(synonym_arr)>0:
                 dict_json['synonym'] = synonym_arr

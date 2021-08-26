@@ -692,7 +692,7 @@
 		//var $token_list_wrapper_table_tr = $("<tr />").css({'width':'100%','nowrap':'nowrap'}).appendTo($token_list_wrapper_table);
 		//var $token_list_wrapper_table_td_left = $('<td />').css({'width':'100%'}).appendTo($token_list_wrapper_table_tr);
 
-		var $token_list_wrapper_table_td_left = $('<div>').addClass('flex-fill').appendTo($token_list_wrapper_table);
+		var $token_list_wrapper_table_td_left = $('<div>').addClass('flex-fill').css({'padding-left':'5px'}).appendTo($token_list_wrapper_table);
 		//var $token_list_wrapper_table_td_left = $('<div>').css({'width':'100%'}).appendTo($token_list_wrapper_table);
 		var token_list = $("<ul />")
 			.addClass($(input).data("settings").classes.tokenList)
@@ -892,7 +892,7 @@
 				token_list_width -= outerWidth;
 			});
 			if(token_list_width===0){
-				token_list_width = 500;
+				token_list_width = 560;
 			}else if(token_list_width<40) token_list_width = token_list.width();
 			input_box.outerWidth(Math.ceil(token_list_width)-$('div.token-input-dragdrop-facebook').outerWidth(true)-1);
 		}
@@ -1437,7 +1437,7 @@
 					return -1;
 				}else if(b_pre === 'HP') {
 					return 1;
-				}else if(a_pre === 'ENT') {
+				}else if(a_pre === 'ENT' || a_pre === 'GENEID') {
 					return -1;
 				}else{
 					return 1;

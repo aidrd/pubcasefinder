@@ -225,41 +225,41 @@
 	};
 
 	const LOGICAL_NOT = "LOGI-NOT",LOGICAL_AND = "LOGI-AND",LOGICAL_OR = "LOGI-OR",LOGICAL_AND_NOT = "LOGI-AND-NOT",LOGICAL_OR_NOT = "LOGI-OR-NOT",
-		FILTER_TYPE_ENT='ENT:',FILTER_TYPE_MONDO='MONDO:',FILTER_TYPE_HPO='HP:',FILTER_TYPE_ALL='ALL',
+		FILTER_TYPE_GENEID='GENEID:',FILTER_TYPE_MONDO='MONDO:',FILTER_TYPE_HPO='HP:',FILTER_TYPE_ALL='ALL',
 		tokenLogicaloperatorItemAndValue='AND_',tokenLogicaloperatorItemORValue='',tokenLogicaloperatorItemNOTValue='NOT_',
 		FILTER_URL_HASH = {
 			[TARGET_OMIM]:     {
-				[FILTER_TYPE_ENT]   : URL_PCF_FILTER_GET_OMIM_ID_BY_NCBI_GENE_ID,
+				[FILTER_TYPE_GENEID]: URL_PCF_FILTER_GET_OMIM_ID_BY_NCBI_GENE_ID,
 				[FILTER_TYPE_MONDO] : URL_PCF_FILTER_GET_OMIM_ID_BY_MONDO_ID,
 				[FILTER_TYPE_HPO]   : URL_PCF_FILTER_GET_OMIM_ID_BY_INHERITANCE_HPO_ID,
 				[FILTER_TYPE_ALL]   : URL_PCF_FILTER_GET_ALL_OMIM_ID
 			},
 			[TARGET_ORPHANET]: {
-				[FILTER_TYPE_ENT]   : URL_PCF_FILTER_GET_ORPHA_ID_BY_NCBI_GENE_ID,
+				[FILTER_TYPE_GENEID]: URL_PCF_FILTER_GET_ORPHA_ID_BY_NCBI_GENE_ID,
 				[FILTER_TYPE_MONDO] : URL_PCF_FILTER_GET_ORPHA_ID_BY_MONDO_ID,
 				[FILTER_TYPE_HPO]   : URL_PCF_FILTER_GET_ORPHA_ID_BY_INHERITANCE_HPO_ID,
 				[FILTER_TYPE_ALL]   : URL_PCF_FILTER_GET_ALL_ORPHA_ID
 			},
 			[TARGET_GENE]:     {
-				[FILTER_TYPE_ENT]   : "",
+				[FILTER_TYPE_GENEID]: "",
 				[FILTER_TYPE_MONDO] : URL_PCF_FILTER_GET_GENE_ID_BY_MONDO_ID,
 				[FILTER_TYPE_HPO]   : URL_PCF_FILTER_GET_GENE_ID_BY_INHERITANCE_HPO_ID,
 				[FILTER_TYPE_ALL]   : URL_PCF_FILTER_GET_ALL_GENE_ID
 			},
 			[TARGET_CASE]:     {
-				[FILTER_TYPE_ENT]   : URL_PCF_FILTER_GET_CASE_ID_BY_NCBI_GENE_ID,
+				[FILTER_TYPE_GENEID]: URL_PCF_FILTER_GET_CASE_ID_BY_NCBI_GENE_ID,
 				[FILTER_TYPE_MONDO] : "",
 				[FILTER_TYPE_HPO]   : "",
 				[FILTER_TYPE_ALL]   : ""
 			}
 		},
 		FILTER_NAME_URL_HASH = {
-			[FILTER_TYPE_ENT]   : URL_GET_GENE_TOOLTIP_DATA_BY_NCBI_GENE_ID,
+			[FILTER_TYPE_GENEID]: URL_GET_GENE_TOOLTIP_DATA_BY_NCBI_GENE_ID,
 			[FILTER_TYPE_MONDO] : URL_GET_DISEASE_TOOLTIP_DATA_BY_MONDO_ID,
 			[FILTER_TYPE_HPO]   : URL_GET_HPO_DATA_BY_HPO_ID
 		};
 
-	// filter_id: ^(|AND_|OR_|NOT_)(ENT|MONDO|HP):\d+(|_ja)$
+	// filter_id: ^(|AND_|OR_|NOT_)(GENEID|MONDO|HP):\d+(|_ja)$
 	const RegExp_AND = new RegExp(tokenLogicaloperatorItemAndValue, 'i');
 	const RegExp_NOT = new RegExp(tokenLogicaloperatorItemNOTValue, 'i');
 	function _get_logical_by_filter_id(filter_id,order){
@@ -290,7 +290,7 @@
 		id = id.replace(/^AND_/i,'');
 		id = id.replace(/^OR_/i,'');
 		return id;
-	}	
+	}
 
 	function _get_filter_name(filter_type,lang,json_data,id){
 		let name = '';
@@ -310,18 +310,18 @@
 		return name;
 	}
 
-	const RegExp_ENT   = new RegExp(FILTER_TYPE_ENT,   'i');
-	const RegExp_MONDO = new RegExp(FILTER_TYPE_MONDO, 'i');
-	const RegExp_HPO   = new RegExp(FILTER_TYPE_HPO,   'i');
+	const RegExp_GENEID = new RegExp(FILTER_TYPE_GENEID,'i');
+	const RegExp_MONDO  = new RegExp(FILTER_TYPE_MONDO, 'i');
+	const RegExp_HPO    = new RegExp(FILTER_TYPE_HPO,   'i');
 	function _get_filter_type_by_filter_id(filter_id){
-		if(RegExp_ENT.test(filter_id)){
-			return FILTER_TYPE_ENT;
+		if(RegExp_GENEID.test(filter_id)){
+			return FILTER_TYPE_GENEID;
 		}else if(RegExp_MONDO.test(filter_id)){
 			return FILTER_TYPE_MONDO;
 		}else if(RegExp_HPO.test(filter_id)){
 			return FILTER_TYPE_HPO;
 		}else{
-			alert('found unknown filter id('+filter_id+')');
+			alert('found unknown type of filter id('+filter_id+')');
 			return "";
 		}
  	}
@@ -1452,7 +1452,7 @@
 		return text;
 	}
 
-	function clear_selection(){
+	function _clear_selection(){
 		let target       = _get_active_target();
 		let $panel       = tab_panel_lst[target];
 		let id_selectnum = target + "_selected_num";
@@ -1465,24 +1465,25 @@
 
 	}
 	
-	function on_select_changed(){
+	function _on_select_changed(){
 
 		let target = _get_active_target();
 		let $panel = tab_panel_lst[target];
 
-		let id_num       = target + "_list-results";
 		let id_selectnum = target + "_selected_num";
 		let id_clear     = target + "_clear_select";
 
-		let setting = $panel.data(KEY_SETTING_OBJECT);	
-		
 		let num = $panel.find("input[name='target_id']:checked").length;
 		$('#'+id_selectnum).text('' + num + " item selected");
 
 		if(num > 0){
 			$('#'+id_selectnum).show();
 			$('#'+id_clear).show();
+		}else{
+			$('#'+id_selectnum).hide();
+			$('#'+id_clear).hide();
 		}
+
 	}
 
 	function _show_result(setting){
@@ -1493,7 +1494,7 @@
 		let display_format = setting[SETTING_KEY_DISPLAY_FORMAT];
 
 		let isDisplayFull = (display_format === DISPLAY_FORMAT_FULL);				
-		 
+
 		if(_is_target_status_data_loaded(target)) return;
 
 		let $target_tab_panel = tab_panel_lst[target];
@@ -1522,8 +1523,8 @@
 			$('<div>').attr('id', target + "_selected_num").addClass("list-results-select-num").text("0 item selected").css({'display':'none'}).appendTo($top_panel);
 			$('<div>').attr('id', target + "_clear_select").addClass("list-results-clear-select").text("x clear selection")
 				.click(function(){
-                                	clear_selection();
-	                        })
+					_clear_selection();
+				})
 				.css({'display':'none'})
 				.appendTo($top_panel);
 
@@ -1571,11 +1572,10 @@
 
 			// left
 			let $rank = $('<div>').addClass('rank').appendTo($td_left);
-			//let input_str = "<input type=\"checkbox\" value=\""+ranking_list[i].id+"\"><p>"+ranking_list[i].rank+"</p></input>";
 			let input_str = "<input type=\"checkbox\" value=\""+ranking_list[i].id+"\" name=\"target_id\"><p>"+(i+1)+"</p></input>";
 			let $input_checkbox = $(input_str).appendTo($rank);
 			$input_checkbox.change(function(){
-				on_select_changed();
+				_on_select_changed();
 			});
 			
 
@@ -1672,7 +1672,6 @@
 									"<button  id=\""+copy_button_id+"\" " +
 											" class=\"cancel-button\" "+
 											" style=\"margin-right:0px;\" "+
-											//" onClick=\"_copy_to_clipboard(this);\">"+
 											" >"+
 											"<i style=\"font-size:18px;vertical-align:sub;\" class=\"material-icons\">content_copy</i>Copy to the clipboard</button>"+
 								"</div>";
@@ -1882,7 +1881,7 @@
 		
 		Object.keys(items_total_hash).sort().forEach(function(i_str){
 			let filter_type = items_total_hash[i_str].filter_type;
-			if(filter_type !== FILTER_TYPE_ENT) return;
+			if(filter_type !== FILTER_TYPE_GENEID) return;
 			
 			let logical_type = items_total_hash[i_str].logical_type;
 			let gene_id      = items_total_hash[i_str].id;
@@ -2117,7 +2116,7 @@
 					ajax_item_list.push(obj);
 				}else{
 					// no need to get data through ajax
-					if(target_str === TARGET_GENE && filter_type === FILTER_TYPE_ENT){
+					if(target_str === TARGET_GENE && filter_type === FILTER_TYPE_GENEID){
 						let gene_id = id.replace(/ENT/,"GENEID");
 						result_ranking_id_hash[i] = {};
 						result_ranking_id_hash[i][gene_id]=1;
@@ -2312,13 +2311,17 @@
 		});
 	}
 
+	function _modify_filter_string(filter_str){
+		return filter_str.replace(/ENT:/gi,'GENEID:');
+	}
+	
 	var methods = {
 		init: function(options) {
 
 			let setting = $.extend(true,{}, DEFAULT_SETTINGS);
 
 			if(_isExistVal(URL_PARA_PHENOTYPE, options)) setting[SETTING_KEY_PHENOTYPE]      = options[URL_PARA_PHENOTYPE];
-			if(_isExistVal(URL_PARA_FILTER   , options)) setting[SETTING_KEY_FILTER]         = options[URL_PARA_FILTER];
+			if(_isExistVal(URL_PARA_FILTER   , options)) setting[SETTING_KEY_FILTER]         = _modify_filter_string(options[URL_PARA_FILTER]);
 			if(_isExistVal(URL_PARA_FORMAT   , options)) setting[SETTING_KEY_DISPLAY_FORMAT] = options[URL_PARA_FORMAT];
 			if(_isExistVal(URL_PARA_LANG     , options)) setting[SETTING_KEY_LANG]           = options[URL_PARA_LANG];
 			if(_isExistVal(URL_PARA_SIZE     , options) &&options[URL_PARA_SIZE] > 0) setting[SETTING_KEY_SIZE] = options[URL_PARA_SIZE];
@@ -2373,13 +2376,13 @@
 		search: function(options){
 			let setting = {};
 			if(_isExistVal(URL_PARA_PHENOTYPE, options)) setting[SETTING_KEY_PHENOTYPE] = options[URL_PARA_PHENOTYPE];
-			if(_isExistVal(URL_PARA_FILTER   , options)) setting[SETTING_KEY_FILTER]    = options[URL_PARA_FILTER];
+			if(_isExistVal(URL_PARA_FILTER   , options)) setting[SETTING_KEY_FILTER]    = _modify_filter_string(options[URL_PARA_FILTER]);
 			_clear_all_and_update_setting(setting);
 			let current_target = _get_active_target();
 			_selectTab(current_target);
 		},
 		update_filter: function(filter_str){
-			let new_setting = {[SETTING_KEY_FILTER]: filter_str};
+			let new_setting = {[SETTING_KEY_FILTER]: _modify_filter_string(filter_str)};
 			_clear_all_and_update_setting(new_setting);
 			let current_target = _get_active_target();
 			_selectTab(current_target);
@@ -2468,6 +2471,8 @@
 		},
 		load_phenotype_and_filter_objects_by_ids(hpo_id_list,filter_id_list,callback){
 
+			if(filter_id_list)	filter_id_list = _modify_filter_string(filter_id_list);
+			
 			pcf_show_loading();
 
 			let phenotype_object_list = [];
