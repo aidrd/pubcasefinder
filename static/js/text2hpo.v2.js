@@ -236,7 +236,8 @@ function _tsv2JSON(tsv){
           let currentline=lines[i].split("\t");
 
           for(let j=0;j<headers.length;j++){
-              obj[headers[j]] = _normalize_text(currentline[j]);
+              //obj[headers[j]] = _normalize_text(currentline[j]);
+              obj[headers[j]] = currentline[j];
           }
 
           if(obj.FLAG == 1){
