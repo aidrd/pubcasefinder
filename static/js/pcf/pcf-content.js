@@ -27,7 +27,8 @@
 		  URL_PCF_FILTER_GET_GENE_ID_BY_MONDO_ID            = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_filter_get_gene_id_by_mondo_id',
 		  URL_PCF_FILTER_GET_GENE_ID_BY_INHERITANCE_HPO_ID  = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_filter_get_gene_id_by_inheritance_hpo_id',
 		  URL_PCF_FILTER_GET_ALL_GENE_ID                    = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_filter_get_all_gene_id',
-		  URL_PCF_FILTER_GET_CASE_ID_BY_NCBI_GENE_ID        = 'https://pcf.dbcls.jp/pcf_filter_get_case_id_by_ncbi_gene_id';
+		  URL_PCF_FILTER_GET_CASE_ID_BY_NCBI_GENE_ID        = 'https://pcf.dbcls.jp/pcf_filter_get_case_id_by_ncbi_gene_id',
+		  URL_PCF_CONVERT_GENESYMBOL_TO_NCBI_GENE_ID        = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_convert_genesymbol_to_ncbigeneid';
 
 	const URL_PARA_TARGET         = 'target',
 		  URL_PARA_PHENOTYPE      = 'phenotype',
@@ -225,7 +226,7 @@
 	};
 
 	const LOGICAL_NOT = "LOGI-NOT",LOGICAL_AND = "LOGI-AND",LOGICAL_OR = "LOGI-OR",LOGICAL_AND_NOT = "LOGI-AND-NOT",LOGICAL_OR_NOT = "LOGI-OR-NOT",
-		FILTER_TYPE_GENEID='GENEID:',FILTER_TYPE_MONDO='MONDO:',FILTER_TYPE_HPO='HP:',FILTER_TYPE_ALL='ALL',
+		FILTER_TYPE_GENEID='GENEID:',FILTER_TYPE_HGNC='HGNC:',FILTER_TYPE_MONDO='MONDO:',FILTER_TYPE_HPO='HP:',FILTER_TYPE_ALL='ALL',
 		tokenLogicaloperatorItemAndValue='AND_',tokenLogicaloperatorItemORValue='',tokenLogicaloperatorItemNOTValue='NOT_',
 		FILTER_URL_HASH = {
 			[TARGET_OMIM]:     {
@@ -254,12 +255,13 @@
 			}
 		},
 		FILTER_NAME_URL_HASH = {
+			[FILTER_TYPE_HGNC]  : URL_PCF_CONVERT_GENESYMBOL_TO_NCBI_GENE_ID,
 			[FILTER_TYPE_GENEID]: URL_GET_GENE_TOOLTIP_DATA_BY_NCBI_GENE_ID,
 			[FILTER_TYPE_MONDO] : URL_GET_DISEASE_TOOLTIP_DATA_BY_MONDO_ID,
 			[FILTER_TYPE_HPO]   : URL_GET_HPO_DATA_BY_HPO_ID
 		};
 
-	// filter_id: ^(|AND_|OR_|NOT_)(GENEID|MONDO|HP):\d+(|_ja)$
+	// filter_id: ^(|AND_|OR_|NOT_)(GENEID|HGNC|MONDO|HP):\d+(|_ja)$
 	const RegExp_AND = new RegExp(tokenLogicaloperatorItemAndValue, 'i');
 	const RegExp_NOT = new RegExp(tokenLogicaloperatorItemNOTValue, 'i');
 	function _get_logical_by_filter_id(filter_id,order){
@@ -292,24 +294,29 @@
 		return id;
 	}
 
-	function _get_filter_name(filter_type,lang,json_data,id){
-		let name = '';
+	function _get_filter_name_or_id(filter_type,lang,json_data,id){
+		let ret = '';
 		if(filter_type === FILTER_TYPE_MONDO){
-			if('name_en' in json_data)	name = json_data.name_en;
-			if(lang === LANGUAGE_JA && 'name_ja' in json_data && !_isEmpty(json_data[id].name_ja)) name = json_data.name_ja;
+			if('name_en' in json_data)	ret = json_data.name_en;
+			if(lang === LANGUAGE_JA && 'name_ja' in json_data && !_isEmpty(json_data[id].name_ja)) ret = json_data.name_ja;
 			
 		}else if(filter_type === FILTER_TYPE_HPO){
 			if(id in json_data){
-				if('name_en' in json_data[id]) name = json_data[id].name_en;
-				if(lang === LANGUAGE_JA && 'name_ja' in json_data[id] && !_isEmpty(json_data[id].name_ja)) name = json_data[id].name_ja;
+				if('name_en' in json_data[id]) ret = json_data[id].name_en;
+				if(lang === LANGUAGE_JA && 'name_ja' in json_data[id] && !_isEmpty(json_data[id].name_ja)) ret = json_data[id].name_ja;
+			}
+		}else if(filter_type === FILTER_TYPE_HGNC){
+			if(_isArray(json_data) && json_data.length > 0){
+				ret = json_data[0].ncbi_gene_id;
 			}
 		}else if("hgnc_gene_symbol" in json_data){
-			name = json_data["hgnc_gene_symbol"];
+			ret = json_data["hgnc_gene_symbol"];
 		}
 		
-		return name;
+		return ret;
 	}
 
+	const RegExp_HGNC   = new RegExp(FILTER_TYPE_HGNC,'i');
 	const RegExp_GENEID = new RegExp(FILTER_TYPE_GENEID,'i');
 	const RegExp_MONDO  = new RegExp(FILTER_TYPE_MONDO, 'i');
 	const RegExp_HPO    = new RegExp(FILTER_TYPE_HPO,   'i');
@@ -320,6 +327,8 @@
 			return FILTER_TYPE_MONDO;
 		}else if(RegExp_HPO.test(filter_id)){
 			return FILTER_TYPE_HPO;
+		}else if(RegExp_HGNC.test(filter_id)){
+			return FILTER_TYPE_HGNC;
 		}else{
 			alert('found unknown type of filter id('+filter_id+')');
 			return "";
@@ -662,7 +671,10 @@
 			let ent_id = setting[SETTING_KEY_ID_LST];
 			let ncbi_gene_id = ent_id.replace(/ENT/,"GENEID");
 			url_str = _construct_url_str(URL_PCF_FILTER_GET_CASE_ID_BY_NCBI_GENE_ID,{[URL_PARA_NCBI_GENE_ID]: ncbi_gene_id});
+		}else if(url_key === URL_PCF_CONVERT_GENESYMBOL_TO_NCBI_GENE_ID){
 			
+			url_str = _construct_url_str(URL_PCF_CONVERT_GENESYMBOL_TO_NCBI_GENE_ID,{hgnc_gene_symbol: setting[SETTING_KEY_ID_LST].replace(/HGNC:/i,'')});
+		
 		}else if(url_key === URL_SHARE){
 			if(setting[SETTING_KEY_SHARE] === SHARE_TYPE_URL){
 				// share url
@@ -2529,9 +2541,13 @@
 					if(!_isEmpty(json_data)){
 						let lang = LANGUAGE_EN;
 						if(item.str_filter_id.match(/_ja$/i))lang = LANGUAGE_JA;
-						let name = _get_filter_name(item.filter_type, lang, json_data, item.id);
-						if(!_isEmpty(name)){
-							result_filter_hash[idx] = {'id':item.str_filter_id, 'name':name, 'logicaloperator':item.logical_str};
+						let val = _get_filter_name_or_id(item.filter_type, lang, json_data, item.id);
+						if(!_isEmpty(val)){
+							if(item.filter_type === FILTER_TYPE_HGNC){
+								result_filter_hash[idx] = {'id': "GENEID:" +val, 'name':item.id.replace(/HGNC:/i,''), 'logicaloperator':item.logical_str};
+							}else{
+								result_filter_hash[idx] = {'id':item.str_filter_id, 'name':val, 'logicaloperator':item.logical_str};
+							}
 						}
 					}
 				}

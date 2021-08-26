@@ -894,7 +894,7 @@ body {
   overflow-x:hidden;
   overflow-y:scroll;
   height:150px;
-  border: dashed 2px #AEB0B5;
+  border: dashed 1px #AEB0B5;
 }
 .tippy-box .tippy-content .copy-content:focus{
   border-color: #FF0000;
@@ -1105,7 +1105,14 @@ body {
 }
 
 .filter-sample {
-  background-color: #adf;
-  padding-left: 10px;
-  padding-right: 10px;
+  color: #13295A;
+  background-color: #E2ECF4;
+  padding-left: 3px;
+  padding-right: 3px;
+  margin-left: 8px;
+  font-size:  0.8em;
 }
+.filter-sample:hover {
+  background-color: #AECFE8; 
+}
+
