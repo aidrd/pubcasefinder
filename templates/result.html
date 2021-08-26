@@ -1114,11 +1114,14 @@
 			hpo_id_list = id_list.join(",");
 
 			filter_obj_list.forEach(function(item){
-				$("#tokeninput_genes").tokenInput_gene("add", item);
+				if(Object.keys(item).length > 0){
+					$("#tokeninput_genes").tokenInput_gene("add", item);
+				}
 			});
 			filter_id_list = $("#tokeninput_genes").tokenInput_gene("get_url_str");
 
-			if(filter_obj_list && filter_obj_list.length > 0){
+			//if(filter_obj_list && filter_obj_list.length > 0){
+			if(filter_id_list){
 				$('#btn_search_advanced').trigger('click');
 			}
 

@@ -1580,7 +1580,7 @@
 			$last_row = $tr;
 			
 			let $td_left  = $('<div>').addClass('list-content_left').appendTo($tr);
-			let $td_right = $('<div>').addClass('list-content_right').appendTo($tr);
+			let $td_right = $('<div>').addClass('list-content_right').addClass('flex-fill').appendTo($tr);
 
 			// left
 			let $rank = $('<div>').addClass('rank').appendTo($td_left);
