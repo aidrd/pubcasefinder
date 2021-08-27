@@ -906,7 +906,8 @@ function _search_hpomatch_from_text(text) {
          "PARENTS": "",
          "HPO_ID": "HP:0012806",
          "ET": "Proboscis",
-         "JT": "吻",         "DEF": "A flesthe midline."
+         "JT": "吻",
+         "DEF": "A flesthe midline."
     }
 
  */
@@ -952,8 +953,46 @@ function _search_hpomatch_from_text(text) {
                     let key = 'idx_'+i;
                     idx_hashtable[key] = counter;
                 }
-            }
-        }
+            }else{
+                //check overlap
+                for(let pos = text1.indexOf(hpo_term); pos !== -1; pos = text1.indexOf(hpo_term, pos + 1)) {
+                    let start = pos;
+                    let end   = pos + hpo_term.length -1;
+                    let isOverlapped = false;
+                    for(let idx=0; idx<matches_lst.length;idx++){
+                        if( end < matches_lst[idx].start || start > matches_lst[idx].end){
+                            //no overlap
+                        }else{
+                            //found overlap
+                            isOverlapped = true;
+                            break;
+                        }
+                    }
+
+                    if(!isOverlapped){
+                        let term_in_text = text.substring(pos, pos + hpo_term.length);
+                        let obj = {start:         pos,
+                                   end:           pos + hpo_term.length -1,
+                                   id_in_dic:     item.HPO_ID,
+                                   term_in_dic:   hpo_term,
+                                   eterm_in_dic:  item.ET,
+                                   jterm_in_dic:  item.JT,
+                                   term_in_text:  term_in_text,
+                                   def:           item.DEF,
+                                   with_symptoms: true
+                        };
+                        matches_lst.push(obj);
+                       
+                        let key = 'idx_'+i;
+                        if(key in idx_hashtable){
+                            idx_hashtable[key] = idx_hashtable[key] + 1;
+                        }else{
+                            idx_hashtable[key] = 1;
+                        }
+                    }
+                }
+           }
+       }
     });
 
     idx_hashtable.length = 0;
