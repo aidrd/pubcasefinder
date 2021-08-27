@@ -336,6 +336,7 @@ body {
 .list-header .list-results-clear-select {
   margin-left: 15px;
   color: #555555;
+  cursor: pointer;
 }
 
 .list-header .list-tag_sample {
