@@ -1690,7 +1690,12 @@
 						},
 					});
 
-					$(copy_button).appendTo($list_content_left_bt);
+					if(isDisplayFull){
+						let $copy_button_wrapper = $('<span>').appendTo($list_content_left_bt);
+						$(copy_button).css({'height':'1.1rem'}).appendTo($copy_button_wrapper);
+					}else{
+						$(copy_button).appendTo($list_content_left_bt);
+					}
 	
 					let $like_button = $('<a>').appendTo($list_content_left_bt);
 					if(isDisplayFull){

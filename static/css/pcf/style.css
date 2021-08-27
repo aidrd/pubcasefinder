@@ -126,10 +126,10 @@ body {
   height: 36px;
 }
 .text-button img {
-  height:        22px;
-  width:         22px;
-  margin-bottom: 1px;
-  margin-left:   3px;
+  height:        18px;
+  width:         18px;
+  margin-bottom: 2px;
+  margin-left:   4px;
 }
 
 #phenotouch {
@@ -1073,7 +1073,7 @@ body {
   background-color: white;
   color: black;
   white-space: nowrap;
-  box-shadow: 0 0 8px gray;
+  box-shadow: 0 0 2px gray;
   opacity:  1.0;
   max-width: 400px !important;
 }
