@@ -3,8 +3,7 @@ $(document).ready(_onload());
 const SERVER_POST_URL = "https://dev-pubcasefinder.dbcls.jp/get_hpo_by_text";
 const SERVER_POST_LIMIT = 30;
 //const HPO_DIC = "/static/data/HPO-japanese.alpha.18Oct2017.withkeyandparents.withengkey.v7.tsv";
-//const HPO_DIC = "/static/data/HPO-japanese.alpha.18Oct2017.withkeyandparents.withengkey.v8.tsv";
-const HPO_DIC = "/static/data/POET_dictionary_manbyoAB_temp_ver.02-01-with.tsv.utf8.bits"
+const HPO_DIC = "/static/data/HPO-japanese.alpha.18Oct2017.withkeyandparents.withengkey.v8.tsv";
 
 function _onload() {
 
