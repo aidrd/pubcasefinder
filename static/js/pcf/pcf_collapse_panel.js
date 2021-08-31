@@ -67,16 +67,19 @@
 					"togostanza-pagination-table {--togostanza-tbody-font-size: 12px;--togostanza-background-color: #ffffff;}" +
 				"<\/style>"+
 				  "<togostanza-pagination-table " +
-  					"data-url=\""+url_str+"\" " +
-  					"data-type=\"json\" " +
+					"data-url=\""+url_str+"\" " +
+					"data-type=\"json\" " +
+					"custom-css-url=\"\" " +
+					"width=\"\" " +
+					"fixed-columns=\"1\" " +
   					"padding=\"0px\" " +
   					"page-size-option=\"10,20,50,100\" " +
-  					"page-slider=\"false\" " +
-  					"columns=\"[{&quot;id&quot;:&quot;pyear&quot;,&quot;label&quot;:&quot;Year&quot;},"+
-						   "{&quot;id&quot;:&quot;title&quot;,&quot;label&quot;:&quot;Title&quot;},"+
-						   "{&quot;id&quot;:&quot;journal&quot;,&quot;label&quot;:&quot;Journal&quot;},"+
-						   "{&quot;id&quot;:&quot;id&quot;,&quot;label&quot;:&quot;J-STAGE&quot;,&quot;link&quot;:&quot;url&quot;},"+
-						   "{&quot;id&quot;:&quot;id_jglobal&quot;,&quot;label&quot;:&quot;J-GLOBAL&quot;,&quot;link&quot;:&quot;url_jglobal&quot;}]\">" +
+  					"page-slider=\"true\" " +
+					"columns=\"[{&quot;id&quot;: &quot;pyear&quot;,&quot;label&quot;: &quot;Year&quot;},"+
+						   "{&quot;id&quot;: &quot;title&quot;,&quot;label&quot;: &quot;Title&quot;},"+
+						   "{&quot;id&quot;: &quot;journal&quot;,&quot;label&quot;: &quot;Journal&quot;},"+
+						   "{&quot;id&quot;: &quot;url_img_jstage&quot;,&quot;escape&quot;: false,&quot;label&quot;: &quot;Go to J-STAGE&quot;},"+
+						   "{&quot;id&quot;: &quot;url_img_jglobal&quot;,&quot;escape&quot;: false,&quot;label&quot;: &quot;Go to J-GLOBAL&quot;}]\" >" +
 				 "</togostanza-pagination-table>";
 		return str;
 	}
