@@ -39,7 +39,7 @@
 
     <!-- popup-tokeninput -->
     <link rel="stylesheet" href="/static/css/popup-hierarchy-hpo.css">
-    <link rel="stylesheet" href="/static/css/popup-hierarchy-gene.css">
+    <!-- <link rel="stylesheet" href="/static/css/popup-hierarchy-gene.css"> -->
 
     <!-- favicon -->
     <link rel="icon" href="/static/images/favicon.ico">
@@ -312,6 +312,11 @@
                           <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="btn_download" style="border:1px solid black;border-radius:5px;" disabled>
                             <b>共有・ダウンロード</b>
                           </button>
+                          <ul class="dropdown-menu" role="menu"  style="margin:0px; position: absolute; top: 0px; left: 195px; will-change: transform;">
+                            <li class="dropdown-item" role="presentation"><a style="padding-left:10px;" onclick="_save_matches('csv');">CSV形式で出力</a></li>
+                            <li class="dropdown-item" role="presentation"><a style="padding-left:10px;" onclick="_save_matches('tsv');">TSV形式で出力</a></li>
+                            <li class="dropdown-item" role="presentation"><a style="padding-left:10px;" onclick="_save_matches('json');">PhenoPackets(JSON)形式で出力</a></li>
+                          </ul>
                         </div>
                       </div>
                     </div>

@@ -3183,7 +3183,7 @@
 
 							if(isEmpty(resultsTooltip_jqxhr)) return;
 
-							console.warn(textStatus, errorThrown);
+							//console.warn(textStatus, errorThrown);
 							if(isFunction(runSearchOptions.callback)){
 								runSearchOptions.callback.call(this, false);
 							}
