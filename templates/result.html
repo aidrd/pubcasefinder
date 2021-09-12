@@ -74,9 +74,11 @@
 					<span><a id="link_en" href="/result?target={{ r_target }}&phenotype={{ r_phenotype }}&filter={{ r_filter }}&size={{ r_size }}&display_format={{ r_display_format }}&lang=en">EN</a> / <a id="link_ja" href="/result?target={{ r_target }}&phenotype={{ r_phenotype }}&filter={{ r_filter }}&size={{ r_size }}&display_format={{ r_display_format }}&lang=ja">JA</a>
 					</span>
 					<button id="btn_menu"><span class="material-icons">menu</span></button>
+<!--
 					<div class="site-header_end">
 						<a class="button" href="#">Login<i class="material-icons">expand_more</i></a>
 					</div>
+-->
 				</div>
 			</div>
 			<div class="search-box_wrapper">
@@ -1017,13 +1019,13 @@
 			theme:        'pcf_menu',
 			content(reference){
 				return	"<ul id=\"ul_menu\" class=\"sub-menu\">" +
-					  "<li><a href=\"#\">About</a></li>" +
-					  "<li><a href=\"#\">Datasets</a></li>" +
-					  "<li><a href=\"#\">History</a></li>" +
-					  "<li><a href=\"#\">Terms</a></li>" +
-					  "<li><a href=\"#\">RDF</a></li>" +
-					  "<li><a href=\"#\">API</a></li>" +
-					  "<li><a href=\"#\">Contect</a></li>"+
+					  "<li><a href=\"https://pubcasefinder.dbcls.jp/static/pdf/PubCaseFinder_manual_ja_v4.pdf\">About</a></li>" +
+					  "<li><a href=\"https://pubcasefinder.dbcls.jp/datasets\">Datasets</a></li>" +
+					  "<li><a href=\"https://pubcasefinder.dbcls.jp/history\">History</a></li>" +
+					  "<li><a href=\"https://pubcasefinder.dbcls.jp/termsofservice\">Terms</a></li>" +
+					  "<li><a href=\"https://integbio.jp/rdf/dataset/pubcasefinder\" target=\"_blank\">RDF</a></li>" +
+					  "<li><a href=\"https://pubcasefinder.dbcls.jp/mme\">API</a></li>" +
+					  "<li><a href=\"mailto:support@dbcls.rois.ac.jp,pubcasefinder@dbcls.rois.ac.jp\">Contect</a></li>"+
 					"</ul>";
 			},
 		});

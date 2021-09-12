@@ -340,16 +340,16 @@ ul.gene-token-input-list.token-input-list-facebook li.token-input-selected-token
 	color: #fff;
 }
 
-/* ENT:XXXXX */
-ul.gene-token-input-list.token-input-list-facebook div.token-input-token-facebook.token-input-token-term-ent-facebook {
+/* GENEID:XXXXX */
+ul.gene-token-input-list.token-input-list-facebook div.token-input-token-facebook.token-input-token-term-geneid-facebook {
 	border: 1px solid #777;
 	background-color:#f4f4f4;
 }
-ul.gene-token-input-list.token-input-list-facebook div.token-input-token-facebook.token-input-token-term-ent-facebook:hover {
+ul.gene-token-input-list.token-input-list-facebook div.token-input-token-facebook.token-input-token-term-geneid-facebook:hover {
 	background-color:#777;
 	color: #fff;
 }
-ul.gene-token-input-list.token-input-list-facebook li.token-input-selected-token-facebook div.token-input-token-facebook.token-input-token-term-ent-facebook {
+ul.gene-token-input-list.token-input-list-facebook li.token-input-selected-token-facebook div.token-input-token-facebook.token-input-token-term-geneid-facebook {
 	background-color:#777;
 	color: #fff;
 }

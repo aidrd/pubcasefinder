@@ -109,12 +109,12 @@
 										{'CLASS':'list-tag_red',  'TEXT':'Disease Name'},
 										{'CLASS':'list-tag_green','TEXT':'Modes of Inheritance'}],
 					[TARGET_CASE]:     [{'CLASS':'list-tag_blue', 'TEXT':'Matched Phenotype'},
-										{'CLASS':'list-tag_gray', 'TEXT':'Causative Gene'}]
+										{'CLASS':'list-tag_gray', 'TEXT':'Matched Causative Gene'}]
 				},
 				'DETAIL_LABEL': {
 					'FIND_IMAGES':   'Find images(Google)',
 					'PHENOTYPE_LST': 'Clinical features',
-					'JA_REPORT':     'Case Report(J-STAGE)',
+					'JA_REPORT':     'Case reports(J-STAGE)',
 					'EN_REPORT':     'Case reports(PubMed)',
 					'UR_DBMS':       'UR-DBMS',
 					'nando':        '難病情報',
@@ -1216,13 +1216,32 @@
 	
 			if(_isExistVal("gene_reviews_url",item)){
 				item.gene_reviews_url.forEach(function(url_str){
-					$('<a>').text("Gene Reviews").attr('href',url_str).attr('target','_blank').appendTo($list_link_panel);
+					//https://www.ncbi.nlm.nih.gov/books/NBK1153/
+					let ix = url_str.indexOf('books/');
+					if(ix != -1){
+						let ustr = url_str.substring(ix);
+						ustr = ustr.replace('books','');
+						ustr = ustr.replace('/','');
+						ustr = ustr.replace('/','');
+						$('<a>').text("GeneReviews:" + ustr).attr('href',url_str).attr('target','_blank').appendTo($list_link_panel);
+					}else{
+						$('<a>').text("Gene Reviews").attr('href',url_str).attr('target','_blank').appendTo($list_link_panel);
+					}
 				});
 			}
 			
 			if(_isExistVal("gtr_url",item)){ 
 				item.gtr_url.forEach(function(url_str){
-					$('<a>').text("GTR").attr('href',url_str).attr('target','_blank').appendTo($list_link_panel);
+					//https://www.ncbi.nlm.nih.gov/gtr/all/tests/?term=C2676137/
+					let ix = url_str.indexOf('term=');
+					if(ix != -1){
+						let ustr = url_str.substring(ix);
+						ustr = ustr.replace(/term=/,'');
+						ustr = ustr.replace('/','');
+						$('<a>').text("GTR:" + ustr).attr('href',url_str).attr('target','_blank').appendTo($list_link_panel);
+					}else{
+						$('<a>').text("GTR").attr('href',url_str).attr('target','_blank').appendTo($list_link_panel);
+					}
 				});
 			}
 		}
