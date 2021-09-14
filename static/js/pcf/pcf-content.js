@@ -80,7 +80,7 @@
 										{'CLASS':'list-tag_red',  'TEXT':'疾患名'},
 										{'CLASS':'list-tag_green','TEXT':'遺伝形式'}],
 					[TARGET_CASE]:     [{'CLASS':'list-tag_blue', 'TEXT':'クエリに対応する症状'},
-										{'CLASS':'list-tag_gray', 'TEXT':'疾患原因遺伝子'}]
+										{'CLASS':'list-tag_gray', 'TEXT':'クエリに対応する疾患原因遺伝子'}]
 				},
 				'DETAIL_LABEL': {
 					'FIND_IMAGES':  '画像検索(Google)',
