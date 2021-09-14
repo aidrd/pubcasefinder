@@ -580,11 +580,11 @@ def popup_hierarchy_hpo():
 
 
 #####
-# tokeninput_genes()
+# tokeninput_filter()
 # complement input for genes/variants
 #####
 @app.route('/tokeninput_genes', methods=['GET', 'POST'])
-def tokeninput_genes():
+def tokeninput_filter():
 
     list_json = []
 
