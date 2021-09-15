@@ -893,7 +893,11 @@
 			let other_full_name = _contruct_popup_content_val('other_full_name',popup_data,', ');
 			if(max_text_len < other_full_name.length) max_text_len = other_full_name.length;
 			content = content.replace(/popup_content_other_full_name/g, other_full_name);
-			
+		
+			let summary = _contruct_popup_content_val('ncbi_gene_summary',popup_data,', ');
+			if(max_text_len < summary.length) max_text_len = summary.length;
+			content = content.replace(/popup_content_summary/g, summary);
+	
 			if(max_text_len < type_of_gene.length) max_text_len = type_of_gene.length;
 			content = content.replace(/popup_content_type_of_gene/g,    type_of_gene);
 			
@@ -1140,6 +1144,13 @@
 			    href_str = "https://translate.google.co.jp/?sl=en&tl=ja&text=" + href_str + "&op=translate&hl=ja";
 			
 			$("<a>").text(" >> Translate(Google)").attr( 'href', href_str).attr('target', '_blank').appendTo($p);
+		}else if(target === TARGET_GENE){
+			if(_isExistVal("ncbi_gene_summary",item)){
+				let $p = $('<p>').text(item.ncbi_gene_summary).appendTo($container_panel);
+				let href_str = encodeURIComponent(item.ncbi_gene_summary);
+        	                    href_str = "https://translate.google.co.jp/?sl=en&tl=ja&text=" + href_str + "&op=translate&hl=ja";
+	                        $("<a>").text(" >> Translate(Google)").attr( 'href', href_str).attr('target', '_blank').appendTo($p);
+			}
 		}
 		
 		

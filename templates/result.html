@@ -224,6 +224,7 @@
 		<tr><th class="popup_content_class">Synonym</th><td>popup_content_synonym</td></tr>
 		<tr><th class="popup_content_class">Full name</th><td>popup_content_full_name</td></tr>
 		<tr><th class="popup_content_class">Other full name</th><td>popup_content_other_full_name</td></tr>
+		<tr><th class="popup_content_class">Summary</th><td>popup_content_summary</td></tr>
 		<tr><th class="popup_content_class">Type of gene</th><td>popup_content_type_of_gene</td></tr>
 		<tr><th class="popup_content_class">Location</th><td>popup_content_location</td></tr>
 		<tr>
@@ -526,7 +527,7 @@
 
 		$("#pcf-content").pcf_content('send_share_url', link_text);
 
-		let mail = 'mailto:?body=' + link_text;
+		let mail = 'mailto:?body=' + encodeURIComponent(link_text);
 		let a = document.createElement('a');
 		a.href = mail;
 		a.click();
