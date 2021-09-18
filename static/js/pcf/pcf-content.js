@@ -1144,7 +1144,7 @@
 			    href_str = "https://translate.google.co.jp/?sl=en&tl=ja&text=" + href_str + "&op=translate&hl=ja";
 			
 			$("<a>").text(" >> Translate(Google)").attr( 'href', href_str).attr('target', '_blank').appendTo($p);
-		}else if(target === TARGET_GENE){
+		}else if(target === TARGET_GENE  && isDisplayFull){
 			if(_isExistVal("ncbi_gene_summary",item)){
 				let $p = $('<p>').text(item.ncbi_gene_summary).appendTo($container_panel);
 				let href_str = encodeURIComponent(item.ncbi_gene_summary);
