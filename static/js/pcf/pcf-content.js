@@ -1622,6 +1622,7 @@
 			
 
 			let score = (ranking_list[i].score * 100).toFixed(1)+"%";
+			score = score.replace('100.0','100');
 			let $percentage = $("<span>("+ score+")</span>").appendTo($td_left);
 			if(!isDisplayFull) $percentage.addClass('summary');
 			
