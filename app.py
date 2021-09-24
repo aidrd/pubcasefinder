@@ -98,6 +98,14 @@ def index():
 
 
 #####
+# display top page test
+# /
+@app.route('/index_new')
+def index_new():
+    return render_template('index_new.html')
+
+
+#####
 # display datasets page
 # /datasets
 @app.route('/datasets')
