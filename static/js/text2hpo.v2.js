@@ -572,9 +572,10 @@ function _do_search_disease(){
         return;
     }
 
-    let url = "https://pubcasefinder.dbcls.jp/search_disease/phenotype:" + 
+    //let url = "https://pubcasefinder.dbcls.jp/search_disease/phenotype:" + 
+    let url = "https://pcf.dbcls.jp/result?phenotype=" + 
               hpo_lst.join('_ja%2C') +'_ja'+
-              "/gene:/page:1,1,1,1/size:10,10,10,10,omim";
+              "&target=omim&filter=&size=10&display_format=full";
     window.open(url);
     //var form = document.createElement('form');
     //form.action = url;
