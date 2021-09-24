@@ -17,7 +17,7 @@
   .search-header .search-header_wrapper .search-header_top .brand {
     display: block;
     width: 43%;
-    margin-left: 0;
+    margin-left: 0.5em;
     min-width: 170px;
   }
   .search-header .search-header_wrapper .search-header_top .search-header_left {
