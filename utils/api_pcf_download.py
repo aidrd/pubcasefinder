@@ -30,6 +30,8 @@ def pcf_download(r_target, r_phenotype, r_target_id, r_format, r_range, r_weight
     # full or partial
     if r_range == "partial":
         r_range = ""
+    elif r_range == "":
+        r_range = "full"
 
     # get ranking
     url_api_pcf_get_ranking_by_hpo_id         = "https://pcf.dbcls.jp/pcf_get_ranking_by_hpo_id"
