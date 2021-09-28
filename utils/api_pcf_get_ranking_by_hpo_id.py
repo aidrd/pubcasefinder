@@ -204,7 +204,7 @@ def pcf_get_ranking_by_hpo_id(r_target, r_phenotype, r_weight):
             if onto_id not in dict_AnnotationHPONum:
                 dict_AnnotationHPONum[onto_id] = 0
                 dict_AnnotationHPOSumIC[onto_id] = 0
-                app.logger.error(onto_id)
+                #app.logger.error(onto_id)
                 #continue
 
         # ランキング対象のNCBI Gene IDでない場合は処理を飛ばす
