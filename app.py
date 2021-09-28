@@ -9,6 +9,7 @@ import sys
 import datetime
 import copy
 import mojimoji
+import requests
 from werkzeug.utils import secure_filename
 from werkzeug.datastructures import  FileStorage
 from io import StringIO, BytesIO
@@ -95,14 +96,6 @@ db_pw   = app.config['DBPW']
 @app.route('/')
 def index():
     return render_template('index.html')
-
-
-#####
-# display top page test
-# /
-@app.route('/index_new')
-def index_new():
-    return render_template('index_new.html')
 
 
 #####
@@ -219,9 +212,9 @@ def result():
 
 #####
 # display text2hpo page
-# /text2hpo
-@app.route('/text2hpo')
-def text2hpo():
+# /ehr
+@app.route('/ehr')
+def ehr():
    return render_template('text2hpo.html')
 
 
@@ -271,14 +264,20 @@ def api_pcf_get_ranking_by_hpo_id():
 # API: Get case reports by MONDO ID
 # GET method
 # /pcf_get_case_report_by_mondo_id?mondo_id=[MONDO_ID]&lang=[LANG]
+# /api/get_case_report?id=[MONDO_ID]
 @app.route('/pcf_get_case_report_by_mondo_id', methods=['GET'])
+@app.route('/api/get_case_report', methods=['GET'])
 def api_pcf_get_case_report_by_mondo_id():
     r_mondo_id = ""
     r_lang = ""
     if request.args.get('mondo_id') is not None:
         r_mondo_id = request.args.get('mondo_id')
+    if request.args.get('id') is not None:
+        r_mondo_id = request.args.get('id')
     if request.args.get('lang') is not None:
         r_lang = request.args.get('lang')
+    elif request.args.get('lang') is None:
+        r_lang = 'en'
 
     if request.method == 'GET':
         result = pcf_get_case_report_by_mondo_id(r_mondo_id, r_lang)
@@ -338,11 +337,80 @@ def api_pcf_get_share():
 
 
 #####
+# API: Get Data Record
+# GET method
+# /api/get_data_record?target=[RECORD_TARGET]&id=[RECORD_ID]
+@app.route('/api/get_data_record', methods=['GET'])
+def api_pcf_get_data_record():
+    r_target = ""
+    r_id     = ""
+    if request.args.get('target') is not None:
+        r_target = request.args.get('target')
+    if request.args.get('id') is not None:
+        r_id = request.args.get('id')
+
+    # get data record
+    url = ""
+    dict_param = {}
+    if r_target == "omim":
+        url = "https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_get_omim_data_by_omim_id"
+        dict_param = {"omim_id":r_id}
+    if r_target == "orphanet":
+        url = "https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_get_orpha_data_by_orpha_id"
+        dict_param = {"orpha_id":r_id}
+    if r_target == "gene":
+        url = "https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_get_gene_data_by_ncbi_gene_id"
+        dict_param = {"ncbi_gene_id":r_id}
+
+    if request.method == 'GET':
+        if url != "":
+            r_data = requests.get(url, params=dict_param)
+            json_data = r_data.json()
+            return jsonify(json_data)
+        else:
+            return
+
+
+#####
+# API: Get DPAs
+# GET method
+# /api/get_dpa
+@app.route('/api/get_dpa', methods=['GET'])
+def api_pcf_get_dpa():
+    r_target = ""
+    r_id     = ""
+    if request.args.get('target') is not None:
+        r_target = request.args.get('target')
+    if request.args.get('id') is not None:
+        r_id = request.args.get('id')
+
+    # get data record
+    url = ""
+    dict_param = {}
+    if r_target == "omim":
+        url = "https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_get_hpo_data_by_omim_id"
+        dict_param = {"omim_id":r_id}
+    if r_target == "orphanet":
+        url = "https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_get_hpo_data_by_orpha_id"
+        dict_param = {"orpha_id":r_id}
+
+    if request.method == 'GET':
+        if url != "":
+            r_data = requests.get(url, params=dict_param)
+            json_data = r_data.json()
+            return jsonify(json_data)
+        else:
+            return
+
+
+#####
 # API: Download
 # GET method
 # /pcf_download?target=[TARGET]&phenotype=[HPO_ID]&target_id=[TARGET_ID]&format=[FORMAT]&r_range=[RANGE]
 # /pcf_download?target=[TARGET]&phenotype=[HPO_ID]&target_id=[TARGET_ID]&format=[FORMAT]&r_range=[RANGE]&r_weight=[WEIGHT]
+# /api/get_ranked_list?target=[TARGET]&format=[FORMAT]&hpo_id=[HPO_ID]
 @app.route('/pcf_download', methods=['GET'])
+@app.route('/api/get_ranked_list', methods=['GET'])
 def api_pcf_download():
     r_target    = ""
     r_phenotype = ""
@@ -354,6 +422,8 @@ def api_pcf_download():
         r_target = request.args.get('target')
     if request.args.get('phenotype') is not None:
         r_phenotype = request.args.get('phenotype')
+    if request.args.get('hpo_id') is not None:
+        r_phenotype = request.args.get('hpo_id')
     if request.args.get('target_id') is not None:
         r_target_id = request.args.get('target_id')
     if request.args.get('format') is not None:
@@ -366,7 +436,7 @@ def api_pcf_download():
     utc_now = datetime.now(timezone('UTC'))
     jst_now = utc_now.astimezone(timezone('Asia/Tokyo'))
     ts = jst_now.strftime("%Y%m%d-%H%M%S")
-
+    
     if request.method == 'GET':
         if r_format == "json":
             json_data = pcf_download(r_target, r_phenotype, r_target_id, r_format, r_range, r_weight)
