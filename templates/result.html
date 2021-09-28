@@ -86,7 +86,7 @@
 					<div class="d-flex flex-column">
 						<div class=""  style="height:50%;" id="text2hpo">
 							{% if r_lang == "ja" %}
-							<button id="/text2hpo"
+							<button id="/ehr"
 							{% else %}
 							<button id="https://doc2hpo.wglab.org/"
 							{% endif %}
@@ -357,7 +357,7 @@
 	<table>
 		<tr>
 			<td style="vertical-align: middle;">
-				<input style="width:340px;" type="text" id="share_link" value="https://pcf.dbcls.jp/result?target={{ r_target }}&phenotype={{ r_phenotype }}&filter={{ r_filter }}&size={{ r_size }}&display_format={{ r_display_format }}&lang={{ r_lang }}" readonly>
+				<input style="width:340px;" type="text" id="share_link" value="https://pubcasefinder.dbcls.jp/result?target={{ r_target }}&phenotype={{ r_phenotype }}&filter={{ r_filter }}&size={{ r_size }}&display_format={{ r_display_format }}&lang={{ r_lang }}" readonly>
 			</td>
   		</tr>
 	</table>
@@ -420,7 +420,7 @@
 <script type="text/javascript" src="/static/js/pcf/jquery.min.js">
 
 <!-- START: Common footer -->
-<script type="text/javascript" src="https://pcf.dbcls.jp/static/common-header-and-footer/script/common-footer.js" id="common-footer__script"></script>
+<script type="text/javascript" src="https://pubcasefinder.dbcls.jp/static/common-header-and-footer/script/common-footer.js" id="common-footer__script"></script>
 <!-- END: Common footer -->
 
 <script type="text/javascript"
@@ -724,7 +724,7 @@
 		return false;
 	});
 
-	var share_link_val = "https://pcf.dbcls.jp/result?target={{ r_target }}&phenotype={{ r_phenotype }}&filter={{ r_filter }}&size={{ r_size }}&display_format={{ r_display_format }}&lang={{ r_lang }}";
+	var share_link_val = "https://pubcasefinder.dbcls.jp/result?target={{ r_target }}&phenotype={{ r_phenotype }}&filter={{ r_filter }}&size={{ r_size }}&display_format={{ r_display_format }}&lang={{ r_lang }}";
 
 	function update_download_link() {
 		let target    = $("#pcf-content").pcf_content('get_target');
