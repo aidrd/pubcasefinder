@@ -573,7 +573,7 @@ function _do_search_disease(){
     }
 
     //let url = "https://pubcasefinder.dbcls.jp/search_disease/phenotype:" + 
-    let url = "https://pcf.dbcls.jp/result?phenotype=" + 
+    let url = "https://pubcasefinder.dbcls.jp/result?phenotype=" + 
               hpo_lst.join('_ja%2C') +'_ja'+
               "&target=omim&filter=&size=10&display_format=full";
     window.open(url);
@@ -1189,7 +1189,7 @@ function _add_match_by_tokeninput(hpo_id,hpo_name){
     }
 
 
-    let send_url_str = "https://pcf.dbcls.jp/pcf_share?share=annotation&text="+encodeURIComponent(term_in_text)+"&phenotype="+ encodeURIComponent(hpo_id);
+    let send_url_str = "https://pubcasefinder.dbcls.jp/pcf_share?share=annotation&text="+encodeURIComponent(term_in_text)+"&phenotype="+ encodeURIComponent(hpo_id);
     $.ajax({
         url:      send_url_str,  // 通信先のURL
         type:     "GET",// 使用するHTTPメソッド(get/post)
@@ -1228,7 +1228,7 @@ function _add_match(rangeStart,rangeEnd,idx) {
     _sort_match(matches_list);
 
 
-    let send_url_str = "https://pcf.dbcls.jp/pcf_share?share=annotation&text="+encodeURIComponent(term_in_text)+"&phenotype="+ encodeURIComponent(matches_from_server[idx].HPO_ID);
+    let send_url_str = "https://pubcasefinder.dbcls.jp/pcf_share?share=annotation&text="+encodeURIComponent(term_in_text)+"&phenotype="+ encodeURIComponent(matches_from_server[idx].HPO_ID);
     $.ajax({	
         url:      send_url_str,  // 通信先のURL
         type:     "GET",// 使用するHTTPメソッド(get/post)
