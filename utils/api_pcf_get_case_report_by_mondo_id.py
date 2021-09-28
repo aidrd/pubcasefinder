@@ -46,12 +46,12 @@ def pcf_get_case_report_by_mondo_id(r_mondo_id, r_lang):
                 dict_jstage['id']         = "Go to J-STAGE"
                 dict_jstage['title']      = title_ja
                 dict_jstage['url']        = url_ja
-                dict_jstage['url_img_jstage'] = "<a href='" + url_ja + "'><img src='https://pubcasefinder.dbcls.jp/static/images/logo_J-STAGE.png' alt='J-STAGE logo' style='width: 80px; height: auto;'></a>"
+                dict_jstage['url_img_jstage'] = "<a target='_blank' href='" + url_ja + "'><img src='https://pubcasefinder.dbcls.jp/static/images/logo_J-STAGE.png' alt='J-STAGE logo' style='width: 80px; height: auto;'></a>"
                 dict_jstage['pyear']      = pdate
                 #dict_jstage['id_jglobal'] = id_jglobal
                 dict_jstage['id_jglobal'] = "Go to J-GLOBAL"
                 dict_jstage['url_jglobal'] = "https://jglobal.jst.go.jp/detail?JGLOBAL_ID=" + id_jglobal
-                dict_jstage['url_img_jglobal'] = "<a href='https://jglobal.jst.go.jp/detail?JGLOBAL_ID=" + id_jglobal + "'><img src='https://pubcasefinder.dbcls.jp/static/images/logo_J-GLOBAL.png' alt='J-GLOBAL logo' style='width: 100px; height: auto;'></a>"
+                dict_jstage['url_img_jglobal'] = "<a target='_blank' href='https://jglobal.jst.go.jp/detail?JGLOBAL_ID=" + id_jglobal + "'><img src='https://pubcasefinder.dbcls.jp/static/images/logo_J-GLOBAL.png' alt='J-GLOBAL logo' style='width: 100px; height: auto;'></a>"
                 dict_jstage['journal']    = journal
                 list_dict_cs.append(dict_jstage)
         # PubMedの症例報告を取得
