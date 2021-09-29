@@ -671,7 +671,8 @@ def tokeninput_filter():
 
         # requestから値を取得
         #tokeninput = request.args.get("q")
-        tokeninputs = request.args.get("q").replace(u'　', u' ').replace('HP','hp').split()
+        #tokeninputs = request.args.get("q").replace(u'　', u' ').replace('HP','hp').split()
+        tokeninputs = request.args.get("q").replace(u'　', u' ').lower().split()
         sql_params = []
         in_tokeninputs = []
         for v in tokeninputs:
