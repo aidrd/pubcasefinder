@@ -298,7 +298,7 @@
 		let ret = '';
 		if(filter_type === FILTER_TYPE_MONDO){
 			if('name_en' in json_data)	ret = json_data.name_en;
-			if(lang === LANGUAGE_JA && 'name_ja' in json_data && !_isEmpty(json_data[id].name_ja)) ret = json_data.name_ja;
+			if(lang === LANGUAGE_JA && 'name_ja' in json_data && !_isEmpty(json_data.name_ja)) ret = json_data.name_ja;
 			
 		}else if(filter_type === FILTER_TYPE_HPO){
 			if(id in json_data){
