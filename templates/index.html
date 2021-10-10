@@ -1,536 +1,540 @@
-{% extends "base.html" %}
-{% block content %}
+<!DOCTYPE html>
 
-    <!-- START: FORM -->
-    <div id="fh5co-project">
-      <div class="container">
-	<form name="search" action="/result" method="get" class="form-group">
-	  <div align="middle"><a href="/"><img src="/static/images/logo_color.svg" width="550"></a></div>
-	  <br>
-	  <!--div style="text-align:center;font-size:1px;"><div class="rater" id="rater"></div></div-->
-	  <div align="middle">
-	    <table width="70%">
-	      <tr align="middle">
-		<td>
-		  <table width="100%">
-		    <tr>
-		      <td width="100%">
-			<textarea class="form-control" rows="2" id="tokeninput_hpo" name="phenotype"></textarea>
-			<tr align="right">
-			  <td valign="top">
-			    {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
-			      <a href="/text2hpo" target="_blank"><font color="#0431B4">文章から症状を自動抽出したい場合はコチラ</font></a>
-			    {% else %}
-			      <a href="https://impact.dbmi.columbia.edu/doc2hpo/" target="_blank"><font color="#0431B4">Input Free-Text (doc2hpo)</font></a>
-			    {% endif %}
-			  </td>
-			</tr>
-		      </td>
-		    </tr>
-		  </table>
-		</td>
-	      </tr>
-	      <tr><td><br><br></td></tr>
-	      <tr align="middle">
-		<td>
-		  <table>
-		    <tr>
-		      <td>
-			<button id="phenotouch" class="btn btn-default"><span class="icon-icon-symptoms"></span>{{ _('index_button_phenotouch') }}</button>
-			<button id="tokeninput_hpo_clear" class="btn btn-default">{{ _('index_button_clear') }}</button>
-			<button type="submit" class="btn btn-primary"><span class="icon-icon-search"></span>{{ _('index_button_search') }}</button>
-                      </td>
-                    </tr>
-                  </table>
-	        </td>
-	      <tr><td><br></td></tr>
-	      <tr align="middle">
-	        <td valign="top">
-		  <a href="#" id="ex_phenotypes"><font color="#0431B4">ex) {{ _('index_Sample') }}</font></a>
-	        </td>
-	      </tr>
-	    </table>
-          </div>
-          <input type="hidden" name="target" value="omim">
-          <input type="hidden" name="filter" value="">
-          <input type="hidden" name="size" value="10">
-          <input type="hidden" name="display_format" value="full">
-          {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
-          <input type="hidden" name="lang" value="ja">
-          {% else %}
-          <input type="hidden" name="lang" value="en">
-          {% endif %}
-          
-	</form>
-	<br><!--br><br-->
-      </div>
-    </div>
-    <!-- END: FORM -->
+{% if get_locale() == "ja" or get_locale() == "ja_JP" %}
+<html lang="ja">
+{% else %}
+<html lang="en">
+{% endif %}
 
-
-    <!-- START: Description -->
-    <div id="fh5co-counter">
-      <div class="container">
-	<div class="row animate-box" data-animate-effect="fadeInUp">
-	  <div class="col-md-12 col-sm-6 text-center" align="center" style="letter-spacing: 0.3em; line-height: 3em;"><font color="black">{{ _('index_usage_title_sub') }}</font></div>
-	  <div class="col-md-12 col-sm-6 text-center" align="center" style="letter-spacing: 0.3em; line-height: 2em;"><h1><font color="#0f2350"><b>{{ _('index_usage_title') }}</b></font></h1></div>
-	</div>
-	<br><br>
-        <div class="row">
-	  <div class="col-md-4 col-sm-6 ">
-	    <div class="row">
-	      <div class="col-md-1 col-sm-6 "></div>
-	      <div class="col-md-10 col-sm-6 ">
-		<section class="sample4">
-		  <img src="/static/images/top/usage_1.png" height="270">
-		  <!--a href="" data-toggle="modal" data-target="#modal_usage_1">
-		    <figure>
-		      <img src="/static/images/top/usage_1.png" height="270">
-                      <div class="container">
-                        <div class="row mb-5">
-                          <div class="col-2">
-                            <figcaption>
-                              <h3 class="title"><b><span class="icon-icon-movie"></span>&nbsp;DEMO</b></h3>
-                              <p><font size="4">{{ _('index_usage_1_title') }}</font></p>
-                            </figcaption>
-                          </div>
-                        </div>
-                      </div>
-		    </figure>
-		  </a-->
-		</section>
-		<br>
-		<div align="center" style="letter-spacing: 0.1em; "><h3><b><font color="#337ab7">{{ _('index_usage_1_title') }}</font></b></h3></div>
-		<div align="center" style="letter-spacing: 0.1em; line-height: 2em;"><font color="black"><p algin="center">{{ _('index_usage_1_desc') }}</p></font></div>
-	      </div>
-	      <div class="col-md-1 col-sm-6 "></div>
-	    </div>
-	  </div>
-	  <div class="col-md-4 col-sm-6 ">
-	    <div class="row">
-	      <div class="col-md-1 col-sm-6 "></div>
-	      <div class="col-md-10 col-sm-6 ">
-		<section class="sample4">
-		  <img src="/static/images/top/usage_3.png" height="270">
-		  <!--a href="" data-toggle="modal" data-target="#modal_usage_1">
-		    <figure>
-		      <img src="/static/images/top/usage_3.png" height="270">
-                      <div class="container">
-                        <div class="row mb-5">
-                          <div class="col-2">
-                            <figcaption>
-                              <h3 class="title"><b><span class="icon-icon-movie"></span>&nbsp;DEMO</b></h3>
-                              <p><font size="4">{{ _('index_usage_3_title') }}</font></p>
-                            </figcaption>
-                          </div>
-                        </div>
-                      </div>
-		    </figure>
-		  </a-->
-		</section>
-		<br>
-		<div align="center" style="letter-spacing: 0.1em; "><h3><b><font color="#337ab7">{{ _('index_usage_3_title') }}</font></b></h3></div>
-		<div align="center" style="letter-spacing: 0.1em; line-height: 2em;"><font color="black"><p algin="center">{{ _('index_usage_3_desc') }}</p></font></div>
-	      </div>
-	      <div class="col-md-1 col-sm-6 "></div>
-	    </div>
-	  </div>
-	  <div class="col-md-4 col-sm-6 ">
-	    <div class="row">
-	      <div class="col-md-1 col-sm-6 "></div>
-	      <div class="col-md-10 col-sm-6 ">
-		<section class="sample4">
-		  <img src="/static/images/top/usage_2.png" height="270">
-		  <!--a href="" data-toggle="modal" data-target="#modal_usage_1">
-		    <figure>
-		      <img src="/static/images/top/usage_2.png" height="270">
-                      <div class="container">
-                        <div class="row mb-5">
-                          <div class="col-2">
-                            <figcaption>
-                              <h3 class="title"><b><span class="icon-icon-movie"></span>&nbsp;DEMO</b></h3>
-                              <p><font size="4">{{ _('index_usage_2_title') }}</font></p>
-                            </figcaption>
-                          </div>
-                        </div>
-                      </div>
-		    </figure>
-		  </a-->
-		</section>
-		<br>
-		<div align="center" style="letter-spacing: 0.1em; "><h3><b><font color="#337ab7">{{ _('index_usage_2_title') }}</font></b></h3></div>
-		<div align="center" style="letter-spacing: 0.1em; line-height: 2em;"><font color="black"><p algin="center">{{ _('index_usage_2_desc') }}</p></font></div>
-	      </div>
-	      <div class="col-md-1 col-sm-6 "></div>
-	    </div>
-	  </div>
-	</div>
-	<br>
-        <div class="row">
-	  <div class="col-md-1 col-sm-6 "></div>
-	  <div class="col-md-10 col-sm-6 ">
-	    <div class="row">
-	      <div class="col-md-1 col-sm-6 "></div>
-	      <div class="col-md-4 col-sm-6 ">
-		<section class="sample4">
-		  <img src="/static/images/top/usage_4.png" height="270">
-		  <!--a href="" data-toggle="modal" data-target="#modal_usage_1">
-		    <figure>
-		      <img src="/static/images/top/usage_4.png" height="270">
-                      <div class="container">
-                        <div class="row mb-5">
-                          <div class="col-2">
-                            <figcaption>
-                              <h3 class="title"><b><span class="icon-icon-movie"></span>&nbsp;DEMO</b></h3>
-                              <p><font size="4">{{ _('index_usage_4_title') }}</font></p>
-                            </figcaption>
-                          </div>
-                        </div>
-                      </div>
-		    </figure>
-		  </a-->
-		</section>
-		<br>
-		<div align="center" style="letter-spacing: 0.1em; "><h3><b><font color="#337ab7">{{ _('index_usage_4_title') }}</font></b></h3></div>
-		<div align="center" style="letter-spacing: 0.1em; line-height: 2em;"><font color="black"><p algin="center">{{ _('index_usage_4_desc') }}</p></font></div>
-	      </div>
-	      <div class="col-md-2 col-sm-6 "></div>
-	      <div class="col-md-4 col-sm-6 ">
-		<div align="center"><img src="/static/images/top/usage_5.png" height="270"></div>
-		<br>
-		<div align="center" style="letter-spacing: 0.1em; "><h3><b><font color="#337ab7">{{ _('index_usage_5_title') }}</font></b></h3></div>
-		<div align="center" style="letter-spacing: 0.1em; line-height: 2em;"><font color="black"><p algin="center">{{ _('index_usage_5_desc') }}</p></font></div>
-	      </div>
-	      <div class="col-md-1 col-sm-6 "></div>
-	    </div>
-	  </div>
-	  <div class="col-md-1 col-sm-6 "></div>
-	</div>
-      </div>
-    </div>
-    <!-- END: Description -->
-
-
-    <!-- START: Original Data Sources -->
-    <!--
-    <div id="fh5co-started">
-      <div class="container">
-	<div class="row animate-box">
-	  <div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
-	    <h2>Original Data Sources</h2>
-	    <ol>
-	      <li><p align="left">Orphadata: Free access data from Orphanet. © INSERM 1997. Available on <a href="http://www.orphadata.org">http://www.orphadata.org</a>. Data version (XML data version).</p></li>
-	      <li><p align="left">Sebastian Köhler, Sandra C Doelken, Christopher J. Mungall, Sebastian Bauer, Helen V. Firth, et al. The Human Phenotype Ontology project: linking molecular biology and disease through phenotype data Nucl. Acids Res. (1 January 2014) 42 (D1): D966-D974 doi:10.1093/nar/gkt1026</p></li>
-	      <li><p align="left">Mungall, Christopher J., et al. The Monarch Initiative: an integrative data and analytic platform connecting phenotypes to genotypes across species. Nucleic acids research 45.D1 (2016): D712-D722.</p></li>
-	      <li><p align="left">Wei CH et. al., PubTator: a Web-based text mining tool for assisting Biocuration, Nucleic acids research, 2013, 41 (W1): W518-W522. doi: 10.1093/nar/gkt44</p></li>
-	      <li><p align="left">HPO-Japanese alpha version</p></li>
-	      <li><p align="left">jQuery Tokeninput: Copyright (c) James Smith, Released under the MIT license, <a href="https://opensource.org/licenses/mit-license.php">https://opensource.org/licenses/mit-license.php</a></p></li>
-	      <li><p align="left">Bootstrap template, Copyright <a href="https://freehtml5.co">FREEHTML5.CO</a> licensed by <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a></p></li>
-	      <li><p align="left">BodyParts3D, Copyright <a href="https://dbcls.rois.ac.jp/index-en.html">Database Center for Life Science</a> licensed by <a href="https://creativecommons.org/licenses/by-sa/2.1/jp/">CC BY SA 2.1-ja</a></p></li>
-	    </ol>
-	  </div>
-	</div>
-      </div>
-    </div>
-    -->
-    <!-- END: Original Data Sources -->
-
-    <br><br>
-
-    <!-- START: Photo -->
-    <div id="fh5co-services" class="fh5co-bg-section border-bottom">
-      <div class="container description-container">
-	<div class="row description-wrapper">
-	  <div class="left-wrapper">
-	    <div align="left" style="letter-spacing: 0.2em; line-height: 2em; "><font color="black" size="4">{{ _('index_photo_title_sub') }}</font></div>
-	    <div align="left" style="letter-spacing: 0.2em; "><h1><font color="#2A3356"><b>{{ _('index_photo_title') }}</b></font></h1></div>
-
-            <!-- 8.13:追加:モーダルを開くボタン・リンク -->
-            <div class="container">
-              <div class="row mb-5">
-		<div class="col-2">
-                  <button id="play_movie" class="btn btn-default" data-toggle="modal" data-target="#modal_photo"><span class="icon-icon-movie"></span>&nbsp;{{ _('index_photo_how') }}</button>
-		</div>
-              </div>
-	    </div>
-	    <!-- モーダルボタン終わり-->
-
-	  </div>
-	  <div class="img-movie"><img src="static/images/img-movie.png"></div>
-	</div>
-      </div>
-    </div>
-    <!-- END: Photo -->
-
-    <br><br>
-
-    <!-- START: Statistics -->
-    <div id="fh5co-counter">
-      <div class="container">
-	<div class="row animate-box" data-animate-effect="fadeInUp">
-	  <div class="col-md-8 col-md-offset-2 text-center fh5co-heading" style="letter-spacing: 0.3em; line-height: 2em;">
-	    <h2><font color="#0f2350">Statistics</font></h2>
-	  </div>
-	</div>
-	<div class="row">
-	  <div class="col-md-3 col-sm-6 animate-box" data-animate-effect="fadeInLeft">
-	    <span class="icon">
-	      <i class="ti-face-smile"></i>
-	    </span>
-	    <span class="counter"><span class="js-counter" data-from="0" data-to="7352" data-speed="1500" data-refresh-interval="50">1</span></span>
-	    <div align="center" style="letter-spacing: 0.2em; "><font color="black">{{ _('index_stat_genetic') }}</font></div>
-	  </div>
-	  <div class="col-md-3 col-sm-6 animate-box" data-animate-effect="fadeInLeft">
-	    <span class="icon">
-	      <i class="ti-face-smile"></i>
-	    </span>
-	    <span class="counter"><span class="js-counter" data-from="0" data-to="4609" data-speed="1500" data-refresh-interval="50">1</span></span>
-	    <div align="center" style="letter-spacing: 0.2em; "><font color="black">{{ _('index_stat_rare') }}</font></div>
-	  </div>
-	  <div class="col-md-3 col-sm-6 animate-box" data-animate-effect="fadeInLeft">
-	    <span class="icon">
-	      <i class="ti-face-smile"></i>
-	    </span>
-	    <span class="counter"><span class="js-counter" data-from="0" data-to="4312" data-speed="1500" data-refresh-interval="50">1</span></span>
-	    <div align="center" style="letter-spacing: 0.2em; "><font color="black">{{ _('index_stat_gene') }}</font></div>
-	  </div>
-	  <div class="col-md-3 col-sm-6 animate-box" data-animate-effect="fadeInLeft">
-	    <span class="icon">
-	      <i class="ti-face-smile"></i>
-	    </span>
-	    <span class="counter"><span class="js-counter" data-from="0" data-to="18893" data-speed="1500" data-refresh-interval="50">1</span></span>
-	    <div align="center" style="letter-spacing: 0.2em; "><font color="black">{{ _('index_stat_udp') }}</font></div>
-	  </div>
-	  <!-- div class="col-md-3 col-sm-6 animate-box" data-animate-effect="fadeInLeft">
-	    <span class="icon">
-	      <i class="ti-download"></i>
-	    </span>
-	    <span class="counter"><span class="js-counter" data-from="0" data-to="2" data-speed="1500" data-refresh-interval="50">2</span>M+</span>
-	    <div align="center" style="letter-spacing: 0.2em; "><font color="black">{{ _('index_stat_cs') }}</font></div>
-	    <a href="https://www.ncbi.nlm.nih.gov/pubmed/?term=%22case+reports%22%5BPublication+Type%5D+OR+%22case+reports%22%5Bti%5D+OR+%22case+report%22%5Bti%5D">&gt;&gt; PubMed</a>
-	  </div-->
-	</div>
-	<!-- END: Statistics -->
-
-	<!-- START: Citing PubCaseFinder -->
-        <br><br><br><br><br>
-	<div class="row animate-box" data-animate-effect="fadeInUp">
-	  <div class="col-md-8 col-md-offset-2 text-center fh5co-heading" style="letter-spacing: 0.3em; line-height: 2em;">
-	    <h2><font color="#0f2350">Citation</font></h2>
-	  </div>
-	</div>
-	<div class="row">
-	  <div class="col-md-2 col-sm-6 "></div>
-	  <div class="col-md-8 col-sm-6 text-center fh5co-heading" style="letter-spacing: 0.1em; line-height: 2em;">
-	    <font size="4" color="black"><b>{{ _('index_label_citation') }}</b></font>
-	    <p><font color="black">Toyofumi Fujiwara, Yasunori Yamamoto, Jin-Dong Kim, Orion Buske, and Toshihisa Takagi., PubCaseFinder: A Case-Report-Based, Phenotype-Driven Differential-Diagnosis System for Rare Diseases, <I>The American Journal of Human Genetics</I> 103.3 (2018): 389-399.</font><br>
-	      <a href="https://www.ncbi.nlm.nih.gov/pubmed/30173820" target="_blank">[PubMed Entry]</a>&nbsp;&nbsp;
-	      <a href="https://www.cell.com/ajhg/fulltext/S0002-9297(18)30269-6?code=ajhg-site" target="_blank">[Full Text]</a>
-	    </p>
-	  </div>
-	  <div class="col-md-2 col-sm-6 "></div>
-	</div>
-	<!-- END: Citing PubCaseFinder -->
-
-	<br><br><br>
-
-	<!-- START: Logos -->
-	<div class="row">
-	  <div class="col-md-6 col-sm-6 ">
-	    <div class="row">
-	      <div class="col-md-3 col-sm-6 "></div>
-	      <div class="row animate-box" data-animate-effect="fadeInUp">
-		<div class="col-md-8 col-md-offset-2 text-center fh5co-heading" style="letter-spacing: 0.3em; line-height: 2em; ">
-		  <h3><font color="#0f2350" size="6"><br>Special Thanks</font></h3>
-		</div>
-	      </div>
-	      <div class="col-md-3 col-sm-6 "></div>
-	    </div>
-
-	    <div class="row">
-	      <div class="col-md-6 col-sm-6 ">
-		<div align="center"><a href="https://hpo.jax.org/app/" target="_blank"><img src="/static/images/top/logo/hpo.png" height="55"></a></div>
-	      </div>
-	      <div class="col-md-5 col-sm-6 ">
-		<div align="center"><a href="https://github.com/monarch-initiative/mondo" target="_blank"><img src="/static/images/top/logo/mondo.png" height="60"></a></div>
-	      </div>
-	      <div class="col-md-1 col-sm-6 "></div>
-	    </div>
-	    <br><br>
-	    <div class="row">
-	      <div class="col-md-6 col-sm-6 ">
-		<div align="center"><a href="https://www.ncbi.nlm.nih.gov/CBBresearch/Lu/Demo/PubTator/" target="_blank"><img src="/static/images/top/logo/pubtator.png" width="180"></a></div>
-	      </div>
-	      <div class="col-md-5 col-sm-6 ">
-		<div align="center"><a href="http://www.orphadata.org/cgi-bin/index.php" target="_blank"><img src="/static/images/top/logo/orphadata.png" width="180"></a></div>
-	      </div>
-	      <div class="col-md-1 col-sm-6 "></div>
-	    </div>
-	    <br><br>
-	    <div class="row">
-	      <div class="col-md-12 col-sm-6 " style="margin-top: 0.5rem">
-		<div align="center"><a href="https://monarchinitiative.org" target="_blank"><img src="/static/images/top/logo/monarch.png" height="45"></a></div>
-	      </div>
-	    </div>
-	  </div>
-
-	  <div class="col-md-6 col-sm-6 " style="border-left: 1px solid #bbb;">
-	    <div class="row">
-	      <div class="col-md-2 col-sm-6 "></div>
-	      <div class="row animate-box" data-animate-effect="fadeInUp">
-		<div class="col-md-8 col-md-offset-2 text-center fh5co-heading" style="letter-spacing: 0.3em; line-height: 2em;">
-		  <h3><font color="#0f2350" size="6">Memberships &<br>Collaborators</font></h3>
-		</div>
-	      </div>
-	      <div class="col-md-2 col-sm-6 "></div>
-	    </div>
-	    <div class="row">
-	      <div class="col-md-1 col-sm-6 "></div>
-	      <div class="col-md-5 col-sm-6 ">
-		<div align="center"><a href="http://ga4gh.org" target="_blank"><img src="/static/images/top/logo/ga4gh.png" height="50"></a></div>
-	      </div>
-	      <div class="col-md-6 col-sm-6 ">
-		<a href="https://biosciencedbc.jp/en/" target="_blank"><img src="/static/images/top/logo/nbdc.png" height="45"></a>
-	      </div>
-	    </div>
-	    <br>
-	    <div class="row">
-	      <div class="col-md-1 col-sm-6 "></div>
-	      <div class="col-md-5 col-sm-6 ">
-		<a href="http://www.matchmakerexchange.org" target="_blank"><img src="/static/images/top/logo/mme.png" height="100"></a>
-	      </div>
-	      <div class="col-md-6 col-sm-6 mx-auto " style="margin-top: 1.2rem">
-		<div align="center"><a href="https://gene42.com" target="_blank"><img src="/static/images/top/logo/gene42.jpg" height="70"></a></div>
-	      </div>
-	    </div>
-	    <br>
-	    <div class="row">
-	      <div class="col-md-1 col-sm-6 "></div>
-	      <div class="col-md-5 col-sm-6 ">
-		<div align="center"><a href="https://www.phenomecentral.org" target="_blank"><img src="/static/images/top/logo/phenomecentral.png" height="80"></a></div>
-	      </div>
-	      <div class="col-md-6 col-sm-6 ">
-		<div align="center"><a href="http://patientarchive.org" target="_blank"><img src="/static/images/top/logo/patientarchive.jpg" height="80"></a></div>
-	      </div>
-	    </div>
-
-	  </div>
-	</div>
-	<!-- END: Logos -->
-      </div>
-    </div>
-
-    <br><br>
-
-    <!-- START: Import JavaScript -->	
-    <!-- jQuery -->
-    <script src="/static/js/jquery.min.js"></script>
-    <!-- jQuery Easing -->
-    <script src="/static/js/jquery.easing.1.3.js"></script>
-    <!-- Bootstrap -->
-    <script src="/static/js/bootstrap.min.js"></script>
-    <!-- Waypoints -->
-    <script src="/static/js/jquery.waypoints.min.js"></script>
-    <!-- countTo -->
-    <script src="/static/js/jquery.countTo.js"></script>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PubcaseFinder</title>
+    <!--css-->
+    <link rel="stylesheet" href="https://unpkg.com/destyle.css@1.0.5/destyle.css">
+    <link rel="stylesheet" href="/static/css/pcf/branc.css">
+    <link rel="stylesheet" href="/static/css/pcf/branc-ie7.css">
+    <link rel="stylesheet" href="/static/css/pcf/branc-ie7-codes.css">
+    <link rel="stylesheet" href="/static/css/pcf/branc-embedded.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.1/css/swiper.min.css">
+    <link href="/static/css/pcf/remodal.css" rel="stylesheet">
+    <link href="/static/css/pcf/remodal-default-theme.css" rel="stylesheet">
+    <!-- jquery-tokeninput -->
+    <link rel="stylesheet" href="/static/css/token-input-facebook.css" type="text/css" />
+    <!-- popup-tokeninput -->
+    <link rel="stylesheet" href="/static/css/popup-hierarchy-hpo.css">
+    <link rel="stylesheet" href="/static/css/popup-hierarchy-gene.css">
+    <!--favicon start-->
+    <link rel="apple-touch-icon" sizes="180x180" href="/static/images/pcf/top/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/static/images/pcf/top/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/static/images/pcf/top/favicon-16x16.png">
+    <link rel="manifest" href="/static/images/pcf/top/site.webmanifest">
+    <link rel="mask-icon" href="/static/images/pcf/top/safari-pinned-tab.svg" color="#2a3356">
+    <meta name="msapplication-TileColor" content="#2a3356">
+    <meta name="theme-color" content="#ffffff">
+    <!--favicon end-->
+    <!--link rel="stylesheet" href="/static/css/pcf/mobile.css"-->
+    <!--link rel="stylesheet" href="/static/css/pcf/style-top.css"-->
+    <link rel="stylesheet" href="/static/css/pcf/bootstrap-new.css">
+    <link rel="stylesheet" href="/static/css/pcf/style-new2.css">
+    <link rel="stylesheet" href="/static/css/pcf/style-new.css">
+    <!--link rel="stylesheet" href="/static/css/style.css"-->
+    <link
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Noto+Sans+JP:wght@100;300;400;500;700;900&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--css original-->
     <!-- Magnific Popup -->
-    <!-- modify start for chrome 91.0.4472.123-->
-    <!-- <script src="/static/js/jquery.magnific-popup.min.js"></script>  -->
-    <script src="/static/js/jquery.magnific_popup.min.js"></script>
-    <!-- modify end for chrome 91.0.4472.123-->
-    <script src="/static/js/magnific-popup-options.js"></script>
-    <!-- Stellar -->
-    <script src="/static/js/jquery.stellar.min.js"></script>
-    <!-- rater -->
-    <script src="/static/js/rater.js"></script>
-    <!-- Main -->
-    <script src="/static/js/main.js"></script>
-    <!-- END: Import JavaScript -->	
+    <link rel="stylesheet" href="/static/css/magnific-popup.css">
+    <!-- Modernizr JS -->
+    <script src="/static/js/modernizr-2.6.2.min.js"></script>
+</head>
+
+<body>
+    <header class="search-header">
+        <div class="wrapper search-header_wrapper">
+            <div class="search-header_top">
+                <div class="brand">
+                    <a href="#" class="brand"><img src="/static/images/pcf/top/logo_color.svg" alt=""></a>
+                </div>
+                <div class="search-header_left">
+                    <nav class="nav-pc">
+                        <ul class="menu-pc">
+			    {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
+                            <li><a href="/static/pdf/PubCaseFinder_manual_ja_v4.pdf"><i class="icon-question-circle-o"></i>About</a></li>
+			    {% else %}
+                            <li><a href="/static/pdf/PubCaseFinder_manual_en_v4.pdf"><i class="icon-question-circle-o"></i>About</a></li>
+			    {% endif %}
+                            <li><a href="/datasets"><i class="icon-database"></i>Datasets</a></li>
+                            <li><a href="/history"><i class="icon-history"></i>History</a></li>
+                            <li><a href="/termsofservice"><i class="icon-doc-text-inv"></i>Terms</a></li>
+                            <li><a href="https://integbio.jp/rdf/dataset/pubcasefinder"><i class="icon-share"></i>RDF</a></li>
+                            <li><a href="/mme"><i class="icon-wrench"></i>API</a></li>
+                            <li><a title="Comments & suggestions are welcome!" href="mailto:support@dbcls.rois.ac.jp,pubcasefinder@dbcls.rois.ac.jp"><i class="icon-mail-alt"></i>Contact</a></li>
+
+                        </ul>
+                    </nav>
+                    <nav class="nav-sp">
+                        <ul>
+                            <li class="menu-item-has-children">
+                                <a href="#"><span class="material-icons">
+                                        menu
+                                    </span></a>
+                                <ul class="sub-menu">
+				    {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
+                                    <li><a href="/static/pdf/PubCaseFinder_manual_ja_v4.pdf">About</a></li>
+			            {% else %}
+                                    <li><a href="/static/pdf/PubCaseFinder_manual_en_v4.pdf">About</a></li>
+				    {% endif %}
+                                    <li><a href="/datasets">Datasets</a></li>
+                                    <li><a href="/history">History</a></li>
+                                    <li><a href="/termsofservice">Terms</a></li>
+                                    <li><a href="https://integbio.jp/rdf/dataset/pubcasefinder">RDF</a></li>
+                                    <li><a href="/mme">API</a></li>
+                                    <li><a title="Comments & suggestions are welcome!" href="mailto:support@dbcls.rois.ac.jp,pubcasefinder@dbcls.rois.ac.jp">Contact</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </nav>
+                    <div class="language"><a href="{{ request.path }}?lang=en">EN</a> / <a href="{{ request.path }}?lang=ja">JA</a></div>
+                    <!--<div class="site-header_end">
+                        <a class="button" href="#">Login<i class="material-icons">expand_more</i></a>
+                    </div>-->
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="top-wrapper">
+        <section class="content">
+            <div class="search">
+	      <form name="search" action="/result" method="get" class="form-group">
+                <div class="search-box_wrapper">
+                    <div class="search-brand">
+                        <a href="#"><img src="/static/images/pcf/top/logo_color.svg" alt=""></a>
+                    </div>
+		    <textarea class="form-control" rows="2" id="tokeninput_hpo" name="phenotype"></textarea>
+                    <div class="search-button">
+		        {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
+                        <a class="search_end" href="/ehr" target="_blank">文章から症状を自動抽出したい場合はコチラ</a>
+                        <!--span class="search_end"><a href="/text2hpo" target="_blank">文章から症状を自動抽出したい場合はコチラ</a></span-->
+			{% else %}
+                        <a class="search_end" href="https://doc2hpo.wglab.org" target="_blank">Input Free-Text (doc2hpo)</a>
+			{% endif %}
+                    </div>
+                </div>
+                <div class="search-box_button">
+                    <div class="search-button">
+                        <a id="phenotouch" href=""><i class="icon-icon-symptoms"></i>{{ _('index_button_phenotouch') }}</a>
+                        <a id="tokeninput_hpo_clear" href="">{{ _('index_button_clear') }}</a>
+                        <a href="javascript:search.submit()" class="search-button-left"><i class="icon-icon-search"></i>{{ _('index_button_search') }}</a>
+                    </div>
+                </div>
+                <div class="search-ex">
+                    <a href="#" id="ex_phenotypes">ex) {{ _('index_Sample') }}</a>
+                </div>
+
+		<input type="hidden" name="target" value="omim">
+		<input type="hidden" name="filter" value="">
+		<input type="hidden" name="size" value="10">
+		<input type="hidden" name="display_format" value="full">
+		{% if get_locale() == "ja" or get_locale() == "ja_JP" %}
+		<input type="hidden" name="lang" value="ja">
+		{% else %}
+		<input type="hidden" name="lang" value="en">
+		{% endif %}
+
+              </form>
+            </div>
+
+            <!--<div class="swiper-container">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <img src="/static/images/pcf/top/slider_1.png" alt="">
+                        <div class="slider_text">
+                            <h6>Can be used on
+                                PCs and tablets</h5>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elitLorem ipsum dolor sit
+                                    amet,
+                                    consectetur adipisicing elit</p>
+                                <a href="#" class="btn">Raed more</a>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="/static/images/pcf/top/slider_2.png" alt="">
+                        <div class="slider_text">
+                            <h6>Used in medical school classes</h5>
+                                <p>Erasmus University Rotterdam, EUR</p>
+                                <a href="#" class="btn">Raed more</a>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="/static/images/pcf/top/slider_3.png" alt="">
+                        <div class="slider_text">
+                            <h6>Symptoms can be automatically extracted from electronic medical records</h5>
+                                <p> (medical records)</p>
+                                <a href="#" class="btn">Raed more</a>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="/static/images/pcf/top/slider_4.png" alt="">
+                        <div class="slider_text">
+                            <h6>Filter function</h5>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elitLorem ipsum dolor sit
+                                    amet,
+                                    consectetur adipisicing elit</p>
+                                <a href="#" class="btn">Raed more</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="swiper-pagination"></div>
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+            </div>-->
+
+            <div class="section-useful">
+                <div class="text-center animation-box">
+                    <!--h6>{{ _('index_usage_title_sub') }}</h6-->
+                    <h1>{{ _('index_usage_title') }}</h1>
+                </div>
+                <div id="cardlayout-wrap">
+                    <section class="card-list animation-box">
+                            <figure class="card-figure"><img src="/static/images/pcf/top/usage_1.png" height="270"></figure>
+                            <h2 class="card-title">{{ _('index_usage_1_title') }}</h2>
+                            <p class="card-text-tax">{{ _('index_usage_1_desc') }}</p>
+                    </section>
+                    <section class="card-list animation-box">
+                            <figure class="card-figure"><img src="/static/images/pcf/top/usage_3.png" height="270"></figure>
+                            <h2 class="card-title">{{ _('index_usage_3_title') }}</h2>
+                            <p class="card-text-tax">{{ _('index_usage_3_desc') }}</p>
+                    </section>
+                    <section class="card-list animation-box">
+                            <figure class="card-figure"><img src="/static/images/pcf/top/usage_2.png" height="270"></figure>
+                            <h2 class="card-title">{{ _('index_usage_2_title') }}</h2>
+                            <p class="card-text-tax">{{ _('index_usage_2_desc') }}</p>
+                    </section>
+                    <section class="card-list animation-box">
+                            <figure class="card-figure"><img src="/static/images/pcf/top/usage_4.png" height="270"></figure>
+                            <h2 class="card-title">{{ _('index_usage_4_title') }}</h2>
+                            <p class="card-text-tax">{{ _('index_usage_4_desc') }}</p>
+                    </section>
+                    <section class="card-list animation-box">
+                            <figure class="card-figure"><img src="/static/images/pcf/top/usage_6.png" height="270"></figure>
+                            <h2 class="card-title">{{ _('index_usage_5_title') }}</h2>
+                            <p class="card-text-tax">{{ _('index_usage_5_desc') }}</p>
+                    </section>
+                    <section class="card-list animation-box">
+                            <figure class="card-figure"><img src="/static/images/pcf/top/usage_5.png" height="270"></figure>
+                            <h2 class="card-title">{{ _('index_usage_6_title') }}</h2>
+                            <p class="card-text-tax">{{ _('index_usage_6_desc') }}</p>
+                    </section>
+                </div>
+            </div>
+
+            <div class="section-movie">
+                <div class="movie-wrapper">
+                    <div class="movie-text">
+                        <div class="text-left">
+                            <h6>PubCaseFinder: Search System Tailored For</h6>
+                            <h1>Medical Professionals</h1>
+                            <div class="movie-button remodal-bg">
+                                <a href="#modal"><i class="icon-icon-movie"></i>How Does It Work?</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="movie-img"><img src="/static/images/pcf/top/img-movie.png"></div>
+                </div>
+            </div>
+
+            <div class="section-statistics">
+                <div class="text-center animation-box">
+                    <h1>Statistics</h1>
+                </div>
+                <div class="grid-w">
+                    <div class="item-w">
+                        <h1 class="count" data-num="7848">7000</h1>
+                        <p>
+                            Genetic Diseases
+                        </p>
+                        <span class="icon-omim"></span>
+                    </div>
+                    <div class="item-w">
+                        <h1 class="count" data-num="3619">3000</h1>
+                        <p>
+                            Rare Diseases
+
+                        </p>
+                        <span class="icon-orphanet"></span>
+                    </div>
+                    <div class="item-w">
+                        <h1 class="count" data-num="4025">3300</h1>
+                        <p>
+                            Genes
+                        </p>
+                        <span class="icon-cause"></span>
+                    </div>
+                    <div class="item-w">
+                        <h1 class="count" data-num="18893">18000</h1>
+                        <p>
+                            Cases
+                        </p>
+                        <span class="icon-users"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-citation">
+                <div class="text-center animation-box">
+                    <h1>Citation</h1>
+                    <div class="Citation-box">
+                        <span class="decoration1"><img src="/static/images/pcf/top/comma_1.png"></span>
+                        <h5>When you use PubCaseFinder in your publications, please cite:</h5>
+                        <p>Toyofumi Fujiwara, Yasunori Yamamoto, Jin-Dong Kim, Orion Buske, and Toshihisa Takagi.,
+                            PubCaseFinder: A Case-Report-Based, Phenotype-Driven Differential-Diagnosis System for
+                            Rare
+                            Diseases, The American Journal of Human Genetics 103.3 (2018): 389-399.</p>
+                        <div class="Citation-button">
+                            <a href="https://www.ncbi.nlm.nih.gov/pubmed/30173820">[PubMed Entry]</a>
+                            <a href="https://www.cell.com/ajhg/fulltext/S0002-9297(18)30269-6?code=ajhg-site"> [Full Text]</a>
+                        </div>
+                        <span class="decoration2"><img src="/static/images/pcf/top/comma_2.png"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-specialThanks">
+                <div class="text-center animation-box">
+                    <h1>Special Thanks</h1>
+                </div>
+                <div class="grid">
+                    <div class="item">
+                        <a href="https://hpo.jax.org/app/"><img src="/static/images/pcf/top/logo_human.png"></a>
+                    </div>
+                    <div class="item">
+                        <a href="https://github.com/monarch-initiative/mondo"><img src="/static/images/pcf/top/logo_mondo.png"></a>
+                    </div>
+                    <div class="item">
+                        <a href="http://www.orphadata.org/cgi-bin/index.php"><img src="/static/images/pcf/top/logo_orpha.png"></a>
+                    </div>
+                    <div class="item">
+                        <a href="https://monarchinitiative.org/"><img src="/static/images/pcf/top/logo_monarch.png"></a>
+                    </div>
+                    <div class="item">
+                        <a href="https://bioportal.bioontology.org/ontologies/NANDO"><img
+                                src="/static/images/pcf/top/logo_NANDO.png"></a>
+                    </div>
+                    <div class="item">
+                        <a href="https://nanbyodata.jp/"><img src="/static/images/pcf/top/logo_NanbyoData.png"></a>
+                    </div>
+                </div>
+            </div>
+            <div class="section-memberships">
+                <div class="text-center animation-box">
+                    <h1>Memberships & Collaborators</h1>
+                </div>
+                <div class="grid">
+                    <div class="item">
+                        <a href="https://www.ga4gh.org/"><img src="/static/images/pcf/top/logo_global.png">
+                        </a>
+                    </div>
+                    <div class="item">
+                        <a href="https://www.matchmakerexchange.org"><img src="/static/images/pcf/top/logo_matchmaker.png">
+                        </a>
+                    </div>
+                    <div class="item">
+                        <a href="https://biosciencedbc.jp/en/"><img src="/static/images/pcf/top/logo_NBDC.png"></a>
+                    </div>
+                    <div class="item">
+                        <a href="https://phenotips.com"><img src="/static/images/pcf/top/logo_PhenoTips.png">
+                        </a>
+                    </div>
+                    <div class="item">
+                        <a href="https://www.phenomecentral.org/"><img src="/static/images/pcf/top/logo_central.png">
+                        </a>
+                    </div>
+                    <div class="item">
+                        <a href="https://rd-connect.eu"><img src="/static/images/pcf/top/logo_RD.png">
+                        </a>
+                    </div>
+                    <div class="item">
+                        <a href="https://www.jstage.jst.go.jp/browse/-char/en"><img src="/static/images/pcf/top/logo_jstage.png"></a>
+                    </div>
+                    <div class="item">
+                        <a href="https://jglobal.jst.go.jp/en"><img src="/static/images/pcf/top/logo_Jglobal.png"></a>
+                    </div>
+                </div>
+            </div>
+    </div>
 
 
-    <!-- START: jquery-tokeninput -->
-    <script type="text/javascript" src="/static/js/jquery.tokeninput.js"></script>
-    <script type="text/javascript">
-      $(document).ready(function() {
-        $("#ex_phenotypes").click(function (){
-          $("#tokeninput_hpo").tokenInput("add", {id: "{{ _('index_Sample_1_id') }}", name: "{{ _('index_Sample_1_name') }}"});
-          $("#tokeninput_hpo").tokenInput("add", {id: "{{ _('index_Sample_2_id') }}", name: "{{ _('index_Sample_2_name') }}"});
-          $("#tokeninput_hpo").tokenInput("add", {id: "{{ _('index_Sample_3_id') }}", name: "{{ _('index_Sample_3_name') }}"});
-          $("#tokeninput_hpo").tokenInput("add", {id: "{{ _('index_Sample_4_id') }}", name: "{{ _('index_Sample_4_name') }}"});
-          $("#tokeninput_hpo").tokenInput("add", {id: "{{ _('index_Sample_5_id') }}", name: "{{ _('index_Sample_5_name') }}"});
-          return false;
+    </section>
+    </div>
+    <div class="remodal" data-remodal-id="modal">
+        <button data-remodal-action="close" class="remodal-close"></button>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/g6SZWbb0Fk4" title="YouTube video player"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen></iframe>
+    </div>
+
+</body>
+
+<!-- START: Common header and footer -->
+<script type="text/javascript" src="/static/common-header-and-footer/script/common-footer.js" id="common-footer__script"></script>
+<script type="text/javascript"
+    src="https://dbcls.rois.ac.jp/DBCLS-common-header-footer/v2/script/common-header-and-footer.js"
+    style="display: block" id="common-header-and-footer__script" data-width="976" data-color="mono"></script>
+<!-- END: Common header and fotter -->
+
+<!-- START: Slider -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.1/js/swiper.min.js"></script>
+<script src="/static/js/pcf/remodal.min.js"></script>
+<script>
+    $(function () {
+        $('span').on('click', function (event) {
+            let getId = $(this).parent().attr('.search-button');
+            event.preventDefault();
+            $(this).toggleClass('active');
         });
-        $("#tokeninput_hpo").tokenInput("/tokeninput_hpo", {
-          theme: "facebook"
+    });
+    $('.tab-content>div').hide();
+    $('.tab-content>div').first().slideDown();
+    $('.tab-buttons span').click(function () {
+        var thisclass = $(this).attr('class');
+        $('#lamp').removeClass().addClass('#lamp').addClass(thisclass);
+        $('.tab-content>div').each(function () {
+            if ($(this).hasClass(thisclass)) {
+                $(this).fadeIn(800);
+            }
+            else {
+                $(this).hide();
+            }
         });
-        $("#tokeninput_hpo_clear").click(function (){
-          $("#tokeninput_hpo").tokenInput("clear");
-          return false;
+    });
+    jQuery(window).on('scroll', function () {
+        if (jQuery('.search-header').height() < jQuery(this).scrollTop()) {
+            jQuery('.search-header').addClass('change-color');
+        } else {
+            jQuery('.search-header').removeClass('change-color');
+        }
+    });
+    var mySwiper = new Swiper('.swiper-container', {
+        loop: true,
+        speed: 5000,
+        nextButton: '.swiper-button-next',
+        prevButton: '.swiper-button-prev',
+        pagination: '.swiper-pagination',
+        autoplay: {
+            stopOnLastSlide: false,
+            disableOnInteraction: false,
+            reverseDirection: false
+        }
+    });
+    $(function () {
+        var countElm = $('.count'),
+            countSpeed = 1;
+
+        countElm.each(function () {
+            var self = $(this),
+                countMax = self.attr('data-num'),
+                thisCount = self.text(),
+                countTimer;
+
+            function timer() {
+                countTimer = setInterval(function () {
+                    var countNext = thisCount++;
+                    self.text(countNext);
+
+                    if (countNext == countMax) {
+                        clearInterval(countTimer);
+                    }
+                }, countSpeed);
+            }
+            timer();
         });
-      });
-      $("#phenotouch").click(function (e){
-        $.PopupRelationHPOWithWebGL();
-        e.preventDefault();
-        e.stopPropagation();
-        return false;
-      });
-      $('.rater').rate({
-        max_value: 5,
-        step_size: 0.1,
-        initial_value: 0
-      });
-    </script>
-    <!-- END: jquery-tokeninput -->
 
-    <!-- START: popup-hierarchy-hpo -->
-    <!-- WebGL -->
-    <script src="/static/js/d3/3.5.17/d3.min.js"></script>
-    <script src="/static/js/three.js-r84/build/three.min.js"></script>
-    <script src="/static/js/three.js-r84/examples/js/Detector.js"></script>
-    <script src="/static/js/three-bits/OBJLoader.js"></script>
-    <script src="/static/js/three-bits/three-bits.js"></script>
-    <script src="/static/js/three-bits/three-bits-renderer.js"></script>
-    <script src="/static/js/three-bits/defaults.js"></script>
-    <!-- script src="/static/js/three-bits/category2obj.js"></script -->
-    <script src="/static/js/popup-hierarchy-hpo.js"></script>
-    <script src="/static/js/button-ripple-effect.js"></script>
-    <script type="text/javascript">
-      $(document).ready(function() {
-        $("#tokeninput_hpo").popupRelationHPO('/popup_hierarchy_hpo');
-      });
-    </script>
-    <!-- END: popup-hierarchy-hpo -->
+    });
+</script>
+<!-- END: Slider -->
 
-    <!-- START: focus on text-box -->
-    <!--
-    <script type="text/javascript">
-      document.getElementById('tokeninput_hpo').focus();
-    </script>
-    -->
-    <!-- END: focus on text-box -->
+<!-- START: Import JavaScript -->   
+<!-- jQuery -->
+<script src="/static/js/jquery.min.js"></script>
+<!-- jQuery Easing -->
+<script src="/static/js/jquery.easing.1.3.js"></script>
+<!-- Bootstrap -->
+<script src="/static/js/bootstrap.min.js"></script>
+<!-- Waypoints -->
+<script src="/static/js/jquery.waypoints.min.js"></script>
+<!-- countTo -->
+<script src="/static/js/jquery.countTo.js"></script>
+<!-- Magnific Popup -->
+<!-- modify start for chrome 91.0.4472.123-->
+<!-- <script src="/static/js/jquery.magnific-popup.min.js"></script>  -->
+<script src="/static/js/jquery.magnific_popup.min.js"></script>
+<!-- modify end for chrome 91.0.4472.123-->
+<script src="/static/js/magnific-popup-options.js"></script>
+<!-- Stellar -->
+<script src="/static/js/jquery.stellar.min.js"></script>
+<!-- rater -->
+<script src="/static/js/rater.js"></script>
+<!-- Main -->
+<script src="/static/js/main.js"></script>
+<!-- END: Import JavaScript -->    
 
-    <!--Start of Tawk.to Script-->
-    <!--
-    <script type="text/javascript">
-      var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-      (function(){
-      var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-      s1.async=true;
+<!-- START: jquery-tokeninput -->
+<script type="text/javascript" src="/static/js/jquery.tokeninput.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() {
+    $("#ex_phenotypes").click(function (){
+      $("#tokeninput_hpo").tokenInput("add", {id: "{{ _('index_Sample_1_id') }}", name: "{{ _('index_Sample_1_name') }}"});
+      $("#tokeninput_hpo").tokenInput("add", {id: "{{ _('index_Sample_2_id') }}", name: "{{ _('index_Sample_2_name') }}"});
+      $("#tokeninput_hpo").tokenInput("add", {id: "{{ _('index_Sample_3_id') }}", name: "{{ _('index_Sample_3_name') }}"});
+      $("#tokeninput_hpo").tokenInput("add", {id: "{{ _('index_Sample_4_id') }}", name: "{{ _('index_Sample_4_name') }}"});
+      $("#tokeninput_hpo").tokenInput("add", {id: "{{ _('index_Sample_5_id') }}", name: "{{ _('index_Sample_5_name') }}"});
+      return false;
+    });
+    $("#tokeninput_hpo").tokenInput("/tokeninput_hpo", {
+      theme: "facebook"
+    });
+    $("#tokeninput_hpo_clear").click(function (){
+      $("#tokeninput_hpo").tokenInput("clear");
+      return false;
+    });
+  });
+  $("#phenotouch").click(function (e){
+    $.PopupRelationHPOWithWebGL();
+    e.preventDefault();
+    e.stopPropagation();
+    return false;
+  });
+  $('.rater').rate({
+    max_value: 5,
+    step_size: 0.1,
+    initial_value: 0
+  });
+</script>
+<!-- END: jquery-tokeninput -->
 
-      {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
-        s1.src='https://embed.tawk.to/5c974620c37db86fcfcf8ac9/default';
-      {% else %}
-        s1.src='https://embed.tawk.to/5c96fab0101df77a8be4232c/default';
-      {% endif %}
+<!-- START: popup-hierarchy-hpo -->
+<!-- WebGL -->
+<script src="/static/js/d3/3.5.17/d3.min.js"></script>
+<script src="/static/js/three.js-r84/build/three.min.js"></script>
+<script src="/static/js/three.js-r84/examples/js/Detector.js"></script>
+<script src="/static/js/three-bits/OBJLoader.js"></script>
+<script src="/static/js/three-bits/three-bits.js"></script>
+<script src="/static/js/three-bits/three-bits-renderer.js"></script>
+<script src="/static/js/three-bits/defaults.js"></script>
+<!-- script src="/static/js/three-bits/category2obj.js"></script -->
+<script src="/static/js/popup-hierarchy-hpo.js"></script>
+<script src="/static/js/button-ripple-effect.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() {
+    $("#tokeninput_hpo").popupRelationHPO('/popup_hierarchy_hpo');
+  });
+</script>
 
-      s1.charset='UTF-8';
-      s1.setAttribute('crossorigin','*');
-      s0.parentNode.insertBefore(s1,s0);
-      })();
-    </script>
-    -->
-    <!--End of Tawk.to Script-->
-
-
-{% endblock %}
-
+</html>
