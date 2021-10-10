@@ -404,6 +404,29 @@ def api_pcf_get_dpa():
 
 
 #####
+# API: Get GPAs
+# GET method
+# /api/get_gpa
+@app.route('/api/get_gpa', methods=['GET'])
+def api_pcf_get_gpa():
+    r_id     = ""
+    if request.args.get('id') is not None:
+        r_id = request.args.get('id')
+
+    # get data record
+    url = "https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_get_hpo_data_by_gene_id"
+    dict_param = {"ncbi_gene_id":r_id}
+
+    if request.method == 'GET':
+        if url != "":
+            r_data = requests.get(url, params=dict_param)
+            json_data = r_data.json()
+            return jsonify(json_data)
+        else:
+            return
+
+
+#####
 # API: Download
 # GET method
 # /pcf_download?target=[TARGET]&phenotype=[HPO_ID]&target_id=[TARGET_ID]&format=[FORMAT]&r_range=[RANGE]
