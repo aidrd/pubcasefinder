@@ -26,6 +26,7 @@ from utils.check_input import process_input_phenotype
 
 # API for PhenoTouch
 from utils.api_get_hpo_by_text import search_hpo_by_text
+from utils.api_get_hpo_by_text import search_hpo_by_text_with_dict
 
 # API: get rank OMIM
 from utils.api_pcf_get_ranking_by_hpo_id import pcf_get_ranking_by_hpo_id
@@ -48,6 +49,7 @@ from utils.api_pcf_download import pcf_download
 
 app = Flask(__name__)
 CORS(app)
+app.config['JSON_AS_ASCII']=False
 
 @app.after_request
 def after_request(response):
@@ -232,6 +234,24 @@ def POST_API_GET_HPO_BY_TEXT():
         return "none"
     str_list_hpo = search_hpo_by_text(text)
     return str_list_hpo
+
+
+#####
+# API: provide candidate HPO IDs using text as query
+# GET method
+# /pcf_get_hpo_by_text?text=[TEXT]
+@app.route('/pcf_get_hpo_by_text', methods=['GET'])
+def api_pcf_get_hpo_by_text():
+    r_text = ""
+    if request.args.get('text') is not None:
+        r_text = request.args.get('text')
+        if r_text == "":
+            return "none"
+    else:
+        return "none"
+
+    dict_result = search_hpo_by_text_with_dict(r_text)
+    return jsonify(dict_result)
 
 
 #####
