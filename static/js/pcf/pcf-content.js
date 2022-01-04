@@ -87,8 +87,7 @@
 					'PHENOTYPE_LST':'症状一覧',
 					'JA_REPORT':    '症例報告(J-STAGE)',
 					'EN_REPORT':    '症例報告(PubMed)',
-					'UR_DBMS':      '日本語疾患情報(UR-DBMS)',
-					'nando':        '難病情報',
+					'UR_DBMS':      '日本語疾患情報(UR-DBMS)'
 				}
 			},
 			[LANGUAGE_EN] : {
@@ -116,11 +115,12 @@
 					'PHENOTYPE_LST': 'Clinical features',
 					'JA_REPORT':     'Case reports(J-STAGE)',
 					'EN_REPORT':     'Case reports(PubMed)',
-					'UR_DBMS':       'UR-DBMS',
-					'nando':        '難病情報',
+					'UR_DBMS':       'UR-DBMS'
 				}
 			}
 		};
+
+	const NANDO_LABEL = {'NANDO:1':'難病情報(指定)','NANDO:2':'難病情報(小慢)','DEFAULT':'難病情報'}
 
 	const SETTING_KEY_TARGET         = 'PCF-TARGET',
 		  SETTING_KEY_PHENOTYPE      = 'PCF-PHENOTYPE',
@@ -1196,7 +1196,26 @@
 
 			if(isJA && (_isExistVal("nando_url", item))){
 				item.nando_url.forEach(function(nando_url_str){
-					$('<a>').text(LANGUAGE[lang].DETAIL_LABEL.nando).attr('href',nando_url_str).attr('target','_blank').appendTo($list_link_panel);
+
+					let notfound = true;
+
+					for(let search_key in NANDO_LABEL){
+						if(nando_url_str.indexOf(search_key) > 0){
+							$('<a>').text(NANDO_LABEL[search_key])
+								.attr('href',nando_url_str)
+								.attr('target','_blank')
+								.appendTo($list_link_panel);
+							notfound = false;
+							break;
+						}
+					}
+
+					if(notfound){
+						$('<a>').text(NANDO_LABEL.DEFAULT)
+							.attr('href',nando_url_str)
+							.attr('target','_blank')
+							.appendTo($list_link_panel);
+					}
 				});
 			}
 			
