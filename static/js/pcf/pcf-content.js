@@ -1269,7 +1269,9 @@
 			if(target === TARGET_ORPHANET) url_phenotype = _construct_url(URL_GET_HPO_DATA_BY_ORPHA_ID,{[SETTING_KEY_ID_LST]:id});
 			let url_case_report_en   = _construct_url(URL_GET_CASE_REPORT_BY_MONDO_ID,{[SETTING_KEY_ID_LST]: mondo_id,[SETTING_KEY_LANG]: LANGUAGE_EN});
 			let url_case_report_ja   = _construct_url(URL_GET_CASE_REPORT_BY_MONDO_ID,{[SETTING_KEY_ID_LST]: mondo_id,[SETTING_KEY_LANG]: LANGUAGE_JA});
-		
+	
+			let isOrpha = (target === TARGET_ORPHANET);
+
 			$('<div>').css({'width':'100%'}).pcf_collapse_panel({
 				"LABEL_PHENOTYPE"   : LANGUAGE[lang].DETAIL_LABEL.PHENOTYPE_LST,
 				"LABEL_JA_CASE"     : LANGUAGE[lang].DETAIL_LABEL.JA_REPORT,
@@ -1286,7 +1288,8 @@
 				"popup_type"             : POPUP_TYPE_PHENOTYPE,
 				"list_tag"               : "list-tag_blue",
 				"popup_class"            : CLASS_POPUP_PHENOTYPE_INLIST,
-				"popup_func"             : _contruct_popup_button
+				"popup_func"             : _contruct_popup_button,
+				"isorpha"                : isOrpha
 			}).appendTo($container_panel);
 		}
 

@@ -33,9 +33,11 @@
 			KEY_POPUP_TYPE        = "popup_type",
 			KEY_POPUP_LIST_TAG    = "list_tag",
 			KEY_POPUP_CLASS       = "popup_class",
-			KEY_POPUP_FUNC        = "popup_func";
+			KEY_POPUP_FUNC        = "popup_func",
+			KEY_ISORPHA           = "isorpha";
 
 	const PHENOTYPE_TABLE_HEADER = ['Add to Query','HPO ID','Label','Search'];
+	const PHENOTYPE_ORPHA_TABLE_HEADER = ['Add to Query','HPO ID','Label','Frequency','Search'];
 			
 	var DEFAULT_SETTINGS = {
 		[KEY_LABEL_PHENOTYPE]   : '',
@@ -53,8 +55,8 @@
 		[KEY_POPUP_TYPE]        : "",
 		[KEY_POPUP_LIST_TAG]    : "",
 		[KEY_POPUP_CLASS]       : "",
-		[KEY_POPUP_FUNC]        : null
-
+		[KEY_POPUP_FUNC]        : null,
+		[KEY_ISORPHA]           : false
 	};
 
 	function _hasJA(str){
@@ -104,7 +106,7 @@
 	}
 	
 	function _construct_data_panel_phenotype(url_str, lang, $container){
-		
+		let isOrpha     = $container.data(KEY_ISORPHA);	
 		let popup_type  = $container.data(KEY_POPUP_TYPE);
 		let list_tag    = $container.data(KEY_POPUP_LIST_TAG);
 		let popup_class = $container.data(KEY_POPUP_CLASS);
@@ -149,10 +151,16 @@
 					let $table = $('<table>').appendTo($container);
 					let $thead = $('<thead>').appendTo($table);
 					let $thead_row = $('<tr>').appendTo($thead);
-					
-					PHENOTYPE_TABLE_HEADER.forEach(function(th_text){
-						$('<th>').text(th_text).appendTo($thead_row);
-					});
+					if(isOrpha){
+						PHENOTYPE_ORPHA_TABLE_HEADER.forEach(function(th_text){
+							$('<th>').text(th_text).appendTo($thead_row);
+						});
+
+					}else{	
+						PHENOTYPE_TABLE_HEADER.forEach(function(th_text){
+							$('<th>').text(th_text).appendTo($thead_row);
+						});
+					}
 					
 					let $tbody = $('<tbody>').appendTo($table);
 					Object.keys(hash[category]).sort(function(hpo_id_a,hpo_id_b){
@@ -210,7 +218,16 @@
 
 						let $label_td = $('<td>').css({'width':'80%','font-size':'1.0rem','vertical-align':'middle'}).appendTo($row);
 						$label_td.text(hpo_name);				
-	
+
+						if(isOrpha){
+							let $frequency_td = $('<td nowrap=\"nowrap\">').css({'font-size':'1.0rem','vertical-align':'middle'})
+													.appendTo($row);
+							if('frequency' in item){
+								$frequency_td.text(item.frequency);
+							}else{
+								$frequency_td.text(' ');	
+							}
+						}
 
 						let $search_td = $('<td>').css({'white-space':'nowrap'}).appendTo($row);
 
@@ -219,7 +236,7 @@
 							.attr('href',  search_image_href_str)
 							.attr('target','_blank')
 							.appendTo($search_td);
-						
+					
 						let search_href_str = encodeURIComponent(hpo_name);
 						search_href_str = "https://www.google.com/search?q=" + search_href_str;
 						$('<a class=\"material-icons-outlined\">textsms</a>')
@@ -281,11 +298,12 @@
 	
 				let $panel = $("<div>").addClass("list-show-panel").addClass(CLASS_INIT)
 										.data(KEY_TARGET,target)
-										.data(KEY_URL,   setting[url_key])
-										.data(KEY_LANG,  setting[KEY_LANG])
+										.data(KEY_URL,     setting[url_key])
+										.data(KEY_LANG,    setting[KEY_LANG])
 										.appendTo($container);				
 
 				if(target === TARGET_PHENOTYPE_LIST) {
+					$panel.data(KEY_ISORPHA,        setting[KEY_ISORPHA]);
 					$panel.data(KEY_POPUP_TYPE,     setting[KEY_POPUP_TYPE]);
 					$panel.data(KEY_POPUP_LIST_TAG, setting[KEY_POPUP_LIST_TAG]);
 					$panel.data(KEY_POPUP_CLASS,    setting[KEY_POPUP_CLASS]);
