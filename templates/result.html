@@ -927,6 +927,14 @@
 			let filter_str = $("#tokeninput_genes").tokenInput_gene("get_url_str");
 			$("#pcf-content").pcf_content('update_filter', filter_str);
 		}, 10);
+
+		let lang = $("#r_lang").val();
+		if(lang === 'en'){
+			$("#pcf-content").pcf_content('send_share_url', $('#link_en').attr('href'));
+		}else{
+			$("#pcf-content").pcf_content('send_share_url', $('#link_ja').attr('href'));
+		}
+
 		return false;
 	};
 
