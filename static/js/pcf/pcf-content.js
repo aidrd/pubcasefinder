@@ -2481,10 +2481,10 @@
 		download: function(hpo_id_list, mode, format){
 
 			let target = _get_active_target();
+			let $panel = tab_panel_lst[target];
 			let target_id = '';
 			if(mode === DOWNLOAD_MODE_ALL_SHOWN){
 				let tmp = [];
-				let $panel = tab_panel_lst[target];
 				$panel.find("input[name='target_id']").each(function(){
 					tmp.push($(this).val());
   				});
@@ -2496,7 +2496,6 @@
 				}
 			}else if(mode === DOWNLOAD_MODE_SELECTION) {
 				let tmp = [];
-				let $panel = tab_panel_lst[target];
 				$panel.find("input[name='target_id']:checked").each(function(){
 					tmp.push($(this).val());
   				});
@@ -2508,16 +2507,32 @@
 				}
 			}else{
 				//DOWNLOAD_MODE_ALL
-				
+				//check if filtered.
+				let setting = $panel.data(KEY_SETTING_OBJECT);
+
+				if(setting[SETTING_KEY_FILTER]){
+					//filtered
+					mode = DOWNLOAD_MODE_SELECTION;
+					let tmp = [];
+					let ranking_data_lst = _get_ranking_data_from_cache(setting);
+                			for(let i=0;i<ranking_data_lst.length; i++){
+		                                tmp.push(ranking_data_lst[i].id);
+                        		}
+					target_id = tmp.join(',');
+				}
 			}
 
-			let url_str = _construct_url(URL_DOWNLOAD, {[SETTING_KEY_TARGET]:         target,
-														[SETTING_KEY_PHENOTYPE]:      hpo_id_list,
-														[SETTING_KEY_TARGET_ID]:      target_id,
-														[SETTING_KEY_DOWNLOAD_FORMAT]:format,
-														[SETTING_KEY_DOWNLOAD_MODE]:  mode});
+			let url_str = _construct_url(URL_DOWNLOAD, {[SETTING_KEY_TARGET]:     target,
+								[SETTING_KEY_PHENOTYPE]:      hpo_id_list,
+								[SETTING_KEY_TARGET_ID]:      target_id,
+								[SETTING_KEY_DOWNLOAD_FORMAT]:format,
+								[SETTING_KEY_DOWNLOAD_MODE]:  mode});
 
+			pcf_show_loading();
 			_run_ajax(url_str,'GET', 'text', true, function(data){
+
+				pcf_hide_loading();
+
 				//Convert the Byte Data to BLOB object.
 				var blob = new Blob([data], { type: "application/octetstream" });
 				

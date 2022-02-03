@@ -10,7 +10,13 @@ body {
   width: 100%;
   height: 100%;
   z-index: 999999;
-  background: url(../../images/pcf/loader.gif) center no-repeat #fff;
+  background:  rgba( 0, 0, 0, .9 ) 
+               url(../../images/pcf/FhHRx.gif)
+               50% 50%
+               no-repeat;
+  opacity: 0.90;
+  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity = 90);
+  filter: alpha(opacity = 90);
 }
 
 .search-header {
