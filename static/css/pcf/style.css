@@ -11,7 +11,7 @@ body {
   height: 100%;
   z-index: 999999;
   background:  rgba( 0, 0, 0, .9 ) 
-               url(../../images/pcf/FhHRx.gif)
+               url(../../images/pcf/loading-14.gif)
                50% 50%
                no-repeat;
   opacity: 0.90;
