@@ -15,7 +15,8 @@
 		  URL_GET_DISEASE_TOOLTIP_DATA_BY_MONDO_ID  = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_get_disease_tooltip_data_by_mondo_id',
 		  URL_GET_CASE_REPORT_BY_MONDO_ID           = 'https://pubcasefinder.dbcls.jp/pcf_get_case_report_by_mondo_id',
 		  URL_SHARE                                 = 'https://pubcasefinder.dbcls.jp/pcf_share',
-		  URL_DOWNLOAD                              = 'https://pubcasefinder.dbcls.jp/pcf_download',
+		  //URL_DOWNLOAD                              = 'https://pubcasefinder.dbcls.jp/pcf_download',
+		  URL_DOWNLOAD                              = 'pcf_download',
 		  URL_PCF_FILTER_GET_OMIM_ID_BY_MONDO_ID            = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_filter_get_omim_id_by_mondo_id',
 		  URL_PCF_FILTER_GET_OMIM_ID_BY_NCBI_GENE_ID        = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_filter_get_omim_id_by_ncbi_gene_id',
 		  URL_PCF_FILTER_GET_OMIM_ID_BY_INHERITANCE_HPO_ID  = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_filter_get_omim_id_by_inheritance_hpo_id',
@@ -692,11 +693,18 @@
 				target_id = '';
 			}
 
-			url_str = _construct_url_str(URL_DOWNLOAD,{	[URL_PARA_TARGET]    : setting[SETTING_KEY_TARGET],
-														[URL_PARA_PHENOTYPE] : setting[SETTING_KEY_PHENOTYPE].replace(/_ja/gi,""),
-														[URL_PARA_TARGET_ID] : target_id,
-														[URL_PARA_FORMAT]    : setting[SETTING_KEY_DOWNLOAD_FORMAT],
-														[URL_PARA_RANGE]     : r_range});
+			return {url:	URL_DOWNLOAD,
+				data:	URL_PARA_TARGET    + "=" + setting[SETTING_KEY_TARGET] + "&" +
+					URL_PARA_PHENOTYPE + "=" + setting[SETTING_KEY_PHENOTYPE].replace(/_ja/gi,"") + "&" +
+					URL_PARA_TARGET_ID + "=" + target_id + "&" +
+					URL_PARA_FORMAT    + "=" + setting[SETTING_KEY_DOWNLOAD_FORMAT]  + "&" +
+					URL_PARA_RANGE     + "=" + r_range
+				};
+			//url_str = _construct_url_str(URL_DOWNLOAD,{	[URL_PARA_TARGET]    : setting[SETTING_KEY_TARGET],
+			//						[URL_PARA_PHENOTYPE] : setting[SETTING_KEY_PHENOTYPE].replace(/_ja/gi,""),
+			//						[URL_PARA_TARGET_ID] : target_id,
+			//						[URL_PARA_FORMAT]    : setting[SETTING_KEY_DOWNLOAD_FORMAT],
+			//						[URL_PARA_RANGE]     : r_range});
 		}
 		
 		return url_str;
@@ -1772,7 +1780,7 @@
 																			[SETTING_KEY_TARGET]:    $btn.data(SETTING_KEY_TARGET),
 																			[SETTING_KEY_ID_LST]:    $btn.data(SETTING_KEY_ID_LST),
 																			[SETTING_KEY_TARGET_ID]: $btn.data(SETTING_KEY_TARGET_ID)});
-										_run_ajax(like_url_str,'GET', 'text', true, null);
+										_run_ajax(like_url_str,'GET', null, 'text', true, null);
 										$btn.addClass('liked');
 										$btn.find('i').text('favorite');
 									}
@@ -1891,7 +1899,7 @@
 			_show_result(setting);
 			pcf_hide_loading();
 		}else if(ajax_item_list.length === 1){
-			_run_ajax(ajax_item_list[0][SETTING_KEY_URLSTR],'GET', 'text', true, function(data){
+			_run_ajax(ajax_item_list[0][SETTING_KEY_URLSTR],'GET', null, 'text', true, function(data){
 				callback_success(data,ajax_item_list[0]);
 				_show_result(setting);
 				pcf_hide_loading();
@@ -1926,7 +1934,7 @@
 				setting[SETTING_KEY_ID_LST] = uncached_list.join(",");
 		
 				let url_str = _construct_url(URL_GET_DATA_BY_ID, setting);
-				_run_ajax(url_str,'GET', 'text', true, function(data){
+				_run_ajax(url_str,'GET', null, 'text', true, function(data){
 				
 					if(!_isEmpty(data)){
 						var json_data = _parseJson(data);
@@ -2254,7 +2262,7 @@
 			}
 		}else if(ajax_item_list.length === 1){
 			
-			_run_ajax(ajax_item_list[0][SETTING_KEY_URLSTR],'GET', 'text', true, function(data){
+			_run_ajax(ajax_item_list[0][SETTING_KEY_URLSTR],'GET', null, 'text', true, function(data){
 				callback_success(data,ajax_item_list[0]);
 				// do logical ,create ranking list, and continue
 				_run_pcf_filter_logical(ranking_data_without_filter,items_total_hash,result_ranking_id_hash,target_str,setting);
@@ -2269,20 +2277,40 @@
 		return;
 	}
 
-	function _run_ajax(url_str,http_type,response_dataType,async,callback,callback_fail){
-		$.ajax({	
-			url:      url_str,  // 通信先のURL
-			type:     http_type,// 使用するHTTPメソッド(get/post)
-			async:    async,    // 使用するHTTPメソッド(true/false)
-			dataType: response_dataType,
-		}).done(function(data1,textStatus,jqXHR) {
-			if(_isFunction(callback))callback(data1);
-		}).fail(function(jqXHR, textStatus, errorThrown ) {
-			//alert('Server access error:' + textStatus + ":" + errorThrown + '\nURL: ' + url_str);
-			if(_isFunction(callback_fail)) callback_fail();
-			pcf_hide_loading();
-			_show_alert_dialog(jqXHR, textStatus, errorThrown,url_str);
-		});
+	function _run_ajax(url_str,http_type,post_data,response_dataType,async,callback,callback_fail){
+
+		if(http_type=="GET"){
+
+			$.ajax({	
+				url:      url_str,  // 通信先のURL
+				type:     http_type,// 使用するHTTPメソッド(get/post)
+				async:    async,    // 使用するHTTPメソッド(true/false)
+				dataType: response_dataType,
+			}).done(function(data1,textStatus,jqXHR) {
+				if(_isFunction(callback))callback(data1);
+			}).fail(function(jqXHR, textStatus, errorThrown ) {
+				//alert('Server access error:' + textStatus + ":" + errorThrown + '\nURL: ' + url_str);
+				if(_isFunction(callback_fail)) callback_fail();
+				pcf_hide_loading();
+				_show_alert_dialog(jqXHR, textStatus, errorThrown,url_str);
+			});
+		}else{
+                        $.ajax({
+                                url:      url_str,  // 通信先のURL
+                                type:     http_type,// 使用するHTTPメソッド(get/post)
+                                async:    async,    // 使用するHTTPメソッド(true/false)
+				data:     post_data,
+				proccessData: false, 
+                                dataType: response_dataType,
+                        }).done(function(data1,textStatus,jqXHR) {
+                                if(_isFunction(callback))callback(data1);
+                        }).fail(function(jqXHR, textStatus, errorThrown ) {
+                                //alert('Server access error:' + textStatus + ":" + errorThrown + '\nURL: ' + url_str);
+                                if(_isFunction(callback_fail)) callback_fail();
+                                pcf_hide_loading();
+                                _show_alert_dialog(jqXHR, textStatus, errorThrown,url_str);
+                        });
+		}
 	}
 
 	function _getTimeStamp(){
@@ -2312,12 +2340,18 @@
 
 	function _show_alert_dialog(jqXHR, textStatus, errorThrown,url_str){
 		let $alert_dialog = $("#alert_dialog");
-		if(errorThrown){
-			$('#alertModalLabel').text(errorThrown + " status:" + jqXHR.status);
+		//if(errorThrown){
+		//	$('#alertModalLabel').text(errorThrown + " status:" + jqXHR.status);
+		//}else{
+		//	$('#alertModalLabel').text("Error occured. Status: " + jqXHR.status);
+		//}
+		$('#alertModalLabel').text("Error occured.");
+		//$('#alert_response_text').text(jqXHR.responseText);
+		if(jqXHR.statusText){
+			$('#alert_response_text').text(jqXHR.status + ': ' + jqXHR.statusText);
 		}else{
-			$('#alertModalLabel').text("Error occured. Status: " + jqXHR.status);
+			$('#alert_response_text').text(jqXHR.status + ': ' + jqXHR.responseText);
 		}
-		$('#alert_response_text').text(jqXHR.responseText);
 		$('#alert_url').text(url_str);
 		$alert_dialog.modal('show');
 		$('header').show();
@@ -2471,7 +2505,7 @@
 		},
 		send_share_url: function(urlstr){
 			let share_url_str = _construct_url(URL_SHARE, {[SETTING_KEY_SHARE]: SHARE_TYPE_URL,[SETTING_KEY_URL]:encodeURIComponent(urlstr)});
-			_run_ajax(share_url_str,'GET', 'text', true, null);
+			_run_ajax(share_url_str,'GET', null, 'text', true, null);
 		},
 		get_selected_num: function(){
 			let target = _get_active_target();
@@ -2522,14 +2556,20 @@
 				}
 			}
 
-			let url_str = _construct_url(URL_DOWNLOAD, {[SETTING_KEY_TARGET]:     target,
-								[SETTING_KEY_PHENOTYPE]:      hpo_id_list,
-								[SETTING_KEY_TARGET_ID]:      target_id,
-								[SETTING_KEY_DOWNLOAD_FORMAT]:format,
-								[SETTING_KEY_DOWNLOAD_MODE]:  mode});
+			//let url_str = _construct_url(URL_DOWNLOAD, {[SETTING_KEY_TARGET]:     target,
+			//					[SETTING_KEY_PHENOTYPE]:      hpo_id_list,
+			//					[SETTING_KEY_TARGET_ID]:      target_id,
+			//					[SETTING_KEY_DOWNLOAD_FORMAT]:format,
+			//					[SETTING_KEY_DOWNLOAD_MODE]:  mode});
+
+                        let url_hash = _construct_url(URL_DOWNLOAD, {[SETTING_KEY_TARGET]:     target,
+                                                              [SETTING_KEY_PHENOTYPE]:      hpo_id_list,
+                                                              [SETTING_KEY_TARGET_ID]:      target_id,
+                                                              [SETTING_KEY_DOWNLOAD_FORMAT]:format,
+                                                              [SETTING_KEY_DOWNLOAD_MODE]:  mode});
 
 			pcf_show_loading();
-			_run_ajax(url_str,'GET', 'text', true, function(data){
+			_run_ajax(url_hash.url,'POST',url_hash.data, 'text', true, function(data){
 
 				pcf_hide_loading();
 
@@ -2649,7 +2689,7 @@
 				pcf_hide_loading();
 				return;
 			}else if(ajax_item_list.length === 1){
-				_run_ajax(ajax_item_list[0][SETTING_KEY_URLSTR],'GET', 'text', true, function(data){
+				_run_ajax(ajax_item_list[0][SETTING_KEY_URLSTR],'GET', null, 'text', true, function(data){
 					callback_success(data,ajax_item_list[0]);
 					// do logical ,create ranking list, and continue
 					if(_isFunction(callback)) callback(phenotype_object_list, filter_object_list);
