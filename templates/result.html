@@ -607,6 +607,13 @@
 	}
 
 
+	$(document).on('keydown', function(e) {
+	    // ESCAPE key pressed
+	    if (e.keyCode == 27) {
+	        tippy.hideAll();
+	    }
+	});
+
 	var lastScrollTop = 0;
 	function str_header_onchange(isAutoHide){
 		if(isAutoHide === 'true') {

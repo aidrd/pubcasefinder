@@ -15,8 +15,7 @@
 		  URL_GET_DISEASE_TOOLTIP_DATA_BY_MONDO_ID  = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_get_disease_tooltip_data_by_mondo_id',
 		  URL_GET_CASE_REPORT_BY_MONDO_ID           = 'https://pubcasefinder.dbcls.jp/pcf_get_case_report_by_mondo_id',
 		  URL_SHARE                                 = 'https://pubcasefinder.dbcls.jp/pcf_share',
-		  //URL_DOWNLOAD                              = 'https://pubcasefinder.dbcls.jp/pcf_download',
-		  URL_DOWNLOAD                              = 'pcf_download',
+		  URL_DOWNLOAD                              = 'https://pubcasefinder.dbcls.jp/pcf_download',
 		  URL_PCF_FILTER_GET_OMIM_ID_BY_MONDO_ID            = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_filter_get_omim_id_by_mondo_id',
 		  URL_PCF_FILTER_GET_OMIM_ID_BY_NCBI_GENE_ID        = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_filter_get_omim_id_by_ncbi_gene_id',
 		  URL_PCF_FILTER_GET_OMIM_ID_BY_INHERITANCE_HPO_ID  = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_filter_get_omim_id_by_inheritance_hpo_id',
@@ -696,7 +695,7 @@
 			return {url:	URL_DOWNLOAD,
 				data:	URL_PARA_TARGET    + "=" + setting[SETTING_KEY_TARGET] + "&" +
 					URL_PARA_PHENOTYPE + "=" + setting[SETTING_KEY_PHENOTYPE].replace(/_ja/gi,"") + "&" +
-					URL_PARA_TARGET_ID + "=" + target_id + "&" +
+					URL_PARA_TARGET_ID + "=" + encodeURIComponent(target_id) + "&" +
 					URL_PARA_FORMAT    + "=" + setting[SETTING_KEY_DOWNLOAD_FORMAT]  + "&" +
 					URL_PARA_RANGE     + "=" + r_range
 				};
