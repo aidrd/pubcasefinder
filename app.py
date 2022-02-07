@@ -452,7 +452,7 @@ def api_pcf_get_gpa():
 # /pcf_download?target=[TARGET]&phenotype=[HPO_ID]&target_id=[TARGET_ID]&format=[FORMAT]&r_range=[RANGE]
 # /pcf_download?target=[TARGET]&phenotype=[HPO_ID]&target_id=[TARGET_ID]&format=[FORMAT]&r_range=[RANGE]&r_weight=[WEIGHT]
 # /api/get_ranked_list?target=[TARGET]&format=[FORMAT]&hpo_id=[HPO_ID]
-@app.route('/pcf_download', methods=['GET', 'POST'])
+@app.route('/pcf_download', methods=['GET'])
 @app.route('/api/get_ranked_list', methods=['GET'])
 def api_pcf_download():
     r_target    = ""
@@ -461,56 +461,40 @@ def api_pcf_download():
     r_format    = ""
     r_range     = ""
     r_weight    = 1.0
-
-    if request.method == 'GET':
-        if request.args.get('target') is not None:
-            r_target = request.args.get('target')
-        if request.args.get('phenotype') is not None:
-            r_phenotype = request.args.get('phenotype')
-        if request.args.get('hpo_id') is not None:
-            r_phenotype = request.args.get('hpo_id')
-        if request.args.get('target_id') is not None:
-            r_target_id = request.args.get('target_id')
-        if request.args.get('format') is not None:
-            r_format = request.args.get('format')
-        if request.args.get('range') is not None:
-            r_range = request.args.get('range')
-        if request.args.get('weight') is not None:
-            r_weight = request.args.get('weight')
-    else:
-        if request.form.get('target') is not None:
-            r_target = request.form['target']
-        if request.form.get('phenotype') is not None:
-            r_phenotype = request.form['phenotype']
-        if request.form.get('hpo_id') is not None:
-            r_phenotype = request.form['hpo_id']
-        if request.form.get('target_id') is not None:
-            r_target_id = request.form['target_id']
-        if request.form.get('format') is not None:
-            r_format = request.form['format']
-        if request.form.get('range') is not None:
-            r_range = request.form['range']
-
-    #app.logger.info(r_target_id)
-    
+    if request.args.get('target') is not None:
+        r_target = request.args.get('target')
+    if request.args.get('phenotype') is not None:
+        r_phenotype = request.args.get('phenotype')
+    if request.args.get('hpo_id') is not None:
+        r_phenotype = request.args.get('hpo_id')
+    if request.args.get('target_id') is not None:
+        r_target_id = request.args.get('target_id')
+    if request.args.get('format') is not None:
+        r_format = request.args.get('format')
+    if request.args.get('range') is not None:
+        r_range = request.args.get('range')
+    if request.args.get('weight') is not None:
+        r_weight = request.args.get('weight')
+        
     utc_now = datetime.now(timezone('UTC'))
     jst_now = utc_now.astimezone(timezone('Asia/Tokyo'))
     ts = jst_now.strftime("%Y%m%d-%H%M%S")
     
-    if r_format == "json":
-        json_data = pcf_download(r_target, r_phenotype, r_target_id, r_format, r_range, r_weight)
-        res = make_response(json.dumps(json_data, indent=4))
-        res.headers["Content-Type"] = "application/json"
-        res.headers["Content-disposition"] = "attachment; filename=" + "pubcasefinder_" + ts + ".json"
-        #res.headers["Content-Encoding"] = "gzip"
-        return res
-    elif r_format == "tsv":
-        tsv_data = pcf_download(r_target, r_phenotype, r_target_id, r_format, r_range, r_weight)
-        res = make_response("\n".join(tsv_data))
-        res.headers["Content-Type"] = "text/tab-separated-values"
-        res.headers["Content-disposition"] = "attachment; filename=" + "pubcasefinder_" + ts + ".tsv"
-        #res.headers["Content-Encoding"] = "gzip"
-        return res
+    if request.method == 'GET':
+        if r_format == "json":
+            json_data = pcf_download(r_target, r_phenotype, r_target_id, r_format, r_range, r_weight)
+            res = make_response(json.dumps(json_data, indent=4))
+            res.headers["Content-Type"] = "application/json"
+            res.headers["Content-disposition"] = "attachment; filename=" + "pubcasefinder_" + ts + ".json"
+            #res.headers["Content-Encoding"] = "gzip"
+            return res
+        elif r_format == "tsv":
+            tsv_data = pcf_download(r_target, r_phenotype, r_target_id, r_format, r_range, r_weight)
+            res = make_response("\n".join(tsv_data))
+            res.headers["Content-Type"] = "text/tab-separated-values"
+            res.headers["Content-disposition"] = "attachment; filename=" + "pubcasefinder_" + ts + ".tsv"
+            #res.headers["Content-Encoding"] = "gzip"
+            return res
 
 
 #####
