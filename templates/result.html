@@ -45,18 +45,18 @@
 	<!--schema.rog-->
 	<script type="application/ld+json">
 	  {
-	  "@context": "http://schema.org/",
-	  "@type": "Dataset",
-	  "name": "PubCaseFinder",
-	  "description": "PubCaseFinder (PCF) is a rare and genetic disease search system, always up-to-date",
-	  "url": "https://pubcasefinder.dbcls.jp/",
-	  "version": "1.0",
-	  "keywords": "PubCaseFinder,PCF,Rare Disease,Phenotype,Gene,Match,Assist",
-	  "creator": "Database Center for Life Science, DBCLS",
-	  "license": "http://creativecommons.org/licenses/by/2.1/jp/",
-	  "distribution": {
-		"contentUrl": "http://togodb.org/db/disease_phenotype_associations_20170720",
-		"fileFormat": "csv"
+		"@context": "http://schema.org/",
+		"@type": "Dataset",
+		"name": "PubCaseFinder",
+		"description": "PubCaseFinder (PCF) is a rare and genetic disease search system, always up-to-date",
+		"url": "https://pubcasefinder.dbcls.jp/",
+		"version": "1.0",
+		"keywords": "PubCaseFinder,PCF,Rare Disease,Phenotype,Gene,Match,Assist",
+		"creator": "Database Center for Life Science, DBCLS",
+		"license": "http://creativecommons.org/licenses/by/2.1/jp/",
+		"distribution": {
+			"contentUrl": "http://togodb.org/db/disease_phenotype_associations_20170720",
+			"fileFormat": "csv"
 		}
 	  }
 	</script>
@@ -74,17 +74,12 @@
 					<span><a id="link_en" href="/result?target={{ r_target }}&phenotype={{ r_phenotype }}&filter={{ r_filter }}&size={{ r_size }}&display_format={{ r_display_format }}&lang=en">EN</a> / <a id="link_ja" href="/result?target={{ r_target }}&phenotype={{ r_phenotype }}&filter={{ r_filter }}&size={{ r_size }}&display_format={{ r_display_format }}&lang=ja">JA</a>
 					</span>
 					<button id="btn_menu"><span class="material-icons">menu</span></button>
-<!--
-					<div class="site-header_end">
-						<a class="button" href="#">Login<i class="material-icons">expand_more</i></a>
-					</div>
--->
 				</div>
 			</div>
 			<div class="search-box_wrapper">
 				<div class="search-box_form d-flex flex-nowrap">
-					<div class="d-flex flex-column">
-						<div class=""  style="height:50%;" id="text2hpo">
+					<div class="d-flex flex-column" style="width:53px;">
+						<div style="height:33%;" id="text2hpo">
 							{% if r_lang == "ja" %}
 							<button id="/ehr"
 							{% else %}
@@ -102,9 +97,8 @@
 							  <img src="/static/images/pcf/text_black.svg"></img>
 							</button>
 						</div>
-						<div class=""  style="height:50%;">
+						<div style="height:33%;">
 							<button id="phenotouch"
-							    class="phenotouch-button"
 							    data-toggle="tooltip"
 							    data-placement="top"
 							{% if r_lang == "ja" %}
@@ -113,6 +107,18 @@
 							    title="Find Phenotypes using Human 3D Model">
 							{% endif %}
 							    <img src="/static/images/pcf/3d_black.svg"></img>
+							</button>
+						</div>
+						<div style="height:33%;">
+							<button id="hpo-list-input-button" data-toggle="modal" data-target="#hpo-list-input-modal">
+								<img  data-toggle="tooltip"
+								      data-placement="top"
+								      {% if r_lang == "ja" %}
+								      title="HPO IDのリストを入力"
+								      {% else %}
+								      title="Input HPO ID list"
+								      {% endif %}
+								    src="/static/images/pcf/HPOID.svg"></img>
 							</button>
 						</div>
 					</div>
@@ -136,7 +142,6 @@
 					<button id="btn_search_download">
 						<span class="material-icons">save_alt</span>
 					</button>
-
 
 					<!-- share button -->
 					{% if r_lang == "ja" %}
@@ -245,7 +250,7 @@
   <img style="height:60px;width:60px;" src="/static/images/pcf/TOP.png"></img>
 </div>
 
-<div class="modal fade" tabindex="-1" role="dialog" id="alert_dialog">
+<div class="modal" tabindex="-1" role="dialog" id="alert_dialog">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -274,7 +279,7 @@
   </div>
 </div>
 
-<div class="modal fade" tabindex="-1" role="dialog" id="alert_dialog_msg">
+<div class="modal" tabindex="-1" role="dialog" id="alert_dialog_msg">
   <div class="modal-dialog modal-dialog-centered"  role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -288,6 +293,46 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" tabindex="-1" id="hpo-list-input-modal" aria-labelledby="hpo-list-input-modal-title" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-xl">
+    <div class="modal-content p-5">
+      <div class="modal-header p-0">
+        <h7 class="modal-title" id="hpo-list-input-modal-title" style="font-weight:bold;font-size:1.2rem;">
+		  <img src="/static/images/pcf/HPOID.svg" style="height:22px;width:22px;"></img>
+		  Import Hpo Term List
+		</h7>
+      </div>
+      <div class="modal-body p-0">
+		<div class="container-fluid p-0">
+		  <div class="row mx-0 py-3">
+			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmood tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duisaute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat</p>
+		  </div>
+		  <div class="row mx-0">
+			<div class="col-4 px-0" style="border:1px solid #ced4da;border-radius: 0.25rem;">
+			  <textarea class="form-control" id="hpo-list-input-textarea" style="background-color:#f8f9fa;border:1px solid #ced4da;height:256px;"></textarea>
+			</div>
+			<div class="align-self-center">
+			  <div >
+                <button id="hpo-list-input-submit-button" style="color:white;background-color:#222057;opacity=1.0;height:52px;width:52px;font-size:32px;" class="round-button material-icons">chevron_right</button>
+			  </div>
+			</div>
+			<div class="col px-0">
+			  <div class="form-control p-0" style="height:256px;max-height:256px;background-color:#ced4da;">
+				<table class="form-control table p-0" id="hpo-list-input-table"></table>
+			  </div>
+			</div>
+		  </div>
+		</div>
+      </div>
+      <div class="modal-footer px-0 pb-0" style="border:0;">
+        <button type="button" style="padding-left:40px;padding-right:40px;" class="btn btn-secondary py-1" data-dismiss="modal" id="hpo-list-input-close-button">CANCEL</button>
+        <button type="button" style="padding-left:40px;padding-right:40px;" class="btn btn-primary py-1 mr-0" id="hpo-list-input-apply-button">APPLY</button>
       </div>
     </div>
   </div>
@@ -731,6 +776,85 @@
 		return false;
 	});
 
+	$("#hpo-list-input-submit-button").click(function (e){
+		let text = $("#hpo-list-input-textarea").val();
+
+		if(!text){
+			alert("Please input HPO term list...");
+			$("#hpo-list-input-textarea").focus();
+			return false;
+		}
+
+		// load hpo term list from server.
+
+		$("#hpo-list-input-submit-button").attr("disabled", true);
+
+		let $tbl = $("#hpo-list-input-table");
+		$tbl.find("tr").remove();
+
+		$("#pcf-content").pcf_content('load_phenotype_and_filter_objects_by_ids',text,"",function(hpo_obj_list, filter_obj_list){
+
+			pcf_hide_loading();
+
+			$('#hpo-list-input-submit-button').removeAttr("disabled");
+
+			let counter = 0;
+			hpo_obj_list.forEach(function(item){
+			
+				let $tr  = $('<tr>').appendTo($tbl);
+				$tr.addClass('table-secondary');
+
+				let $td1 = $('<td>').appendTo($tr);
+				$td1.css({'padding-left':'1.0rem'});
+				let $cbx = $('<input>', {type: 'checkbox', name: 'hpo_list', "checked":"checked"}).appendTo($td1);
+				$cbx.css({'margin-bottom':'unset'}).data('HPO_ITEM', item).change(function() {
+					$(this).parent().parent().toggleClass('table-secondary');
+				});
+
+
+				let $td2 = $('<td>').appendTo($tr);
+				$td2.text((item.id).replace(/_ja/gi, ''));
+
+				let $td3 = $('<td>').appendTo($tr);
+				$td3.css({'width':'80%'}).text(item.name);
+
+				counter++;
+			});
+			if(counter === 0){
+				alert("No HPO term Found.");
+			}
+
+		});
+
+		return false;
+	});
+	
+	$("#hpo-list-input-apply-button").click(function (e){
+		let $tbl = $("#hpo-list-input-table");
+		let cnt = 0;
+        $tbl.find("input[name='hpo_list']:checked").each(function(){
+			cnt++;
+			let hpo_item = $(this).data('HPO_ITEM');
+			$("#tokeninput_hpo").tokenInput("add", {id: hpo_item.id, name: hpo_item.name});
+		});
+		
+		if(!cnt){
+			alert("No HPO term selected.");
+			return false;
+		}
+
+		$("#hpo-list-input-close-button").trigger('click');
+
+		setTimeout(function() {
+
+			let element = document.getElementById("token-input-tokeninput_hpo");
+			element.scrollIntoViewIfNeeded();
+			$('#token-input-tokeninput_hpo').focus();
+			
+        }, 10);
+		return false;
+	});
+
 	var share_link_val = "https://pubcasefinder.dbcls.jp/result?target={{ r_target }}&phenotype={{ r_phenotype }}&filter={{ r_filter }}&size={{ r_size }}&display_format={{ r_display_format }}&lang={{ r_lang }}";
 
 	function update_download_link() {
@@ -961,6 +1085,17 @@
 	{% endif %}
 	
 	$(document).ready(function() {
+		$('#hpo-list-input-modal').on('show.bs.modal', function () {
+			$("#hpo-list-input-textarea").val(""); 
+			$("#hpo-list-input-table").find("tr").remove();
+		});
+
+		$('#hpo-list-input-modal').on('shown.bs.modal', function () {
+			setTimeout(function() {
+				$('#hpo-list-input-textarea').focus();
+	        }, 10);
+		});
+
 
 		const template_download = document.getElementById('dropdown-menu_download');
 		template_download.style.display = 'block';

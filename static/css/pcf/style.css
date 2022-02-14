@@ -10,13 +10,13 @@ body {
   width: 100%;
   height: 100%;
   z-index: 999999;
-  background:  rgba( 0, 0, 0, .9 ) 
+  background:  rgba( 0, 0, 0, .95 ) 
                url(../../images/pcf/loading-14.gif)
                50% 50%
                no-repeat;
-  opacity: 0.90;
-  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity = 90);
-  filter: alpha(opacity = 90);
+  opacity: 0.95;
+  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity = 95);
+  filter: alpha(opacity = 95);
 }
 
 .search-header {
@@ -124,9 +124,8 @@ body {
   font-size: 18px;
 }
 .text-button {
-  border: solid 1px #AEB0B5;
-  border-radius: 50%;
-  margin: 8px 8px 8px 8px;
+  border: none;
+  margin: 4px 4px 4px 4px;
   padding: 2px;
   width: 36px;
   height: 36px;
@@ -135,23 +134,63 @@ body {
   height:        18px;
   width:         18px;
   margin-bottom: 2px;
-  margin-left:   4px;
+  margin-left:   10px;
 }
 
 #phenotouch {
-  border: solid 1px #AEB0B5;
-  border-radius: 50%;
-  margin: 8px 8px 8px 8px;
+  border: none;
+  margin: 4px 4px 4px 4px;
   padding: 2px;
   width:  36px;
   height: 36px;
 }
+
 #phenotouch img {
-  height:        32px;
-  width:         24px;
+  height:        28px;
+  width:         22px;
   margin-bottom: 0px;
+  margin-left:   8px;
 }
 
+#hpo-list-input-button {
+  border: none;
+  margin: 0px 4px 4px 4px;
+  width: 36px;
+  height: 36px;
+}
+
+#hpo-list-input-button img {
+  height:        22px;
+  width:         22px;
+  margin-bottom: 4px;
+  margin-left:   12px;
+}
+
+#hpo-list-input-table {
+  background-color: #f8f9fa;
+  border:           0;
+  height:           100%;
+  width:            100%;
+}
+
+#hpo-list-input-table tbody tr {
+  border-bottom:  0.5px solid #89b3c1;
+}
+
+#hpo-list-input-table tbody tr td {
+  padding:        0.5rem;
+  text-align:     left; 
+  vertical-align: middle;
+  color:          black;
+  font-size:      0.9rem;
+  border: 0;
+}
+
+#hpo-list-input-table tbody tr td input[type="checkbox"] {
+  height: 16px;
+  width:  16px;
+  accent-color: #394466;
+}
 
 .search-header .search-header_wrapper .search-box_wrapper .search-button {
   display: flex;
