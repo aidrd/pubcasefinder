@@ -1,7 +1,6 @@
 ;(function ($) {
 
-	const URL_GET_RANKING_BY_HPO_ID                 = 'showErrorDialog',
-		  //URL_GET_RANKING_BY_HPO_ID                 = 'https://pubcasefinder.dbcls.jp/pcf_get_ranking_by_hpo_id',
+	const URL_GET_RANKING_BY_HPO_ID                 = 'https://pubcasefinder.dbcls.jp/pcf_get_ranking_by_hpo_id',
 		  URL_GET_RANKING_BY_HPO_ID_WITH_FILTER     = 'get_ranking_by_hpo_id_with_filter',
 		  URL_GET_DATA_BY_ID                        = 'get_data_by_id',
 		  URL_GET_OMIM_DATA_BY_OMIM_ID              = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_get_omim_data_by_omim_id',
