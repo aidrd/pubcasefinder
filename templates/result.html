@@ -252,7 +252,7 @@
   <img style="height:60px;width:60px;" src="/static/images/pcf/TOP.png"></img>
 </div>
 
-<div class="modal" tabindex="-1" role="dialog" id="alert_dialog">
+<div class="modal fade" tabindex="-1" role="dialog" id="alert_dialog">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -274,14 +274,15 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" id="btn_copy_alert_url">Copy URL to clipboard</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary"   id="btn_retry">Try again</button>
+        <button type="button" class="btn btn-info"      id="btn_copy_alert_url">Copy URL to clipboard</button>
+        <button type="button" class="btn btn-secondary" id="btn_alert_close" data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
 </div>
 
-<div class="modal" tabindex="-1" role="dialog" id="alert_dialog_msg">
+<div class="modal fade" tabindex="-1" role="dialog" id="alert_dialog_msg">
   <div class="modal-dialog modal-dialog-centered"  role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -563,8 +564,20 @@
 			$(this).tooltip('hide');
 		});
 
+	$('#btn_retry').on('click', function (e) {
+		//$('#btn_alert_close').trigger('click');
+		let $alert_dialog = $("#alert_dialog");
+		$alert_dialog.modal('dispose');
+		setTimeout(function() {
+			let retry_data_obj = $('#btn_retry').data('RETRY_DATA');
+			$("#pcf-content").pcf_content('retry', retry_data_obj);
+		}, 100);
+	});
+
 	$('#alert_dialog').on('shown.bs.modal', function () {
-		$('#alert_response_text').trigger('focus');
+		setTimeout(function() {
+        	$('#alert_response_text').trigger('focus');        
+		}, 10);
 	});
 
 	$('#btn_email_link').on('click', function (e) {

@@ -1,6 +1,7 @@
 ;(function ($) {
 
-	const URL_GET_RANKING_BY_HPO_ID                 = 'https://pubcasefinder.dbcls.jp/pcf_get_ranking_by_hpo_id',
+	const URL_GET_RANKING_BY_HPO_ID                 = 'showErrorDialog',
+		  //URL_GET_RANKING_BY_HPO_ID                 = 'https://pubcasefinder.dbcls.jp/pcf_get_ranking_by_hpo_id',
 		  URL_GET_RANKING_BY_HPO_ID_WITH_FILTER     = 'get_ranking_by_hpo_id_with_filter',
 		  URL_GET_DATA_BY_ID                        = 'get_data_by_id',
 		  URL_GET_OMIM_DATA_BY_OMIM_ID              = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_get_omim_data_by_omim_id',
@@ -16,6 +17,7 @@
 		  URL_GET_CASE_REPORT_BY_MONDO_ID           = 'https://pubcasefinder.dbcls.jp/pcf_get_case_report_by_mondo_id',
 		  URL_SHARE                                 = 'https://pubcasefinder.dbcls.jp/pcf_share',
 		  URL_DOWNLOAD                              = 'https://pubcasefinder.dbcls.jp/pcf_download',
+		  //URL_DOWNLOAD                              = 'pcf_download',
 		  URL_PCF_FILTER_GET_OMIM_ID_BY_MONDO_ID            = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_filter_get_omim_id_by_mondo_id',
 		  URL_PCF_FILTER_GET_OMIM_ID_BY_NCBI_GENE_ID        = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_filter_get_omim_id_by_ncbi_gene_id',
 		  URL_PCF_FILTER_GET_OMIM_ID_BY_INHERITANCE_HPO_ID  = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_filter_get_omim_id_by_inheritance_hpo_id',
@@ -2278,6 +2280,16 @@
 
 	function _run_ajax(url_str,http_type,post_data,response_dataType,async,callback,callback_fail){
 
+		let retry_data_obj = {
+			url_str:			url_str,
+			http_type:			http_type,
+			post_data:			post_data,
+			response_dataType:	response_dataType,
+			async:				async,
+			callback:			callback,
+			callback_fail:		callback_fail
+		};
+
 		if(http_type=="GET"){
 
 			$.ajax({	
@@ -2291,24 +2303,24 @@
 				//alert('Server access error:' + textStatus + ":" + errorThrown + '\nURL: ' + url_str);
 				if(_isFunction(callback_fail)) callback_fail();
 				pcf_hide_loading();
-				_show_alert_dialog(jqXHR, textStatus, errorThrown,url_str);
+				_show_alert_dialog(jqXHR, textStatus, errorThrown, url_str, retry_data_obj);
 			});
 		}else{
-                        $.ajax({
-                                url:      url_str,  // 通信先のURL
-                                type:     http_type,// 使用するHTTPメソッド(get/post)
-                                async:    async,    // 使用するHTTPメソッド(true/false)
+			$.ajax({
+				url:      url_str,  // 通信先のURL
+				type:     http_type,// 使用するHTTPメソッド(get/post)
+				async:    async,    // 使用するHTTPメソッド(true/false)
 				data:     post_data,
 				proccessData: false, 
-                                dataType: response_dataType,
-                        }).done(function(data1,textStatus,jqXHR) {
-                                if(_isFunction(callback))callback(data1);
-                        }).fail(function(jqXHR, textStatus, errorThrown ) {
-                                //alert('Server access error:' + textStatus + ":" + errorThrown + '\nURL: ' + url_str);
-                                if(_isFunction(callback_fail)) callback_fail();
-                                pcf_hide_loading();
-                                _show_alert_dialog(jqXHR, textStatus, errorThrown,url_str);
-                        });
+				dataType: response_dataType,
+			}).done(function(data1,textStatus,jqXHR) {
+				if(_isFunction(callback))callback(data1);
+			}).fail(function(jqXHR, textStatus, errorThrown ) {
+				//alert('Server access error:' + textStatus + ":" + errorThrown + '\nURL: ' + url_str);
+				if(_isFunction(callback_fail)) callback_fail();
+				pcf_hide_loading();
+				_show_alert_dialog(jqXHR, textStatus, errorThrown, url_str, retry_data_obj);
+			});
 		}
 	}
 
@@ -2337,7 +2349,10 @@
 		return format_str;
 	}
 
-	function _show_alert_dialog(jqXHR, textStatus, errorThrown,url_str){
+	function _show_alert_dialog(jqXHR, textStatus, errorThrown, url_str, retry_data_obj){
+
+		$('.modal-backdrop').remove();
+
 		let $alert_dialog = $("#alert_dialog");
 		//if(errorThrown){
 		//	$('#alertModalLabel').text(errorThrown + " status:" + jqXHR.status);
@@ -2352,8 +2367,14 @@
 			$('#alert_response_text').text(jqXHR.status + ': ' + jqXHR.responseText);
 		}
 		$('#alert_url').text(url_str);
-		$alert_dialog.modal('show');
-		$('header').show();
+
+		$('#btn_retry').data('RETRY_DATA', retry_data_obj);
+
+		setTimeout(function() {
+			let $alert_dialog1 = $("#alert_dialog");
+			$alert_dialog1.modal('show');
+		}, 100);
+		//$('header').show();
 	}
 
 	function _show_alert_dialog_msg(title,msg){
@@ -2484,6 +2505,16 @@
 			let current_target = _get_active_target();
 			_selectTab(current_target);
 		},
+		retry: function(retry_data_obj){
+			pcf_show_loading();
+			_run_ajax(	retry_data_obj.url_str,
+						retry_data_obj.http_type,
+						retry_data_obj.post_data,
+						retry_data_obj.response_dataType,
+						retry_data_obj.async,
+						retry_data_obj.callback,
+						retry_data_obj.callback_fail);
+		},
 		update_filter: function(filter_str){
 			let new_setting = {[SETTING_KEY_FILTER]: _modify_filter_string(filter_str)};
 			_clear_all_and_update_setting(new_setting);
@@ -2568,7 +2599,7 @@
                                                               [SETTING_KEY_DOWNLOAD_MODE]:  mode});
 
 			pcf_show_loading();
-			_run_ajax(url_hash.url,'POST',url_hash.data, 'text', true, function(data){
+				_run_ajax(url_hash.url,'POST',url_hash.data, 'text', true, function(data){
 
 				pcf_hide_loading();
 
