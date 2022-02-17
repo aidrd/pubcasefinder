@@ -217,7 +217,7 @@
 		// Behavioral settings
 		allowFreeTagging:		false,
 		allowTabOut:			false,
-		autoSelectFirstResult:	false,
+		autoSelectFirstResult:	true,
 
 		// Callbacks
 		onResult:			null,

@@ -132,7 +132,7 @@
     // Behavioral settings
     allowFreeTagging: false,
     allowTabOut: false,
-    autoSelectFirstResult: false,
+    autoSelectFirstResult: true,
 
     // Callbacks
     onResult: null,
@@ -555,6 +555,9 @@
       var dropdown = $("<div/>")
           .addClass($(input).data("settings").classes.dropdown)
           .appendTo("body")
+          .keydown(function (event) {
+              event.stopPropagation();
+          })
           .hide();
 
       // Magic element to help us resize the text input
@@ -1049,16 +1052,6 @@
           // exclude current tokens if configured
           results = excludeCurrent(results);
 
-//          if(!isWindowNavigatorLanguageJa()){ //日本語以外の場合、日本語の代表表現を除外
-//              var JapaneseExclusionList = [];
-//              if ($.isArray(results) && results.length) {
-//                  $.each(results, function(index, value) {
-//                      if(value['id'].lastIndexOf('_ja')<0) JapaneseExclusionList.push(value);
-//                  });
-//              }
-//              results = JapaneseExclusionList;
-//          }
-
           if(results && results.length) {
               dropdown.empty();
               var dropdown_ul = $("<ul/>")
@@ -1070,6 +1063,9 @@
                       add_token($(event.target).closest("li").data("tokeninput"));
                       hiddenInput.change();
                       return false;
+                  })
+                  .keydown(function (event) {
+                      event.stopPropagation();
                   })
                   .hide();
 
@@ -1223,13 +1219,7 @@
 
                   // Attach the success callback
                   ajax_params.success = function(results) {
-		    /*
-                    results=results.sort(function(a,b){
-                        if(a.name > b.name) return 1;
-                        if(a.name < b.name) return -1;
-                        return 0;
-                    });
-		    */
+
                     cache.add(cache_key, $(input).data("settings").jsonContainer ? results[$(input).data("settings").jsonContainer] : results);
                     if($.isFunction($(input).data("settings").onResult)) {
                         results = $(input).data("settings").onResult.call(hiddenInput, results);
@@ -1256,7 +1246,6 @@
                     jqxhr.abort();
                   }
                   // Make the request
-//                  $.ajax(ajax_params);
                   jqxhr = $.ajax(ajax_params);
               } else if($(input).data("settings").local_data) {
                   // Do the search through local data
