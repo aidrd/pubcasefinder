@@ -1005,9 +1005,15 @@
 	//					onSelectDropdownItem: function(token_data){
 	//						$.PopupRelationHPOResultsTooltip(this,token_data);
 	//					},
-						onShowDropdownItem: function(count){
+						onShowDropdownItem: function(count,isSimilar){
 							var node = this;
-							var $count_node = $('<div>').addClass(current_settings.cssNumberOfHitsClass).text(current_settings.language[getCurrentLanguage()]['number_of_hits'].replace('__NUMBER__', count));
+							var $count_node = $('<div>').addClass(current_settings.cssNumberOfHitsClass);
+							if(isSimilar){
+								$count_node.text('number_of_similar_candidate:[' + count + ']');
+							}else{
+								$count_node.text(current_settings.language[getCurrentLanguage()]['number_of_hits'].replace('__NUMBER__', count));
+							}
+							
 							if(node.get(0).firstElementChild){
 								var $firstElementChild = $(node.get(0).firstElementChild);
 								$count_node.insertBefore($firstElementChild);
@@ -3037,9 +3043,16 @@
 //				if($.isFunction(orgOnSelectDropdownItem)) orgOnSelectDropdownItem.call($(input),token_data);
 //			};
 
-			tokeninput_settings.onShowDropdownItem = function(count){
+			tokeninput_settings.onShowDropdownItem = function(count,isSimilar){
 				var node = this;
-				var $count_node = $('<div>').addClass(current_settings.cssNumberOfHitsClass).text(current_settings.language[getCurrentLanguage()]['number_of_hits'].replace('__NUMBER__', count));
+				var $count_node = $('<div>').addClass(current_settings.cssNumberOfHitsClass);
+
+				if(isSimilar){
+					$count_node.text('number_of_similar_candidate:[' + count + ']');
+				}else{
+					$count_node.text(current_settings.language[getCurrentLanguage()]['number_of_hits'].replace('__NUMBER__', count));
+				}
+
 				if(node.get(0).firstElementChild){
 					var $firstElementChild = $(node.get(0).firstElementChild);
 					$count_node.insertBefore($firstElementChild);
@@ -3048,7 +3061,7 @@
 				else{
 					$count_node.appendTo(node);
 				}
-				if($.isFunction(orgOnShowDropdownItem)) orgOnShowDropdownItem.call($(input),count);
+				if($.isFunction(orgOnShowDropdownItem)) orgOnShowDropdownItem.call($(input),count,false);
 			};
 
 			tokeninput_settings.onHideDropdownItem = function(){
