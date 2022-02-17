@@ -2296,6 +2296,7 @@
 				type:     http_type,// 使用するHTTPメソッド(get/post)
 				async:    async,    // 使用するHTTPメソッド(true/false)
 				dataType: response_dataType,
+				//timeout:  3000,
 			}).done(function(data1,textStatus,jqXHR) {
 				if(_isFunction(callback))callback(data1);
 			}).fail(function(jqXHR, textStatus, errorThrown ) {
@@ -2361,7 +2362,11 @@
 		$('#alertModalLabel').text("Error occured.");
 		//$('#alert_response_text').text(jqXHR.responseText);
 		if(jqXHR.statusText){
-			$('#alert_response_text').text(jqXHR.status + ': ' + jqXHR.statusText);
+			let msgtext = jqXHR.status + ': ' + jqXHR.statusText;
+			if(jqXHR.responseText){
+				msgtext += '\n' + jqXHR.responseText;
+			}
+			$('#alert_response_text').text(msgtext);
 		}else{
 			$('#alert_response_text').text(jqXHR.status + ': ' + jqXHR.responseText);
 		}
@@ -2369,10 +2374,10 @@
 
 		$('#btn_retry').data('RETRY_DATA', retry_data_obj);
 
-		setTimeout(function() {
+		//setTimeout(function() {
 			let $alert_dialog1 = $("#alert_dialog");
 			$alert_dialog1.modal('show');
-		}, 100);
+		//}, 100);
 		//$('header').show();
 	}
 

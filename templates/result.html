@@ -565,9 +565,9 @@
 		});
 
 	$('#btn_retry').on('click', function (e) {
-		//$('#btn_alert_close').trigger('click');
-		let $alert_dialog = $("#alert_dialog");
-		$alert_dialog.modal('dispose');
+		$('#btn_alert_close').trigger('click');
+		//let $alert_dialog = $("#alert_dialog");
+		//$alert_dialog.modal('hide');
 		setTimeout(function() {
 			let retry_data_obj = $('#btn_retry').data('RETRY_DATA');
 			$("#pcf-content").pcf_content('retry', retry_data_obj);
