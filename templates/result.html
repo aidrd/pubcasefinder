@@ -850,7 +850,7 @@
         $tbl.find("input[name='hpo_list']:checked").each(function(){
 			cnt++;
 			let hpo_item = $(this).data('HPO_ITEM');
-			$("#tokeninput_hpo").tokenInput("add", {id: hpo_item.id, name: hpo_item.name});
+			$("#tokeninput_hpo").tokenInput("add", hpo_item);
 		});
 		
 		if(!cnt){

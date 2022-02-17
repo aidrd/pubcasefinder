@@ -640,17 +640,25 @@
 			let li_list   = token_list.find("li");
 			let idx_end   = li_list.length - 2;
 			let idx_start = li_list.length - num -1;
+
 			
 			for(let idx=idx_start;idx<=idx_end;idx++){
-				$(li_list[idx]).addClass($(input).data("settings").classes.selectedToken);
+
+				//$(li_list[idx]).addClass($(input).data("settings").classes.highlightedToken).hide();
+				$(li_list[idx]).hide();
+				$(li_list[idx]).delay(600).fadeIn('slow');
 			}
 
 			setTimeout(function(){
+				resize_input();
+			}, 1000);
+/*
+			setTimeout(function(){
 				for(let idx=idx_start;idx<=idx_end;idx++){
-					$(li_list[idx]).removeClass($(input).data("settings").classes.selectedToken);
+					$(li_list[idx]).removeClass($(input).data("settings").classes.highlightedToken);
 				}	
 			}, 1000);
-			
+*/			
 		};
 
 	  // Resize input to maximum width so the placeholder can be seen
