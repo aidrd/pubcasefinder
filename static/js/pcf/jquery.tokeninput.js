@@ -253,7 +253,11 @@
 				closest.append(tmpInput);
 				return tmpInput;
 			}
-	  	}
+	  	},
+		blinkLastTokens: function(num) {
+            this.data("tokenInputObject").blinkLastTokens(num);
+            return this;
+        }
 	};
 
 	// Expose the .tokenInput function to jQuery as a plugin
@@ -630,6 +634,24 @@
 	  this.toggleDisabled = function(disable) {
 		  toggleDisabled(disable);
 	  };
+
+		this.blinkLastTokens = function(num) {
+
+			let li_list   = token_list.find("li");
+			let idx_end   = li_list.length - 2;
+			let idx_start = li_list.length - num -1;
+			
+			for(let idx=idx_start;idx<=idx_end;idx++){
+				$(li_list[idx]).addClass($(input).data("settings").classes.selectedToken);
+			}
+
+			setTimeout(function(){
+				for(let idx=idx_start;idx<=idx_end;idx++){
+					$(li_list[idx]).removeClass($(input).data("settings").classes.selectedToken);
+				}	
+			}, 1000);
+			
+		};
 
 	  // Resize input to maximum width so the placeholder can be seen
 	  resize_input();
