@@ -50,18 +50,22 @@
 		tokenLogicaloperatorItemNONEValue : 'NONE',
 
 		resultsFormatter: function(item) {
-			var id = item['id'].replace(/_ja$/g,'');
-			var name = item['name'];
+
+			var id      = item['id'].replace(/_ja$/g,'');
+			var name    = item['name'];
 			var synonym = item['synonym'];
+
 			var id_prefix = '';
 			var id_suffix = '';
 			if(id.match(/^([A-Z]+)\:[0-9]+$/)) id_prefix = RegExp.$1;
-			if(id_prefix == 'HP' || id_prefix == 'MONDO'){
+			if(id_prefix == 'HP' || id_prefix == 'MONDO' ||  id_prefix == 'GENEID'){
 				id_suffix = '-'+id_prefix.toLowerCase();
 			}
+
 			var theme = this.theme ? '-'+this.theme : '';
+
 			var li_class = [this.classes.tokenResults];
-			if(typeof id_suffix === "string" && id_suffix.length) li_class.push('token-input-token-results-'+id_suffix+theme);
+			if(typeof id_suffix === "string" && id_suffix.length) li_class.push('token-input-token-results'+id_suffix+theme);
 			var value = '<li class="'+li_class.join(' ')+'">'+
 			'<span class="'+this.classes.tokenWord+' '+this.classes.tokenInformation+' glyphicon glyphicon-info-sign" style="display:none;"></span>'+
 			'&nbsp;'+
@@ -1327,7 +1331,23 @@
 					results = results.slice(0, $(input).data("settings").resultsLimit);
 				}
 
+
+				var num_hp     = 0;
+				var num_mondo  = 0;
+				var num_geneid = 0;
 				$.each(results, function(index, value) {
+
+		            var id_prefix = '';
+		            var id_suffix = '';
+					if(value['id'].match(/^([A-Z]+)\:[0-9]+$/)) id_prefix = RegExp.$1;
+		            if(id_prefix == 'HP'){
+						num_hp++;;
+					}else if(id_prefix == 'MONDO'){
+						num_mondo++;
+					}else if(id_prefix == 'GENEID'){
+						num_geneid++;
+					}
+
 					var this_li = $(input).data("settings").resultsFormatter(value);
 
 					this_li = find_value_and_highlight_term(this_li ,value['id'].replace(/_ja$/g,''), query);
@@ -1350,7 +1370,7 @@
 
 				var callback = $(input).data("settings").onShowDropdownItem;
 				if($.isFunction(callback)) {
-					callback.call(dropdown,results_length);
+					callback.call(dropdown,results_length,num_hp,num_mondo,num_geneid);
 				}
 				show_dropdown();
 

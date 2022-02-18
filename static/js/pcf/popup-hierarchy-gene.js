@@ -972,9 +972,12 @@
 						});
 					},
 
-					onShowDropdownItem: function(count){
+					onShowDropdownItem: function(count,num_hp,num_mondo,num_geneid){
 						var node = this;
-						var $count_node = $('<div>').addClass(current_settings.cssNumberOfHitsClass).text(current_settings.language[getCurrentLanguage()]['number_of_hits'].replace('__NUMBER__', count));
+						var $count_node = $('<div>').addClass(current_settings.cssNumberOfHitsClass);
+						var text = current_settings.language[getCurrentLanguage()]['number_of_hits'].replace('__NUMBER__', count);
+							text += " HP:" + num_hp + " MONDO:" + num_mondo + " GENEID:" + num_geneid;
+						$count_node.text(text);
 						if(node.get(0).firstElementChild){
 							var $firstElementChild = $(node.get(0).firstElementChild);
 							$count_node.insertBefore($firstElementChild);
@@ -1820,10 +1823,15 @@
 				if($.isFunction(orgOnDelete)) orgOnDelete.call($(input),token);
 			};
 
-			tokeninput_settings.onShowDropdownItem = function(count){
+			tokeninput_settings.onShowDropdownItem = function(count,num_hp,num_mondo,num_geneid){
 				var node = this;
 				if(current_settings.use_number_of_hits){
-					var $count_node = $('<div>').addClass(current_settings.cssNumberOfHitsClass).text(current_settings.language[getCurrentLanguage()]['number_of_hits'].replace('__NUMBER__', count));
+
+					var $count_node = $('<div>').addClass(current_settings.cssNumberOfHitsClass);
+					var text = current_settings.language[getCurrentLanguage()]['number_of_hits'].replace('__NUMBER__', count);
+						text += " HP:" + num_hp + " MONDO:" + num_mondo + " GENEID:" + num_geneid;
+                        $count_node.text(text);
+
 					if(node.get(0).firstElementChild){
 						var $firstElementChild = $(node.get(0).firstElementChild);
 						$count_node.insertBefore($firstElementChild);

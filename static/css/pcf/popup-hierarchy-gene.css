@@ -354,6 +354,11 @@ ul.gene-token-input-list.token-input-list-facebook li.token-input-selected-token
 	color: #fff;
 }
 
+li.token-input-token-results-facebook.token-input-token-results-geneid-facebook {
+    background-color:#f4f4f4;
+}
+
+
 /* MONDO:XXXXX */
 ul.gene-token-input-list.token-input-list-facebook div.token-input-token-facebook.token-input-token-term-mondo-facebook {
 	border: 1px solid #983B92;
@@ -376,6 +381,10 @@ ul.gene-token-input-list.token-input-list-facebook li.token-input-selected-token
 	color: white;
 }
 
+li.token-input-token-results-facebook.token-input-token-results-mondo-facebook {
+    background-color:#FFF4F6;
+}
+
 /* HP:XXXXX */
 ul.gene-token-input-list.token-input-list-facebook div.token-input-token-facebook.token-input-token-term-hp-facebook {
 	border: 1px solid #55B95D;
@@ -390,7 +399,9 @@ ul.gene-token-input-list.token-input-list-facebook li.token-input-selected-token
 	color: #fff;
 }
 
-
+li.token-input-token-results-facebook.token-input-token-results-hp-facebook {
+    background-color:#F4FFF5;
+}
 
 ul.gene-token-input-list.token-input-list-facebook li.token-input-token-facebook p {
 	display: block  !important;
@@ -503,6 +514,29 @@ ul.gene-token-input-list.token-input-list-facebook li.token-input-token-facebook
 	font-size: 10px;
 	line-height: 11px;
 }
+
+/*
+li.token-input-token-results-facebook.token-input-token-results-hp-facebook span.token-input-token-word-facebook.token-input-token-id-facebook {
+    background-color:#F4FFF5;
+}
+li.token-input-token-results-facebook.token-input-token-results-mondo-facebook span.token-input-token-word-facebook.token-input-token-id-facebook {
+    background-color:#FFF4F6;
+}
+li.token-input-token-results-facebook.token-input-token-results-geneid-facebook span.token-input-token-word-facebook.token-input-token-id-facebook {
+    background-color:#f4f4f4;
+}
+
+li.token-input-token-results-facebook.token-input-token-results-hp-facebook span.token-input-token-word-facebook.token-input-token-name-facebook {
+    background-color:#F4FFF5;
+}
+li.token-input-token-results-facebook.token-input-token-results-mondo-facebook span.token-input-token-word-facebook.token-input-token-name-facebook {
+    background-color:#FFF4F6;
+}
+li.token-input-token-results-facebook.token-input-token-results-geneid-facebook span.token-input-token-word-facebook.token-input-token-name-facebook {
+    background-color:#f4f4f4;
+}
+*/
+
 ul.gene-token-input-list.token-input-list-facebook li.token-input-token-facebook span.token-input-token-word-facebook.token-input-token-name-facebook {
 	display: block  !important;
 	font-size:18px;
