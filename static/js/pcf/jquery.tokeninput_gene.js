@@ -1384,7 +1384,7 @@
 					dropdown.html("<p>" + escapeHTML($(input).data("settings").noResultsText) + "</p>");
 					var callback = $(input).data("settings").onShowDropdownItem;
 					if($.isFunction(callback)) {
-						callback.call(dropdown,0);
+						callback.call(dropdown,0,0,0,0);
 					}
 					show_dropdown();
 				}
