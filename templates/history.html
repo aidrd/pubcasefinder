@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+
+{% if get_locale() == "ja" or get_locale() == "ja_JP" %}
+<html lang="ja">
+{% else %}
+<html lang="en">
+{% endif %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="wilih=device-wilih, initial-scale=1.0">
+    <title>PubCaseFinder</title>
+    <!--css-->
+    <link rel="stylesheet" href="https://unpkg.com/destyle.css@1.0.5/destyle.css">
+    <link rel="stylesheet" href="/static/css/pcf/branc.css">
+    <link rel="stylesheet" href="/static/css/pcf/branc-ie7.css">
+    <link rel="stylesheet" href="/static/css/pcf/branc-ie7-codes.css">
+    <link rel="stylesheet" href="/static/css/pcf/branc-embedded.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="/static/css/pcf/style-togo.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Noto+Sans+JP:wght@100;300;400;500;700;900&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--favicon start-->
+    <link rel="apple-touch-icon" sizes="180x180" href="/static/images/pcf/top/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/static/images/pcf/top/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/static/images/pcf/top/favicon-16x16.png">
+    <link rel="manifest" href="/static/images/pcf/top/site.webmanifest">
+    <link rel="mask-icon" href="/static/images/pcf/top/safari-pinned-tab.svg" color="#2a3356">
+    <meta name="msapplication-TileColor" content="#2a3356">
+    <meta name="theme-color" content="#ffffff">
+    <!--favicon end-->
+</head>
+
+<body>
+    <header class="search-header">
+        <div class="wrapper search-header_wrapper">
+            <div class="search-header_top">
+                <div class="brand">
+                    <a href="/" class="brand"><img src="/static/images/pcf/top/logo_color.svg" alt=""></a>
+                </div>
+                <div class="search-header_left">
+                    <nav class="nav-pc">
+                        <ul class="menu-pc">
+			    {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
+                            <li><a href="/static/pdf/PubCaseFinder_manual_ja_v4.pdf"><i class="icon-question-circle-o"></i>About</a></li>
+			    {% else %}
+                            <li><a href="/static/pdf/PubCaseFinder_manual_en_v4.pdf"><i class="icon-question-circle-o"></i>About</a></li>
+			    {% endif %}
+                            <li><a href="/datasets"><i class="icon-database"></i>Datasets</a></li>
+                            <li><a href="/history"><i class="icon-history"></i>History</a></li>
+                            <li><a href="/termsofservice"><i class="icon-doc-text-inv"></i>Terms</a></li>
+                            <li><a href="https://integbio.jp/rdf/dataset/pubcasefinder"><i class="icon-share"></i>RDF</a></li>
+                            <li><a href="/mme"><i class="icon-wrench"></i>API</a></li>
+                            <li><a title="Comments & suggestions are welcome!" href="mailto:support@dbcls.rois.ac.jp,pubcasefinder@dbcls.rois.ac.jp"><i class="icon-mail-alt"></i>Contact</a></li>
+                        </ul>
+                    </nav>
+                    <nav class="nav-sp">
+                        <ul>
+                            <li class="menu-item-has-children">
+                                <a href="#"><span class="material-icons">
+                                        menu
+                                    </span></a>
+                                <ul class="sub-menu">
+				    {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
+                                    <li><a href="/static/pdf/PubCaseFinder_manual_ja_v4.pdf">About</a></li>
+			            {% else %}
+                                    <li><a href="/static/pdf/PubCaseFinder_manual_en_v4.pdf">About</a></li>
+				    {% endif %}
+                                    <li><a href="/datasets">Datasets</a></li>
+                                    <li><a href="/history">History</a></li>
+                                    <li><a href="/termsofservice">Terms</a></li>
+                                    <li><a href="https://integbio.jp/rdf/dataset/pubcasefinder">RDF</a></li>
+                                    <li><a href="/mme">API</a></li>
+                                    <li><a title="Comments & suggestions are welcome!" href="mailto:support@dbcls.rois.ac.jp,pubcasefinder@dbcls.rois.ac.jp">Contact</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </nav>
+                    <!--span class="language"><a href="#">EN</a> / <a href="#"></a>JA</a></span-->
+                    <span class="language"><a href="{{ request.path }}?lang=en">EN</a> / <a href="{{ request.path }}?lang=ja">JA</a></span>
+                    <!--<div class="site-header_end">
+                        <a class="button" href="#">Login<i class="material-icons">expand_more</i></a>
+                    </div>-->
+                </div>
+            </div>
+        </div>
+    </header>
+
+
+    <!--history page-->
+    <div class="history-wrapper">
+        <section class="content">
+            <h1>Update history</h1>
+            <div class="topics">
+	        {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
+                <ul>
+
+                    <li class="topics-title">2021/10/16</li>
+                    <li>日本人類遺伝学会第66回大会 / 第28回日本遺伝子診療学会大会
+                        合同開催にてポスター発表した「診療録からの症状半自動抽出システムPOETの開発」が大会賞を受賞しました。発表した機能は<a
+                            href="https://pubcasefinder.dbcls.jp/ehr">こちら</a>になります。ぜひご活用ください。
+                    </li>
+                </ul>
+		{% endif %}
+                <ul>
+                    <li class="topics-title">2021/09/26</li>
+		    {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
+                    <li>PubCaseFinder v2.0.0
+                        を公開しました。UI/UXを大幅に改良しました。また、疾患・遺伝形式・遺伝子の複数を論理演算子で組み合わせて結果をフィルタリングすることが可能です。サンプル結果は<a
+                            href="https://pubcasefinder.dbcls.jp/result?target=omim&phenotype=HP:0000347_ja,HP:0003022_ja,HP:0009381_ja,HP:0000204_ja,HP:0000625_ja&filter=HP:0000006,AND_MONDO:0005015&size=10&display_format=full&lang=ja">こちら</a>をご参照ください。
+                    </li>
+		    {% else %}
+		    <li>
+                      <div style="letter-spacing: 0.1em;">
+			  PubCaseFinder v2.0.0 is abailable. The UI/UX has been greatly improved. It is possible to filter the results by combining disease, mode of inheritance, and gene with logical operators. An example is <a href="https://pubcasefinder.dbcls.jp/result?target=omim&phenotype=HP:0000347_ja,HP:0003022_ja,HP:0009381_ja,HP:0000204_ja,HP:0000625_ja&filter=HP:0000006,AND_MONDO:0005015&size=10&display_format=full&lang=en">here</a>.
+		      </div>
+		    </li>
+		    {% endif %}
+                </ul>
+                <ul>
+                    <li class="topics-title">2020/07/31</li>
+		    {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
+                    <li>PubCaseFinder v1.3.0
+                        を公開しました。入力した症状と関連性の高い順に、インターネット上で公開されている症例18893件をランキング形式で提示します。WESやWGSにおける未知バリアントの評価にご活用いただけます。サンプル結果は<a
+                            href="https://pubcasefinder.dbcls.jp/search_disease/phenotype:HP:0000347,HP:0003022,HP:0009381,HP:0000204,HP:0000625/gene:/page:1,1,1,1/size:10,10,10,10,case">こちら</a>をご参照ください。
+                    </li>
+		    {% else %}
+		    <li>
+                      <div style="letter-spacing: 0.1em;">
+			  PubCaseFinder v1.3.0 is abailable. A ranked list of public cases on the Internet is produced based on patient phenotypes. An example is <a href="https://pubcasefinder.dbcls.jp/search_disease/phenotype:HP:0000347,HP:0003022,HP:0009381,HP:0000204,HP:0000625/gene:/page:1,1,1,1/size:10,10,10,10,case">here</a>.
+		      </div>
+		    </li>
+		    {% endif %}
+                </ul>
+                <ul>
+                    <li class="topics-title">2020/07/27</li>
+		    {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
+                    <li>PubCaseFinder v1.2.0
+                        を公開しました。入力した症状と関連性の高い順に、疾患原因遺伝性4312件をランキング形式で提示します。WESやWGSにおける未知バリアントの評価にご活用いただけます。サンプル結果は<a
+                            href="https://pubcasefinder.dbcls.jp/search_disease/phenotype:HP:0000347_ja,HP:0003022_ja,HP:0009381_ja,HP:0000204_ja,HP:0000625_ja/gene:/page:1,1,1/size:10,10,10,gene">こちら</a>をご参照ください。
+                    </li>
+		    {% else %}
+		    <li>
+                      <div style="letter-spacing: 0.1em;">
+			  PubCaseFinder v1.2.0 is abailable. A ranked list of causative genes of rare and genetic diseases is produced based on patient phenotypes. An example is <a href="https://pubcasefinder.dbcls.jp/search_disease/phenotype:HP:0000347,HP:0003022,HP:0009381,HP:0000204,HP:0000625/gene:/page:1,1,1/size:10,10,10,gene">here</a>.
+		      </div>
+		    </li>
+		    {% endif %}
+                </ul>
+                <ul>
+                    <li class="topics-title">2019/10/17</li>
+		    {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
+                    <li>米国人類遺伝学会2019において、ポスター発表「PubCaseFinder and PhenoTouch for differential diagnosis in rare
+                        disease.」が、Reviewers’ Choice Abstractsとして選出されました。詳しくは<a
+                            href="https://www.ashg.org/2019meeting/listing/ReviewersChoice.shtml">こちら</a>をご参照ください。
+                    </li>
+		    {% else %}
+		    <li>
+                      <div style="letter-spacing: 0.1em;">
+			  Our poster presentation &quot;PubCaseFinder and PhenoTouch for differential diagnosis in rare disease.&quot; was selected as Reviewers' Choice Abstracts in <a href="https://www.ashg.org/2019meeting/listing/ReviewersChoice.shtml">ASHG2019</a>.
+		      </div>
+		    </li>
+		    {% endif %}
+                </ul>
+                <ul>
+                    <li class="topics-title">2019/10/05</li>
+
+		    {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
+                    <li>PubCaseFinder v1.2.0
+                        を公開しました。入力した症状と関連性の高い順に、疾患原因遺伝性4312件をランキング形式で提示します。WESやWGSにおける未知バリアントの評価にご活用いただけます。サンプル結果は<a
+                            href="https://pubcasefinder.dbcls.jp/datasets_ja">こちら</a>をご参照ください。
+                    </li>
+		    {% else %}
+		    <li>
+                      <div style="letter-spacing: 0.1em;">
+			  PubCaseFinder v1.1.0 is abailable. Datasets and ontologies are <a href="/datasets_en">here</a>.
+		      </div>
+		    </li>
+		    {% endif %}
+                </ul>
+                <ul>
+                    <li class="topics-title">2018/08/30</li>
+		    {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
+                    <li>PubCaseFinderの論文がThe American Journal of Human Genetics誌に掲載されました。論文は<a
+                            href="https://www.cell.com/ajhg/fulltext/S0002-9297(18)30269-6">こちら</a>をご参照ください。
+                    </li>
+		    {% else %}
+		    <li>
+                      <div style="letter-spacing: 0.1em;">
+			  The PubCaseFinder paper is available on <i>The American Journal of Human Genetics</i>. Full text paper is <a href="https://www.cell.com/ajhg/fulltext/S0002-9297(18)30269-6">here</a>.
+		      </div>
+		    </li>
+		    {% endif %}
+                </ul>
+                <ul>
+                    <li class="topics-title">2017/09/27</li>
+		    {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
+                    <li>PubCaseFinder v.1.0.0 の公開を開始しました。詳細は<a
+                            href="https://dbcls.rois.ac.jp/ja/2017/09/27/post1.html">ニュース</a>をご参照ください。
+                    </li>
+		    {% else %}
+		    <li>
+                      <div style="letter-spacing: 0.1em;">
+			  PubCaseFinder v1.0.0 has been released.
+		      </div>
+		    </li>
+		    {% endif %}
+                </ul>
+            </div>
+        </section>
+    </div>
+
+    </section>
+    </div>
+</body>
+
+<!-- START: Common header and footer -->
+<script type="text/javascript" src="/static/common-header-and-footer/script/common-footer.js" id="common-footer__script"></script>
+<script type="text/javascript"
+    src="https://dbcls.rois.ac.jp/DBCLS-common-header-footer/v2/script/common-header-and-footer.js"
+    style="display: block" id="common-header-and-footer__script" data-width="976" data-color="mono"></script>
+<!-- END: Common header and fotter -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
+
+</html>
