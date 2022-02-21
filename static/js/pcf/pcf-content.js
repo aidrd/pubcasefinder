@@ -16,7 +16,6 @@
 		  URL_GET_CASE_REPORT_BY_MONDO_ID           = 'https://pubcasefinder.dbcls.jp/pcf_get_case_report_by_mondo_id',
 		  URL_SHARE                                 = 'https://pubcasefinder.dbcls.jp/pcf_share',
 		  URL_DOWNLOAD                              = 'https://pubcasefinder.dbcls.jp/pcf_download',
-		  //URL_DOWNLOAD                              = 'pcf_download',
 		  URL_PCF_FILTER_GET_OMIM_ID_BY_MONDO_ID            = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_filter_get_omim_id_by_mondo_id',
 		  URL_PCF_FILTER_GET_OMIM_ID_BY_NCBI_GENE_ID        = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_filter_get_omim_id_by_ncbi_gene_id',
 		  URL_PCF_FILTER_GET_OMIM_ID_BY_INHERITANCE_HPO_ID  = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_filter_get_omim_id_by_inheritance_hpo_id',
@@ -2303,7 +2302,7 @@
 				//alert('Server access error:' + textStatus + ":" + errorThrown + '\nURL: ' + url_str);
 				if(_isFunction(callback_fail)) callback_fail();
 				pcf_hide_loading();
-				_show_alert_dialog(jqXHR, textStatus, errorThrown, url_str, retry_data_obj);
+				pcf_show_alert_dialog(jqXHR, textStatus, errorThrown, url_str, retry_data_obj);
 			});
 		}else{
 			$.ajax({
@@ -2319,7 +2318,7 @@
 				//alert('Server access error:' + textStatus + ":" + errorThrown + '\nURL: ' + url_str);
 				if(_isFunction(callback_fail)) callback_fail();
 				pcf_hide_loading();
-				_show_alert_dialog(jqXHR, textStatus, errorThrown, url_str, retry_data_obj);
+				pcf_show_alert_dialog(jqXHR, textStatus, errorThrown, url_str, retry_data_obj);
 			});
 		}
 	}
@@ -2347,46 +2346,6 @@
 		format_str = format_str.replace(/ss/g, second_str);
 		
 		return format_str;
-	}
-
-	function _show_alert_dialog(jqXHR, textStatus, errorThrown, url_str, retry_data_obj){
-
-		$('.modal-backdrop').remove();
-
-		let $alert_dialog = $("#alert_dialog");
-		//if(errorThrown){
-		//	$('#alertModalLabel').text(errorThrown + " status:" + jqXHR.status);
-		//}else{
-		//	$('#alertModalLabel').text("Error occured. Status: " + jqXHR.status);
-		//}
-		$('#alertModalLabel').text("Error occured.");
-		//$('#alert_response_text').text(jqXHR.responseText);
-		if(jqXHR.statusText){
-			let msgtext = jqXHR.status + ': ' + jqXHR.statusText;
-			if(jqXHR.responseText){
-				msgtext += '\n' + jqXHR.responseText;
-			}
-			$('#alert_response_text').text(msgtext);
-		}else{
-			$('#alert_response_text').text(jqXHR.status + ': ' + jqXHR.responseText);
-		}
-		$('#alert_url').text(url_str);
-
-		$('#btn_retry').data('RETRY_DATA', retry_data_obj);
-
-		//setTimeout(function() {
-			let $alert_dialog1 = $("#alert_dialog");
-			$alert_dialog1.modal('show');
-		//}, 100);
-		//$('header').show();
-	}
-
-	function _show_alert_dialog_msg(title,msg){
-		let $alert_dialog = $("#alert_dialog_msg");
-		$('#alert_dialog_msg_title').text(title);
-		$('#alert_dialog_msg_body').text(msg);
-		$alert_dialog.modal('show');
-		$('header').show();
 	}
 
 	const SETTING_KEY_URLSTR = 'url_str_full';
@@ -2557,7 +2516,7 @@
 					tmp.push($(this).val());
   				});
 				if(tmp.length === 0){
-					_show_alert_dialog_msg('Info','no records');
+					pcf_show_alert_dialog_msg('Info','no records');
 					return;
 				}else{
 					target_id = tmp.join(',');
@@ -2568,7 +2527,7 @@
 					tmp.push($(this).val());
   				});
 				if(tmp.length === 0){
-					_show_alert_dialog_msg('Info','no records selected');
+					pcf_show_alert_dialog_msg('Info','no records selected');
 					return;
 				}else{
 					target_id = tmp.join(',');
@@ -2590,20 +2549,15 @@
 				}
 			}
 
-			//let url_str = _construct_url(URL_DOWNLOAD, {[SETTING_KEY_TARGET]:     target,
-			//					[SETTING_KEY_PHENOTYPE]:      hpo_id_list,
-			//					[SETTING_KEY_TARGET_ID]:      target_id,
-			//					[SETTING_KEY_DOWNLOAD_FORMAT]:format,
-			//					[SETTING_KEY_DOWNLOAD_MODE]:  mode});
-
-                        let url_hash = _construct_url(URL_DOWNLOAD, {[SETTING_KEY_TARGET]:     target,
-                                                              [SETTING_KEY_PHENOTYPE]:      hpo_id_list,
-                                                              [SETTING_KEY_TARGET_ID]:      target_id,
-                                                              [SETTING_KEY_DOWNLOAD_FORMAT]:format,
-                                                              [SETTING_KEY_DOWNLOAD_MODE]:  mode});
+			let url_hash = _construct_url(URL_DOWNLOAD, {[SETTING_KEY_TARGET]:         target,
+														 [SETTING_KEY_PHENOTYPE]:      hpo_id_list,
+														 [SETTING_KEY_TARGET_ID]:      target_id,
+														 [SETTING_KEY_DOWNLOAD_FORMAT]:format,
+														 [SETTING_KEY_DOWNLOAD_MODE]:  mode});
 
 			pcf_show_loading();
-				_run_ajax(url_hash.url,'POST',url_hash.data, 'text', true, function(data){
+
+			_run_ajax(url_hash.url,'POST',url_hash.data, 'text', true, function(data){
 
 				pcf_hide_loading();
 
@@ -2658,7 +2612,13 @@
 					let filter_type  = _get_filter_type_by_filter_id(str_filter_id);
 					let url_str      = FILTER_NAME_URL_HASH[filter_type];
 					let url_str_full = _construct_url(url_str,{[SETTING_KEY_ID_LST]:id});
-					ajax_item_list.push({[SETTING_KEY_URLSTR]:url_str_full, 'type': type_filter, 'str_filter_id':str_filter_id, 'index': i,'filter_type':filter_type, 'id':id,'logical_str':logical_str});
+					ajax_item_list.push({[SETTING_KEY_URLSTR] : url_str_full, 
+										 'type'               : type_filter,
+										 'str_filter_id'      : str_filter_id,
+										 'index'              : i,
+										 'filter_type'        : filter_type,
+										 'id'                 : id,
+										 'logical_str'        : logical_str});
 				}
 			}
 			

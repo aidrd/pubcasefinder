@@ -173,7 +173,7 @@
 						<b>Filter to narrow your search results</b>&nbsp;&nbsp;&nbsp;<font style="color:#C7DAAA;">|</font>&nbsp;&nbsp;&nbsp;Examples:
 						<a class="filter-sample" href="/result?target=omim&phenotype=HP:0000347,HP:0003022,HP:0009381,HP:0000204,HP:0000625&filter=MONDO:0007179&size=10&display_format=full&lang=en">Example1</a>
 						<a class="filter-sample" href="/result?target=omim&phenotype=HP:0001903,HP:0000952,HP:0001744,HP:0004444&filter=GENEID:2038,GENEID:6708,GENEID:6521,GENEID:286,GENEID:6710,AND_HP:0000006&size=10&display_format=full&lang=en">Example2</a>
-						<a class="filter-sample" href="/result?target=omim&phenotype=HP:0000347,HP:0003022,HP:0009381,HP:0000204,HP:0000625&filter=HP:0000007,AND_MONDO:0019056,NOT_MONDO:0020124&size=10&display_format=full&lang=ja">Example3</a>
+						<a class="filter-sample" href="/result?target=omim&phenotype=HP:0000347,HP:0003022,HP:0009381,HP:0000204,HP:0000625&filter=HP:0000007,AND_MONDO:0019056,NOT_MONDO:0020124&size=10&display_format=full&lang=en">Example3</a>
 						{% endif %}
 					</div>
 					<textarea class="form-control" rows="1" id="tokeninput_genes" name="str_filters"></textarea>
@@ -519,6 +519,42 @@
 		$("#fh5co-loader").fadeOut("slow");
 	};
 
+	var pcf_show_alert_dialog = function(jqXHR, textStatus, errorThrown, url_str, retry_data_obj){
+		$('.modal-backdrop').remove();
+		let $alert_dialog = $("#alert_dialog");
+		$('#alertModalLabel').text("Error occured.");
+		if(jqXHR.statusText){
+			let msgtext = jqXHR.status + ': ' + jqXHR.statusText;
+			if(jqXHR.responseText){
+				msgtext += '\n' + jqXHR.responseText;
+			}
+			$('#alert_response_text').text(msgtext);
+		}else{
+			$('#alert_response_text').text(jqXHR.status + ': ' + jqXHR.responseText);
+		}
+		$('#alert_url').text(url_str);
+		$('#btn_retry').data('RETRY_DATA', retry_data_obj);
+		$("#alert_dialog").modal('show');
+		if($('header').is(":hidden")) $('header').show();
+	}
+
+	var pcf_show_alert_dialog_msg = function(title,msg){
+		let $alert_dialog = $("#alert_dialog_msg");
+		$('#alert_dialog_msg_title').text(title);
+		$('#alert_dialog_msg_body').text(msg);
+		$alert_dialog.modal('show');
+		$('header').show();
+    }
+
+	$('#alert_dialog').scroll(function (event) {
+		event.stopPropagation();
+		return false;
+	});
+
+    $('#alert_dialog_msg').scroll(function (event) {
+        event.stopPropagation();            
+        return false;        
+    });
 
 	function btn_download_click(e) {
 
@@ -566,8 +602,6 @@
 
 	$('#btn_retry').on('click', function (e) {
 		$('#btn_alert_close').trigger('click');
-		//let $alert_dialog = $("#alert_dialog");
-		//$alert_dialog.modal('hide');
 		setTimeout(function() {
 			let retry_data_obj = $('#btn_retry').data('RETRY_DATA');
 			$("#pcf-content").pcf_content('retry', retry_data_obj);
