@@ -381,7 +381,7 @@
   <!-- END: LoadingOverlay -->
     <!-- For Text2hpo -->
     <script src="/static/js/jaconv/jaconv.min.js"></script>
-    <script src="/static/js/text2hpo.v2.js"></script>
+    <script src="/static/js/text2hpo.v3.js"></script>
     <!-- END: Import JavaScript -->    
 
 
@@ -397,7 +397,7 @@
         $("#tokeninput_popup").tokenInputPopup("/tokeninput_hpo", {
           theme: "facebook",
           onAdd: function(item){
-            _add_match_by_tokeninput(item.id.replace('_ja',''), item.name);
+            _add_match_by_tokeninput(item.id, item.name);
           }
         });
       });
@@ -442,7 +442,7 @@
   <!-- START: activate tool-tip -->
   <script type="text/javascript">
     $(document).ready(function () {
-      $('[data-toggle="tooltip"]').tooltip()
+//      $('[data-toggle="tooltip"]').tooltip()
 
       $("#div_selectionPopup").css("display","none");
       $("#div_ResultsPanel").css("display","none");

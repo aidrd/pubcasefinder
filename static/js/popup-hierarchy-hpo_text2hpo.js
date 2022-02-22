@@ -614,7 +614,7 @@
                         var tokenInputItems = getTokenInputItems();
                         if(tokenInputItems.length > 0){
                                 let hpo_id = tokenInputItems[0].id;
-                                hpo_id = hpo_id.replace(/_ja/, "");
+                                //hpo_id = hpo_id.replace(/_ja/, "");
                                 _changeHPOforSelectedMatch(hpo_id);
                         }
                         setTimeout(function(){
@@ -696,7 +696,7 @@
 			var tokenInputItems = getTokenInputItems();
 			if(tokenInputItems.length > 0){
 				let hpo_id = tokenInputItems[0].id;
-				hpo_id = hpo_id.replace(/_ja/, "");
+				//hpo_id = hpo_id.replace(/_ja/, "");
 				_changeHPOforSelectedMatch(hpo_id);
 			}
 			setTimeout(function(){
@@ -713,7 +713,7 @@
 					var tokenInputItems = getTokenInputItems();
 					if(tokenInputItems.length > 0){
 						let hpo_id = tokenInputItems[0].id;
-						hpo_id = hpo_id.replace(/_ja/, "");
+						//hpo_id = hpo_id.replace(/_ja/, "");
 						_changeHPOforSelectedMatch(hpo_id);
 					}
 			}
