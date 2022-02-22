@@ -557,7 +557,7 @@ def tokeninput_hpo():
                         onto_id_synonym.append(synonym)
 
             dict_json['id'] = value[0]
-            dict_json['name'] = value[1]
+            dict_json['name'] = value[1].strip('"')
             if len(onto_id_synonym)>0:
                 dict_json['synonym'] = onto_id_synonym
             else:
