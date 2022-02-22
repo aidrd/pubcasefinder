@@ -718,7 +718,7 @@ ul.popup-hierarchy-hpo-token-list {
 	width: 104px;
 	height: 104px;
 /*	background: #FFFFFF url(popup-hierarchy-hpo/webgl_100x100.png?20180911105624) no-repeat 50% 50%;*/
-	background: #FFFFFF url(popup-hierarchy-hpo/ICON_PhenoTouch.jpg?20180911153918) no-repeat 50% 50% / contain;
+	background: #FFFFFF url(../popup-hierarchy-hpo/ICON_PhenoTouch.jpg?20180911153918) no-repeat 50% 50% / contain;
 	border-radius: 10px;
 	cursor: pointer;
 /*

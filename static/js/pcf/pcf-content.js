@@ -1170,7 +1170,8 @@
 			} else if(_isExistVal("orpha_url" ,item)){
 				$('<a>').text(id).attr('href',item.orpha_url).attr('target','_blank').appendTo($list_link_panel);
 			} else if(target === TARGET_GENE){
-				$('<a>').text("NCBI " + id).attr('href',"https://www.ncbi.nlm.nih.gov/gene/?term=" + id).attr('target','_blank').appendTo($list_link_panel);
+				let id_n = id.replace('GENEID:','');
+				$('<a>').text("NCBI GENE ID:" + id_n).attr('href',"https://www.ncbi.nlm.nih.gov/gene/?term=" + id_n).attr('target','_blank').appendTo($list_link_panel);
 
 				if(_isExistVal("hgnc_gene_url",item)) {
 					$('<a>').text("HGNC").attr('href',item.hgnc_gene_url).attr('target','_blank').appendTo($list_link_panel);
