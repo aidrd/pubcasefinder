@@ -15,9 +15,9 @@
   function isWindowNavigatorLanguageJa(){
     return windowNavigatorLanguage === "ja" || windowNavigatorLanguage.toLowerCase() === "ja-jp";
   }
-  var hintText = "Type in patient's signs and symptoms";
+  var hintText = "Type in signs and symptoms";
   if(isWindowNavigatorLanguageJa()){
-      hintText = "患者の兆候または症状を入力"
+      hintText = "兆候または症状を入力"
   }
   var DEFAULT_SETTINGS = {
     // Search settings
@@ -697,7 +697,7 @@
           });
 	  
 	 if(token_list_width<40)
-		token_list_width = 300;
+		token_list_width = 400;
 		// token_list_width = token_list.width();
 
           input_box.outerWidth(Math.ceil(token_list_width)-2);
