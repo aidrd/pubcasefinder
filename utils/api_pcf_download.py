@@ -50,13 +50,17 @@ def pcf_download(r_target, r_phenotype, r_target_id, r_format, r_range, r_weight
     dict_param_api_pcf_get_case_data_by_case_id      = {"case_id":r_target_id, "mode":r_range}
 
     if r_target == "omim":
-        r_data = requests.get(url_api_pcf_get_omim_data_by_omim_id, params=dict_param_api_pcf_get_omim_data_by_omim_id)
+        #r_data = requests.get(url_api_pcf_get_omim_data_by_omim_id, params=dict_param_api_pcf_get_omim_data_by_omim_id)
+        r_data = requests.post(url_api_pcf_get_omim_data_by_omim_id, data=dict_param_api_pcf_get_omim_data_by_omim_id)
     elif r_target == "orphanet":
-        r_data = requests.get(url_api_pcf_get_orpha_data_by_orpha_id, params=dict_param_api_pcf_get_orpha_data_by_orpha_id)
+        #r_data = requests.get(url_api_pcf_get_orpha_data_by_orpha_id, params=dict_param_api_pcf_get_orpha_data_by_orpha_id)
+        r_data = requests.post(url_api_pcf_get_orpha_data_by_orpha_id, data=dict_param_api_pcf_get_orpha_data_by_orpha_id)
     elif r_target == "gene":
-        r_data = requests.get(url_api_pcf_get_gene_data_by_ncbi_gene_id, params=dict_param_api_pcf_get_gene_data_by_ncbi_gene_id)
+        #r_data = requests.get(url_api_pcf_get_gene_data_by_ncbi_gene_id, params=dict_param_api_pcf_get_gene_data_by_ncbi_gene_id)
+        r_data = requests.post(url_api_pcf_get_gene_data_by_ncbi_gene_id, data=dict_param_api_pcf_get_gene_data_by_ncbi_gene_id)
     elif r_target == "case":
-        r_data = requests.get(url_api_pcf_get_case_data_by_case_id, params=dict_param_api_pcf_get_case_data_by_case_id)
+        #r_data = requests.get(url_api_pcf_get_case_data_by_case_id, params=dict_param_api_pcf_get_case_data_by_case_id)
+        r_data = requests.post(url_api_pcf_get_case_data_by_case_id, data=dict_param_api_pcf_get_case_data_by_case_id)
 
     json_ranking = r_ranking.json()
     json_data = r_data.json()
