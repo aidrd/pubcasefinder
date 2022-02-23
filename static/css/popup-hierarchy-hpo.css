@@ -442,17 +442,17 @@ li.token-input-token-results-facebook {
 	font-size:16px;
 }
 
-li.token-input-token-results-facebook span.token-input-token-word-facebook.token-input-token-information-facebook {
-	top: 4px;
+li.token-input-token-results-facebook table tr td span.token-input-token-word-facebook.token-input-token-information-facebook {
+	top: 2px;
 	font-size:20px;
 }
-li.token-input-token-results-facebook span.token-input-token-word-facebook.token-input-token-id-facebook {
+li.token-input-token-results-facebook table tr td span.token-input-token-word-facebook.token-input-token-id-facebook {
 	font-size:14px;
 }
 li.token-input-token-results-facebook span.token-input-token-word-facebook.token-input-token-name-facebook {
 /*	font-weight: bold !important;*/
 }
-li.token-input-token-results-facebook span.token-input-token-word-facebook.token-input-token-name-facebook {
+li.token-input-token-results-facebook table tr td span.token-input-token-word-facebook.token-input-token-name-facebook {
 	color: #3777B5 !important;
 }
 li.token-input-token-results-facebook.token-input-selected-dropdown-item-facebook span.token-input-token-word-facebook.token-input-token-name-facebook {
@@ -466,7 +466,7 @@ li.token-input-token-results-facebook.token-input-selected-dropdown-item-faceboo
 li.token-input-token-results-facebook span.token-input-token-word-facebook.token-input-token-information-facebook {
 /*	cursor: pointer !important;*/
 }
-li.token-input-token-results-facebook span.token-input-token-word-facebook.token-input-token-synonym-facebook {
+li.token-input-token-results-facebook table tr td span.token-input-token-word-facebook.token-input-token-synonym-facebook {
 /*	color: #3777B5 !important;*/
 }
 

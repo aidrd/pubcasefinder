@@ -67,15 +67,22 @@
 			var li_class = [this.classes.tokenResults];
 			if(typeof id_suffix === "string" && id_suffix.length) li_class.push('token-input-token-results'+id_suffix+theme);
 			var value = '<li class="'+li_class.join(' ')+'">'+
+			'<table><tr>'+
+			'<td style=\"white-space:nowrap;\">'+
 			'<span class="'+this.classes.tokenWord+' '+this.classes.tokenInformation+' glyphicon glyphicon-info-sign" style="display:none;"></span>'+
 			'&nbsp;'+
+			'</td>'+
+			'<td style=\"white-space:nowrap;\">'+
 			'<span class="'+this.classes.tokenWord+' '+this.classes.tokenId+'">' + (this.enableHTML ? id : _escapeHTML(id)) + '</span>'+
 			'&nbsp;'+
+			'</td>'+
+			'<td>'+
 			'<span class="'+this.classes.tokenWord+' '+this.classes.tokenName+'">' + (this.enableHTML ? name : _escapeHTML(name)) + '</span>';
 			if(synonym instanceof Array){
 				var str = this.zenhan(synonym.join(' | '));
 				value += '&nbsp;<b>|</b>&nbsp;<span class="'+this.classes.tokenWord+' '+this.classes.tokenSynonym+'">' + (this.enableHTML ? str : _escapeHTML(str)) + '</span>';
 			}
+			value += '</td></tr></table>';
 			value += '</li>';
 			return value;
 		},

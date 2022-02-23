@@ -57,15 +57,23 @@
 			var synonym = item['synonym'];
 			var theme   = this.theme ? '-'+this.theme : '';
 			var value   = '<li class=\"token-input-token-results'+theme+'\">'+
+							'<table>'+
+							'<tr>'+
+							'<td>'+
 							'<span class=\"token-input-token-word'+theme+' token-input-token-information'+theme+' glyphicon glyphicon-info-sign\"></span>'+
 							'&nbsp;'+
+							'</td>'+
+							'<td style=\"white-space:nowrap;\">'+
 							'<span class=\"token-input-token-word'+theme+' token-input-token-id'+theme+'\">' +
 							(this.enableHTML ? id : _escapeHTML(id)) + 
 							'</span>'+
 							'&nbsp;'+
+							'</td>'+
+							'<td>'+
 							'<span class=\"token-input-token-word'+theme+' token-input-token-name'+theme+'\">' +
 							(this.enableHTML ? name : _escapeHTML(name)) +
 							'</span>';
+								
 			if(synonym instanceof Array){
 				var str = this.zenhan(synonym.join(' | '));
 				value +=    '&nbsp;<b>|</b>&nbsp;'+
@@ -73,6 +81,7 @@
 							(this.enableHTML ? str : _escapeHTML(str)) +
 							'</span>';
 			}
+			value += '</td></tr></table>';
 			value += '</li>';
 			return value;
 		},
