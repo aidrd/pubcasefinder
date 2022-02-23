@@ -45,15 +45,15 @@
                     <nav class="nav-pc">
                         <ul class="menu-pc">
 			    {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
-                            <li><a href="/static/pdf/PubCaseFinder_manual_ja_v4.pdf"><i class="icon-question-circle-o"></i>About</a></li>
+                            <li><a href="/static/pdf/PubCaseFinder_manual_ja_v4.pdf"><i class="icon-question-circle-o"></i>Guides</a></li>
 			    {% else %}
-                            <li><a href="/static/pdf/PubCaseFinder_manual_en_v4.pdf"><i class="icon-question-circle-o"></i>About</a></li>
+                            <li><a href="/static/pdf/PubCaseFinder_manual_en_v4.pdf"><i class="icon-question-circle-o"></i>Guides</a></li>
 			    {% endif %}
-                            <li><a href="/datasets"><i class="icon-database"></i>Datasets</a></li>
+                            <li><a href="/api"><i class="icon-wrench"></i>API</a></li>
                             <li><a href="/history"><i class="icon-history"></i>History</a></li>
                             <li><a href="/termsofservice"><i class="icon-doc-text-inv"></i>Terms</a></li>
-                            <li><a href="https://integbio.jp/rdf/dataset/pubcasefinder"><i class="icon-share"></i>RDF</a></li>
-                            <li><a href="/mme"><i class="icon-wrench"></i>API</a></li>
+                            <li><a href="/sources"><i class="icon-database"></i>Sources</a></li>
+                            <li><a target="_blank" href="https://integbio.jp/rdf/dataset/pubcasefinder"><i class="icon-share"></i>RDF</a></li>
                             <li><a title="Comments & suggestions are welcome!" href="mailto:support@dbcls.rois.ac.jp,pubcasefinder@dbcls.rois.ac.jp"><i class="icon-mail-alt"></i>Contact</a></li>
                         </ul>
                     </nav>
@@ -65,15 +65,15 @@
                                     </span></a>
                                 <ul class="sub-menu">
 				    {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
-                                    <li><a href="/static/pdf/PubCaseFinder_manual_ja_v4.pdf">About</a></li>
+                                    <li><a href="/static/pdf/PubCaseFinder_manual_ja_v4.pdf">Guides</a></li>
 			            {% else %}
-                                    <li><a href="/static/pdf/PubCaseFinder_manual_en_v4.pdf">About</a></li>
+                                    <li><a href="/static/pdf/PubCaseFinder_manual_en_v4.pdf">Guides</a></li>
 				    {% endif %}
-                                    <li><a href="/datasets">Datasets</a></li>
+                                    <li><a href="/api">API</a></li>
                                     <li><a href="/history">History</a></li>
                                     <li><a href="/termsofservice">Terms</a></li>
-                                    <li><a href="https://integbio.jp/rdf/dataset/pubcasefinder">RDF</a></li>
-                                    <li><a href="/mme">API</a></li>
+                                    <li><a href="/sources">Sources</a></li>
+                                    <li><a target="_blank" href="https://integbio.jp/rdf/dataset/pubcasefinder">RDF</a></li>
                                     <li><a title="Comments & suggestions are welcome!" href="mailto:support@dbcls.rois.ac.jp,pubcasefinder@dbcls.rois.ac.jp">Contact</a></li>
                                 </ul>
                             </li>
@@ -114,7 +114,7 @@
                     </li>
 		    {% else %}
 		    <li>
-                      <div style="letter-spacing: 0.1em;">
+                      <div>
 			  PubCaseFinder v2.0.0 is abailable. The UI/UX has been greatly improved. It is possible to filter the results by combining disease, mode of inheritance, and gene with logical operators. An example is <a href="https://pubcasefinder.dbcls.jp/result?target=omim&phenotype=HP:0000347_ja,HP:0003022_ja,HP:0009381_ja,HP:0000204_ja,HP:0000625_ja&filter=HP:0000006,AND_MONDO:0005015&size=10&display_format=full&lang=en">here</a>.
 		      </div>
 		    </li>
@@ -129,7 +129,7 @@
                     </li>
 		    {% else %}
 		    <li>
-                      <div style="letter-spacing: 0.1em;">
+                      <div>
 			  PubCaseFinder v1.3.0 is abailable. A ranked list of public cases on the Internet is produced based on patient phenotypes. An example is <a href="https://pubcasefinder.dbcls.jp/search_disease/phenotype:HP:0000347,HP:0003022,HP:0009381,HP:0000204,HP:0000625/gene:/page:1,1,1,1/size:10,10,10,10,case">here</a>.
 		      </div>
 		    </li>
@@ -144,7 +144,7 @@
                     </li>
 		    {% else %}
 		    <li>
-                      <div style="letter-spacing: 0.1em;">
+                      <div>
 			  PubCaseFinder v1.2.0 is abailable. A ranked list of causative genes of rare and genetic diseases is produced based on patient phenotypes. An example is <a href="https://pubcasefinder.dbcls.jp/search_disease/phenotype:HP:0000347,HP:0003022,HP:0009381,HP:0000204,HP:0000625/gene:/page:1,1,1/size:10,10,10,gene">here</a>.
 		      </div>
 		    </li>
@@ -159,7 +159,7 @@
                     </li>
 		    {% else %}
 		    <li>
-                      <div style="letter-spacing: 0.1em;">
+                      <div>
 			  Our poster presentation &quot;PubCaseFinder and PhenoTouch for differential diagnosis in rare disease.&quot; was selected as Reviewers' Choice Abstracts in <a href="https://www.ashg.org/2019meeting/listing/ReviewersChoice.shtml">ASHG2019</a>.
 		      </div>
 		    </li>
@@ -171,12 +171,12 @@
 		    {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
                     <li>PubCaseFinder v1.2.0
                         を公開しました。入力した症状と関連性の高い順に、疾患原因遺伝性4312件をランキング形式で提示します。WESやWGSにおける未知バリアントの評価にご活用いただけます。サンプル結果は<a
-                            href="https://pubcasefinder.dbcls.jp/datasets_ja">こちら</a>をご参照ください。
+                            href="https://pubcasefinder.dbcls.jp/sources">こちら</a>をご参照ください。
                     </li>
 		    {% else %}
 		    <li>
-                      <div style="letter-spacing: 0.1em;">
-			  PubCaseFinder v1.1.0 is abailable. Datasets and ontologies are <a href="/datasets_en">here</a>.
+                      <div>
+			  PubCaseFinder v1.1.0 is abailable. Datasets and ontologies are <a href="/sources">here</a>.
 		      </div>
 		    </li>
 		    {% endif %}
@@ -189,7 +189,7 @@
                     </li>
 		    {% else %}
 		    <li>
-                      <div style="letter-spacing: 0.1em;">
+                      <div>
 			  The PubCaseFinder paper is available on <i>The American Journal of Human Genetics</i>. Full text paper is <a href="https://www.cell.com/ajhg/fulltext/S0002-9297(18)30269-6">here</a>.
 		      </div>
 		    </li>
@@ -203,7 +203,7 @@
                     </li>
 		    {% else %}
 		    <li>
-                      <div style="letter-spacing: 0.1em;">
+                      <div>
 			  PubCaseFinder v1.0.0 has been released.
 		      </div>
 		    </li>

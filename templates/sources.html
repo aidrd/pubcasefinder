@@ -45,15 +45,15 @@
                     <nav class="nav-pc">
                         <ul class="menu-pc">
 			    {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
-                            <li><a href="/static/pdf/PubCaseFinder_manual_ja_v4.pdf"><i class="icon-question-circle-o"></i>About</a></li>
+                            <li><a href="/static/pdf/PubCaseFinder_manual_ja_v4.pdf"><i class="icon-question-circle-o"></i>Guides</a></li>
 			    {% else %}
-                            <li><a href="/static/pdf/PubCaseFinder_manual_en_v4.pdf"><i class="icon-question-circle-o"></i>About</a></li>
+                            <li><a href="/static/pdf/PubCaseFinder_manual_en_v4.pdf"><i class="icon-question-circle-o"></i>Guides</a></li>
 			    {% endif %}
-                            <li><a href="/datasets"><i class="icon-database"></i>Datasets</a></li>
+                            <li><a href="/api"><i class="icon-wrench"></i>API</a></li>
                             <li><a href="/history"><i class="icon-history"></i>History</a></li>
                             <li><a href="/termsofservice"><i class="icon-doc-text-inv"></i>Terms</a></li>
-                            <li><a href="https://integbio.jp/rdf/dataset/pubcasefinder"><i class="icon-share"></i>RDF</a></li>
-                            <li><a href="/mme"><i class="icon-wrench"></i>API</a></li>
+                            <li><a href="/sources"><i class="icon-database"></i>Sources</a></li>
+                            <li><a target="_blank" href="https://integbio.jp/rdf/dataset/pubcasefinder"><i class="icon-share"></i>RDF</a></li>
                             <li><a title="Comments & suggestions are welcome!" href="mailto:support@dbcls.rois.ac.jp,pubcasefinder@dbcls.rois.ac.jp"><i class="icon-mail-alt"></i>Contact</a></li>
                         </ul>
                     </nav>
@@ -65,15 +65,15 @@
                                     </span></a>
                                 <ul class="sub-menu">
 				    {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
-                                    <li><a href="/static/pdf/PubCaseFinder_manual_ja_v4.pdf">About</a></li>
+                                    <li><a href="/static/pdf/PubCaseFinder_manual_ja_v4.pdf">Guides</a></li>
 			            {% else %}
-                                    <li><a href="/static/pdf/PubCaseFinder_manual_en_v4.pdf">About</a></li>
+                                    <li><a href="/static/pdf/PubCaseFinder_manual_en_v4.pdf">Guides</a></li>
 				    {% endif %}
-                                    <li><a href="/datasets">Datasets</a></li>
+                                    <li><a href="/api">API</a></li>
                                     <li><a href="/history">History</a></li>
                                     <li><a href="/termsofservice">Terms</a></li>
-                                    <li><a href="https://integbio.jp/rdf/dataset/pubcasefinder">RDF</a></li>
-                                    <li><a href="/mme">API</a></li>
+                                    <li><a href="/sources">Sources</a></li>
+                                    <li><a target="_blank" href="https://integbio.jp/rdf/dataset/pubcasefinder">RDF</a></li>
                                     <li><a title="Comments & suggestions are welcome!" href="mailto:support@dbcls.rois.ac.jp,pubcasefinder@dbcls.rois.ac.jp">Contact</a></li>
                                 </ul>
                             </li>
@@ -106,7 +106,7 @@
                     <tbody>
                         <tr>
                             <td>BodyParts3D/Anatomography</td>
-                            <td>-</td>
+                            <td>2022</td>
                             <td>3D polygon data used on the BodyParts3D</td>
                             <td><a href="https://lifesciencedb.jp/bp3d/info/index.html#License">License URL</a></td>
                         </tr>
@@ -125,14 +125,8 @@
                         <tr>
                             <td>Human Phenotype Ontology</td>
                             <td>2021-02-08</td>
-                            <td>Ontology, Desease-Phenotype associations for OMIM and Orphanet diseases</td>
+                            <td>English and Japanese terms of phenotypic abnormalities encountered in human disease, Desease-Phenotype associations for OMIM and Orphanet diseases</td>
                             <td><a href="http://reusabledata.org/hpo.html">(Re)usable Data Project</a></td>
-                        </tr>
-                        <tr>
-                            <td>Human Phenotype Ontology Japanese</td>
-                            <td>alpha</td>
-                            <td>Japanese translation of the Human Phenotype Ontology</td>
-                            <td><a href="">-</a></td>
                         </tr>
                         <tr>
                             <td>J-GLOBAL</td>
@@ -155,8 +149,14 @@
                         <tr>
                             <td>Monarch Disease Ontology</td>
                             <td>2021-03-03</td>
-                            <td>Ontology</td>
+                            <td>English terms of rare and genetic diseases</td>
                             <td><a href="http://reusabledata.org/monarch.html">(Re)usable Data Project</a></td>
+                        </tr>
+                        <tr>
+                            <td>Nanbyo Disease Ontology</td>
+                            <td>2022-02-20</td>
+                            <td>Japanese terms of rare and genetic diseases</td>
+                            <td><a href="https://github.com/aidrd/nando">License URL</a></td>
                         </tr>
                         <tr>
                             <td>Orphanet</td>

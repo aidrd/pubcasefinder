@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+
+{% if get_locale() == "ja" or get_locale() == "ja_JP" %}
+<html lang="ja">
+{% else %}
+<html lang="en">
+{% endif %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="wilih=device-wilih, initial-scale=1.0">
+    <title>PubCaseFinder</title>
+    <!--css-->
+    <link rel="stylesheet" href="https://unpkg.com/destyle.css@1.0.5/destyle.css">
+    <link rel="stylesheet" href="/static/css/pcf/branc.css">
+    <link rel="stylesheet" href="/static/css/pcf/branc-ie7.css">
+    <link rel="stylesheet" href="/static/css/pcf/branc-ie7-codes.css">
+    <link rel="stylesheet" href="/static/css/pcf/branc-embedded.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="/static/css/pcf/style-togo.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Noto+Sans+JP:wght@100;300;400;500;700;900&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--favicon start-->
+    <link rel="apple-touch-icon" sizes="180x180" href="/static/images/pcf/top/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/static/images/pcf/top/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/static/images/pcf/top/favicon-16x16.png">
+    <link rel="manifest" href="/static/images/pcf/top/site.webmanifest">
+    <link rel="mask-icon" href="/static/images/pcf/top/safari-pinned-tab.svg" color="#2a3356">
+    <meta name="msapplication-TileColor" content="#2a3356">
+    <meta name="theme-color" content="#ffffff">
+    <!--favicon end-->
+</head>
+
+<body>
+    <header class="search-header">
+        <div class="wrapper search-header_wrapper">
+            <div class="search-header_top">
+                <div class="brand">
+                    <a href="/" class="brand"><img src="/static/images/pcf/top/logo_color.svg" alt=""></a>
+                </div>
+                <div class="search-header_left">
+                    <nav class="nav-pc">
+                        <ul class="menu-pc">
+			    {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
+                            <li><a href="/static/pdf/PubCaseFinder_manual_ja_v4.pdf"><i class="icon-question-circle-o"></i>Guides</a></li>
+			    {% else %}
+                            <li><a href="/static/pdf/PubCaseFinder_manual_en_v4.pdf"><i class="icon-question-circle-o"></i>Guides</a></li>
+			    {% endif %}
+                            <li><a href="/api"><i class="icon-wrench"></i>API</a></li>
+                            <li><a href="/history"><i class="icon-history"></i>History</a></li>
+                            <li><a href="/termsofservice"><i class="icon-doc-text-inv"></i>Terms</a></li>
+                            <li><a href="/sources"><i class="icon-database"></i>Sources</a></li>
+                            <li><a target="_blank" href="https://integbio.jp/rdf/dataset/pubcasefinder"><i class="icon-share"></i>RDF</a></li>
+                            <li><a title="Comments & suggestions are welcome!" href="mailto:support@dbcls.rois.ac.jp,pubcasefinder@dbcls.rois.ac.jp"><i class="icon-mail-alt"></i>Contact</a></li>
+                        </ul>
+                    </nav>
+                    <nav class="nav-sp">
+                        <ul>
+                            <li class="menu-item-has-children">
+                                <a href="#"><span class="material-icons">
+                                        menu
+                                    </span></a>
+                                <ul class="sub-menu">
+				    {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
+                                    <li><a href="/static/pdf/PubCaseFinder_manual_ja_v4.pdf">Guides</a></li>
+			            {% else %}
+                                    <li><a href="/static/pdf/PubCaseFinder_manual_en_v4.pdf">Guides</a></li>
+				    {% endif %}
+                                    <li><a href="/api">API</a></li>
+                                    <li><a href="/history">History</a></li>
+                                    <li><a href="/termsofservice">Terms</a></li>
+                                    <li><a href="/sources">Sources</a></li>
+                                    <li><a target="_blank" href="https://integbio.jp/rdf/dataset/pubcasefinder">RDF</a></li>
+                                    <li><a title="Comments & suggestions are welcome!" href="mailto:support@dbcls.rois.ac.jp,pubcasefinder@dbcls.rois.ac.jp">Contact</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </nav>
+                    <!--span class="language"><a href="#">EN</a> / <a href="#"></a>JA</a></span-->
+                    <span class="language"><a href="{{ request.path }}?lang=en">EN</a> / <a href="{{ request.path }}?lang=ja">JA</a></span>
+                    <!--<div class="site-header_end">
+                        <a class="button" href="#">Login<i class="material-icons">expand_more</i></a>
+                    </div>-->
+                </div>
+            </div>
+        </div>
+    </header>
+
+
+    <!--api page-->
+    <div class="api-wrapper">
+        <section class="content">
+            <h1>PubCaseFinder API</h1>
+            <div class="rules-wrap">
+                <h4>OVERVIEW</h4>
+                <p>
+		  The PubCaseFinder API uses a fixed URL syntax that translates a standard set of input parameters to return the requested data.
+		  In order not to overload the PubCaseFinder servers, DBCLS recommends that users post no more than one URL request per second and limit large jobs to either weekends or between 11:00 PM and 5:00 AM (JST) during weekdays.
+                </p>
+                <div class="rules-wrap-cover">
+                  <h5>API conventions</h5>
+		  <p>The PubCaseFinder API currently supports the following functionalities.</p>
+		</div>
+                <p class="bookmark">
+		  <mark>RANKED LIST</mark>: https://pubcasefinder.dbcls.jp/api/get_ranked_list?target=[RANKED_LIST_TARGET]&format=[RANKED_LIST_FORMAT]&hpo_id=[HPO_ID]<br>
+		  <mark>DATA RECORD</mark>: https://pubcasefinder.dbcls.jp/api/get_data_record?target=[RECORD_TARGET]&id=[RECORD_ID]<br>
+		  <mark>DISEASE-PHENOTYPE ASSOCIATION</mark>: https://pubcasefinder.dbcls.jp/api/get_dpa?target=[DISEASE_TARGET]&id=[DISEASE_ID]<br>
+		  <mark>GENE-PHENOTYPE ASSOCIATION</mark>: https://pubcasefinder.dbcls.jp/api/get_gpa?id=[GENE_ID]<br>
+		  <mark>CASE REPORT</mark>: https://pubcasefinder.dbcls.jp/api/get_case_report?id=[MONDO_ID]
+		</p>
+            </div>
+
+	    <!-- RANKED LIST -->
+            <div class="rules-wrap">
+                <h4>RANKED LIST</h4>
+                <p>Any ranked lists can be obtained by indicating the <mark>[RANKED_LIST_TARGET]</mark>, <mark>[RANKED_LIST_FORMAT]</mark>, and <mark>[HPO_ID]</mark>.</p>
+                <div class="rules-wrap-cover">
+                    <h5>URL syntax</h5>
+                    <p>https://pubcasefinder.dbcls.jp/api/get_ranked_list?target=<mark>[RANKED_LIST_TARGET]</mark>&format=<mark>[RANKED_LIST_FORMAT]</mark>&hpo_id=<mark>[HPO_ID]</mark></p>
+                    <p></p>
+                    <h5>Parameters</h5>
+                    <ul>
+                        <li>target: "omim" or "orphanet" or "gene"</li>
+                        <li>format: "json" or "tsv"</li>
+                        <li>hpo_id: HPO IDs with commas</li>
+                    </ul>
+                </div>
+                <div class="rules-wrap-cover">
+                    <h5>Example</h5>
+		    <p>
+		      A ranked list of genetic diseases (OMIM) using the HPO IDs “HP:0002089” and “HP:0001998” in JavaScript Object Notation (JSON) format can be obtained using the following:<br>
+		      <a href="https://pubcasefinder.dbcls.jp/api/get_ranked_list?target=omim&format=json&hpo_id=HP:0002089,HP:0001998">https://pubcasefinder.dbcls.jp/api/get_ranked_list?target=omim&format=json&hpo_id=HP:0002089,HP:0001998</a>
+		    </p>
+                    <pre><code>[
+    {
+        "omim_url": "http://identifiers.org/mim/231680",
+        "omim_disease_name_en": "multiple acyl-CoA dehydrogenase deficiency",
+        "omim_disease_name_ja": "\u591a\u767a\u6027\u30a2\u30b7\u30eb-CoA \u8131\u6c34\u7d20\u6b20\u4e4f\u75c7 (MADD)",
+        "description": "A disorder of fatty acid and amino acid oxidation, caused by mutations in ETFDH, ETFA, or ETFB, and is a clinically heterogeneous disorder ranging from a severe neonatal presentation with metabolic acidosis, cardiomyopathy and liver disease, to a mild childhood/adult disease with episodic metabolic decompensation, muscle weakness, and respiratory failure.",
+        "ur_dbms_url": "http://syndromefinder.ncchd.go.jp/UR-DBMS/SyndromeDetail.php?recid=2269&winid=1",
+        "count_hpo_id": "32",
+        "ncbi_gene_id": [
+            "GENEID:2108",
+            "GENEID:2109",
+            "GENEID:2110"
+        ],
+        "hgnc_gene_symbol": [
+            "ETFA",
+            "ETFB",
+            "ETFDH"
+        ],
+        "inheritance_en": {
+            "HP:0000007": "Autosomal recessive inheritance"
+        },
+        "inheritance_ja": {
+            "HP:0000007": "\u5e38\u67d3\u8272\u4f53\u52a3\u6027\u907a\u4f1d"
+        },
+        "mondo_id": [
+            "MONDO:0009282"
+        ],
+        "mondo_url": [
+            "https://monarchinitiative.org/disease/MONDO:0009282"
+        ],
+        "gene_reviews_url": [
+            "https://www.ncbi.nlm.nih.gov/books/NBK558236/"
+        ],
+        "gtr_url": [
+            "https://www.ncbi.nlm.nih.gov/gtr/all/tests/?term=C0268596/"
+        ],
+        "id": "OMIM:231680",
+        "rank": 1,
+        "score": 0.7940279980972564,
+        "matched_hpo_id": "HP:0002089,HP:0001943"
+    },
+    …
+]</code></pre>
+                </div>
+            </div>
+
+	    <!-- DATA RECORD -->
+            <div class="rules-wrap">
+                <h4>DATA RECORD</h4>
+                <p>Each data record in ranked lists of PubCaseFinder can be obtained by indicating the <mark>[RECORD_TARGET]</mark> and <mark>[RECORD_ID]</mark>.</p>
+                <div class="rules-wrap-cover">
+                    <h5>URL syntax</h5>
+                    <p>https://pubcasefinder.dbcls.jp/api/get_data_record?target=<mark>[RECORD_TARGET]</mark>&id=<mark>[RECORD_ID]</mark></p>
+                    <h5>Parameters</h5>
+                    <ul>
+                        <li>target: "omim" or "orphanet" or "gene"</li>
+                        <li>id: OMIM ID or ORPHA ID or NCBI Gene ID</li>
+                    </ul>
+                </div>
+                <div class="rules-wrap-cover">
+                    <h5>Example</h5>
+		    <p>
+		      A data record for OMIM ID "612690" can be obtained using the following:<br>
+		      <a href="https://pubcasefinder.dbcls.jp/api/get_data_record?target=omim&id=612690">https://pubcasefinder.dbcls.jp/api/get_data_record?target=omim&id=612690</a>
+		    </p>
+                    <pre><code>{
+  "OMIM:612690": {
+    "count_hpo_id": "8", 
+    "description": "Any hereditary spherocytosis in which the cause of the disease is a mutation in the EPB42 gene.", 
+    "gene_reviews_url": [
+      "https://www.ncbi.nlm.nih.gov/books/NBK190102/"
+    ], 
+    "gtr_url": [
+      "https://www.ncbi.nlm.nih.gov/gtr/all/tests/?term=C2675192/"
+    ], 
+    "hgnc_gene_symbol": [
+      "EPB42"
+    ], 
+    "inheritance_en": {
+      "HP:0000007": "Autosomal recessive inheritance"
+    }, 
+    "inheritance_ja": {
+      "HP:0000007": "常染色体劣性遺伝"
+    }, 
+    "mondo_id": [
+      "MONDO:0012985"
+    ], 
+    "mondo_url": [
+      "https://monarchinitiative.org/disease/MONDO:0012985"
+    ], 
+    "ncbi_gene_id": [
+      "GENEID:2038"
+    ], 
+    "omim_disease_name_en": "hereditary spherocytosis type 5", 
+    "omim_disease_name_ja": "球状赤血球症5型", 
+    "omim_url": "http://identifiers.org/mim/612690", 
+    "ur_dbms_url": "http://syndromefinder.ncchd.go.jp/UR-DBMS/SyndromeDetail.php?recid=7206&winid=1"
+  }
+}</code></pre>
+                </div>
+            </div>
+
+
+	    <!-- DISEASE-PHENOTYPE ASSOCIATION -->
+            <div class="rules-wrap">
+                <h4>DISEASE-PHENOTYPE ASSOCIATION</h4>
+                <p>Disease-Phenotype associations for each disease in OMIM and Orphanet can be obtained by indicating the <mark>[DISEASE_TARGET]</mark> and <mark>[DISEASE_ID]</mark>.</p>
+                <div class="rules-wrap-cover">
+                    <h5>URL syntax</h5>
+                    <p>https://pubcasefinder.dbcls.jp/api/get_dpa?target=<mark>[DISEASE_TARGET]</mark>&id=<mark>[DISEASE_ID]</mark></p>
+                    <h5>Parameters</h5>
+                    <ul>
+                        <li>target: "omim" or "orphanet"</li>
+                        <li>id: OMIM ID or ORPHA ID</li>
+                    </ul>
+                </div>
+                <div class="rules-wrap-cover">
+                    <h5>Example</h5>
+		    <p>
+		      Disease-Phenotype associations for the OMIM ID "612690" can be obtained using the following:<br>
+		      <a href="https://pubcasefinder.dbcls.jp/api/get_dpa?target=omim&id=612690">https://pubcasefinder.dbcls.jp/api/get_dpa?target=omim&id=612690</a>
+		    </p>
+                    <pre><code>[
+  {
+    "definition": "Yellow pigmentation of the skin due to bilirubin, which in turn is the result of increased bilirubin concentration in the bloodstream.", 
+    "hpo_category_name_en": "Abnormality of the integument", 
+    "hpo_category_name_ja": "外皮の異常", 
+    "hpo_id": "HP:0000952", 
+    "hpo_label_en": "Jaundice", 
+    "hpo_label_ja": "黄疸", 
+    "hpo_url": "http://purl.obolibrary.org/obo/HP_0000952"
+  }, 
+  …
+  {
+    "definition": "Abnormal increased size of the spleen.", 
+    "hpo_category_name_en": "Abnormality of the digestive system", 
+    "hpo_category_name_ja": "消化器系の異常", 
+    "hpo_id": "HP:0001744", 
+    "hpo_label_en": "Splenomegaly", 
+    "hpo_label_ja": "脾腫", 
+    "hpo_url": "http://purl.obolibrary.org/obo/HP_0001744"
+  }
+]</code></pre>
+                </div>
+            </div>
+
+
+	    <!-- GENE-PHENOTYPE ASSOCIATION -->
+            <div class="rules-wrap">
+                <h4>GENE-PHENOTYPE ASSOCIATION</h4>
+                <p>Gene-Phenotype associations for each gene can be obtained by indicating the <mark>[GENE_ID]</mark>.</p>
+                <div class="rules-wrap-cover">
+                    <h5>URL syntax</h5>
+                    <p>https://pubcasefinder.dbcls.jp/api/get_gpa?id=<mark>[GENE_ID]</mark></p>
+                    <h5>Parameters</h5>
+                    <ul>
+                        <li>id: NCBI Gene ID</li>
+                    </ul>
+                </div>
+                <div class="rules-wrap-cover">
+                    <h5>Example</h5>
+		    <p>
+		      Gene-Phenotype associations for the NCBI Gene ID "1723" can be obtained using the following:<br>
+		      <a href="https://pubcasefinder.dbcls.jp/api/get_gpa?id=1723">https://pubcasefinder.dbcls.jp/api/get_gpa?id=1723</a>
+		    </p>
+                    <pre><code>[
+  {
+    "disease": "OMIM", 
+    "disease_id": "263750", 
+    "hpo_category_name_en": "Abnormality of the genitourinary system", 
+    "hpo_category_name_ja": "泌尿生殖器異常", 
+    "hpo_id": "HP:0000028", 
+    "hpo_label_en": "Cryptorchidism", 
+    "hpo_label_ja": "停留精巣", 
+    "hpo_url": "http://purl.obolibrary.org/obo/HP_0000028"
+  }, 
+  …
+  {
+    "disease": "OMIM", 
+    "disease_id": "263750", 
+    "hpo_category_name_en": "Abnormality of limbs", 
+    "hpo_category_name_ja": "四肢の異常", 
+    "hpo_id": "HP:0009778", 
+    "hpo_label_en": "Short thumb", 
+    "hpo_label_ja": "短い母指", 
+    "hpo_url": "http://purl.obolibrary.org/obo/HP_0009778"
+  }
+]</code></pre>
+                </div>
+            </div>
+
+
+	    <!-- CASE REPORT -->
+            <div class="rules-wrap">
+                <h4>CASE REPORT</h4>
+                <p>Case reports related to rare genetic diseases in PubMed can be obtained by indicating the <mark>[MONDO_ID]</mark>.</p>
+                <div class="rules-wrap-cover">
+                    <h5>URL syntax</h5>
+                    <p>https://pubcasefinder.dbcls.jp/api/get_case_report?id=<mark>[MONDO_ID]</mark></p>
+                    <h5>Parameters</h5>
+                    <ul>
+                        <li>id: Mondo ID</li>
+                    </ul>
+                </div>
+                <div class="rules-wrap-cover">
+                    <h5>Example</h5>
+		    <p>
+		      Case reports for the Mondo ID "0008752" can be obtained using the following:<br>
+		      <a href="https://pubcasefinder.dbcls.jp/api/get_case_report?id=MONDO:0008752">https://pubcasefinder.dbcls.jp/api/get_case_report?id=MONDO:0008752</a>
+		    </p>
+                    <pre><code>[
+  {
+    "id": 30755773, 
+    "journal": "Case Rep Med", 
+    "pyear": 2019, 
+    "title": "A Novel Mutation in the Adult-Onset Alexander's Disease GFAP Gene.", 
+    "url": "https://pubmed.ncbi.nlm.nih.gov/30755773"
+  }, 
+  …
+  {
+    "id": 180453, 
+    "journal": "Neurology", 
+    "pyear": 1976, 
+    "title": "Alexander's disease: a report and reappraisal.", 
+    "url": "https://pubmed.ncbi.nlm.nih.gov/180453"
+  }
+]</code></pre>
+                </div>
+            </div>
+
+        </section>
+    </div>
+
+    </section>
+    </div>
+
+</body>
+<!-- START: Common header and footer -->
+<script type="text/javascript" src="/static/common-header-and-footer/script/common-footer.js" id="common-footer__script"></script>
+<script type="text/javascript"
+    src="https://dbcls.rois.ac.jp/DBCLS-common-header-footer/v2/script/common-header-and-footer.js"
+    style="display: block" id="common-header-and-footer__script" data-width="976" data-color="mono"></script>
+<!-- END: Common header and fotter -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
+
+</html>
