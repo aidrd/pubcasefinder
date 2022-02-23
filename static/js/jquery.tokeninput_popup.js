@@ -77,11 +77,39 @@
       var name = item['name'];
       var synonym = item['synonym'];
       var theme = this.theme ? '-'+this.theme : '';
+
+/*
       var value = '<li class="token-input-token-results'+theme+'"><span class="token-input-token-word'+theme+' token-input-token-information'+theme+' glyphicon glyphicon-info-sign"></span>&nbsp;<span class="token-input-token-word'+theme+' token-input-token-id'+theme+'">' + (this.enableHTML ? id : _escapeHTML(id)) + '</span>&nbsp;<span class="token-input-token-word'+theme+' token-input-token-name'+theme+'">' + (this.enableHTML ? name : _escapeHTML(name)) + '</span>';
       if(synonym instanceof Array){
         var str = this.zenhan(synonym.join(' | '));
         value += '&nbsp;<b>|</b>&nbsp;<span class="token-input-token-word'+theme+' token-input-token-synonym'+theme+'">' + (this.enableHTML ? str : _escapeHTML(str)) + '</span>';
       }
+*/
+      var value   = '<li class=\"token-input-token-results'+theme+'\">'+
+                      '<table>'+
+                        '<tr>'+
+                          '<td style=\"white-space:nowrap;vertical-align:top;top:2px;\">'+
+                            '<span class=\"token-input-token-word'+theme+' token-input-token-information'+theme+' glyphicon glyphicon-info-sign\"></span>'+
+                            '&nbsp;'+
+                          '</td>'+
+                          '<td style=\"white-space:nowrap;vertical-align:top;\">'+
+                            '<span class=\"token-input-token-word'+theme+' token-input-token-id'+theme+'\">' +
+                            (this.enableHTML ? id : _escapeHTML(id)) +
+                            '</span>'+
+                            '&nbsp;'+
+                          '</td>'+
+                          '<td>'+
+                            '<span class=\"token-input-token-word'+theme+' token-input-token-name'+theme+'\">' +
+                            (this.enableHTML ? name : _escapeHTML(name)) +
+                            '</span>';
+      if(synonym instanceof Array){
+          var str = this.zenhan(synonym.join(' | '));
+          value +=          '&nbsp;<b>|</b>&nbsp;'+
+                            '<span class=\"token-input-token-word'+theme+' token-input-token-synonym'+theme+'\">' +
+                            (this.enableHTML ? str : _escapeHTML(str)) +
+                            '</span>';
+      }
+      value += '</td></tr></table>';
       value += '</li>';
       return value;
     },
@@ -322,7 +350,7 @@
       // Create a new text input an attach keyup events
       var input_box = $("<input type=\"text\" autocomplete=\"off\" autocapitalize=\"off\"/>")
           .css({
-              outline: "none"
+              'outline': 'none'
           })
           .attr("id", $(input).data("settings").idPrefix + input.id)
           .focus(function () {
