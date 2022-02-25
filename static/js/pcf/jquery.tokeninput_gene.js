@@ -760,6 +760,9 @@
 			.appendTo(token_list)
 			.append(input_box);
 
+		//input_token.width(token_list.width()-10)
+		//input_box.width(token_list.width()-16);
+
 		// The list to store the dropdown items in
 		var dropdown = $("<div/>")
 			.addClass($(input).data("settings").classes.dropdown)
@@ -858,7 +861,10 @@
 		};
 
 		// Resize input to maximum width so the placeholder can be seen
-		resize_input();
+		setTimeout(function() {
+			resize_input();
+		}, 100);
+
 		$(window).on('resize', resize_input);
 
 		this.resize_input_box = function() {
@@ -906,7 +912,8 @@
 				token_list_width -= outerWidth;
 			});
 			if(token_list_width===0){
-				token_list_width = 560;
+				token_list_width = 650;
+				//token_list_width = token_list.width() -10;
 			}else if(token_list_width<40) token_list_width = token_list.width();
 			input_box.outerWidth(Math.ceil(token_list_width)-$('div.token-input-dragdrop-facebook').outerWidth(true)-1);
 		}
