@@ -10,14 +10,14 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>PubcaseFinder</title>
+	<title>PubCaseFinder</title>
 	<!--css-->
-	<link rel='stylesheet' href="/static/css/pcf/bootstrap.css">
+	<link rel="stylesheet" href="/static/css/pcf/bootstrap.css">
 	<link rel="stylesheet" href="https://unpkg.com/destyle.css@1.0.5/destyle.css">
-	<link rel='stylesheet' href="/static/css/pcf/branc.css">
-	<link rel='stylesheet' href="/static/css/pcf/branc-ie7.css">
-	<link rel='stylesheet' href="/static/css/pcf/branc-ie7-codes.css">
-	<link rel='stylesheet' href="/static/css/pcf/branc-embedded.css">
+	<link rel="stylesheet" href="/static/css/pcf/branc.css">
+	<link rel="stylesheet" href="/static/css/pcf/branc-ie7.css">
+	<link rel="stylesheet" href="/static/css/pcf/branc-ie7-codes.css">
+	<link rel="stylesheet" href="/static/css/pcf/branc-embedded.css">
 	<link rel="preconnect" href="https://fonts.gstatic.com">
 	<link rel="stylesheet" href="/static/css/pcf/style.css">
 	<link rel="stylesheet" href="/static/css/pcf/mobile.css">
@@ -40,7 +40,16 @@
 	<link rel="icon" href="/static/images/favicon.ico">
 
 	<!-- favicon for mobile -->
-	<link rel="apple-touch-icon" sizes="180x180" href="/static/images/apple-touch-icon.png">
+    <!--link rel="apple-touch-icon" sizes="180x180" href="/static/images/apple-touch-icon.png"-->
+    <!--favicon start-->
+    <link rel="apple-touch-icon" sizes="180x180" href="/static/images/pcf/top/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/static/images/pcf/top/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/static/images/pcf/top/favicon-16x16.png">
+    <link rel="manifest" href="/static/images/pcf/top/site.webmanifest">
+    <link rel="mask-icon" href="/static/images/pcf/top/safari-pinned-tab.svg" color="#2a3356">
+    <meta name="msapplication-TileColor" content="#2a3356">
+    <meta name="theme-color" content="#ffffff">
+    <!--favicon end-->
 
 	<!--schema.rog-->
 	<script type="application/ld+json">
@@ -314,7 +323,7 @@
       <div class="modal-body p-0">
 		<div class="container-fluid p-0">
 		  <div class="row mx-0 py-3">
-			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmood tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duisaute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat</p>
+			<p>Import Human Phenotype Ontology (HPO) term IDs.<br />You can extract multiple HPO term IDs from any kind of textual input. HPO term ids must satisfy the format HP:XXXXXXX to be recognized.</p>
 		  </div>
 		  <div class="row mx-0">
 			<div class="col-4 px-0" style="border:1px solid #ced4da;border-radius: 0.25rem;">
@@ -834,6 +843,16 @@
 			return false;
 		}
 
+		let r = text.toUpperCase().match(/HP:(\d){7}/g);
+
+		if(!r){
+			alert("HPO term ids must satisfy the format HP:XXXXXXX.");
+			$("#hpo-list-input-textarea").focus();
+			return false;
+		}
+		
+		text = r.join(',');
+
 		// load hpo term list from server.
 
 		$("#hpo-list-input-submit-button").attr("disabled", true);
@@ -1221,13 +1240,13 @@
 			theme:        'pcf_menu',
 			content(reference){
 				return	"<ul id=\"ul_menu\" class=\"sub-menu\">" +
-					  "<li><a href=\"https://pubcasefinder.dbcls.jp/static/pdf/PubCaseFinder_manual_ja_v4.pdf\">About</a></li>" +
-					  "<li><a href=\"https://pubcasefinder.dbcls.jp/datasets\">Datasets</a></li>" +
-					  "<li><a href=\"https://pubcasefinder.dbcls.jp/history\">History</a></li>" +
-					  "<li><a href=\"https://pubcasefinder.dbcls.jp/termsofservice\">Terms</a></li>" +
-					  "<li><a href=\"https://integbio.jp/rdf/dataset/pubcasefinder\" target=\"_blank\">RDF</a></li>" +
-					  "<li><a href=\"https://pubcasefinder.dbcls.jp/mme\">API</a></li>" +
-					  "<li><a href=\"mailto:support@dbcls.rois.ac.jp,pubcasefinder@dbcls.rois.ac.jp\">Contect</a></li>"+
+                      "<li><a href=\"https://pubcasefinder.dbcls.jp/static/pdf/PubCaseFinder_manual_ja_v4.pdf\">Guides</a></li>" +
+                      "<li><a href=\"https://pubcasefinder.dbcls.jp/api\">API</a></li>" +
+                      "<li><a href=\"https://pubcasefinder.dbcls.jp/history\">History</a></li>" +
+                      "<li><a href=\"https://pubcasefinder.dbcls.jp/termsofservice\">Terms</a></li>" +
+                      "<li><a href=\"https://pubcasefinder.dbcls.jp/datasets\">Sources</a></li>" +
+                      "<li><a href=\"https://integbio.jp/rdf/dataset/pubcasefinder\" target=\"_blank\">RDF</a></li>" +
+                      "<li><a href=\"mailto:support@dbcls.rois.ac.jp,pubcasefinder@dbcls.rois.ac.jp\">Contect</a></li>"+
 					"</ul>";
 			},
 		});

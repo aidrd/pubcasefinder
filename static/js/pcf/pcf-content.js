@@ -120,7 +120,7 @@
 			}
 		};
 
-	const NANDO_LABEL = {'NANDO:1':'難病情報(指定)','NANDO:2':'難病情報(小慢)','DEFAULT':'難病情報'}
+	const NANDO_LABEL = {'NANDO_1':'難病情報(指定)','NANDO_2':'難病情報(小慢)','DEFAULT':'難病情報'}
 
 	const SETTING_KEY_TARGET         = 'PCF-TARGET',
 		  SETTING_KEY_PHENOTYPE      = 'PCF-PHENOTYPE',

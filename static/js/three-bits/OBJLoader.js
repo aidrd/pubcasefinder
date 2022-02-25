@@ -632,7 +632,7 @@ THREE.OBJLoader.prototype = {
 				if ( line === '\0' ) continue;
 
 //				throw new Error( "Unexpected line: '" + line  + "'" );
-				console.error( "Unexpected line: '" + line  + "'" + " " + scope.__url);
+				console.warn( "Unexpected line: '" + line  + "'" + " " + scope.__url);
 				continue;
 
 			}

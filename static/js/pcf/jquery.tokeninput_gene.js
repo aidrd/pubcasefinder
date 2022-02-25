@@ -12,7 +12,8 @@
 	var isSafari = (ua.indexOf('safari') > -1) && (ua.indexOf('chrome') == -1);
 	
 	//var hintText = "Type in disease name, inheritance mode, causative genes (Gene Symbol or Entrez Gene ID)";
-	var hintText = "Type in disease name, inheritance mode, causative genes";
+	//var hintText = "Type in disease name, inheritance mode, causative genes";
+	var hintText = "Type in disease names, modes of inheritance, and causative genes";
 	var searchformulaText = "Query box";
 	var DEFAULT_SETTINGS = {
 		// Search settings

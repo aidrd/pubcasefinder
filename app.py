@@ -101,11 +101,19 @@ def index():
 
 
 #####
-# display datasets page
-# /datasets
-@app.route('/datasets')
-def datasets():
-    return render_template('/datasets/datasets_v2.0.0.html')
+# display guides page
+# /guides
+@app.route('/guides')
+def guides():
+    return render_template('guides.html')
+
+
+#####
+# display sources page
+# /sources
+@app.route('/sources')
+def sources():
+    return render_template('sources.html')
 
 
 #####
@@ -113,10 +121,7 @@ def datasets():
 # /history
 @app.route('/history')
 def history():
-    if get_locale() == "ja" or get_locale() == "ja_JP":
-        return render_template('history_ja.html')
-    else:
-        return render_template('history_en.html')
+    return render_template('history.html')
 
 
 #####
@@ -124,31 +129,23 @@ def history():
 # /termsofservice
 @app.route('/termsofservice')
 def termsofservice():
-    if get_locale() == "ja" or get_locale() == "ja_JP":
-        return render_template('termsofservice_ja.html')
-    else:
-        return render_template('termsofservice_en.html')
+    return render_template('termsofservice.html')
 
 
 #####
-# test J-STAGE
-# /test_jstage
-@app.route('/test_jstage')
-def test_jstage():
-    r_mondo_id = ""
-    if request.args.get('mondo_id') is not None:
-        r_mondo_id = request.args.get('mondo_id')
-
-    return render_template('test_jstage.html',
-                           r_mondo_id=r_mondo_id)
-
-
-#####
-# display API page
+# display MME API page
 # /mme
 @app.route('/mme')
 def mme():
     return render_template('api_en.html')
+
+
+#####
+# PubCaseFinder API page
+# /api
+@app.route('/api')
+def api():
+    return render_template('api.html')
 
 
 #####
@@ -452,8 +449,8 @@ def api_pcf_get_gpa():
 # /pcf_download?target=[TARGET]&phenotype=[HPO_ID]&target_id=[TARGET_ID]&format=[FORMAT]&r_range=[RANGE]
 # /pcf_download?target=[TARGET]&phenotype=[HPO_ID]&target_id=[TARGET_ID]&format=[FORMAT]&r_range=[RANGE]&r_weight=[WEIGHT]
 # /api/get_ranked_list?target=[TARGET]&format=[FORMAT]&hpo_id=[HPO_ID]
-@app.route('/pcf_download', methods=['GET'])
-@app.route('/api/get_ranked_list', methods=['GET'])
+@app.route('/pcf_download', methods=['GET', 'POST'])
+@app.route('/api/get_ranked_list', methods=['GET', 'POST'])
 def api_pcf_download():
     r_target    = ""
     r_phenotype = ""
@@ -461,40 +458,73 @@ def api_pcf_download():
     r_format    = ""
     r_range     = ""
     r_weight    = 1.0
-    if request.args.get('target') is not None:
-        r_target = request.args.get('target')
-    if request.args.get('phenotype') is not None:
-        r_phenotype = request.args.get('phenotype')
-    if request.args.get('hpo_id') is not None:
-        r_phenotype = request.args.get('hpo_id')
-    if request.args.get('target_id') is not None:
-        r_target_id = request.args.get('target_id')
-    if request.args.get('format') is not None:
-        r_format = request.args.get('format')
-    if request.args.get('range') is not None:
-        r_range = request.args.get('range')
-    if request.args.get('weight') is not None:
-        r_weight = request.args.get('weight')
+
+    if request.method == 'GET':
+        if request.args.get('target') is not None:
+            r_target = request.args.get('target')
+        if request.args.get('phenotype') is not None:
+            r_phenotype = request.args.get('phenotype')
+        if request.args.get('hpo_id') is not None:
+            r_phenotype = request.args.get('hpo_id')
+        if request.args.get('target_id') is not None:
+            r_target_id = request.args.get('target_id')
+        if request.args.get('format') is not None:
+            r_format = request.args.get('format')
+        if request.args.get('range') is not None:
+            r_range = request.args.get('range')
+        if request.args.get('weight') is not None:
+            r_weight = request.args.get('weight')
+    else:
+        if request.form is not None:
+            if 'target' in request.form:
+                r_target = request.form['target']
+            if 'phenotype' in request.form:
+                r_phenotype = request.form['phenotype']
+            if 'hpo_id' in request.form:
+                r_phenotype = request.form['hpo_id']
+            if 'target_id' in request.form:
+                r_target_id = request.form['target_id']
+            if 'format' in request.form:
+                r_format = request.form['format']
+            if 'range' in request.form:
+                r_range = request.form['range']
+            if 'weight' in request.form:
+                r_weight = request.form['weight']
+        if request.json is not None:
+            if 'target' in request.json:
+                r_target = request.json['target']
+            if 'phenotype' in request.json:
+                r_phenotype = request.json['phenotype']
+            if 'hpo_id' in request.json:
+                r_phenotype = request.json['hpo_id']
+            if 'target_id' in request.json:
+                r_target_id = request.json['target_id']
+            if 'format' in request.json:
+                r_jsonat = request.json['format']
+            if 'range' in request.json:
+                r_range = request.json['range']
+            if 'weight' in request.json:
+                r_weight = request.json['weight']
         
     utc_now = datetime.now(timezone('UTC'))
     jst_now = utc_now.astimezone(timezone('Asia/Tokyo'))
     ts = jst_now.strftime("%Y%m%d-%H%M%S")
     
-    if request.method == 'GET':
-        if r_format == "json":
-            json_data = pcf_download(r_target, r_phenotype, r_target_id, r_format, r_range, r_weight)
-            res = make_response(json.dumps(json_data, indent=4))
-            res.headers["Content-Type"] = "application/json"
-            res.headers["Content-disposition"] = "attachment; filename=" + "pubcasefinder_" + ts + ".json"
-            #res.headers["Content-Encoding"] = "gzip"
-            return res
-        elif r_format == "tsv":
-            tsv_data = pcf_download(r_target, r_phenotype, r_target_id, r_format, r_range, r_weight)
-            res = make_response("\n".join(tsv_data))
-            res.headers["Content-Type"] = "text/tab-separated-values"
-            res.headers["Content-disposition"] = "attachment; filename=" + "pubcasefinder_" + ts + ".tsv"
-            #res.headers["Content-Encoding"] = "gzip"
-            return res
+    #if request.method == 'GET':
+    if r_format == "json":
+        json_data = pcf_download(r_target, r_phenotype, r_target_id, r_format, r_range, r_weight)
+        res = make_response(json.dumps(json_data, indent=4))
+        res.headers["Content-Type"] = "application/json"
+        res.headers["Content-disposition"] = "attachment; filename=" + "pubcasefinder_" + ts + ".json"
+        #res.headers["Content-Encoding"] = "gzip"
+        return res
+    elif r_format == "tsv":
+        tsv_data = pcf_download(r_target, r_phenotype, r_target_id, r_format, r_range, r_weight)
+        res = make_response("\n".join(tsv_data))
+        res.headers["Content-Type"] = "text/tab-separated-values"
+        res.headers["Content-disposition"] = "attachment; filename=" + "pubcasefinder_" + ts + ".tsv"
+        #res.headers["Content-Encoding"] = "gzip"
+        return res
 
 
 #####
