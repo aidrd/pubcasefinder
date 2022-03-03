@@ -1101,7 +1101,8 @@
       return false;
     });
     $("#tokeninput_hpo").tokenInput("/tokeninput_hpo", {
-      theme: "facebook"
+      theme: "facebook",
+      second_url_str: "/pcf_get_hpo_by_text"
     });
     $("#tokeninput_hpo_clear").click(function (){
       $("#tokeninput_hpo").tokenInput("clear");

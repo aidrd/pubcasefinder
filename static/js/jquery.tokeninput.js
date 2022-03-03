@@ -31,6 +31,8 @@
     excludeCurrent: false,
     excludeCurrentParameter: "x",
 
+    second_url_str:          null,
+
     // Prepopulation settings
     prePopulate: null,
     processPrePopulate: false,
@@ -149,7 +151,7 @@
     // Behavioral settings
     allowFreeTagging: false,
     allowTabOut: false,
-    autoSelectFirstResult: false,
+    autoSelectFirstResult: true,
 
     // Callbacks
     onResult: null,
@@ -1072,6 +1074,13 @@
                   results = results.slice(0, $(input).data("settings").resultsLimit);
               }
 
+              var isSimilar = false;
+              if(results_length > 0){
+                  if('isSimilar' in results[0]){
+                      isSimilar = results[0].isSimilar;
+                  }
+              }
+
               $.each(results, function(index, value) {
                   var this_li = $(input).data("settings").resultsFormatter(value);
 
@@ -1096,7 +1105,7 @@
 
               var callback = $(input).data("settings").onShowDropdownItem;
               if($.isFunction(callback)) {
-                  callback.call(dropdown,results_length);
+                  callback.call(dropdown,results_length,isSimilar);
               }
               show_dropdown();
 
@@ -1110,7 +1119,7 @@
                   dropdown.html("<p>" + escapeHTML($(input).data("settings").noResultsText) + "</p>");
                   var callback = $(input).data("settings").onShowDropdownItem;
                   if($.isFunction(callback)) {
-                      callback.call(dropdown,0);
+                      callback.call(dropdown,0,false);
                   }
                   show_dropdown();
               }
@@ -1163,15 +1172,68 @@
           }
       }
 
+        function run_similar_search(query) {
+            let url_str   = getSecondUrl();
+            let cache_key = query + url_str;
+                url_str   = url_str + '?text=' + query;
+            $.ajax({
+                url:      url_str,
+                type:     'GET',
+            }).done(function(data,textStatus,jqXHR) {
+                if(data && $.isArray(data) && data.length > 0){
+                    let results = [];
+                    for(let i=0;i<data.length;i++){
+                        let idx  = data[i].indexOf(',');
+                        let id   = data[i].substring(0, idx);
+                        let name = data[i].substring(idx+1);
+                        let obj  = {
+                            id:        id,
+                            name:      name,
+                            synonym:   null,
+                            isSimilar: true
+                        }
+                        results.push(obj);
+                    }
+
+                    cache.add(cache_key, results);
+                    if($.isFunction($(input).data("settings").onResult)) {
+                        results = $(input).data("settings").onResult.call(hiddenInput, results);
+                    }
+                    // only populate the dropdown if the results are associated with the active search query
+                    if(input_box.val() === query) {
+                        populateDropdown(query, results);
+                    }
+                }else{
+                    cache.add(cache_key, []);
+                }
+            }).fail(function(jqXHR, textStatus, errorThrown ) {
+                console.warn(textStatus, errorThrown);
+            });
+        }
+
       // Do the actual search
       function run_search(query) {
           var cache_key = query + computeURL();
-          var cached_results = cache.get(cache_key);
-          if (cached_results) {
+          var cached_results  = cache.get(cache_key);
+
+          var cache_key2      = query + getSecondUrl();
+          var cached_results2 = cache.get(cache_key2);
+
+          if (cached_results && cached_results.length > 0) {
               if ($.isFunction($(input).data("settings").onCachedResult)) {
                 cached_results = $(input).data("settings").onCachedResult.call(hiddenInput, cached_results);
               }
               populateDropdown(query, cached_results);
+          } else if(cached_results2 && cached_results2.length > 0){
+              if ($.isFunction($(input).data("settings").onCachedResult)) {
+                  cached_results2 = $(input).data("settings").onCachedResult.call(hiddenInput, cached_results2);
+              }
+              populateDropdown(query, cached_results2);
+          } else if(cached_results && cached_results2){
+                if ($.isFunction($(input).data("settings").onCachedResult)) {
+                    cached_results = $(input).data("settings").onCachedResult.call(hiddenInput, cached_results);
+                }
+                populateDropdown(query, cached_results);
           } else {
               // Are we doing an ajax search or local data search?
               if($(input).data("settings").url) {
@@ -1217,14 +1279,22 @@
                   // Attach the success callback
                   ajax_params.success = function(results) {
                     cache.add(cache_key, $(input).data("settings").jsonContainer ? results[$(input).data("settings").jsonContainer] : results);
-                    if($.isFunction($(input).data("settings").onResult)) {
-                        results = $(input).data("settings").onResult.call(hiddenInput, results);
-                    }
 
-                    // only populate the dropdown if the results are associated with the active search query
-                    if(input_box.val() === query) {
-                        populateDropdown(query, $(input).data("settings").jsonContainer ? results[$(input).data("settings").jsonContainer] : results);
-                    }
+					if(results.length > 0){
+	                    if($.isFunction($(input).data("settings").onResult)) {
+    	                    results = $(input).data("settings").onResult.call(hiddenInput, results);
+        	            }
+
+            	        // only populate the dropdown if the results are associated with the active search query
+                	    if(input_box.val() === query) {
+	                        populateDropdown(query, $(input).data("settings").jsonContainer ? results[$(input).data("settings").jsonContainer] : results);
+    	                }
+					}else{
+                            // 文字列類似候補の検索
+                            setTimeout(function(){
+                                run_similar_search(query);
+                            }, 5);
+					}
                   };
 
                   // Attach the error callback
@@ -1264,6 +1334,12 @@
           var settings = $(input).data("settings");
           return typeof settings.url == 'function' ? settings.url.call(settings) : settings.url;
       }
+
+      function getSecondUrl() {
+          let settings = $(input).data("settings");
+          return settings.second_url_str;
+      }
+
 
       // Bring browser focus to the specified object.
       // Use of setTimeout is to get around an IE bug.
