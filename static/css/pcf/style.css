@@ -1142,12 +1142,13 @@ body {
 .filter-sample {
   color: #13295A;
   background-color: #E2ECF4;
-  padding-left: 3px;
-  padding-right: 3px;
-  margin-left: 8px;
+  padding: 3px 4px;
+  margin-left: 3px;
   font-size:  0.8em;
+  border-radius: 3px;
 }
 .filter-sample:hover {
+  text-decoration: none;
+  color: #13295A;
   background-color: #AECFE8; 
 }
-
