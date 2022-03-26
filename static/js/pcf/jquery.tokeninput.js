@@ -59,7 +59,7 @@
 			var value   = '<li class=\"token-input-token-results'+theme+'\">'+
 							'<table>'+
 							'<tr>'+
-							'<td>'+
+							'<td style=\"white-space:nowrap;\">'+
 							'<span class=\"token-input-token-word'+theme+' token-input-token-information'+theme+' glyphicon glyphicon-info-sign\"></span>'+
 							'&nbsp;'+
 							'</td>'+
