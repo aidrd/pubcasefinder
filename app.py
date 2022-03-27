@@ -1078,3 +1078,44 @@ def popup_hierarchy_genes():
 
     return jsonify(dict_json)
 
+
+@app.route('/get_hpo_data_by_hpo_id', methods=['GET', 'POST'])
+def get_hpo_data_by_hpo_id():
+    dic_json = {}
+
+    # GETメソッドの値を取得
+    if request.method == 'GET':
+
+        # requestから値を取得
+        onto_id_pre = request.args.get("hpo_id")
+        onto_id = onto_id_pre.replace('_ja', '')
+        list_onto_id = onto_id.split(',')
+
+        # MySQLへ接続
+        OBJ_MYSQL = MySQLdb.connect(unix_socket=db_sock, host="localhost", db=db_name, user=db_user, passwd=db_pw, charset="utf8")
+
+        sql_informations_fmt = u"select OntoID, OntoName, OntoNameJa from OntoTermHPInformation where OntoID NOT in (SELECT OntoDescendantID FROM OntoTermHPDescendant WHERE OntoID='HP:0000005') AND OntoID in (%s)"
+
+        in_onto_id=', '.join(map(lambda x: '%s', list_onto_id))
+
+        sql_informations_fmt = sql_informations_fmt % in_onto_id
+
+        app.logger.info(sql_informations_fmt)
+
+        cursor_informations_fmt = OBJ_MYSQL.cursor()
+        cursor_informations_fmt.execute(sql_informations_fmt, list_onto_id)
+        values_informations_fmt = cursor_informations_fmt.fetchall()
+        cursor_informations_fmt.close()
+
+        for value_informations_fmt in values_informations_fmt:
+            onto_id         = value_informations_fmt[0]
+            onto_name       = value_informations_fmt[1]
+            onto_name_ja    = value_informations_fmt[2]
+
+            dic_json[onto_id] = {}
+            dic_json[onto_id]['name_en'] = onto_name
+            dic_json[onto_id]['name_ja'] = onto_name_ja if onto_name_ja != "" else onto_name
+
+        OBJ_MYSQL.close()
+
+        return jsonify(dic_json)

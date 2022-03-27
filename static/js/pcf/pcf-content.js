@@ -8,7 +8,8 @@
 		  URL_GET_GENE_DATA_BY_NCBI_GENE_ID         = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_get_gene_data_by_ncbi_gene_id',
 		  URL_GET_COUNT_CASE_REPORT_BY_MONDO_ID     = 'https://pubcasefinder.dbcls.jp/pcf_get_count_case_report_by_mondo_id',
 		  URL_GET_HPO_DATA_BY_OMIM_ID               = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_get_hpo_data_by_omim_id',
-		  URL_GET_HPO_DATA_BY_HPO_ID                = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_get_hpo_data_by_hpo_id',
+		  //URL_GET_HPO_DATA_BY_HPO_ID                = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_get_hpo_data_by_hpo_id',
+		  URL_GET_HPO_DATA_BY_HPO_ID                = '/get_hpo_data_by_hpo_id',
 		  URL_GET_HPO_DATA_BY_ORPHA_ID              = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_get_hpo_data_by_orpha_id',
 		  URL_GET_HPO_TOOLTIP_DATA_BY_HPO_ID        = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_get_hpo_tooltip_data_by_hpo_id',
 		  URL_GET_GENE_TOOLTIP_DATA_BY_NCBI_GENE_ID = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_get_gene_tooltip_data_by_ncbi_gene_id',
@@ -2696,6 +2697,47 @@
 			}
 
 			return;
+		},
+		load_phenotype_objects_by_ids(hpo_id_list,lang,callback){
+
+			pcf_show_loading();
+
+			let phenotype_id_list = hpo_id_list.trim().replace(/_ja/gi, '');
+			let phenotype_url_str = _construct_url(URL_GET_HPO_DATA_BY_HPO_ID, {[SETTING_KEY_ID_LST]:phenotype_id_list});
+
+			_run_ajax(phenotype_url_str,'GET', null, 'text', true, function(data){
+
+				let phenotype_object_list = [];
+
+				let json_data = _parseJson(data);
+				
+				hpo_id_list.trim().split(',').forEach(function(str_hpo_id){
+					if(lang === 'ja'){
+						hpo_id = str_hpo_id.replace(/_ja$/i,"");
+						if(hpo_id in json_data){
+							let name_text = json_data[hpo_id].name_ja;
+							if(_isEmpty(name_text)) name_text = json_data[hpo_id].name_en;
+							let obj = {'id':str_hpo_id, 'name':name_text};
+							phenotype_object_list.push(obj);
+						}
+					}else{
+						if(str_hpo_id in json_data){
+							let obj = {'id':str_hpo_id, 'name':json_data[str_hpo_id].name_en}
+							phenotype_object_list.push(obj);
+						}
+					}
+				});
+
+				_set_phenotype_name_data_to_cache(json_data);
+			
+				pcf_hide_loading();
+
+				if(_isFunction(callback)){
+					callback(phenotype_object_list);
+				}
+
+				return;
+			});
 		},
 	};
 	

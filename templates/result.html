@@ -326,17 +326,17 @@
 			<p>Import Human Phenotype Ontology (HPO) term IDs.<br />You can extract multiple HPO term IDs from any kind of textual input. HPO term ids must satisfy the format HP:XXXXXXX to be recognized.</p>
 		  </div>
 		  <div class="row mx-0">
-			<div class="col-4 px-0" style="border:1px solid #ced4da;border-radius: 0.25rem;">
-			  <textarea class="form-control" id="hpo-list-input-textarea" style="background-color:#f8f9fa;border:1px solid #ced4da;height:256px;"></textarea>
+			<div class="col-4 px-0" style="border:1px solid #ced4da;border-radius: 0.25rem;height:256px;max-height:256px;">
+			  <textarea class="form-control" id="hpo-list-input-textarea" style="background-color:#f8f9fa;border:0px;height:254px;"></textarea>
 			</div>
 			<div class="align-self-center">
 			  <div >
-                <button id="hpo-list-input-submit-button" style="color:white;background-color:#222057;opacity=1.0;height:52px;width:52px;font-size:32px;" class="round-button material-icons">chevron_right</button>
+                <button id="hpo-list-input-submit-button" style="color:white;background-color:#222057;opacity=1.0;height:52px;width:52px;font-size:32px;border:0px;" class="round-button material-icons">chevron_right</button>
 			  </div>
 			</div>
 			<div class="col px-0">
 			  <div class="form-control p-0" style="height:256px;max-height:256px;background-color:#ced4da;">
-				<table class="form-control table table-hover p-0" id="hpo-list-input-table"></table>
+				<table class="form-control table table-hover p-0" id="hpo-list-input-table" style="height:254px;border:0px;"></table>
 			  </div>
 			</div>
 		  </div>
@@ -834,6 +834,21 @@
 		return false;
 	});
 
+	function uniq_fast(a) {
+		let seen = {};
+		let out = [];
+		let len = a.length;
+		let j = 0;
+		for(let i = 0; i < len; i++) {
+			let item = a[i];
+			if(seen[item] !== 1) {
+				seen[item] = 1;
+				out[j++] = item;
+			}
+		}
+		return out;
+	}
+
 	$("#hpo-list-input-submit-button").click(function (e){
 		let text = $("#hpo-list-input-textarea").val();
 
@@ -850,8 +865,9 @@
 			$("#hpo-list-input-textarea").focus();
 			return false;
 		}
-		
-		text = r.join(',');
+	
+		let unique = uniq_fast(r);	
+		text = unique.join(',');
 
 		// load hpo term list from server.
 
@@ -860,7 +876,9 @@
 		let $tbl = $("#hpo-list-input-table");
 		$tbl.find("tr").remove();
 
-		$("#pcf-content").pcf_content('load_phenotype_and_filter_objects_by_ids',text,"",function(hpo_obj_list, filter_obj_list){
+		let lang      = $("#r_lang").val();
+
+		$("#pcf-content").pcf_content('load_phenotype_objects_by_ids',text,lang,function(hpo_obj_list){
 
 			pcf_hide_loading();
 
