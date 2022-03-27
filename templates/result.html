@@ -1272,7 +1272,15 @@
 			.tokenInput("/tokeninput_hpo", {theme: "facebook", second_url_str: "/pcf_get_hpo_by_text", doSubmit: runSubmit});
 
 		$("#tokeninput_hpo")
-			.popupRelationHPO('/popup_hierarchy_hpo',{'modify_modal_on_show':modify_modal_on_show,'after_modal_close':after_modal_close});
+			.popupRelationHPO('/popup_hierarchy_hpo',
+							  {'modify_modal_on_show':modify_modal_on_show,
+							   'after_modal_close':	function(){
+														after_modal_close();
+														setTimeout(function() {
+															$('#token-input-tokeninput_hpo').focus();
+														}, 50);
+													}
+							  });
 
 		$("#tokeninput_hpo_clear").click(function(){
 			$("#tokeninput_hpo").tokenInput("clear");
@@ -1293,7 +1301,12 @@
 
 		$("#tokeninput_genes")
 			.popupRelationGENE('/popup_hierarchy_genes',{'modify_modal_on_show': modify_modal_on_show,
-								     'after_modal_close':    after_modal_close,
+								     'after_modal_close':   function(){
+																after_modal_close();
+																setTimeout(function() {
+																	$('#token-input-tokeninput_genes').focus();
+																}, 50);
+									 						},
 								     'after_init_gui':       after_init_gui,
 								     'onFilterChanged':      onFilterChanged 
 								    });

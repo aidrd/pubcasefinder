@@ -1278,7 +1278,7 @@
 //							.text(value)
 							.attr({'href':'#'})
 							.data(OBJECT_KEY, result)
-							.css({'display':'inline-block'/*,'width':'100%'*/})
+							.css({'border':'0px','display':'inline-block'/*,'width':'100%'*/})
 							.click(function(){
 								var data = $(this).data(OBJECT_KEY);
 								setTimeout(function(){
@@ -1287,7 +1287,7 @@
 								return false;
 							})
 							.appendTo($value_td);
-							$('<span>').text(value).appendTo($a);
+							$('<span>').text(value).css({'border':'0px'}).appendTo($a);
 
 						}
 						else{
@@ -2307,6 +2307,13 @@
 			if($a.length){
 				if(e.which==13){
 					$a.get(0).click();
+				}
+				else if(e.which==27){
+					$('li').removeClass(tokeninput_classes['selectedToken']);
+					$('li').removeClass(tokeninput_classes['highlightedToken']);
+					$('li').removeClass('selected_at_popup');
+	                setTimeout(function(){closeMagnificPopup(); },51);
+	                return false;
 				}
 				else if(e.which==38){
 					var expr = current_settings.nodeName+'.'+current_settings.cssLinkBaseClass;
