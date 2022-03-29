@@ -141,7 +141,8 @@
 
 				tooltip_title : 'ここをクリック',
 				tooltip_copy : '<div style="white-space:nowrap;text-align:center;">クリップボードに<br>HPO Id、症状（日）、症状（英）<br>をコピーします</div>',
-				number_of_hits : 'ヒット件数 [__NUMBER__]'
+				number_of_hits : 'ヒット件数 [__NUMBER__]',
+				similar_candidate : 'もしかして:'
 			},
 			'en' : {
 				superclass : 'Superclass',
@@ -190,7 +191,8 @@
 
 				tooltip_title : 'Click Here',
 				tooltip_copy : 'Copy HPO Id and Name to the clipboard',
-				number_of_hits : 'Number of hits [__NUMBER__]'
+				number_of_hits : 'Number of hits [__NUMBER__]',
+				similar_candidate : 'Did you mean:'
 			}
 		},
 		okcancelButtonsAlign : 'right',
@@ -939,14 +941,14 @@
 //						$.PopupRelationHPOResultsTooltip(this,token_data);
 //					},
 					onShowDropdownItem: function(count,isSimilar){
-						var node = this;
-						//var $count_node = $('<div>').addClass(current_settings.cssNumberOfHitsClass).text(current_settings.language[getCurrentLanguage()]['number_of_hits'].replace('__NUMBER__', count));
-                        var $count_node = $('<div>').addClass(current_settings.cssNumberOfHitsClass);
+						let node = this;
+                        let $count_node = $('<div>').addClass(current_settings.cssNumberOfHitsClass);
+						let node_content = '<b>' + current_settings.language[getCurrentLanguage()]['number_of_hits'].replace('__NUMBER__', count) + '</b>'
                         if(isSimilar){
-                            $count_node.text('number_of_similar_candidate:[' + count + ']');
-                        }else{
-                            $count_node.text(current_settings.language[getCurrentLanguage()]['number_of_hits'].replace('__NUMBER__', count));
+							node_content = '<b>' + current_settings.language[getCurrentLanguage()]['number_of_hits'].replace('__NUMBER__', '0') + '</b>'
+							node_content = node_content + '&nbsp;&nbsp;' + '<font color=\"#f8516d\">' + current_settings.language[getCurrentLanguage()]['similar_candidate'] + '</font>';
                         }
+						$count_node.append(node_content);
 
 						if(node.get(0).firstElementChild){
 							var $firstElementChild = $(node.get(0).firstElementChild);
@@ -2792,15 +2794,14 @@
 //			};
 
 			tokeninput_settings.onShowDropdownItem = function(count,isSimilar){
-				var node = this;
-				//var $count_node = $('<div>').addClass(current_settings.cssNumberOfHitsClass).text(current_settings.language[getCurrentLanguage()]['number_of_hits'].replace('__NUMBER__', count));
-                var $count_node = $('<div>').addClass(current_settings.cssNumberOfHitsClass);
-
+				let node = this;
+                let $count_node = $('<div>').addClass(current_settings.cssNumberOfHitsClass);
+				let node_content = '<b>' + current_settings.language[getCurrentLanguage()]['number_of_hits'].replace('__NUMBER__', count) + '</b>'
                 if(isSimilar){
-                    $count_node.text('number_of_similar_candidate:[' + count + ']');
-                }else{
-                    $count_node.text(current_settings.language[getCurrentLanguage()]['number_of_hits'].replace('__NUMBER__', count));
+					node_content = '<b>' + current_settings.language[getCurrentLanguage()]['number_of_hits'].replace('__NUMBER__', '0') + '</b>'
+					node_content = node_content + '&nbsp;&nbsp;' + '<font color=\"#f8516d\">' + current_settings.language[getCurrentLanguage()]['similar_candidate'] + '</font>';
                 }
+				$count_node.append(node_content);
 
 				if(node.get(0).firstElementChild){
 					var $firstElementChild = $(node.get(0).firstElementChild);
