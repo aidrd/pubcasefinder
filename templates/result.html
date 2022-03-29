@@ -1273,8 +1273,11 @@
 			.tokenInput("/tokeninput_hpo", {theme: "facebook", second_url_str: "/pcf_get_hpo_by_text", doSubmit: runSubmit});
 
 		$("#tokeninput_hpo")
-			.popupRelationHPO('/popup_hierarchy_hpo',
+			.popupRelationHPO( '/popup_hierarchy_hpo',
 							  {'modify_modal_on_show':modify_modal_on_show,
+                              {% if r_lang %}
+                               'language_in':   "{{ r_lang }}",
+                              {% endif %}
 							   'after_modal_close':	function(){
 														after_modal_close();
 														setTimeout(function() {
@@ -1309,7 +1312,10 @@
 																}, 50);
 									 						},
 								     'after_init_gui':       after_init_gui,
-								     'onFilterChanged':      onFilterChanged 
+						            {% if r_lang %}
+						             'language_in':   "{{ r_lang }}",
+						            {% endif %} 
+									 'onFilterChanged':      onFilterChanged
 								    });
 
 		$("#pcf-content").pcf_content({

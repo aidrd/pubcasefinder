@@ -84,7 +84,7 @@
 		keySuperclass : 'superclass',
 		keySubclass : 'subclass',
 		keySelfclass : 'selfclass',
-
+		language_in : 'en',
 		language : {
 			'ja' : {
 				superclass : '上位概念',
@@ -133,7 +133,7 @@
 
 				tooltip_title : 'ここをクリック',
 				tooltip_copy : '<div style="white-space:nowrap;text-align:center;">クリップボードに<br>MONDO Id、症状（日）、症状（英）<br>をコピーします</div>',
-				number_of_hits : 'ヒット件数 [__NUMBER__]'
+				number_of_hits : '<b>ヒット件数　</b><b style=\"font-weight:normal;\">遺伝形式 [__NUMBER_HP__]　遺伝子 [__NUMBER_GENE__]　疾患 [__NUMBER_MONDO__]</b>'
 			},
 			'en' : {
 				superclass : 'Superclass',
@@ -182,7 +182,7 @@
 
 				tooltip_title : 'Click Here',
 				tooltip_copy : 'Copy MONDO Id and Name to the clipboard',
-				number_of_hits : 'Number of hits [__NUMBER__]'
+				number_of_hits : '<b>Number of hits　</b><b style=\"font-weight:normal;\">Modes of Inheritance [__NUMBER_HP__]  Genes [__NUMBER_GENE__] Diseases [__NUMBER_MONDO__]</b>'
 			}
 		},
 		okcancelButtonsAlign : 'right',
@@ -975,9 +975,11 @@
 					onShowDropdownItem: function(count,num_hp,num_mondo,num_geneid){
 						var node = this;
 						var $count_node = $('<div>').addClass(current_settings.cssNumberOfHitsClass);
-						var text = current_settings.language[getCurrentLanguage()]['number_of_hits'].replace('__NUMBER__', count);
-							text += " HP:" + num_hp + " MONDO:" + num_mondo + " GENEID:" + num_geneid;
-						$count_node.text(text);
+						var text = current_settings.language[current_settings.language_in]['number_of_hits'];
+							text = text.replace('__NUMBER_HP__', num_hp);
+							text = text.replace('__NUMBER_GENE__', num_geneid);
+							text = text.replace('__NUMBER_MONDO__', num_mondo);	
+						$count_node.append(text);
 						if(node.get(0).firstElementChild){
 							var $firstElementChild = $(node.get(0).firstElementChild);
 							$count_node.insertBefore($firstElementChild);
@@ -1835,9 +1837,11 @@
 				if(current_settings.use_number_of_hits){
 
 					var $count_node = $('<div>').addClass(current_settings.cssNumberOfHitsClass);
-					var text = current_settings.language[getCurrentLanguage()]['number_of_hits'].replace('__NUMBER__', count);
-						text += " HP:" + num_hp + " MONDO:" + num_mondo + " GENEID:" + num_geneid;
-                        $count_node.text(text);
+                    var text = current_settings.language[current_settings.language_in]['number_of_hits'];
+                        text = text.replace('__NUMBER_HP__', num_hp);
+                        text = text.replace('__NUMBER_GENE__', num_geneid);
+                        text = text.replace('__NUMBER_MONDO__', num_mondo);
+                        $count_node.append(text);
 
 					if(node.get(0).firstElementChild){
 						var $firstElementChild = $(node.get(0).firstElementChild);

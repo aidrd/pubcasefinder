@@ -89,7 +89,7 @@
 		keySuperclass : 'superclass',
 		keySubclass : 'subclass',
 		keySelfclass : 'selfclass',
-
+		language_in : 'en',
 		language : {
 			'ja' : {
 				superclass : '上位概念',
@@ -137,7 +137,7 @@
 
 				tooltip_title : 'ここをクリック',
 				tooltip_copy : '<div style="white-space:nowrap;text-align:center;">クリップボードに<br>HPO Id、症状（日）、症状（英）<br>をコピーします</div>',
-				number_of_hits : 'ヒット件数 [__NUMBER__]',
+				number_of_hits : 'ヒット件数 [__NUMBER__]&nbsp;&nbsp;',
 				similar_candidate : 'もしかして:'
 			},
 			'en' : {
@@ -185,7 +185,7 @@
 
 				tooltip_title : 'Click Here',
 				tooltip_copy : 'Copy HPO Id and Name to the clipboard',
-				number_of_hits : 'Number of hits [__NUMBER__]',
+				number_of_hits : 'Number of hits [__NUMBER__]&nbsp;&nbsp;',
 				similar_candidate : 'Did you mean:'
 			}
 		},
@@ -3056,12 +3056,13 @@
 			tokeninput_settings.onShowDropdownItem = function(count,isSimilar){
 				let node = this;
 				let $count_node = $('<div>').addClass(current_settings.cssNumberOfHitsClass);
-				let node_content = '<b>' + current_settings.language[getCurrentLanguage()]['number_of_hits'].replace('__NUMBER__', count) + '</b>'
+				
+				let node_content = '<b>' + current_settings.language[current_settings.language_in]['number_of_hits'].replace('__NUMBER__', count) + '</b>'
 				if(isSimilar){
-					node_content = '<b>' + current_settings.language[getCurrentLanguage()]['number_of_hits'].replace('__NUMBER__', '0') + '</b>'
-					node_content = node_content + '&nbsp;&nbsp;' +
+					node_content = '<b>' + current_settings.language[current_settings.language_in]['number_of_hits'].replace('__NUMBER__', '0') + '</b>'
+					node_content = node_content +
 								   '<font color=\"#f8516d\">' + 
-								     current_settings.language[getCurrentLanguage()]['similar_candidate'] + 
+								     current_settings.language[current_settings.language_in]['similar_candidate'] + 
 								   '</font>';
 				}
 				$count_node.append(node_content);
