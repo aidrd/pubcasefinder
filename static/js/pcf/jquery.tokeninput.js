@@ -421,7 +421,8 @@
 				  case KEY.BACKSPACE:
 					  previous_token = input_token.prev();
 
-					  if (this.value.length === 0) {
+					  if ($(this).val().length === 0) {
+						hide_dropdown();
 						if (selected_token) {
 						  delete_token($(selected_token));
 						  hiddenInput.change();
@@ -947,6 +948,9 @@
 
 	  function show_dropdown() {
 //		  var window_height = $(window).height() - (token_list.offset().top + token_list.outerHeight(true)) - 16;
+
+		if(input_box.val().length === 0) return;
+
 		  dropdown
 			  .css({
 				  position: "absolute",
