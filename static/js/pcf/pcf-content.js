@@ -1327,7 +1327,9 @@
 	function _contruct_copy_content(rank,detail_data,lang){
 		let isJA      = (lang===LANGUAGE_JA);
 		let target_id = rank.id;
-		let score     = (rank.score * 100).toFixed(1)+"%";
+		let score     = rank.score * 100;
+		if(score > 100) score = 100		
+		score = score.toFixed(1)+"%";
 
 		let phenotype_list_str = "";
 		rank.matched_hpo_id.split(',').forEach(function(hpo_id){
@@ -1652,7 +1654,10 @@
 			});
 			
 
-			let score = (ranking_list[i].score * 100).toFixed(1)+"%";
+			//let score = (ranking_list[i].score * 100).toFixed(1)+"%";
+	        let score     = ranking_list[i].score * 100;
+    	    if(score > 100) score = 100
+	        score = score.toFixed(1)+"%";
 			score = score.replace('100.0','100');
 			let $percentage = $("<span>("+ score+")</span>").appendTo($td_left);
 			if(!isDisplayFull) $percentage.addClass('summary');
@@ -1781,7 +1786,7 @@
 																			[SETTING_KEY_TARGET]:    $btn.data(SETTING_KEY_TARGET),
 																			[SETTING_KEY_ID_LST]:    $btn.data(SETTING_KEY_ID_LST),
 																			[SETTING_KEY_TARGET_ID]: $btn.data(SETTING_KEY_TARGET_ID)});
-										_run_ajax(like_url_str,'GET', null, 'text', true, null);
+										_run_ajax(like_url_str,'GET', null, 'text', true, true, null, null);
 										$btn.addClass('liked');
 										$btn.find('i').text('favorite');
 									}
@@ -1900,7 +1905,7 @@
 			_show_result(setting);
 			pcf_hide_loading();
 		}else if(ajax_item_list.length === 1){
-			_run_ajax(ajax_item_list[0][SETTING_KEY_URLSTR],'GET', null, 'text', true, function(data){
+			_run_ajax(ajax_item_list[0][SETTING_KEY_URLSTR],'GET', null, 'text', true, true, function(data){
 				callback_success(data,ajax_item_list[0]);
 				_show_result(setting);
 				pcf_hide_loading();
@@ -1935,7 +1940,7 @@
 				setting[SETTING_KEY_ID_LST] = uncached_list.join(",");
 		
 				let url_str = _construct_url(URL_GET_DATA_BY_ID, setting);
-				_run_ajax(url_str,'GET', null, 'text', true, function(data){
+				_run_ajax(url_str,'GET', null, 'text', true, true, function(data){
 				
 					if(!_isEmpty(data)){
 						var json_data = _parseJson(data);
@@ -2263,7 +2268,7 @@
 			}
 		}else if(ajax_item_list.length === 1){
 			
-			_run_ajax(ajax_item_list[0][SETTING_KEY_URLSTR],'GET', null, 'text', true, function(data){
+			_run_ajax(ajax_item_list[0][SETTING_KEY_URLSTR],'GET', null, 'text', true, true, function(data){
 				callback_success(data,ajax_item_list[0]);
 				// do logical ,create ranking list, and continue
 				_run_pcf_filter_logical(ranking_data_without_filter,items_total_hash,result_ranking_id_hash,target_str,setting);
@@ -2278,7 +2283,7 @@
 		return;
 	}
 
-	function _run_ajax(url_str,http_type,post_data,response_dataType,async,callback,callback_fail){
+	function _run_ajax(url_str,http_type,post_data,response_dataType,async,isRetry,callback,callback_fail){
 
 		let retry_data_obj = {
 			url_str:			url_str,
@@ -2304,7 +2309,11 @@
 				//alert('Server access error:' + textStatus + ":" + errorThrown + '\nURL: ' + url_str);
 				if(_isFunction(callback_fail)) callback_fail();
 				pcf_hide_loading();
-				pcf_show_alert_dialog(jqXHR, textStatus, errorThrown, url_str, retry_data_obj);
+				if(isRetry){
+					pcf_show_alert_dialog(jqXHR, textStatus, errorThrown, url_str, retry_data_obj);
+				}else{
+					alert('Server access error:' + textStatus + ":" + errorThrown + '\nURL: ' + url_str);
+				}
 			});
 		}else{
 			$.ajax({
@@ -2320,7 +2329,11 @@
 				//alert('Server access error:' + textStatus + ":" + errorThrown + '\nURL: ' + url_str);
 				if(_isFunction(callback_fail)) callback_fail();
 				pcf_hide_loading();
-				pcf_show_alert_dialog(jqXHR, textStatus, errorThrown, url_str, retry_data_obj);
+				if(isRetry){
+					pcf_show_alert_dialog(jqXHR, textStatus, errorThrown, url_str, retry_data_obj);
+				}else{
+					alert('Server access error:' + textStatus + ":" + errorThrown + '\nURL: ' + url_str);
+				}
 			});
 		}
 	}
@@ -2477,6 +2490,7 @@
 						retry_data_obj.post_data,
 						retry_data_obj.response_dataType,
 						retry_data_obj.async,
+						true,
 						retry_data_obj.callback,
 						retry_data_obj.callback_fail);
 		},
@@ -2500,7 +2514,7 @@
 		},
 		send_share_url: function(urlstr){
 			let share_url_str = _construct_url(URL_SHARE, {[SETTING_KEY_SHARE]: SHARE_TYPE_URL,[SETTING_KEY_URL]:encodeURIComponent(urlstr)});
-			_run_ajax(share_url_str,'GET', null, 'text', true, null);
+			_run_ajax(share_url_str,'GET', null, 'text', true, true, null, null);
 		},
 		get_selected_num: function(){
 			let target = _get_active_target();
@@ -2559,7 +2573,7 @@
 
 			pcf_show_loading();
 
-			_run_ajax(url_hash.url,'POST',url_hash.data, 'text', true, function(data){
+			_run_ajax(url_hash.url,'POST',url_hash.data, 'text', true, true, function(data){
 
 				pcf_hide_loading();
 
@@ -2685,7 +2699,7 @@
 				pcf_hide_loading();
 				return;
 			}else if(ajax_item_list.length === 1){
-				_run_ajax(ajax_item_list[0][SETTING_KEY_URLSTR],'GET', null, 'text', true, function(data){
+				_run_ajax(ajax_item_list[0][SETTING_KEY_URLSTR],'GET', null, 'text', true, true, function(data){
 					callback_success(data,ajax_item_list[0]);
 					// do logical ,create ranking list, and continue
 					if(_isFunction(callback)) callback(phenotype_object_list, filter_object_list);
@@ -2705,7 +2719,7 @@
 			let phenotype_id_list = hpo_id_list.trim().replace(/_ja/gi, '');
 			let phenotype_url_str = _construct_url(URL_GET_HPO_DATA_BY_HPO_ID, {[SETTING_KEY_ID_LST]:phenotype_id_list});
 
-			_run_ajax(phenotype_url_str,'GET', null, 'text', true, function(data){
+			_run_ajax(phenotype_url_str,'GET', null, 'text', true, false, function(data){
 
 				let phenotype_object_list = [];
 
