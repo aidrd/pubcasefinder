@@ -419,6 +419,10 @@
 
 					break;
 				  case KEY.DELETE:
+                    //console.log('delete', this.value, (new Blob([this.value])).size)
+                    hide_dropdown();
+                    setTimeout(function(){ do_search(); }, 50);
+                    break;
 				  case KEY.BACKSPACE:
 					  previous_token = input_token.prev();
 						//console.log('backspace', 0);
@@ -491,10 +495,7 @@
 					return true;
 
 				  default:
-					if($(this).val().length >= $(input).data("settings").minChars){
-                        hide_dropdown();
-						return true;
-                    }
+                    hide_dropdown();
 
 					if (String.fromCharCode(event.which)) {
 					  // set a timeout just long enough to let this function finish.

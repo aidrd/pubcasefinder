@@ -211,6 +211,7 @@
     UP           : 38,
     RIGHT        : 39,
     DOWN         : 40,
+	DELETE       : 46,
     NUMPAD_ENTER : 108,
     COMMA        : 188
   };
@@ -430,7 +431,11 @@
                     }
 
                     break;
-
+				  case KEY.DELETE:
+				//	console.log('delete', this.value, (new Blob([this.value])).size)
+					hide_dropdown();
+					setTimeout(function(){ do_search(); }, 50);	
+					break;
                   case KEY.BACKSPACE:
                       previous_token = input_token.prev();
 					  //console.log('backspace', this.value, (new Blob([this.value])).size)
