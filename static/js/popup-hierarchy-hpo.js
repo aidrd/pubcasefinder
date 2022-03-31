@@ -2166,6 +2166,13 @@
 				if(e.which==13){
 					$a.get(0).click();
 				}
+                else if(e.which==27){
+                    $('li').removeClass(tokeninput_classes['selectedToken']);
+                    $('li').removeClass(tokeninput_classes['highlightedToken']);
+                    $('li').removeClass('selected_at_popup');
+                    setTimeout(function(){closeMagnificPopup(); },51);
+                    return false;
+                }
 				else if(e.which==38){
 					var expr = current_settings.nodeName+'.'+current_settings.cssLinkBaseClass;
 					var $prev_a = $a.parents(expr).prev(expr).find('a.'+current_settings.cssLinkClass);
