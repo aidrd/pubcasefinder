@@ -24,7 +24,7 @@
     method: "GET",
     queryParam: "q",
     searchDelay: 300,
-    minChars: 1,
+    minChars: 2,
     propertyToSearch: "name",
     jsonContainer: null,
     contentType: "json",
@@ -433,7 +433,7 @@
 
                   case KEY.BACKSPACE:
                       previous_token = input_token.prev();
-
+					  //console.log('backspace', this.value, (new Blob([this.value])).size)
                       if (this.value.length === 0) {
                         if (selected_token) {
                           delete_token($(selected_token));
@@ -443,9 +443,10 @@
                         }
 
                         return false;
-                      } else if($(this).val().length === 1) {
+                      } else if((new Blob([this.value])).size <= $(input).data("settings").minChars) {
                           hide_dropdown();
                       } else {
+						  hide_dropdown();
                           // set a timeout just long enough to let this function finish.
                           // FIX: 20171207 fujiwara setTimeout(function(){ do_search(); }, 5);
                           setTimeout(function(){ do_search(); }, 50);
@@ -1159,7 +1160,8 @@
                   deselect_token($(selected_token), POSITION.AFTER);
               }
 
-              if(query.length >= $(input).data("settings").minChars) {
+              if((new Blob([query])).size >= $(input).data("settings").minChars) {
+				  //console.log('dosearch', query);
                   show_dropdown_searching();
                   clearTimeout(timeout);
 
