@@ -194,6 +194,7 @@
 		UP		     : 38,
 		RIGHT		 : 39,
 		DOWN		 : 40,
+		DELETE       : 46,
 		NUMPAD_ENTER : 108,
 		COMMA		 : 188
 	};
@@ -417,33 +418,38 @@
 					}
 
 					break;
-
+				  case KEY.DELETE:
 				  case KEY.BACKSPACE:
 					  previous_token = input_token.prev();
-
-					  if ($(this).val().length === 0) {
-						hide_dropdown();
+						//console.log('backspace', 0);
+					  if (this.value.length === 0) {
+						 //console.log('backspace', 1);
 						if (selected_token) {
+						  //console.log('backspace', 2);
 						  delete_token($(selected_token));
 						  hiddenInput.change();
 						} else if(previous_token.length) {
+						  //console.log('backspace', 3);
 						  select_token($(previous_token.get(0)));
 						}
 
 						return false;
-					  } else if($(this).val().length === 1) {
+					  } else if((new Blob([this.value])).size <= $(input).data("settings").minChars) {
+							//console.log('backspace', 4);
 						  hide_dropdown();
 					  } else {
 						  // set a timeout just long enough to let this function finish.
 						  // FIX: 20171207 fujiwara setTimeout(function(){ do_search(); }, 5);
-						  setTimeout(function(){ do_search(); }, 50);
+						//console.log('backspace', 5);
+						hide_dropdown();
+						//console.log('backspace', 6, $(this).val(),(new Blob([this.value])).size);
+					      setTimeout(function(){ do_search(); }, 50);
 					  }
 					  break;
 
 				  case KEY.TAB:
 				  case KEY.ENTER:
 				  case KEY.NUMPAD_ENTER:
-//				  case KEY.COMMA:
 					if(selected_dropdown_item) {
 					  add_token($(selected_dropdown_item).data("tokeninput"));
 					  hiddenInput.change();
@@ -485,6 +491,11 @@
 					return true;
 
 				  default:
+					if($(this).val().length >= $(input).data("settings").minChars){
+                        hide_dropdown();
+						return true;
+                    }
+
 					if (String.fromCharCode(event.which)) {
 					  // set a timeout just long enough to let this function finish.
 					  // FIX: 20171207 fujiwara setTimeout(function(){ do_search(); }, 5);
@@ -658,22 +669,10 @@
 				$(li_list[idx]).hide();
 				$(li_list[idx]).delay(600).fadeIn('slow');
 			}
-
-			setTimeout(function(){
-				resize_input();
-			}, 1000);
-/*
-			setTimeout(function(){
-				for(let idx=idx_start;idx<=idx_end;idx++){
-					$(li_list[idx]).removeClass($(input).data("settings").classes.highlightedToken);
-				}	
-			}, 1000);
-*/			
 		};
 
 	  // Resize input to maximum width so the placeholder can be seen
 	  resize_input();
-	  $(window).on('resize', resize_input);
 
 	  //
 	  // Private functions
@@ -764,7 +763,6 @@
 //						delete_token($(this).parent());
 						delete_token($(this).closest('li'));
 						hiddenInput.change();
-						resize_input();
 						return false;
 					}
 				});
@@ -934,6 +932,9 @@
 
 	  // Hide and clear the results dropdown
 	  function hide_dropdown () {
+
+		  if(dropdown.is(":hidden")) return;
+
 		  dropdown.hide().empty();
 
 		  var callback = $(input).data("settings").onHideDropdownItem;
@@ -1154,6 +1155,7 @@
 
 				//if(query.length >= $(input).data("settings").minChars) {
 				if((new Blob([query])).size >= $(input).data("settings").minChars) {
+					//console.log('do_each', query);
 					show_dropdown_searching();
 					clearTimeout(timeout);
 
