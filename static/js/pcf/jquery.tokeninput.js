@@ -419,38 +419,32 @@
 
 					break;
 				  case KEY.DELETE:
-                    //console.log('delete', this.value, (new Blob([this.value])).size)
-                    hide_dropdown();
+					hide_dropdown();
                     setTimeout(function(){ do_search(); }, 50);
                     break;
 				  case KEY.BACKSPACE:
+
+					  hide_dropdown();
+
 					  previous_token = input_token.prev();
-						//console.log('backspace', 0);
+
 					  if (this.value.length === 0) {
-						 //console.log('backspace', 1);
 						if (selected_token) {
-						  //console.log('backspace', 2);
 						  delete_token($(selected_token));
 						  hiddenInput.change();
 						} else if(previous_token.length) {
-						  //console.log('backspace', 3);
 						  select_token($(previous_token.get(0)));
 						}
 
 						return false;
-					  } else if((new Blob([this.value])).size <= $(input).data("settings").minChars) {
-							//console.log('backspace', 4);
-						  hide_dropdown();
+
 					  } else {
 						  // set a timeout just long enough to let this function finish.
 						  // FIX: 20171207 fujiwara setTimeout(function(){ do_search(); }, 5);
-						//console.log('backspace', 5);
-						hide_dropdown();
-						//console.log('backspace', 6, $(this).val(),(new Blob([this.value])).size);
 					      setTimeout(function(){ do_search(); }, 50);
 					  }
-					  break;
 
+					  break;
 				  case KEY.TAB:
 				  case KEY.ENTER:
 				  case KEY.NUMPAD_ENTER:
@@ -1154,7 +1148,6 @@
 					deselect_token($(selected_token), POSITION.AFTER);
 				}
 
-				//if(query.length >= $(input).data("settings").minChars) {
 				if((new Blob([query])).size >= $(input).data("settings").minChars) {
 					//console.log('do_each', query);
 					show_dropdown_searching();
