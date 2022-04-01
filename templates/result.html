@@ -851,7 +851,7 @@
 	}
 
 	$("#hpo-list-input-submit-button").click(function (e){
-		let text = $("#hpo-list-input-textarea").val();
+		let text = $("#hpo-list-input-textarea").val().toUpperCase().replaceAll("HP:0000118","");
 
 		if(!text){
 			alert("Please input HPO term list...");
@@ -859,7 +859,7 @@
 			return false;
 		}
 
-		let r = text.toUpperCase().match(/HP:(\d){7}/g);
+		let r = text.match(/HP:(\d){7}/g);
 
 		if(!r){
 			alert("HPO term ids must satisfy the format HP:XXXXXXX.");
