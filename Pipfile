@@ -13,6 +13,9 @@ uwsgi = "*"
 flask-babel = "*"
 flask-cors = "*"
 pronto = "*"
+mojimoji = "*"
+requests = "*"
+levenshtein = "*"
 
 [requires]
 python_version = "3.6"
