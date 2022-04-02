@@ -1351,7 +1351,7 @@
 				var num_mondo  = 0;
 				var num_geneid = 0;
 				$.each(results, function(index, value) {
-
+					/*
 		            var id_prefix = '';
 		            var id_suffix = '';
 					if(value['id'].match(/^([A-Z]+)\:[0-9]+$/)) id_prefix = RegExp.$1;
@@ -1361,6 +1361,16 @@
 						num_mondo++;
 					}else if(id_prefix == 'GENEID'){
 						num_geneid++;
+					}
+					*/
+                    if(value['id'].startsWith('HP')){
+                        num_hp++;
+                    }else if(value['id'].startsWith('MONDO')){
+                        num_mondo++;
+                    }else if(value['id'].startsWith('GENEID')){
+                        num_geneid++;
+                    }else{
+						alert('unknown filter id');
 					}
 
 					var this_li = $(input).data("settings").resultsFormatter(value);
