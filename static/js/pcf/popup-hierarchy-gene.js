@@ -1381,7 +1381,7 @@
 				},1);
 			}
 
-			$('li').removeClass(tokeninput_classes['selectedToken']);
+			//$('li').removeClass(tokeninput_classes['selectedToken']);
 		}
 		var timeoutID = null;
 		function openMagnificPopup(params){
