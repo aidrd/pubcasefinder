@@ -205,7 +205,7 @@ body {
 
     .search-header .search-header_wrapper .search-header_top {
         margin: 0 auto;
-        width: 90%;
+        /* width: 90%; */
     }
 
     .search-header .search-header_wrapper .search-header_top .search-header_left {
@@ -724,7 +724,7 @@ body {
     opacity: 0;
     visibility: hidden;
     transition: .5s;
-    right: 15px;
+    right: -17px;
 }
 
 .nav-sp .sub-menu a {
@@ -3873,7 +3873,7 @@ label {
     width: 80%;
     max-width: 840px;
     margin: 0;
-    padding: 50px 3vw 50px;
+    /* padding: 50px 3vw 50px; */
     border: 2px solid #293255;
     text-align: center;
     background: #fff;
