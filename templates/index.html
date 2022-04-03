@@ -715,23 +715,82 @@
                         <p>
                             Genetic Diseases
                         </p>
+                        <!--modal11-->
+                        <button>
+                            <div class="modal_open Statistics-btn" data-target="modal11" rel="noopener noreferrer">
+                                Show List
+                            </div>
+                        </button>
+                        <div id="modal11" class="modal_box">
+                            <script type="module" src="https://togostanza.github.io/metastanza/pagination-table.js"
+                                async></script>
+
+                            <togostanza-pagination-table
+                                data-url="https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_get_list_genetic_diseases"
+                                data-type="json" custom-css-url="" width="" fixed-columns="1" padding="0px"
+                                page-size-option="10,20,50,100" page-slider="false"
+                                columns="[{&quot;id&quot;: &quot;omim_id&quot;,&quot;label&quot;: &quot;MIM ID&quot;,&quot;link&quot;: &quot;omim_url&quot;,&quot;target&quot;: &quot;blank&quot;},{&quot;id&quot;: &quot;omim_disease_name_en&quot;,&quot;label&quot;: &quot;Disease Name&quot;},{&quot;id&quot;: &quot;omim_disease_name_ja&quot;,&quot;label&quot;: &quot;Disease Name&quot;}]">
+                            </togostanza-pagination-table>
+                            <a class="modal_close">
+                                <div class="batsu">×</div>
+                            </a>
+                        </div>
                     </div>
                     <div class="item-w">
                         <h1 class="count" data-num="4609">4000</h1>
                         <p>
                             Rare Diseases
                         </p>
+                        <!--modal12-->
+                        <button>
+                            <div class="modal_open Statistics-btn" data-target="modal12" rel="noopener noreferrer">
+                                Show List
+                            </div>
+                        </button>
+                        <div id="modal12" class="modal_box">
+                            <script type="module" src="https://togostanza.github.io/metastanza/pagination-table.js"
+                                async></script>
+
+                            <togostanza-pagination-table
+                                data-url="https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_get_list_rare_diseases"
+                                data-type="json" custom-css-url="" width="" fixed-columns="1" padding="0px"
+                                page-size-option="10,20,50,100" page-slider="false"
+                                columns="[{&quot;id&quot;: &quot;orpha_id&quot;,&quot;label&quot;: &quot;ORPHAcode&quot;,&quot;link&quot;: &quot;orpha_url&quot;,&quot;target&quot;: &quot;blank&quot;},{&quot;id&quot;: &quot;orpha_disease_name_en&quot;,&quot;label&quot;: &quot;Disease Name&quot;},{&quot;id&quot;: &quot;orpha_disease_name_ja&quot;,&quot;label&quot;: &quot;Disease Name&quot;}]">
+                            </togostanza-pagination-table>
+                            <a class="modal_close">
+                                <div class="batsu">×</div>
+                            </a>
+                        </div>
                     </div>
                     <div class="item-w">
                         <h1 class="count" data-num="4312">4000</h1>
                         <p>
-                            Causative Genes
+                            Genes
                         </p>
+                        <!--modal13-->
+                        <button>
+                            <div class="modal_open Statistics-btn" data-target="modal13" rel="noopener noreferrer">
+                                Show List
+                            </div>
+                        </button>
+                        <div id="modal13" class="modal_box">
+                            <script type="module" src="https://togostanza.github.io/metastanza/pagination-table.js"
+                                async></script>
+                            <togostanza-pagination-table
+                                data-url="https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_get_list_genes"
+                                data-type="json" custom-css-url="" width="" fixed-columns="1" padding="0px"
+                                page-size-option="10,20,50,100" page-slider="false"
+                                columns="[{&quot;id&quot;: &quot;ncbi_gene_id&quot;,&quot;label&quot;: &quot;NCBI Gene ID&quot;,&quot;link&quot;: &quot;ncbi_gene_url&quot;,&quot;target&quot;: &quot;blank&quot;},{&quot;id&quot;: &quot;hgnc_gene_symbol&quot;,&quot;label&quot;: &quot;HGNC Symbol&quot;,&quot;link&quot;: &quot;hgnc_gene_url&quot;,&quot;target&quot;: &quot;blank&quot;},{&quot;id&quot;: &quot;full_name&quot;,&quot;label&quot;: &quot;Full Name&quot;}]">
+                            </togostanza-pagination-table>
+                            <a class="modal_close">
+                                <div class="batsu">×</div>
+                            </a>
+                        </div>
                     </div>
                     <div class="item-w">
                         <h1 class="count" data-num="18893">18000</h1>
                         <p>
-                            Open-Sharing Cases
+                            Cases
                         </p>
                     </div>
                 </div>
