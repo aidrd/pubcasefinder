@@ -551,11 +551,10 @@
                         <h3>TIPS</h3>
                         <img src="/static/images/pcf/top/activity07.png">
 			{% if get_locale() == "ja" or get_locale() == "ja_JP" %}
-                        <p>Filterに遺伝子名を入力することで、候補遺伝子に限定したランキングを得ることができます。
-                            上位にランキングされた遺伝子に含まれるバリアントは入力症状との関連性が高いと考えられます。</p>
+                        <p>Filterに候補遺伝子名を入力すると，その候補遺伝子に関連する疾患・遺伝子・症例のランキングに絞り込まれます。</p>
                         <button onClick="javascript:window.open('https://pubcasefinder.dbcls.jp/result?target=gene&phenotype=HP:0001903_ja,HP:0000952_ja,HP:0001744_ja,HP:0004444_ja&filter=GENEID:2038,GENEID:6708,GENEID:6521,GENEID:286,GENEID:6710&size=10&display_format=full&jang=ja', '_blank');">View example</button>
 			{% else %}
-                        <p>By specifying genes in Filter, you can get a ranked list of candidate disease-causing genes. Variants included in the top-ranked genes are considered to have high relevance to the input phenotypes.</p>
+                        <p>By specifying candidate disease-causing genes in Filter, you can get ranked lists of diseases, genes, and open-sharing case related to the input.</p>
                         <button onClick="javascript:window.open('https://pubcasefinder.dbcls.jp/result?target=gene&phenotype=HP:0001903,HP:0000952,HP:0001744,HP:0004444&filter=GENEID:2038,GENEID:6708,GENEID:6521,GENEID:286,GENEID:6710&size=10&display_format=full&lang=en', '_blank');">View example</button>
 			{% endif %}
                     </div>

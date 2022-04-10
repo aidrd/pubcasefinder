@@ -88,50 +88,50 @@
 			<div class="search-box_wrapper">
 				<div class="search-box_form d-flex flex-nowrap">
 					<div class="d-flex flex-column" style="width:52px;min-width:52px;height:100%;">
-                        <div style="width:100%;height:33%;">
-                            <button id="hpo-list-input-button"  class="text-button" data-toggle="modal" data-target="#hpo-list-input-modal">
-                                <img  data-toggle="tooltip"
-                                      data-placement="top"
-                                      {% if r_lang == "ja" %}
-                                      title="HPO IDのリストを入力"
-                                      {% else %}
-                                      title="Input HPO ID list"
-                                      {% endif %}
-                                    src="/static/images/pcf/HPOID.svg"></img>
-                            </button>
-                        </div>
-						<div style="width:100%;height:33%;">
-							{% if r_lang == "ja" %}
-							<button id="/ehr"
-							{% else %}
-							<button id="https://doc2hpo.wglab.org/"
-							{% endif %}
-							   onclick="goDoc(this);"
-							   class="text-button">
-							  <img  src="/static/images/pcf/text_black.svg"
-									data-toggle="tooltip"
-									data-placement="top"
-									{% if r_lang == "ja" %}
-									title="文章から症状を自動抽出">
-									{% else %}
-									title="Input Free-Text (doc2hpo)">
-									{% endif %}	
-							  </img>
-							</button>
-						</div>
-						<div style="width:100%;height:33%;">
-							<button id="phenotouch" class="text-button">
-							  <img src="/static/images/pcf/3d_black.svg"
-							    data-toggle="tooltip"
-							    data-placement="top"
-							    {% if r_lang == "ja" %}
-							    title="ヒト3Dモデルを利用して症状を検索">
-							    {% else %}
-							    title="Find Phenotypes using Human 3D Model">
-							    {% endif %}
-							  </img>
-							</button>
-						</div>
+					  <div style="width:100%;height:33%;">
+					    {% if r_lang == "ja" %}
+					    <button id="/ehr"
+					    {% else %}
+					    <button id="https://doc2hpo.wglab.org/"
+						    {% endif %}
+						    onclick="goDoc(this);"
+						    class="text-button">
+					      <img  src="/static/images/pcf/text_black.svg"
+						    data-toggle="tooltip"
+						    data-placement="top"
+						    {% if r_lang == "ja" %}
+						    title="文章から症状を自動抽出">
+					            {% else %}
+					            title="Input Free-Text (doc2hpo)">
+					            {% endif %}	
+					      </img>
+					    </button>
+					  </div>
+					  <div style="width:100%;height:33%;">
+					    <button id="phenotouch" class="text-button">
+					      <img src="/static/images/pcf/3d_black.svg"
+						   data-toggle="tooltip"
+						   data-placement="top"
+						   {% if r_lang == "ja" %}
+						   title="ヒト3Dモデルを利用して症状を検索">
+					           {% else %}
+					           title="Find Phenotypes using Human 3D Model">
+					           {% endif %}
+					      </img>
+					    </button>
+					  </div>
+					  <div style="width:100%;height:33%;">
+					    <button id="hpo-list-input-button"  class="text-button" data-toggle="modal" data-target="#hpo-list-input-modal">
+					      <img  data-toggle="tooltipn"
+						    data-placement="top"
+						    {% if r_lang == "ja" %}
+						    title="HPO IDのリストを入力"
+						    {% else %}
+						    title="Input HPO ID list"
+						    {% endif %}
+						    src="/static/images/pcf/HPOID.svg"></img>
+					    </button>
+					  </div>
 					</div>
 					<div class="flex-grow-1 tokeninput_hpo_wrapper">
 						<textarea rows="1" id="tokeninput_hpo" name="str_phenotypes"></textarea>
