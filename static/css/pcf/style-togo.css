@@ -163,6 +163,11 @@ body {
 .search-header .search-header_wrapper .search-header_top .search-header_left .language {
     margin-right: 1.5em;
     white-space: nowrap;
+    transition: all 0.5s 0s ease;
+}
+
+.search-header .search-header_wrapper .search-header_top .search-header_left .language a:hover{
+    color: #0056b3;
 }
 
 .search-header .search-header_wrapper .search-header_top .search-header_left .site-header_end {
