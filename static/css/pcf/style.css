@@ -55,6 +55,10 @@ body {
   display: block;
 }
 
+.search-header .search-header_wrapper .search-header_top .search-header_left span a{
+  text-decoration: none;
+}
+
 .search-header .search-header_wrapper .search-header_top .search-header_left .site-header_end {
   border: solid 1px #888888;
   border-radius: 5px;
@@ -918,12 +922,14 @@ body {
 }
 
 #ul_menu a {
+  text-decoration: none;
   color: #fff;
   padding: 10px 15px;
   display: block;
 }
 
 #ul_menu a:hover {
+  text-decoration: none;
   color: #fff;
 }
 
