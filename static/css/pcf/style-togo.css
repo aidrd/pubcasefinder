@@ -1363,6 +1363,14 @@ p {
     white-space: nowrap;
 }
 
+.nav-pc ul li a{
+    transition: all 0.5s 0s ease;
+}
+
+.nav-pc ul li a:hover{
+    color: #0056b3;
+}
+
 .nav-sp {
     visibility: hidden;
 }
