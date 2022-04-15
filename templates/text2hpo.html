@@ -3,20 +3,32 @@
 
   <!-- STARRT: head -->
   <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>希少疾患診断支援システム : PubCaseFinder</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="患者の症状を入力するだけで、約4000の希少疾患を関連性の高い順にランキングする希少疾患診断支援システム。疾患毎に過去の症例も合わせて検索できます。" />
+    <meta name="viewport" content="wilih=device-wilih, initial-scale=1.0">
+    <title>PubCaseFinder: Search system for rare genetic diseases</title>
+    <meta name="description" content="PubCaseFinder (PCF) is a Human Phenotype Ontology (HPO)-based clinical decision support system for rare and genetic diseases, always up-to-date."/>
     <meta name="keywords" content="PubCaseFinder, PCF, Rare Disease, Genetic Disease, Human Phenotype Ontology, Phenotype" />
     <meta name="author" content="Database Center for Life Science" />
-
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@fujitoyo" />
     <meta property="og:url" content="https://pubcasefinder.dbcls.jp/"/>
-    <meta property="og:title" content="PubCaseFinder"/>
-    <meta property="og:description" content="PubCaseFinder (PCF) is a rare and genetic disease search system, always up-to-date"/>
-    <meta property="og:image" content="https://pubcasefinder.dbcls.jp/static/images/logo_PubCaseFinder_mini.png"/>
+    <meta property="og:title" content="PubCaseFinder: Search system for rare genetic diseases"/>
+    <meta property="og:description" content="PubCaseFinder (PCF) is a Human Phenotype Ontology (HPO)-based clinical decision support system for rare and genetic diseases, always up-to-date."/>
+    <meta property="og:image" content="https://pubcasefinder.dbcls.jp/static/images/top/logo_color.svg"/>
+    <script type="application/ld+json">
+      {
+      "@context": "http://schema.org/",
+      "@type": "Dataset",
+      "name": "PubCaseFinder: Search system for rare genetic diseases",
+      "description": "PubCaseFinder (PCF) is a Human Phenotype Ontology (HPO)-based clinical decision support system for rare and genetic diseases, always up-to-date",
+      "url": "https://pubcasefinder.dbcls.jp/",
+      "version": "2.1.0",
+      "keywords": "PubCaseFinder,PCF,Rare Disease,Phenotype,Gene,Match,Assist",
+      "creator": "Database Center for Life Science, DBCLS",
+      "license": "http://creativecommons.org/licenses/by/2.1/jp/",
+      }
+    </script>
 
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
     
@@ -47,112 +59,6 @@
     <!-- favicon for mobile -->
     <link rel="apple-touch-icon" sizes="180x180" href="/static/images/apple-touch-icon.png">
 
-    <!--schema.rog-->
-    <script type="application/ld+json">
-      {
-        "@context": "http://schema.org/",
-        "@type": "Dataset",
-        "name": "PubCaseFinder",
-        "description": "PubCaseFinder (PCF) is a rare and genetic disease search system, always up-to-date",
-        "url": "https://pubcasefinder.dbcls.jp/",
-        "version": "1.0",
-        "keywords": "PubCaseFinder,PCF,Rare Disease,Phenotype,Gene,Match,Assist",
-        "creator": "Database Center for Life Science, DBCLS",
-        "license": "http://creativecommons.org/licenses/by/2.1/jp/",
-        "distribution": {
-          "contentUrl": "http://togodb.org/db/disease_phenotype_associations_20170720",
-          "fileFormat": "csv"
-        }
-      }
-    </script>
-
-
-
-    <!-- 2019/08/06 fujiwara : for mouse hover animation in top page -->
-    <style>
-      section figure {
-        width: 300px;
-        height: 270px;
-        margin: 0 auto;
-        position: relative;
-        overflow: hidden;
-        background: #fff;
-      }
-      section figcaption p {
-        font-size: 12px;
-      }
-
-      /* -----------------------------------
-      /*  sample4
-      /* ----------------------------------- */
-      .sample4 {
-        color: #000;
-      }
-      .sample4 figure:after {
-        position: absolute;
-        background: #000;
-        content: "";
-        display: block;
-        width: 90%;
-        height: 1px;
-        left: 5%;
-        top: 50%;
-
-        -webkit-transform: scale(0);
-        -moz-transform: scale(0);
-        transform: scale(0);
-        -webkit-transition: all .9s ease-out;
-        -moz-transition: all .9s ease-out;
-        transition: all .9s ease-out;
-      }
-      .sample4 figure:hover:after {
-        -webkit-transform: scale(1);
-        -moz-transform: scale(1);
-        transform: scale(1);
-      }
-      .sample4 figcaption p,
-      .sample4 figcaption h3 {
-        position: absolute;
-        text-align: center;
-        width: 100%;
-        opacity: 0;
-        -webkit-transition: all .4s ease-out .4s;
-        -moz-transition: all .4s ease-out .4s;
-        transition: all .4s ease-out .4s;
-      }
-      .sample4 figcaption h3 {
-        bottom: 51%;
-        -webkit-transform: translateY(-30px);
-        -moz-transform: translateY(-30px);
-        transform: translateY(-30px);
-      }
-      .sample4 figcaption p {
-        top: 52%;
-        -webkit-transform: translateY(30px);
-        -moz-transform: translateY(30px);
-        transform: translateY(30px);
-      }
-      .sample4 figure:hover figcaption p,
-      .sample4 figure:hover figcaption h3 {
-        opacity: 1;
-        -webkit-transform: translateY(0);
-        -moz-transform: translateY(0);
-        transform: translateY(0);
-      }
-
-      .sample4 figure img {
-        -webkit-transition: all 1.2s ease-out;
-        -moz-transition: all 1.2s ease-out;
-        transition: all 1.2s ease-out;
-      }
-      .sample4 figure:hover img {
-        opacity: .2;
-        -webkit-transform: scale(1.3);
-        -moz-transform: scale(1.3);
-        transform: scale(1.3);
-      }
-    </style>
-
   </head>
   <!-- END: head -->
 
@@ -172,13 +78,13 @@
             <div class="col-xs-10 text-right menu-1">
               <ul>
                 <li><a href="/static/pdf/PubCaseFinder_manual_ja.pdf"><span class="icon-question-circle-o"></span>About</a></li>
-                <li><a href="/datasets_ja"><span class="icon-database"></span>Datasets</a></li>
-                <li><a href="/history_ja"><span class="icon-history"></span>History</a></li>
-                <li><a href="/termsofservice_ja"><span class="icon-doc-text-inv"></span>Terms</a></li>
+                <li><a href="/api"><span class="icon-wrench"></span>API</a></li>
+                <li><a href="/history"><span class="icon-history"></span>History</a></li>
+                <li><a href="/termsofservice"><span class="icon-doc-text-inv"></span>Terms</a></li>
+                <li><a href="/sources"><span class="icon-database"></span>Datasets</a></li>
                 <li><a target="_blank" href="https://integbio.jp/rdf/dataset/pubcasefinder"><span class="icon-database"></span>RDF</a></li>
-                <li><a href="/mme"><span class="icon-wrench"></span>API</a></li>
                 <li><a title="Comments & suggestions are welcome!" href="mailto:support@dbcls.rois.ac.jp,pubcasefinder@dbcls.rois.ac.jp" href="#"><span class="icon-mail-alt"></span>Contact</a></li>
-                <li><a href="/?lang=en">EN</a>/<a href="/?lang=ja">JA</a></li>
+                <!--li><a href="/?lang=en">EN</a>/<a href="/?lang=ja">JA</a></li-->
               </ul>
             </div>
           </div>
