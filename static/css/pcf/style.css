@@ -394,7 +394,7 @@ body {
 .list-content {
   display: flex;
   margin: 15px 0 0 0;
-  padding-bottom: 5px;
+  padding-bottom: 1em;
   border-bottom: 1px solid #ddd;
 }
 
