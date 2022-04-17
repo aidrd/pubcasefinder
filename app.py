@@ -137,7 +137,7 @@ def termsofservice():
 # /mme
 @app.route('/mme')
 def mme():
-    return render_template('api_en.html')
+    return render_template('api.html')
 
 
 #####
