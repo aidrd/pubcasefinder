@@ -94,6 +94,11 @@
 /* END:fontello */
 
 
+html{
+    overflow: auto;
+}
+
+
 body {
     font-family: "Open Sans", Arial, sans-serif;
     font-weight: 400;
@@ -134,7 +139,6 @@ body {
     top: 0;
     background-size: cover;
     background-color: #f0f0f0;
-    top: 24px;
 }
 
 .search-header .search-header_wrapper {
