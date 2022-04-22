@@ -1123,7 +1123,7 @@ a.card-link {
 
 .section-citation .text-center .Citation-box p {
     text-align: center;
-    padding: 0.5em;
+    padding: 0.5em 2em 0 2em;
     line-height: 1.5em;
 }
 
