@@ -107,6 +107,7 @@ body {
 @media screen and (max-width: 1150px) {
     body {
         font-size: 0.9em;
+        overflow-x: hidden;
     }
 }
 
@@ -114,6 +115,7 @@ body {
 @media screen and (max-width: 900px) {
     body {
         font-size: 14px;
+        overflow-x: hidden;
     }
 }
 
@@ -121,6 +123,7 @@ body {
 @media screen and (max-width: 600px) {
     body {
         font-size: 13px;
+        overflow-x: hidden;
     }
 }
 
