@@ -12,15 +12,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PubCaseFinder: Search system for rare genetic diseases</title>
-    <meta name="description" content="PubCaseFinder (PCF) is a Human Phenotype Ontology (HPO)-based clinical decision support system for rare and genetic diseases, always up-to-date." />
-    <meta name="keywords" content="PubCaseFinder, PCF, Rare Disease, Genetic Disease, Human Phenotype Ontology, Phenotype" />
+    <meta name="description"
+        content="PubCaseFinder (PCF) is a Human Phenotype Ontology (HPO)-based clinical decision support system for rare and genetic diseases, always up-to-date." />
+    <meta name="keywords"
+        content="PubCaseFinder, PCF, Rare Disease, Genetic Disease, Human Phenotype Ontology, Phenotype" />
     <meta name="author" content="Database Center for Life Science" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@fujitoyo" />
-    <meta property="og:url" content="https://pubcasefinder.dbcls.jp/"/>
-    <meta property="og:title" content="PubCaseFinder: Search system for rare genetic diseases"/>
-    <meta property="og:description" content="PubCaseFinder (PCF) is a Human Phenotype Ontology (HPO)-based clinical decision support system for rare and genetic diseases, always up-to-date."/>
-    <meta property="og:image" content="https://pubcasefinder.dbcls.jp/static/images/top/logo_color.svg"/>
+    <meta property="og:url" content="https://pubcasefinder.dbcls.jp/" />
+    <meta property="og:title" content="PubCaseFinder: Search system for rare genetic diseases" />
+    <meta property="og:description"
+        content="PubCaseFinder (PCF) is a Human Phenotype Ontology (HPO)-based clinical decision support system for rare and genetic diseases, always up-to-date." />
+    <meta property="og:image" content="https://pubcasefinder.dbcls.jp/static/images/top/logo_color.svg" />
     <script type="application/ld+json">
       {
       "@context": "http://schema.org/",
@@ -79,17 +82,22 @@
                 <div class="search-header_left">
                     <nav class="nav-pc">
                         <ul class="menu-pc">
-			    {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
-                            <li><a href="/static/pdf/PubCaseFinder_manual_ja_v4.pdf"><i class="icon-question-circle-o"></i>Guides</a></li>
-			    {% else %}
-                            <li><a href="/static/pdf/PubCaseFinder_manual_en_v4.pdf"><i class="icon-question-circle-o"></i>Guides</a></li>
-			    {% endif %}
+                            {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
+                            <li><a href="/static/pdf/PubCaseFinder_manual_ja_v4.pdf"><i
+                                        class="icon-question-circle-o"></i>Guides</a></li>
+                            {% else %}
+                            <li><a href="/static/pdf/PubCaseFinder_manual_en_v4.pdf"><i
+                                        class="icon-question-circle-o"></i>Guides</a></li>
+                            {% endif %}
                             <li><a href="/api"><i class="icon-wrench"></i>API</a></li>
                             <li><a href="/history"><i class="icon-history"></i>History</a></li>
                             <li><a href="/termsofservice"><i class="icon-doc-text-inv"></i>Terms</a></li>
                             <li><a href="/sources"><i class="icon-database"></i>Sources</a></li>
-                            <li><a target="_blank" href="https://integbio.jp/rdf/dataset/pubcasefinder"><i class="icon-share"></i>RDF</a></li>
-                            <li><a title="Comments & suggestions are welcome!" href="mailto:support@dbcls.rois.ac.jp,pubcasefinder@dbcls.rois.ac.jp"><i class="icon-mail-alt"></i>Contact</a></li>
+                            <li><a target="_blank" href="https://integbio.jp/rdf/dataset/pubcasefinder"><i
+                                        class="icon-share"></i>RDF</a></li>
+                            <li><a title="Comments & suggestions are welcome!"
+                                    href="mailto:support@dbcls.rois.ac.jp,pubcasefinder@dbcls.rois.ac.jp"><i
+                                        class="icon-mail-alt"></i>Contact</a></li>
                         </ul>
                     </nav>
                     <nav class="nav-sp">
@@ -99,22 +107,26 @@
                                         menu
                                     </span></a>
                                 <ul class="sub-menu">
-				    {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
+                                    {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
                                     <li><a href="/static/pdf/PubCaseFinder_manual_ja_v4.pdf">Guides</a></li>
-			            {% else %}
+                                    {% else %}
                                     <li><a href="/static/pdf/PubCaseFinder_manual_en_v4.pdf">Guides</a></li>
-				    {% endif %}
+                                    {% endif %}
                                     <li><a href="/api">API</a></li>
                                     <li><a href="/history">History</a></li>
                                     <li><a href="/termsofservice">Terms</a></li>
                                     <li><a href="/sources">Sources</a></li>
-                                    <li><a target="_blank" href="https://integbio.jp/rdf/dataset/pubcasefinder">RDF</a></li>
-                                    <li><a title="Comments & suggestions are welcome!" href="mailto:support@dbcls.rois.ac.jp,pubcasefinder@dbcls.rois.ac.jp">Contact</a></li>
+                                    <li><a target="_blank" href="https://integbio.jp/rdf/dataset/pubcasefinder">RDF</a>
+                                    </li>
+                                    <li><a title="Comments & suggestions are welcome!"
+                                            href="mailto:support@dbcls.rois.ac.jp,pubcasefinder@dbcls.rois.ac.jp">Contact</a>
+                                    </li>
                                 </ul>
                             </li>
                         </ul>
                     </nav>
-                    <div class="language"><a href="{{ request.path }}?lang=en">EN</a> / <a href="{{ request.path }}?lang=ja">JA</a></div>
+                    <div class="language"><a href="{{ request.path }}?lang=en">EN</a> / <a
+                            href="{{ request.path }}?lang=ja">JA</a></div>
                     <!--<div class="site-header_end">
                         <a class="button" href="#">Login<i class="material-icons">expand_more</i></a>
                     </div>-->
@@ -125,44 +137,52 @@
     <div class="top-wrapper">
         <section class="content">
             <div class="search">
-	      <form name="search" action="/result" method="get" class="form-group">
-                <div class="search-box_wrapper">
-                    <div class="search-brand">
-                        <a href="/"><img src="/static/images/pcf/top/logo_color.svg" alt=""></a>
+                <form name="search" action="/result" method="get" class="form-group">
+                    <div class="search-box_wrapper">
+                        <div class="search-brand">
+                            <a href="/"><img src="/static/images/pcf/top/logo_color.svg" alt=""></a>
+                            {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
+                            <p>希少・遺伝性疾患検索システム</p>
+                            {% else %}
+                            <p>Search System for Rare Genetic Diseases</p>
+                            {% endif %}
+                        </div>
+                        <textarea class="form-control" rows="2" id="tokeninput_hpo" name="phenotype"></textarea>
+                        <div class="search-button">
+                            <!--span class="search_end"><a href="#">Input Free-Text (doc2hpo)</a></span-->
+                            {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
+                            <a class="search_end" href="/ehr" target="_blank">文章から症状を自動抽出したい場合はコチラ</a>
+                            <!--span class="search_end"><a href="/text2hpo" target="_blank">文章から症状を自動抽出したい場合はコチラ</a></span-->
+                            {% else %}
+                            <a class="search_end" href="https://doc2hpo.wglab.org" target="_blank">Input Free-Text
+                                (doc2hpo)</a>
+                            {% endif %}
+                        </div>
                     </div>
-		    <textarea class="form-control" rows="2" id="tokeninput_hpo" name="phenotype"></textarea>
-                    <div class="search-button">
-                        <!--span class="search_end"><a href="#">Input Free-Text (doc2hpo)</a></span-->
-		        {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
-                        <a class="search_end" href="/ehr" target="_blank">文章から症状を自動抽出したい場合はコチラ</a>
-                        <!--span class="search_end"><a href="/text2hpo" target="_blank">文章から症状を自動抽出したい場合はコチラ</a></span-->
-			{% else %}
-                        <a class="search_end" href="https://doc2hpo.wglab.org" target="_blank">Input Free-Text (doc2hpo)</a>
-			{% endif %}
+                    <div class="search-box_button">
+                        <div class="search-button">
+                            <a id="phenotouch" href=""><i class="icon-icon-symptoms"></i>{{ _('index_button_phenotouch')
+                                }}</a>
+                            <a id="tokeninput_hpo_clear" href="">{{ _('index_button_clear') }}</a>
+                            <a href="javascript:search.submit()" class="search-button-left"><i
+                                    class="icon-icon-search"></i>{{ _('index_button_search') }}</a>
+                        </div>
                     </div>
-                </div>
-                <div class="search-box_button">
-                    <div class="search-button">
-                        <a id="phenotouch" href=""><i class="icon-icon-symptoms"></i>{{ _('index_button_phenotouch') }}</a>
-                        <a id="tokeninput_hpo_clear" href="">{{ _('index_button_clear') }}</a>
-                        <a href="javascript:search.submit()" class="search-button-left"><i class="icon-icon-search"></i>{{ _('index_button_search') }}</a>
+                    <div class="search-ex">
+                        <a href="#" id="ex_phenotypes">ex) {{ _('index_Sample') }}</a>
                     </div>
-                </div>
-                <div class="search-ex">
-                    <a href="#" id="ex_phenotypes">ex) {{ _('index_Sample') }}</a>
-                </div>
 
-		<input type="hidden" name="target" value="omim">
-		<input type="hidden" name="filter" value="">
-		<input type="hidden" name="size" value="10">
-		<input type="hidden" name="display_format" value="full">
-		{% if get_locale() == "ja" or get_locale() == "ja_JP" %}
-		<input type="hidden" name="lang" value="ja">
-		{% else %}
-		<input type="hidden" name="lang" value="en">
-		{% endif %}
+                    <input type="hidden" name="target" value="omim">
+                    <input type="hidden" name="filter" value="">
+                    <input type="hidden" name="size" value="10">
+                    <input type="hidden" name="display_format" value="full">
+                    {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
+                    <input type="hidden" name="lang" value="ja">
+                    {% else %}
+                    <input type="hidden" name="lang" value="en">
+                    {% endif %}
 
-              </form>
+                </form>
             </div>
 
             <!--mapstart-->
@@ -172,7 +192,8 @@
                         <div class="hover_image">
                             <button>
                                 <div class="rotate_image"><img data-target="modal1" class="modal_open"
-                                        rel="noopener noreferrer" src="/static/images/pcf/top/img_card_front.svg" alt=""></div>
+                                        rel="noopener noreferrer" src="/static/images/pcf/top/img_card_front.svg"
+                                        alt=""></div>
                             </button>
                         </div>
                     </div>
@@ -180,7 +201,8 @@
                         <div class="hover_image">
                             <button>
                                 <div class="rotate_image"><img data-target="modal2" class="modal_open"
-                                        rel="noopener noreferrer" src="/static/images/pcf/top/img_card_front.svg" alt=""></div>
+                                        rel="noopener noreferrer" src="/static/images/pcf/top/img_card_front.svg"
+                                        alt=""></div>
                             </button>
                         </div>
                     </div>
@@ -188,7 +210,8 @@
                         <div class="hover_image">
                             <button>
                                 <div class="rotate_image"><img data-target="modal3" class="modal_open"
-                                        rel="noopener noreferrer" src="/static/images/pcf/top/img_card_front.svg" alt=""></div>
+                                        rel="noopener noreferrer" src="/static/images/pcf/top/img_card_front.svg"
+                                        alt=""></div>
                             </button>
                         </div>
                     </div>
@@ -196,7 +219,8 @@
                         <div class="hover_image">
                             <button>
                                 <div class="rotate_image"><img data-target="modal4" class="modal_open"
-                                        rel="noopener noreferrer" src="/static/images/pcf/top/img_card_front.svg" alt=""></div>
+                                        rel="noopener noreferrer" src="/static/images/pcf/top/img_card_front.svg"
+                                        alt=""></div>
                             </button>
                         </div>
                     </div>
@@ -204,7 +228,8 @@
                         <div class="hover_image">
                             <button>
                                 <div class="rotate_image"><img data-target="modal5" class="modal_open"
-                                        rel="noopener noreferrer" src="/static/images/pcf/top/img_card_front.svg" alt=""></div>
+                                        rel="noopener noreferrer" src="/static/images/pcf/top/img_card_front.svg"
+                                        alt=""></div>
                             </button>
                         </div>
                     </div>
@@ -212,7 +237,8 @@
                         <div class="hover_image">
                             <button>
                                 <div class="rotate_image"><img data-target="modal6" class="modal_open"
-                                        rel="noopener noreferrer" src="/static/images/pcf/top/img_card_front.svg" alt=""></div>
+                                        rel="noopener noreferrer" src="/static/images/pcf/top/img_card_front.svg"
+                                        alt=""></div>
                             </button>
                         </div>
                     </div>
@@ -220,7 +246,8 @@
                         <div class="hover_image">
                             <button>
                                 <div class="rotate_image"><img data-target="modal7" class="modal_open"
-                                        rel="noopener noreferrer" src="/static/images/pcf/top/img_card_front.svg" alt=""></div>
+                                        rel="noopener noreferrer" src="/static/images/pcf/top/img_card_front.svg"
+                                        alt=""></div>
                             </button>
                         </div>
                     </div>
@@ -228,7 +255,8 @@
                         <div class="hover_image">
                             <button>
                                 <div class="rotate_image"><img data-target="modal8" class="modal_open"
-                                        rel="noopener noreferrer" src="/static/images/pcf/top/img_card_front.svg" alt=""></div>
+                                        rel="noopener noreferrer" src="/static/images/pcf/top/img_card_front.svg"
+                                        alt=""></div>
                             </button>
                         </div>
                     </div>
@@ -236,7 +264,8 @@
                         <div class="hover_image">
                             <button>
                                 <div class="rotate_image"><img data-target="modal9" class="modal_open"
-                                        rel="noopener noreferrer" src="/static/images/pcf/top/img_card_front.svg" alt=""></div>
+                                        rel="noopener noreferrer" src="/static/images/pcf/top/img_card_front.svg"
+                                        alt=""></div>
                             </button>
                         </div>
                     </div>
@@ -245,11 +274,11 @@
                 <div id="modal1" class="modal_box">
                     <div class="modal_img">
                         <img src="/static/images/pcf/top/system_01.png">
-			{% if get_locale() == "ja" or get_locale() == "ja_JP" %}
+                        {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
                         <h2>疾患を探す</h2>
-			{% else %}
+                        {% else %}
                         <h2>Finding Diseases</h2>
-			{% endif %}
+                        {% endif %}
                         <div class="link_area">
                             <div>
                                 <div class="modal_link"><a data-target="modal9" class="modal_switch btn_prev"><span
@@ -264,22 +293,25 @@
                                 </div>
                             </div>
                         </div>
-			{% if get_locale() == "ja" or get_locale() == "ja_JP" %}
+                        {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
                         <p>入力した症状と関連性の高い順に疾患をランキング形式で提示します。</p>
-			{% else %}
+                        {% else %}
                         <p>Ranked lists of rare and genetic diseases are produced for medical professionals.</p>
-			{% endif %}
+                        {% endif %}
                     </div>
                     <div class="modal_list">
                         <h3>TIPS</h3>
                         <img src="/static/images/pcf/top/activity01.png">
-			{% if get_locale() == "ja" or get_locale() == "ja_JP" %}
+                        {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
                         <p>診療録から自動的に症状を抽出し、それらを入力とした疾患ランキング結果を得ることができます。</p>
-                        <button onClick="javascript:window.open('https://pubcasefinder.dbcls.jp/ehr', '_blank');">Input Free-Text</button>
-			{% else %}
-                        <p>You can automatically extract signs and symptoms from medical records by doc2hpo and obtain a ranked list of diseases based on these inputs.</p>
-                        <button onClick="javascript:window.open('https://doc2hpo.wglab.org/', '_blank');">Input Free-Text</button>
-			{% endif %}
+                        <button onClick="javascript:window.open('https://pubcasefinder.dbcls.jp/ehr', '_blank');">Input
+                            Free-Text</button>
+                        {% else %}
+                        <p>You can automatically extract signs and symptoms from medical records by doc2hpo and obtain a
+                            ranked list of diseases based on these inputs.</p>
+                        <button onClick="javascript:window.open('https://doc2hpo.wglab.org/', '_blank');">Input
+                            Free-Text</button>
+                        {% endif %}
                     </div>
                     <p><a class="modal_close">
                             <div class="batsu">×</div>
@@ -291,11 +323,11 @@
                 <div id="modal2" class="modal_box">
                     <div class="modal_img">
                         <img src="/static/images/pcf/top/system_02.png">
-			{% if get_locale() == "ja" or get_locale() == "ja_JP" %}
+                        {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
                         <h2>症例を共有</h2>
-			{% else %}
+                        {% else %}
                         <h2>Sharing Cases</h2>
-			{% endif %}
+                        {% endif %}
                         <div class="link_area">
                             <div>
                                 <div class="modal_link"><a data-target="modal1" class="modal_switch btn_prev"><span
@@ -310,21 +342,24 @@
                                 </div>
                             </div>
                         </div>
-			{% if get_locale() == "ja" or get_locale() == "ja_JP" %}
+                        {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
                         <p>症状情報の共有に最適なPhenopackets形式に対応します。</p>
-			{% else %}
-                        <p>PubCaseFinder will support the Phenopackets format, which is ideal for sharing phenotypic data.</p>
-			{% endif %}
+                        {% else %}
+                        <p>PubCaseFinder will support the Phenopackets format, which is ideal for sharing phenotypic
+                            data.</p>
+                        {% endif %}
                     </div>
                     <div class="modal_list">
                         <h3>TIPS</h3>
                         <img src="/static/images/pcf/top/activity02.png">
-			{% if get_locale() == "ja" or get_locale() == "ja_JP" %}
+                        {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
                         <p>診療録から自動抽出した症状をPhenopackets形式で保存できます。今後、より広範な情報をPhenopackets形式で保存できる機能を提供する予定です。</p>
-			{% else %}
-                        <p>In the future, we plan to provide the capability to save more individual's medically relevant data in Phenopackets format.</p>
-			{% endif %}
-                        <button onClick="javascript:window.open('http://phenopackets.org/', '_blank');">What is Phenopackets</button>
+                        {% else %}
+                        <p>In the future, we plan to provide the capability to save more individual's medically relevant
+                            data in Phenopackets format.</p>
+                        {% endif %}
+                        <button onClick="javascript:window.open('http://phenopackets.org/', '_blank');">What is
+                            Phenopackets</button>
                     </div>
                     <p><a class="modal_close">
                             <div class="batsu">×</div>
@@ -336,11 +371,11 @@
                 <div id="modal3" class="modal_box">
                     <div class="modal_img">
                         <img src="/static/images/pcf/top/system_03.png">
-			{% if get_locale() == "ja" or get_locale() == "ja_JP" %}
+                        {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
                         <h2>API提供</h2>
-			{% else %}
+                        {% else %}
                         <h2>PubCaseFinder API</h2>
-			{% endif %}
+                        {% endif %}
                         <div class="link_area">
                             <div>
                                 <div class="modal_link"><a data-target="modal2" class="modal_switch btn_prev"><span
@@ -355,21 +390,25 @@
                                 </div>
                             </div>
                         </div>
-			{% if get_locale() == "ja" or get_locale() == "ja_JP" %}
+                        {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
                         <p>PubCaseFinderが提供する機能の多くをAPIとして公開しています。
-			{% else %}
+                            {% else %}
                         <p>We provide APIs to query PubCaseFinder.</p>
-			{% endif %}
+                        {% endif %}
                     </div>
                     <div class="modal_list">
                         <h3>TIPS</h3>
                         <img src="/static/images/pcf/top/activity03.png">
-			{% if get_locale() == "ja" or get_locale() == "ja_JP" %}
-                        <p>疾患や遺伝子のランキング結果をJSON/TSV形式で取得できます。本APIはGA4GHの<a target="_blank" href="https://www.matchmakerexchange.org/">Matchmaker Exchange</a>プロジェクトでも活用されています。</p>
-			{% else %}
-                        <p>The PubCaseFinder API has been adopted by several patient repositories in the <a target="_blank" href="https://www.matchmakerexchange.org/">Matchmaker Exchange</a> project.</p>
-			{% endif %}
-                        <button onClick="javascript:window.open('https://pubcasefinder.dbcls.jp/api', '_blank');">View the PubCaseFinder API</button>
+                        {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
+                        <p>疾患や遺伝子のランキング結果をJSON/TSV形式で取得できます。本APIはGA4GHの<a target="_blank"
+                                href="https://www.matchmakerexchange.org/">Matchmaker Exchange</a>プロジェクトでも活用されています。</p>
+                        {% else %}
+                        <p>The PubCaseFinder API has been adopted by several patient repositories in the <a
+                                target="_blank" href="https://www.matchmakerexchange.org/">Matchmaker Exchange</a>
+                            project.</p>
+                        {% endif %}
+                        <button onClick="javascript:window.open('https://pubcasefinder.dbcls.jp/api', '_blank');">View
+                            the PubCaseFinder API</button>
                     </div>
                     <p><a class="modal_close">
                             <div class="batsu">×</div>
@@ -381,11 +420,11 @@
                 <div id="modal4" class="modal_box">
                     <div class="modal_img">
                         <img src="/static/images/pcf/top/system_04.png">
-			{% if get_locale() == "ja" or get_locale() == "ja_JP" %}
+                        {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
                         <h2>教育現場で活用</h2>
-			{% else %}
+                        {% else %}
                         <h2>Use in Education</h2>
-			{% endif %}
+                        {% endif %}
                         <div class="link_area">
                             <div>
                                 <div class="modal_link"><a data-target="modal3" class="modal_switch btn_prev"><span
@@ -400,11 +439,11 @@
                                 </div>
                             </div>
                         </div>
-			{% if get_locale() == "ja" or get_locale() == "ja_JP" %}
+                        {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
                         <p>臨床遺伝学等の教育用ツールとして活用可能です。</p>
-			{% else %}
+                        {% else %}
                         <p>PubCaseFinder can be used as an educational tool for clinical genetics.</p>
-			{% endif %}
+                        {% endif %}
                     </div>
                     <div class="modal_list">
                         <h3>TIPS</h3>
@@ -412,12 +451,15 @@
                             frameborder="0"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                             allowfullscreen></iframe>
-			{% if get_locale() == "ja" or get_locale() == "ja_JP" %}
+                        {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
                         <p>欧州最大規模の医療施設エラスムス大学医療センターの授業で取り上げられています。PubCaseFinderを用いた演習問題も設定されています。</p>
-			{% else %}
-                        <p>In a class at Erasmus Medical Center, one of the largest medical facilities in Europe, PubCaseFinder has been introduced and used for exercises.</p>
-			{% endif %}
-                        <button onClick="javascript:window.open('https://cis.erasmusmc.nl/reports/438c09d4-cc52-4c5b-ae3b-6555ad4a77c4/html', '_blank');">View the Erasmus MC website</button>
+                        {% else %}
+                        <p>In a class at Erasmus Medical Center, one of the largest medical facilities in Europe,
+                            PubCaseFinder has been introduced and used for exercises.</p>
+                        {% endif %}
+                        <button
+                            onClick="javascript:window.open('https://cis.erasmusmc.nl/reports/438c09d4-cc52-4c5b-ae3b-6555ad4a77c4/html', '_blank');">View
+                            the Erasmus MC website</button>
                     </div>
                     <p><a class="modal_close">
                             <div class="batsu">×</div>
@@ -429,11 +471,11 @@
                 <div id="modal5" class="modal_box">
                     <div class="modal_img">
                         <img src="/static/images/pcf/top/system_05.png">
-			{% if get_locale() == "ja" or get_locale() == "ja_JP" %}
+                        {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
                         <h2>症例報告を探す</h2>
-			{% else %}
+                        {% else %}
                         <h2>Finding Case Reports</h2>
-			{% endif %}
+                        {% endif %}
                         <div class="link_area">
                             <div>
                                 <div class="modal_link"><a data-target="modal4" class="modal_switch btn_prev"><span
@@ -448,22 +490,26 @@
                                 </div>
                             </div>
                         </div>
-			{% if get_locale() == "ja" or get_locale() == "ja_JP" %}
+                        {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
                         <p>疾患ごとに日本語および英語の症例報告を検索できます。</p>
-			{% else %}
+                        {% else %}
                         <p>You can search for case reports for each disease.</p>
-			{% endif %}
+                        {% endif %}
                     </div>
                     <div class="modal_list">
                         <h3>TIPS</h3>
                         <img src="/static/images/pcf/top/activity05.png">
-			{% if get_locale() == "ja" or get_locale() == "ja_JP" %}
+                        {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
                         <p>JSTが提供するJ-STAGEおよびJ-GLOBALに収載されている日本語症例報告を疾患ごとに検索できます。</p>
-                        <button onClick="javascript:window.open('https://pubcasefinder.dbcls.jp/result?target=orphanet&phenotype=HP:0000347_ja,HP:0003022_ja,HP:0009381_ja,HP:0000204_ja,HP:0000625_ja&filter=MONDO:0007318&size=10&display_format=full&lang=ja', '_blank');">View example</button>
-			{% else %}
+                        <button
+                            onClick="javascript:window.open('https://pubcasefinder.dbcls.jp/result?target=orphanet&phenotype=HP:0000347_ja,HP:0003022_ja,HP:0009381_ja,HP:0000204_ja,HP:0000625_ja&filter=MONDO:0007318&size=10&display_format=full&lang=ja', '_blank');">View
+                            example</button>
+                        {% else %}
                         <p>300,000 published case reports included in PubMed are searchable for each disease.</p>
-                        <button onClick="javascript:window.open('https://pubcasefinder.dbcls.jp/result?target=orphanet&phenotype=HP:0000347,HP:0003022,HP:0009381,HP:0000204,HP:0000625&filter=MONDO:0007318&size=10&display_format=full&lang=en', '_blank');">View example</button>
-			{% endif %}
+                        <button
+                            onClick="javascript:window.open('https://pubcasefinder.dbcls.jp/result?target=orphanet&phenotype=HP:0000347,HP:0003022,HP:0009381,HP:0000204,HP:0000625&filter=MONDO:0007318&size=10&display_format=full&lang=en', '_blank');">View
+                            example</button>
+                        {% endif %}
 
                     </div>
                     <p><a class="modal_close">
@@ -476,11 +522,11 @@
                 <div id="modal6" class="modal_box">
                     <div class="modal_img">
                         <img src="/static/images/pcf/top/system_06.png">
-			{% if get_locale() == "ja" or get_locale() == "ja_JP" %}
+                        {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
                         <h2>症例を探す</h2>
-			{% else %}
+                        {% else %}
                         <h2>Finding Open-Sharing Cases</h2>
-			{% endif %}
+                        {% endif %}
                         <div class="link_area">
                             <div>
                                 <div class="modal_link"><a data-target="modal5" class="modal_switch btn_prev"><span
@@ -495,22 +541,27 @@
                                 </div>
                             </div>
                         </div>
-			{% if get_locale() == "ja" or get_locale() == "ja_JP" %}
+                        {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
                         <p>インターネット上で公開されている約19,000件の症例を検索できます。</p>
-			{% else %}
+                        {% else %}
                         <p>You can search about 19,000 open-sharing cases available on the Internet.</p>
-			{% endif %}
+                        {% endif %}
                     </div>
                     <div class="modal_list">
                         <h3>TIPS</h3>
                         <img src="/static/images/pcf/top/activity06.png">
-			{% if get_locale() == "ja" or get_locale() == "ja_JP" %}
+                        {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
                         <p>入力した症状・遺伝子に関連する公開症例を検索でき、それら症例を公開するウェブサイトにアクセスできます。</p>
-                        <button onClick="javascript:window.open('https://pubcasefinder.dbcls.jp/result?target=case&phenotype=HP:0001903_ja,HP:0000952_ja,HP:0001744_ja,HP:0004444_ja&filter=GENEID:2038,GENEID:6708,GENEID:6521,GENEID:286,GENEID:6710&size=10&display_format=full&lang=ja', '_blank');">View example</button>
-			{% else %}
-                        <p>By specifying phenotypes and genes, you can search for open-sharing cases and access their websites.</p>
-                        <button onClick="javascript:window.open('https://pubcasefinder.dbcls.jp/result?target=case&phenotype=HP:0001903,HP:0000952,HP:0001744,HP:0004444&filter=GENEID:2038,GENEID:6708,GENEID:6521,GENEID:286,GENEID:6710&size=10&display_format=full&lang=en', '_blank');">View example</button>
-			{% endif %}
+                        <button
+                            onClick="javascript:window.open('https://pubcasefinder.dbcls.jp/result?target=case&phenotype=HP:0001903_ja,HP:0000952_ja,HP:0001744_ja,HP:0004444_ja&filter=GENEID:2038,GENEID:6708,GENEID:6521,GENEID:286,GENEID:6710&size=10&display_format=full&lang=ja', '_blank');">View
+                            example</button>
+                        {% else %}
+                        <p>By specifying phenotypes and genes, you can search for open-sharing cases and access their
+                            websites.</p>
+                        <button
+                            onClick="javascript:window.open('https://pubcasefinder.dbcls.jp/result?target=case&phenotype=HP:0001903,HP:0000952,HP:0001744,HP:0004444&filter=GENEID:2038,GENEID:6708,GENEID:6521,GENEID:286,GENEID:6710&size=10&display_format=full&lang=en', '_blank');">View
+                            example</button>
+                        {% endif %}
 
                     </div>
                     <p><a class="modal_close">
@@ -523,11 +574,11 @@
                 <div id="modal7" class="modal_box">
                     <div class="modal_img">
                         <img src="/static/images/pcf/top/system_07.png">
-			{% if get_locale() == "ja" or get_locale() == "ja_JP" %}
+                        {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
                         <h2>バリアントを絞り込む</h2>
-			{% else %}
+                        {% else %}
                         <h2>Filtering Variants</h2>
-			{% endif %}
+                        {% endif %}
                         <div class="link_area">
                             <div>
                                 <div class="modal_link"><a data-target="modal6" class="modal_switch btn_prev"><span
@@ -542,22 +593,28 @@
                                 </div>
                             </div>
                         </div>
-			{% if get_locale() == "ja" or get_locale() == "ja_JP" %}
+                        {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
                         <p>疾患原因の候補遺伝子を入力症状との関連度でランキングできます。</p>
-			{% else %}
-                        <p>You can prioritize candidate disease-causing genes according to the phenotypic similarity.</p>
-			{% endif %}
+                        {% else %}
+                        <p>You can prioritize candidate disease-causing genes according to the phenotypic similarity.
+                        </p>
+                        {% endif %}
                     </div>
                     <div class="modal_list">
                         <h3>TIPS</h3>
                         <img src="/static/images/pcf/top/activity07.png">
-			{% if get_locale() == "ja" or get_locale() == "ja_JP" %}
+                        {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
                         <p>Filterに候補遺伝子名を入力すると，その候補遺伝子に関連する疾患・遺伝子・症例のランキングに絞り込まれます。</p>
-                        <button onClick="javascript:window.open('https://pubcasefinder.dbcls.jp/result?target=gene&phenotype=HP:0001903_ja,HP:0000952_ja,HP:0001744_ja,HP:0004444_ja&filter=GENEID:2038,GENEID:6708,GENEID:6521,GENEID:286,GENEID:6710&size=10&display_format=full&jang=ja', '_blank');">View example</button>
-			{% else %}
-                        <p>By specifying candidate disease-causing genes in Filter, you can get ranked lists of diseases, genes, and open-sharing case related to the input.</p>
-                        <button onClick="javascript:window.open('https://pubcasefinder.dbcls.jp/result?target=gene&phenotype=HP:0001903,HP:0000952,HP:0001744,HP:0004444&filter=GENEID:2038,GENEID:6708,GENEID:6521,GENEID:286,GENEID:6710&size=10&display_format=full&lang=en', '_blank');">View example</button>
-			{% endif %}
+                        <button
+                            onClick="javascript:window.open('https://pubcasefinder.dbcls.jp/result?target=gene&phenotype=HP:0001903_ja,HP:0000952_ja,HP:0001744_ja,HP:0004444_ja&filter=GENEID:2038,GENEID:6708,GENEID:6521,GENEID:286,GENEID:6710&size=10&display_format=full&jang=ja', '_blank');">View
+                            example</button>
+                        {% else %}
+                        <p>By specifying candidate disease-causing genes in Filter, you can get ranked lists of
+                            diseases, genes, and open-sharing case related to the input.</p>
+                        <button
+                            onClick="javascript:window.open('https://pubcasefinder.dbcls.jp/result?target=gene&phenotype=HP:0001903,HP:0000952,HP:0001744,HP:0004444&filter=GENEID:2038,GENEID:6708,GENEID:6521,GENEID:286,GENEID:6710&size=10&display_format=full&lang=en', '_blank');">View
+                            example</button>
+                        {% endif %}
                     </div>
                     <p><a class="modal_close">
                             <div class="batsu">×</div>
@@ -569,11 +626,11 @@
                 <div id="modal8" class="modal_box">
                     <div class="modal_img">
                         <img src="/static/images/pcf/top/system_08.png">
-			{% if get_locale() == "ja" or get_locale() == "ja_JP" %}
+                        {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
                         <h2>多言語対応</h2>
-			{% else %}
+                        {% else %}
                         <h2>Multilingualization</h2>
-			{% endif %}
+                        {% endif %}
                         <div class="link_area">
                             <div>
                                 <div class="modal_link"><a data-target="modal7" class="modal_switch btn_prev"><span
@@ -588,20 +645,21 @@
                                 </div>
                             </div>
                         </div>
-			{% if get_locale() == "ja" or get_locale() == "ja_JP" %}
+                        {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
                         <p>日本語と英語に対応しています。今後、より多くの言語に対応する予定です。</p>
-			{% else %}
-                        <p>PubCaseFinder supports English and Japanese. More languages will be supported in the future.</p>
-			{% endif %}
+                        {% else %}
+                        <p>PubCaseFinder supports English and Japanese. More languages will be supported in the future.
+                        </p>
+                        {% endif %}
                     </div>
                     <div class="modal_list">
                         <h3>TIPS</h3>
                         <img src="/static/images/pcf/top/activity08.png">
-			{% if get_locale() == "ja" or get_locale() == "ja_JP" %}
+                        {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
                         <p>専門家による日本語訳を利用していますが、翻訳に関するフィードバックを歓迎します。</p>
-			{% else %}
+                        {% else %}
                         <p>Please let us know if you have a language you would like support for.</p>
-			{% endif %}
+                        {% endif %}
                         <button onClick="location.href='mailto:pubcasefinder@dbcls.rois.ac.jp'">Welcome your
                             feedback</button>
                     </div>
@@ -615,11 +673,11 @@
                 <div id="modal9" class="modal_box">
                     <div class="modal_img">
                         <img src="/static/images/pcf/top/system_09.png">
-			{% if get_locale() == "ja" or get_locale() == "ja_JP" %}
+                        {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
                         <h2>症例情報を管理する</h2>
-			{% else %}
+                        {% else %}
                         <h2>Managing Patient Records</h2>
-			{% endif %}
+                        {% endif %}
                         <div class="link_area">
                             <div>
                                 <div class="modal_link"><a data-target="modal8" class="modal_switch btn_prev"><span
@@ -634,20 +692,21 @@
                                 </div>
                             </div>
                         </div>
-			{% if get_locale() == "ja" or get_locale() == "ja_JP" %}
+                        {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
                         <p>症例情報をセキュアに管理する機能を提供します。</p>
-			{% else %}
+                        {% else %}
                         <p>We plan to provide a secure feature for easy management of case records.</p>
-			{% endif %}
+                        {% endif %}
                     </div>
                     <div class="modal_list">
                         <h3>TIPS</h3>
                         <img src="/static/images/pcf/top/activity09.png">
-			{% if get_locale() == "ja" or get_locale() == "ja_JP" %}
+                        {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
                         <p>今後、症例情報を管理するための機能を提供する予定です。症例情報はローカルPC上のファイルとして管理するため、インターネット上に情報が送られない安全な仕組みになります。</p>
-			{% else %}
-                        <p>In the future, we plan to provide a secure feature to manage a set of case records. Individual records can be managed locally by the user.</p>
-			{% endif %}
+                        {% else %}
+                        <p>In the future, we plan to provide a secure feature to manage a set of case records.
+                            Individual records can be managed locally by the user.</p>
+                        {% endif %}
                     </div>
                     <p><a class="modal_close">
                             <div class="batsu">×</div>
@@ -672,33 +731,33 @@
                     <div class="movie-text">
                         <div class="text-left">
                             <!--h1>Useful For Finding Diseases And Cases</h1-->
-			    <h1>PubCaseFinder accelerates precision medicine with the phenotype-based resources.</h6>
-                            <div class="hover_image_wrap">
-                                <button>
-                                    <div class="rotate_image modal_open howtobtn" data-target="modal10"
-                                        rel="noopener noreferrer"><i class="icon-icon-movie"></i>How Does It Work?
-                                    </div>
-                                </button>
-                            </div>
-                            <!--modal10-->
-                            <div id="modal10" class="modal_box">
-                                <iframe class="howto_movie" width="560" height="450" src="" title="YouTube video player"
-                                    frameborder="0"
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                    allowfullscreen></iframe>
-                                <div class="modal_img">
-
-                                    <!--Managing Patient Records-->
-                                    <div class="link_area">
-
-                                    </div>
+                            <h1>PubCaseFinder accelerates precision medicine with the phenotype-based resources.</h6>
+                                <div class="hover_image_wrap">
+                                    <button>
+                                        <div class="rotate_image modal_open howtobtn" data-target="modal10"
+                                            rel="noopener noreferrer"><i class="icon-icon-movie"></i>How Does It Work?
+                                        </div>
+                                    </button>
                                 </div>
+                                <!--modal10-->
+                                <div id="modal10" class="modal_box">
+                                    <iframe class="howto_movie" width="560" height="450" src=""
+                                        title="YouTube video player" frameborder="0"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                        allowfullscreen></iframe>
+                                    <div class="modal_img">
 
-                                <p><a class="modal_close">
-                                        <div class="batsu">×</div>
-                                    </a>
-                                </p>
-                            </div>
+                                        <!--Managing Patient Records-->
+                                        <div class="link_area">
+
+                                        </div>
+                                    </div>
+
+                                    <p><a class="modal_close">
+                                            <div class="batsu">×</div>
+                                        </a>
+                                    </p>
+                                </div>
                         </div>
                     </div>
                     <div class="movie-img"><img src="/static/images/pcf/top/img-movie.png"></div>
@@ -802,28 +861,37 @@
                     <div class="Citation-box">
                         <span class="decoration1"><img src="/static/images/pcf/top/comma_1.png"></span>
                         <h5>When you use PubCaseFinder in your publications, please cite:</h5>
-			<br>
+                        <br>
                         <p>
-                        Fujiwara, T., Yamamoto, Y., Kim, J. D., Buske, O., & Takagi, T. (2018). PubCaseFinder: A case-report-based, phenotype-driven differential-diagnosis system for rare diseases. The American Journal of Human Genetics, 103(3), 389-399.
-			</p>
+                            Fujiwara, T., Yamamoto, Y., Kim, J. D., Buske, O., & Takagi, T. (2018). PubCaseFinder: A
+                            case-report-based, phenotype-driven differential-diagnosis system for rare diseases. The
+                            American Journal of Human Genetics, 103(3), 389-399.
+                        </p>
                         <div class="Citation-button">
                             <a href="https://www.ncbi.nlm.nih.gov/pubmed/30173820" target="_blank">[PubMed Entry]</a>
-                            <a href="https://www.cell.com/ajhg/fulltext/S0002-9297(18)30269-6?code=ajhg-site" target="_blank"> [Full Text]</a>
+                            <a href="https://www.cell.com/ajhg/fulltext/S0002-9297(18)30269-6?code=ajhg-site"
+                                target="_blank"> [Full Text]</a>
                         </div>
-			<br>
+                        <br>
                         <p>
-                        Yamaguchi, A., Shin, J. M., & Fujiwara, T. (2021, December). Gene Ranking based on Paths from Phenotypes to Genes on Knowledge Graph. In The 10th International Joint Conference on Knowledge Graphs (pp. 131-134).
-			</p>
+                            Yamaguchi, A., Shin, J. M., & Fujiwara, T. (2021, December). Gene Ranking based on Paths
+                            from Phenotypes to Genes on Knowledge Graph. In The 10th International Joint Conference on
+                            Knowledge Graphs (pp. 131-134).
+                        </p>
                         <div class="Citation-button">
-                            <a href="https://dl.acm.org/doi/abs/10.1145/3502223.3502240?casa_token=ZIFfd6o2HOkAAAAA:Eq9dExLyXT3ez937hiexBNv07gL2ci7NjgCPRFqrWVBS-0tLG1wvRVbOljKBHHhO4fniVTobvVzC" target="_blank"> [Full Text]</a>
+                            <a href="https://dl.acm.org/doi/abs/10.1145/3502223.3502240?casa_token=ZIFfd6o2HOkAAAAA:Eq9dExLyXT3ez937hiexBNv07gL2ci7NjgCPRFqrWVBS-0tLG1wvRVbOljKBHHhO4fniVTobvVzC"
+                                target="_blank"> [Full Text]</a>
                         </div>
-			<br>
+                        <br>
                         <p>
-                        Fujiwara, T., Shin, J. M., & Yamaguchi, A. (2022). Advances in the development of PubCaseFinder, including the new application programming interface and matching algorithm. Human mutation, 10.1002/humu.24341. Advance online publication.
-			</p>
+                            Fujiwara, T., Shin, J. M., & Yamaguchi, A. (2022). Advances in the development of
+                            PubCaseFinder, including the new application programming interface and matching algorithm.
+                            Human mutation, 10.1002/humu.24341. Advance online publication.
+                        </p>
                         <div class="Citation-button">
                             <a href="https://www.ncbi.nlm.nih.gov/pubmed/35143083" target="_blank">[PubMed Entry]</a>
-                            <a href="https://onlinelibrary.wiley.com/doi/abs/10.1002/humu.24341" target="_blank"> [Full Text]</a>
+                            <a href="https://onlinelibrary.wiley.com/doi/abs/10.1002/humu.24341" target="_blank"> [Full
+                                Text]</a>
                         </div>
                         <span class="decoration2"><img src="/static/images/pcf/top/comma_2.png"></span>
                     </div>
@@ -839,10 +907,12 @@
                         <a href="https://hpo.jax.org/app/"><img src="/static/images/pcf/top/logo_human.png"></a>
                     </div>
                     <div class="item">
-                        <a href="https://github.com/monarch-initiative/mondo"><img src="/static/images/pcf/top/logo_mondo.png"></a>
+                        <a href="https://github.com/monarch-initiative/mondo"><img
+                                src="/static/images/pcf/top/logo_mondo.png"></a>
                     </div>
                     <div class="item">
-                        <a href="http://www.orphadata.org/cgi-bin/index.php"><img src="/static/images/pcf/top/logo_orpha.png"></a>
+                        <a href="http://www.orphadata.org/cgi-bin/index.php"><img
+                                src="/static/images/pcf/top/logo_orpha.png"></a>
                     </div>
                     <div class="item">
                         <a href="https://monarchinitiative.org/"><img src="/static/images/pcf/top/logo_monarch.png"></a>
@@ -869,14 +939,16 @@
                         </a>
                     </div>
                     <div class="item">
-                        <a href="https://www.matchmakerexchange.org"><img src="/static/images/pcf/top/logo_matchmaker.png">
+                        <a href="https://www.matchmakerexchange.org"><img
+                                src="/static/images/pcf/top/logo_matchmaker.png">
                         </a>
                     </div>
                     <div class="item">
                         <a href="https://biosciencedbc.jp/en/"><img src="/static/images/pcf/top/logo_NBDC.png"></a>
                     </div>
                     <div class="item">
-                        <a href="https://www.matchmakerexchange.org/"><img src="/static/images/pcf/top/logo_PhenoTips.png">
+                        <a href="https://www.matchmakerexchange.org/"><img
+                                src="/static/images/pcf/top/logo_PhenoTips.png">
                         </a>
                     </div>
                     <div class="item">
@@ -888,7 +960,8 @@
                         </a>
                     </div>
                     <div class="item">
-                        <a href="https://www.jstage.jst.go.jp/browse/-char/ja"><img src="/static/images/pcf/top/logo_jstage.png"></a>
+                        <a href="https://www.jstage.jst.go.jp/browse/-char/ja"><img
+                                src="/static/images/pcf/top/logo_jstage.png"></a>
                     </div>
                     <div class="item">
                         <a href="https://jglobal.jst.go.jp"><img src="/static/images/pcf/top/logo_Jglobal.png"></a>
@@ -903,7 +976,8 @@
 </body>
 
 <!-- START: Common header and footer -->
-<script type="text/javascript" src="/static/common-header-and-footer/script/common-footer.js" id="common-footer__script"></script>
+<script type="text/javascript" src="/static/common-header-and-footer/script/common-footer.js"
+    id="common-footer__script"></script>
 <script type="text/javascript"
     src="https://dbcls.rois.ac.jp/DBCLS-common-header-footer/v2/script/common-header-and-footer.js"
     style="display: block" id="common-header-and-footer__script" data-width="976" data-color="mono"></script>
@@ -1122,7 +1196,7 @@
 </script>
 <!-- END: Slider -->
 
-<!-- START: Import JavaScript -->   
+<!-- START: Import JavaScript -->
 <!-- jQuery -->
 <script src="/static/js/jquery.min.js"></script>
 <!-- jQuery Easing -->
@@ -1145,40 +1219,40 @@
 <script src="/static/js/rater.js"></script>
 <!-- Main -->
 <script src="/static/js/main.js"></script>
-<!-- END: Import JavaScript -->    
+<!-- END: Import JavaScript -->
 
 <!-- START: jquery-tokeninput -->
 <script type="text/javascript" src="/static/js/jquery.tokeninput.js"></script>
 <script type="text/javascript">
-  $(document).ready(function() {
-    $("#ex_phenotypes").click(function (){
-      $("#tokeninput_hpo").tokenInput("add", {id: "{{ _('index_Sample_1_id') }}", name: "{{ _('index_Sample_1_name') }}"});
-      $("#tokeninput_hpo").tokenInput("add", {id: "{{ _('index_Sample_2_id') }}", name: "{{ _('index_Sample_2_name') }}"});
-      $("#tokeninput_hpo").tokenInput("add", {id: "{{ _('index_Sample_3_id') }}", name: "{{ _('index_Sample_3_name') }}"});
-      $("#tokeninput_hpo").tokenInput("add", {id: "{{ _('index_Sample_4_id') }}", name: "{{ _('index_Sample_4_name') }}"});
-      $("#tokeninput_hpo").tokenInput("add", {id: "{{ _('index_Sample_5_id') }}", name: "{{ _('index_Sample_5_name') }}"});
-      return false;
+    $(document).ready(function () {
+        $("#ex_phenotypes").click(function () {
+            $("#tokeninput_hpo").tokenInput("add", { id: "{{ _('index_Sample_1_id') }}", name: "{{ _('index_Sample_1_name') }}" });
+            $("#tokeninput_hpo").tokenInput("add", { id: "{{ _('index_Sample_2_id') }}", name: "{{ _('index_Sample_2_name') }}" });
+            $("#tokeninput_hpo").tokenInput("add", { id: "{{ _('index_Sample_3_id') }}", name: "{{ _('index_Sample_3_name') }}" });
+            $("#tokeninput_hpo").tokenInput("add", { id: "{{ _('index_Sample_4_id') }}", name: "{{ _('index_Sample_4_name') }}" });
+            $("#tokeninput_hpo").tokenInput("add", { id: "{{ _('index_Sample_5_id') }}", name: "{{ _('index_Sample_5_name') }}" });
+            return false;
+        });
+        $("#tokeninput_hpo").tokenInput("/tokeninput_hpo", {
+            theme: "facebook",
+            second_url_str: "/pcf_get_hpo_by_text"
+        });
+        $("#tokeninput_hpo_clear").click(function () {
+            $("#tokeninput_hpo").tokenInput("clear");
+            return false;
+        });
     });
-    $("#tokeninput_hpo").tokenInput("/tokeninput_hpo", {
-      theme: "facebook",
-      second_url_str: "/pcf_get_hpo_by_text"
+    $("#phenotouch").click(function (e) {
+        $.PopupRelationHPOWithWebGL();
+        e.preventDefault();
+        e.stopPropagation();
+        return false;
     });
-    $("#tokeninput_hpo_clear").click(function (){
-      $("#tokeninput_hpo").tokenInput("clear");
-      return false;
+    $('.rater').rate({
+        max_value: 5,
+        step_size: 0.1,
+        initial_value: 0
     });
-  });
-  $("#phenotouch").click(function (e){
-    $.PopupRelationHPOWithWebGL();
-    e.preventDefault();
-    e.stopPropagation();
-    return false;
-  });
-  $('.rater').rate({
-    max_value: 5,
-    step_size: 0.1,
-    initial_value: 0
-  });
 </script>
 <!-- END: jquery-tokeninput -->
 
@@ -1195,9 +1269,9 @@
 <script src="/static/js/popup-hierarchy-hpo.js"></script>
 <script src="/static/js/button-ripple-effect.js"></script>
 <script type="text/javascript">
-  $(document).ready(function() {
-    $("#tokeninput_hpo").popupRelationHPO('/popup_hierarchy_hpo');
-  });
+    $(document).ready(function () {
+        $("#tokeninput_hpo").popupRelationHPO('/popup_hierarchy_hpo');
+    });
 </script>
 
 </html>

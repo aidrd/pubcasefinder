@@ -133,6 +133,7 @@ body {
 }
 
 
+
 .search-header {
     z-index: 100;
     position: sticky;
@@ -806,6 +807,11 @@ body {
 .search-brand {
     width: 60%;
     margin: 30px auto 20px auto;
+}
+
+.search-brand p{
+    text-align: center;
+    color: #13295A;
 }
 
 .search {
