@@ -136,7 +136,7 @@ function _onload() {
 					_initialize();
 
 					let hpo_dic = _get_HPO_DIC();
-					if(hpo_dic.length === 0) {
+					if(hpo_dic === null || hpo_dic.length === 0) {
 						if(_load_HPO_DIC_from_server() === false){
 							return;
 						}
