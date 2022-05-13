@@ -35,28 +35,31 @@ def pcf_download(r_target, r_phenotype, r_target_id, r_format, r_range, r_weight
 
 
     # get filter data
-    url_api_pcf_filter_get_omim_id_by_mondo_id  = "https://pubcasefinder.dbcls.jp/sparqlist/api/test_pcf_filter_get_omim_id_by_mondo_id"
-    url_api_pcf_filter_get_orpha_id_by_mondo_id = "https://pubcasefinder.dbcls.jp/sparqlist/api/test_pcf_filter_get_orpha_id_by_mondo_id"
-    url_api_pcf_filter_get_gene_id_by_mondo_id  = "https://pubcasefinder.dbcls.jp/sparqlist/api/test_pcf_filter_get_gene_id_by_mondo_id"
-    url_api_pcf_filter_get_case_id_by_mondo_id  = ""
-    dict_param_api_pcf_filter_get_omim_id_by_mondo_id  = {"mondo_id":r_filter}
-    dict_param_api_pcf_filter_get_orpha_id_by_mondo_id = {"mondo_id":r_filter}
-    dict_param_api_pcf_filter_get_gene_id_by_mondo_id  = {"mondo_id":r_filter}
-    dict_param_api_pcf_filter_get_case_id_by_mondo_id  = {"mondo_id":r_filter}
+    if r_filter != "":
+        url_api_pcf_filter_get_omim_id_by_mondo_id  = "https://pubcasefinder.dbcls.jp/sparqlist/api/test_pcf_filter_get_omim_id_by_mondo_id"
+        url_api_pcf_filter_get_orpha_id_by_mondo_id = "https://pubcasefinder.dbcls.jp/sparqlist/api/test_pcf_filter_get_orpha_id_by_mondo_id"
+        url_api_pcf_filter_get_gene_id_by_mondo_id  = "https://pubcasefinder.dbcls.jp/sparqlist/api/test_pcf_filter_get_gene_id_by_mondo_id"
+        url_api_pcf_filter_get_case_id_by_mondo_id  = ""
+        dict_param_api_pcf_filter_get_omim_id_by_mondo_id  = {"mondo_id":r_filter}
+        dict_param_api_pcf_filter_get_orpha_id_by_mondo_id = {"mondo_id":r_filter}
+        dict_param_api_pcf_filter_get_gene_id_by_mondo_id  = {"mondo_id":r_filter}
+        dict_param_api_pcf_filter_get_case_id_by_mondo_id  = {"mondo_id":r_filter}
 
-    if r_target == "omim":
-        r_post_filter = requests.post(url_api_pcf_filter_get_omim_id_by_mondo_id, data=dict_param_api_pcf_filter_get_omim_id_by_mondo_id)
-    elif r_target == "orphanet":
-        r_post_filter = requests.post(url_api_pcf_filter_get_orpha_id_by_mondo_id, data=dict_param_api_pcf_filter_get_orpha_id_by_mondo_id)
-    elif r_target == "gene":
-        r_post_filter = requests.post(url_api_pcf_filter_get_gene_id_by_mondo_id, data=dict_param_api_pcf_filter_get_gene_id_by_mondo_id)
-    elif r_target == "case":
-        r_post_filter = requests.post(url_api_pcf_filter_get_case_id_by_mondo_id, data=dict_param_api_pcf_filter_get_case_id_by_mondo_id)
+        if r_target == "omim":
+            r_post_filter = requests.post(url_api_pcf_filter_get_omim_id_by_mondo_id, data=dict_param_api_pcf_filter_get_omim_id_by_mondo_id)
+        elif r_target == "orphanet":
+            r_post_filter = requests.post(url_api_pcf_filter_get_orpha_id_by_mondo_id, data=dict_param_api_pcf_filter_get_orpha_id_by_mondo_id)
+        elif r_target == "gene":
+            r_post_filter = requests.post(url_api_pcf_filter_get_gene_id_by_mondo_id, data=dict_param_api_pcf_filter_get_gene_id_by_mondo_id)
+        elif r_target == "case":
+            r_post_filter = requests.post(url_api_pcf_filter_get_case_id_by_mondo_id, data=dict_param_api_pcf_filter_get_case_id_by_mondo_id)
 
-    json_post_filter = r_post_filter.json()
-    r_filter = r_filter.replace(',MONDO:', ',')
-    filter_target_id = ",".join(json_post_filter[r_filter])
-    app.logger.error(filter_target_id)
+        json_post_filter = r_post_filter.json()
+        r_filter = r_filter.replace(',MONDO:', ',')
+        filter_target_id = ",".join(json_post_filter[r_filter])
+    else:
+        json_post_filter = ""
+        filter_target_id = ""
 
 
     # get ranking
@@ -93,25 +96,29 @@ def pcf_download(r_target, r_phenotype, r_target_id, r_format, r_range, r_weight
 
 
     # values
-    json_ranking     = r_ranking.json()
-    json_data        = r_data.json()
-
-
-    app.logger.error(r_filter)
-    app.logger.error(json_post_filter)
+    json_ranking   = r_ranking.json()
+    json_data      = r_data.json()
     list_json_data = []
-    tsv_data = []
+    tsv_data       = []
 
     # JSON
     if r_format == "json":
         for entry in json_ranking:
             #if entry["id"] in json_data:
-            if entry["id"] in json_data and entry["id"] in json_post_filter[r_filter]:
-                json_data[entry["id"]]["id"] = entry["id"]
-                json_data[entry["id"]]["rank"] = entry["rank"]
-                json_data[entry["id"]]["score"] = entry["score"]
-                json_data[entry["id"]]["matched_hpo_id"] = entry["matched_hpo_id"]
-                list_json_data.append(json_data[entry["id"]])
+            if r_filter == "":
+                if entry["id"] in json_data:
+                    json_data[entry["id"]]["id"] = entry["id"]
+                    json_data[entry["id"]]["rank"] = entry["rank"]
+                    json_data[entry["id"]]["score"] = entry["score"]
+                    json_data[entry["id"]]["matched_hpo_id"] = entry["matched_hpo_id"]
+                    list_json_data.append(json_data[entry["id"]])
+            else:
+                if entry["id"] in json_data and entry["id"] in json_post_filter[r_filter]:
+                    json_data[entry["id"]]["id"] = entry["id"]
+                    json_data[entry["id"]]["rank"] = entry["rank"]
+                    json_data[entry["id"]]["score"] = entry["score"]
+                    json_data[entry["id"]]["matched_hpo_id"] = entry["matched_hpo_id"]
+                    list_json_data.append(json_data[entry["id"]])
         return list_json_data
     # TSV
     elif r_format == "tsv":
@@ -129,26 +136,48 @@ def pcf_download(r_target, r_phenotype, r_target_id, r_format, r_range, r_weight
 
         for entry in json_ranking:
             #if entry["id"] in json_data:
-            if entry["id"] in json_data and entry["id"] in json_post_filter[r_filter]:
-                # OMIM
-                if r_target == "omim":
-                    hgnc_gene_symbol = json_data[entry["id"]]["hgnc_gene_symbol"] if "hgnc_gene_symbol" in json_data[entry["id"]] else ""
-                    list_row = (str(entry["rank"]), str(entry["score"]), str(entry["id"]), str(json_data[entry["id"]]["omim_disease_name_en"]), str(entry["matched_hpo_id"]), str(",".join(hgnc_gene_symbol)))
-                    tsv_data.append("\t".join(list_row))
-                # Orphanet
-                elif r_target == "orphanet":
-                    hgnc_gene_symbol = json_data[entry["id"]]["hgnc_gene_symbol"] if "hgnc_gene_symbol" in json_data[entry["id"]] else ""
-                    #list_row = (str(entry["rank"]), str(entry["score"]), str(entry["id"]), str(json_data[entry["id"]]["orpha_disease_name_en"]), str(entry["matched_hpo_id"]), str(",".join(json_data[entry["id"]]["hgnc_gene_symbol"])))
-                    list_row = (str(entry["rank"]), str(entry["score"]), str(entry["id"]), str(json_data[entry["id"]]["orpha_disease_name_en"]), str(entry["matched_hpo_id"]), str(",".join(hgnc_gene_symbol)))
-                    tsv_data.append("\t".join(list_row))
-                # Gene
-                elif r_target == "gene":
-                    list_row = (str(entry["rank"]), str(entry["score"]), str(entry["id"]), str(json_data[entry["id"]]["hgnc_gene_symbol"]), str(entry["matched_hpo_id"]))
-                    tsv_data.append("\t".join(list_row))
-                # Case
-                elif r_target == "case":
-                    list_row = (str(entry["rank"]), str(entry["score"]), str(entry["id"]), str(json_data[entry["id"]]["omim_disease_name_en"]), str(entry["matched_hpo_id"]), str(",".join(json_data[entry["id"]]["hgnc_gene_symbol"])))
-                    tsv_data.append("\t".join(list_row))
+            if r_filter == "":
+                if entry["id"] in json_data:
+                    # OMIM
+                    if r_target == "omim":
+                        hgnc_gene_symbol = json_data[entry["id"]]["hgnc_gene_symbol"] if "hgnc_gene_symbol" in json_data[entry["id"]] else ""
+                        list_row = (str(entry["rank"]), str(entry["score"]), str(entry["id"]), str(json_data[entry["id"]]["omim_disease_name_en"]), str(entry["matched_hpo_id"]), str(",".join(hgnc_gene_symbol)))
+                        tsv_data.append("\t".join(list_row))
+                    # Orphanet
+                    elif r_target == "orphanet":
+                        hgnc_gene_symbol = json_data[entry["id"]]["hgnc_gene_symbol"] if "hgnc_gene_symbol" in json_data[entry["id"]] else ""
+                        #list_row = (str(entry["rank"]), str(entry["score"]), str(entry["id"]), str(json_data[entry["id"]]["orpha_disease_name_en"]), str(entry["matched_hpo_id"]), str(",".join(json_data[entry["id"]]["hgnc_gene_symbol"])))
+                        list_row = (str(entry["rank"]), str(entry["score"]), str(entry["id"]), str(json_data[entry["id"]]["orpha_disease_name_en"]), str(entry["matched_hpo_id"]), str(",".join(hgnc_gene_symbol)))
+                        tsv_data.append("\t".join(list_row))
+                    # Gene
+                    elif r_target == "gene":
+                        list_row = (str(entry["rank"]), str(entry["score"]), str(entry["id"]), str(json_data[entry["id"]]["hgnc_gene_symbol"]), str(entry["matched_hpo_id"]))
+                        tsv_data.append("\t".join(list_row))
+                    # Case
+                    elif r_target == "case":
+                        list_row = (str(entry["rank"]), str(entry["score"]), str(entry["id"]), str(json_data[entry["id"]]["omim_disease_name_en"]), str(entry["matched_hpo_id"]), str(",".join(json_data[entry["id"]]["hgnc_gene_symbol"])))
+                        tsv_data.append("\t".join(list_row))
+            else:
+                if entry["id"] in json_data and entry["id"] in json_post_filter[r_filter]:
+                    # OMIM
+                    if r_target == "omim":
+                        hgnc_gene_symbol = json_data[entry["id"]]["hgnc_gene_symbol"] if "hgnc_gene_symbol" in json_data[entry["id"]] else ""
+                        list_row = (str(entry["rank"]), str(entry["score"]), str(entry["id"]), str(json_data[entry["id"]]["omim_disease_name_en"]), str(entry["matched_hpo_id"]), str(",".join(hgnc_gene_symbol)))
+                        tsv_data.append("\t".join(list_row))
+                    # Orphanet
+                    elif r_target == "orphanet":
+                        hgnc_gene_symbol = json_data[entry["id"]]["hgnc_gene_symbol"] if "hgnc_gene_symbol" in json_data[entry["id"]] else ""
+                        #list_row = (str(entry["rank"]), str(entry["score"]), str(entry["id"]), str(json_data[entry["id"]]["orpha_disease_name_en"]), str(entry["matched_hpo_id"]), str(",".join(json_data[entry["id"]]["hgnc_gene_symbol"])))
+                        list_row = (str(entry["rank"]), str(entry["score"]), str(entry["id"]), str(json_data[entry["id"]]["orpha_disease_name_en"]), str(entry["matched_hpo_id"]), str(",".join(hgnc_gene_symbol)))
+                        tsv_data.append("\t".join(list_row))
+                    # Gene
+                    elif r_target == "gene":
+                        list_row = (str(entry["rank"]), str(entry["score"]), str(entry["id"]), str(json_data[entry["id"]]["hgnc_gene_symbol"]), str(entry["matched_hpo_id"]))
+                        tsv_data.append("\t".join(list_row))
+                    # Case
+                    elif r_target == "case":
+                        list_row = (str(entry["rank"]), str(entry["score"]), str(entry["id"]), str(json_data[entry["id"]]["omim_disease_name_en"]), str(entry["matched_hpo_id"]), str(",".join(json_data[entry["id"]]["hgnc_gene_symbol"])))
+                        tsv_data.append("\t".join(list_row))
         return tsv_data
 
     return
