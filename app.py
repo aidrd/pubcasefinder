@@ -446,8 +446,9 @@ def api_pcf_get_gpa():
 #####
 # API: Download
 # GET method
-# /pcf_download?target=[TARGET]&phenotype=[HPO_ID]&target_id=[TARGET_ID]&format=[FORMAT]&r_range=[RANGE]
-# /pcf_download?target=[TARGET]&phenotype=[HPO_ID]&target_id=[TARGET_ID]&format=[FORMAT]&r_range=[RANGE]&r_weight=[WEIGHT]
+# /pcf_download?target=[TARGET]&phenotype=[HPO_ID]&target_id=[TARGET_ID]&format=[FORMAT]&range=[RANGE]
+# /pcf_download?target=[TARGET]&phenotype=[HPO_ID]&target_id=[TARGET_ID]&format=[FORMAT]&range=[RANGE]&weight=[WEIGHT]
+# /pcf_download?target=[TARGET]&phenotype=[HPO_ID]&target_id=[TARGET_ID]&format=[FORMAT]&range=[RANGE]&filter=[FILTER]
 # /api/get_ranked_list?target=[TARGET]&format=[FORMAT]&hpo_id=[HPO_ID]
 @app.route('/pcf_download', methods=['GET', 'POST'])
 @app.route('/api/get_ranked_list', methods=['GET', 'POST'])
@@ -458,6 +459,7 @@ def api_pcf_download():
     r_format    = ""
     r_range     = ""
     r_weight    = 1.0
+    r_filter    = ""
 
     if request.method == 'GET':
         if request.args.get('target') is not None:
@@ -474,6 +476,8 @@ def api_pcf_download():
             r_range = request.args.get('range')
         if request.args.get('weight') is not None:
             r_weight = request.args.get('weight')
+        if request.args.get('filter') is not None:
+            r_filter = request.args.get('filter')
     else:
         if request.form is not None:
             if 'target' in request.form:
@@ -490,6 +494,8 @@ def api_pcf_download():
                 r_range = request.form['range']
             if 'weight' in request.form:
                 r_weight = request.form['weight']
+            if 'filter' in request.form:
+                r_filter = request.form['filter']
         if request.json is not None:
             if 'target' in request.json:
                 r_target = request.json['target']
@@ -505,21 +511,22 @@ def api_pcf_download():
                 r_range = request.json['range']
             if 'weight' in request.json:
                 r_weight = request.json['weight']
+            if 'filter' in request.json:
+                r_filter = request.json['filter']
         
     utc_now = datetime.now(timezone('UTC'))
     jst_now = utc_now.astimezone(timezone('Asia/Tokyo'))
     ts = jst_now.strftime("%Y%m%d-%H%M%S")
     
-    #if request.method == 'GET':
     if r_format == "json":
-        json_data = pcf_download(r_target, r_phenotype, r_target_id, r_format, r_range, r_weight)
+        json_data = pcf_download(r_target, r_phenotype, r_target_id, r_format, r_range, r_weight, r_filter)
         res = make_response(json.dumps(json_data, indent=4))
         res.headers["Content-Type"] = "application/json"
         res.headers["Content-disposition"] = "attachment; filename=" + "pubcasefinder_" + ts + ".json"
         #res.headers["Content-Encoding"] = "gzip"
         return res
     elif r_format == "tsv":
-        tsv_data = pcf_download(r_target, r_phenotype, r_target_id, r_format, r_range, r_weight)
+        tsv_data = pcf_download(r_target, r_phenotype, r_target_id, r_format, r_range, r_weight, r_filter)
         res = make_response("\n".join(tsv_data))
         res.headers["Content-Type"] = "text/tab-separated-values"
         res.headers["Content-disposition"] = "attachment; filename=" + "pubcasefinder_" + ts + ".tsv"
