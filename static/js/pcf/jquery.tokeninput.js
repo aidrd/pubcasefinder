@@ -9,19 +9,21 @@
  */
 ;(function ($) {
 
-	var windowNavigatorLanguage = (window.navigator.languages && window.navigator.languages[0]) ||
-		window.navigator.language || window.navigator.userLanguage || window.navigator.browserLanguage;
-
-	function isWindowNavigatorLanguageJa(){
-		return windowNavigatorLanguage === "ja" || windowNavigatorLanguage.toLowerCase() === "ja-jp";
-	}
-
-	var hintText = "Type in patient's signs and symptoms";
-	if(isWindowNavigatorLanguageJa()){
-		hintText = "患者の兆候または症状を入力"
-	}
+	const LANGUAGE_JA='ja',
+		  LANGUAGE_EN='en',
+		  LANGUAGE = {
+			[LANGUAGE_JA]:{
+				hintText: "患者の兆候または症状を入力",
+			},
+			[LANGUAGE_EN]:{
+				hintText: "Type in patient's signs and symptoms",
+			},
+	};
 
 	var DEFAULT_SETTINGS = {
+		// ja,en
+		lang:					LANGUAGE_JA,
+
 		// Search settings
 		method:                  "GET",
 		queryParam:              "q",
@@ -40,12 +42,12 @@
 
 		// Display settings
 		//hintText: "Type in a search term",
-		hintText:        null,
+		hintText:        LANGUAGE[LANGUAGE_JA].hintText,
 		noResultsText:   "No results",
 		searchingText:   "Searching...",
 		deleteText:      "&#215;",
 		animateDropdown: true,
-		placeholder:     hintText,
+		placeholder:     LANGUAGE[LANGUAGE_JA].hintText,
 		theme:           null,
 		zindex:          999,
 		resultsLimit:    null,
@@ -224,6 +226,9 @@
 	var methods = {
 		init: function(url_or_data_or_function, options) {
 			var settings = $.extend({}, DEFAULT_SETTINGS, options || {});
+
+			settings.hintText = LANGUAGE[settings.lang].hintText;
+        	settings.placeholder = LANGUAGE[settings.lang].hintText;
 
 			return this.each(function () {
 				$(this).data("settings", settings);

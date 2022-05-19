@@ -157,7 +157,8 @@
 		[SETTING_KEY_DISPLAY_FORMAT]: DISPLAY_FORMAT_FULL,
 		[SETTING_KEY_LANG]:           LANGUAGE_JA,
 		[SETTING_KEY_ONSELECTTAB]:    null,
-		[SETTING_KEY_LOAD_FILTER_IDS]:null
+		[SETTING_KEY_LOAD_FILTER_IDS]:null,
+		'add_token':				  null,
 	};
 
 
@@ -1034,7 +1035,7 @@
 		return $(button);
 	}
 
-	function _contruct_detail(id, phenoList, item, lang, target, display_format, $container_panel, ranking_item){
+	function _contruct_detail(id, phenoList, item, lang, target, display_format, $container_panel, ranking_item, setting){
 
 		let isJA = (lang === LANGUAGE_JA);
 		let isDisplayFull = (display_format === DISPLAY_FORMAT_FULL);
@@ -1321,7 +1322,8 @@
 				"list_tag"               : "list-tag_blue",
 				"popup_class"            : CLASS_POPUP_PHENOTYPE_INLIST,
 				"popup_func"             : _contruct_popup_button,
-				"isorpha"                : isOrpha
+				"isorpha"                : isOrpha,
+				"add_token"				 : setting.add_token,
 			}).appendTo($container_panel);
 		}
 
@@ -1713,7 +1715,8 @@
 												let text = $copy_button.parent().prev().find("p").text();
 												
 												if (window.clipboardData && window.clipboardData.setData) {
-												        // Internet Explorer-specific code path to prevent textarea being shown while dialog is visible.                        window.clipboardData.setData("Text", text);
+												    // Internet Explorer-specific code path to prevent textarea being shown while dialog is visible.
+													window.clipboardData.setData("Text", text);
 												}
 												else if (document.queryCommandSupported && document.queryCommandSupported("copy")) {
 												        let textarea = document.createElement("textarea");
@@ -1804,9 +1807,9 @@
 			
 			//right
 			if(target === TARGET_CASE){
-				_contruct_detail(ranking_list[i].id, ranking_list[i].matched_hpo_id, null, lang, target, display_format, $td_right, ranking_list[i]);
+				_contruct_detail(ranking_list[i].id, ranking_list[i].matched_hpo_id, null, lang, target, display_format, $td_right, ranking_list[i], setting);
 			}else if(ranking_list[i].id in detail_data ){
-				_contruct_detail(ranking_list[i].id, ranking_list[i].matched_hpo_id, detail_data[ranking_list[i].id], lang, target, display_format, $td_right,ranking_list[i]);
+				_contruct_detail(ranking_list[i].id, ranking_list[i].matched_hpo_id, detail_data[ranking_list[i].id], lang, target, display_format, $td_right,ranking_list[i], setting);
 			} else {
 				$td_right.text('No Search Results for ('+ranking_list[i].id+').').css({'text-align':'center','vertical-align':'middle'});
 			}
@@ -2434,6 +2437,7 @@
 			if(_isExistVal(SETTING_KEY_ONSELECTTAB,options)) setting[SETTING_KEY_ONSELECTTAB]= options[SETTING_KEY_ONSELECTTAB];
 			if(_isExistVal(SETTING_KEY_LOAD_FILTER_IDS,options)) setting[SETTING_KEY_LOAD_FILTER_IDS]= options[SETTING_KEY_LOAD_FILTER_IDS];
 
+			if(_isExistVal('add_token', options)) setting['add_token'] = options['add_token'];
 			
 			$tab_button_panel    = $('<div>').addClass("tab-button-panel").appendTo(this);
 			$tab_content_wrapper = $('<div>').addClass("tab-content-wrapper").appendTo(this);

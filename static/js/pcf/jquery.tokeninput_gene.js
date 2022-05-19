@@ -739,9 +739,11 @@
 			.appendTo($token_list_wrapper_table_td_left);
 
 
-//		var $token_list_wrapper_table_td_right = $('<td />').css({'vertical-align': 'middle','padding-left':'10px','padding-right':'10px','border-left':'solid 1px #ddd'}).appendTo($token_list_wrapper_table_tr);	
-		var $token_list_wrapper_table_td_right = $('<div>').css({'border-left':'solid 1px #ddd','padding-left':'0.5rem','padding-right':'0.5rem'}).appendTo($token_list_wrapper_table);
-		$('<button>clear</button>').addClass("round-button").addClass("material-icons").addClass('vertical-center').attr('id','tokeninput_gene_clear')
+		//var $token_list_wrapper_table_td_right = $('<div>').css({'border-left':'solid 1px #ddd','padding-left':'0.5rem','padding-right':'0.5rem'}).appendTo($token_list_wrapper_table);
+		var $token_list_wrapper_table_td_right = $('<div>').addClass("d-flex justify-content-center align-items-center").css({'border-left':'solid 1px #ddd'}).appendTo($token_list_wrapper_table);
+
+		//$('<button>clear</button>').addClass("round-button").addClass("material-icons").addClass('vertical-center').attr('id','tokeninput_gene_clear')
+		$('<button>clear</button>').addClass("round-button").addClass("material-icons").attr('id','tokeninput_gene_clear')
 			.click(function(){
 				$("#tokeninput_genes").tokenInput_gene("clear");
 				resize_input();

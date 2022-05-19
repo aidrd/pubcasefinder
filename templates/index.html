@@ -46,19 +46,19 @@
     <link rel="stylesheet" href="/static/css/pcf/branc-embedded.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.1/css/swiper.min.css">
-    <link rel="stylesheet" href="/static/css/pcf/bootstrap-new.css">
+    <link rel="stylesheet" href="/static/css/pcf/bootstrap.css">
     <link rel="stylesheet" href="/static/css/pcf/style-togo.css">
+	<link rel="stylesheet" href="/static/css/pcf/search-box-form.css">
     <link
         href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Noto+Sans+JP:wght@100;300;400;500;700;900&display=swap"
         rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="/static/css/magnific-popup.css">
+    <link rel="stylesheet" href="/static/css/pcf/magnific-popup.css">
     <!-- END: css -->
     <!-- jquery-tokeninput -->
-    <link rel="stylesheet" href="/static/css/token-input-facebook.css" type="text/css" />
+    <link rel="stylesheet" href="/static/css/pcf/token-input-facebook.css" type="text/css" />
     <!-- popup-tokeninput -->
-    <link rel="stylesheet" href="/static/css/popup-hierarchy-hpo.css">
-    <!-- <link rel="stylesheet" href="/static/css/popup-hierarchy-gene.css"> -->
+    <link rel="stylesheet" href="/static/css/pcf/popup-hierarchy-hpo.css">
     <!-- Modernizr JS -->
     <script src="/static/js/modernizr-2.6.2.min.js"></script>
     <!--favicon start-->
@@ -73,6 +73,7 @@
 </head>
 
 <body>
+	<div id="fh5co-loader"></div>
     <header class="search-header">
         <div class="wrapper search-header_wrapper">
             <div class="search-header_top">
@@ -137,52 +138,20 @@
     <div class="top-wrapper">
         <section class="content">
             <div class="search">
-                <form name="search" action="/result" method="get" class="form-group">
-                    <div class="search-box_wrapper">
-                        <div class="search-brand">
-                            <a href="/"><img src="/static/images/pcf/top/logo_color.svg" alt=""></a>
-                            {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
-                            <p>希少・遺伝性疾患検索システム</p>
-                            {% else %}
-                            <p>Search System for Rare Genetic Diseases</p>
-                            {% endif %}
-                        </div>
-                        <textarea class="form-control" rows="2" id="tokeninput_hpo" name="phenotype"></textarea>
-                        <div class="search-button">
-                            <!--span class="search_end"><a href="#">Input Free-Text (doc2hpo)</a></span-->
-                            {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
-                            <a class="search_end" href="/ehr" target="_blank">文章から症状を自動抽出したい場合はコチラ</a>
-                            <!--span class="search_end"><a href="/text2hpo" target="_blank">文章から症状を自動抽出したい場合はコチラ</a></span-->
-                            {% else %}
-                            <a class="search_end" href="https://doc2hpo.wglab.org" target="_blank">Input Free-Text
-                                (doc2hpo)</a>
-                            {% endif %}
-                        </div>
+                <div class="search-box_wrapper">
+                    <div class="search-brand">
+                        <a href="/"><img src="/static/images/pcf/top/logo_color.svg" alt=""></a>
+                        {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
+                        <p>希少・遺伝性疾患検索システム</p>
+                        {% else %}
+                        <p>Search System for Rare Genetic Diseases</p>
+                        {% endif %}
                     </div>
-                    <div class="search-box_button">
-                        <div class="search-button">
-                            <a id="phenotouch" href=""><i class="icon-icon-symptoms"></i>{{ _('index_button_phenotouch')
-                                }}</a>
-                            <a id="tokeninput_hpo_clear" href="">{{ _('index_button_clear') }}</a>
-                            <a href="javascript:search.submit()" class="search-button-left"><i
-                                    class="icon-icon-search"></i>{{ _('index_button_search') }}</a>
-                        </div>
-                    </div>
-                    <div class="search-ex">
-                        <a href="#" id="ex_phenotypes">ex) {{ _('index_Sample') }}</a>
-                    </div>
-
-                    <input type="hidden" name="target" value="omim">
-                    <input type="hidden" name="filter" value="">
-                    <input type="hidden" name="size" value="10">
-                    <input type="hidden" name="display_format" value="full">
-                    {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
-                    <input type="hidden" name="lang" value="ja">
-                    {% else %}
-                    <input type="hidden" name="lang" value="en">
-                    {% endif %}
-
-                </form>
+					<div id="search_box_form"></div>
+                </div>
+                <div class="search-ex">
+                    <a href="#" id="ex_phenotypes">ex) {{ _('index_Sample') }}</a>
+                </div>
             </div>
 
             <!--mapstart-->
@@ -991,13 +960,6 @@
 <link rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
 <script>
-    $(function () {
-        $('span').on('click', function (event) {
-            let getId = $(this).parent().attr('.search-button');
-            event.preventDefault();
-            $(this).toggleClass('active');
-        });
-    });
     $('.tab-content>div').hide();
     $('.tab-content>div').first().slideDown();
     $('.tab-buttons span').click(function () {
@@ -1202,62 +1164,20 @@
 <!-- jQuery Easing -->
 <script src="/static/js/jquery.easing.1.3.js"></script>
 <!-- Bootstrap -->
-<script src="/static/js/bootstrap.min.js"></script>
-<!-- Waypoints -->
+<script src="/static/js/pcf/bootstrap-4.6.0.bundle.js"></script>
 <script src="/static/js/jquery.waypoints.min.js"></script>
-<!-- countTo -->
 <script src="/static/js/jquery.countTo.js"></script>
-<!-- Magnific Popup -->
-<!-- modify start for chrome 91.0.4472.123-->
-<!-- <script src="/static/js/jquery.magnific-popup.min.js"></script>  -->
-<script src="/static/js/jquery.magnific_popup.min.js"></script>
-<!-- modify end for chrome 91.0.4472.123-->
-<script src="/static/js/magnific-popup-options.js"></script>
-<!-- Stellar -->
+<script src="/static/js/pcf/jquery.magnific_popup.min.js"></script>
+<script src="/static/js/pcf/magnific-popup-options.js"></script>
 <script src="/static/js/jquery.stellar.min.js"></script>
-<!-- rater -->
-<script src="/static/js/rater.js"></script>
+<script src="/static/js/pcf/rater.js"></script>
+
 <!-- Main -->
 <script src="/static/js/main.js"></script>
 <!-- END: Import JavaScript -->
 
-<!-- START: jquery-tokeninput -->
-<script type="text/javascript" src="/static/js/jquery.tokeninput.js"></script>
-<script type="text/javascript">
-    $(document).ready(function () {
-        $("#ex_phenotypes").click(function () {
-            $("#tokeninput_hpo").tokenInput("add", { id: "{{ _('index_Sample_1_id') }}", name: "{{ _('index_Sample_1_name') }}" });
-            $("#tokeninput_hpo").tokenInput("add", { id: "{{ _('index_Sample_2_id') }}", name: "{{ _('index_Sample_2_name') }}" });
-            $("#tokeninput_hpo").tokenInput("add", { id: "{{ _('index_Sample_3_id') }}", name: "{{ _('index_Sample_3_name') }}" });
-            $("#tokeninput_hpo").tokenInput("add", { id: "{{ _('index_Sample_4_id') }}", name: "{{ _('index_Sample_4_name') }}" });
-            $("#tokeninput_hpo").tokenInput("add", { id: "{{ _('index_Sample_5_id') }}", name: "{{ _('index_Sample_5_name') }}" });
-            return false;
-        });
-        $("#tokeninput_hpo").tokenInput("/tokeninput_hpo", {
-            theme: "facebook",
-            second_url_str: "/pcf_get_hpo_by_text"
-        });
-        $("#tokeninput_hpo_clear").click(function () {
-            $("#tokeninput_hpo").tokenInput("clear");
-            return false;
-        });
-    });
-    $("#phenotouch").click(function (e) {
-        $.PopupRelationHPOWithWebGL();
-        e.preventDefault();
-        e.stopPropagation();
-        return false;
-    });
-    $('.rater').rate({
-        max_value: 5,
-        step_size: 0.1,
-        initial_value: 0
-    });
-</script>
-<!-- END: jquery-tokeninput -->
-
-<!-- START: popup-hierarchy-hpo -->
-<!-- WebGL -->
+<!-- START: jquery-tokeninput popup-hierarchy-hpo -->
+<script src="/static/js/pcf/jquery.tokeninput.js"></script>
 <script src="/static/js/d3/3.5.17/d3.min.js"></script>
 <script src="/static/js/three.js-r84/build/three.min.js"></script>
 <script src="/static/js/three.js-r84/examples/js/Detector.js"></script>
@@ -1265,12 +1185,58 @@
 <script src="/static/js/three-bits/three-bits.js"></script>
 <script src="/static/js/three-bits/three-bits-renderer.js"></script>
 <script src="/static/js/three-bits/defaults.js"></script>
-<!-- script src="/static/js/three-bits/category2obj.js"></script -->
-<script src="/static/js/popup-hierarchy-hpo.js"></script>
+<script type="text/javascript" src="/static/js/pcf/popup-hierarchy-hpo.js"></script>
 <script src="/static/js/button-ripple-effect.js"></script>
+<script type="text/javascript" src="/static/js/pcf/jquery.search-box_form.js"></script>
+
 <script type="text/javascript">
+    var pcf_show_loading = function(){
+        if($('#fh5co-loader').css('display') === 'none') $("#fh5co-loader").fadeIn("normal");
+    };
+
+    var pcf_hide_loading = function() {
+        if($('#fh5co-loader').css('display') === 'none') return;
+        $("#fh5co-loader").fadeOut("slow");
+    };
+
     $(document).ready(function () {
-        $("#tokeninput_hpo").popupRelationHPO('/popup_hierarchy_hpo');
+
+        $("#search_box_form").search_box_form({
+            'url_tokeninput_hpo':           '/tokeninput_hpo',
+            'url_tokeninput_hpo_second':    '/pcf_get_hpo_by_text',
+            'url_popup_hierarchy_hpo':      '/popup_hierarchy_hpo',
+            'url_load_hpo_data':            '/get_hpo_data_by_hpo_id',
+{% if get_locale() == "ja" or get_locale() == "ja_JP" %}
+			'lang':                         "ja",
+{% else %}
+			'lang':                         "en",
+{% endif %}
+            'form_para_target':             "omim",
+            'form_para_filter':             "",
+            'form_para_size':               "",
+            'form_para_display_format':     "full",
+            'show_loading':                 pcf_show_loading,
+            'hide_loading':                 pcf_hide_loading,
+			'is_hierarchy_fullscreen':		true,
+        });
+
+        $("#ex_phenotypes").click(function () {
+			$("#search_box_form").search_box_form('add_token', { id: "{{ _('index_Sample_1_id') }}", name: "{{ _('index_Sample_1_name') }}" });
+			$("#search_box_form").search_box_form('add_token', { id: "{{ _('index_Sample_2_id') }}", name: "{{ _('index_Sample_2_name') }}" });
+			$("#search_box_form").search_box_form('add_token', { id: "{{ _('index_Sample_3_id') }}", name: "{{ _('index_Sample_3_name') }}" });
+			$("#search_box_form").search_box_form('add_token', { id: "{{ _('index_Sample_4_id') }}", name: "{{ _('index_Sample_4_name') }}" });
+			$("#search_box_form").search_box_form('add_token', { id: "{{ _('index_Sample_5_id') }}", name: "{{ _('index_Sample_5_name') }}" });
+			
+            return false;
+        });
+    
+		$('[data-toggle="tooltip"]').tooltip({'trigger':'hover'});
+    });
+
+    $('.rater').rate({
+        max_value: 5,
+        step_size: 0.1,
+        initial_value: 0
     });
 </script>
 

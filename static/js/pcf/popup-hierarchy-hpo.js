@@ -209,7 +209,8 @@
 		,annotation_score_url : 'https://api.monarchinitiative.org/api/sim/score',
 		
 		modify_modal_on_show  : null,
-		after_modal_close     : null
+		after_modal_close     : null,
+		is_hierarchy_fullscreen: true,
 	};
 
 	var TOKENINPUT_SETTINGS_KEY = 'settings';
@@ -330,7 +331,9 @@
 			
 			var tmp = 'ul.'+tokeninput_classes['tokenList'].split(/\s+/).join('.')+'.'+current_settings.cssTokenListClass+'>li.'+tokeninput_classes['token']+'.'+current_settings.cssTokenClass;
 			if(!current_settings.use_webgl){
-				return getOriginalTokenInputItemNodes();
+				if(!current_settings.is_hierarchy_fullscreen){
+					return getOriginalTokenInputItemNodes();
+				}
 			}
 			return $(tmp).toArray();
 		}
@@ -365,7 +368,7 @@
 		}
 		function getSelectedTokenInputItems(){
 			let nodes = getTokenInputItemNodes();
-			if(current_settings.use_webgl){
+			if(current_settings.use_webgl || current_settings.is_hierarchy_fullscreen){
 				return $(nodes).filter('.'+tokeninput_classes['selectedToken']).toArray();
 			}else{
 				return $(nodes).filter('.selected_at_popup').toArray();
@@ -417,7 +420,7 @@
 				var add_css = {
 					'display':'table-cell',
 					'vertical-align':'top',
-					'width':'32px'
+					'width':'53px'
 				};
 				$.each(values.sort(function(a,b){
 					var a_name = a.name;
@@ -565,7 +568,7 @@
 			}
 
 			if(params.exec==='add'){
-				if(current_settings.use_webgl){
+				if(current_settings.use_webgl || current_settings.is_hierarchy_fullscreen){
 					addTokenInputItem(new_token);
 				}else{
 					let id = params.self.id;
@@ -579,7 +582,7 @@
 			}
 			else if(params.exec==='replace'){
 				var $selectedToken = $('li.'+tokeninput_classes['selectedToken']+'.'+current_settings.cssTokenClass);
-				if(!current_settings.use_webgl){
+				if(!current_settings.use_webgl && !current_settings.is_hierarchy_fullscreen){
 					$selectedToken = $('li.selected_at_popup');
 				}
 				var selectedToken = null;
@@ -603,7 +606,7 @@
 					}
 				}
 				if(new_arr.length){
-					if(!current_settings.use_webgl){
+					if(!current_settings.use_webgl && !current_settings.is_hierarchy_fullscreen){
 						$("#tokeninput_hpo").tokenInput("clear");
 						$.each(new_arr, function(index){
 							$("#tokeninput_hpo").tokenInput("add", this);
@@ -628,7 +631,7 @@
 
 			changeStateAddOrReplace();
 
-			if(current_settings.use_webgl){
+			if(current_settings.use_webgl || current_settings.is_hierarchy_fullscreen){
 				setTimeout(function(){
 					$button.get(0).focus();
 				},51);
@@ -855,7 +858,7 @@
 			// tokeninput contents
 			/////////////////////////////////////////////////////////////////////////
 			var $table;
-			if(current_settings.use_webgl){
+			if(current_settings.is_hierarchy_fullscreen || current_settings.use_webgl){
 				$table = $inlineContentBase.find(current_settings.nodeName+'.'+current_settings.cssTableClass+'.'+current_settings.cssTokenInputContentBaseClass);
 				if($table.length==0){
 					$table = $('<'+current_settings.nodeName+'>').addClass(current_settings.cssTableClass).addClass(current_settings.cssTokenInputContentBaseClass).appendTo($inlineContentBase);
@@ -883,7 +886,7 @@
 					var $selectedphenotype_title_td_center = $('<'+current_settings.nodeName+'>').css({'display':'table-cell','text-align':'center','width':'100%'}).appendTo($selectedphenotype_title_tr);
 					$selectedphenotype_title_td_center.attr({'data-language-key':'selectedphenotype'}).text(language['selectedphenotype']);
 	
-					if(current_settings.use_webgl){
+					if(current_settings.is_hierarchy_fullscreen || current_settings.use_webgl){
 						var $selectedphenotype_title_td_right = $('<'+current_settings.nodeName+'>').css({'display':'table-cell','text-align':'right','padding-right':'8px','position':'relative'}).appendTo($selectedphenotype_title_tr);
 	
 						var $language_button = $('<button>')
@@ -1074,7 +1077,7 @@
 					}
 				}
 	
-				if(current_settings.use_webgl){
+				if(current_settings.is_hierarchy_fullscreen || current_settings.use_webgl){
 					var $language_select = $('select[name=language]');
 					$language_select.find('option').prop('selected', false);
 					$language_select.prev('button').html($language_select.find('option[name='+getCurrentLanguage()+']').prop('selected', true).text()+'&nbsp;▼');
@@ -1097,10 +1100,8 @@
 					}).tooltip();
 				}
 			}
-/*			if(!current_settings.use_webgl){
-				$table.hide();
-			}
-*/			/////////////////////////////////////////////////////////////////////////
+
+			/////////////////////////////////////////////////////////////////////////
 			// class contents
 			/////////////////////////////////////////////////////////////////////////
 			$table = $inlineContentBase.find(current_settings.nodeName+'.'+current_settings.cssTableClass+'.'+current_settings.cssClassContentBaseClass);
@@ -1217,7 +1218,7 @@
 						var $title_td1 = $('<'+current_settings.nodeName+'>').css({'display':'table-cell','text-align':'left','padding-left':'4px'}).text(title_text_arr.join(' ')).appendTo($title_tr);
 						var $title_td2 = $('<'+current_settings.nodeName+'>').css({'display':'table-cell','text-align':'right','width':'20px'}).appendTo($title_tr);
 
-						if(!current_settings.use_webgl){
+						if(!current_settings.use_webgl && !current_settings.is_hierarchy_fullscreen){
 							var $selectedphenotype_title_td_right = $('<'+current_settings.nodeName+'>').css({'display':'inline-block','text-align':'right','position':'relative'}).appendTo($title_td2);
 							$selectedphenotype_title_td_right.css({'margin-right':'0px','font-size':'14px'});
 							var $language_button = $('<button>')
@@ -2227,7 +2228,7 @@
 				getLoadingElement().hide();
 
 				$(document.body).off('keydown', eventKeydown);
-				if(!current_settings.use_webgl){
+				if(!current_settings.use_webgl && !current_settings.is_hierarchy_fullscreen){
 					$(document.body).off('click', eventClick);
 				}
 
@@ -2243,7 +2244,7 @@
 						$a.get(0).focus();
 						setTimeout(function(){ $a.get(0).focus(); },10); //←追加行
 						$(document.body).on('keydown', eventKeydown);
-						if(!current_settings.use_webgl){
+						if(!current_settings.use_webgl && !current_settings.is_hierarchy_fullscreen){
 							$(document.body).on('click', eventClick);
 						}
 					}
@@ -2254,14 +2255,6 @@
 				func();
 
 				$(window).resize();
-
-//				if(current_settings.use_webgl){
-//				}else{
-//					$('div.popup-hierarchy-hpo-base.popup-hierarchy-hpo-selectedphenotype').hide();
-//					$('div.popup-hierarchy-hpo-table.popup-hierarchy-hpo-selectedphenotype').parent().hide();
-//					$('div.popup-hierarchy-hpo-table.popup-hierarchy-hpo-tokeninput-content-base').css({'margin-top':'0','margin-bottom':'0','border-spacing':'0'});
-//					$('div.popup-hierarchy-hpo-table.popup-hierachy-hpo-class-content-base').css({'border-spacing':'0'});
-//				}
 
 			}
 
@@ -2438,7 +2431,7 @@
 								$a.addClass(current_settings.cssLinkFocusClass);
 								$a.get(0).focus();
 								$(document.body).on('keydown', eventKeydown);
-								if(!current_settings.use_webgl){
+								if(!current_settings.use_webgl && !current_settings.is_hierarchy_fullscreen){
 									$(document.body).on('click', eventClick);
 								}
 							}
@@ -2453,7 +2446,7 @@
 					},
 					close: function() {
 						$(document.body).off('keydown', eventKeydown);
-						if(!current_settings.use_webgl){
+						if(!current_settings.use_webgl && !current_settings.is_hierarchy_fullscreen){
 							$(document.body).off('click', eventClick);
 						}
 					},
@@ -2509,7 +2502,7 @@
 
 			if(isFunction(current_settings.modify_modal_on_show)){
 				let isFullScreen = false;
-				if(current_settings.use_webgl){
+				if(current_settings.use_webgl || current_settings.is_hierarchy_fullscreen){
 					isFullScreen = true;
 				}
 				current_settings.modify_modal_on_show(isFullScreen);
@@ -2543,13 +2536,13 @@
 		}
 
 
-
 		var windowNavigatorLanguage = (window.navigator.languages && window.navigator.languages[0]) ||
 				window.navigator.language ||
 				window.navigator.userLanguage ||
 				window.navigator.browserLanguage;
 		function isWindowNavigatorLanguageJa(){
-			return windowNavigatorLanguage === "ja" || windowNavigatorLanguage.toLowerCase() === "ja-jp";
+			//return windowNavigatorLanguage === "ja" || windowNavigatorLanguage.toLowerCase() === "ja-jp";
+			return current_settings.language_in === "ja";
 		}
 		var runSearchOptions = {hasJA:isWindowNavigatorLanguageJa()};
 		function runSearch(query,options) {

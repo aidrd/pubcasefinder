@@ -109,6 +109,12 @@
 	color: #000000;
 }
 
+.popup-hierarchy-hpo-content.popup-hierarchy-hpo-checkbox-group label{
+	font-size: 1rem;
+	font-weight: 400;
+	line-height: 1.5;
+}
+
 .popup-hierarchy-hpo-link-base {
 	display: inline-table;
 	border-collapse: collapse;

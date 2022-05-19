@@ -34,7 +34,8 @@
 			KEY_POPUP_LIST_TAG    = "list_tag",
 			KEY_POPUP_CLASS       = "popup_class",
 			KEY_POPUP_FUNC        = "popup_func",
-			KEY_ISORPHA           = "isorpha";
+			KEY_ISORPHA           = "isorpha",
+			KEY_ADD_TOKEN		  = "add_token";
 
 	const PHENOTYPE_TABLE_HEADER = ['Add to Query','HPO ID','Label','Search'];
 	const PHENOTYPE_ORPHA_TABLE_HEADER = ['Add to Query','HPO ID','Label','Frequency','Search'];
@@ -56,7 +57,8 @@
 		[KEY_POPUP_LIST_TAG]    : "",
 		[KEY_POPUP_CLASS]       : "",
 		[KEY_POPUP_FUNC]        : null,
-		[KEY_ISORPHA]           : false
+		[KEY_ISORPHA]           : false,
+		[KEY_ADD_TOKEN]         : null,
 	};
 
 	function _hasJA(str){
@@ -111,6 +113,7 @@
 		let list_tag    = $container.data(KEY_POPUP_LIST_TAG);
 		let popup_class = $container.data(KEY_POPUP_CLASS);
 		let popup_func  = $container.data(KEY_POPUP_FUNC);
+		let add_token   = $container.data(KEY_ADD_TOKEN);
 		
 		$.ajax({  
 			url:      url_str,  
@@ -202,7 +205,9 @@
 								let hpo_id1 = $span.data(KEY_HPO_ID);
 								let hpo_name1 = $span.data(KEY_HPO_NAME);
 								if(_hasJA(hpo_name1)) hpo_id1 += '_ja';
-								$("#tokeninput_hpo").tokenInput("add", {id: hpo_id1, name: hpo_name1});
+								if($.isFunction(add_token)){
+									add_token({id: hpo_id1, name: hpo_name1});
+								} 
 							})
 							.on('mouseleave', function () {
 								$(this).tooltip('hide');
@@ -308,6 +313,7 @@
 					$panel.data(KEY_POPUP_LIST_TAG, setting[KEY_POPUP_LIST_TAG]);
 					$panel.data(KEY_POPUP_CLASS,    setting[KEY_POPUP_CLASS]);
 					$panel.data(KEY_POPUP_FUNC,     setting[KEY_POPUP_FUNC]);
+					$panel.data(KEY_ADD_TOKEN,      setting[KEY_ADD_TOKEN]);
 				}
 
 				let $a = $('<a>').data(KEY_TARGET,target).data(KEY_COUNT,setting[count_key]).text(setting[label_key]).appendTo($list_show_button_panel);

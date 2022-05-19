@@ -20,6 +20,7 @@
 	<link rel="stylesheet" href="/static/css/pcf/branc-embedded.css">
 	<link rel="preconnect" href="https://fonts.gstatic.com">
 	<link rel="stylesheet" href="/static/css/pcf/style.css">
+	<link rel="stylesheet" href="/static/css/pcf/search-box-form.css">
 	<link rel="stylesheet" href="/static/css/pcf/mobile.css">
 	<link
 		href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Noto+Sans+JP:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
@@ -86,64 +87,7 @@
 				</div>
 			</div>
 			<div class="search-box_wrapper">
-				<div class="search-box_form d-flex flex-nowrap">
-					<div class="d-flex flex-column" style="width:52px;min-width:52px;height:100%;">
-					  <div style="width:100%;height:33%;">
-					    {% if r_lang == "ja" %}
-					    <button id="/ehr"
-					    {% else %}
-					    <button id="https://doc2hpo.wglab.org/"
-						    {% endif %}
-						    onclick="goDoc(this);"
-						    class="text-button">
-					      <img  src="/static/images/pcf/text_black.svg"
-						    data-toggle="tooltip"
-						    data-placement="top"
-						    {% if r_lang == "ja" %}
-						    title="文章から症状を自動抽出">
-					            {% else %}
-					            title="Input Free-Text (doc2hpo)">
-					            {% endif %}	
-					      </img>
-					    </button>
-					  </div>
-					  <div style="width:100%;height:33%;">
-					    <button id="phenotouch" class="text-button">
-					      <img src="/static/images/pcf/3d_black.svg"
-						   data-toggle="tooltip"
-						   data-placement="top"
-						   {% if r_lang == "ja" %}
-						   title="ヒト3Dモデルを利用して症状を検索">
-					           {% else %}
-					           title="Find Phenotypes using Human 3D Model">
-					           {% endif %}
-					      </img>
-					    </button>
-					  </div>
-					  <div style="width:100%;height:33%;">
-					    <button id="hpo-list-input-button" class="text-button" data-toggle="modal" data-target="#hpo-list-input-modal">
-					      <img src="/static/images/pcf/HPOID.svg"
-						   data-toggle="tooltip"
-						   data-placement="top"
-						   {% if r_lang == "ja" %}
-						   title="HPO IDのリストを入力">
-						   {% else %}
-						   title="Input HPO ID list">
-						   {% endif %}
-					      </img>
-					    </button>
-					  </div>
-					</div>
-					<div class="flex-grow-1 tokeninput_hpo_wrapper">
-						<textarea rows="1" id="tokeninput_hpo" name="str_phenotypes"></textarea>
-					</div>
-					<div class="d-flex flex-column">
-						<div class="" style="height:50%;"><button id="tokeninput_hpo_clear" class="round-button material-icons">clear</button></div>
-						<div class="" style="height:50%;">
-							<button id="search_button" style="color:white;background-color:#f8516d;opacity=1.0;border:0;" class="round-button material-icons">search</button>
-						</div>
-					</div>
-				</div>
+				<div id="search_box_form"></div>
 				<div class="search-button" id="div_search_button">
 					<!-- advanced button -->
 					<button id="btn_search_advanced" data-toggle="collapse" data-target="#search-box-advanced" aria-expanded="false" aria-controls="search-box-advanced">
@@ -310,47 +254,6 @@
     </div>
   </div>
 </div>
-
-
-<div class="modal fade" tabindex="-1" id="hpo-list-input-modal" aria-labelledby="hpo-list-input-modal-title" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-xl">
-    <div class="modal-content p-5">
-      <div class="modal-header p-0">
-        <h7 class="modal-title" id="hpo-list-input-modal-title" style="font-weight:bold;font-size:1.2rem;">
-		  <img src="/static/images/pcf/HPOID.svg" style="height:22px;width:22px;"></img>
-		  Import Hpo Term List
-		</h7>
-      </div>
-      <div class="modal-body p-0">
-		<div class="container-fluid p-0">
-		  <div class="row mx-0 py-3">
-			<p>Import Human Phenotype Ontology (HPO) term IDs.<br />You can extract multiple HPO term IDs from any kind of textual input. HPO term ids must satisfy the format HP:XXXXXXX to be recognized.</p>
-		  </div>
-		  <div class="row mx-0">
-			<div class="col-4 px-0" style="border:1px solid #ced4da;border-radius: 0.25rem;height:256px;max-height:256px;">
-			  <textarea class="form-control" id="hpo-list-input-textarea" style="background-color:#f8f9fa;border:0px;height:254px;"></textarea>
-			</div>
-			<div class="align-self-center">
-			  <div >
-                <button id="hpo-list-input-submit-button" style="color:white;background-color:#222057;opacity=1.0;height:52px;width:52px;font-size:32px;border:0px;" class="round-button material-icons">chevron_right</button>
-			  </div>
-			</div>
-			<div class="col px-0">
-			  <div class="form-control p-0" style="height:256px;max-height:256px;background-color:#ced4da;">
-				<table class="form-control table table-hover p-0" id="hpo-list-input-table" style="height:254px;border:0px;"></table>
-			  </div>
-			</div>
-		  </div>
-		</div>
-      </div>
-      <div class="modal-footer px-0 pb-0" style="border:0;">
-        <button type="button" style="padding-left:40px;padding-right:40px;" class="btn btn-secondary py-1" data-dismiss="modal" id="hpo-list-input-close-button">CANCEL</button>
-        <button type="button" style="padding-left:40px;padding-right:40px;" class="btn btn-primary py-1 mr-0" id="hpo-list-input-apply-button">APPLY</button>
-      </div>
-    </div>
-  </div>
-</div>
-
 <div id="dropdown-menu_download" style="display: none;">
 <form class="px-1 py-2" id="download-form">
 	<label>
@@ -516,7 +419,7 @@
 <script src="/static/js/button-ripple-effect.js"></script>
 <script type="text/javascript" src="/static/js/pcf/pcf-content.js"></script>
 <script type="text/javascript" src="/static/js/pcf/pcf_collapse_panel.js"></script>
-
+<script type="text/javascript" src="/static/js/pcf/jquery.search-box_form.js"></script>
 <script>
 
 	var pcf_show_loading = function(){
@@ -805,16 +708,13 @@
 		$('#btn_back_to_top').hide();
 	}
 
-	function goDoc(obj){
-		window.open(obj.id,'_blank');
-	}
-
 	var r_display_format_val = "{{ r_display_format }}";
 	function str_display_format_onchange(display_format) {
 		$("#pcf-content").pcf_content('update_display_format', display_format);
 		r_display_format_val = display_format;
 		tippy.hideAll();
 		update_download_link();
+		$('#search_box_form').search_box_form('update_display_format',display_format);
 		return false;
 	}
 
@@ -824,6 +724,7 @@
 		r_size_val = size;
 		tippy.hideAll();
 		update_download_link();
+		$('#search_box_form').search_box_form('update_size',size);
 		return false;
 	}
 
@@ -833,115 +734,6 @@
 		$.PopupRelationHPOWithWebGL();
 		e.preventDefault();
 		e.stopPropagation();
-		return false;
-	});
-
-	function uniq_fast(a) {
-		let seen = {};
-		let out = [];
-		let len = a.length;
-		let j = 0;
-		for(let i = 0; i < len; i++) {
-			let item = a[i];
-			if(seen[item] !== 1) {
-				seen[item] = 1;
-				out[j++] = item;
-			}
-		}
-		return out;
-	}
-
-	$("#hpo-list-input-submit-button").click(function (e){
-		let text = $("#hpo-list-input-textarea").val().toUpperCase().replaceAll("HP:0000118","");
-
-		if(!text){
-			alert("Please input HPO term list...");
-			$("#hpo-list-input-textarea").focus();
-			return false;
-		}
-
-		let r = text.match(/HP:(\d){7}/g);
-
-		if(!r){
-			alert("HPO term ids must satisfy the format HP:XXXXXXX.");
-			$("#hpo-list-input-textarea").focus();
-			return false;
-		}
-	
-		let unique = uniq_fast(r);	
-		text = unique.join(',');
-
-		// load hpo term list from server.
-
-		$("#hpo-list-input-submit-button").attr("disabled", true);
-
-		let $tbl = $("#hpo-list-input-table");
-		$tbl.find("tr").remove();
-
-		let lang      = $("#r_lang").val();
-
-		$("#pcf-content").pcf_content('load_phenotype_objects_by_ids',text,lang,function(hpo_obj_list){
-
-			pcf_hide_loading();
-
-			$('#hpo-list-input-submit-button').removeAttr("disabled");
-
-			let counter = 0;
-			hpo_obj_list.forEach(function(item){
-			
-				let $tr  = $('<tr>').appendTo($tbl);
-				$tr.addClass('table-secondary');
-
-				let $td1 = $('<td>').appendTo($tr);
-				$td1.css({'padding-left':'1.0rem'});
-				let $cbx = $('<input>', {type: 'checkbox', name: 'hpo_list', "checked":"checked"}).appendTo($td1);
-				$cbx.css({'margin-bottom':'unset'}).data('HPO_ITEM', item).change(function() {
-					$(this).parent().parent().toggleClass('table-secondary');
-				});
-
-
-				let $td2 = $('<td>').css({'color':'#4582bf'}).appendTo($tr);
-				$td2.text((item.id).replace(/_ja/gi, ''));
-
-				let $td3 = $('<td>').appendTo($tr);
-				$td3.css({'width':'80%'}).text(item.name);
-
-				counter++;
-			});
-			if(counter === 0){
-				alert("No HPO term Found.");
-			}
-
-		});
-
-		return false;
-	});
-	
-	$("#hpo-list-input-apply-button").click(function (e){
-		let $tbl = $("#hpo-list-input-table");
-		let cnt = 0;
-        $tbl.find("input[name='hpo_list']:checked").each(function(){
-			cnt++;
-			let hpo_item = $(this).data('HPO_ITEM');
-			$("#tokeninput_hpo").tokenInput("add", hpo_item);
-		});
-		
-		if(!cnt){
-			alert("No HPO term selected.");
-			return false;
-		}
-
-		$("#hpo-list-input-close-button").trigger('click');
-
-		$("#tokeninput_hpo").tokenInput("blinkLastTokens", cnt);
-
-		setTimeout(function() {
-
-			let element = document.getElementById("token-input-tokeninput_hpo");
-			element.scrollIntoViewIfNeeded();
-			$('#token-input-tokeninput_hpo').focus();
-			
-        }, 10);
 		return false;
 	});
 
@@ -972,56 +764,6 @@
 
 	};
 
-	var runSubmit = function(){
-		// trigger search
-		let form = document.createElement("form");
-		form.setAttribute("method", "get");
-		form.setAttribute("action", "/result");
-
-		let target = document.createElement("input");
-		target.setAttribute("type", "text");
-		target.setAttribute("name", "target");
-		target.setAttribute("value",$("#pcf-content").pcf_content('get_target'));
-		form.appendChild(target); 
-
-		let phenotype = document.createElement("input");
-		phenotype.setAttribute("type", "text");
-		phenotype.setAttribute("name", "phenotype");
-		phenotype.setAttribute("value",$("#tokeninput_hpo").val());															   
-		form.appendChild(phenotype);
-
-		let filter = document.createElement("input");
-		let filter_str = $("#tokeninput_genes").tokenInput_gene("get_url_str");
-		filter.setAttribute("type", "text");
-		filter.setAttribute("name", "filter");
-		filter.setAttribute("value",filter_str);
-		
-
-		form.appendChild(filter);  
-
-		let size = document.createElement("input");
-		size.setAttribute("type", "text");
-		size.setAttribute("name", "size");
-		size.setAttribute("value",r_size_val);
-		form.appendChild(size);
-
-		let display_format = document.createElement("input");
-		display_format.setAttribute("type", "text");
-		display_format.setAttribute("name", "display_format");
-		display_format.setAttribute("value",r_display_format_val);
-		form.appendChild(display_format); 
-
-		let lang = document.createElement("input");
-		lang.setAttribute("type", "text");
-		lang.setAttribute("name", "lang");
-		lang.setAttribute("value",$("#r_lang").val());
-		form.appendChild(lang);
-
-		$(form).appendTo('body').submit();
-
-		return false;
-	};
-
 	var resizeTimer = false;
 
 	$(window).on('resize', function(e) {
@@ -1045,26 +787,23 @@
 		customizeLevelPos();
 	});
 
+    function modify_modal_on_show(isFullScreen){
+        if(isFullScreen){
+            $('.mfp-bg').css({'top':'0','opacity':'0.8'});
+            $('.mfp-wrap').css({'top':'0'});
+            $('header').css({'top': '24px'});
+            $('.mfp-container').css({'max-height':'','overflow-x':'','overflow-y':''});
+        }else{
+            $('header').css({'top': '0'});
+            var pos = Math.ceil($('#search_box_form').offset().top + $('#search_box_form').height());
+            $('.mfp-bg').css({'top': pos+'px','opacity':'0'});
+            $('.mfp-wrap').css({'top': pos+'px'});
 
-	function modify_modal_on_show(isFullScreen){
-		if(isFullScreen){
-			$('.mfp-bg').css({'top':'0','opacity':'0.8'});
-			$('.mfp-wrap').css({'top':'0'});
-			$('header').css({'top': '24px'});
-			$('.mfp-container').css({'max-height':'','overflow-x':'','overflow-y':''});
-		}else{
-			$('header').css({'top': '0'});
-			var pos = Math.ceil($("#div_search_button").offset().top);
-			$('.mfp-bg').css({'top': pos+'px','opacity':'0'});
-			$('.mfp-wrap').css({'top': pos+'px'});
-
-			//popup-hierarchy-hpo-inline-content-base
-			let max_height= Math.floor(document.documentElement.clientHeight) - Math.ceil(pos);
-			$('.mfp-container').css({'max-height':max_height+'px','overflow-x':'hidden','overflow-y':'scroll'});
-
+            //popup-hierarchy-hpo-inline-content-base
+            let max_height= Math.floor(document.documentElement.clientHeight) - Math.ceil(pos);
+            $('.mfp-container').css({'max-height':max_height+'px','overflow-x':'hidden','overflow-y':'scroll'});
 		}
 	}
-
 	function after_init_gui(){
 		$('#tokeninput_gene_clear').parent().css({'border-left':'0'});
 		$('#tokeninput_gene_clear').css({'display':'none'});
@@ -1147,6 +886,7 @@
 		setTimeout(function() {
 			let filter_str = $("#tokeninput_genes").tokenInput_gene("get_url_str");
 			$("#pcf-content").pcf_content('update_filter', filter_str);
+			$('#search_box_form').search_box_form('update_filter',filter_str);
 		}, 10);
 
 		let lang = $("#r_lang").val();
@@ -1175,17 +915,6 @@
 	{% endif %}
 	
 	$(document).ready(function() {
-		$('#hpo-list-input-modal').on('show.bs.modal', function () {
-			$("#hpo-list-input-textarea").val(""); 
-			$("#hpo-list-input-table").find("tr").remove();
-		});
-
-		$('#hpo-list-input-modal').on('shown.bs.modal', function () {
-			setTimeout(function() {
-				$('#hpo-list-input-textarea').focus();
-	        }, 10);
-		});
-
 
 		const template_download = document.getElementById('dropdown-menu_download');
 		template_download.style.display = 'block';
@@ -1208,7 +937,7 @@
 
 				let options = $('#sel_download_option').find('option');
 				$(options[2]).text('Selection (' + selected_num + ')');
-                        },
+			},
 		});
 
 		const template_share = document.getElementById('dropdown-menu_share');
@@ -1270,31 +999,24 @@
 					"</ul>";
 			},
 		});
-		$("#tokeninput_hpo")
-			.tokenInput("/tokeninput_hpo", {theme: "facebook", second_url_str: "/pcf_get_hpo_by_text", doSubmit: runSubmit});
 
-		$("#tokeninput_hpo")
-			.popupRelationHPO( '/popup_hierarchy_hpo',
-							  {'modify_modal_on_show':modify_modal_on_show,
-                              {% if r_lang %}
-                               'language_in':   "{{ r_lang }}",
-                              {% endif %}
-							   'after_modal_close':	function(){
-														after_modal_close();
-														setTimeout(function() {
-															$('#token-input-tokeninput_hpo').focus();
-														}, 50);
-													}
-							  });
-
-		$("#tokeninput_hpo_clear").click(function(){
-			$("#tokeninput_hpo").tokenInput("clear");
-			return false;
+		$("#search_box_form").search_box_form({
+			'url_tokeninput_hpo':			'/tokeninput_hpo',
+			'url_tokeninput_hpo_second':	'/pcf_get_hpo_by_text',
+			'url_popup_hierarchy_hpo':		'/popup_hierarchy_hpo',
+			'url_load_hpo_data':			'/get_hpo_data_by_hpo_id',
+			'lang':							"{{ r_lang }}",
+			'form_para_target':				"{{ r_target }}",
+			'form_para_filter':				"{{ r_filter }}",
+			'form_para_size':				"{{ r_size }}",
+			'form_para_display_format':		"{{ r_display_format }}",
+			'show_loading':					pcf_show_loading,
+			'hide_loading':					pcf_hide_loading,
+			'modify_modal_on_show':			modify_modal_on_show,
+			'after_modal_close':			after_modal_close,
+			'is_hierarchy_fullscreen':		false,
 		});
-		
-		$('#search_button').on('click', function(){
-			runSubmit();			
-		});		
+
 
 		$("#tokeninput_genes").tokenInput_gene("/tokeninput_filter", {
 			'theme': "facebook",
@@ -1357,10 +1079,15 @@
 				$('#str_target').html(tab_label_text);			
 
 				update_download_link();
+
+				$('#search_box_form').search_box_form('update_target',target);
 			},
 			'load_filter_ids': function(){
 				return $("#tokeninput_genes").tokenInput_gene("get");
-			}
+			},
+			'add_token': function(item){
+				$("#search_box_form").search_box_form('add_token', item);
+			},
 		});
 
 		if(!filter_id_list){
@@ -1370,7 +1097,7 @@
 		$("#pcf-content").pcf_content('load_phenotype_and_filter_objects_by_ids',hpo_id_list,filter_id_list,function(hpo_obj_list, filter_obj_list){
 			let id_list = [];
 			hpo_obj_list.forEach(function(item){
-				$("#tokeninput_hpo").tokenInput("add", item);
+				$("#search_box_form").search_box_form('add_token', item);
 				id_list.push(item.id);
 			});
 			hpo_id_list = id_list.join(",");
