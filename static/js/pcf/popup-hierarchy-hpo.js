@@ -2284,7 +2284,7 @@
 				__threeBitsRenderer.fireEvent('progress',__threeBitsRenderer,'Please wait...');
 			}
 
-		}
+		} // end of showResults
 
 		function eventClick(e){
 			let $target = $(e.target);

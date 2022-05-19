@@ -432,9 +432,10 @@
 									if($.isFunction(settings.after_modal_close)){
 										settings.after_modal_close();
 									}
-									setTimeout(function() {
-										$('#token-input-tokeninput_hpo').focus();
-									}, 50);
+									// delete 三行以上症状が入力されている場合に，一行目の症状パネルを選択すると，選択パネルではなく最終行に表示が移動してしまう
+									//setTimeout(function() {
+									//	$('#token-input-tokeninput_hpo').focus();
+									//}, 50);
 								}
 							  });
 

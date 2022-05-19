@@ -858,7 +858,8 @@
 		  selected_token = null;
 
 		  // Show the input box and give it focus again
-		  focusWithTimeout(input_box);
+		  // delete for 三行以上症状が入力されている場合に，一行目の症状パネルを選択すると，選択パネルではなく最終行に表示が移動してしまう
+		  //focusWithTimeout(input_box);
 	  }
 
 	  // Toggle selection of a token in the token list
