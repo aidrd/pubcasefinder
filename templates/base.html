@@ -74,11 +74,7 @@
                 <div class="search-header_left">
                     <nav class="nav-pc">
                         <ul class="menu-pc">
-			    {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
-                            <li><a href="/static/pdf/PubCaseFinder_manual_ja_v4.pdf"><i class="icon-question-circle-o"></i>Guides</a></li>
-			    {% else %}
-                            <li><a href="/static/pdf/PubCaseFinder_manual_en_v4.pdf"><i class="icon-question-circle-o"></i>Guides</a></li>
-			    {% endif %}
+                            <li><a href="/guides"><i class="icon-question-circle-o"></i>Guides</a></li>
                             <li><a href="/api"><i class="icon-wrench"></i>API</a></li>
                             <li><a href="/history"><i class="icon-history"></i>History</a></li>
                             <li><a href="/termsofservice"><i class="icon-doc-text-inv"></i>Terms</a></li>
@@ -94,11 +90,7 @@
                                         menu
                                     </span></a>
                                 <ul class="sub-menu">
-				    {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
-                                    <li><a href="/static/pdf/PubCaseFinder_manual_ja_v4.pdf">Guides</a></li>
-			            {% else %}
-                                    <li><a href="/static/pdf/PubCaseFinder_manual_en_v4.pdf">Guides</a></li>
-				    {% endif %}
+                                    <li><a href="/guides">Guides</a></li>
                                     <li><a href="/api">API</a></li>
                                     <li><a href="/history">History</a></li>
                                     <li><a href="/termsofservice">Terms</a></li>

@@ -4588,3 +4588,7 @@ label {
     background-color: #13295A;
     color: #fff;
 }
+
+#dbcls-common-footer .footer__common {
+    clear: both;
+}
