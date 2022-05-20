@@ -8,8 +8,8 @@
 		  URL_GET_GENE_DATA_BY_NCBI_GENE_ID         = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_get_gene_data_by_ncbi_gene_id',
 		  URL_GET_COUNT_CASE_REPORT_BY_MONDO_ID     = 'https://pubcasefinder.dbcls.jp/pcf_get_count_case_report_by_mondo_id',
 		  URL_GET_HPO_DATA_BY_OMIM_ID               = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_get_hpo_data_by_omim_id',
-		  //URL_GET_HPO_DATA_BY_HPO_ID                = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_get_hpo_data_by_hpo_id',
-		  URL_GET_HPO_DATA_BY_HPO_ID                = '/get_hpo_data_by_hpo_id',
+		  URL_GET_HPO_DATA_BY_HPO_ID                = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_get_hpo_data_by_hpo_id',
+		  URL_GET_HPO_DATA_BY_HPO_ID_LOCAL          = '/get_hpo_data_by_hpo_id',
 		  URL_GET_HPO_DATA_BY_ORPHA_ID              = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_get_hpo_data_by_orpha_id',
 		  URL_GET_HPO_TOOLTIP_DATA_BY_HPO_ID        = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_get_hpo_tooltip_data_by_hpo_id',
 		  URL_GET_GENE_TOOLTIP_DATA_BY_NCBI_GENE_ID = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_get_gene_tooltip_data_by_ncbi_gene_id',
@@ -620,7 +620,11 @@
 		}else if(url_key === URL_GET_HPO_DATA_BY_HPO_ID){
 			
 			url_str = _construct_url_str(URL_GET_HPO_DATA_BY_HPO_ID,{[URL_PARA_HPO_ID]: setting[SETTING_KEY_ID_LST]});
-			
+
+		}else if(url_key === URL_GET_HPO_DATA_BY_HPO_ID_LOCAL){
+
+			url_str = _construct_url_str(URL_GET_HPO_DATA_BY_HPO_ID_LOCAL,{[URL_PARA_HPO_ID]: setting[SETTING_KEY_ID_LST]});
+
 		}else if(url_key === URL_GET_COUNT_CASE_REPORT_BY_MONDO_ID){
 			
 			url_str = _construct_url_str(URL_GET_COUNT_CASE_REPORT_BY_MONDO_ID,{ [URL_PARA_MONDO_ID]: setting[SETTING_KEY_ID_LST],
@@ -2717,7 +2721,7 @@
 			pcf_show_loading();
 
 			let phenotype_id_list = hpo_id_list.trim().replace(/_ja/gi, '');
-			let phenotype_url_str = _construct_url(URL_GET_HPO_DATA_BY_HPO_ID, {[SETTING_KEY_ID_LST]:phenotype_id_list});
+			let phenotype_url_str = _construct_url(URL_GET_HPO_DATA_BY_HPO_ID_LOCAL, {[SETTING_KEY_ID_LST]:phenotype_id_list});
 
 			_run_ajax(phenotype_url_str,'GET', null, 'text', true, false, function(data){
 
