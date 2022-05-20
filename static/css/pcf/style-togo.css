@@ -4185,6 +4185,11 @@ label {
     line-height: 1.5em;
 }
 
+.help-wrapper .content .column-wrapper .column-right .right-wrap p a{
+    color: #067ABC;
+    border-bottom: 1px solid;
+}
+
 .tab_panel {
     display: none;
 }
