@@ -1,59 +1,70 @@
 {% extends "base.html" %}
 {% block content %}
 
-		
-    <div class="fh5co-loader"></div>
-	
 
-    <div id="fh5co-team">
-      <div class="container">
-        <div class="row animate-box row-pb-md">
-
-	  <!-- START: Terms of Service for PubCaseFinder -->
-          <div align="center"><h1>PubCaseFinder API</h1></div>
-	  <!-- <div align="center"><p><a href="/termsofservice_ja">Japanese version</a> of this document is also available.</p></div> -->
-	  <br><br>
-	  <!-- END: Terms of Service for PubCaseFinder -->
-
-	  <!-- START: ACCEPTANCE OF TERMS OF SERVICE -->
-          <div class="col-md-8 col-md-offset-2 text-left fh5co-heading">
-            <h3>OVERVIEW</h3>
-            <p>PubCaseFinder is a rare and genetic disease search system that enables clinicians to match structured phenotype profiles - and associated genes - against previously published case reports and receive a ranked list of rare and genetic diseases.</p>
-	    <div style="border-style: solid ; border-width: 1px;padding: 20px 20px 20px 20px;">
-	      HTTP POST to remote server: <br><mark>https://pubcasefinder.dbcls.jp/mme/match</mark>
-	    </div>
-	    <br>
-          </div>
-	  <!-- END: ACCEPTANCE OF TERMS OF SERVICE -->
-
-	  <!-- START: MODIFICATIONS TO TERMS OF SERVICE -->
-          <div class="col-md-8 col-md-offset-2 text-left fh5co-heading">
-            <h3>VERSIONING</h3>
-            <p>See details below:<br>
-	    <a href="https://github.com/ga4gh/mme-apis/blob/master/search-api.md">https://github.com/ga4gh/mme-apis/blob/master/search-api.md</a>
-	    </p>
-	    <br>
-          </div>
-	  <!-- END: MODIFICATIONS TO TERMS OF SERVICE -->
-
-	  <!-- START: COPYRIGHT -->
-          <div class="col-md-8 col-md-offset-2 text-left fh5co-heading">
-            <h3>SEARCH REQUEST</h3>
-            <p>HTTP POST request to <mark>https://pubcasefinder.dbcls.jp/mme/match</mark>, with an <mark>application/json</mark> body with the following format:<br>
-	    <a href="https://github.com/ga4gh/mme-apis/blob/master/search-api.md">https://github.com/ga4gh/mme-apis/blob/master/search-api.md</a>
-	    </p>
-	    <br>
-          </div>
-	  <!-- END: COPYRIGHT -->
-
-	  <!-- START: DISCLAIMER OF WARRANTIES -->
-          <div class="col-md-8 col-md-offset-2 text-left fh5co-heading">
-            <h3>SEARCH RESULTS RESPONSE</h3>
-            <p>A synchronous <mark>application/json</mark> response, of the following form:</p>
+<div class="fh5co-loader"></div>
 
 
-	    <ul><li><h4>Example:</h4></li></ul>
-	    <pre>
+<div id="fh5co-team">
+  <div class="container">
+    <div class="row animate-box row-pb-md">
+
+      <!-- START: Terms of Service for PubCaseFinder -->
+      <div align="center">
+        <h1>PubCaseFinder API</h1>
+      </div>
+      <!-- <div align="center"><p><a href="/termsofservice_ja">Japanese version</a> of this document is also available.</p></div> -->
+      <br><br>
+      <!-- END: Terms of Service for PubCaseFinder -->
+
+      <!-- START: ACCEPTANCE OF TERMS OF SERVICE -->
+      <div class="col-md-8 col-md-offset-2 text-left fh5co-heading">
+        <h3>OVERVIEW</h3>
+        <p>PubCaseFinder is a rare and genetic disease search system that enables clinicians to match structured
+          phenotype profiles - and associated genes - against previously published case reports and receive a ranked
+          list of rare and genetic diseases.</p>
+        <div style="border-style: solid ; border-width: 1px;padding: 20px 20px 20px 20px;">
+          HTTP POST to remote server: <br><mark>https://pubcasefinder.dbcls.jp/mme/match</mark>
+        </div>
+        <br>
+      </div>
+      <!-- END: ACCEPTANCE OF TERMS OF SERVICE -->
+
+      <!-- START: MODIFICATIONS TO TERMS OF SERVICE -->
+      <div class="col-md-8 col-md-offset-2 text-left fh5co-heading">
+        <h3>VERSIONING</h3>
+        <p>See details below:<br>
+          <a
+            href="https://github.com/ga4gh/mme-apis/blob/master/search-api.md">https://github.com/ga4gh/mme-apis/blob/master/search-api.md</a>
+        </p>
+        <br>
+      </div>
+      <!-- END: MODIFICATIONS TO TERMS OF SERVICE -->
+
+      <!-- START: COPYRIGHT -->
+      <div class="col-md-8 col-md-offset-2 text-left fh5co-heading">
+        <h3>SEARCH REQUEST</h3>
+        <p>HTTP POST request to <mark>https://pubcasefinder.dbcls.jp/mme/match</mark>, with an
+          <mark>application/json</mark> body with the following format:<br>
+          <a
+            href="https://github.com/ga4gh/mme-apis/blob/master/search-api.md">https://github.com/ga4gh/mme-apis/blob/master/search-api.md</a>
+        </p>
+        <br>
+      </div>
+      <!-- END: COPYRIGHT -->
+
+      <!-- START: DISCLAIMER OF WARRANTIES -->
+      <div class="col-md-8 col-md-offset-2 text-left fh5co-heading">
+        <h3>SEARCH RESULTS RESPONSE</h3>
+        <p>A synchronous <mark>application/json</mark> response, of the following form:</p>
+
+
+        <ul>
+          <li>
+            <h4>Example:</h4>
+          </li>
+        </ul>
+        <pre>
 <code>
 {
 "results": [
@@ -100,101 +111,120 @@
 }</code>
 	    </pre>
 
-	    <br>
-	    <ul>
-	      <li><h4>Results:</h4></li>
-	      <ul>
-		<li>Is a list of matches, where each match has a <b>patient</b> object</li>
-	      </ul>
-	    </ul>
+        <br>
+        <ul>
+          <li>
+            <h4>Results:</h4>
+          </li>
+          <ul>
+            <li>Is a list of matches, where each match has a <b>patient</b> object</li>
+          </ul>
+        </ul>
 
-	    <br>
-	    <ul>
-	      <li><h4>Patient:</h4></li>
-	      <ul>
-		<li>A <b>patient</b> object means a matched disease.</li>
-	      </ul>
-	    </ul>
-
-
-	    <br>
-	    <ul>
-	      <li><h4>Contact:</h4></li>
-	      <ul>
-		<li>The contact information includes the URL for PubCaseFinder that shows a ranked list of previously published case reports</li>
-		<ul>
-		  <li>href : The URL for PubCaseFinder</li>
-		  <li>name : “PubCaseFinder” </li>
-		</ul>
-	      </ul>
-	    </ul>
+        <br>
+        <ul>
+          <li>
+            <h4>Patient:</h4>
+          </li>
+          <ul>
+            <li>A <b>patient</b> object means a matched disease.</li>
+          </ul>
+        </ul>
 
 
-	    <br>
-	    <ul>
-	      <li><h4>Features:</h4></li>
-	      <ul>
-		<li>Is a <b>list of features</b> described by:</li>
-		<ul>
-		  <li>id: an HPO term identifier of the form: <b>HP:#######</b></li>
-		  <!-- li>label: a human readable description of the phenotypic feature, such as the HPO term name</li -->
-		</ul>
-	      </ul>
-	    </ul>
+        <br>
+        <ul>
+          <li>
+            <h4>Contact:</h4>
+          </li>
+          <ul>
+            <li>The contact information includes the URL for PubCaseFinder that shows a ranked list of previously
+              published case reports</li>
+            <ul>
+              <li>href : The URL for PubCaseFinder</li>
+              <li>name : “PubCaseFinder” </li>
+            </ul>
+          </ul>
+        </ul>
 
 
-	    <br>
-	    <ul>
-	      <li><h4>GenomicFeatures:</h4></li>
-	      <ul>
-		<li>Is a <b>list of candidate causal genes</b> described by:</li>
-		<ul>
-		  <li>gene:</li>
-		  <ul>
-		    <li>id: Ensembl gene ID</li>
-		    <li>label: a human-readable description of the effect.</li>
-		  </ul>
-		</ul>
-	      </ul>
-	    </ul>
+        <br>
+        <ul>
+          <li>
+            <h4>Features:</h4>
+          </li>
+          <ul>
+            <li>Is a <b>list of features</b> described by:</li>
+            <ul>
+              <li>id: an HPO term identifier of the form: <b>HP:#######</b></li>
+              <!-- li>label: a human readable description of the phenotypic feature, such as the HPO term name</li -->
+            </ul>
+          </ul>
+        </ul>
 
 
-	    <br>
-	    <ul>
-	      <li><h4>ID:</h4></li>
-	      <ul>
-		<li>An identifier for a matched disease in Orphanet.</li>
-	      </ul>
-	    </ul>
+        <br>
+        <ul>
+          <li>
+            <h4>GenomicFeatures:</h4>
+          </li>
+          <ul>
+            <li>Is a <b>list of candidate causal genes</b> described by:</li>
+            <ul>
+              <li>gene:</li>
+              <ul>
+                <li>id: Ensembl gene ID</li>
+                <li>label: a human-readable description of the effect.</li>
+              </ul>
+            </ul>
+          </ul>
+        </ul>
 
 
-	    <br>
-	    <ul>
-	      <li><h4>Label:</h4></li>
-	      <ul>
-		<li>A name of a matched disease in Orphanet.</li>
-	      </ul>
-	    </ul>
+        <br>
+        <ul>
+          <li>
+            <h4>ID:</h4>
+          </li>
+          <ul>
+            <li>An identifier for a matched disease in Orphanet.</li>
+          </ul>
+        </ul>
 
-	    <br>
-	    <ul>
-	      <li><h4>Score:</h4></li>
-	      <ul>
-		<li>Information about how well this result of a candidate disease matched the query patient.</li>
-		<li>Currently, this has a single field, <b>patient</b>, with a numerical value corresponding to the overall score of the match. This score must be in the range [0, 1], where 0.0 is a poor match and 1.0 is a perfect match.</li>
-	      </ul>
-	    </ul>
 
-          </div>
-	  <!-- END: DISCLAIMER OF WARRANTIES -->
+        <br>
+        <ul>
+          <li>
+            <h4>Label:</h4>
+          </li>
+          <ul>
+            <li>A name of a matched disease in Orphanet.</li>
+          </ul>
+        </ul>
 
-        </div>
+        <br>
+        <ul>
+          <li>
+            <h4>Score:</h4>
+          </li>
+          <ul>
+            <li>Information about how well this result of a candidate disease matched the query patient.</li>
+            <li>Currently, this has a single field, <b>patient</b>, with a numerical value corresponding to the overall
+              score of the match. This score must be in the range [0, 1], where 0.0 is a poor match and 1.0 is a perfect
+              match.</li>
+          </ul>
+        </ul>
+
       </div>
+      <!-- END: DISCLAIMER OF WARRANTIES -->
+
     </div>
+  </div>
+</div>
 
 
-    <!-- START: Lincense and Contact -->
-    <!--
+<!-- START: Lincense and Contact -->
+<!--
     <footer id="fh5co-footer" role="contentinfo">
       <div class="container">
         <div class="row copyright">
@@ -211,39 +241,42 @@
       </div>
     </footer>
     -->
-    <!-- END: Lincense and Contact -->
+<!-- END: Lincense and Contact -->
 
 
-    <div class="gototop js-top">
-      <a href="#" class="js-gotop"><i class="icon-arrow-up"></i></a>
-    </div>
+<div class="gototop js-top">
+  <a href="#" class="js-gotop"><i class="icon-arrow-up"></i></a>
+</div>
 
 
-    <!-- START: Import JavaScript -->
-    <!-- jQuery -->
-    <script src="/static/js/jquery.min.js"></script>
-    <!-- jQuery Easing -->
-    <script src="/static/js/jquery.easing.1.3.js"></script>
-    <!-- Bootstrap -->
-    <script src="/static/js/bootstrap.min.js"></script>
-    <!-- Waypoints -->
-    <script src="/static/js/jquery.waypoints.min.js"></script>
-    <!-- countTo -->
-    <script src="/static/js/jquery.countTo.js"></script>
-    <!-- Magnific Popup -->
-    <script src="/static/js/jquery.magnific-popup.min.js"></script>
-    <script src="/static/js/magnific-popup-options.js"></script>
-    <!-- Stellar -->
-    <script src="/static/js/jquery.stellar.min.js"></script>
-    <!-- Main -->
-    <script src="/static/js/main.js"></script>
-    <!-- END: Import JavaScript -->
+<!-- START: Import JavaScript -->
+<!-- jQuery -->
+<script src="/static/js/jquery.min.js"></script>
+<!-- jQuery Easing -->
+<script src="/static/js/jquery.easing.1.3.js"></script>
+<!-- Bootstrap -->
+<script src="/static/js/bootstrap.min.js"></script>
+<!-- Waypoints -->
+<script src="/static/js/jquery.waypoints.min.js"></script>
+<!-- countTo -->
+<script src="/static/js/jquery.countTo.js"></script>
+<!-- Magnific Popup -->
+<script src="/static/js/jquery.magnific-popup.min.js"></script>
+<script src="/static/js/magnific-popup-options.js"></script>
+<!-- Stellar -->
+<script src="/static/js/jquery.stellar.min.js"></script>
+<!-- Main -->
+<script src="/static/js/main.js"></script>
+<!-- END: Import JavaScript -->
+<script>
+  jQuery(window).on('scroll', function () {
+    if (jQuery('.search-header').height() < jQuery(this).scrollTop()) {
+      jQuery('.search-header').addClass('change-color');
+    } else {
+      jQuery('.search-header').removeClass('change-color');
+    }
+  });
+</script>
 
-	
+
 {% endblock %}
-
-
-
-
-
-
