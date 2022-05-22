@@ -136,8 +136,8 @@ body {
 
 .search-header {
     z-index: 100;
-    position: sticky;
-    top: 0;
+    position: fixed;
+    min-width: 100%;
     background-size: cover;
     background-color: #f0f0f0;
 }
