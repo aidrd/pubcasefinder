@@ -1,94 +1,97 @@
 {% extends "base.html" %}
 {% block content %}
-    <!-- START: Sources page -->
-    <div class="dataset-wrapper">
-        <section class="content">
-            <h1>PubCaseFinder Sources</h1>
-	    <div align="center>"<h3>We are grateful to the many original sources of our data to enable PubCaseFinder to integrate them in this manner.</h3></div><br>
-            <div class="tbl-dataset-wrap">
-                <table class="tbl-dataset">
-                    <thead>
-                        <tr>
-                            <th>Source</th>
-                            <th width="110">Ingest Date</th>
-                            <th>Ingested Data</th>
-                            <th>License</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>BodyParts3D/Anatomography</td>
-                            <td>2022</td>
-                            <td>3D polygon data used on the BodyParts3D</td>
-                            <td><a href="https://lifesciencedb.jp/bp3d/info/index.html#License">License URL</a></td>
-                        </tr>
-                        <tr>
-                            <td>GenCC</td>
-                            <td>2021-05-13</td>
-                            <td>Desease-Gene associations for OMIM and Orphanet diseases</td>
-                            <td><a href="https://search.thegencc.org/download">License URL</a></td>
-                        </tr>
-                        <tr>
-                            <td>GeneReviews</td>
-                            <td>2021-03-01</td>
-                            <td>Relationships between OMIM and GeneReviews</td>
-                            <td><a href="https://www.ncbi.nlm.nih.gov/home/about/policies/">License URL</a></td>
-                        </tr>
-                        <tr>
-                            <td>Human Phenotype Ontology</td>
-                            <td>2021-02-08</td>
-                            <td>English and Japanese terms of phenotypic abnormalities encountered in human disease, Desease-Phenotype associations for OMIM and Orphanet diseases</td>
-                            <td><a href="http://reusabledata.org/hpo.html">(Re)usable Data Project</a></td>
-                        </tr>
-                        <tr>
-                            <td>J-GLOBAL</td>
-                            <td>2021</td>
-                            <td>Bibliographic information of case reports in J-GLOBAL</td>
-                            <td><a href="">-</a></td>
-                        </tr>
-                        <tr>
-                            <td>J-STAGE</td>
-                            <td>2021</td>
-                            <td>Bibliographic information of case reports in J-STAGE</td>
-                            <td><a href="">-</a></td>
-                        </tr>
-                        <tr>
-                            <td>MedGen</td>
-                            <td>2021-02-24</td>
-                            <td>Mode of inheritances for OMIM diseases, Desease-Gene associations for OMIM diseases</td>
-                            <td><a href="https://www.ncbi.nlm.nih.gov/home/about/policies/">License URL</a></td>
-                        </tr>
-                        <tr>
-                            <td>Monarch Disease Ontology</td>
-                            <td>2021-03-03</td>
-                            <td>English terms of rare and genetic diseases</td>
-                            <td><a href="http://reusabledata.org/monarch.html">(Re)usable Data Project</a></td>
-                        </tr>
-                        <tr>
-                            <td>Nanbyo Disease Ontology</td>
-                            <td>2022-02-20</td>
-                            <td>Japanese terms of rare and genetic diseases</td>
-                            <td><a href="https://github.com/aidrd/nando">License URL</a></td>
-                        </tr>
-                        <tr>
-                            <td>Orphanet</td>
-                            <td>2021-03-01</td>
-                            <td>Desease-Gene associations for Orphanet diseases</td>
-                            <td><a href="http://reusabledata.org/orphanet-open.html">(Re)usable Data Project</a></td>
-                        </tr>
-                        <tr class="last">
-                            <td>PubMed</td>
-                            <td>2021</td>
-                            <td>Bibliographic information of case reports in PubMed</td>
-                            <td><a href="https://www.ncbi.nlm.nih.gov/home/about/policies/">License URL</a></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
-    </div>
-
+<!-- START: Sources page -->
+<div class="dataset-wrapper">
+    <section class="content">
+        <h1>PubCaseFinder Sources</h1>
+        <div align="center>" <h3>We are grateful to the many original sources of our data to enable PubCaseFinder to
+            integrate them in this manner.</h3>
+        </div><br>
+        <div class="tbl-dataset-wrap">
+            <table class="tbl-dataset">
+                <thead>
+                    <tr>
+                        <th>Source</th>
+                        <th width="110">Ingest Date</th>
+                        <th>Ingested Data</th>
+                        <th>License</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>BodyParts3D/Anatomography</td>
+                        <td>2022</td>
+                        <td>3D polygon data used on the BodyParts3D</td>
+                        <td><a href="https://lifesciencedb.jp/bp3d/info/index.html#License">License URL</a></td>
+                    </tr>
+                    <tr>
+                        <td>GenCC</td>
+                        <td>2021-05-13</td>
+                        <td>Desease-Gene associations for OMIM and Orphanet diseases</td>
+                        <td><a href="https://search.thegencc.org/download">License URL</a></td>
+                    </tr>
+                    <tr>
+                        <td>GeneReviews</td>
+                        <td>2021-03-01</td>
+                        <td>Relationships between OMIM and GeneReviews</td>
+                        <td><a href="https://www.ncbi.nlm.nih.gov/home/about/policies/">License URL</a></td>
+                    </tr>
+                    <tr>
+                        <td>Human Phenotype Ontology</td>
+                        <td>2021-02-08</td>
+                        <td>English and Japanese terms of phenotypic abnormalities encountered in human disease,
+                            Desease-Phenotype associations for OMIM and Orphanet diseases</td>
+                        <td><a href="http://reusabledata.org/hpo.html">(Re)usable Data Project</a></td>
+                    </tr>
+                    <tr>
+                        <td>J-GLOBAL</td>
+                        <td>2021</td>
+                        <td>Bibliographic information of case reports in J-GLOBAL</td>
+                        <td><a href="">-</a></td>
+                    </tr>
+                    <tr>
+                        <td>J-STAGE</td>
+                        <td>2021</td>
+                        <td>Bibliographic information of case reports in J-STAGE</td>
+                        <td><a href="">-</a></td>
+                    </tr>
+                    <tr>
+                        <td>MedGen</td>
+                        <td>2021-02-24</td>
+                        <td>Mode of inheritances for OMIM diseases, Desease-Gene associations for OMIM diseases</td>
+                        <td><a href="https://www.ncbi.nlm.nih.gov/home/about/policies/">License URL</a></td>
+                    </tr>
+                    <tr>
+                        <td>Monarch Disease Ontology</td>
+                        <td>2021-03-03</td>
+                        <td>English terms of rare and genetic diseases</td>
+                        <td><a href="http://reusabledata.org/monarch.html">(Re)usable Data Project</a></td>
+                    </tr>
+                    <tr>
+                        <td>Nanbyo Disease Ontology</td>
+                        <td>2022-02-20</td>
+                        <td>Japanese terms of rare and genetic diseases</td>
+                        <td><a href="https://github.com/aidrd/nando">License URL</a></td>
+                    </tr>
+                    <tr>
+                        <td>Orphanet</td>
+                        <td>2021-03-01</td>
+                        <td>Desease-Gene associations for Orphanet diseases</td>
+                        <td><a href="http://reusabledata.org/orphanet-open.html">(Re)usable Data Project</a></td>
+                    </tr>
+                    <tr class="last">
+                        <td>PubMed</td>
+                        <td>2021</td>
+                        <td>Bibliographic information of case reports in PubMed</td>
+                        <td><a href="https://www.ncbi.nlm.nih.gov/home/about/policies/">License URL</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </section>
-    </div>
-    <!-- END: Sources page -->
+</div>
+
+</section>
+</div>
+<!-- END: Sources page -->
 {% endblock %}

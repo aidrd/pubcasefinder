@@ -6,22 +6,26 @@
 <html lang="en">
 {% endif %}
 
-  <!-- STARRT: head -->
-  <head>
+<!-- STARRT: head -->
+
+<head>
     <!-- START: meta -->
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="wilih=device-wilih, initial-scale=1.0">
     <title>PubCaseFinder: Search system for rare genetic diseases</title>
-    <meta name="description" content="PubCaseFinder (PCF) is a Human Phenotype Ontology (HPO)-based clinical decision support system for rare and genetic diseases, always up-to-date."/>
-    <meta name="keywords" content="PubCaseFinder, PCF, Rare Disease, Genetic Disease, Human Phenotype Ontology, Phenotype" />
+    <meta name="description"
+        content="PubCaseFinder (PCF) is a Human Phenotype Ontology (HPO)-based clinical decision support system for rare and genetic diseases, always up-to-date." />
+    <meta name="keywords"
+        content="PubCaseFinder, PCF, Rare Disease, Genetic Disease, Human Phenotype Ontology, Phenotype" />
     <meta name="author" content="Database Center for Life Science" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@fujitoyo" />
-    <meta property="og:url" content="https://pubcasefinder.dbcls.jp/"/>
-    <meta property="og:title" content="PubCaseFinder: Search system for rare genetic diseases"/>
-    <meta property="og:description" content="PubCaseFinder (PCF) is a Human Phenotype Ontology (HPO)-based clinical decision support system for rare and genetic diseases, always up-to-date."/>
-    <meta property="og:image" content="https://pubcasefinder.dbcls.jp/static/images/top/logo_color.svg"/>
+    <meta property="og:url" content="https://pubcasefinder.dbcls.jp/" />
+    <meta property="og:title" content="PubCaseFinder: Search system for rare genetic diseases" />
+    <meta property="og:description"
+        content="PubCaseFinder (PCF) is a Human Phenotype Ontology (HPO)-based clinical decision support system for rare and genetic diseases, always up-to-date." />
+    <meta property="og:image" content="https://pubcasefinder.dbcls.jp/static/images/top/logo_color.svg" />
     <script type="application/ld+json">
       {
       "@context": "http://schema.org/",
@@ -58,12 +62,13 @@
         rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!-- END: css -->
-  </head>
-  <!-- END: head -->
+</head>
+<!-- END: head -->
 
 
-  <!-- STARRT: body -->
-  <body>
+<!-- STARRT: body -->
+
+<body>
     <!-- STARRT: header -->
     <header class="search-header">
         <div class="wrapper search-header_wrapper">
@@ -79,8 +84,11 @@
                             <li><a href="/history"><i class="icon-history"></i>History</a></li>
                             <li><a href="/termsofservice"><i class="icon-doc-text-inv"></i>Terms</a></li>
                             <li><a href="/sources"><i class="icon-database"></i>Sources</a></li>
-                            <li><a target="_blank" href="https://integbio.jp/rdf/dataset/pubcasefinder"><i class="icon-share"></i>RDF</a></li>
-                            <li><a title="Comments & suggestions are welcome!" href="mailto:support@dbcls.rois.ac.jp,pubcasefinder@dbcls.rois.ac.jp"><i class="icon-mail-alt"></i>Contact</a></li>
+                            <li><a target="_blank" href="https://integbio.jp/rdf/dataset/pubcasefinder"><i
+                                        class="icon-share"></i>RDF</a></li>
+                            <li><a title="Comments & suggestions are welcome!"
+                                    href="mailto:support@dbcls.rois.ac.jp,pubcasefinder@dbcls.rois.ac.jp"><i
+                                        class="icon-mail-alt"></i>Contact</a></li>
                         </ul>
                     </nav>
                     <nav class="nav-sp">
@@ -95,14 +103,18 @@
                                     <li><a href="/history">History</a></li>
                                     <li><a href="/termsofservice">Terms</a></li>
                                     <li><a href="/sources">Sources</a></li>
-                                    <li><a target="_blank" href="https://integbio.jp/rdf/dataset/pubcasefinder">RDF</a></li>
-                                    <li><a title="Comments & suggestions are welcome!" href="mailto:support@dbcls.rois.ac.jp,pubcasefinder@dbcls.rois.ac.jp">Contact</a></li>
+                                    <li><a target="_blank" href="https://integbio.jp/rdf/dataset/pubcasefinder">RDF</a>
+                                    </li>
+                                    <li><a title="Comments & suggestions are welcome!"
+                                            href="mailto:support@dbcls.rois.ac.jp,pubcasefinder@dbcls.rois.ac.jp">Contact</a>
+                                    </li>
                                 </ul>
                             </li>
                         </ul>
                     </nav>
                     <!--span class="language"><a href="#">EN</a> / <a href="#"></a>JA</a></span-->
-                    <span class="language"><a href="{{ request.path }}?lang=en">EN</a> / <a href="{{ request.path }}?lang=ja">JA</a></span>
+                    <span class="language"><a href="{{ request.path }}?lang=en">EN</a> / <a
+                            href="{{ request.path }}?lang=ja">JA</a></span>
                     <!--<div class="site-header_end">
                         <a class="button" href="#">Login<i class="material-icons">expand_more</i></a>
                     </div>-->
@@ -115,20 +127,30 @@
     <!-- START: Insert each content -->
     {% block content %}{% endblock %}
     <!-- END: Insert each content -->
-  </body>
-  <!-- END: body -->
+</body>
+<!-- END: body -->
 
 
-  <!-- START: Common header and footer -->
-  <script type="text/javascript" src="/static/common-header-and-footer/script/common-footer.js" id="common-footer__script"></script>
-  <script type="text/javascript"
-	  src="https://dbcls.rois.ac.jp/DBCLS-common-header-footer/v2/script/common-header-and-footer.js"
-	  style="display: block" id="common-header-and-footer__script" data-width="976" data-color="mono"></script>
-  <!-- END: Common header and fotter -->
-  <!-- START: JavaScript -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
-  <!-- END: JavaScript -->
+<!-- START: Common header and footer -->
+<script type="text/javascript" src="/static/common-header-and-footer/script/common-footer.js"
+    id="common-footer__script"></script>
+<script type="text/javascript"
+    src="https://dbcls.rois.ac.jp/DBCLS-common-header-footer/v2/script/common-header-and-footer.js"
+    style="display: block" id="common-header-and-footer__script" data-width="976" data-color="mono"></script>
+<!-- END: Common header and fotter -->
+<!-- START: JavaScript -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+    jQuery(window).on('scroll', function () {
+        if (jQuery('.search-header').height() < jQuery(this).scrollTop()) {
+            jQuery('.search-header').addClass('change-color');
+        } else {
+            jQuery('.search-header').removeClass('change-color');
+        }
+    });
+</script>
+<link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
+<!-- END: JavaScript -->
 
 </html>
