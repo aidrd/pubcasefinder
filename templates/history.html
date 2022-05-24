@@ -6,7 +6,23 @@
         <h1>Update history</h1>
         <div class="topics">
             <ul>
-                <li class="topics-title">2021/04/01</li>
+                <li class="topics-title">2022/05/25</li>
+                {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
+                <li>
+		  <div>
+                        PubCaseFinderの最新機能とこれまでの国際連携の成果をまとめた論文「<a href="https://onlinelibrary.wiley.com/doi/10.1002/humu.24341">Advances in the development of PubCaseFinder, including the new application programming interface and matching algorithm</a>」が、世界の連携機関の論文と共に、Human Mutation誌の<a href="https://onlinelibrary.wiley.com/toc/10981004/2022/43/6">Matchmaker Exchange Special Issue号</a>に掲載されました。
+		  </div>
+                </li>
+                {% else %}
+                <li>
+                    <div>
+		        A paper '<a href="https://onlinelibrary.wiley.com/doi/10.1002/humu.24341">Advances in the development of PubCaseFinder, including the new application programming interface and matching algorithm</a>' was published in the <a href="https://onlinelibrary.wiley.com/toc/10981004/2022/43/6">Human Mutation special issue on Matchmaker Exchange</a>.
+                    </div>
+                </li>
+                {% endif %}
+            </ul>
+            <ul>
+                <li class="topics-title">2022/04/01</li>
                 {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
                 <li>PubCaseFinder v2.1.0 を公開しました。症状入力がより便利になりました（もしかして機能の追加）。また、HPO IDのリスト入力に対応しました。
                 </li>
