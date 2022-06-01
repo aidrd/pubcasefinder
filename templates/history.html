@@ -5,20 +5,31 @@
     <section class="content">
         <h1>Update history</h1>
         <div class="topics">
+            {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
+            <ul>
+                <li class="topics-title">2022/05/26</li>
+                <li>
+		  <div>
+                        [プレスリリース] PubCaseFinderを大幅にリニューアル －希少・遺伝性疾患の克服を目指し国際協力も推進－<br>
+			詳細は<a href="https://dbcls.rois.ac.jp/PDF/20220526_PubCaseFinder.pdf" target="_blank">報道発表資料PDF</a>をご覧ください。
+		  </div>
+                </li>
+            </ul>
+            {% endif %}
             <ul>
                 <li class="topics-title">2022/05/25</li>
                 {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
                 <li>
 		  <div>
-                        PubCaseFinderの最新機能とこれまでの国際連携の成果をまとめた以下の論文が、世界の連携機関の論文と共に、Human Mutation誌の<a href="https://onlinelibrary.wiley.com/toc/10981004/2022/43/6">Matchmaker Exchange Special Issue</a>号に掲載されました。<br><br>
-			Toyofumi Fujiwara, Jae-Moon Shin, Atsuko Yamaguchi "Advances in the development of PubCaseFinder, including the new application programming interface and matching algorithm." Hum Mutat. 2022 Jun;43(6):734-742; <a href="https://doi.org/10.1002/humu.24341">DOI: 10.1002/humu.24341</a>
+                        PubCaseFinderの最新機能とこれまでの国際連携の成果をまとめた以下の論文が、世界の連携機関の論文と共に、Human Mutation誌の<a href="https://onlinelibrary.wiley.com/toc/10981004/2022/43/6" target="_blank">Matchmaker Exchange Special Issue</a>号に掲載されました。<br><br>
+			Toyofumi Fujiwara, Jae-Moon Shin, Atsuko Yamaguchi "Advances in the development of PubCaseFinder, including the new application programming interface and matching algorithm." Hum Mutat. 2022 Jun;43(6):734-742; <a href="https://doi.org/10.1002/humu.24341" target="_blank">DOI: 10.1002/humu.24341</a>
 		  </div>
                 </li>
                 {% else %}
                 <li>
                     <div>
-		        The following paper was published in the <a href="https://onlinelibrary.wiley.com/toc/10981004/2022/43/6">Human Mutation special issue on Matchmaker Exchange</a>.<br><br>
-			Toyofumi Fujiwara, Jae-Moon Shin, Atsuko Yamaguchi "Advances in the development of PubCaseFinder, including the new application programming interface and matching algorithm." Hum Mutat. 2022 Jun;43(6):734-742; <a href="https://doi.org/10.1002/humu.24341">DOI: 10.1002/humu.24341</a>
+		        The following paper was published in the <a href="https://onlinelibrary.wiley.com/toc/10981004/2022/43/6" target="_blank">Human Mutation special issue on Matchmaker Exchange</a>.<br><br>
+			Toyofumi Fujiwara, Jae-Moon Shin, Atsuko Yamaguchi "Advances in the development of PubCaseFinder, including the new application programming interface and matching algorithm." Hum Mutat. 2022 Jun;43(6):734-742; <a href="https://doi.org/10.1002/humu.24341" target="_blank">DOI: 10.1002/humu.24341</a>
                     </div>
                 </li>
                 {% endif %}
