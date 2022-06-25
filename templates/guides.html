@@ -44,17 +44,16 @@
                 <div class="search-header_left">
                     <nav class="nav-pc">
                         <ul class="menu-pc">
-			    {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
-                            <li><a href="/static/pdf/PubCaseFinder_manual_ja_v4.pdf"><i class="icon-question-circle-o"></i>Guides</a></li>
-			    {% else %}
-                            <li><a href="/static/pdf/PubCaseFinder_manual_en_v4.pdf"><i class="icon-question-circle-o"></i>Guides</a></li>
-			    {% endif %}
+                            <li><a href="/guides"><i class="icon-question-circle-o"></i>Guides</a></li>
                             <li><a href="/api"><i class="icon-wrench"></i>API</a></li>
                             <li><a href="/history"><i class="icon-history"></i>History</a></li>
                             <li><a href="/termsofservice"><i class="icon-doc-text-inv"></i>Terms</a></li>
                             <li><a href="/sources"><i class="icon-database"></i>Sources</a></li>
-                            <li><a target="_blank" href="https://integbio.jp/rdf/dataset/pubcasefinder"><i class="icon-share"></i>RDF</a></li>
-                            <li><a title="Comments & suggestions are welcome!" href="mailto:support@dbcls.rois.ac.jp,pubcasefinder@dbcls.rois.ac.jp"><i class="icon-mail-alt"></i>Contact</a></li>
+                            <li><a target="_blank" href="https://integbio.jp/rdf/dataset/pubcasefinder"><i
+                                        class="icon-share"></i>RDF</a></li>
+                            <li><a title="Comments & suggestions are welcome!"
+                                    href="mailto:support@dbcls.rois.ac.jp,pubcasefinder@dbcls.rois.ac.jp"><i
+                                        class="icon-mail-alt"></i>Contact</a></li>
                         </ul>
                     </nav>
                     <nav class="nav-sp">
@@ -64,23 +63,22 @@
                                         menu
                                     </span></a>
                                 <ul class="sub-menu">
-				    {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
-                                    <li><a href="/static/pdf/PubCaseFinder_manual_ja_v4.pdf">Guides</a></li>
-			            {% else %}
-                                    <li><a href="/static/pdf/PubCaseFinder_manual_en_v4.pdf">Guides</a></li>
-				    {% endif %}
+                                    <li><a href="/guides">Guides</a></li>
                                     <li><a href="/api">API</a></li>
                                     <li><a href="/history">History</a></li>
                                     <li><a href="/termsofservice">Terms</a></li>
                                     <li><a href="/sources">Sources</a></li>
-                                    <li><a target="_blank" href="https://integbio.jp/rdf/dataset/pubcasefinder">RDF</a></li>
-                                    <li><a title="Comments & suggestions are welcome!" href="mailto:support@dbcls.rois.ac.jp,pubcasefinder@dbcls.rois.ac.jp">Contact</a></li>
+                                    <li><a target="_blank" href="https://integbio.jp/rdf/dataset/pubcasefinder">RDF</a>
+                                    </li>
+                                    <li><a title="Comments & suggestions are welcome!"
+                                            href="mailto:support@dbcls.rois.ac.jp,pubcasefinder@dbcls.rois.ac.jp">Contact</a>
+                                    </li>
                                 </ul>
                             </li>
                         </ul>
                     </nav>
-                    <!--span class="language"><a href="#">EN</a> / <a href="#"></a>JA</a></span-->
-                    <span class="language"><a href="{{ request.path }}?lang=en">EN</a> / <a href="{{ request.path }}?lang=ja">JA</a></span>
+                    <span class="language"><a href="{{ request.path }}?lang=en">EN</a> / <a
+                            href="{{ request.path }}?lang=ja">JA</a></span>
                     <!--<div class="site-header_end">
                         <a class="button" href="#">Login<i class="material-icons">expand_more</i></a>
                     </div>-->
@@ -98,132 +96,91 @@
                 <div class="column-left">
                     <ul class="sidenav btn_area">
                         <!-- List -->
-                        <li class="tab_btn"><a href="#help1">ビギナーズガイド</a></li>
-                        <li class="tab_btn"><a href="#help2">疾患を探す</a></li>
-                        <li class="tab_btn"><a href="#help3">遺伝子を探す</a></li>
-                        <li class="tab_btn"><a href="#help4">公開症例を探す</a></li>
-                        <li class="tab_btn"><a href="#help5">診療録から症状抽出</a></li>
+                        <li class="tab_btn"><a href="#guides1">Overview</a></li>
+                        <li class="tab_btn"><a href="#guides2">Beginner's Guide</a></li>
                     </ul>
                 </div>
                 <div class="column-right panel_area">
                     <div class="right-wrap tab_panel active">
-                        <h2>疾患を探す</h2>
-                        <span><img src="./images/usage_1.png"></span>
-                        <p>この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。
+                        <h2>Overview</h2>
+                        <span><img src="/static/images/pcf/top/logo_color.svg"></span>
+                        <p>Welcome to PubCaseFinder! PubCaseFinder is a web-based clinical decision support system that
+                            provides ranked lists of genetic and rare diseases using Human Phenotype Ontology
+                            (HPO)-based phenotypic similarities.
                         </p>
-                        <h3>タイトルが入ります</h3>
-                        <img src="./images/help-dummy.png">
-
-                        <p>この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。
-                        </p>
-                        <h4>タイトルが入ります</h4>
-                        <ul class="dot-list">
-                            <li>ここに項目が入りますここに項目が入りますここに項目が入ります</li>
-                            <li>ここに項目が入りますここに項目が入りますここに項目が入ります</li>
-                            <li>ここに項目が入りますここに項目が入りますここに項目が入ります</li>
-                        </ul>
-                        <p>この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。
-                        </p>
-                    </div>
-                    <div class="right-wrap tab_panel">
-                        <h2>公開症例を探す</h2>
-                        <span><img src="./images/usage_2.png"></span>
-                        <p>この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。
-                        </p>
-                        <h3>タイトルが入ります</h3>
-                        <img src="./images/help-dummy.png">
-
-                        <p>この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。
-                        </p>
-                        <h4>タイトルが入ります</h4>
-                        <ul class="dot-list">
-                            <li>ここに項目が入りますここに項目が入りますここに項目が入ります</li>
-                            <li>ここに項目が入りますここに項目が入りますここに項目が入ります</li>
-                            <li>ここに項目が入りますここに項目が入りますここに項目が入ります</li>
-                        </ul>
-                        <p>この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。
+                        <h3>Disclaimer</h3>
+                        <p>The PubCaseFinder is intended to be used by qualified and licensed physicians to assist in
+                            the research about rare and genetic diseases and for use as a teaching aid. The
+                            PubCaseFinder should not be used to make medical decisions without the advice of a
+                            physician. PubCaseFinder provides data in good faith as a investigative tool, but without
+                            verifying the accuracy, clinical validity or utility of the data. In case of commercial use
+                            of data, you must refer to the license of the <a
+                                href="https://pubcasefinder.dbcls.jp/sources">source</a> and confirm the scope of
+                            commercial use. PubCaseFinder makes no warranty, express or implied, nor assumes any legal
+                            liability or responsibility for any purpose for which the data are used. DBCLS shall bear no
+                            liability with respect to damages incurred by the change, discontinuation or termination of
+                            the Service.
                         </p>
                     </div>
                     <div class="right-wrap tab_panel">
-                        <h2>症例報告を探す</h2>
-                        <span><img src="./images/usage_3.png"></span>
-                        <p>この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。
+                        <h2>Beginner's Guide</h2>
+                        <p>
+                            You can easily check how to use PubCaseFinder on YouTube.<br><br>
+                            <iframe width="100%" height="400" src="https://www.youtube.com/embed/sPK1FrdN0Dw"
+                                title="YouTube video player" frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen></iframe>
                         </p>
-                        <h3>タイトルが入ります</h3>
-                        <img src="./images/help-dummy.png">
-
-                        <p>この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。
+                        <h3>Input</h3>
+                        <p>PubCaseFinder provides several functions to help users enter a large number of phenotypes,
+                            which facilitate precise patient phenotyping. The text search function enables users to
+                            select appropriate phenotypes from the list of hits in a partial match, including
+                            synonyms.<br><br>
+			    {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
+                            <img src="/static/images/pcf/guides/Beginners_Guide_1_ja.gif">
+			    {% else %}
+                            <img src="/static/images/pcf/guides/Beginners_Guide_1.gif">
+			    {% endif %}
                         </p>
-                        <h4>タイトルが入ります</h4>
-                        <ul class="dot-list">
-                            <li>ここに項目が入りますここに項目が入りますここに項目が入ります</li>
-                            <li>ここに項目が入りますここに項目が入りますここに項目が入ります</li>
-                            <li>ここに項目が入りますここに項目が入りますここに項目が入ります</li>
-                        </ul>
-                        <p>この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。
+                        <br>
+                        <h3>Result</h3>
+                        <p>A set of phenotypes entered by you can be compared with genetic diseases, rare diseases,
+                            causative genes, and open-sharing cases on the basis of phenotypic similarity. A higher
+                            phenotypic similarity will show a higher probability for a candidate disease, causative
+                            gene, or similar case. <br><br>
+                            <img src="/static/images/pcf/guides/Beginners_Guide_2.png">
                         </p>
-                    </div>
-                    <div class="right-wrap tab_panel">
-                        <h2>簡単な症状入力</h2>
-                        <span><img src="./images/usage_4.png"></span>
-                        <p>この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。
+                        <br>
+                        <h3>Hierarchical Structure View</h3>
+                        The hierarchical structure view function enables you to easily identify higher and lower concept
+                        terms of a given phenotype. For example, you can find the phenotype 'microcephaly' by searching
+                        its synonym 'small head' and then replace the term with its lower concept 'congenital
+                        microcephaly' using the hierarchical structure function.<br><br>
+                        <img src="/static/images/pcf/guides/Beginners_Guide_3.gif">
                         </p>
-                        <h3>タイトルが入ります</h3>
-                        <img src="./images/help-dummy.png">
-
-                        <p>この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。
+                        <h3>Filter</h3>
+                        <p>
+                            The filter function enables you to filter ranked lists in PubCaseFinder to specify a
+                            National Center for Biotechnology Information (NCBI) Gene ID as a causative gene, an Human
+                            Phenotype Ontology (HPO) term as a mode of inheritance, and/or a Monarch Disease Ontology
+                            (Mondo) term as a disease name. When an HPO or Mondo term is specified, all its lower
+                            concepts are also subject to the filter. Moreover, this filter supports search expressions
+                            using logical operators. For example, when specifying 'autosomal dominant inheritance
+                            (HP:0000006),' the ranked list is filtered to 3328 genetic diseases. When specifying
+                            'autoimmune disease (MONDO:0007179),' the list is filtered to 56 genetic diseases. When both
+                            'autosomal dominant inheritance (HP:0000006)' and 'autoimmune disease (MONDO:0007179)' are
+                            specified using 'AND' as a logical operator, the ranked list of genetic diseases is filtered
+                            to 30.<br><br>
+                            <img src="/static/images/pcf/guides/Beginners_Guide_4.gif">
                         </p>
-                        <h4>タイトルが入ります</h4>
-                        <ul class="dot-list">
-                            <li>ここに項目が入りますここに項目が入りますここに項目が入ります</li>
-                            <li>ここに項目が入りますここに項目が入りますここに項目が入ります</li>
-                            <li>ここに項目が入りますここに項目が入りますここに項目が入ります</li>
-                        </ul>
-                        <p>この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。
-                        </p>
-                    </div>
-                    <div class="right-wrap tab_panel">
-                        <h2>診療録から入力</h2>
-                        <span><img src="./images/usage_5.png"></span>
-                        <p>この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。
-                        </p>
-                        <h3>タイトルが入ります</h3>
-                        <img src="./images/help-dummy.png">
-
-                        <p>この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。
-                        </p>
-                        <h4>タイトルが入ります</h4>
-                        <ul class="dot-list">
-                            <li>ここに項目が入りますここに項目が入りますここに項目が入ります</li>
-                            <li>ここに項目が入りますここに項目が入りますここに項目が入ります</li>
-                            <li>ここに項目が入りますここに項目が入りますここに項目が入ります</li>
-                        </ul>
-                        <p>この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。
-                        </p>
-                    </div>
-                    <div class="right-wrap tab_panel">
-                        <h2>多言語対応</h2>
-                        <span><img src="./images/usage_6.png"></span>
-                        <p>この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。
-                        </p>
-                        <h3>タイトルが入ります</h3>
-                        <img src="./images/help-dummy.png">
-
-                        <p>この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。
-                        </p>
-                        <h4>タイトルが入ります</h4>
-                        <ul class="dot-list">
-                            <li>ここに項目が入りますここに項目が入りますここに項目が入ります</li>
-                            <li>ここに項目が入りますここに項目が入りますここに項目が入ります</li>
-                            <li>ここに項目が入りますここに項目が入りますここに項目が入ります</li>
-                        </ul>
-                        <p>この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。この文章はダミーです。
+                        <br>
+                        <h3>Download and Share</h3>
+                        <p>You can download the result in tsv or json format and get a link to share the result.<br><br>
+                            <img src="/static/images/pcf/guides/Beginners_Guide_5.gif">
                         </p>
                     </div>
                 </div>
             </div>
-
-
         </section>
     </div>
 
@@ -233,7 +190,8 @@
 </body>
 
 <!-- START: Common header and footer -->
-<script type="text/javascript" src="/static/common-header-and-footer/script/common-footer.js" id="common-footer__script"></script>
+<script type="text/javascript" src="/static/common-header-and-footer/script/common-footer.js"
+    id="common-footer__script"></script>
 <script type="text/javascript"
     src="https://dbcls.rois.ac.jp/DBCLS-common-header-footer/v2/script/common-header-and-footer.js"
     style="display: block" id="common-header-and-footer__script" data-width="976" data-color="mono"></script>
@@ -249,6 +207,13 @@
         $('.tab_box .tab_btn, .tab_box .tab_panel').removeClass('active');
         $(this).addClass('active');
         $('.tab_box .tab_panel').eq(index).addClass('active');
+    });
+    jQuery(window).on('scroll', function () {
+        if (jQuery('.search-header').height() < jQuery(this).scrollTop()) {
+            jQuery('.search-header').addClass('change-color');
+        } else {
+            jQuery('.search-header').removeClass('change-color');
+        }
     });
 </script>
 

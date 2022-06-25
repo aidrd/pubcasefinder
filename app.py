@@ -344,6 +344,39 @@ def api_pcf_filter_get_all_case_id():
     return jsonify(result)
 
 
+
+#####
+# API: 
+# GET method
+# /api/pcf_expand_get_mondo_id_by_mondo_id
+@app.route('/api/pcf_expand_get_mondo_id_by_mondo_id', methods=['GET'])
+def pcf_expand_get_mondo_id_by_mondo_id():
+    r_mondo_id = ""
+    if request.args.get('mondo_id') is not None:
+        r_mondo_id = request.args.get('mondo_id')
+
+    list_mondo_id = ["MONDO:0009903","MONDO:0007943"]
+    #return jsonify(result)
+    return jsonify(list_mondo_id)
+
+
+
+#####
+# API: 
+# GET method
+# /api/pcf_expand_get_nando_id_by_nando_id
+@app.route('/api/pcf_expand_get_nando_id_by_nando_id', methods=['GET'])
+def pcf_expand_get_nando_id_by_nando_id():
+    r_nando_id = ""
+    if request.args.get('nando_id') is not None:
+        r_nando_id = request.args.get('nando_id')
+
+    list_nando_id = ["NANDO:1200473","NANDO:2200865"]
+    #return jsonify(result)
+    return jsonify(list_nando_id)
+
+
+
 #####
 # API: Share URL
 # GET method

@@ -136,8 +136,8 @@ body {
 
 .search-header {
     z-index: 100;
-    position: sticky;
-    top: 0;
+    position: fixed;
+    min-width: 100%;
     background-size: cover;
     background-color: #f0f0f0;
 }
@@ -174,7 +174,6 @@ body {
     white-space: nowrap;
     transition: all 0.5s 0s ease;
     text-align: none;
-	line-height: 1.42857;
 }
 
 .search-header .search-header_wrapper .search-header_top .search-header_left .language a:hover{
@@ -265,7 +264,7 @@ body {
     }
 
     .search-header .search-header_wrapper .search-box_wrapper {
-        width: 100%;
+        width: 90%;
         margin: 8px auto 0;
         min-width: 620px;
     }
@@ -278,6 +277,44 @@ body {
     .content-wrapper {
         width: 90%;
         min-width: 620px;
+    }
+
+    .search-header .search-header_wrapper .search-box_wrapper .search-button {
+        display: flex;
+        flex-wrap: wrap;
+        padding-top: 0.5rem;
+    }
+
+    .search-header .search-header_wrapper .search-box_wrapper .search-button span {
+        border-radius: 5px;
+        padding: 5px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-right: 0.5rem;
+    }
+
+    .search-header .search-header_wrapper .search-box_wrapper .search-button .active {
+        border: solid 1px #394466;
+        background-color: #394466;
+        color: #fff;
+    }
+
+    .search-header .search-header_wrapper .search-box_wrapper .search-button .active i {
+        transform: rotateX(180deg);
+        transition: all 0.2s;
+    }
+
+    .search-header .search-header_wrapper .search-box_wrapper .search-button .search-button_start {
+        padding-left: 0.6em;
+        font-weight: 500;
+    }
+
+    .search-header .search-header_wrapper .search-box_wrapper .search-button .search-button_end {
+        margin-right: 0;
+        left: 0;
+        margin-left: auto;
+        font-weight: 500;
     }
 }
 
@@ -731,9 +768,34 @@ body {
 }
 
 .search-box_wrapper {
-    width: 100%;
+    width: 65%;
     min-width: 685px;
     margin: 0 auto;
+}
+
+.search-box_wrapper .search-box_form {
+    border: solid 1px #AEB0B5;
+    border-radius: 5px;
+    background-color: #fff;
+    padding: 15px;
+}
+
+.search-box_wrapper .search-button {
+    display: flex;
+    flex-wrap: wrap;
+    padding-top: 0.5rem;
+}
+
+.search-box_wrapper .search-button .search-button_start {
+    padding-left: 0.7em;
+}
+
+.search-box_wrapper .search-button .search_end {
+    margin-right: 0;
+    left: 0;
+    margin-left: auto;
+    padding-left: 10px;
+    color: #0431B4;
 }
 
 @media (max-width: 1150px) {
@@ -753,10 +815,64 @@ body {
 }
 
 .search {
-    padding-top: 5em;
+    padding-top: 7em;
     padding-bottom: 10em;
 }
 
+.search-box_button {
+    width: 65%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.search-box_button .search-button {
+    flex-wrap: wrap;
+    padding-top: 2rem;
+    display: -webkit-inline-box;
+}
+
+.search-box_button .search-button a {
+    border: solid 1px #AEB0B5;
+    border-radius: 5px;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 0.5rem;
+    transition: 1.0s;
+}
+
+.search-box_button .search-button a:hover {
+    border: solid 1px #000;
+    background-color: #000;
+    color: #fff;
+}
+
+.search-box_button .search-button .search-button-left {
+    border: solid 1px #F73859;
+    background-color: #F73859;
+    color: #fff;
+    border: 0px none;
+    transition: 1.0s;
+}
+
+.search-box_button .search-button .search-button-left:hover {
+    border: solid 1px #cf1f3d;
+    background-color: #cf1f3d;
+    color: #fff;
+    border: 0px none;
+}
+
+.search-box_button .search-button .active {
+    border: solid 1px #394466;
+    background-color: #394466;
+    color: #fff;
+}
+
+.search-box_button .search-button .active i {
+    transform: rotateX(180deg);
+    transition: all 0.2s;
+}
 
 .search-ex {
     color: #0431B4;
@@ -1252,8 +1368,6 @@ p {
 
 .nav-pc ul {
     display: flex;
-	margin-top: inherit;
-	margin-bottom: inherit;
 }
 
 .nav-pc ul li {
@@ -2990,12 +3104,6 @@ label {
     padding: 8px 20px;
 }
 
-.btn.btn-default {
-    color: #333;
-    background-color: #fff;
-}
-
-
 .btn.btn-md {
     padding: 8px 20px !important;
 }
@@ -3220,7 +3328,7 @@ label {
     top: 0px;
     width: 100%;
     height: 100%;
-    z-index: 999999;
+    z-index: 9999;
     background: url(../images/loader.gif) center no-repeat #fff;
 }
 
@@ -3299,7 +3407,6 @@ label {
     overflow: hidden;
 }
 
-/*
 input[type="checkbox"] {
     position: relative;
     width: 1.5em;
@@ -3313,7 +3420,6 @@ input[type="checkbox"] {
     transition: background 175ms cubic-bezier(0.1, 0.1, 0.25, 1);
     margin-bottom: 0.5em;
 }
-
 
 input[type="checkbox"]::before {
     position: absolute;
@@ -3342,11 +3448,6 @@ input[type="checkbox"]:checked::before {
 
 input[type="checkbox"]:checked~label::before {
     clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
-}
-*/
-
-a {
-  color: inherit;
 }
 
 label {
@@ -3958,7 +4059,7 @@ label {
     border-bottom-style: solid;
     border-color: #13295A;
     padding-bottom: 0.2em;
-    margin-top: 2em;
+    margin-top: 4em;
     margin-bottom: 0.8em;
 }
 
@@ -4084,6 +4185,11 @@ label {
     line-height: 1.5em;
 }
 
+.help-wrapper .content .column-wrapper .column-right .right-wrap p a{
+    color: #067ABC;
+    border-bottom: 1px solid;
+}
+
 .tab_panel {
     display: none;
 }
@@ -4125,7 +4231,7 @@ label {
     font-weight: bold;
     position: relative;
     margin-bottom: 1em;
-    margin-top: 2em;
+    margin-top: 4em;
     margin-bottom: 1.3em;
     text-align: center;
 }
@@ -4210,7 +4316,7 @@ label {
     font-weight: bold;
     position: relative;
     margin-bottom: 1em;
-    margin-top: 2em;
+    margin-top: 4em;
     margin-bottom: 1.3em;
     text-align: center;
 }
@@ -4286,7 +4392,7 @@ label {
     font-weight: bold;
     position: relative;
     margin-bottom: 1em;
-    margin-top: 2em;
+    margin-top: 4em;
     margin-bottom: 1.3em;
     text-align: center;
 }
@@ -4356,7 +4462,7 @@ label {
     font-weight: bold;
     position: relative;
     margin-bottom: 1em;
-    margin-top: 2em;
+    margin-top: 4em;
     margin-bottom: 1.3em;
     text-align: center;
 }
@@ -4486,4 +4592,8 @@ label {
     padding: 10px;
     background-color: #13295A;
     color: #fff;
+}
+
+#dbcls-common-footer .footer__common {
+    clear: both;
 }
