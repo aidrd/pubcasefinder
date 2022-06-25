@@ -72,6 +72,38 @@ def pcf_get_ranking_by_hpo_id(r_target, r_phenotype, r_weight):
             uniq_id = value[0]
             dict_UniqID[uniq_id] = 1
 
+    ## DiseaseGeneOMIMテーブルからOMIMに対する疾患原因遺伝子を取得
+    dict_DGA_OMIM = {}
+    sql_DGA_OMIM = u"select OntoIDOMIM, replace(EntrezID, 'ENT', 'GENEID') from DiseaseGeneOMIM where Source!='DisGeNET'"
+    cursor_DGA_OMIM = OBJ_MYSQL.cursor()
+    cursor_DGA_OMIM.execute(sql_DGA_OMIM)
+    values = cursor_DGA_OMIM.fetchall()
+    cursor_DGA_OMIM.close()
+    for value in values:
+        onto_id_omim = value[0]
+        geneid       = value[1]
+        if onto_id_omim in dict_DGA_OMIM:
+            (dict_DGA_OMIM[onto_id_omim]).append(geneid)
+        else:
+            dict_DGA_OMIM[onto_id_omim] = []
+            (dict_DGA_OMIM[onto_id_omim]).append(geneid)
+
+    ## DiseaseGeneテーブルからOrphanetに対する疾患原因遺伝子を取得
+    dict_DGA_Orphanet = {}
+    sql_DGA_Orphanet = u"select OntoIDORDO, replace(EntrezID, 'ENT', 'GENEID') from DiseaseGene where Source='Orphanet'"
+    cursor_DGA_Orphanet = OBJ_MYSQL.cursor()
+    cursor_DGA_Orphanet.execute(sql_DGA_Orphanet)
+    values = cursor_DGA_Orphanet.fetchall()
+    cursor_DGA_Orphanet.close()
+    for value in values:
+        onto_id_orphanet = value[0]
+        geneid           = value[1]
+        if onto_id_orphanet in dict_DGA_Orphanet:
+            (dict_DGA_Orphanet[onto_id_orphanet]).append(geneid)
+        else:
+            dict_DGA_Orphanet[onto_id_orphanet] = []
+            (dict_DGA_Orphanet[onto_id_orphanet]).append(geneid)
+
     ## WeightMONDOテーブルから情報抽出
     dict_weight = {}
     #sql_Weight = u"select MONDOID, HPOID from WeightMONDO"
@@ -224,6 +256,19 @@ def pcf_get_ranking_by_hpo_id(r_target, r_phenotype, r_weight):
 
         dict_similar_disease['annotation_hp_num']    = dict_AnnotationHPONum[onto_id] if not r_target=="gene" else dict_AnnotationHPONum[geneid]
         dict_similar_disease['annotation_hp_sum_ic'] = dict_AnnotationHPOSumIC[onto_id] if not r_target=="gene" else dict_AnnotationHPOSumIC[geneid]
+
+        # 疾患原因遺伝子を収納
+        if r_target=="omim":
+            if onto_id in dict_DGA_OMIM:
+                dict_similar_disease['gene_id'] = ",".join(dict_DGA_OMIM[onto_id])
+            else:
+                dict_similar_disease['gene_id'] = ""
+        if r_target=="orphanet":
+            if onto_id in dict_DGA_Orphanet:
+                dict_similar_disease['gene_id'] = ",".join(dict_DGA_Orphanet[onto_id])
+            else:
+                dict_similar_disease['gene_id'] = ""
+
         if r_target=="orphanet":
             onto_id = onto_id.replace('ORDO', 'ORPHA')
         dict_similar_disease['id']                   = onto_id
