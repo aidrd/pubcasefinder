@@ -40,8 +40,41 @@ from utils.api_pcf_get_count_case_report_by_mondo_id import pcf_get_count_case_r
 # API: pcf_filter_get_case_id_by_ncbi_gene_id
 from utils.api_pcf_filter_get_case_id_by_ncbi_gene_id import pcf_filter_get_case_id_by_ncbi_gene_id
 
+# API: pcf_filter_get_case_id_by_gene_id
+from utils.api_pcf_filter_get_case_id_by_gene_id import pcf_filter_get_case_id_by_gene_id
+
+# API: pcf_filter_get_case_id_by_mondo_id
+from utils.api_pcf_filter_get_case_id_by_mondo_id import pcf_filter_get_case_id_by_mondo_id
+
+# API: pcf_filter_get_case_id_by_nando_id
+from utils.api_pcf_filter_get_case_id_by_nando_id import pcf_filter_get_case_id_by_nando_id
+
+# API: pcf_filter_get_gene_id_by_pa_id
+from utils.api_pcf_filter_get_gene_id_by_pa_id import pcf_filter_get_gene_id_by_pa_id
+
+# API: pcf_filter_get_case_id_by_pa_id
+from utils.api_pcf_filter_get_case_id_by_pa_id import pcf_filter_get_case_id_by_pa_id
+
+# API: pcf_filter_get_gene_id_by_paa_id
+from utils.api_pcf_filter_get_gene_id_by_paa_id import pcf_filter_get_gene_id_by_paa_id
+
+# API: pcf_filter_get_case_id_by_paa_id
+from utils.api_pcf_filter_get_case_id_by_paa_id import pcf_filter_get_case_id_by_paa_id
+
 # API: pcf_filter_get_all_case_id
 from utils.api_pcf_filter_get_all_case_id import pcf_filter_get_all_case_id
+
+# API pcf_get_pa_data_by_pa_id
+from utils.api_pcf_get_pa_data_by_pa_id import pcf_get_pa_data_by_pa_id
+
+# API pcf_get_paa_data_by_paa_id
+from utils.api_pcf_get_paa_data_by_paa_id import pcf_get_paa_data_by_paa_id
+
+# API pcf_get_mondo_data_by_mondo_id
+from utils.api_pcf_get_mondo_data_by_mondo_id import pcf_get_mondo_data_by_mondo_id
+
+# API pcf_get_gene_data_by_gene_id
+from utils.api_pcf_get_gene_data_by_gene_id import pcf_get_gene_data_by_gene_id
 
 # API: pcf_download
 from utils.api_pcf_download import pcf_download
@@ -155,6 +188,7 @@ def result():
     r_target = ""
     r_phenotype = ""
     r_filter = ""
+    r_vgp = ""
     r_size = ""
     r_display_format = ""
     r_lang = ""
@@ -164,6 +198,8 @@ def result():
         r_phenotype = request.args.get('phenotype')
     if request.args.get('filter') is not None:
         r_filter = request.args.get('filter')
+    if request.args.get('vgp') is not None:
+        r_vgp = request.args.get('vgp')
     if request.args.get('size') is not None:
         if request.args.get('size') in  ['10','20','50','100','200']:
             r_size = request.args.get('size')
@@ -200,10 +236,24 @@ def result():
         filters = re.sub(r',+$', '', filters)
         r_filter = filters
 
+    if(len(r_vgp) > 0):
+        list_filters = r_vgp.split(',')
+        list_filters_uniq = []
+        for str_filter in list_filters:
+            if str_filter not in list_filters_uniq:
+                list_filters_uniq.append(str_filter)
+
+        filters = ','.join(list_filters_uniq)
+        filters = re.sub(r'^,+', '', filters)
+        filters = re.sub(r',+$', '', filters)
+        r_vgp = filters
+
+
     return render_template('result.html',
                            r_target=r_target,
                            r_phenotype=r_phenotype,
                            r_filter=r_filter,
+                           r_vgp=r_vgp,
                            r_size=r_size,
                            r_display_format=r_display_format,
                            r_lang=r_lang)
@@ -334,6 +384,86 @@ def api_pcf_filter_get_case_id_by_ncbi_gene_id():
         return jsonify(result)
 
 
+###### API: Filter case ID list: pcf_filter_get_case_id_by_gene_id
+# GET method
+# /pcf_filter_get_case_id_by_gene_id?gene_id=[GENE_ID]
+@app.route('/pcf_filter_get_case_id_by_gene_id', methods=['GET'])
+def api_pcf_filter_get_case_id_by_gene_id():
+    r_gene_id = ""
+    if request.args.get('gene_id') is not None:
+        r_gene_id = request.args.get('gene_id')
+    if request.method == 'GET':
+        result = pcf_filter_get_case_id_by_gene_id(r_gene_id)
+        return jsonify(result)
+
+#####
+# API: Filter case ID list: pcf_filter_get_case_id_by_mondo_id
+# GET method
+# /pcf_filter_get_case_id_by_mondo_id?mondo_id=[MONDO_ID]
+@app.route('/pcf_filter_get_case_id_by_mondo_id', methods=['GET'])
+def api_pcf_filter_get_case_id_by_mondo_id():
+
+    r_mondo_id = ""
+
+    if request.args.get('mondo_id') is not None:
+        r_mondo_id = request.args.get('mondo_id')
+
+    if request.method == 'GET':
+        result = pcf_filter_get_case_id_by_mondo_id(r_mondo_id)
+        return jsonify(result)
+
+#####
+# API: Filter case ID list: pcf_filter_get_case_id_by_nando_id
+# GET method
+# /pcf_filter_get_case_id_by_nando_id?nando_id=[NANDO_ID]
+@app.route('/pcf_filter_get_case_id_by_nando_id', methods=['GET'])
+def api_pcf_filter_get_case_id_by_nando_id():
+
+    r_nando_id = ""
+
+    if request.args.get('nando_id') is not None:
+        r_nando_id = request.args.get('nando_id')
+
+    if request.method == 'GET':
+        result = pcf_filter_get_case_id_by_nando_id(r_nando_id)
+        return jsonify(result)
+
+
+#####
+# API: Filter case ID list: pcf_filter_get_case_id_by_pa_id
+# GET method
+# /pcf_filter_get_case_id_by_pa_id?pa_id=[PA_ID]
+@app.route('/pcf_filter_get_case_id_by_pa_id', methods=['GET'])
+def api_pcf_filter_get_case_id_by_pa_id():
+
+    r_pa_id = ""
+
+    if request.args.get('pa_id') is not None:
+        r_pa_id = request.args.get('pa_id')
+
+    if request.method == 'GET':
+        result = pcf_filter_get_case_id_by_pa_id(r_pa_id)
+        return jsonify(result)
+
+
+
+#####
+# API: Filter case ID list: pcf_filter_get_case_id_by_paa_id
+# GET method                                                                                                                  
+# /pcf_filter_get_case_id_by_paa_id?paa_id=[PAA_ID]
+@app.route('/pcf_filter_get_case_id_by_paa_id', methods=['GET'])
+def api_pcf_filter_get_case_id_by_paa_id():
+
+    r_paa_id = ""
+
+    if request.args.get('paa_id') is not None:
+        r_paa_id = request.args.get('paa_id')
+
+    if request.method == 'GET':
+        result = pcf_filter_get_case_id_by_paa_id(r_paa_id)
+        return jsonify(result)
+
+
 #####
 # API: Filter case ID list: pcf_filter_get_all_case_id
 # GET method
@@ -342,6 +472,98 @@ def api_pcf_filter_get_case_id_by_ncbi_gene_id():
 def api_pcf_filter_get_all_case_id():
     result = pcf_filter_get_all_case_id()
     return jsonify(result)
+
+#####
+# API: Filter gene ID list: pcf_filter_get_gene_id_by_pa_id
+# GET method
+# /pcf_filter_get_gene_id_by_pa_id
+@app.route('/pcf_filter_get_gene_id_by_pa_id', methods=['GET'])
+def api_pcf_filter_get_gene_id_by_pa_id():
+
+    r_pa_id = ""
+
+    if request.args.get('pa_id') is not None:
+        r_pa_id = request.args.get('pa_id')
+
+    if request.method == 'GET':
+        result = pcf_filter_get_gene_id_by_pa_id(r_pa_id)
+        return jsonify(result)
+
+
+#####
+# API: Filter gene ID list: pcf_filter_get_gene_id_by_paa_id
+# GET method
+# /pcf_filter_get_gene_id_by_paa_id
+@app.route('/pcf_filter_get_gene_id_by_paa_id', methods=['GET'])
+def api_pcf_filter_get_gene_id_by_paa_id():
+
+    r_paa_id = ""
+
+    if request.args.get('paa_id') is not None:
+        r_paa_id = request.args.get('paa_id')
+
+    if request.method == 'GET':
+        result = pcf_filter_get_gene_id_by_paa_id(r_paa_id)
+        return jsonify(result)
+
+
+# API: Filter PA DATA: pcf_get_pa_data_by_pa_id
+# GET method
+# /pcf_get_pa_data_by_pa_id
+@app.route('/pcf_get_pa_data_by_pa_id', methods=['GET'])
+def api_pcf_get_pa_data_by_pa_id():
+
+    r_pa_id = ""
+
+    if request.args.get('pa_id') is not None:
+        r_pa_id = request.args.get('pa_id')
+
+    if request.method == 'GET':
+        result = pcf_get_pa_data_by_pa_id(r_pa_id)
+        return jsonify(result)
+
+# API: Filter PAA DATA: pcf_get_paa_data_by_paa_id
+# GET method
+# /pcf_get_paa_data_by_paa_id
+@app.route('/pcf_get_paa_data_by_paa_id', methods=['GET'])
+def api_pcf_get_paa_data_by_paa_id():
+
+    r_paa_id = ""
+
+    if request.args.get('paa_id') is not None:
+        r_paa_id = request.args.get('paa_id')
+
+    if request.method == 'GET':
+        result = pcf_get_paa_data_by_paa_id(r_paa_id)
+        return jsonify(result)
+
+
+# API: Filter MONDO DATA: pcf_get_mondo_data_by_mondo_id
+# GET method
+# /pcf_get_mondo_data_by_mondo_id
+@app.route('/pcf_get_mondo_data_by_mondo_id', methods=['GET'])
+def api_pcf_get_mondo_data_by_mondo_id():
+
+    r_mondo_id = ""
+    if request.args.get('mondo_id') is not None:
+        r_mondo_id = request.args.get('mondo_id')
+
+    if request.method == 'GET':
+        result = pcf_get_mondo_data_by_mondo_id(r_mondo_id)
+        return jsonify(result)
+
+
+# API: Filter GENE DATA: pcf_get_gene_data_by_gene_id
+# GET method
+# /pcf_get_gene_data_by_gene_id
+@app.route('/pcf_get_gene_data_by_gene_id', methods=['GET'])
+def api_pcf_get_gene_data_by_gene_id():
+    r_gene_id = ""
+    if request.args.get('gene_id') is not None:
+        r_gene_id = request.args.get('gene_id')
+    if request.method == 'GET':
+        result = pcf_get_gene_data_by_gene_id(r_gene_id)
+        return jsonify(result)
 
 
 
@@ -980,6 +1202,229 @@ def tokeninput_filter():
 
     return jsonify(list_json)
 
+#####
+# tokeninput_vgp()
+# complement input for genes/variants
+#####
+@app.route('/tokeninput_vgp', methods=['GET', 'POST'])
+def tokeninput_vgp():
+
+    list_json = []
+
+    # GETメソッドの値を取得
+    if request.method == 'GET':
+
+        # requestから値を取得
+        tokeninputs = request.args.get("q").replace(u'　', u' ').lower().split()
+        sql_params = []
+        in_tokeninputs = []
+        for v in tokeninputs:
+            sql_params.append("%"+v+"%")
+            in_tokeninputs.append(mojimoji.zen_to_han(v, kana=False).lower())
+        for v in tokeninputs:
+            sql_params.append("%"+v+"%")
+#        for v in tokeninputs:
+#            sql_params.append("%"+v+"%")
+        # add for PA
+        for v in tokeninputs:
+            sql_params.append("%"+v+"%")
+        # add for PAA
+        for v in tokeninputs:
+            sql_params.append("%"+v+"%")
+
+        # DiseaseGeneテーブルからSymbol及びSynonymを検索
+        ## SQLのLIKEを使うときのTips
+        ### http://d.hatena.ne.jp/heavenshell/20111027/1319712031
+        OBJ_MYSQL = MySQLdb.connect(unix_socket=db_sock, host="localhost", db=db_name, user=db_user, passwd=db_pw, charset="utf8")
+        # IndexFormSearchOrphanetOMIMテーブルからクエリにマッチするレコードを取得
+        sql_IndexFormSearch = \
+                              u"SELECT uid,Symbol,Synonyms,name_ja,EntrezID FROM (SELECT " \
+                              u"  OntoTermMONDOInformation.OntoID AS uid " \
+                              u" ,OntoName AS Symbol " \
+                              u" ,OntoSynonym AS Synonyms " \
+                              u" ,OntoNameJa AS name_ja " \
+                              u" ,OntoDbxrefName AS EntrezID " \
+                              u" ,LOWER(TRIM(CONCAT(OntoTermMONDOInformation.OntoID,' | ',OntoName,' | ',IFNULL(OntoNameJa,''),' | ',IFNULL(OntoSynonym,''),' | ',IFNULL(OntoDbxrefName,'')))) AS uid_value " \
+                              u" ,'MONDO' AS source " \
+                              u"FROM " \
+                              u"  OntoTermMONDOInformation " \
+                              u"LEFT JOIN ( " \
+                              u"  SELECT " \
+                              u"    OntoVersion " \
+                              u"   ,OntoID " \
+                              u"   ,GROUP_CONCAT(DISTINCT OntoDbxrefName SEPARATOR ' | ') AS OntoDbxrefName " \
+                              u"  FROM " \
+                              u"    OntoTermMONDODbxref " \
+                              u"  WHERE " \
+                              u"    OntoDbxrefDb='ENT' " \
+                              u"  GROUP BY " \
+                              u"    OntoID " \
+                              u") AS OntoTermMONDODbxref ON OntoTermMONDODbxref.OntoVersion=OntoTermMONDOInformation.OntoVersion AND OntoTermMONDODbxref.OntoID=OntoTermMONDOInformation.OntoID " \
+                              u") AS A WHERE " \
+                              u"{0}" \
+                              u" UNION " \
+                              u"select distinct uid, " \
+                              u" COALESCE(DiseaseGeneOMIM.Symbol,DiseaseGene.Symbol) AS Symbol" \
+                              u",COALESCE(DiseaseGeneOMIM.Synonym,DiseaseGene.Synonym) AS Synonyms " \
+                              u",null AS name_ja " \
+                              u",null AS EntrezID " \
+                              u"from IndexFormSearchOrphanetOMIM " \
+                              u"LEFT JOIN (SELECT distinct SymbolSynonym,Symbol,Synonym,Source,EntrezID FROM DiseaseGene) AS DiseaseGene ON DiseaseGene.EntrezID=IndexFormSearchOrphanetOMIM.uid AND LEFT(DiseaseGene.SymbolSynonym,300)=IndexFormSearchOrphanetOMIM.value " \
+                              u"LEFT JOIN (SELECT distinct SymbolSynonym,Symbol,Synonym,Source,EntrezID FROM DiseaseGeneOMIM) AS DiseaseGeneOMIM ON DiseaseGeneOMIM.EntrezID=IndexFormSearchOrphanetOMIM.uid AND LEFT(DiseaseGeneOMIM.SymbolSynonym,300)=IndexFormSearchOrphanetOMIM.value " \
+                              u" WHERE {0}" \
+                              u" UNION " \
+                              u"SELECT uid,Symbol,Synonyms,name_ja,EntrezID FROM (SELECT " \
+                              u"  panel_id AS uid " \
+                              u" ,panel_name AS Symbol " \
+                              u" ,NULL AS Synonyms " \
+                              u" ,NULL AS name_ja " \
+                              u" ,NULL AS EntrezID " \
+                              u" ,LOWER(TRIM(CONCAT(panel_id,' | ',panel_name))) AS uid_value " \
+                              u" ,'PA' AS source " \
+                              u"FROM " \
+                              u"  vgp " \
+                              u") AS A WHERE " \
+                              u"{0}" \
+                              u" UNION " \
+                              u"SELECT uid,Symbol,Synonyms,name_ja,EntrezID FROM (SELECT " \
+                              u"  panel_id AS uid " \
+                              u" ,panel_name AS Symbol " \
+                              u" ,NULL AS Synonyms " \
+                              u" ,NULL AS name_ja " \
+                              u" ,NULL AS EntrezID " \
+                              u" ,LOWER(TRIM(CONCAT(panel_id,' | ',panel_name))) AS uid_value " \
+                              u" ,'PAA' AS source " \
+                              u"FROM " \
+                              u"  vgpau " \
+                              u") AS A WHERE " \
+                              u"{0}" 
+        #sql_IndexFormSearch = sql_IndexFormSearch.format(' AND '.join(map(lambda x: "uid_value collate utf8_str_ci like %s", tokeninputs)))
+        sql_IndexFormSearch = sql_IndexFormSearch.format(' AND '.join(map(lambda x: "uid_value like %s", tokeninputs)))
+        #app.logger.info(sql_IndexFormSearch)
+        #app.logger.info(tuple(sql_params))
+
+        cursor_IndexFormSearch = OBJ_MYSQL.cursor()
+        #cursor_IndexFormSearch.execute(sql_IndexFormSearch, ("%" + tokeninput.lower() +"%","%" + tokeninput.lower() +"%","%" + tokeninput.lower() +"%"))
+        cursor_IndexFormSearch.execute(sql_IndexFormSearch, tuple(sql_params))
+        values = cursor_IndexFormSearch.fetchall()
+        cursor_IndexFormSearch.close()
+
+        #in_tokeninput = mojimoji.zen_to_han(tokeninput, kana=False).lower()
+
+        #app.logger.info(in_tokeninputs)
+
+        for value in values:
+            #app.logger.info(value)
+            #app.logger.info(type(value[3]))
+            dict_json = {}
+            uid         = mojimoji.zen_to_han(value[0], kana=False).lower()
+            uid_value   = mojimoji.zen_to_han(value[1], kana=False).lower()
+            synonym_arr = []
+            source_arr = []
+
+            name_ja = None
+            if isinstance(value[3],str) and len(value[3]):
+                name_ja = mojimoji.zen_to_han(value[3], kana=False).lower()
+
+            #app.logger.info(uid)
+            #app.logger.info(uid_value)
+            #app.logger.info(name_ja)
+
+            uid_flag = True
+            uid_value_flag = True
+            for in_tokeninput in in_tokeninputs:
+                if not isinstance(uid,str) or not len(uid) or not in_tokeninput in uid:
+                    uid_flag = False
+                if not isinstance(uid_value,str) or not len(uid_value) or not in_tokeninput in uid_value:
+                    #app.logger.info(type(uid_value))
+                    #app.logger.info(len(uid_value))
+                    #app.logger.info(in_tokeninput in uid_value)
+                    uid_value_flag = False
+                if not uid_flag and not uid_value_flag:
+                    #app.logger.info(in_tokeninput)
+                    break
+
+            if not uid_flag:
+                uid = None
+
+            if not uid_value_flag:
+                uid_value = None
+
+            #app.logger.info(uid)
+            #app.logger.info(uid_value)
+
+            if uid is None and uid_value is None and isinstance(value[2],str) and len(value[2]):
+                list_synonym = value[2].split(' | ')
+                for synonym in list_synonym:
+                    temp_synonym = mojimoji.zen_to_han(synonym, kana=False).lower()
+                    temp_synonym_flag = True
+                    for in_tokeninput in in_tokeninputs:
+                        if not isinstance(temp_synonym,str) or not len(temp_synonym) or not in_tokeninput in temp_synonym:
+                            temp_synonym_flag = False
+                            break
+                    if temp_synonym_flag:
+                        synonym_arr.append(synonym)
+
+            #if not name_ja is None:
+            #    app.logger.info(name_ja)
+            #    app.logger.info(type(name_ja))
+            #    app.logger.info(len(name_ja))
+
+            if isinstance(name_ja,str) and len(name_ja):
+                name_ja_flag = True
+                for in_tokeninput in in_tokeninputs:
+                    if not in_tokeninput in name_ja:
+                        #app.logger.info(in_tokeninput)
+                        #app.logger.info(isinstance(in_tokeninput,str))
+                        name_ja_flag = False
+                        break
+                if not name_ja_flag:
+                    name_ja = None
+            #app.logger.info(name_ja)
+
+            #app.logger.info(uid)
+            #app.logger.info(uid_value)
+            #app.logger.info(synonym_arr)
+            #app.logger.info(name_ja)
+
+            if uid is None and uid_value is None and not len(synonym_arr) and name_ja is None:
+                continue
+
+
+            #if type(value[3]) is str and len(value[3]):
+            #    list_source = value[3].split(';')
+            #    for source in list_source:
+            #        source = source.strip()
+            #        if type(source) is str and len(source):
+            #            source_arr.append(source)
+
+            if isinstance(name_ja,str) and len(name_ja):
+                dict_json['id']   = value[0].replace('ENT:','GENEID:') + "_ja"
+                dict_json['name'] = value[3]
+            else:
+                dict_json['id']   = value[0].replace('ENT:','GENEID:')
+                dict_json['name'] = value[1]
+            if len(synonym_arr)>0:
+                dict_json['synonym'] = synonym_arr
+            else:
+                dict_json['synonym'] = None
+            if len(source_arr)>0:
+                dict_json['source'] = source_arr
+            else:
+                dict_json['source'] = None
+
+            if isinstance(value[4],str) and len(value[4]):
+                dict_json['EntrezID'] = value[4]
+            else:
+                dict_json['EntrezID'] = None
+
+            list_json.append(dict_json)
+            #app.logger.info(dict_json)
+            #app.logger.info('')
+
+    OBJ_MYSQL.close()
+
+    return jsonify(list_json)
 
 #####
 # popup_hierarchy_mondo()
