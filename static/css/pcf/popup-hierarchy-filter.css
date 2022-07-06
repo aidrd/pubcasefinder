@@ -1,0 +1,977 @@
+@keyframes popup-hierarchy-filter-keyframe-superclass-translate {
+	from {
+		transform: translate(0%, 0px);
+	}
+	to {
+		transform: translate(33%, 0px);
+	}
+}
+
+@keyframes popup-hierarchy-filter-keyframe-subclass-translate {
+	from {
+		transform: translate(0%, 0px);
+	}
+	to {
+		transform: translate(-33%, 0px);
+	}
+}
+
+@keyframes popup-hierarchy-filter-keyframe-hidden {
+	from {
+		opacity: 1;
+	}
+	to {
+		opacity: 0;
+	}
+}
+
+.popup-hierarchy-filter-inline-content {
+	display:none;
+}
+.popup-hierarchy-filter-table {
+	display:table;
+	border-collapse:separate;
+	border-spacing: 20px;
+	width:100%;
+	margin: 0 auto;
+}
+.popup-hierarchy-filter-caption {
+	display:table-caption;
+	text-align:center;
+	font-weight:bold;
+}
+.popup-hierarchy-filter-tr {
+	display:table-row;
+}
+.popup-hierarchy-filter-td {
+	display:table-cell;
+	width:33%;
+	text-align: center;
+	vertical-align: top;
+}
+.popup-hierarchy-filter-base {
+	display:inline-block;
+	background-color: #ffffff;
+	border: 6px solid #4472C4;
+	border-radius: 10px;
+	width: 100%;
+	position: relative;
+}
+
+
+.popup-hierarchy-filter-top-bar,
+.popup-hierarchy-filter-bottom-bar {
+	color: #ffffff;
+	background-color: #4472C4;
+}
+.popup-hierarchy-filter-other-content>.popup-hierarchy-filter-top-bar,
+.popup-hierarchy-filter-other-content>.popup-hierarchy-filter-bottom-bar {
+	text-align: center;
+}
+
+.popup-hierarchy-filter-content {
+	padding: 10px;
+	color: #000000;
+}
+
+.popup-hierarchy-filter-link-base {
+	display: inline-table;
+	border-collapse: collapse;
+	white-space: nowrap;
+}
+
+.popup-hierarchy-filter-link {
+	white-space: normal;
+	color: #4472C4;
+	display: inline-block;
+	border: transparent 1px dotted;
+	border-radius: 8px;
+	padding: 0;
+	transition: 0s;
+}
+.popup-hierarchy-filter-link:focus {
+	color: #4472C4;
+}
+.popup-hierarchy-filter-link-focus {
+	color: #4472C4;
+	border-color: gray;
+	background-color: #FBE5D6;
+}
+.popup-hierarchy-filter-link:hover {
+}
+
+
+.popup-hierarchy-filter-link>span:first-child {
+	text-decoration: underline;
+}
+
+.popup-hierarchy-filter-link-number {
+	border-radius: 8px;
+	background-color: #aab3b7;
+	margin: 0 4px;
+	cursor: default;
+	min-width: 10px;
+	padding: 3px 7px;
+	font-size: 14px;
+	font-weight: bold;
+	color: #fff;
+	line-height: 1;
+	vertical-align: middle;
+	white-space: nowrap;
+	text-align: center;
+}
+.popup-hierarchy-filter-link-number:focus,
+.popup-hierarchy-filter-link-number:hover {
+	text-decoration: none;
+}
+
+
+.popup-hierarchy-filter-button-disabled {
+	opacity: 0.2;
+	cursor: default;
+}
+
+.popup-hierarchy-filter-button-add,
+.popup-hierarchy-filter-button-replace {
+	transition: unset;
+}
+
+.popup-hierarchy-filter-buttons {
+	padding: 8px;
+	text-align: left;
+	position: relative;
+}
+.popup-hierarchy-filter-buttons-base {
+	display: inline-block;
+	position: relative;
+	white-space: nowrap;
+}
+.popup-hierarchy-filter-buttons-base>button {
+	padding-top: 2px;
+	padding-bottom: 2px;
+}
+
+.popup-hierarchy-filter-buttons-base>button:last-child {
+	margin-right: 0;
+}
+
+.popup-hierarchy-filter-bottom-bar .popup-hierarchy-filter-buttons-base>button:last-child {
+	margin-right: 4px;
+}
+
+.popup-hierarchy-filter-link-base button {
+	font-size: 1.0em;
+	height:    24px;
+	padding-top: 0px;
+	padding-bottom: 0px;
+	padding-left: 4px;
+	padding-right: 4px;
+	margin-bottom: 0;
+}
+
+.popup-hierarchy-filter-button-replace{
+  color: white;
+  background-color:#0096AA;
+  border-color:#0096AA;
+}
+.popup-hierarchy-filter-button-replace:hover {
+        background-color: #21AEC1;
+        border-color:#21AEC1;
+}
+.popup-hierarchy-filter-close-button {
+	background: transparent;
+	display: inline-block;
+	cursor: pointer;
+	font-weight: bold;
+	color: white;
+	padding-right: 4px;
+}
+
+.popup-hierarchy-filter-superclass {
+	text-align: right;
+}
+.popup-hierarchy-filter-subclass {
+	text-align: left;
+
+}
+.popup-hierarchy-filter-selectedphenotype {
+}
+.popup-hierarchy-filter-selectedphenotype.popup-hierarchy-filter-base {
+	border: 6px solid #4472C4;
+	width: 83%;
+}
+.popup-hierarchy-filter-selectedphenotype .popup-hierarchy-filter-top-bar,
+.popup-hierarchy-filter-selectedphenotype .popup-hierarchy-filter-bottom-bar {
+	color: #ffffff;
+	background-color: #4472C4;
+}
+.popup-hierarchy-filter-selectedphenotype .popup-hierarchy-filter-bottom-bar {
+	padding-top: 2px;
+}
+.popup-hierarchy-filter-selectedphenotype .popup-hierarchy-filter-content {
+	border: 1px solid #4472C4;
+}
+
+
+
+.popup-hierarchy-filter-top-bar button,
+.popup-hierarchy-filter-bottom-bar button {
+	padding-top: 0px;
+	padding-bottom: 0px;
+	padding-left: 4px;
+	padding-right: 4px;
+}
+.token-input-logicaloperator-facebook {
+	resize: none;
+	outline: none;
+	cursor: default;
+	user-select: none;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+	padding: 2px;
+	border: 1px solid #ccc;
+	font-size: 16px;
+	padding: 0.2em 1em;
+	text-align: left;
+}
+.token-input-logicaloperator-facebook:focus {
+	border-color: #eeeeee;
+}
+
+.mfp-content .token-input-logicaloperator-facebook {
+	display: block !important;
+}
+
+.token-input-logicaloperator-item-id-facebook {
+	color: #000;
+}
+
+.popup-hierarchy-filter-top-bar button {
+	margin-bottom: 5px;
+}
+.popup-hierarchy-filter-bottom-bar button {
+	margin-bottom: 0;
+	margin-top: 0;
+	min-width: 70px;
+}
+.popup-hierarchy-filter-bottom-bar button.btn-default {
+	border: 2px solid white;
+}
+
+.popup-hierarchy-filter-content-table {
+	display:table;
+	border-collapse:separate;
+	border-spacing: 2px;
+	margin: 0 auto;
+}
+.popup-hierarchy-filter-content-tr {
+	display:table-row;
+}
+.popup-hierarchy-filter-content-th {
+	display:table-cell;
+	text-align: left;
+	vertical-align: top;
+	font-weight: bold;
+	white-space: nowrap;
+	width: 1%;
+}
+.popup-hierarchy-filter-content-td {
+	display:table-cell;
+	text-align: left;
+	vertical-align: top;
+}
+
+.popup-hierarchy-filter-content-td a {
+	border: 1px solid gray !important;
+}
+
+.popup-hierarchy-filter-content-td-colon {
+	display:table-cell;
+	text-align: center;
+	vertical-align: top;
+	white-space: nowrap;
+	width: 1%;
+}
+
+.popup-hierarchy-filter-loading {
+	color: #ffffff;
+	text-align: center;
+	vertical-align: middle;
+	width: 100%;
+	height: 100%;
+}
+
+div.filter_wrapper {
+	overflow-x: hidden;
+    overflow-y: auto;
+	border-radius:5px;
+}
+
+ul.filter-token-input-list.token-input-list-facebook {
+	font-size: 14px !important;
+        border: 1px solid #8496ba;
+}
+
+ul.filter-token-input-list.token-input-list-facebook li input {
+	font-size: 18px !important;
+	line-height: 40px;
+}
+ul.filter-token-input-list.token-input-list-facebook li.token-input-token-facebook {
+	border: 0;
+	background-color: transparent;
+	padding: 1px;
+	border-radius: 0;
+	margin: 2px 0 1px 0;
+}
+ul.filter-token-input-list.token-input-list-facebook div.token-input-token-facebook {
+	font-size: 14px !important;
+	cursor: default;
+	font-family:"游ゴシック Medium",YuGothic,YuGothicM,"Hiragino Kaku Gothic ProN","Hiragino Kaku Gothic Pro",メイリオ,Meiryo,sans-serif;
+	padding: 0.4em;
+	text-decoration: none;
+	border: 1px solid #3b5998;
+	background-color:#F4FAFF;
+	color:#000;
+	border-radius: 3px;
+	transition: .4s;
+	display:flex;
+}
+ul.filter-token-input-list.token-input-list-facebook div.token-input-token-facebook.token-input-token-term-filter-facebook {
+	cursor: pointer;
+}
+ul.filter-token-input-list.token-input-list-facebook div.token-input-token-facebook:hover {
+/*	background-color: #337AB7;*/
+	background-color: #5670a6;
+	color: white;
+}
+ul.filter-token-input-list.token-input-list-facebook li.token-input-selected-token-facebook div.token-input-token-facebook {
+	background-color: #5670a6;
+	border: 1px solid #3b5998;
+	color: #fff;
+}
+
+li.token-input-token-category-facebook {
+    width:100%;
+	margin:0;
+	padding:0;	
+	border:0;
+}
+
+li.token-input-token-category-facebook span {
+	margin: 0;
+    width: 50%;
+	height: 100%;
+    background-color: #4e8ba2;
+    color: #fff;
+    font-weight: 600;
+	font-size: 16px;
+	padding: 5px 10px 5px 0.5rem;
+
+}
+
+/* GENEID:XXXXX */
+ul.filter-token-input-list.token-input-list-facebook div.token-input-token-facebook.token-input-token-term-geneid-facebook {
+	border: 1px solid #777;
+	background-color:#f4f4f4;
+}
+ul.filter-token-input-list.token-input-list-facebook div.token-input-token-facebook.token-input-token-term-geneid-facebook:hover {
+	background-color:#777;
+	color: #fff;
+}
+ul.filter-token-input-list.token-input-list-facebook li.token-input-selected-token-facebook div.token-input-token-facebook.token-input-token-term-geneid-facebook {
+	background-color: #777;
+	color: #fff;
+}
+
+/*
+li.token-input-token-results-facebook.token-input-token-results-geneid-facebook {
+    background-color:#f4f4f4;
+}
+*/
+
+
+/* MONDO:XXXXX */
+ul.filter-token-input-list.token-input-list-facebook div.token-input-token-facebook.token-input-token-term-mondo-facebook {
+	border: 1px solid #983B92;
+	background-color:#FFF4F6;/*350,11*/
+	border-color: #c95db4;
+	background-color:#FFF4F6;
+}
+ul.filter-token-input-list.token-input-list-facebook div.token-input-token-facebook.token-input-token-term-mondo-facebook:hover {
+	background-color:#FF69B4;/*350,122*/
+	color: #fff;
+	background-color: #f26bd7;
+	color: white;
+}
+ul.filter-token-input-list.token-input-list-facebook li.token-input-selected-token-facebook div.token-input-token-facebook.token-input-token-term-mondo-facebook {
+	background-color:#FF69B4;/*350,122*/
+	color: #fff;
+
+	background-color: #f26bd7;
+	color: white;
+}
+
+/*
+li.token-input-token-results-facebook.token-input-token-results-mondo-facebook {
+    background-color:#FFF4F6;
+}
+*/
+
+/* HP:XXXXX */
+ul.filter-token-input-list.token-input-list-facebook div.token-input-token-facebook.token-input-token-term-hp-facebook {
+	border: 1px solid #55B95D;
+	background-color:#F4FFF5;/*350,11*/
+}
+ul.filter-token-input-list.token-input-list-facebook div.token-input-token-facebook.token-input-token-term-hp-facebook:hover {
+	background-color:#55B95D;/*350,122*/
+	color: #fff;
+}
+ul.filter-token-input-list.token-input-list-facebook li.token-input-selected-token-facebook div.token-input-token-facebook.token-input-token-term-hp-facebook {
+	background-color:#55B95D;/*350,122*/
+	color: #fff;
+}
+
+/*
+li.token-input-token-results-facebook.token-input-token-results-hp-facebook {
+    background-color:#F4FFF5;
+}
+*/
+
+/* NANDO:XXXXX */
+ul.filter-token-input-list.token-input-list-facebook div.token-input-token-facebook.token-input-token-term-nando-facebook {
+    border: 1px solid #2CACF6;
+    background-color:#C3E9FF;
+}
+ul.filter-token-input-list.token-input-list-facebook div.token-input-token-facebook.token-input-token-term-nando-facebook:hover {
+    background-color:#2CACF6;
+    color: #fff;
+}
+ul.filter-token-input-list.token-input-list-facebook li.token-input-selected-token-facebook div.token-input-token-facebook.token-input-token-term-nando-facebook {
+    background-color: #2CACF6;
+    color: #fff;
+}
+
+/* PanelApp:XXXXX */
+ul.filter-token-input-list.token-input-list-facebook div.token-input-token-facebook.token-input-token-term-pa-facebook {
+    border: 1px solid #777;
+    background-color:#FFF3A5;
+}
+ul.filter-token-input-list.token-input-list-facebook div.token-input-token-facebook.token-input-token-term-pa-facebook:hover {
+    background-color:#C7AD04;
+    color: #fff;
+}
+ul.filter-token-input-list.token-input-list-facebook li.token-input-selected-token-facebook div.token-input-token-facebook.token-input-token-term-pa-facebook {
+    background-color: #C7AD04;
+    color: #fff;
+}
+
+/* PanelApp(AU):XXXXX */
+ul.filter-token-input-list.token-input-list-facebook div.token-input-token-facebook.token-input-token-term-paa-facebook {
+    border: 1px solid #777;
+    background-color:#FFF3A5;
+}
+ul.filter-token-input-list.token-input-list-facebook div.token-input-token-facebook.token-input-token-term-paa-facebook:hover {
+    background-color:#C7AD04;
+    color: #fff;
+}
+ul.filter-token-input-list.token-input-list-facebook li.token-input-selected-token-facebook div.token-input-token-facebook.token-input-token-term-paa-facebook {
+    background-color: #C7AD04;
+    color: #fff;
+}
+
+ul.filter-token-input-list.token-input-list-facebook li.token-input-token-facebook p {
+	display: block  !important;
+	line-height: 17px;
+	margin-left: 5px;
+	margin-right: 5px;
+	text-align: left;
+}
+
+ul.filter-token-input-list.token-input-list-facebook li.token-input-token-facebook .token-input-token-word-facebook.token-input-token-logicaloperator-facebook {
+	display: inline-block  !important;
+	height: 17px;
+	margin: auto;
+	font-size: 10px;
+	line-height: 10px;
+	text-align: center;
+	vertical-align: middle;
+	color: black;
+}
+ul.filter-token-input-list.token-input-list-facebook li.token-input-token-facebook .token-input-token-word-facebook.token-input-token-logicaloperator-facebook .token-input-token-logicaloperator-facebook {
+	cursor: pointer;
+	outline: none;
+	padding: 1px;
+	margin-left: 2px;
+}
+ul.filter-token-input-list.token-input-list-facebook li.token-input-token-facebook .token-input-token-word-facebook.token-input-token-logicaloperator-facebook .token-input-token-logicaloperator-facebook.ios-safari {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	margin-bottom: 0px;
+	padding: 4px 18px 4px 6px;
+	font-size: 93%;
+	line-height: 1.1em;
+	border: 1px solid rgb(118,118,118);
+	background-image: url(icon_arrow.svg);
+	background-repeat: no-repeat;
+	background-size: 12px 10px;
+	background-position: right 2px center;
+}
+
+select.token-input-token-logicaloperator-facebook {
+	font-family: inherit;
+	font-size: 10px;
+	line-height: inherit;
+	text-transform: none;
+	color: inherit;
+	font: inherit;
+	margin: 0;
+	appearance: auto;
+	background-color: white;
+	box-sizing: border-box;
+	border-radius: 0px;
+	border-width: 1px;
+	border-style: solid;
+	border-color: -internal-light-dark(rgb(118, 118, 118), rgb(133, 133, 133));
+	border-image: initial;
+}
+
+ul.filter-token-input-list.token-input-list-facebook li.token-input-token-facebook:first-child .token-input-token-word-facebook.token-input-token-logicaloperator-facebook .token-input-token-logicaloperator-item-or-facebook,
+ul.filter-token-input-list.token-input-list-facebook li.token-input-token-facebook:first-child .token-input-token-word-facebook.token-input-token-logicaloperator-facebook .token-input-token-logicaloperator-item-and-facebook
+{
+	display: none;
+}
+ul.filter-token-input-list.token-input-list-facebook li.token-input-token-facebook .token-input-token-word-facebook.token-input-token-logicaloperator-facebook .token-input-token-logicaloperator-item-none-facebook
+{
+	display: none;
+}
+ul.filter-token-input-list.token-input-list-facebook li.token-input-token-facebook:first-child .token-input-token-word-facebook.token-input-token-logicaloperator-facebook .token-input-token-logicaloperator-item-none-facebook
+{
+	display: block;
+}
+
+ul.filter-token-input-list.token-input-list-facebook li.token-input-token-facebook .token-input-token-word-facebook.token-input-token-icon-facebook {
+	display: block  !important;
+	border-radius: 50%;
+	height: 20px;
+	width: 20px;
+	background-color:#D5EBFF;
+	margin: auto;
+}
+ul.filter-token-input-list.token-input-list-facebook li.token-input-token-facebook div.token-input-token-facebook.token-input-token-term-mondo-facebook .token-input-token-word-facebook.token-input-token-icon-facebook {
+	background-color:#D5EBFF;
+	background-color: #f5d3ee;
+}
+ul.filter-token-input-list.token-input-list-facebook li.token-input-token-facebook div.token-input-token-facebook.token-input-token-term-hp-facebook .token-input-token-word-facebook.token-input-token-icon-facebook {
+	background-color:#D5EBFF;
+	background-color: #ceefd1;
+}
+
+ul.filter-token-input-list.token-input-list-facebook li.token-input-token-facebook .token-input-token-word-facebook.token-input-token-icon-facebook .arrow{
+	display: block !important;
+	width: 8px;
+	height: 8px;
+	border: 2px solid;
+	border-color: #5670a6 #5670a6 transparent transparent;
+	transform: rotate(45deg);
+	margin-top: 6px;
+	margin-left: 4px;
+}
+
+ul.filter-token-input-list.token-input-list-facebook li.token-input-token-facebook div.token-input-token-facebook.token-input-token-term-mondo-facebook .token-input-token-word-facebook.token-input-token-icon-facebook .arrow {
+	border-color: #f26bd7 #f26bd7 transparent transparent;
+}
+ul.filter-token-input-list.token-input-list-facebook li.token-input-token-facebook div.token-input-token-facebook.token-input-token-term-hp-facebook .token-input-token-word-facebook.token-input-token-icon-facebook .arrow {
+	border-color: #55B95D #55B95D transparent transparent;
+}
+
+ul.filter-token-input-list.token-input-list-facebook li.token-input-token-facebook span.token-input-token-word-facebook.token-input-token-id-facebook {
+	display: block  !important;
+	font-size: 10px;
+	line-height: 11px;
+}
+
+/*
+li.token-input-token-results-facebook.token-input-token-results-hp-facebook span.token-input-token-word-facebook.token-input-token-id-facebook {
+    background-color:#F4FFF5;
+}
+li.token-input-token-results-facebook.token-input-token-results-mondo-facebook span.token-input-token-word-facebook.token-input-token-id-facebook {
+    background-color:#FFF4F6;
+}
+li.token-input-token-results-facebook.token-input-token-results-geneid-facebook span.token-input-token-word-facebook.token-input-token-id-facebook {
+    background-color:#f4f4f4;
+}
+
+li.token-input-token-results-facebook.token-input-token-results-hp-facebook span.token-input-token-word-facebook.token-input-token-name-facebook {
+    background-color:#F4FFF5;
+}
+li.token-input-token-results-facebook.token-input-token-results-mondo-facebook span.token-input-token-word-facebook.token-input-token-name-facebook {
+    background-color:#FFF4F6;
+}
+li.token-input-token-results-facebook.token-input-token-results-geneid-facebook span.token-input-token-word-facebook.token-input-token-name-facebook {
+    background-color:#f4f4f4;
+}
+*/
+
+ul.filter-token-input-list.token-input-list-facebook li.token-input-token-facebook span.token-input-token-word-facebook.token-input-token-name-facebook {
+	display: block  !important;
+	font-size:18px;
+	line-height: 19px;
+	max-width: 10em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+ul.filter-token-input-list.token-input-list-facebook li.token-input-token-facebook span.token-input-delete-token-facebook {
+	display: inline-block;
+	height: 15px;
+	width: 15px;
+	position: relative;
+	margin: auto;
+	font-size: 16px;
+	line-height: 16px;
+}
+
+ul.filter-token-input-list.token-input-list-facebook div.token-input-dragdrop-facebook {
+	display:flex;
+	box-shadow:none;
+	height:2.2em;
+	float:left;
+	margin: 10px 3px;
+}
+
+
+ul.popup-hierarchy-filter-token-list {
+}
+
+.popup-hierarchy-filter-genetreelist-content ul.tree {
+	padding: 0;
+	margin: 0;
+	list-style: none;
+	position: relative;
+	text-align: left;
+}
+.popup-hierarchy-filter-genetreelist-content ul.tree li.itself {
+	margin: 0;
+	padding: 0 0 0 2.8em;
+	position: relative;
+}
+.popup-hierarchy-filter-genetreelist-content ul.tree li.tree {
+	line-height: 27.2px;
+}
+
+.popup-hierarchy-filter-genetreelist-content ul.tree li.itself.number_before {
+	padding: 0 0 0 2.8em;
+}
+.popup-hierarchy-filter-genetreelist-content ul.tree li.itself.number_after {
+	padding: 0 0 0 1em;
+}
+
+.popup-hierarchy-filter-genetreelist-content ul.tree li.itself> span:first-child {
+	border-left: 1px solid;
+	padding: 5px 0 0 0;
+}
+.popup-hierarchy-filter-genetreelist-content ul.tree li.tree.number_before ul.tree {
+	margin-left: 3em;
+}
+.popup-hierarchy-filter-genetreelist-content ul.tree li.tree.number_after ul.tree {
+	margin-left: 1.5em;
+}
+
+.popup-hierarchy-filter-genetreelist-content ul.tree li.tree ul.tree:before {
+	content: "";
+	display: block;
+	width: 0;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	border-left: 1px solid
+}
+.popup-hierarchy-filter-genetreelist-content ul.tree li.tree ul.tree li.tree {
+	margin: 0;
+	position: relative;
+}
+.popup-hierarchy-filter-genetreelist-content ul.tree li.tree.number_before ul.tree li.tree {
+	padding: 0 0 0 10px;
+}
+.popup-hierarchy-filter-genetreelist-content ul.tree li.tree.number_after ul.tree li.tree {
+	padding: 0 0 0 1em;
+}
+.popup-hierarchy-filter-genetreelist-content ul.tree li.tree.number_after ul.tree li.tree:last-child {
+	height: 16px;
+	margin-bottom: 7px;
+}
+
+.popup-hierarchy-filter-genetreelist-content ul.tree li.tree ul.tree li.tree:before {
+	content: "";
+	display: block;
+	width: 10px;
+	height: 2px;
+	border-top: 1px solid;
+	margin-top: -1px;
+	position: absolute;
+	top: 1em;
+	left: 0;
+}
+.popup-hierarchy-filter-genetreelist-content a.link {
+	white-space: normal;
+	color: #4472C4;
+	/* display: inline-block; */
+	/* display: table-cell; */
+	/* text-decoration: underline; */
+	border: transparent 1px dotted;
+	border-radius: 8px;
+	/* padding: 0 4px; */
+	padding: 0;
+	transition: 0s;
+}
+.popup-hierarchy-filter-genetreelist-content a.link>span:first-child {
+	text-decoration: underline;
+}
+
+.popup-hierarchy-filter-genetreelist-content li.number_after span.term.itself {
+	margin-left: 0.5em;
+}
+
+
+.popup-hierarchy-filter-genetreelist-content span.number {
+	display: inline-block;
+	width: 38px;
+	text-align: right;
+}
+.popup-hierarchy-filter-genetreelist-content li.number_after span.number.before {
+	display: none;
+}
+.popup-hierarchy-filter-genetreelist-content li.number_before span.number.after {
+	display: none;
+}
+
+.popup-hierarchy-filter-genetreelist-content span.badge {
+	border-radius: 2px;
+	background-color: #5fbc4a;
+	padding-bottom: 4px;
+	margin: 0 0 5px 10px;
+	cursor: default;
+
+	display: inline-block;
+	min-width: 10px;
+	padding: 3px 7px;
+	font-size: 12px;
+	font-weight: bold;
+	color: #fff;
+	line-height: 1;
+	vertical-align: middle;
+	white-space: nowrap;
+	text-align: center;
+}
+
+
+.popup-hierarchy-filter-genelist-content .popup-hierarchy-filter-content table,
+.popup-hierarchy-filter-hpolist-content .popup-hierarchy-filter-content table {
+}
+
+.popup-hierarchy-filter-genelist-content .popup-hierarchy-filter-content table tr {
+	cursor: pointer;
+}
+.popup-hierarchy-filter-hpolist-content .popup-hierarchy-filter-content table tr {
+	cursor: default;
+}
+.popup-hierarchy-filter-genelist-content .popup-hierarchy-filter-content table tr.popup-hierarchy-filter-genelist-content-hover {
+	background-color: LightCyan;
+}
+.popup-hierarchy-filter-genelist-content .popup-hierarchy-filter-content table tr.popup-hierarchy-filter-genelist-content-select {
+	background-color: SkyBlue;
+}
+
+.popup-hierarchy-filter-genelist-content .popup-hierarchy-filter-content table th,
+.popup-hierarchy-filter-genelist-content .popup-hierarchy-filter-content table td,
+.popup-hierarchy-filter-hpolist-content .popup-hierarchy-filter-content table th,
+.popup-hierarchy-filter-hpolist-content .popup-hierarchy-filter-content table td {
+	padding: 0 2px;
+}
+
+.popup-hierarchy-filter-genelist-content .popup-hierarchy-filter-content table th,
+.popup-hierarchy-filter-hpolist-content .popup-hierarchy-filter-content table th {
+	padding: 0 2px;
+	border: 1px solid #BBBBBB;
+	white-space: nowrap;
+}
+
+.popup-hierarchy-filter-genelist-content .popup-hierarchy-filter-content table td,
+.popup-hierarchy-filter-hpolist-content .popup-hierarchy-filter-content table td {
+	padding: 0 4px;
+}
+
+.popup-hierarchy-filter-genelist-content .popup-hierarchy-filter-content table td,
+.popup-hierarchy-filter-hpolist-content .popup-hierarchy-filter-content table td {
+	text-align: left;
+	vertical-align: top;
+}
+
+.popup-hierarchy-filter-hpolist-content button {
+	font-size: 0.8em;
+	padding-top: 0px;
+	padding-bottom: 0px;
+	padding-left: 4px;
+	padding-right: 4px;
+	margin-bottom: 0;
+}
+
+.popup-hierarchy-filter-progress {
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	right: 0px;
+	bottom: 0px;
+	font-weight: bold;
+	color: rgba(255,255,255,1);
+	background-color: rgba(0,0,0,0.5);
+	text-align: center;
+	vertical-align: middle;
+	z-index: 3;
+}
+
+.popup-hierarchy-filter-webgl-switch-content {
+	width: 104px;
+	height: 104px;
+	background: #FFFFFF url(popup-hierarchy-hpo/ICON_PhenoTouch.jpg?20180911153918) no-repeat 50% 50% / contain;
+	border-radius: 10px;
+	cursor: pointer;
+	border: 6px solid #4472C4;
+	margin-left: 15px;
+}
+button.popup-hierarchy-filter-language-change {
+	position:absolute;
+	width:70px;
+	border:2px solid white;
+	top:-2px;
+	cursor: pointer;
+}
+select.popup-hierarchy-filter-language-change {
+	opacity:0;
+	cursor: pointer;
+
+	color: black;
+	background-color: white;
+
+	-webkit-border-radius: 6px;
+	border-radius: 6px;
+
+	-moz-appearance: none;
+	-webkit-appearance: none;
+	appearance: none;
+
+	width: 70px;
+	height: 26px;
+	padding: 0px 10px;
+	border: 0;
+	outline: 0;
+}
+
+#token-input-popup-hierarchy-filter {
+	min-width:17px;
+}
+
+.popup-hierarchy-filter-webgl-home-content {
+	position:absolute;
+	overflow:hidden;
+	width:60px;
+	height:86px;
+	background: #FFFFFF url(popup-hierarchy-hpo/home.png) no-repeat 50% 50%;
+	border-radius: 13px;
+	cursor: pointer;
+
+	left: 2px;
+	top: 2px;
+	z-index: 2;
+}
+.popup-hierarchy-filter-webgl-home-content:hover {
+	opacity: 1;
+}
+
+.tooltip-inner {
+	text-align: left;
+}
+
+.popup-hierarchy-filter-results-tooltip {
+}
+.popup-hierarchy-filter-results-tooltip-title {
+	display: none;
+	color: #fff;
+	background-color: #bfbfbf;
+	font-weight: bold;
+	padding: 4px;
+}
+
+.popup-hierarchy-filter-results-tooltip .popup-hierarchy-filter-content-table {
+	background-color: #ffffff;
+	color: #4B5270;
+	border: 0px solid #2A3356;
+	border-radius: 6px;
+	padding: 10px;
+	box-shadow: 0 24px 38px 3px rgba(0,0,0,0.14),
+              0 9px 46px 8px rgba(0,0,0,0.12),
+              0 11px 15px -7px rgba(0,0,0,0.2);
+	width: 100%;
+}
+
+.popup-hierarchy-filter-results-tooltip .popup-hierarchy-filter-content-table .popup-hierarchy-filter-content-td
+{
+	color: #848484;
+}
+.popup-hierarchy-filter-results-tooltip .popup-hierarchy-filter-content-table .popup-hierarchy-filter-content-td-id,
+.popup-hierarchy-filter-results-tooltip .popup-hierarchy-filter-content-table .popup-hierarchy-filter-content-td-name,
+.popup-hierarchy-filter-results-tooltip .popup-hierarchy-filter-content-table .popup-hierarchy-filter-content-td-english
+{
+}
+.popup-hierarchy-filter-results-tooltip .popup-hierarchy-filter-content-table .popup-hierarchy-filter-content-td-name,
+.popup-hierarchy-filter-results-tooltip .popup-hierarchy-filter-content-table .popup-hierarchy-filter-content-td-english
+{
+	color: #3777B5;
+}
+
+.popup-hierarchy-filter-number-of-hits
+{
+	color: #707070;
+	font-weight: bold;
+	padding: 4px;
+}
+
+#tokeninput_genes {
+	padding: 2px;
+}
+
+.token-input-searchformula-facebook {
+	text-align: left;
+}
+.token-input-searchformula-facebook a {
+	display: inline-block;
+	padding-left:16px;
+	background-image: url("icon_plus_color.svg");
+	background-size: 12px;
+        background-position: left center;
+	background-repeat: no-repeat;
+	color: #000;
+	transition: none;
+}
+.token-input-searchformula-facebook div {
+	display: inline-block;
+	width: 12px;
+	height: 12px;
+	background-image: url("icon_plus_color.svg");
+	background-size: 12px;
+}
+.token-input-searchformula-facebook.token-input-logicaloperator-show a {
+	background-image: url("icon_minus_color.svg");
+	transition: none;
+}
+.token-input-searchformula-facebook.token-input-logicaloperator-show div {
+
+	background-image: url("icon_minus_color.svg");
+	background-size: 12px;
+}
+.mfp-content .token-input-searchformula-facebook {
+	display: none;
+}
+

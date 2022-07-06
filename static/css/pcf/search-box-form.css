@@ -15,8 +15,16 @@
 
 .search-box_wrapper .search-box_form .search-box_controller_left .button_wrapper {
   width:  100%;
+}
+
+.search-box_wrapper .search-box_form .search-box_controller_left .button_wrapper.schema-2021 { 
   height: 33%;
 }
+
+.search-box_wrapper .search-box_form .search-box_controller_left .button_wrapper.schema-2022 {
+  height: 50%;
+}
+
 
 .search-box_wrapper .search-box_form .tokeninput_hpo_wrapper {
   overflow-x: hidden;
@@ -66,11 +74,32 @@
   width:        22px;
 }
 
-#search_button {
+#submit_button {
   color:white;
   background-color:#f8516d;
   opacity:1.0;
   border:0
+}
+
+#btn_text_input_trigger img{
+    max-width: 94%;
+	margin-bottom: 2px;
+}
+
+#btn_uisetting_trigger{
+	font-size:24px;
+	margin-top: 2px;
+}
+
+#sel_tagsize{
+    border: 2px solid rgba(0, 0, 0, 0.1);
+	border-radius: 5px;
+	width: 100%;
+	padding: 5px 2px 5px 5px;
+  background-image:    url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAA3klEQVRIS+3VMU9CMRTF8d8zBL+aizoQFhx0kUk33RzdYMNFXUFnYeGrYYyaJiUxJHDLSxodbNKpfeffc9/pbaPyaCrr+3OA++z4rtT5Pg5GuMnCY9yWQEoBE1xhlUUP8YDrCBIB0vojLvGO0yz4hm4JJAKcYYoPHGOZAUdYoIMBXrc5iQAHeMlzviFygj7O8dkWEJU4XI8chALRhn9AVKHf70VRTHu4wFfbmKZLNKt50dLBnna0imcMd/2I0phWa3Y/D1e1Xa9BCZJG0VuQNpaWKMx72xS1Fl5/WN3BN+AgJhnZQlq4AAAAAElFTkSuQmCC');
+  background-position: calc(100% - .2rem), 100% 0;
+  background-size:  1.5em 1.5em;
+  background-repeat: no-repeat;
 }
 
 #hpo-list-input-button img {
@@ -78,14 +107,65 @@
   width:       32px;
 }
 
+#hpo-list-input-modal-title {
+  font-weight:bold;
+  font-size:1.2rem;
+}
+
+#hpo-list-input-modal-title img {
+  height:22px;
+  width:22px;
+}
+
+#hpo-list-input-textarea-wrapper {
+  border:1px solid #ced4da;
+  border-radius: 0.25rem;
+  height:256px;
+  max-height:256px;
+}
+
+#hpo-list-input-textarea {
+  background-color:#f8f9fa;
+  border:0px;
+  height:254px;
+}
+
+#hpo-list-input-submit-button {
+  color:white;
+  background-color:#222057;
+  opacity:1.0;
+  height:52px;
+  width:52px;
+  font-size:32px;
+  border:0px;
+}
+
+#hpo-list-input-table-wrapper {
+  height:256px;
+  max-height:256px;
+  background-color:#ced4da;
+  box-shadow:none;
+}
+
 #hpo-list-input-table {
   background-color: #f8f9fa;
-  border:           0;
+  border:           0px;
   height:           100%;
   width:            100%;
   overflow-y:       auto;
+  box-shadow:       none;
+  margin:           0px;
 }
 
+#hpo-list-input-close-button {
+  padding-left:40px;
+  padding-right:40px;
+}
+
+#hpo-list-input-apply-button {
+  padding-left:40px;
+  padding-right:40px;
+}
 #hpo-list-input-table tbody tr {
   border-bottom:  0.5px solid #89b3c1;
 }
@@ -123,6 +203,7 @@
 }
 
 .tooltip.show {
+  padding: 5px;
   opacity: 1!important;
   z-index: 10009;
 }
@@ -195,4 +276,72 @@
 .form-control2::placeholder {
   color: #6c757d;
   opacity: 1;
+}
+
+
+#dropdown-menu_uisetting{
+  width: 100%;
+}
+
+#dropdown-menu_uisetting table tr {
+  border: 0px;
+}
+
+#dropdown-menu_uisetting table tr td.uititle {
+  color: #394466;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+#dropdown-menu_uisetting table tr td.title {
+  color: #394466;
+  white-space: nowrap;
+  padding-right: 10px;
+}
+
+#dropdown-menu_uisetting table tr td label {
+  font-size: inherit;
+  font-weight: inherit;
+  padding-left: 0px;
+  padding-right: 20px;
+  height: 25px;
+}
+
+#dropdown-menu_uisetting table tr td label input[type="checkbox"] {
+  height: 100%;
+  width:  12px;
+  accent-color: #394466;
+  box-sizing: border-box;
+  padding: 0;
+  background-color: white;
+  margin-right: 5px;
+  margin-bottom: 3px;
+}
+
+
+#dropdown-menu_uisetting table tr td label input[type="checkbox"]:checked {
+  background: #394466;
+}
+
+
+#dropdown-menu_uisetting button {
+  font-size: 16px;
+  justify-content: center;
+  border: solid 1px grey;
+  background-color: #fff;
+  color: #394466;
+  padding: 5px;
+  min-width: 32px;
+}
+
+#dropdown-menu_uisetting button:hover {
+  border: solid 1px #394466;
+  background-color: #394466;
+  color: #fff;
+}
+
+#dropdown-menu_uisetting button.selected {
+  border: solid 1px #394466;
+  background-color: #394466;
+  color: #fff;
 }

@@ -381,7 +381,7 @@ ul.hpo-token-input-list.token-input-list-facebook li.token-input-token-facebook 
 	font-size: 14px !important;
 	cursor: pointer;
 	font-family:"游ゴシック Medium",YuGothic,YuGothicM,"Hiragino Kaku Gothic ProN","Hiragino Kaku Gothic Pro",メイリオ,Meiryo,sans-serif;
-	padding: 0.5em;
+	/*padding: 0.5em;*/
 	text-decoration: none;
 	border: 1px solid #3b5998;
 	background-color:#F4FAFF;
@@ -390,6 +390,33 @@ ul.hpo-token-input-list.token-input-list-facebook li.token-input-token-facebook 
 	transition: .4s;
 	display:flex;
 }
+
+ul.hpo-token-input-list.token-input-list-facebook li.token-input-li.uisetting_tag_size_m div span.token-input-token-id-facebook {
+	display: none !important;
+}
+
+ul.hpo-token-input-list.token-input-list-facebook li.token-input-input-token-facebook.uisetting_tag_size_m input {
+	font-size: 16px !important;
+	line-height: 24px;
+}
+
+ul.hpo-token-input-list.token-input-list-facebook li.token-input-li.uisetting_tag_size_s div span.token-input-token-id-facebook {
+    display: none !important;
+}
+
+ul.hpo-token-input-list.token-input-list-facebook li.token-input-li.uisetting_tag_size_m div span.token-input-token-name-facebook {
+	height: 24px;
+}
+ul.hpo-token-input-list.token-input-list-facebook li.token-input-li.uisetting_tag_size_s div span.token-input-token-name-facebook {
+	font-size: 13px !important;
+	height: 16px !important;
+}
+
+ul.hpo-token-input-list.token-input-list-facebook li.token-input-input-token-facebook.uisetting_tag_size_s input {
+    font-size: 13px !important;
+    line-height: 16px;
+}
+
 ul.hpo-token-input-list.token-input-list-facebook li.token-input-token-facebook:hover {
 	background-color: #5670a6;
 	color: white;
@@ -407,16 +434,19 @@ ul.hpo-token-input-list.token-input-list-facebook li.token-input-token-facebook.
 
 ul.hpo-token-input-list.token-input-list-facebook li.token-input-token-facebook p {
 	display: block  !important;
-	line-height: 15px;
+/*	line-height: 15px;
 	margin-left: 5px;
 	margin-right: 5px;
+*/
+	margin: 0px 5px 0px 5px;
 	text-align: left;
 }
 ul.hpo-token-input-list.token-input-list-facebook li.token-input-token-facebook .token-input-token-word-facebook.token-input-token-icon-facebook {
 	display: block  !important;
 	border-radius: 50%;
-	height: 20px;
-	width: 20px;
+	/*height: 20px;*/
+	height: 100%;
+	width: 24px;
 	/*background-color:#D5EBFF;*/
 	background-color: transparent;
 	margin: auto;
@@ -425,6 +455,11 @@ ul.hpo-token-input-list.token-input-list-facebook li.token-input-token-facebook 
 ul.hpo-token-input-list.token-input-list-facebook li.token-input-token-facebook.selected_at_popup .token-input-token-word-facebook.token-input-token-icon-facebook {
 	transform: rotateX(180deg);
 	transition: all 0.5s;
+}
+
+ul.hpo-token-input-list.token-input-list-facebook li.token-input-token-facebook.token-input-selected-token-facebook .token-input-token-word-facebook.token-input-token-icon-facebook {
+    transform: rotateX(180deg);
+    transition: all 0.5s;
 }
 
 
@@ -440,19 +475,24 @@ ul.hpo-token-input-list.token-input-list-facebook li.token-input-token-facebook 
 }
 
 ul.hpo-token-input-list.token-input-list-facebook li.token-input-token-facebook span.token-input-token-word-facebook.token-input-token-id-facebook {
-	display: block  !important;
-	font-size: 10px;
+/*	display: block  !important;*/
+	font-size: 11px;
+	height: 14px;
+	text-align: left;
+	padding-top: 2px;
 }
 ul.hpo-token-input-list.token-input-list-facebook li.token-input-token-facebook span.token-input-token-word-facebook.token-input-token-name-facebook {
-	display: block  !important;
-	font-size:17px;
+/*	display: block  !important;*/
+	font-size:18px;
+	height: 26px;
+	text-align: left;
 }
 ul.hpo-token-input-list.token-input-list-facebook li.token-input-token-facebook span.token-input-delete-token-facebook {
 	display: inline-block;
 	height: 15px;
 	width: 15px;
 	position: relative;
-	margin: auto;
+	margin: auto 3px auto auto;
 	font-size: 16px;
 	line-height: 16px;
 }

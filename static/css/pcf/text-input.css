@@ -1,0 +1,254 @@
+#text-input-modal {}
+
+#text-input-loader {
+  display: none;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+  background-color:#fff;
+  opacity:1.0;
+  z-index: 99999;
+}
+
+#text-input-loader div {
+  width: 300px;
+  position: absolute;
+  top: calc(50% - 17px);
+  left:calc(50% - 150px);
+}
+
+#text-input-loader .text-input-loader-gif {
+  width:  30px;
+  height: 30px;
+  padding: 0;
+  background: url(../../images/pcf/text-input-loader.gif) center no-repeat #fff;
+}
+
+#text-input-loader #text-input-loader-text:empty::before {
+  font-size: 22px;
+  content: " Loading HPO Dictionary ...";
+}
+
+#text-input-modal .modal-dialog {
+}
+
+#text-input-modal .modal-dialog .modal-content{
+  min-width: 900px;
+  padding: 2.5rem;
+}
+
+#text-input-modal .modal-dialog .modal-content .modal-header { 
+  border: 0px;
+  min-width: 790px;
+}
+
+#text-input-modal .modal-dialog .modal-content .modal-body {
+  width: 100%;
+  height: 100%;
+  min-width: 790px;
+}
+
+
+#text-input-modal .modal-dialog .modal-content .modal-body .text-input-wrapper{
+  width: 49%;
+  height: 450px;
+  margin-top: 5px;
+  border-radius:5px;
+  max-height:450px;
+  background-color:#ced4da;
+  border:1px solid #ced4da;
+}
+
+#text-input-modal .modal-dialog .modal-content .modal-body .text-input-wrapper .text-input-textarea{
+  width:100%;
+  height: 100%;
+  margin: 0px;
+  border-radius:5px;
+  background-color:#f8f9fa;
+  padding: 10px;
+  overflow-y: auto;
+}
+
+#text-input-modal .modal-dialog .modal-content .modal-body  .text-input-wrapper .text-input-textarea:focus {
+  /*outline: none !important;*/
+  /*border-color: #719ECE;*/
+  border-radius: 5px;
+  /*box-shadow: 0 0 10px #719ECE;*/
+  border-color: #80bdff;
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+#text-input-modal .modal-dialog .modal-content .modal-body  .text-input-wrapper .text-input-textarea:empty:not(:focus)::before {
+  content: attr(data-placeholder);
+  color:gray;
+}
+
+#text-input-modal .modal-dialog .modal-content .modal-body  .text-input-wrapper .text-input-textarea span{
+  border-bottom: solid 2px #ffb7b7;
+}
+
+
+#text-input-modal .modal-dialog .modal-content .modal-body  .text-input-wrapper .text-input-textarea span.chosen{
+  background-color: #ffcccc;
+  border-bottom: solid 2px red;
+}
+
+#text-input-modal .modal-dialog .modal-content .modal-body  .text-input-wrapper .text-input-textarea span.notobserved {
+  border-bottom: solid 2px #b2e8f9;
+}
+
+#text-input-modal .modal-dialog .modal-content .modal-body  .text-input-wrapper .text-input-textarea span.notobserved.chosen {
+  background-color: #b2e8f9;
+  border-bottom: solid 2px blue;
+}
+
+
+#text-input-modal .modal-dialog .modal-content .modal-body  .text-input-wrapper .text-input-table{
+  width:  100%;
+  height: 100%;
+  background-color:#f8f9fa;
+  border-radius:5px;
+  border:           0px;
+  overflow-y:       auto;
+  box-shadow:       none;
+  margin:           0px;
+}
+
+#text-input-modal .modal-dialog .modal-content .modal-body  .text-input-wrapper .text-input-table tbody{
+  overflow-y: scroll;
+}
+
+#text-input-modal .modal-dialog .modal-content .modal-body  .text-input-wrapper .text-input-table tbody tr{
+  width: 100%;
+}
+
+#text-input-modal .modal-dialog .modal-content .modal-body  .text-input-wrapper .text-input-table tbody tr.chosen.observed{
+  border: 1px solid red;
+}
+
+#text-input-modal .modal-dialog .modal-content .modal-body  .text-input-wrapper .text-input-table tbody tr.chosen.notobserved {
+  border: 1px solid blue;
+}
+
+#text-input-modal .modal-dialog .modal-content .modal-body  .text-input-wrapper .text-input-table tbody tr td.select {
+  width: 48px;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+#text-input-modal .modal-dialog .modal-content .modal-body  .text-input-wrapper .text-input-table tbody tr td.hpo_id {
+  width: 108px;
+  padding-left: 0px;
+  padding-right: 0px;
+  white-space: nowrap;
+}
+
+#text-input-modal .modal-dialog .modal-content .modal-body  .text-input-wrapper .text-input-table tbody tr td.hpo_id span{
+  border: 2px solid grey;
+  border-radius: 3px;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#text-input-modal .modal-dialog .modal-content .modal-body  .text-input-wrapper .text-input-table tbody tr td.hpo_id:before {
+  content:"\A";
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  display:inline-block;
+  margin:0 6px 2px 0;
+}
+
+#text-input-modal .modal-dialog .modal-content .modal-body  .text-input-wrapper .text-input-table tbody tr td.hpo_name {
+  width: 70%;
+}
+
+
+#text-input-modal .modal-dialog .modal-content .modal-body  .text-input-wrapper .text-input-table tbody tr td div.dropdown .dropdown-toggle{
+  cursor:      pointer;
+}
+
+#text-input-modal .modal-dialog .modal-content .modal-body  .text-input-wrapper .text-input-table tbody tr td div.dropdown .dropdown-toggle::after { display: none; }
+ 
+
+
+
+#text-input-modal .modal-dialog .modal-content .modal-body  .text-input-wrapper .text-input-table tbody tr td div.dropdown .dropdown-menu {
+  padding: 0;
+  min-width: 100px;
+}
+
+#text-input-modal .modal-dialog .modal-content .modal-body  .text-input-wrapper .text-input-table tbody tr td div.dropdown ul li {
+  padding: 5px 10px 5px 10px;
+  width: 100%;
+}
+
+#text-input-modal .modal-dialog .modal-content .modal-body  .text-input-wrapper .text-input-table tbody tr td div.dropdown ul li:hover{
+  background-color: lightgrey;
+}
+
+#text-input-modal .modal-dialog .modal-content .modal-body  .text-input-wrapper .text-input-table tbody tr td div.dropdown ul li span:before {
+  content:"\A";
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  display:inline-block;
+  margin:0 5px 3px 0;
+}
+
+
+
+#text-input-parse-button {
+  margin:0;
+  position: absolute;
+  height: 48px;
+  width: 48px;
+  color:white;
+  background-color:#222057;
+  opacity:1.0;
+  font-size:30px;
+  border:0px;
+  top: calc(50% - 24px);
+  left:calc(50% - 24px);
+}
+
+#text-input-modal .modal-dialog .modal-content .modal-footer {
+  min-width: 790px;
+  border: 0px;
+  margin-top: 12px;
+  padding-top: 0px;
+}
+
+#text-input-modal .modal-dialog .modal-content .modal-footer div {
+  height: 40px;
+  margin: 0;
+}
+
+#text-input-modal .modal-dialog .modal-content .modal-footer div button {
+  margin-top: 2px;
+}
+
+#text-input-modal .modal-dialog .modal-content .modal-footer div span {
+  font-size: 12px;
+}
+
+#text-input-modal .modal-dialog .modal-content .modal-footer div span:before {
+  content:"\A";
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  display:inline-block;
+  margin:0 5px 0 0;
+}
+
+.observed:before {
+  background: red;
+}
+
+.notobserved:before {
+  background: blue;
+}
+

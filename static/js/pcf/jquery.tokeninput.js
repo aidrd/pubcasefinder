@@ -20,6 +20,15 @@
 			},
 	};
 
+    const UISETTING_TAG_SIZE_S = 's',
+		  UISETTING_TAG_SIZE_M = 'm',
+		  UISETTING_TAG_SIZE_L = 'l',
+          UISETTING_TAG_SIZE_CLASS = {
+            [UISETTING_TAG_SIZE_S]: 'uisetting_tag_size_s',
+            [UISETTING_TAG_SIZE_M]: 'uisetting_tag_size_m',
+            [UISETTING_TAG_SIZE_L]: 'uisetting_tag_size_l',
+          };
+
 	var DEFAULT_SETTINGS = {
 		// ja,en
 		lang:					LANGUAGE_JA,
@@ -87,7 +96,7 @@
 			value += '</li>';
 			return value;
 		},
-
+/*
 		tokenFormatter: function(item) {
 			var id    = item['id'].replace(/_ja$/g,'');
 			var name  = item['name'];
@@ -104,7 +113,23 @@
 					  '</div>'+
 					'</li>';
 		},
-
+*/
+        tokenFormatter: function(item, uisetting_tag_size) {
+            var id    = item['id'].replace(/_ja$/g,'');
+            var name  = item['name'];
+            var theme = this.theme ? '-'+this.theme : '';
+            return  '<li class=\"token-input-li token-input-token-term'+theme+'\ d-flex flex-row '+ UISETTING_TAG_SIZE_CLASS[uisetting_tag_size] +'\">'+
+                      '<div class=\"d-flex flex-column\">'+
+                        '<span class=\"token-input-li token-input-token-word'+theme+' token-input-token-id'+theme+'\">' +
+                        (this.enableHTML ? id : _escapeHTML(id)) + '</span>'+
+                        '<span class=\"token-input-li token-input-token-word'+theme+' token-input-token-name'+theme+'\">' +
+                        (this.enableHTML ? name : _escapeHTML(name)) + '</span>'+
+                      '</div>'+
+                      '<div style=\"position:relative;\" class=\"token-input-li token-input-token-word'+theme+' token-input-token-icon'+theme+'\">'+
+                        '<div class=\"material-icons token-input-li\" style=\"position:absolute;top:50%;left:50%;transform: translate(-50%, -50%);\">expand_more</div>'+
+                      '</div>'+
+                    '</li>';
+        },
 		highlightTerm: function(value, term) {
 			var enableHTML = this.enableHTML;
 			var regexp_special_chars = new RegExp('[.\\\\+*?\\[\\^\\]$(){}=!<>|:\\-]', 'g');
@@ -148,13 +173,18 @@
 		onShowDropdownItem:   null,
 		onHideDropdownItem:   null,
 
+		onLongerQuery:	null,
+		maxChars:		100,
+		
 		doSubmit: null,
 
 		// Other settings
 		idPrefix: "token-input-",
 
 		// Keep track if the input is currently in disabled mode
-		disabled: false
+		disabled: false,
+
+		uisetting_tag_size: UISETTING_TAG_SIZE_L,
 	};
 
 	// Default classes to use when theming
@@ -173,6 +203,7 @@
 		focused			     : "token-input-focused",
 		disabled			 : "token-input-disabled"
 	};
+
 
 	// Input box position "enum"
 	var POSITION = {
@@ -243,6 +274,10 @@
 			this.data("tokenInputObject").add(item);
 			return this;
 		},
+	  	add_hpo_list: function(hpo_list) {
+			this.data("tokenInputObject").add_hpo_list(hpo_list);
+			return this;
+		},
 		remove: function(item) {
 			this.data("tokenInputObject").remove(item);
 			return this;
@@ -252,6 +287,10 @@
 		},
 		toggleDisabled: function(disable) {
 			this.data("tokenInputObject").toggleDisabled(disable);
+			return this;
+		},
+		setTagSize: function(uisetting_tag_size){
+			this.data("tokenInputObject").setTagSize(uisetting_tag_size);
 			return this;
 		},
 		setOptions: function(options){
@@ -630,6 +669,29 @@
 		  add_token(item);
 	  };
 
+	  this.add_hpo_list = function(hpo_list){
+		var j = 0;
+		var inter = setInterval(function() {
+		    if (j < hpo_list.length) {
+				add_token(hpo_list[j]);
+				let li_list   = token_list.find("li");
+				let new_li = li_list[li_list.length -2]; 
+		    	$(new_li).hide() //hide the row
+		    	$(new_li).show('slow') //show the row
+		    	j++;
+		    } else {
+		      clearInterval(inter)
+
+			setTimeout(function() {
+				let element = document.getElementById("token-input-tokeninput_hpo");
+				element.scrollIntoViewIfNeeded();
+				$('#token-input-tokeninput_hpo').focus();
+        	}, 500);
+		      
+		    }
+		  }, 100); //milli-second gap you want to give
+	  }
+
 	  this.remove = function(item) {
 		  token_list.children("li").each(function() {
 			  if ($(this).children("input").length === 0) {
@@ -656,19 +718,47 @@
 		  toggleDisabled(disable);
 	  };
 
+	  this.setTagSize = function(uisetting_tag_size){
+		let old_settings = $(input).data("settings");
+		let new_settings = $.extend(true,{},old_settings, {'uisetting_tag_size':uisetting_tag_size});
+		$(input).data("settings", new_settings);
+		
+		for(let tag_size in UISETTING_TAG_SIZE_CLASS){
+			let tag_size_class = UISETTING_TAG_SIZE_CLASS[tag_size];
+			$('li').removeClass(tag_size_class);
+		}
+
+		$('li').addClass(UISETTING_TAG_SIZE_CLASS[uisetting_tag_size]);
+	  }
+	  
 		this.blinkLastTokens = function(num) {
 
 			let li_list   = token_list.find("li");
 			let idx_end   = li_list.length - 2;
 			let idx_start = li_list.length - num -1;
 
-			
+/*			
 			for(let idx=idx_start;idx<=idx_end;idx++){
 
 				//$(li_list[idx]).addClass($(input).data("settings").classes.highlightedToken).hide();
 				$(li_list[idx]).hide();
 				$(li_list[idx]).delay(600).fadeIn('slow');
 			}
+*/			
+			var j = idx_start;
+		
+			var inter = setInterval(function() {
+			    if (j < li_list.length-1) {
+			      $(li_list[j]).hide() //hide the row
+			      $(li_list[j]).show('slow') //show the row
+			      j++;
+			    } else {
+			      clearInterval(inter)
+			    }
+			  }, 100); //milli-second gap you want to give
+			
+			
+			
 		};
 
 	  // Resize input to maximum width so the placeholder can be seen
@@ -745,7 +835,8 @@
 
 	  // Inner function to a token to the list
 	  function insert_token(item) {
-		  var $this_token = $($(input).data("settings").tokenFormatter(item));
+		  var uisetting_tag_size = $(input).data("settings").uisetting_tag_size;
+		  var $this_token = $($(input).data("settings").tokenFormatter(item, uisetting_tag_size));
 		  var readonly = item.readonly === true;
 
 		  if(readonly) $this_token.addClass($(input).data("settings").classes.tokenReadOnly);
@@ -1153,8 +1244,12 @@
 				if(selected_token) {
 					deselect_token($(selected_token), POSITION.AFTER);
 				}
-
-				if((new Blob([query])).size >= $(input).data("settings").minChars) {
+				let len = (new Blob([query])).size;
+				if(len >= $(input).data("settings").maxChars  && $.isFunction($(input).data("settings").onLongerQuery)){
+					input_box.val("");
+					hide_dropdown();
+					$(input).data("settings").onLongerQuery(query);
+				}else if(len >= $(input).data("settings").minChars) {
 					//console.log('do_each', query);
 					show_dropdown_searching();
 					clearTimeout(timeout);

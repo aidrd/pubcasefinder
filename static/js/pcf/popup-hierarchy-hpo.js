@@ -259,9 +259,13 @@
 			var settings = $.extend(true,{}, DEFAULT_SETTINGS, options || {});
 			return this.each(function () {
 				$(this).data(SETTINGS_KEY, settings);
-				PopupRelationHPO(this, url_or_data_or_function, settings);
+				$(this).data(OBJECT_KEY, new $.PopupRelationHPO(this, url_or_data_or_function, settings));
 			});
 		},
+        setTagSize: function(uisetting_tag_size){
+            this.data(OBJECT_KEY).setTagSize(uisetting_tag_size);
+            return this;
+        },
 	};
 
 	$.fn.popupRelationHPO = function (method) {
@@ -273,10 +277,15 @@
 	};
 
 
-	var PopupRelationHPO = function (input, url_or_data_or_function, settings) {
+	$.PopupRelationHPO = function (input, url_or_data_or_function, settings) {
 
 		var cache = new $.TokenList.Cache();
 		var tokeninput_settings = $.extend(true,{},$(input).data(TOKENINPUT_SETTINGS_KEY) || {});
+
+		this.setTagSize = function(uisetting_tag_size){
+			tokeninput_settings.uisetting_tag_size = uisetting_tag_size;
+		}
+
 		if(tokeninput_settings.prePopulate) delete tokeninput_settings.prePopulate;
 //		console.log(tokeninput_settings);
 		var tokeninput_classes = tokeninput_settings.classes;
@@ -747,6 +756,9 @@
 					addOriginalTokenInputItem();
 			}
 			setTimeout(function(){
+                $('li').removeClass(tokeninput_classes['selectedToken']);
+                $('li').removeClass(tokeninput_classes['highlightedToken']);
+                $('li').removeClass('selected_at_popup');
 				closeMagnificPopup();
 				$('div.'+tokeninput_classes['dropdown']).css({'display':'none'});
 			},100);
@@ -988,6 +1000,9 @@
 									$li_node = $(e.target);
 								}
 								else if($(e.target).get(0).nodeName.toLowerCase()==='p'){
+									$li_node = $(e.target).parent('li');
+								}
+								else if($(e.target).get(0).nodeName.toLowerCase()==='div'){
 									$li_node = $(e.target).parent('li');
 								}
 								else if($(e.target).get(0).nodeName.toLowerCase()==='span'){
@@ -2724,7 +2739,7 @@
 						}
 					}
 
-					if(!current_settings.use_webgl){
+					if(!current_settings.use_webgl && !current_settings.is_hierarchy_fullscreen){
 						if(!$.magnificPopup.instance.contentContainer){
 							$(tokenInputItemNodes).removeClass('selected_at_popup');
 							$li_node.addClass('selected_at_popup');

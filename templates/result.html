@@ -20,7 +20,9 @@
 	<link rel="stylesheet" href="/static/css/pcf/branc-embedded.css">
 	<link rel="preconnect" href="https://fonts.gstatic.com">
 	<link rel="stylesheet" href="/static/css/pcf/style.css">
+	<link rel="stylesheet" href="/static/css/pcf/tippy.css">
 	<link rel="stylesheet" href="/static/css/pcf/search-box-form.css">
+	<link rel="stylesheet" href="/static/css/pcf/text-input.css">
 	<link rel="stylesheet" href="/static/css/pcf/mobile.css">
 	<link
 		href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Noto+Sans+JP:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
@@ -33,11 +35,11 @@
 	<link rel="stylesheet" href="/static/css/pcf/magnific-popup.css">
 	<link rel="stylesheet" href="/static/css/pcf/token-input-facebook.css">
 	<link rel="stylesheet" href="/static/css/pcf/popup-hierarchy-hpo.css">
-	<link rel="stylesheet" href="/static/css/pcf/popup-hierarchy-gene.css">
-
+	<link rel="stylesheet" href="/static/css/pcf/popup-hierarchy-filter.css">
+<!--
 	<link rel="stylesheet" href="https://unpkg.com/tippy.js@6/animations/scale.css" />
 	<link rel="stylesheet" href="https://unpkg.com/tippy.js@6/animations/scale-extreme.css" />
-	
+	-->
 	<link rel="icon" href="/static/images/favicon.ico">
 
 	<!-- favicon for mobile -->
@@ -72,7 +74,7 @@
 	</script>
 </head>
 
-<body>
+<body spellcheck="false">
 	<div id="fh5co-loader"></div>
 	<header class="search-header">
 		<div class="wrapper search-header_wrapper">
@@ -89,9 +91,13 @@
 			<div class="search-box_wrapper">
 				<div id="search_box_form"></div>
 				<div class="search-button" id="div_search_button">
-					<!-- advanced button -->
-					<button id="btn_search_advanced" data-toggle="collapse" data-target="#search-box-advanced" aria-expanded="false" aria-controls="search-box-advanced">
+					<!-- filter button -->
+					<button id="btn_search_filter" data-toggle="collapse" data-target="#search-box-filter" aria-expanded="false" aria-controls="search-box-filter">
 						Filter<i class="material-icons">expand_more</i>
+					</button>
+
+					<button id="btn_search_vgp" data-toggle="collapse" data-target="#search-box-vgp" aria-expanded="false" aria-controls="search-box-vgp">
+						Virtual Gene Panel<i class="material-icons">expand_more</i>
 					</button>
 
 					<!-- download button -->
@@ -115,7 +121,42 @@
 				</div>
 			</div>
 
-			<div class="search-advanced collapse" id="search-box-advanced">
+			<div class="search-advanced collapse" id="search-box-vgp">
+				<div class="search-box-advanced_wrapper">
+					<div class="search-box-vgp_title">
+						{% if r_lang == "ja" %}
+						<b>遺伝子パネルを設定</b>
+						<span class="in-circle" data-toggle="tooltip" data-placement="top" data-html="true"
+							  title="疾患名・遺伝子・パネル (PanelApp, PanelApp Australia) <br />を組み合わせ，任意の遺伝子パネルを設定できます．<br />Expandボタンで，入力した疾患をより包括的な疾患に<br />自動変換できます．">?</span>
+						{% else %}
+						<b>Set up a virtual gene panel</b>
+						<span class="in-circle" data-toggle="tooltip" data-placement="top" data-html="true"
+							  title="You can set up any virtual gene panels by combining disease <br />names, genes, and panels (PanelApp, PanelApp Australia), <br />and use the expand button to automatically convert the input <br />diseases into more comprehensive diseases.">?</span>
+						{% endif %}
+						&nbsp;&nbsp;&nbsp;
+						<font style="color:#C7DAAA;">|</font>
+						&nbsp;&nbsp;&nbsp;
+						<font>Examples:&nbsp;</font>
+						<a class="filter-sample" href="/result?target=omim&phenotype=HP:0000347,HP:0003022,HP:0009381,HP:0000204,HP:0000625&filter=MONDO:0007179&size=10&display_format=full&lang=en">Example1</a>
+                        <a class="filter-sample" href="/result?target=omim&phenotype=HP:0001903,HP:0000952,HP:0001744,HP:0004444&filter=GENEID:2038,GENEID:6708,GENEID:6521,GENEID:286,GENEID:6710,AND_HP:0000006&size=10&display_format=full&lang=en">Example2</a>
+                        <a class="filter-sample" href="/result?target=omim&phenotype=HP:0000347,HP:0003022,HP:0009381,HP:0000204,HP:0000625&filter=HP:0000007,AND_MONDO:0019056,NOT_MONDO:0020124&size=10&display_format=full&lang=en">Example3</a>
+
+						{% if r_lang == "ja" %}
+						<button id="btn_vgp_download" data-toggle="tooltip" data-placement="top" title="この遺伝子パネルをダウンロード">
+						{% else %}
+						<button id="btn_vgp_download" data-toggle="tooltip" data-placement="top" title="Download this virtual gene panel">
+						{% endif %}
+							 <span class="material-icons">save_alt</span>
+	                    </button>
+					</div>
+					<textarea class="form-control" rows="1" id="tokeninput_vgps" name="str_vgps"></textarea>
+					<div style="width:100%;margin-bottom:5px;">
+						<button id="btn_vgp_expand">Expand<i class="material-icons">chevron_right</i></button>
+					</div>
+				</div>
+			</div>
+
+			<div class="search-advanced collapse" id="search-box-filter">
 				<div class="search-box-advanced_wrapper">
 					<div style="width:100%;margin-bottom:5px;">
 						{% if r_lang == "ja" %}
@@ -130,7 +171,7 @@
 						<a class="filter-sample" href="/result?target=omim&phenotype=HP:0000347,HP:0003022,HP:0009381,HP:0000204,HP:0000625&filter=HP:0000007,AND_MONDO:0019056,NOT_MONDO:0020124&size=10&display_format=full&lang=en">Example3</a>
 						{% endif %}
 					</div>
-					<textarea class="form-control" rows="1" id="tokeninput_genes" name="str_filters"></textarea>
+					<textarea class="form-control" rows="1" id="tokeninput_filters" name="str_filters"></textarea>
 				</div>
 			</div>
 		</div>
@@ -254,7 +295,7 @@
     </div>
   </div>
 </div>
-<div id="dropdown-menu_download" style="display: none;">
+<div id="dropdown-menu_download" class="dropdown-menu-wrapper">
 <form class="px-1 py-2" id="download-form">
 	<label>
 		{% if r_lang == "ja" %}
@@ -264,7 +305,7 @@
 		{% endif %}
 	</label>
 	<table>
-		<tr style="border:0;">
+		<tr>
 			<td style="vertical-align: middle;">Target:</td>
 			<td id="str_target">
 			   {% if r_target == "omim" %}
@@ -280,7 +321,7 @@
 			   {% endif %}
 			</td>
 		</tr>
-		<tr style="border:0;">
+		<tr>
 			<td style="vertical-align: middle;padding-left:0;padding-right:10px;">Selection:</td>
 			<td>
 			  <select style="width:200px;" class="form-control custom-select" id="sel_download_option">
@@ -290,7 +331,7 @@
 			  </select>
 			</td>
 		</tr>
-		<tr style="border:0;">
+		<tr>
 			<td style="vertical-align: middle;padding-left:0;padding-right:10px;">Format:</td>
 			<td>
 			  <select style="width:200px;" class="form-control custom-select" id="sel_download_format">
@@ -307,7 +348,7 @@
 </form>
 </div>
 
-<div id="dropdown-menu_share" style="display: none;">
+<div id="dropdown-menu_share" class="dropdown-menu-wrapper"> 
 <form class="px-2 py-2">
 <label>
 	{% if r_lang == "ja" %}
@@ -331,7 +372,7 @@
 </div>
 
 
-<div id="dropdown-menu_display" style="display: none;">
+<div id="dropdown-menu_display" class="dropdown-menu-wrapper">
 	<form class="px-3 py-2">
 		<label>
 			{% if r_lang == "ja" %}
@@ -341,7 +382,7 @@
 			{% endif %}
 		</label>
 		<table>
-			<tr style="border:0;">
+			<tr>
 				<td style="vertical-align: middle;padding-left:0;padding-right:10px;">Format:</td>
 				<td>
 					<select style="width:150px;" class="custom-select" id="str_display_format" onchange="str_display_format_onchange(this.value);">
@@ -350,7 +391,7 @@
 			  		</select>
 				</td>
 			</tr>
-			<tr style="border:0;">
+			<tr>
 				<td style="vertical-align: middle; padding-right:10px;" nowrap>Per page:</td>
 				<td>
 					<select style="width:150px;" class="custom-select" id="str_size" onchange="str_size_onchange(this.value);">
@@ -362,7 +403,8 @@
 					</select>
 				</td>
 			</tr>
-			<tr style="border:0;">
+<!--
+			<tr>
 				<td style="vertical-align: middle; padding-right:10px;" nowrap>Header:</td>
 				<td>
 					<select style="width:150px;" class="custom-select" id="str_header" onchange="str_header_onchange(this.value);">
@@ -371,6 +413,7 @@
 					</select>
 				</td>
 			</tr>
+-->
 		</table>
 	</form>
 </div>
@@ -392,7 +435,8 @@
 <script src="/static/js/pcf/jquery.easing.1.3.js"></script>
 <script src="/static/js/pcf/bootstrap-4.6.0.bundle.js"></script>
 <script src="https://unpkg.com/@popperjs/core@2"></script>
-<script src="https://unpkg.com/tippy.js@6"></script>
+<!-- <script src="https://unpkg.com/tippy.js@6"></script> -->
+<script src="/static/js/pcf/tippyjs/tippy-bundle.umd.js"></script>
 
 <script src="/static/js/pcf/jquery.waypoints.min.js"></script>
 <script src="/static/js/jquery.countTo.js"></script>
@@ -406,7 +450,7 @@
 <script src="/static/js/pcf/main.js"></script>
 
 <script src="/static/js/pcf/jquery.tokeninput.js"></script>
-<script src="/static/js/pcf/jquery.tokeninput_gene.js"></script>
+<script src="/static/js/pcf/jquery.tokeninput_filter.js"></script>
 <script src="/static/js/d3/3.5.17/d3.min.js"></script>
 <script src="/static/js/three.js-r84/build/three.min.js"></script>
 <script src="/static/js/three.js-r84/examples/js/Detector.js"></script>
@@ -415,11 +459,13 @@
 <script src="/static/js/three-bits/three-bits-renderer.js"></script>
 <script src="/static/js/three-bits/defaults.js"></script>
 <script type="text/javascript" src="/static/js/pcf/popup-hierarchy-hpo.js"></script>
-<script type="text/javascript" src="/static/js/pcf/popup-hierarchy-gene.js"></script>
+<script type="text/javascript" src="/static/js/pcf/popup-hierarchy-filter.js"></script>
 <script src="/static/js/button-ripple-effect.js"></script>
 <script type="text/javascript" src="/static/js/pcf/pcf-content.js"></script>
 <script type="text/javascript" src="/static/js/pcf/pcf_collapse_panel.js"></script>
+<script src="/static/js/jaconv/jaconv.min.js"></script>
 <script type="text/javascript" src="/static/js/pcf/jquery.search-box_form.js"></script>
+<script type="text/javascript" src="/static/js/pcf/jquery.textinput_hpo.js"></script>
 <script>
 
 	var pcf_show_loading = function(){
@@ -622,6 +668,7 @@
 	    }
 	});
 
+/*
 	var lastScrollTop = 0;
 	function str_header_onchange(isAutoHide){
 		if(isAutoHide === 'true') {
@@ -701,6 +748,8 @@
 		}
 	}
 
+*/
+
 	function topFunction() {
 		if($('header').is(":visible")===false) $('header').show();
 		document.body.scrollTop = 0;
@@ -728,33 +777,34 @@
 		return false;
 	}
 
-	$("#phenotouch").click(function (e){
-		$('.selected_at_popup').removeClass('selected_at_popup');
-		$('.token-input-selected-token-facebook').removeClass('token-input-selected-token-facebook');
-		$.PopupRelationHPOWithWebGL();
-		e.preventDefault();
-		e.stopPropagation();
-		return false;
-	});
+//	$("#phenotouch").click(function (e){
+//		$('.selected_at_popup').removeClass('selected_at_popup');
+//		$('.token-input-selected-token-facebook').removeClass('token-input-selected-token-facebook');
+//		$.PopupRelationHPOWithWebGL();
+//		e.preventDefault();
+//		e.stopPropagation();
+//		return false;
+//	});
 
 	var share_link_val = "https://pubcasefinder.dbcls.jp/result?target={{ r_target }}&phenotype={{ r_phenotype }}&filter={{ r_filter }}&size={{ r_size }}&display_format={{ r_display_format }}&lang={{ r_lang }}";
 
 	function update_download_link() {
 		let target    = $("#pcf-content").pcf_content('get_target');
 		let phenotype = hpo_id_list;
-		let filter    = $("#tokeninput_genes").tokenInput_gene("get_url_str");
+		let filter    = $("#tokeninput_filters").tokenInput_filter("get_url_str");
+		let filter_vgp= $("#tokeninput_vgps").tokenInput_filter("get_url_str");
 		let size      = r_size_val;
 		let format    = r_display_format_val;
 		let lang      = $("#r_lang").val();
 		
 		let url_str = window.location.protocol + "//" + window.location.host + window.location.pathname +
-					"?target="+target+"&phenotype="+phenotype+"&filter="+filter+"&size="+size+"&display_format="+format+"&lang="+lang;
+					"?target="+target+"&phenotype="+phenotype+"&filter="+filter+"&vgp="+filter_vgp+"&size="+size+"&display_format="+format+"&lang="+lang;
 
 		let url_str_en = window.location.protocol + "//" + window.location.host + window.location.pathname +
-					"?target="+target+"&phenotype="+phenotype+"&filter="+filter+"&size="+size+"&display_format="+format+"&lang=en";
+					"?target="+target+"&phenotype="+phenotype+"&filter="+filter+"&vgp="+filter_vgp+"&size="+size+"&display_format="+format+"&lang=en";
 
 		let url_str_ja = window.location.protocol + "//" + window.location.host + window.location.pathname +
-					"?target="+target+"&phenotype="+phenotype+"&filter="+filter+"&size="+size+"&display_format="+format+"&lang=ja";
+					"?target="+target+"&phenotype="+phenotype+"&filter="+filter+"&vgp="+filter_vgp+"&size="+size+"&display_format="+format+"&lang=ja";
 
 		share_link_val = url_str;
 
@@ -769,7 +819,7 @@
 	$(window).on('resize', function(e) {
 		tippy.hideAll();
 		
-		$("#tokeninput_genes").tokenInput_gene("resize_input_box");
+		$("#tokeninput_filters").tokenInput_filter("resize_input_box");
 
 		if( !resizeTimer ) {
 			$(window).trigger('resizestart');  	
@@ -805,14 +855,14 @@
 		}
 	}
 	function after_init_gui(){
-		$('#tokeninput_gene_clear').parent().css({'border-left':'0'});
-		$('#tokeninput_gene_clear').css({'display':'none'});
+		$("#tokeninput_filters").tokenInput_filter('hide_clear_button');
+		$("#tokeninput_vgps").tokenInput_filter('hide_clear_button');
 	}
 
 	function after_modal_close(){
 		$('header').css({'top': '24px'});
-		$('#tokeninput_gene_clear').css({'display':'block'});
-		$('#tokeninput_gene_clear').parent().css({'border-left':'1px solid rgb(221,221,221)'});
+		$("#tokeninput_filters").tokenInput_filter('show_clear_button');
+		$("#tokeninput_vgps").tokenInput_filter('show_clear_button');
 	}
 
 	function customizeLevelPos(){
@@ -851,40 +901,33 @@
 
 	function set_filter_num(){
 
-		let filter_str = $("#tokeninput_genes").tokenInput_gene("get_url_str");
+		let filter_str = $("#tokeninput_filters").tokenInput_filter("get_url_str");
 
 		let count = filter_str.split(',').length;
 		if(filter_str && count > 0){
-		    $('#btn_search_advanced').html("Filter("+count+")<i class=\"material-icons\">expand_more</i>");
+		    $('#btn_search_filter').html("Filter("+count+")<i class=\"material-icons\">expand_more</i>");
 		}else{
-		        $('#btn_search_advanced').html("Filter<i class=\"material-icons\">expand_more</i>");
+		    $('#btn_search_filter').html("Filter<i class=\"material-icons\">expand_more</i>");
 		}
 	};
 
-	function addFilterSample(sample_no){
-		
-		if(sample_no === '1'){
-			$("#tokeninput_genes").tokenInput_gene("add", {
-				id: "MONDO:0007179",
-				logicaloperator: "",
-				{% if r_lang == "ja" %}
-				name: "自己免疫疾患"
-				{% else %}
-				name: "autoimmune disease"
-				{% endif %}
-			});
-		}
+    function set_filter_vgp_num(){
 
-		onFilterChanged();
+        let filter_str = $("#tokeninput_vgps").tokenInput_filter("get_url_str");
+        let count = filter_str.split(',').length;
+        if(filter_str && count > 0){
+            $('#btn_search_vgp').html("Virtual Gene Panel("+count+")<i class=\"material-icons\">expand_more</i>");
+        }else{
+            $('#btn_search_vgp').html("Virtual Gene Panel<i class=\"material-icons\">expand_more</i>");
+        }
+    };
 
-                return false;
-	}
 
 	function onFilterChanged(){
 		set_filter_num();
 		update_download_link();
 		setTimeout(function() {
-			let filter_str = $("#tokeninput_genes").tokenInput_gene("get_url_str");
+			let filter_str = $("#tokeninput_filters").tokenInput_filter("get_url_str");
 			$("#pcf-content").pcf_content('update_filter', filter_str);
 			$('#search_box_form').search_box_form('update_filter',filter_str);
 		}, 10);
@@ -899,8 +942,29 @@
 		return false;
 	};
 
+	
+
+    function onFilterChanged_vgp(){
+        set_filter_vgp_num();
+        update_download_link();
+        setTimeout(function() {
+            let filter_str = $("#tokeninput_vgps").tokenInput_filter("get_url_str");
+            $("#pcf-content").pcf_content('update_filter_vgp', filter_str);
+            $('#search_box_form').search_box_form('update_filter_vgp',filter_str);
+        }, 10);
+        let lang = $("#r_lang").val();
+        if(lang === 'en'){
+            $("#pcf-content").pcf_content('send_share_url', $('#link_en').attr('href'));
+        }else{
+            $("#pcf-content").pcf_content('send_share_url', $('#link_ja').attr('href'));
+        }
+        return false;
+    };
+
+
 	var hpo_id_list = "{{ r_phenotype }}";
 	var filter_id_list = "{{ r_filter }}";
+	var filter_vgp_id_list = "{{ r_vgp }}";
 
 	{% if r_target == "omim" %}
 	var str_target_label = "Genetic Disease";
@@ -1015,25 +1079,65 @@
 			'modify_modal_on_show':			modify_modal_on_show,
 			'after_modal_close':			after_modal_close,
 			'is_hierarchy_fullscreen':		false,
+			'schema':						'schema-2021',
+			'text_input_schema':			'auto',
 		});
 
+		$('#btn_vgp_expand').on('click', function(){
+			let filter_str = $("#tokeninput_vgps").tokenInput_filter("get_url_str");
+			if(!filter_str || filter_str.length === 0){
+				alert("No virtual gene panel data found!");
+				return;
+			}
+			$("#pcf-content").pcf_content('expand_vgp',filter_str, function(trash1, trash2, expanded_object_list){
+				$("#tokeninput_vgps").tokenInput_filter('expand',expanded_object_list);
+				setTimeout(function() {
+					onFilterChanged_vgp();
+				}, 10);
+            });
+		});
 
-		$("#tokeninput_genes").tokenInput_gene("/tokeninput_filter", {
-			'theme': "facebook",
+        $('#btn_vgp_download').on('click', function(){
+            let filter_str = $("#tokeninput_vgps").tokenInput_filter("get_url_str");
+			$("#pcf-content").pcf_content('download_vgp',filter_str,function(){
+                //$('#btn_vgp_download').removeAttr('disabled');
+            });
+        });
+
+
+        $("#tokeninput_vgps").tokenInput_filter("/tokeninput_vgp", {
+            'theme' : "facebook",
+            'schema': "vgp",
+            {% if r_lang %}
+            'language':   "{{ r_lang }}",
+            {% endif %}
+            'onFilterChanged' : onFilterChanged_vgp
+        });
+
+        $("#tokeninput_vgps")
+            .popupRelationFilter('/popup_hierarchy_genes',
+									{'modify_modal_on_show': modify_modal_on_show,
+                                     'after_modal_close':   function(){after_modal_close();},
+                                     'after_init_gui':       after_init_gui,
+                                    {% if r_lang %}
+                                     'language_in':   "{{ r_lang }}",
+                                    {% endif %}
+                                     'onFilterChanged':      onFilterChanged_vgp
+                                    });
+
+
+		$("#tokeninput_filters").tokenInput_filter("/tokeninput_filter", {
+			'theme' : "facebook",
+			'schema': "default",
 			{% if r_lang %}
 			'language':   "{{ r_lang }}",
 			{% endif %}
 			'onFilterChanged' : onFilterChanged
 		});
 
-		$("#tokeninput_genes")
-			.popupRelationGENE('/popup_hierarchy_genes',{'modify_modal_on_show': modify_modal_on_show,
-								     'after_modal_close':   function(){
-																after_modal_close();
-																setTimeout(function() {
-																	$('#token-input-tokeninput_genes').focus();
-																}, 50);
-									 						},
+		$("#tokeninput_filters")
+			.popupRelationFilter('/popup_hierarchy_genes',{'modify_modal_on_show': modify_modal_on_show,
+								     'after_modal_close':   function(){after_modal_close();},
 								     'after_init_gui':       after_init_gui,
 						            {% if r_lang %}
 						             'language_in':   "{{ r_lang }}",
@@ -1083,7 +1187,7 @@
 				$('#search_box_form').search_box_form('update_target',target);
 			},
 			'load_filter_ids': function(){
-				return $("#tokeninput_genes").tokenInput_gene("get");
+				return $("#tokeninput_filters").tokenInput_filter("get");
 			},
 			'add_token': function(item){
 				$("#search_box_form").search_box_form('add_token', item);
@@ -1091,40 +1195,63 @@
 		});
 
 		if(!filter_id_list){
-			$("#token-input-tokeninput_genes").css({'width':'600px'});
+			setTimeout(function(){
+				$("#tokeninput_filters").tokenInput_filter('set_input_box_default_width');
+			}, 100);
 		}
 
-		$("#pcf-content").pcf_content('load_phenotype_and_filter_objects_by_ids',hpo_id_list,filter_id_list,function(hpo_obj_list, filter_obj_list){
-			let id_list = [];
-			hpo_obj_list.forEach(function(item){
-				$("#search_box_form").search_box_form('add_token', item);
-				id_list.push(item.id);
-			});
-			hpo_id_list = id_list.join(",");
+		if(!filter_vgp_id_list){
+			setTimeout(function(){
+				$("#tokeninput_vgps").tokenInput_filter('set_input_box_default_width');
+			}, 100);
+		}
 
-			filter_obj_list.forEach(function(item){
-				if(Object.keys(item).length > 0){
-					$("#tokeninput_genes").tokenInput_gene("add", item);
+		$("#pcf-content").pcf_content('load_phenotype_and_filter_objects_by_ids',hpo_id_list,filter_id_list,filter_vgp_id_list,
+			function(hpo_obj_list, filter_obj_list, filter_vgp_obj_list){
+				let id_list = [];
+				hpo_obj_list.forEach(function(item){
+					$("#search_box_form").search_box_form('add_token', item);
+					id_list.push(item.id);
+				});
+				hpo_id_list = id_list.join(",");
+
+				filter_obj_list.forEach(function(item){
+					if(Object.keys(item).length > 0){
+						$("#tokeninput_filters").tokenInput_filter("add", item);
+					}
+				});
+				filter_id_list = $("#tokeninput_filters").tokenInput_filter("get_url_str");
+	            if(filter_id_list){
+    	            $('#btn_search_filter').trigger('click');
+        	    }
+
+
+				filter_vgp_obj_list.forEach(function(item){
+					if(Object.keys(item).length > 0){
+						$("#tokeninput_vgps").tokenInput_filter("add", item);
+					}
+				});
+				filter_vgp_id_list = $("#tokeninput_vgps").tokenInput_filter("get_url_str");
+				if(filter_vgp_id_list){
+					$('#btn_search_vgp').trigger('click');
 				}
-			});
-			filter_id_list = $("#tokeninput_genes").tokenInput_gene("get_url_str");
-
-			//if(filter_obj_list && filter_obj_list.length > 0){
-			if(filter_id_list){
-				$('#btn_search_advanced').trigger('click');
-			}
 
 			if(hpo_id_list.length > 0){
-				$("#pcf-content").pcf_content('search',{'phenotype':hpo_id_list.replace(/_ja/gi,''),'filter':filter_id_list});
+				$("#pcf-content").pcf_content('search',{'phenotype':hpo_id_list.replace(/_ja/gi,''),'filter':filter_id_list,'filter_vgp':filter_vgp_id_list});
 			}else{
 				pcf_hide_loading();
 			}
 
 			update_download_link();
 			set_filter_num();
+			set_filter_vgp_num();
 		});
 
 		$('[data-toggle="tooltip"]').tooltip({'trigger':'hover'});
+
+		$('div[data-tippy-root]').mouseout(function(e){
+			 tippy.hideAll();	
+		});
 	});
 
 </script>

@@ -2,50 +2,181 @@
  * jQuery Plugin: Search phenotype 
  */
 ;(function ($) {
-	
-	var DEFAULT_SETTINGS = {
 
-		url_tokeninput_hpo:			'/tokeninput_hpo',
-		url_tokeninput_hpo_second:	'/pcf_get_hpo_by_text',
-		url_popup_hierarchy_hpo:	'/popup_hierarchy_hpo',
-		url_load_hpo_data:			'/get_hpo_data_by_hpo_id',
-		lang:						'ja',
+	//(hpo list input, setting)buttons on left, (clear,submit) button on right    
+	const SCHEMA_2022 = "schema-2022";
+	//(text2hpo,phenotouch,hpo list input)buttons on left, (clear,submit) button on right
+	const SCHEMA_2021 = "schema-2021";
 
-		form_action:				'/result',
-
-		form_para_target:			'omim',
-		form_para_filter:			'',
-		form_para_size:				'10',
-		form_para_display_format:	'full',
-
-		show_loading:				null,
-		hide_loading:				null,
-		modify_modal_on_show:		null,
-		after_modal_close:			null,
-		is_hierarchy_fullscreen:	true,
-	};
-
+	const TEXT_INPUT_SCHEMA_MANUAL='manual',TEXT_INPUT_SCHEMA_AUTO='auto';
 
 	const LANGUAGE_JA='ja', LANGUAGE_EN='en',
-		LANGUAGE = {
+		  UISETTING_TAG_SIZE_S ='s',UISETTING_TAG_SIZE_M='m',UISETTING_TAG_SIZE_L='l',
+		  UISETTING_TAG_SIZE_LST = [UISETTING_TAG_SIZE_S,UISETTING_TAG_SIZE_M,UISETTING_TAG_SIZE_L],
+		  UISETTING_LANGUAGE_JAPANESE = 'ja',UISETTING_LANGUAGE_ENGLISH = 'en',
+		  UISETTING_LANGUAGE_GERMANY  = 'de',UISETTING_LANGUAGE_NETHERLANDS = 'nl',
+		  UISETTING_LANGUAGE_LST = [UISETTING_LANGUAGE_ENGLISH,UISETTING_LANGUAGE_JAPANESE,UISETTING_LANGUAGE_GERMANY,UISETTING_LANGUAGE_NETHERLANDS],
+		  UISETTING_LANGUAGE_LABEL = {
+				[UISETTING_LANGUAGE_ENGLISH]:     'English',
+				[UISETTING_LANGUAGE_JAPANESE]:    'Japanese',
+				[UISETTING_LANGUAGE_GERMANY]:     'Germany',
+				[UISETTING_LANGUAGE_NETHERLANDS]: 'Netherlands',
+		  },
+		  LANGUAGE = {
 			[LANGUAGE_JA] : {
 				'TEXT2HPO_URL'				: '/ehr',
 				'TEXT2HPO_BTN_TITLE'		: '文章から症状を自動抽出',
+				'TEXT_INPUT_TITLE'			: '文章から症状を自動抽出',
 				'PHENOTOUCH_BTN_TITLE'		: 'ヒト3Dモデルを利用して症状を検索',
 				'HPO_LIST_INPUT_BTN_TITLE'  : 'HPO IDのリストを入力',
+				'UISETTING_BTN_TITLE'		   : '設定',
+				'UISETTING_TBL_LABEL_TAGSIZE'  : 'タグサイズ:',
+				'UISETTING_TBL_LABEL_LANGUAGE' : 'クエリー言語:',
+				'UISETTING_TAG_SIZE_LABEL'    : {
+					[UISETTING_TAG_SIZE_S] : '小',
+					[UISETTING_TAG_SIZE_M] : '中',
+					[UISETTING_TAG_SIZE_L] : '大'
+				},
 			},
 			[LANGUAGE_EN] : {
 				'TEXT2HPO_URL'				: 'https://doc2hpo.wglab.org/',
 				'TEXT2HPO_BTN_TITLE'		: 'Input Free-Text (doc2hpo)',
+				'TEXT_INPUT_TITLE'			: 'Automatically extract HPO term from text',
 				'PHENOTOUCH_BTN_TITLE'		: 'Find Phenotypes using Human 3D Model',
 				'HPO_LIST_INPUT_BTN_TITLE'  : 'Input HPO IDs',
+				'UISETTING_BTN_TITLE'		   : 'Setting',
+				'UISETTING_TBL_LABEL_TAGSIZE'  : 'Tag size:',
+				'UISETTING_TBL_LABEL_LANGUAGE' : 'Query language:',
+				'UISETTING_TAG_SIZE_LABEL'    : {
+					[UISETTING_TAG_SIZE_S] : 'Small',
+					[UISETTING_TAG_SIZE_M] : 'Medium',
+					[UISETTING_TAG_SIZE_L] : 'Large',
+				}
 			}
 		};
+
+    var DEFAULT_SETTINGS = {
+        url_tokeninput_hpo:         '/tokeninput_hpo',
+        url_tokeninput_hpo_second:  '/pcf_get_hpo_by_text',
+        url_popup_hierarchy_hpo:    '/popup_hierarchy_hpo',
+        url_load_hpo_data:          '/get_hpo_data_by_hpo_id',
+        lang:                       'ja',
+
+        form_action:                '/result',
+        form_para_target:           'omim',
+        form_para_filter:           '',
+        form_para_filter_vgp:       '',
+        form_para_size:             '10',
+        form_para_display_format:   'full',
+        show_loading:               null,
+        hide_loading:               null,
+        modify_modal_on_show:       null,
+        after_modal_close:          null,
+        is_hierarchy_fullscreen:    true,
+
+        // SCHEMA_2022 or SCHEMA_2021
+        schema:                     SCHEMA_2022,
+		text_input_schema:          TEXT_INPUT_SCHEMA_MANUAL,        
+
+        uisetting_tag_size:			UISETTING_TAG_SIZE_L,
+		uisetting_language:			UISETTING_LANGUAGE_JAPANESE,
+    };
+
+	function setCookie(cname,cvalue){
+		document.cookie = cname+"="+cvalue+";" + `expires=${new Date(new Date().getTime()+1000*60*60*24*365).toGMTString()}; path=/`;
+	}
+
+	function getCookie(cname){
+
+		if(!document.cookie){
+			document.cookie = `expires=${new Date(new Date().getTime()+1000*60*60*24*365).toGMTString()}; path=/`;
+			return "";
+		}		
+		
+	    var name = cname + "=";
+	    var ca = document.cookie.split(';');
+	    for(var i=0; i<ca.length; i++) {
+	        var c = ca[i].trim();
+	        if (c.indexOf(name)==0) { return c.substring(name.length,c.length); }
+	    }
+	    return "";
+	}
+
+
+	var windowNavigatorLanguage = (window.navigator.languages && window.navigator.languages[0]) || window.navigator.language ||
+                					window.navigator.userLanguage || window.navigator.browserLanguage;
+                					
+    function isWindowNavigatorLanguageJa(){
+        return windowNavigatorLanguage === "ja" || windowNavigatorLanguage.toLowerCase() === "ja-jp";
+    }
+
+    function isWindowNavigatorLanguageDe(){
+        return windowNavigatorLanguage === "de"  || windowNavigatorLanguage.toLowerCase() === "de-de" || windowNavigatorLanguage.toLowerCase() === "de-ch";
+    }
+
+    function isWindowNavigatorLanguageNl(){
+        return windowNavigatorLanguage === "nl" || windowNavigatorLanguage === "nl-nl";
+    }
+
+	var isObject = function(value) {
+		return $.isPlainObject(value);
+	},
+	isArray = function(value) {
+		return $.isArray(value);
+	},
+	isFunction = function(value) {
+		return $.isFunction(value);
+	},
+	isNumeric = function(value) {
+		return $.isNumeric(value);
+	},
+	isString = function(value) {
+		return typeof value === 'string';
+	},
+	isBoolean = function(value) {
+		return typeof value === 'boolean';
+	},
+	isEmpty = function(value, allowEmptyString) {
+		return (value === null) || (value === undefined) || (!allowEmptyString ? value === '' : false) || (isArray(value) && value.length === 0);
+	},
+	isDefined = function(value) {
+		return typeof value !== 'undefined';
+	},
+	hasJA = function( str ) {
+		return ( str && str.match(/[\u30a0-\u30ff\u3040-\u309f\u3005-\u3006\u30e0-\u9fcf]+/) )? true : false
+	}
+	;
+
 
 	// Additional public (exposed) methods
 	var methods = {
 		init: function(options) {
 			var settings = $.extend({}, DEFAULT_SETTINGS, options || {});
+
+			let cookie_tag_size = getCookie('uisetting_tag_size');
+			if(cookie_tag_size){
+				settings['uisetting_tag_size'] = cookie_tag_size;
+			}else{
+				setCookie('uisetting_tag_size', settings['uisetting_tag_size']);
+			}
+
+			let cookie_language = getCookie('uisetting_language');
+			if(cookie_language){
+				settings['uisetting_language'] = cookie_language;
+			}else{
+				
+				if(isWindowNavigatorLanguageJa()){
+					settings['uisetting_language'] = UISETTING_LANGUAGE_ENGLISH + "," + UISETTING_LANGUAGE_JAPANESE;	
+				}else if(isWindowNavigatorLanguageDe()){
+					settings['uisetting_language'] = UISETTING_LANGUAGE_ENGLISH + "," + UISETTING_LANGUAGE_GERMANY;
+				}else if(isWindowNavigatorLanguageNl()){
+					settings['uisetting_language'] = UISETTING_LANGUAGE_ENGLISH + "," + UISETTING_LANGUAGE_NETHERLANDS;
+				}else{
+					settings['uisetting_language'] = UISETTING_LANGUAGE_ENGLISH;
+				}
+				
+				setCookie('uisetting_language', settings['uisetting_language']);
+			}
 
 			return this.each(function () {
 				//$(this).data("settings", settings);
@@ -58,6 +189,10 @@
 		},
 		update_filter: function(filter) {
 			this.data("searchBoxFormObject").update_setting({'form_para_filter':filter});
+			return this;
+		},
+		update_filter_vgp: function(filter_vgp) {
+			this.data("searchBoxFormObject").update_setting({'form_para_filter_vgp':filter_vgp});
 			return this;
 		},
         update_size: function(size) {
@@ -86,81 +221,87 @@
 
 	// TokenList class for each input
 	$.Search_Box_Form = function (div_search_box_form, settings) {
+	
 		//
-		// Initialization
+		// utility modules
 		//
-		var $div_wrapper = $(div_search_box_form).addClass("search-box_form d-flex flex-nowrap");
-		$div_wrapper.data('SETTINGS', settings);
+        function uniq_fast(a) {
+            let seen = {};
+            let out = [];
+            let len = a.length;
+            let j = 0;
+            for(let i = 0; i < len; i++) {
+                let item = a[i];
+                if(seen[item] !== 1) {
+                    seen[item] = 1;
+                    out[j++] = item;
+                }
+            }
+            return out;
+        }
 
-		this.update_setting = function(newoption) {
-			var oldsettings = $div_wrapper.data('SETTINGS');
-			var newsettings = $.extend({}, oldsettings, newoption || {});
-			$div_wrapper.data('SETTINGS', newsettings);
-		};
+		//
+		// sub modules for UI
+		//
+		function create_text2hpo_button(language){
+	        let $btn = $('<button>').addClass('text-button')
+                               .data('TEXT2HPO_URL', LANGUAGE[language]['TEXT2HPO_URL'])
+                               .click(function(){
+                                   window.open($(this).data('TEXT2HPO_URL'),'_blank');
+                               });
 
-		var $div_left   = $('<div>').addClass("search-box_controller_left d-flex flex-column").appendTo($div_wrapper);
-		var $div_middle = $('<div>').addClass("flex-grow-1 tokeninput_hpo_wrapper").appendTo($div_wrapper);
-		var $div_right  = $('<div>').addClass("search-box_controller_right d-flex flex-column").appendTo($div_wrapper);
+	        $('<img>').attr({
+	            'src':            '/static/images/pcf/text_black.svg',
+	            'data-toggle':    'tooltip',
+				'data-placement': 'top',
+	            'title':          LANGUAGE[language]['TEXT2HPO_BTN_TITLE']
+	        }).appendTo($btn);
+			
+			return $btn;
+		}
 
-		
-		var $div_l1 = $('<div>').addClass("button_wrapper").appendTo($div_left);
-		var $div_l2 = $('<div>').addClass("button_wrapper").appendTo($div_left);
-		var $div_l3 = $('<div>').addClass("button_wrapper").appendTo($div_left);
+		function create_phenotouch_button(language){
+			let $btn = $('<button>').addClass('text-button')
+									.attr({'id':'phenotouch'})
+									.click(function(e){
+										$('.selected_at_popup').removeClass('selected_at_popup');
+										$('.token-input-selected-token-facebook').removeClass('token-input-selected-token-facebook');
+										$.PopupRelationHPOWithWebGL();
+										e.preventDefault();
+										e.stopPropagation();
+										return false;
+                               		});
 
-		$('<textarea>').attr('rows','1').attr('id','tokeninput_hpo').attr('name','str_phenotypes').appendTo($div_middle);
+			$('<img>').attr({
+				'src':            '/static/images/pcf/3d_black.svg',
+				'data-toggle':    'tooltip',
+				'data-placement': 'top',
+				'title':          LANGUAGE[language]['PHENOTOUCH_BTN_TITLE']
+			}).appendTo($btn);
+				
+			return $btn;
+		}
 
-        var $div_r1 = $('<div>').addClass("button_wrapper").appendTo($div_right);
-        var $div_r2 = $('<div>').addClass("button_wrapper").appendTo($div_right);
+		function create_hpo_list_input_button(language){
+	        let $btn = $('<button>').addClass('text-button')
+									.attr('id','hpo-list-input-button')
+									.click(function(){
+										var modal = document.getElementById('hpo-list-input-modal');
+										if (!modal) { modal = init_hpo_list_input_modal(); }
+										$(modal).modal('show');
+									});
 
-		$btn_l1 = $('<button>').addClass('text-button')
-							   .data('TEXT2HPO_URL', LANGUAGE[settings.lang]['TEXT2HPO_URL'])
-							   .click(function(){
-							       window.open($(this).data('TEXT2HPO_URL'),'_blank'); 
-							   })
-							   .appendTo($div_l1);
+			$('<img>').attr({
+				'src':            '/static/images/pcf/HPOID.svg',
+				'data-toggle':    'tooltip',
+				'data-placement': 'top',
+				'title':          LANGUAGE[language]['HPO_LIST_INPUT_BTN_TITLE'],
+			}).appendTo($btn);
 
-		$('<img>').attr({
-			'src':            '/static/images/pcf/text_black.svg',
-			'data-toggle':    'tooltip',
-			'data-placement': 'top',
-			'title':          LANGUAGE[settings.lang]['TEXT2HPO_BTN_TITLE']
-		}).appendTo($btn_l1);	
+			return $btn;
+		}
 
-		$btn_l2 = $('<button>').addClass('text-button')
-							   .attr({'id':'phenotouch'})
-							   .click(function(e){
-									$('.selected_at_popup').removeClass('selected_at_popup');
-									$('.token-input-selected-token-facebook').removeClass('token-input-selected-token-facebook');
-									$.PopupRelationHPOWithWebGL();
-									e.preventDefault();
-									e.stopPropagation();
-									return false;
-							   })
-							   .appendTo($div_l2);
-
-        $('<img>').attr({
-            'src':            '/static/images/pcf/3d_black.svg',
-            'data-toggle':    'tooltip',
-            'data-placement': 'top',
-            'title':          LANGUAGE[settings.lang]['PHENOTOUCH_BTN_TITLE']
-        }).appendTo($btn_l2); 
-
-		$btn_l3 = $('<button>').addClass('text-button')
-							   .attr('id','hpo-list-input-button')
-							   .click(function(){
-									var modal = document.getElementById('hpo-list-input-modal');
-									if (!modal) { modal = init_hpo_list_input_modal(); }
-									$(modal).modal('show');
-							   })
-							   .appendTo($div_l3);
-
-        $('<img>').attr({
-            'src':            '/static/images/pcf/HPOID.svg',
-            'data-toggle':    'tooltip',
-            'data-placement': 'top',
-            'title':          LANGUAGE[settings.lang]['HPO_LIST_INPUT_BTN_TITLE']
-        }).appendTo($btn_l3);
-
+		// create hpo list input modal UI.
 		function init_hpo_list_input_modal() {
 			var modal = document.createElement('div');
 			modal.classList.add('modal', 'fade');
@@ -171,72 +312,64 @@
 			modal.setAttribute('aria-hidden', 'true');
 			modal.innerHTML =
 			'<div class=\"modal-dialog modal-dialog-centered modal-xl\">' +
-				'<div class=\"modal-content p-5\">' + 
-					'<div class=\"modal-header p-0\">' +
-						'<h7 class=\"modal-title\" id=\"hpo-list-input-modal-title\" style=\"font-weight:bold;font-size:1.2rem;\">' +
-							'<img src=\"/static/images/pcf/HPOID.svg\" style=\"height:22px;width:22px;\"></img>' +
-							'Import Hpo Term List' +
-						'</h7>'+
-					'</div>'+
-					'<div class=\"modal-body p-0\">'+
-						'<div class=\"container-fluid p-0\">'+
-							'<div class=\"row mx-0 py-3\">' +
-								'<p>Import Human Phenotype Ontology (HPO) term IDs.<br />You can extract multiple HPO term IDs from any kind of textual input. HPO term ids must satisfy the format HP:XXXXXXX to be recognized.</p>'+
-							'</div>'+
-							'<div class=\"row mx-0\">'+
-								'<div class=\"col-4 px-0\" style=\"border:1px solid #ced4da;border-radius: 0.25rem;height:256px;max-height:256px;\">'+
-									'<textarea class=\"form-control2\" id=\"hpo-list-input-textarea\" style=\"background-color:#f8f9fa;border:0px;height:254px;\"></textarea>'+
-								'</div>'+
-								'<div class=\"align-self-center\">'+
-									'<div>'+
-										'<button id=\"hpo-list-input-submit-button\" style=\"color:white;background-color:#222057;opacity:1.0;height:52px;width:52px;font-size:32px;border:0px;\" class=\"round-button material-icons\">chevron_right</button> '+
-									'</div>'+
-								'</div>'+
-								'<div class=\"col px-0\">'+
-									'<div class=\"form-control2 p-0\" style=\"height:256px;max-height:256px;background-color:#ced4da;box-shadow:none;\">'+
-										'<table class=\"form-control2 table table-hover p-0\" id=\"hpo-list-input-table\" style=\"height:100%;border:0px;box-shadow:none;margin:0px\"></table>'+
-									'</div>'+
-								'</div>'+
-							'</div>'+
-						'</div>'+
-					'</div>'+
-					'<div class=\"modal-footer px-0 pb-0\" style=\"border:0;\">'+
-						'<button type=\"button\" style=\"padding-left:40px;padding-right:40px;\" class=\"btn btn-secondary py-1\" data-dismiss=\"modal\" id=\"hpo-list-input-close-button\">CANCEL</button>'+
-						'<button type=\"button\" style=\"padding-left:40px;padding-right:40px;\" class=\"btn btn-primary py-1 mr-0\" id=\"hpo-list-input-apply-button\">APPLY</button>'+
-					'</div>'+
-				'</div>'+
+			  '<div class=\"modal-content p-5\">' + 
+			    '<div class=\"modal-header p-0\">' +
+			      '<h7 class=\"modal-title\" id=\"hpo-list-input-modal-title\">' +
+			        '<img src=\"/static/images/pcf/HPOID.svg\"></img>' +
+			        'Import Hpo Term List' +
+			      '</h7>'+
+			    '</div>'+
+			    '<div class=\"modal-body p-0\">'+
+			      '<div class=\"container-fluid p-0\">'+
+			        '<div class=\"row mx-0 py-3\">' +
+			          '<p>Import Human Phenotype Ontology (HPO) term IDs.<br />'+
+			             'You can extract multiple HPO term IDs from any kind of textual input. HPO term ids must satisfy the format HP:XXXXXXX to be recognized.'+
+			          '</p>'+
+			        '</div>'+
+			        '<div class=\"row mx-0\">'+
+			          '<div id=\"hpo-list-input-textarea-wrapper\" class=\"col-4 px-0\">'+
+			            '<textarea class=\"form-control2\" id=\"hpo-list-input-textarea\"></textarea>'+
+			          '</div>'+
+			          '<div class=\"align-self-center\">'+
+			            '<div>'+
+			              '<button id=\"hpo-list-input-submit-button\" class=\"round-button material-icons\">chevron_right</button> '+
+			            '</div>'+
+			          '</div>'+
+			          '<div class=\"col px-0\">'+
+			            '<div  id=\"hpo-list-input-table-wrapper\" class=\"form-control2 p-0\">'+
+			              '<table class=\"form-control2 table table-hover p-0\" id=\"hpo-list-input-table\"></table>'+
+			            '</div>'+
+			          '</div>'+
+			        '</div>'+
+			      '</div>'+
+			    '</div>'+
+			    '<div class=\"modal-footer px-0 pb-0\" style=\"border:0;\">'+
+			      '<button type=\"button\" class=\"btn btn-secondary py-1\" data-dismiss=\"modal\" id=\"hpo-list-input-close-button\">CANCEL</button>'+
+			      '<button type=\"button\" class=\"btn btn-primary py-1 mr-0\" id=\"hpo-list-input-apply-button\">APPLY</button>'+
+			    '</div>'+
+			  '</div>'+
 			'</div>';
 			document.body.appendChild(modal);
 
+			// clear on show			
 	        $('#hpo-list-input-modal').on('show.bs.modal', function () {
     	        $("#hpo-list-input-textarea").val("");
 	            $("#hpo-list-input-table").find("tr").remove();
     	    });
 
+			// set focus to the textare
 	        $('#hpo-list-input-modal').on('shown.bs.modal', function () {
     	        setTimeout(function() {
         	        $('#hpo-list-input-textarea').focus();
 	            }, 10);
     	    });
 
-
-			function uniq_fast(a) {
-				let seen = {};
-				let out = [];
-				let len = a.length;
-				let j = 0;
-				for(let i = 0; i < len; i++) {
-					let item = a[i];
-					if(seen[item] !== 1) {
-						seen[item] = 1;
-						out[j++] = item;
-					}
-				}
-				return out;
-			}
-
+			// get all hpo id from the textare, get hpo name from server and add to the table.
 			$("#hpo-list-input-submit-button").click(function (e){
+
 				let text = $("#hpo-list-input-textarea").val().toUpperCase().replaceAll("HP:0000118","");
+
+				let settings_now = $div_wrapper.data('SETTINGS');
 
 				if(!text){
 					alert("Please input HPO term list...");
@@ -262,22 +395,22 @@
 				let $tbl = $("#hpo-list-input-table");
 				$tbl.find("tr").remove();
 
-				if($.isFunction(settings.show_loading)){
-					settings.show_loading();
+				if($.isFunction(settings_now.show_loading)){
+					settings_now.show_loading();
 				}
 
-				let url_str = settings.url_load_hpo_data + '?hpo_id=' + text;
+				let url_str = settings_now.url_load_hpo_data + '?hpo_id=' + text;
 
 	            $.ajax({
-    	            url:      url_str,  // 通信先のURL
-        	        type:     'GET',	// 使用するHTTPメソッド(get/post)
-            	    async:    true,    // 使用するHTTPメソッド(true/false)
+    	            url:      url_str,  
+        	        type:     'GET',	
+            	    async:    true,    
                 	dataType: 'text',
 	                timeout:  3000,
     	        }).done(function(data,textStatus,jqXHR) {
 
-        	        if($.isFunction(settings.hide_loading)){
-            	        settings.hide_loading();
+        	        if($.isFunction(settings_now.hide_loading)){
+            	        settings_now.hide_loading();
                 	}
 
 					let json_data = JSON.parse(data);
@@ -288,7 +421,7 @@
 
 							let name_text = json_data[hpo_id].name_en;
 							let hpo_id_text = hpo_id;
-							if(settings.lang === LANGUAGE_JA){
+							if(settings_now.lang === LANGUAGE_JA){
 								if(json_data[hpo_id].name_ja){
 									name_text = json_data[hpo_id].name_ja;
 								}
@@ -320,18 +453,19 @@
 					}
 
     	        }).fail(function(jqXHR, textStatus, errorThrown ) {
-					if($.isFunction(settings.hide_loading)){
-                		settings.hide_loading();
+					if($.isFunction(settings_now.hide_loading)){
+                		settings_now.hide_loading();
 					}
 	                alert('Server access error:' + textStatus + ":" + errorThrown + '\nURL: ' + url_str);
     	        }).always(function(){
-					if($.isFunction(settings.hide_loading)){
-						settings.hide_loading();
+					if($.isFunction(settings_now.hide_loading)){
+						settings_now.hide_loading();
 					}
 					$('#hpo-list-input-submit-button').removeAttr("disabled");
 				});
 			});
-	
+
+			// 
 			$("#hpo-list-input-apply-button").click(function (e){
 
 				let $tbl = $("#hpo-list-input-table");
@@ -361,10 +495,156 @@
 			});
 
             return modal;
-        };
+        }; // end of init_hpo_list_input_modal
+
+		function create_text_input_button(language){
+			let $btn = $('<button>').addClass('round-button').attr('id',"btn_text_input_trigger");
+			$('<img>').attr({
+				'src':            '/static/images/pcf/HPOID_grey.svg',
+				'data-toggle':    'tooltip',
+				'data-placement': 'top',
+				'title':          LANGUAGE[language]['TEXT_INPUT_TITLE']
+			}).appendTo($btn);
+
+            return $btn;
+        }
 
 
-		var runSubmit = function(){
+		// trigger to show setting GUI
+        function create_uisetting_button(language){
+
+			let $btn = $('<button>').attr('tid','btn_uisetting_trigger').addClass('round-button');
+
+			$('<span>').addClass('material-icons').text('settings')
+						.attr('id','btn_uisetting_trigger')
+						.attr({
+           					'data-toggle':    'tooltip',
+							'data-placement': 'top',
+							'title':          LANGUAGE[language]['UISETTING_BTN_TITLE']
+						})
+						.appendTo($btn);
+			return $btn;
+
+
+        }
+
+		function create_uisetting_ui(language, uisetting_tag_size, uisetting_language, trigger_btn_id){
+
+			let $dropdown = $('<div>').attr({'id':'dropdown-menu_uisetting'}).addClass('dropdown-menu-wrapper').appendTo('body');
+			let $form     = $('<div>').appendTo($dropdown);
+			let $tbl      = $('<table>').appendTo($form);
+
+			let $tr0      = $('<tr>').appendTo($tbl);
+			let $td0_1    = $('<td>').text(LANGUAGE[language]['UISETTING_BTN_TITLE']).addClass('uititle').attr("colspan",2).appendTo($tr0);
+			
+			let $tr1      = $('<tr>').appendTo($tbl);
+			$('<td>').text(LANGUAGE[language]['UISETTING_TBL_LABEL_TAGSIZE']).addClass('title').css({"padding-top":"10px"}).appendTo($tr1);
+			let $td1_2    = $('<td>').appendTo($tr1);
+			let $select_tagsize = $('<select>').attr('id',"sel_tagsize").appendTo($td1_2);
+			UISETTING_TAG_SIZE_LST.forEach(function(tag_size){
+				$('<option>').text(LANGUAGE[language]['UISETTING_TAG_SIZE_LABEL'][tag_size])
+							 .val(tag_size)
+							 .appendTo($select_tagsize);
+			});
+			$select_tagsize.val(uisetting_tag_size).change(function() {
+				let selected_tag_size = $(this).val();
+				
+				setCookie('uisetting_tag_size', selected_tag_size);
+				
+				var oldsettings = $div_wrapper.data('SETTINGS');
+				var newsettings = $.extend({}, oldsettings, {'uisetting_tag_size':selected_tag_size});
+				$div_wrapper.data('SETTINGS', newsettings);
+				
+				$("#tokeninput_hpo").tokenInput("setTagSize",selected_tag_size);
+				$("#tokeninput_hpo").popupRelationHPO("setTagSize",selected_tag_size);
+				
+				return false;
+			});
+
+			let uisetting_language_arr = uisetting_language.split(',');
+			
+			let $tr2      = $('<tr>').appendTo($tbl);
+			$('<td>').text(LANGUAGE[language].UISETTING_TBL_LABEL_LANGUAGE).addClass('title').appendTo($tr2);
+			let $td2_2    = $('<td>').appendTo($tr2);
+			let $div_lang = $('<div>').addClass('d-flex flex-column').appendTo($td2_2);
+			
+			UISETTING_LANGUAGE_LST.forEach(function(language_item){
+
+				let check_str = "";
+				if(uisetting_language_arr.includes(language_item)){
+					check_str = "checked";
+				}
+				
+				$('<label>' +
+						'<input type=\"checkbox\" name=\"cbk_uisetting_language\" value='+ language_item + ' '+ check_str+' \/>' +
+						UISETTING_LANGUAGE_LABEL[language_item] +
+				  '</label>'				
+				).appendTo($div_lang);
+			});
+
+			$('input[name=cbk_uisetting_language]').each(function() {
+				$(this).click(function(){
+					let arr = [];
+					$('input[name=cbk_uisetting_language]:checked').each(function() {
+						let v = $(this).val();
+						arr.push(v);
+					});
+
+					let str = arr.join(',');
+					setCookie('uisetting_language', str);
+					let oldsettings = $div_wrapper.data('SETTINGS');
+					let newsettings = $.extend({}, oldsettings, {'uisetting_language':str});
+					$div_wrapper.data('SETTINGS', newsettings);
+				});
+			});
+			
+
+
+			const template_uisetting = document.getElementById('dropdown-menu_uisetting');
+			template_uisetting.style.display = 'block';
+			tippy('#'+trigger_btn_id, 
+				{
+					arrow:         true,
+					allowHTML:     true,
+					appendTo:      document.body,
+					animation:     'scale-extreme',
+					maxWidth:      500,
+					width:		   450,
+					strategy:     'fixed',
+					interactive:   true,
+					trigger:      'click',
+					theme:        'pcf-popup',
+					placement:    'bottom-start',
+					 offset:	  [-15, 10],
+					content:      template_uisetting,
+					onShown(instance) {
+						//customize ui
+						//$('#str_target').html(str_target_label);
+						//let selected_num = $("#pcf-content").pcf_content('get_selected_num');
+						//let options = $('#sel_download_option').find('option');
+						//$(options[2]).text('Selection (' + selected_num + ')');
+				    },
+				}
+			);
+		}
+
+		function create_clear_button(){
+			return $('<button>').addClass('round-button material-icons').text('clear')
+						.click(function(){
+							$("#tokeninput_hpo").tokenInput("clear");
+							return false;
+						});
+		}
+
+		function create_submit_button(){
+			return	$('<button>').addClass('round-button material-icons').text('search')
+						.attr('id', 'submit_button')
+						.click(function(){
+							runSubmit();
+						});
+		}
+
+		function runSubmit(){
 
 			let settings = $div_wrapper.data('SETTINGS');
 
@@ -391,6 +671,12 @@
 			filter.setAttribute("value",settings.form_para_filter);
 			form.appendChild(filter);  
 
+			let filter_vgp = document.createElement("input");
+			filter_vgp.setAttribute("type", "text");
+			filter_vgp.setAttribute("name", "vgp");
+			filter_vgp.setAttribute("value",settings.form_para_filter_vgp);
+			form.appendChild(filter_vgp);  
+
 			let size = document.createElement("input");
 			size.setAttribute("type", "text");
 			size.setAttribute("name", "size");
@@ -414,12 +700,77 @@
 			return false;
 		};
 
+		//
+		// modules for outside call
+		//
+		this.update_setting = function(newoption) {
+			var oldsettings = $div_wrapper.data('SETTINGS');
+			var newsettings = $.extend({}, oldsettings, newoption || {});
+			$div_wrapper.data('SETTINGS', newsettings);
+		};                
+
+        this.add_token = function(item) {
+            $("#tokeninput_hpo").tokenInput("add", item);
+        };
+
+		//
+		// Initialization UI
+		//
+		var $div_wrapper = $(div_search_box_form).addClass("search-box_form d-flex flex-nowrap");
+		$div_wrapper.data('SETTINGS', settings);
+
+		var $div_left   = $('<div>').addClass("search-box_controller_left d-flex flex-column").appendTo($div_wrapper);
+		var $div_middle = $('<div>').addClass("flex-grow-1 tokeninput_hpo_wrapper").appendTo($div_wrapper);
+		var $div_right  = $('<div>').addClass("search-box_controller_right d-flex flex-column").appendTo($div_wrapper);
+
+		if(settings.schema === SCHEMA_2021){
+
+			let $div_l1 = $('<div>').addClass("button_wrapper").addClass(SCHEMA_2021).appendTo($div_left);
+			let $div_l2 = $('<div>').addClass("button_wrapper").addClass(SCHEMA_2021).appendTo($div_left);
+			let $div_l3 = $('<div>').addClass("button_wrapper").addClass(SCHEMA_2021).appendTo($div_left);
+	        create_text2hpo_button(settings.lang).appendTo($div_l1);
+	        create_phenotouch_button(settings.lang).appendTo($div_l2);
+	        create_hpo_list_input_button(settings.lang).appendTo($div_l3);
+
+		}else if(settings.schema === SCHEMA_2022){
+			let $div_l1 = $('<div>').addClass("button_wrapper").addClass(SCHEMA_2022).appendTo($div_left);
+			let $div_l2 = $('<div>').addClass("button_wrapper").addClass(SCHEMA_2022).appendTo($div_left);
+
+			let $text_input_trigger_btn = create_text_input_button(settings.lang).appendTo($div_l1);
+			
+			$text_input_trigger_btn.textinput_hpo({ 
+				schema:     settings.text_input_schema,
+				language:   settings.lang,
+				output_hpo: function(hpo_list){
+					$("#tokeninput_hpo").tokenInput("add_hpo_list", hpo_list);
+				}
+			});
+
+			let $ui_trigger_btn = create_uisetting_button(settings.lang).appendTo($div_l2);	
+			
+			create_uisetting_ui(settings.lang, settings.uisetting_tag_size, settings.uisetting_language, $ui_trigger_btn.attr('tid'));
+			
+			
+		}else{
+			alert("UNKNOWN SCHEMA[" + settings.schema + "]");
+		}
+
+		let $div_r1 = $('<div>').addClass("button_wrapper").appendTo($div_right);
+		let $div_r2 = $('<div>').addClass("button_wrapper").appendTo($div_right);
+		create_clear_button().appendTo($div_r1);
+		create_submit_button().appendTo($div_r2);
+
+
+		$('<textarea>').attr('rows','1').attr('id','tokeninput_hpo').attr('name','str_phenotypes').appendTo($div_middle);
+
         $("#tokeninput_hpo")
             .tokenInput(settings.url_tokeninput_hpo, 
-						{theme: "facebook", 
-						 lang: settings.lang, 
-						 second_url_str: settings.url_tokeninput_hpo_second, 
-						 doSubmit: runSubmit
+						{theme:               "facebook", 
+						 lang:                settings.lang, 
+						 uisetting_tag_size: settings.uisetting_tag_size,
+						 second_url_str:      settings.url_tokeninput_hpo_second, 
+						 doSubmit:            runSubmit,
+						 onLongerQuery:       settings.schema === SCHEMA_2022? function(text){$('#btn_text_input_trigger').textinput_hpo('start_modal_with_text',text)}:null
 						}
 					   );
 
@@ -438,24 +789,6 @@
 									//}, 50);
 								}
 							  });
-
-		this.add_token = function(item) {
-			$("#tokeninput_hpo").tokenInput("add", item);
-		};
-
-		 $('<button>').addClass('round-button material-icons').text('clear')
-					.click(function(){
-						$("#tokeninput_hpo").tokenInput("clear");
-						return false;
-					})
-					.appendTo($div_r1);
-
-		$('<button>').addClass('round-button material-icons').text('search')
-					.attr('id', 'search_button')
-					.click(function(){	
-						runSubmit();			
-					})
-					.appendTo($div_r2);		
 
 	};
 

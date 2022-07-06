@@ -48,7 +48,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.1/css/swiper.min.css">
     <link rel="stylesheet" href="/static/css/pcf/bootstrap.css">
     <link rel="stylesheet" href="/static/css/pcf/style-togo.css">
+	<link rel="stylesheet" href="/static/css/pcf/tippy.css">
 	<link rel="stylesheet" href="/static/css/pcf/search-box-form.css">
+	<link rel="stylesheet" href="/static/css/pcf/text-input.css">
+
     <link
         href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Noto+Sans+JP:wght@100;300;400;500;700;900&display=swap"
         rel="stylesheet">
@@ -59,6 +62,9 @@
     <link rel="stylesheet" href="/static/css/pcf/token-input-facebook.css" type="text/css" />
     <!-- popup-tokeninput -->
     <link rel="stylesheet" href="/static/css/pcf/popup-hierarchy-hpo.css">
+	<!-- tippy -->
+    <link rel="stylesheet" href="https://unpkg.com/tippy.js@6/animations/scale.css" />
+    <link rel="stylesheet" href="https://unpkg.com/tippy.js@6/animations/scale-extreme.css" />
     <!-- Modernizr JS -->
     <script src="/static/js/modernizr-2.6.2.min.js"></script>
     <!--favicon start-->
@@ -72,7 +78,7 @@
     <!--favicon end-->
 </head>
 
-<body>
+<body spellcheck="false">
 	<div id="fh5co-loader"></div>
     <header class="search-header">
         <div class="wrapper search-header_wrapper">
@@ -1160,11 +1166,13 @@
 
 <!-- START: Import JavaScript -->
 <!-- jQuery -->
-<script src="/static/js/jquery.min.js"></script>
+<script src="/static/js/pcf/jquery.min.js"></script>
 <!-- jQuery Easing -->
 <script src="/static/js/jquery.easing.1.3.js"></script>
 <!-- Bootstrap -->
 <script src="/static/js/pcf/bootstrap-4.6.0.bundle.js"></script>
+<script src="https://unpkg.com/@popperjs/core@2"></script>
+<script src="https://unpkg.com/tippy.js@6"></script>
 <script src="/static/js/jquery.waypoints.min.js"></script>
 <script src="/static/js/jquery.countTo.js"></script>
 <script src="/static/js/pcf/jquery.magnific_popup.min.js"></script>
@@ -1187,8 +1195,9 @@
 <script src="/static/js/three-bits/defaults.js"></script>
 <script type="text/javascript" src="/static/js/pcf/popup-hierarchy-hpo.js"></script>
 <script src="/static/js/button-ripple-effect.js"></script>
+<script src="/static/js/jaconv/jaconv.min.js"></script>
 <script type="text/javascript" src="/static/js/pcf/jquery.search-box_form.js"></script>
-
+<script type="text/javascript" src="/static/js/pcf/jquery.textinput_hpo.js"></script>
 <script type="text/javascript">
     var pcf_show_loading = function(){
         if($('#fh5co-loader').css('display') === 'none') $("#fh5co-loader").fadeIn("normal");
@@ -1213,11 +1222,14 @@
 {% endif %}
             'form_para_target':             "omim",
             'form_para_filter':             "",
+			'form_para_filter_vgp':         "",
             'form_para_size':               "",
             'form_para_display_format':     "full",
             'show_loading':                 pcf_show_loading,
             'hide_loading':                 pcf_hide_loading,
 			'is_hierarchy_fullscreen':		true,
+			'schema':                       'schema-2021',
+			'text_input_schema':            'manual',
         });
 
         $("#ex_phenotypes").click(function () {

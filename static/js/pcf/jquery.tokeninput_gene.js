@@ -11,10 +11,44 @@
 	var ua = navigator.userAgent.toLowerCase();
 	var isSafari = (ua.indexOf('safari') > -1) && (ua.indexOf('chrome') == -1);
 	
-	//var hintText = "Type in disease name, inheritance mode, causative genes (Gene Symbol or Entrez Gene ID)";
-	//var hintText = "Type in disease name, inheritance mode, causative genes";
 	var hintText = "Type in disease names, modes of inheritance, and causative genes";
 	var searchformulaText = "Query box";
+
+	const TOKENINPUT_ITEM_SETTINGS_KEY = 'tokeninput';	
+	const LANGUAGE_EN='en',LANGUAGE_JA='ja';
+		
+	const CATEGORY_HP='HP:',CATEGORY_MONDO='MONDO:',CATEGORY_GENE='GENEID:',
+		  CATEGORY_NANDO='NANDO:',CATEGORY_PANELAPP='PA:',CATEGORY_PANELAPP_AU='PAA:',
+		  CATEGORY_LIST=[CATEGORY_HP,CATEGORY_GENE,CATEGORY_PANELAPP,CATEGORY_PANELAPP_AU,CATEGORY_MONDO,CATEGORY_NANDO],
+		  CATEGORY_TD_ID_WIDTH = {
+			[CATEGORY_HP]:          100,
+			[CATEGORY_MONDO]:       135,
+			[CATEGORY_GENE]:        130,
+			[CATEGORY_NANDO]:       120,
+			[CATEGORY_PANELAPP]:    70,
+			[CATEGORY_PANELAPP_AU]: 80
+		  },
+		  CATEGORY_LABELS = {
+			[LANGUAGE_EN]:	{
+				[CATEGORY_HP]: 			'Mode of inheritance : Number of hits[__NUMBER__] ',
+				[CATEGORY_MONDO]: 		'Diseases(Mondo) : Number of hits[__NUMBER__] ',
+				[CATEGORY_GENE]: 		'Genes : Number of hits[__NUMBER__] ',
+				[CATEGORY_NANDO]: 		'Diseases(Nando) : Number of hits [__NUMBER__] ',
+				[CATEGORY_PANELAPP]:	'PanelApp: Number of hits [__NUMBER__] ',
+				[CATEGORY_PANELAPP_AU]:	'PanelApp Australia: Number of hits [__NUMBER__] '
+			} ,
+			[LANGUAGE_JA]:	{
+				[CATEGORY_HP]: 			'遺伝形式: ヒット件数[__NUMBER__] ',
+				[CATEGORY_MONDO]: 		'疾患(Mondo): ヒット件数[__NUMBER__] ',
+				[CATEGORY_GENE]: 		'遺伝子: ヒット件数[__NUMBER__] ',
+				[CATEGORY_NANDO]: 		'疾患(Nando): ヒット件数[__NUMBER__] ',
+				[CATEGORY_PANELAPP]:	'PanelApp: ヒット件数[__NUMBER__] ',
+				[CATEGORY_PANELAPP_AU]:	'PanelApp Autralia: ヒット件数[__NUMBER__] '
+			},
+
+		  },
+		  CATEGORY_DISPLAY_MAXNUM=10;
+	
 	var DEFAULT_SETTINGS = {
 		// Search settings
 		language: 'en',
@@ -31,6 +65,8 @@
 		// Prepopulation settings
 		prePopulate: null,
 		processPrePopulate: false,
+
+		input_box_default_width: 650,
 		
 		hintText: null,
 		noResultsText: "No results",
@@ -50,6 +86,7 @@
 		tokenLogicaloperatorItemNOTValue	: 'NOT_',
 		tokenLogicaloperatorItemNONEValue : 'NONE',
 
+/*
 		resultsFormatter: function(item) {
 
 			var id      = item['id'].replace(/_ja$/g,'');
@@ -87,7 +124,52 @@
 			value += '</li>';
 			return value;
 		},
+*/
 
+		resultsFormatter: function(item, td_id_width) {
+
+			var id      = item['id'].replace(/_ja$/g,'');
+			var name    = item['name'];
+			var synonym = item['synonym'];
+
+			var id_prefix = '';
+			var id_suffix = '';
+			if(id.match(/^([A-Z]+)\:[0-9]+$/)) id_prefix = RegExp.$1;
+			if(id_prefix == 'HP' || id_prefix == 'MONDO' ||  id_prefix == 'GENEID' || id_prefix == 'NANDO'){
+				id_suffix = '-'+id_prefix.toLowerCase();
+			}
+			
+			var theme = this.theme ? '-'+this.theme : '';
+
+			var li_class = [this.classes.tokenResults];
+			if(typeof id_suffix === "string" && id_suffix.length) li_class.push('token-input-token-results'+id_suffix+theme);
+			var value = '<li class="'+li_class.join(' ')+'">'+
+			'<table><tr>'+
+			'<td style=\"white-space:nowrap;\">'+
+			'<span class="'+this.classes.tokenWord+' '+this.classes.tokenInformation+' glyphicon glyphicon-info-sign" style="display:none;"></span>'+
+			'&nbsp;'+
+			'</td>'+
+			'<td style=\"white-space:nowrap;width:'+td_id_width+'px;min-width:'+td_id_width+'px;max-width:'+td_id_width+'px;overflow:hidden;\">'+
+			'<span class="'+this.classes.tokenWord+' '+this.classes.tokenId+'">' + (this.enableHTML ? id : _escapeHTML(id)) + '</span>'+
+			'</td>'+
+			'<td>'+
+			'<span class="'+this.classes.tokenWord+' '+this.classes.tokenName+'">' + (this.enableHTML ? name : _escapeHTML(name)) + '</span>';
+			if(synonym instanceof Array){
+				var str = this.zenhan(synonym.join(' | '));
+				value += '&nbsp;<b>|</b>&nbsp;<span class="'+this.classes.tokenWord+' '+this.classes.tokenSynonym+'">' + (this.enableHTML ? str : _escapeHTML(str)) + '</span>';
+			}
+			value += '</td></tr></table>';
+			value += '</li>';
+			return value;
+		},
+		resultsFormatter_title: function(category, num, language) {
+			var li_class = [this.classes.tokenCategory];
+			let display_text = CATEGORY_LABELS[language][category].replace('__NUMBER__', num);
+			var value = '<li class="'+li_class.join(' ')+'">'+
+						  '<span>' + display_text + '</span>' +
+						'</li>';
+			return value;
+		},
 		tokenFormatter: function(item,index) {
 			var id = item['id'].replace(/_ja$/gi,'');
 			id = id.replace(/^NOT_/gi,'');
@@ -272,6 +354,7 @@
 		dragdrop			 : "token-input-dragdrop",
 
 		tokenResults				 : "token-input-token-results",
+		tokenCategory				 : "token-input-token-category",
 		tokenInformation			 : "token-input-token-information",
 		tokenTerm					 : "token-input-token-term",
 		tokenTermGene				 : "token-input-token-term-gene",
@@ -412,6 +495,18 @@
 			this.data("tokenInputObject").resize_input_box();
 			return this;
 		},
+        hide_clear_button: function() {
+            this.data("tokenInputObject").hide_clear_button();
+            return this;
+        },
+        show_clear_button: function() {
+            this.data("tokenInputObject").show_clear_button();
+            return this;
+        },
+        set_input_box_default_width: function() {
+            this.data("tokenInputObject").set_input_box_default_width();
+            return this;
+        },
 		destroy: function () {
 			if (this.data("tokenInputObject")) {
 				this.data("tokenInputObject").clear();
@@ -546,15 +641,22 @@
 							}
 						} else {
 							var dropdown_item = null;
+							let li_class = 'li.' + $(input).data("settings").classes.tokenResults;
 							if (event.keyCode === KEY.DOWN || event.keyCode === KEY.RIGHT) {
-								dropdown_item = $(dropdown).find('li').first();
+								dropdown_item = $(dropdown).find(li_class).first();
 								if (selected_dropdown_item) {
 									dropdown_item = $(selected_dropdown_item).next();
+									if(dropdown_item.hasClass($(input).data("settings").classes.tokenCategory)){
+										dropdown_item = $(dropdown_item).next();
+									}
 								}
 							} else {
-								dropdown_item = $(dropdown).find('li').last();
+								dropdown_item = $(dropdown).find(li_class).last();
 								if (selected_dropdown_item) {
 									dropdown_item = $(selected_dropdown_item).prev();
+									if(dropdown_item.hasClass($(input).data("settings").classes.tokenCategory)){
+										dropdown_item = $(dropdown_item).prev();
+									}
 								}
 							}
 							select_dropdown_item(dropdown_item);
@@ -588,7 +690,7 @@
 					case KEY.NUMPAD_ENTER:
 //					case KEY.COMMA:
 						if(selected_dropdown_item) {
-							add_token($(selected_dropdown_item).data("tokeninput"));
+							add_token($(selected_dropdown_item).data(TOKENINPUT_ITEM_SETTINGS_KEY));
 							hiddenInput.change();
 							//onFilterChanged();
 							let callback1 = $(input).data("settings").onFilterChanged;
@@ -698,22 +800,14 @@
 
 		// The list to store the token items in
 		//var $token_list_wrapper_table = $("<table />").css({'width':'100%','border': 'solid 1px #AEB0B5','border-radius': '5px', 'border-collapse': 'separate'}).insertBefore(hiddenInput);
-		var $token_list_wrapper_table = $("<div>").addClass('d-flex').addClass('flex-nowrap')
-						.css({'width':'100%','min-width':'685px','border': 'solid 1px #AEB0B5','border-radius': '5px', 'border-collapse': 'separate'})
-						.insertBefore(hiddenInput);
-		//var $token_list_wrapper_table_tr = $("<tr />").css({'width':'100%','nowrap':'nowrap'}).appendTo($token_list_wrapper_table);
-		//var $token_list_wrapper_table_td_left = $('<td />').css({'width':'100%'}).appendTo($token_list_wrapper_table_tr);
-
-		var $token_list_wrapper_table_td_left = $('<div>').addClass('flex-fill')
-								  .css({'border-radius':'5px','margin':'1px'})
-								  .appendTo($token_list_wrapper_table);
-		//var $token_list_wrapper_table_td_left = $('<div>').css({'width':'100%'}).appendTo($token_list_wrapper_table);
+		var $token_list_wrapper_table = $("<div>").addClass('d-flex').addClass('flex-nowrap').addClass('filter_wrapper_table').insertBefore(hiddenInput);
+		var $token_list_wrapper_table_td_left = $('<div>').addClass('flex-fill filter_wrapper').appendTo($token_list_wrapper_table);
 		var token_list = $("<ul />")
 			.addClass($(input).data("settings").classes.tokenList)
 			.css({'border':'0','width':'100%'})
 			.click(function (event) {
 				var li = $(event.target).closest("li");
-				if(li && li.get(0) && $.data(li.get(0), "tokeninput")) {
+				if(li && li.get(0) && $.data(li.get(0), TOKENINPUT_ITEM_SETTINGS_KEY)) {
 					toggle_select_token(li);
 				} else {
 					// Deselect selected token
@@ -739,11 +833,9 @@
 			.appendTo($token_list_wrapper_table_td_left);
 
 
-		//var $token_list_wrapper_table_td_right = $('<div>').css({'border-left':'solid 1px #ddd','padding-left':'0.5rem','padding-right':'0.5rem'}).appendTo($token_list_wrapper_table);
 		var $token_list_wrapper_table_td_right = $('<div>').addClass("d-flex justify-content-center align-items-center").css({'border-left':'solid 1px #ddd'}).appendTo($token_list_wrapper_table);
 
-		//$('<button>clear</button>').addClass("round-button").addClass("material-icons").addClass('vertical-center').attr('id','tokeninput_gene_clear')
-		$('<button>clear</button>').addClass("round-button").addClass("material-icons").attr('id','tokeninput_gene_clear')
+		var $clear_button = $('<button>clear</button>').addClass("round-button").addClass("material-icons").addClass('tokeninput_gene_clear')
 			.click(function(){
 				$("#tokeninput_genes").tokenInput_gene("clear");
 				resize_input();
@@ -755,6 +847,14 @@
 
 			})
 			.appendTo($token_list_wrapper_table_td_right);
+
+        this.hide_clear_button = function(){
+            $(".tokeninput_gene_clear").css({'display':'none'}).parent().css({'border-left':'0'});
+        }
+        this.show_clear_button = function(){
+			$(".tokeninput_gene_clear").css({'display':'block'}).parent().css({'border-left':'1px solid rgb(221,221,221)'});
+        }
+
 
 		// The token holding the input box
 		var input_token = $("<li id=\"li_input_token\" draggable=\"false\"  style=\"-webkit-user-drag:none;\" />")
@@ -817,6 +917,9 @@
 		//
 		// Public functions
 		//
+        this.set_input_box_default_width = function() {
+            input_box.css({'width': $(input).data("settings").input_box_default_width + 'px'});
+        };
 
 		this.clear = function() {
 			token_list.children("li").each(function() {
@@ -833,7 +936,7 @@
 		this.remove = function(item) {
 			token_list.children("li").each(function() {
 				if ($(this).children("input").length === 0) {
-					var currToken = $(this).data("tokeninput");
+					var currToken = $(this).data(TOKENINPUT_ITEM_SETTINGS_KEY);
 					var match = true;
 					for (var prop in item) {
 						if (item[prop] !== currToken[prop]) {
@@ -914,7 +1017,7 @@
 				token_list_width -= outerWidth;
 			});
 			if(token_list_width===0){
-				token_list_width = 650;
+				token_list_width = 650
 				//token_list_width = token_list.width() -10;
 			}else if(token_list_width<40) token_list_width = token_list.width();
 			input_box.outerWidth(Math.ceil(token_list_width)-$('div.token-input-dragdrop-facebook').outerWidth(true)-1);
@@ -956,11 +1059,11 @@
 				.change(function(e){
 //			console.log($(this).val());
 					var $this_token = $(this).closest('li.token-input-token-term'+theme);
-					var item = $.data($this_token.get(0),'tokeninput');
+					var item = $.data($this_token.get(0),TOKENINPUT_ITEM_SETTINGS_KEY);
 					item.logicaloperator = $(this).val();
 					if(item.logicaloperator==='NONE' || item.logicaloperator==='') delete item.logicaloperator;
 //			console.log(item);
-					$.data($this_token.get(0),'tokeninput',item);
+					$.data($this_token.get(0),TOKENINPUT_ITEM_SETTINGS_KEY,item);
 					update_hiddenInput(saved_tokens, hiddenInput);
 					resize_input();
 					//onFilterChanged();
@@ -993,7 +1096,7 @@
 
 			// Store data on the token
 			var token_data = item;
-			$.data($this_token.get(0), "tokeninput", item);
+			$.data($this_token.get(0), TOKENINPUT_ITEM_SETTINGS_KEY, item);
 
 			// Save this token for duplicate checking
 			saved_tokens = saved_tokens.slice(0,selected_token_index).concat([token_data]).concat(saved_tokens.slice(selected_token_index));
@@ -1022,7 +1125,7 @@
 				var found_existing_token = null;
 				token_list.children().each(function () {
 					var existing_token = $(this);
-					var existing_data = $.data(existing_token.get(0), "tokeninput");
+					var existing_data = $.data(existing_token.get(0), TOKENINPUT_ITEM_SETTINGS_KEY);
 					if(existing_data && existing_data[settings.tokenValue] === item[settings.tokenValue]) {
 						found_existing_token = existing_token;
 						return false;
@@ -1114,7 +1217,7 @@
 		function delete_token (token,all) {
 			if($.type(all)!=='boolean') all = false;
 			// Remove the id from the saved list
-			var token_data = $.data(token.get(0), "tokeninput");
+			var token_data = $.data(token.get(0), TOKENINPUT_ITEM_SETTINGS_KEY);
 			var callback = $(input).data("settings").onDelete;
 
 			var index = token.prevAll().length;
@@ -1154,7 +1257,7 @@
 
 			if(!all){
 				var local_saved_tokens = token_list.find('li.'+$(input).data("settings").classes.token).map(function(){
-					var data = $(this).data('tokeninput');
+					var data = $(this).data(TOKENINPUT_ITEM_SETTINGS_KEY);
 					$(this).remove();
 					return data;
 				}).toArray();
@@ -1328,17 +1431,22 @@
 				var dropdown_ul = $("<ul/>")
 					.appendTo(dropdown)
 					.mouseover(function (event) {
-						select_dropdown_item($(event.target).closest("li"));
+						let $li = $(event.target).closest("li");
+						if($li.hasClass($(input).data("settings").classes.tokenResults)){
+							select_dropdown_item($li);
+						}
 					})
 					.mousedown(function (event) {
-						add_token($(event.target).closest("li").data("tokeninput"));
-						hiddenInput.change();
-						//onFilterChanged();
+						let $li = $(event.target).closest("li");
+						if($li.hasClass($(input).data("settings").classes.tokenResults)){
+							add_token($li.data(TOKENINPUT_ITEM_SETTINGS_KEY));
+							hiddenInput.change();
+							//onFilterChanged();
 							let callback1 = $(input).data("settings").onFilterChanged;
 							if(!isTriggeredFromPopup() && $.isFunction(callback1)) {
 								setTimeout(function(){ callback1(); }, 50);
 							}
-
+						}
 						return false;
 					})
 					.hide();
@@ -1348,23 +1456,60 @@
 					results = results.slice(0, $(input).data("settings").resultsLimit);
 				}
 
+				var results_hash = {};
+				//CATEGORY_LIST
+				$.each(results, function(index, value) {
+					for(let j=0;j<CATEGORY_LIST.length;j++){
+						if(value['id'].startsWith(CATEGORY_LIST[j])){
+							if(!(CATEGORY_LIST[j] in results_hash)){
+								results_hash[CATEGORY_LIST[j]] = [];
+							}
+							results_hash[CATEGORY_LIST[j]].push(value);
 
+							break;
+						}
+					}
+				});
+
+				let total_cnt = 0;
+				for(let j=0;j<CATEGORY_LIST.length;j++){
+					let category = CATEGORY_LIST[j];
+
+					if(category in results_hash){
+						
+						let rows = results_hash[category];
+						let num  = rows.length;
+						let td_id_width = CATEGORY_TD_ID_WIDTH[category];
+
+						// output title
+						var title_li = $(input).data("settings").resultsFormatter_title(category, num, $(input).data("settings").language);
+						$(title_li).appendTo(dropdown_ul);
+						
+						// output every data line
+						//for(let idx=0;idx<Math.min(num,CATEGORY_DISPLAY_MAXNUM);idx++){
+						for(let idx=0;idx<num;idx++){
+							let value=rows[idx];
+
+							var this_li = $(input).data("settings").resultsFormatter(value, td_id_width);
+							this_li = find_value_and_highlight_term(this_li ,value['id'].replace(/_ja$/g,''), query);
+							this_li = find_value_and_highlight_term(this_li ,value['name'], query);
+							this_li = find_value_and_highlight_term(this_li ,value['synonym'] instanceof Array ? value['synonym'].join(' | ') : '', query);
+							this_li = $(this_li).appendTo(dropdown_ul);
+							
+							if(total_cnt === 0 && $(input).data("settings").autoSelectFirstResult) {
+								select_dropdown_item(this_li);
+							}
+							
+							$.data(this_li.get(0), TOKENINPUT_ITEM_SETTINGS_KEY, value);
+							total_cnt++;							
+						}
+					}
+				}
+/*
 				var num_hp     = 0;
 				var num_mondo  = 0;
 				var num_geneid = 0;
 				$.each(results, function(index, value) {
-					/*
-		            var id_prefix = '';
-		            var id_suffix = '';
-					if(value['id'].match(/^([A-Z]+)\:[0-9]+$/)) id_prefix = RegExp.$1;
-		            if(id_prefix == 'HP'){
-						num_hp++;;
-					}else if(id_prefix == 'MONDO'){
-						num_mondo++;
-					}else if(id_prefix == 'GENEID'){
-						num_geneid++;
-					}
-					*/
                     if(value['id'].startsWith('HP')){
                         num_hp++;
                     }else if(value['id'].startsWith('MONDO')){
@@ -1392,13 +1537,14 @@
 						select_dropdown_item(this_li);
 					}
 
-					$.data(this_li.get(0), "tokeninput", value);
+					$.data(this_li.get(0), TOKENINPUT_ITEM_SETTINGS_KEY, value);
 				});
 
 				var callback = $(input).data("settings").onShowDropdownItem;
 				if($.isFunction(callback)) {
 					callback.call(dropdown,results_length,num_hp,num_mondo,num_geneid);
 				}
+*/				
 				show_dropdown();
 
 				if($(input).data("settings").animateDropdown) {
@@ -1430,7 +1576,7 @@
 
 				var callback = $(input).data("settings").onSelectDropdownItem;
 				if($.isFunction(callback)) {
-					callback.call(selected_dropdown_item, item.data("tokeninput"));
+					callback.call(selected_dropdown_item, item.data(TOKENINPUT_ITEM_SETTINGS_KEY));
 				}
 
 				resize_input();
@@ -1647,7 +1793,7 @@
 					$target.insertBefore($(e.target).closest('li'));
 
 					var local_saved_tokens = token_list.find('li.'+$(input).data("settings").classes.token).map(function(){
-						return $(this).data('tokeninput');
+						return $(this).data(TOKENINPUT_ITEM_SETTINGS_KEY);
 					}).toArray();
 
 					self.clear();
