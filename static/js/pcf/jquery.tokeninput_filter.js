@@ -73,6 +73,8 @@
 		queryParam:              "q",
 		searchDelay:             300,
 		minChars:                2,
+		onLongerQuery:  null,
+		maxChars:       100,
 		propertyToSearch:        "name",
 		jsonContainer:           null,
 		contentType:             "json",
@@ -1624,7 +1626,12 @@
 				}
 
 				//if(query.length >= $(input).data("settings").minChars) {
-				if((new Blob([query])).size >= $(input).data("settings").minChars) {	
+				let len = (new Blob([query])).size;
+				if(len >= $(input).data("settings").maxChars  && $.isFunction($(input).data("settings").onLongerQuery)){
+					input_box.val("");
+					hide_dropdown();
+					$(input).data("settings").onLongerQuery(query);
+				}else if(len >= $(input).data("settings").minChars) {	
 					show_dropdown_searching();
 					clearTimeout(timeout);
 

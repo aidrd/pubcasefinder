@@ -301,201 +301,19 @@
 			return $btn;
 		}
 
-		// create hpo list input modal UI.
-		function init_hpo_list_input_modal() {
-			var modal = document.createElement('div');
-			modal.classList.add('modal', 'fade');
-			modal.setAttribute('id', 'hpo-list-input-modal');
-			modal.setAttribute('tabindex', '-1');
-			modal.setAttribute('role', 'dialog');
-			modal.setAttribute('aria-labelledby', 'hpo-list-input-modal-title');
-			modal.setAttribute('aria-hidden', 'true');
-			modal.innerHTML =
-			'<div class=\"modal-dialog modal-dialog-centered modal-xl\">' +
-			  '<div class=\"modal-content p-5\">' + 
-			    '<div class=\"modal-header p-0\">' +
-			      '<h7 class=\"modal-title\" id=\"hpo-list-input-modal-title\">' +
-			        '<img src=\"/static/images/pcf/HPOID.svg\"></img>' +
-			        'Import Hpo Term List' +
-			      '</h7>'+
-			    '</div>'+
-			    '<div class=\"modal-body p-0\">'+
-			      '<div class=\"container-fluid p-0\">'+
-			        '<div class=\"row mx-0 py-3\">' +
-			          '<p>Import Human Phenotype Ontology (HPO) term IDs.<br />'+
-			             'You can extract multiple HPO term IDs from any kind of textual input. HPO term ids must satisfy the format HP:XXXXXXX to be recognized.'+
-			          '</p>'+
-			        '</div>'+
-			        '<div class=\"row mx-0\">'+
-			          '<div id=\"hpo-list-input-textarea-wrapper\" class=\"col-4 px-0\">'+
-			            '<textarea class=\"form-control2\" id=\"hpo-list-input-textarea\"></textarea>'+
-			          '</div>'+
-			          '<div class=\"align-self-center\">'+
-			            '<div>'+
-			              '<button id=\"hpo-list-input-submit-button\" class=\"round-button material-icons\">chevron_right</button> '+
-			            '</div>'+
-			          '</div>'+
-			          '<div class=\"col px-0\">'+
-			            '<div  id=\"hpo-list-input-table-wrapper\" class=\"form-control2 p-0\">'+
-			              '<table class=\"form-control2 table table-hover p-0\" id=\"hpo-list-input-table\"></table>'+
-			            '</div>'+
-			          '</div>'+
-			        '</div>'+
-			      '</div>'+
-			    '</div>'+
-			    '<div class=\"modal-footer px-0 pb-0\" style=\"border:0;\">'+
-			      '<button type=\"button\" class=\"btn btn-secondary py-1\" data-dismiss=\"modal\" id=\"hpo-list-input-close-button\">CANCEL</button>'+
-			      '<button type=\"button\" class=\"btn btn-primary py-1 mr-0\" id=\"hpo-list-input-apply-button\">APPLY</button>'+
-			    '</div>'+
-			  '</div>'+
-			'</div>';
-			document.body.appendChild(modal);
 
-			// clear on show			
-	        $('#hpo-list-input-modal').on('show.bs.modal', function () {
-    	        $("#hpo-list-input-textarea").val("");
-	            $("#hpo-list-input-table").find("tr").remove();
-    	    });
+		function create_list_input_button(language){
+	        let $btn = $('<button>').addClass('text-button').attr('id','hpo-list-input-button');
 
-			// set focus to the textare
-	        $('#hpo-list-input-modal').on('shown.bs.modal', function () {
-    	        setTimeout(function() {
-        	        $('#hpo-list-input-textarea').focus();
-	            }, 10);
-    	    });
+			$('<img>').attr({
+				'src':            '/static/images/pcf/HPOID.svg',
+				'data-toggle':    'tooltip',
+				'data-placement': 'top',
+				'title':          LANGUAGE[language]['HPO_LIST_INPUT_BTN_TITLE'],
+			}).appendTo($btn);
 
-			// get all hpo id from the textare, get hpo name from server and add to the table.
-			$("#hpo-list-input-submit-button").click(function (e){
-
-				let text = $("#hpo-list-input-textarea").val().toUpperCase().replaceAll("HP:0000118","");
-
-				let settings_now = $div_wrapper.data('SETTINGS');
-
-				if(!text){
-					alert("Please input HPO term list...");
-					$("#hpo-list-input-textarea").focus();
-					return false;
-				}
-
-				let r = text.match(/HP:(\d){7}/g);
-
-				if(!r){
-					alert("HPO term ids must satisfy the format HP:XXXXXXX.");
-					$("#hpo-list-input-textarea").focus();
-					return false;
-				}
-	
-				let unique = uniq_fast(r);	
-				text = unique.join(',');
-
-				// load hpo term list from server.
-
-				$("#hpo-list-input-submit-button").attr("disabled", true);
-
-				let $tbl = $("#hpo-list-input-table");
-				$tbl.find("tr").remove();
-
-				if($.isFunction(settings_now.show_loading)){
-					settings_now.show_loading();
-				}
-
-				let url_str = settings_now.url_load_hpo_data + '?hpo_id=' + text;
-
-	            $.ajax({
-    	            url:      url_str,  
-        	        type:     'GET',	
-            	    async:    true,    
-                	dataType: 'text',
-	                timeout:  3000,
-    	        }).done(function(data,textStatus,jqXHR) {
-
-        	        if($.isFunction(settings_now.hide_loading)){
-            	        settings_now.hide_loading();
-                	}
-
-					let json_data = JSON.parse(data);
-	
-					let counter = 0;
-					unique.forEach(function(hpo_id){
-						if(hpo_id in json_data){
-
-							let name_text = json_data[hpo_id].name_en;
-							let hpo_id_text = hpo_id;
-							if(settings_now.lang === LANGUAGE_JA){
-								if(json_data[hpo_id].name_ja){
-									name_text = json_data[hpo_id].name_ja;
-								}
-								hpo_id_text = hpo_id_text + "_ja";
-							}
-					
-							let $tr  = $('<tr>').appendTo($tbl);
-							$tr.addClass('table-secondary');
-					
-							let $td1 = $('<td>').appendTo($tr);
-							$td1.css({'padding-left':'1.0rem'});
-							let $cbx = $('<input>', {type: 'checkbox', name: 'hpo_list', "checked":"checked"}).appendTo($td1);
-							$cbx.css({'margin-bottom':'unset'}).data('HPO_ITEM', {'id':hpo_id_text, 'name':name_text}).change(function() {
-								$(this).parent().parent().toggleClass('table-secondary');
-							});
-
-							let $td2 = $('<td>').css({'color':'#4582bf'}).appendTo($tr);
-							$td2.text(hpo_id);
-
-							let $td3 = $('<td>').appendTo($tr);
-							$td3.css({'width':'80%'}).text(name_text);
-
-							counter++;
-						}
-					});	
-
-					if(counter === 0){
-						alert("No HPO term Found.");
-					}
-
-    	        }).fail(function(jqXHR, textStatus, errorThrown ) {
-					if($.isFunction(settings_now.hide_loading)){
-                		settings_now.hide_loading();
-					}
-	                alert('Server access error:' + textStatus + ":" + errorThrown + '\nURL: ' + url_str);
-    	        }).always(function(){
-					if($.isFunction(settings_now.hide_loading)){
-						settings_now.hide_loading();
-					}
-					$('#hpo-list-input-submit-button').removeAttr("disabled");
-				});
-			});
-
-			// 
-			$("#hpo-list-input-apply-button").click(function (e){
-
-				let $tbl = $("#hpo-list-input-table");
-				let cnt = 0;
-	        	$tbl.find("input[name='hpo_list']:checked").each(function(){
-					cnt++;
-					let hpo_item = $(this).data('HPO_ITEM');
-					$("#tokeninput_hpo").tokenInput("add", hpo_item);
-				});
-		
-				if(!cnt){
-					alert("No HPO term selected.");
-					return false;
-				}
-
-				$("#hpo-list-input-close-button").trigger('click');
-
-				$("#tokeninput_hpo").tokenInput("blinkLastTokens", cnt);
-
-				setTimeout(function() {
-					let element = document.getElementById("token-input-tokeninput_hpo");
-					element.scrollIntoViewIfNeeded();
-					$('#token-input-tokeninput_hpo').focus();
-	        	}, 10);
-
-				return false;
-			});
-
-            return modal;
-        }; // end of init_hpo_list_input_modal
+			return $btn;
+		}
 
 		function create_text_input_button(language){
 			let $btn = $('<button>').addClass('round-button').attr('id',"btn_text_input_trigger");
@@ -506,12 +324,12 @@
 				'title':          LANGUAGE[language]['TEXT_INPUT_TITLE']
 			}).appendTo($btn);
 
-            return $btn;
-        }
+			return $btn;
+		}
 
 
 		// trigger to show setting GUI
-        function create_uisetting_button(language){
+		function create_uisetting_button(language){
 
 			let $btn = $('<button>').attr('tid','btn_uisetting_trigger').addClass('round-button');
 
@@ -728,9 +546,23 @@
 			let $div_l1 = $('<div>').addClass("button_wrapper").addClass(SCHEMA_2021).appendTo($div_left);
 			let $div_l2 = $('<div>').addClass("button_wrapper").addClass(SCHEMA_2021).appendTo($div_left);
 			let $div_l3 = $('<div>').addClass("button_wrapper").addClass(SCHEMA_2021).appendTo($div_left);
-	        create_text2hpo_button(settings.lang).appendTo($div_l1);
-	        create_phenotouch_button(settings.lang).appendTo($div_l2);
-	        create_hpo_list_input_button(settings.lang).appendTo($div_l3);
+			create_text2hpo_button(settings.lang).appendTo($div_l1);
+			create_phenotouch_button(settings.lang).appendTo($div_l2);
+			//create_hpo_list_input_button(settings.lang).appendTo($div_l3);
+			let $list_input_trigger_btn = create_list_input_button(settings.lang).appendTo($div_l3);
+			$list_input_trigger_btn.listinput({ 
+				url:		'/get_hpo_data_by_hpo_id',
+				schema:		'hpo',
+				language:	settings.lang,
+				output_list: function(obj_list){
+					obj_list.forEach(function(item){
+						if(Object.keys(item).length > 0){
+							$("#tokeninput_hpo").tokenInput("add", item);
+						}
+					});
+				}
+			});
+
 
 		}else if(settings.schema === SCHEMA_2022){
 			let $div_l1 = $('<div>').addClass("button_wrapper").addClass(SCHEMA_2022).appendTo($div_left);
@@ -770,7 +602,9 @@
 						 uisetting_tag_size: settings.uisetting_tag_size,
 						 second_url_str:      settings.url_tokeninput_hpo_second, 
 						 doSubmit:            runSubmit,
-						 onLongerQuery:       settings.schema === SCHEMA_2022? function(text){$('#btn_text_input_trigger').textinput_hpo('start_modal_with_text',text)}:null
+						 onLongerQuery:       settings.schema === SCHEMA_2022 ? 
+	 											function(text){$('#btn_text_input_trigger').textinput_hpo('start_modal_with_text',text)} :
+	 											function(text){$('#hpo-list-input-button').listinput('start_modal_with_text',text)}
 						}
 					   );
 

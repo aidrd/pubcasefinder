@@ -388,6 +388,10 @@
 				if('name_en' in json_data[id]) ret = json_data[id].name_en;
 				if(lang === LANGUAGE_JA && 'name_ja' in json_data[id] && !_isEmpty(json_data[id].name_ja)) ret = json_data[id].name_ja;
 			}
+		}else if(filter_type === FILTER_TYPE_GENEID){
+			if(id in json_data){
+                if('name_en' in json_data[id]) ret = json_data[id].name_en;
+            }
 		}else if(filter_type === FILTER_TYPE_HGNC){
 			if(_isArray(json_data) && json_data.length > 0){
 				ret = json_data[0].ncbi_gene_id;

@@ -177,7 +177,7 @@ body {
   margin: 0 auto 0 auto;
 }
 
-.search-header .search-header_wrapper .search-advanced .search-box-advanced_wrapper .search-box-vgp_title{
+.search-header .search-header_wrapper .search-advanced .search-box-advanced_wrapper .search-box-filter_title{
 	display: flex;
     flex-wrap: wrap;
     padding-top: 0.5rem;
@@ -187,12 +187,12 @@ body {
     width: 100%;
 }
 
-.search-header .search-header_wrapper .search-advanced .search-box-advanced_wrapper .search-box-vgp_title b,font {
+.search-header .search-header_wrapper .search-advanced .search-box-advanced_wrapper .search-box-filter_title b,font {
 	display: inline-block;
 	margin-top:10px;
 }
 
-.search-header .search-header_wrapper .search-advanced .search-box-advanced_wrapper .search-box-vgp_title a {
+.search-header .search-header_wrapper .search-advanced .search-box-advanced_wrapper .search-box-filter_title a {
     display: inline-block;
     margin-top:10px;
 	margin-bottom:3px;
@@ -200,7 +200,7 @@ body {
 
 
 
-.search-header .search-header_wrapper .search-advanced .search-box-advanced_wrapper .search-box-vgp_title i{
+.search-header .search-header_wrapper .search-advanced .search-box-advanced_wrapper .search-box-filter_title i{
 border-radius: 50%;
     background-color: #AEB0B5;
     color: #fff;
@@ -228,7 +228,8 @@ border-radius: 50%;
     font-family: Verdana;
 }
 
-#btn_vgp_download {
+
+#btn_vgp_textinput {
     border: solid 1px #AEB0B5;
     border-radius: 5px;
     color: black;
@@ -238,6 +239,29 @@ border-radius: 50%;
     align-items: center;
     margin-left:  auto;
 }
+
+#btn_vgp_download {
+    border: solid 1px #AEB0B5;
+    border-radius: 5px;
+    color: black;
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left:  10px;
+}
+
+#btn_filter_textinput {
+    border: solid 1px #AEB0B5;
+    border-radius: 5px;
+    color: black;
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left:  auto;
+}
+
 
 #btn_vgp_expand {
   background-color: #485d9d;

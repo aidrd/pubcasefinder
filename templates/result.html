@@ -23,6 +23,7 @@
 	<link rel="stylesheet" href="/static/css/pcf/tippy.css">
 	<link rel="stylesheet" href="/static/css/pcf/search-box-form.css">
 	<link rel="stylesheet" href="/static/css/pcf/text-input.css">
+	<link rel="stylesheet" href="/static/css/pcf/list-input.css">
 	<link rel="stylesheet" href="/static/css/pcf/mobile.css">
 	<link
 		href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Noto+Sans+JP:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
@@ -123,7 +124,7 @@
 
 			<div class="search-advanced collapse" id="search-box-vgp">
 				<div class="search-box-advanced_wrapper">
-					<div class="search-box-vgp_title">
+					<div class="search-box-filter_title">
 						{% if r_lang == "ja" %}
 						<b>遺伝子パネルを設定</b>
 						<span class="in-circle" data-toggle="tooltip" data-placement="top" data-html="true"
@@ -142,6 +143,14 @@
                         <a class="filter-sample" href="/result?target=omim&phenotype=HP:0000347,HP:0003022,HP:0009381,HP:0000204,HP:0000625&filter=HP:0000007,AND_MONDO:0019056,NOT_MONDO:0020124&size=10&display_format=full&lang=en">Example3</a>
 
 						{% if r_lang == "ja" %}
+						<button id="btn_vgp_textinput" data-toggle="tooltip" data-placement="top" title="遺伝子のリストを入力">
+						{% else %}
+						<button id="btn_vgp_textinput" data-toggle="tooltip" data-placement="top" title="Input NCBI Gene ids">
+						{% endif %}
+							<img src="/static/images/pcf/HPOID.svg"></img>
+						</button>
+
+						{% if r_lang == "ja" %}
 						<button id="btn_vgp_download" data-toggle="tooltip" data-placement="top" title="この遺伝子パネルをダウンロード">
 						{% else %}
 						<button id="btn_vgp_download" data-toggle="tooltip" data-placement="top" title="Download this virtual gene panel">
@@ -158,18 +167,26 @@
 
 			<div class="search-advanced collapse" id="search-box-filter">
 				<div class="search-box-advanced_wrapper">
-					<div style="width:100%;margin-bottom:5px;">
+					<div class="search-box-filter_title">
 						{% if r_lang == "ja" %}
-						<b>結果を絞り込む</b>&nbsp;&nbsp;&nbsp;<font style="color:#C7DAAA;">|</font>&nbsp;&nbsp;&nbsp;Examples:
+						<b>結果を絞り込む</b>&nbsp;&nbsp;&nbsp;<font style="color:#C7DAAA;">|</font>&nbsp;&nbsp;&nbsp;<font>Examples:&nbsp;</font>
 						<a class="filter-sample" href="/result?target=omim&phenotype=HP:0000347_ja,HP:0003022_ja,HP:0009381_ja,HP:0000204_ja,HP:0000625_ja&filter=MONDO:0007179&size=10&display_format=full&lang=ja">Example1</a>
 						<a class="filter-sample" href="/result?target=omim&phenotype=HP:0001903_ja,HP:0000952_ja,HP:0001744_ja,HP:0004444_ja&filter=GENEID:2038,GENEID:6708,GENEID:6521,GENEID:286,GENEID:6710,AND_HP:0000006&size=10&display_format=full&lang=ja">Example2</a>
 						<a class="filter-sample" href="/result?target=omim&phenotype=HP:0000347_ja,HP:0003022_ja,HP:0009381_ja,HP:0000204_ja,HP:0000625_ja&filter=HP:0000007,AND_MONDO:0019056,NOT_MONDO:0020124&size=10&display_format=full&lang=ja">Example3</a>
 						{% else %}
-						<b>Filter to narrow your search results</b>&nbsp;&nbsp;&nbsp;<font style="color:#C7DAAA;">|</font>&nbsp;&nbsp;&nbsp;Examples:
+						<b>Filter to narrow your search results</b>&nbsp;&nbsp;&nbsp;<font style="color:#C7DAAA;">|</font>&nbsp;&nbsp;&nbsp;<font>Examples:&nbsp;</font>
 						<a class="filter-sample" href="/result?target=omim&phenotype=HP:0000347,HP:0003022,HP:0009381,HP:0000204,HP:0000625&filter=MONDO:0007179&size=10&display_format=full&lang=en">Example1</a>
 						<a class="filter-sample" href="/result?target=omim&phenotype=HP:0001903,HP:0000952,HP:0001744,HP:0004444&filter=GENEID:2038,GENEID:6708,GENEID:6521,GENEID:286,GENEID:6710,AND_HP:0000006&size=10&display_format=full&lang=en">Example2</a>
 						<a class="filter-sample" href="/result?target=omim&phenotype=HP:0000347,HP:0003022,HP:0009381,HP:0000204,HP:0000625&filter=HP:0000007,AND_MONDO:0019056,NOT_MONDO:0020124&size=10&display_format=full&lang=en">Example3</a>
 						{% endif %}
+
+						{% if r_lang == "ja" %}
+						<button id="btn_filter_textinput" data-toggle="tooltip" data-placement="top" title="遺伝子のリストを入力">
+						{% else %}
+						<button id="btn_filter_textinput" data-toggle="tooltip" data-placement="top" title="Input NCBI Gene ids">
+						{% endif %}
+							<img src="/static/images/pcf/HPOID.svg"></img>
+						</button>
 					</div>
 					<textarea class="form-control" rows="1" id="tokeninput_filters" name="str_filters"></textarea>
 				</div>
@@ -466,6 +483,7 @@
 <script src="/static/js/jaconv/jaconv.min.js"></script>
 <script type="text/javascript" src="/static/js/pcf/jquery.search-box_form.js"></script>
 <script type="text/javascript" src="/static/js/pcf/jquery.textinput_hpo.js"></script>
+<script type="text/javascript" src="/static/js/pcf/jquery.listinput.js"></script>
 <script>
 
 	var pcf_show_loading = function(){
@@ -1111,7 +1129,10 @@
             {% if r_lang %}
             'language':   "{{ r_lang }}",
             {% endif %}
-            'onFilterChanged' : onFilterChanged_vgp
+            'onFilterChanged' : onFilterChanged_vgp,
+			'onLongerQuery'   : function(text){
+				$('#btn_vgp_textinput').listinput('start_modal_with_text',text)
+			}
         });
 
         $("#tokeninput_vgps")
@@ -1132,7 +1153,10 @@
 			{% if r_lang %}
 			'language':   "{{ r_lang }}",
 			{% endif %}
-			'onFilterChanged' : onFilterChanged
+			'onFilterChanged' : onFilterChanged,
+			'onLongerQuery'   : function(text){
+				$('#btn_filter_textinput').listinput('start_modal_with_text',text)
+			}
 		});
 
 		$("#tokeninput_filters")
@@ -1194,6 +1218,34 @@
 			},
 		});
 
+		$("#btn_vgp_textinput").listinput({	'url':'/pcf_get_gene_data_by_gene_id', 'schema':'filter','language': "{{ r_lang }}",
+											'output_list': function(filter_vgp_obj_list){
+												let counter =0;
+												filter_vgp_obj_list.forEach(function(item){
+													if(Object.keys(item).length > 0){
+														$("#tokeninput_vgps").tokenInput_filter("add", item);
+														counter++;
+													}
+												});
+												if(counter > 0)	onFilterChanged_vgp();
+											}
+										  });
+											
+		$("#btn_filter_textinput").listinput({'url':'/pcf_get_gene_data_by_gene_id', 'schema':'filter','language': "{{ r_lang }}",
+											  'output_list': function(filter_vgp_obj_list){
+																let counter =0;
+																filter_vgp_obj_list.forEach(function(item){
+																	if(Object.keys(item).length > 0){
+																		$("#tokeninput_filters").tokenInput_filter("add", item);
+																		counter++;
+																	}
+																}); 
+																if(counter > 0) onFilterChanged();
+												}
+											});
+
+
+
 		if(!filter_id_list){
 			setTimeout(function(){
 				$("#tokeninput_filters").tokenInput_filter('set_input_box_default_width');
@@ -1246,6 +1298,12 @@
 			set_filter_num();
 			set_filter_vgp_num();
 		});
+
+
+		
+
+
+
 
 		$('[data-toggle="tooltip"]').tooltip({'trigger':'hover'});
 

@@ -25,7 +25,7 @@ def pcf_filter_get_case_id_by_ncbi_gene_id(r_ncbi_gene_id):
     if r_ncbi_gene_id != "":
         r_ncbi_gene_id = r_ncbi_gene_id.replace('GENEID', 'ENT')
         # CaseGeneからCaseIDを取得
-        sql_CaseGene = u"select CaseID from CaseGene where EntrezID=%s"
+        sql_CaseGene = u"select distinct CaseID from CaseGene where EntrezID=%s"
         cursor_CaseGene = OBJ_MYSQL.cursor()
         cursor_CaseGene.execute(sql_CaseGene, (r_ncbi_gene_id,))
         values_CaseGene = cursor_CaseGene.fetchall()
