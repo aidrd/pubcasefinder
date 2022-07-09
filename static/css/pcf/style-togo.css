@@ -164,7 +164,6 @@ body {
 }
 
 .search-header .search-header_wrapper .search-header_top .search-header_left span {
-    margin-right: 11px;
     display: block;
     white-space: nowrap;
 }
@@ -177,10 +176,6 @@ body {
 	line-height: 1.42857;
 }
 
-.search-header .search-header_wrapper .search-header_top .search-header_left .language a:hover{
-    color: #0056b3;
-    text-align: none;
-}
 
 .search-header .search-header_wrapper .search-header_top .search-header_left .site-header_end {
     border: solid 1px #888888;
@@ -4479,24 +4474,16 @@ label {
   .language .placeholder:hover {
     background: #34383c;
   }
-  .language .placeholder:after {
-    position: absolute;
-    right: 1em;
-    top: 50%;
-    transform: translateY(-50%);
-    font-family: "FontAwesome";
-    content: "";
-    z-index: 10;
-    margin-left: 0.5em;
+  .language .placeholder i{
+    vertical-align: top;
+    margin-right: 0.1em;
   }
   
-  .language.is-open .placeholder:after {
-    content: "";
-  }
   .language.is-open ul {
     display: block;
   }
   .language.select--white .placeholder {
+    margin-right: 0;
     background: #fafafa;
     color: #999;
   }
@@ -4523,10 +4510,16 @@ label {
     display: block;
     text-align: left;
     padding: 0.8em 1em 0.8em 1em;
-    color: #999;
     cursor: pointer;
   }
   .language ul li:hover {
     background: #4ebbf0;
+    color: #fff;
+  }
+  .language ul li a{
+    text-decoration: none;
+  }
+  .language ul li a:hover {
+    text-decoration: none;
     color: #fff;
   }
