@@ -4453,17 +4453,19 @@ label {
 .language {
     position: relative;
     border-radius: 2em;
+    background-color: #fafafa;
+    padding: 10px 10px 10px 40px;
+    max-width: 110px;
   }
   
   .select-text {
     position: relative;
     font-family: inherit;
     background-color: transparent;
-    padding: 10px 10px 10px 40px;
     border-radius: 0;
     border: none;
-    background-color: #fafafa;
     border-radius: 2em;
+    width: 100%;
   }
   
   /* Remove focus */
