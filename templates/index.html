@@ -2,7 +2,7 @@
 
 {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
 <html lang="ja">
-{% elif get_locale() == "ko" or get_locale() == "ko_KO" %}
+{% elif get_locale() == "ko" or get_locale() == "ko_KR" %}
 <html lang="ko">
 {% else %}
 <html lang="en">
@@ -145,7 +145,7 @@
                             <option value="{{ request.path }}?lang=ja" selected>日本語</option>
                             <option value="{{ request.path }}?lang=ko">한국어</option>
                         </select>
-                        {% elif get_locale() == "ko" or get_locale() == "ko_KO" %}
+                        {% elif get_locale() == "ko" or get_locale() == "ko_KR" %}
                         <select class="select-text" onChange="location.href=value;">
                             <option value="{{ request.path }}?lang=en">English</option>
                             <option value="{{ request.path }}?lang=ja">日本語</option>
@@ -178,7 +178,7 @@
                         <a href="/"><img src="/static/images/pcf/top/logo_color.svg" alt=""></a>
                         {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
                         <p>希少・遺伝性疾患検索システム</p>
-                        {% elif get_locale() == "ko" or get_locale() == "ko_KO" %}
+                        {% elif get_locale() == "ko" or get_locale() == "ko_KR" %}
                         <p>희귀·유전성 질환 검색 시스템</p>
                         {% else %}
                         <p>Search System for Rare Genetic Diseases</p>
@@ -1242,36 +1242,38 @@
 
     $(document).ready(function () {
 
-        $("#search_box_form").search_box_form({
-            'url_tokeninput_hpo': '/tokeninput_hpo',
-            'url_tokeninput_hpo_second': '/pcf_get_hpo_by_text',
-            'url_popup_hierarchy_hpo': '/popup_hierarchy_hpo',
-            'url_load_hpo_data': '/get_hpo_data_by_hpo_id',
-{% if get_locale() == "ja" or get_locale() == "ja_JP" %}
-			'lang': "ja",
-        {% else %}
-        'lang': "en",
-        {% endif %}
-        'form_para_target': "omim",
-        'form_para_filter': "",
-        'form_para_filter_vgp': "",
-        'form_para_size': "",
-        'form_para_display_format': "full",
-        'show_loading': pcf_show_loading,
-        'hide_loading': pcf_hide_loading,
-        'is_hierarchy_fullscreen': true,
-        'schema': 'schema-2021',
-        'text_input_schema': 'manual',
+      $("#search_box_form").search_box_form({
+          'url_tokeninput_hpo': '/tokeninput_hpo',
+          'url_tokeninput_hpo_second': '/pcf_get_hpo_by_text',
+          'url_popup_hierarchy_hpo': '/popup_hierarchy_hpo',
+          'url_load_hpo_data': '/get_hpo_data_by_hpo_id',
+          {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
+          'lang': "ja",
+          {% elif get_locale() == "ko" or get_locale() == "ko_KR" %}
+          'lang': "ko",
+          {% else %}
+          'lang': "en",
+          {% endif %}
+          'form_para_target': "omim",
+          'form_para_filter': "",
+          'form_para_filter_vgp': "",
+          'form_para_size': "",
+          'form_para_display_format': "full",
+          'show_loading': pcf_show_loading,
+          'hide_loading': pcf_hide_loading,
+          'is_hierarchy_fullscreen': true,
+          'schema': 'schema-2021',
+          'text_input_schema': 'manual',
         });
 
-    $("#ex_phenotypes").click(function () {
-        $("#search_box_form").search_box_form('add_token', { id: "{{ _('index_Sample_1_id') }}", name: "{{ _('index_Sample_1_name') }}" });
-        $("#search_box_form").search_box_form('add_token', { id: "{{ _('index_Sample_2_id') }}", name: "{{ _('index_Sample_2_name') }}" });
-        $("#search_box_form").search_box_form('add_token', { id: "{{ _('index_Sample_3_id') }}", name: "{{ _('index_Sample_3_name') }}" });
-        $("#search_box_form").search_box_form('add_token', { id: "{{ _('index_Sample_4_id') }}", name: "{{ _('index_Sample_4_name') }}" });
-        $("#search_box_form").search_box_form('add_token', { id: "{{ _('index_Sample_5_id') }}", name: "{{ _('index_Sample_5_name') }}" });
+      $("#ex_phenotypes").click(function () {
+          $("#search_box_form").search_box_form('add_token', { id: "{{ _('index_Sample_1_id') }}", name: "{{ _('index_Sample_1_name') }}" });
+          $("#search_box_form").search_box_form('add_token', { id: "{{ _('index_Sample_2_id') }}", name: "{{ _('index_Sample_2_name') }}" });
+          $("#search_box_form").search_box_form('add_token', { id: "{{ _('index_Sample_3_id') }}", name: "{{ _('index_Sample_3_name') }}" });
+          $("#search_box_form").search_box_form('add_token', { id: "{{ _('index_Sample_4_id') }}", name: "{{ _('index_Sample_4_name') }}" });
+          $("#search_box_form").search_box_form('add_token', { id: "{{ _('index_Sample_5_id') }}", name: "{{ _('index_Sample_5_name') }}" });
 
-        return false;
+          return false;
     });
 
     $('[data-toggle="tooltip"]').tooltip({ 'trigger': 'hover' });
