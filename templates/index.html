@@ -165,8 +165,10 @@
                         <a href="/"><img src="/static/images/pcf/top/logo_color.svg" alt=""></a>
                         {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
                         <p>希少・遺伝性疾患検索システム</p>
-                        {% else %}
+                        {% else if get_locale() == "en" or get_locale() == "en_EN" %}
                         <p>Search System for Rare Genetic Diseases</p>
+                        {% else if get_locale() == "ko" or get_locale() == "ko_KO" %}
+                        <p>희귀·유전성 질환 검색 시스템</p>
                         {% endif %}
                     </div>
                     <div id="search_box_form"></div>
