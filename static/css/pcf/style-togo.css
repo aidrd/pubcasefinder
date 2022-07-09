@@ -4452,74 +4452,85 @@ label {
 /*lan*/
 .language {
     position: relative;
-    display: block;
-    margin: 0 auto;
-    width: 100%;
-    max-width: 325px;
-    color: #cccccc;
-    vertical-align: middle;
-    text-align: left;
-    user-select: none;
-    -webkit-touch-callout: none;
-  }
-  .language .placeholder {
-    position: relative;
-    display: block;
-    background-color: #393d41;
-    z-index: 1;
-    padding: 0.7em 1em;
-    border-radius: 2px;
-    cursor: pointer;
-  }
-  .language .placeholder:hover {
-    background: #34383c;
-  }
-  .language .placeholder i{
-    vertical-align: top;
-    margin-right: 0.1em;
+    border-radius: 2em;
   }
   
-  .language.is-open ul {
-    display: block;
+  .select-text {
+    position: relative;
+    font-family: inherit;
+    background-color: transparent;
+    padding: 10px 10px 10px 40px;
+    font-size: 18px;
+    border-radius: 0;
+    border: none;
+    background-color: #fafafa;
+    border-radius: 2em;
   }
-  .language.select--white .placeholder {
-    margin-right: 0;
-    background: #fafafa;
-    color: #999;
+  
+  /* Remove focus */
+  .select-text:focus {
+    outline: none;
+    border-bottom: 1px solid rgba(0,0,0, 0);
   }
-  .language.select--white .placeholder:hover {
-    background: #fafafa;
+  
+    /* Use custom arrow */
+  .select .select-text {
+    appearance: none;
+    -webkit-appearance:none
   }
-  .language ul {
-    display: none;
+  
+  .select:after {
     position: absolute;
-    overflow: hidden;
-    overflow-y: auto;
-    width: 100%;
-    background: #fafafa;
-    border-radius: 2px;
-    top: 100%;
-    left: 0;
-    list-style: none;
-    margin: 5px 0 0 0;
+    top: 18px;
+    right: 10px;
+    /* Styling the down arrow */
+    width: 0;
+    height: 0;
     padding: 0;
-    z-index: 100;
-    max-height: 120px;
+    content: '';
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 6px solid rgba(0, 0, 0, 0.12);
+    pointer-events: none;
   }
-  .language ul li {
+  
+  
+  /* LABEL ======================================= */
+  .select-label {
+    color: rgba(0,0,0, 0.26);
+    font-size: 18px;
+    font-weight: normal;
+    position: absolute;
+    pointer-events: none;
+    left: 0;
+    top: 10px;
+    transition: 0.2s ease all;
+  }
+  
+  /* active state */
+  .select-text:focus ~ .select-label, .select-text:valid ~ .select-label {
+    color: #2F80ED;
+    transition: 0.2s ease all;
+    font-size: 14px;
+    padding-left: 12px;
+  }
+  
+  /* BOTTOM BARS ================================= */
+  .select-bar {
+    position: relative;
     display: block;
-    text-align: left;
-    padding: 0.8em 1em 0.8em 1em;
-    cursor: pointer;
+    width: 100px;
   }
-  .language ul li:hover {
-    background: #4ebbf0;
-    color: #fff;
+  
+  .select-bar:before, .select-bar:after {
+    content: '';
+    height: 2px;
+    width: 0;
+    bottom: 1px;
+    position: absolute;
+    background: #2F80ED;
+    transition: 0.2s ease all;
   }
-  .language ul li a{
-    text-decoration: none;
-  }
-  .language ul li a:hover {
-    text-decoration: none;
-    color: #fff;
-  }
+  
+
+  

@@ -136,25 +136,18 @@
                             </li>
                         </ul>
                     </nav>
-                    <div class="language select--white">
-                        <span class="placeholder">
-                            <i class="material-symbols-outlined">
+                    <div class="language">
+                        <select class="select-text" required>
+                            <option value="{{ request.path }}?lang=en">English</option>
+                            <option value="{{ request.path }}?lang=ja">日本語</option>
+                            <option value="{{ request.path }}?lang=ko">한국어</option>
+                        </select>
+                        <span class="select-highlight"></span>
+                        <span class="select-bar"></span>
+                        <label class="select-label"><i class="material-symbols-outlined">
                                 language
-                            </i>Language
-                        </span>
-                        <ul>
-                            <li data-value="en"><a href="{{ request.path }}?lang=en">English</a></li>
-                            <li data-value="ja"><a href="{{ request.path }}?lang=ja">日本語</a></li>
-                            <li data-value="kr"><a href="{{ request.path }}?lang=ko">한국어</a></li>
-                        </ul>
-                        <input type="hidden" name="changemetoo" />
+                            </i></label>
                     </div>
-                    <!--<a href="{{ request.path }}?lang=en">EN</a>/
-                        <a href="{{ request.path }}?lang=ja">JA</a>/
-                        <a href="#">KR</a>-->
-                    <!--<div class="site-header_end">
-                        <a class="button" href="#">Login<i class="material-icons">expand_more</i></a>
-                    </div>-->
                 </div>
             </div>
         </div>
@@ -1286,6 +1279,8 @@
         parent.removeClass('is-open').find('.placeholder').text($(this).text());
         parent.find('input[type=hidden]').attr('value', $(this).attr('data-value'));
     });
+
 </script>
+
 
 </html>
