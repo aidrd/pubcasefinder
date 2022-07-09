@@ -4453,16 +4453,16 @@ label {
 .language {
     position: relative;
     border-radius: 2em;
+    background-color: #fafafa;
+    padding: 10px 10px 10px 40px;
   }
   
   .select-text {
     position: relative;
     font-family: inherit;
     background-color: transparent;
-    padding: 10px 10px 10px 40px;
     border-radius: 0;
     border: none;
-    background-color: #fafafa;
     border-radius: 2em;
   }
   
