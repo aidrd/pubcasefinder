@@ -137,13 +137,15 @@
                         </ul>
                     </nav>
                     <div class="language select--white">
-                        <span class="placeholder"><i class="material-symbols-outlined">
+                        <span class="placeholder">
+                            <i class="material-symbols-outlined">
                                 language
-                            </i>Language</span>
+                            </i>Language
+                        </span>
                         <ul>
                             <li data-value="en"><a href="{{ request.path }}?lang=en">English</a></li>
                             <li data-value="ja"><a href="{{ request.path }}?lang=ja">日本語</a></li>
-                            <li data-value="kr"><a href="{{ request.path }}?lang=kr">한국어</a></li>
+                            <li data-value="kr"><a href="{{ request.path }}?lang=ko">한국어</a></li>
                         </ul>
                         <input type="hidden" name="changemetoo" />
                     </div>
