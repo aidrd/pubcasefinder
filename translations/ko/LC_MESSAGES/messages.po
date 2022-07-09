@@ -1,0 +1,391 @@
+# English translations for PROJECT.
+# Copyright (C) 2018 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2018.
+#
+msgid "base_title"
+msgstr "A Rare and Genetic Disease Search System : PubCaseFinder"
+
+msgid "base_description"
+msgstr "PubCaseFinder is a rare and genetic disease search system that uses the disease-phenotype associations extracted from one million case reports."
+
+msgid "Update"
+msgstr "Update: Sep. 25. 2018"
+
+msgid "About"
+msgstr "About"
+
+msgid "Datasets"
+msgstr "Datasets"
+
+msgid "History"
+msgstr "History"
+
+msgid "TermsOfService"
+msgstr "Terms"
+
+msgid "Contact"
+msgstr "Contact"
+
+msgid "index_Q_tooltip"
+msgstr "Input patient's signs and symptoms"
+
+msgid "index_textbox_title"
+msgstr "Input patient's <b>signs</b> and <b>symptoms</b>"
+
+msgid "index_button_search"
+msgstr "Find diseases"
+
+msgid "index_button_phenotouch"
+msgstr "Human 3D Model"
+
+msgid "index_button_clear"
+msgstr "Clear"
+
+msgid "index_Sample"
+msgstr "Micrognathia, Hypoplasia of the ulna, Short finger, Cleft upper lip, Cleft eyelid"
+
+msgid "index_Sample_1_id"
+msgstr "HP:0000347"
+
+msgid "index_Sample_1_name"
+msgstr "Micrognathia"
+
+msgid "index_Sample_2_id"
+msgstr "HP:0003022"
+
+msgid "index_Sample_2_name"
+msgstr "Hypoplasia of the ulna"
+
+msgid "index_Sample_3_id"
+msgstr "HP:0009381"
+
+msgid "index_Sample_3_name"
+msgstr "Short finger"
+
+msgid "index_Sample_4_id"
+msgstr "HP:0000204"
+
+msgid "index_Sample_4_name"
+msgstr "Cleft upper lip"
+
+msgid "index_Sample_5_id"
+msgstr "HP:0000625"
+
+msgid "index_Sample_5_name"
+msgstr "Cleft eyelid"
+
+msgid "index_usage_title_sub"
+msgstr "PubCaseFinder is useful for finding diseases and cases."
+
+msgid "index_usage_title"
+msgstr "Rare and Genetic Disease Search System"
+
+msgid "index_usage_1_title"
+msgstr "Finding Diseases"
+
+msgid "index_usage_1_desc"
+msgstr "A ranked list of rare and genetic diseases is produced to be used by physicians."
+
+msgid "index_usage_2_title"
+msgstr "Finding Case Reports"
+
+msgid "index_usage_2_desc"
+msgstr "300,000 published case rerpots included in PubMed are searchable for each disease."
+
+msgid "index_usage_3_title"
+msgstr "Finding Open Cases"
+
+msgid "index_usage_3_desc"
+msgstr "19,000 cases suspected rare or hereditary diseases published on the Internet are searchable."
+
+msgid "index_usage_4_title"
+msgstr "Easy Phenotyping"
+
+msgid "index_usage_4_desc"
+msgstr "Useful search functions to select appropriate phenotypes from 15,000 HPO terms are available."
+
+msgid "index_usage_5_title"
+msgstr "Input Free-Text"
+
+msgid "index_usage_5_desc"
+msgstr "PubCaseFinder is linked with Doc2Hpo to automatically extract phenotypes from clinical text."
+
+msgid "index_usage_6_title"
+msgstr "Multilingualization"
+
+msgid "index_usage_6_desc"
+msgstr "Currently, it supports English and Japanese. More languages will be supported in the future."
+
+msgid "index_photo_title_sub"
+msgstr "Rare and Genetic Disease Search System Used For"
+
+msgid "index_photo_title"
+msgstr "Medical Professionals"
+
+msgid "index_photo_how"
+msgstr "How Does It Work?"
+
+msgid "index_stat_genetic"
+msgstr "Genetic Diseases"
+
+msgid "index_stat_rare"
+msgstr "Rare Diseases"
+
+msgid "index_stat_gene"
+msgstr "Genes"
+
+msgid "index_stat_cs"
+msgstr "Case Reports"
+
+msgid "index_stat_udp"
+msgstr "Cases"
+
+msgid "index_stat_list"
+msgstr "List"
+
+msgid "index_label_intro_title"
+msgstr "PubCaseFinder is a rare and genetic disease search system"
+
+msgid "index_label_citation"
+msgstr "When you use PubCaseFinder in your publications, please cite:"
+
+msgid "search_textbox_title_narrowdown"
+msgstr "Narrow down the diseases"
+
+msgid "search_label_upload_hpo"
+msgstr "+ Upload File (HPO ID)"
+
+msgid "search_label_upload_gene"
+msgstr "+ Upload File (Gene Symbol or Entrez Gene ID or Ensembl Gene ID)"
+
+msgid "search_tab_Orphanet"
+msgstr "<div style="letter-spacing: 0.1em; line-height: 2em;"><span class="icon-orphanet"></span><b>Rare Diseases</b></div>"
+
+msgid "search_tab_OMIM"
+msgstr "<div style="letter-spacing: 0.1em; line-height: 2em;"><span class="icon-omim"></span><b>Genetic Diseases</b></div>"
+
+msgid "search_tab_gene"
+msgstr "<div style="letter-spacing: 0.1em; line-height: 2em;"><span class="icon-cause"></span><b>Causative Genes</b></div>"
+
+msgid "search_tab_case"
+msgstr "<div style="letter-spacing: 0.1em; line-height: 2em;"><span class="icon-users"></span><b>Public Cases</b></div>"
+
+msgid "search_button_download_summary"
+msgstr "Download summary of results"
+
+msgid "search_button_download_Orphanet"
+msgstr "Download results of rare diseases ( Orphanet )"
+
+msgid "search_button_download_OMIM"
+msgstr "Download results of genetic diseases ( OMIM )"
+
+msgid "search_button_download_gene"
+msgstr "Download results of genes"
+
+msgid "search_button_download"
+msgstr "Download Results"
+
+msgid "search_label_total"
+msgstr "Total"
+
+msgid "search_label_disease"
+msgstr "results"
+
+msgid "search_label_case"
+msgstr "cases"
+
+msgid "search_label_perpage"
+msgstr "(per page)"
+
+msgid "search_label_MatchedPhenotype"
+msgstr "<b>Matched Phenotype</b>"
+
+msgid "search_label_MatchedGene"
+msgstr "<b>Matched Gene</b>"
+
+msgid "search_label_CausativeGene"
+msgstr "<b>Causative Gene</b>"
+
+msgid "search_label_Inheritance"
+msgstr "<b>Modes of Inheritance</b>"
+
+msgid "search_label_rank"
+msgstr "Rank"
+
+msgid "search_label_similarity"
+msgstr "(Similarity)"
+
+msgid "search_label_DiseaseName"
+msgstr "Disease Name"
+
+msgid "search_label_Gene"
+msgstr "Gene"
+
+msgid "search_label_Case"
+msgstr "Case"
+
+msgid "search_label_DiseaseID"
+msgstr "(Disease ID)"
+
+msgid "search_label_related_casereport"
+msgstr "Find case reports"
+
+msgid "search_label_search_image_google"
+msgstr "Find images (Google)"
+
+msgid "search_label_genetic_testing"
+msgstr "Genetic testing"
+
+msgid "search_button_share_download"
+msgstr "Share & Download"
+
+msgid "search_share_modal_title"
+msgstr "Share & Download Results"
+
+msgid "search_share_modal_label_share"
+msgstr "Share"
+
+msgid "search_share_modal_label_download"
+msgstr "Download"
+
+msgid "search_share_modal_label_link"
+msgstr "Link"
+
+msgid "search_share_modal_button_copy"
+msgstr "Copy the link"
+
+msgid "search_share_modal_button_mail"
+msgstr "Send the link via e-mail"
+
+msgid "search_share_modal_button_close"
+msgstr "Close"
+
+msgid "disease_label_DiseaseDefinition"
+msgstr "Disease Definition"
+
+msgid "disease_tab_CaseReport"
+msgstr "<b>Case Reports</b>"
+
+msgid "disease_tab_Phenotype"
+msgstr "<b>Phenotypes</b>"
+
+msgid "disease_tab_CausativeGene"
+msgstr "<b>Causative Genes</b>"
+
+msgid "disease_textbox_title_narrow_casereport"
+msgstr "Narrow down the case reports"
+
+msgid "disease_button_search"
+msgstr "Find case reports"
+
+msgid "disease_label_paper"
+msgstr "(papers)"
+
+msgid "disease_label_gene"
+msgstr "<b>Gene</b>"
+
+msgid "disease_label_mutation"
+msgstr "<b>Mutation</b>"
+
+msgid "disease_label_mesh"
+msgstr "<b>MeSH</b>"
+
+msgid "disease_label_show_abstract"
+msgstr "Show abstract"
+
+msgid "disease_label_hide_abstract"
+msgstr "Hide abstract"
+
+msgid "disesase_TabPheno_label_orphanet"
+msgstr "Phenotype(s) retrieved from Orphanet"
+
+msgid "disesase_TabPheno_label_casereport"
+msgstr "Phenotype(s) retrieved from case reports"
+
+msgid "disease_TabPheno_label_term"
+msgstr "Term"
+
+msgid "disease_TabPheno_label_freq"
+msgstr "Frequency"
+
+msgid "disease_TabPheno_label_num_casereport"
+msgstr "# of case reports"
+
+msgid "disesase_TabGene_label_orphanet"
+msgstr "Causative gene(s) retrieved from Orphanet"
+
+msgid "disease_TabGene_label_name"
+msgstr "Gene Name"
+
+msgid "Autosomal_dominant_inheritance"
+msgstr "Autosomal dominant inheritance"
+
+msgid "Autosomal_recessive_inheritance"
+msgstr "Autosomal recessive inheritance"
+
+msgid "X-linked_inheritance"
+msgstr "X-linked inheritance"
+
+msgid "X-linked_recessive_inheritance"
+msgstr "X-linked recessive inheritance"
+
+msgid "X-linked_dominant_inheritance"
+msgstr "X-linked dominant inheritance"
+
+msgid "Heterogeneous"
+msgstr "Heterogeneous"
+
+msgid "Multifactorial_inheritance"
+msgstr "Multifactorial inheritance"
+
+msgid "Mitochondrial_inheritance"
+msgstr "Mitochondrial inheritance"
+
+msgid "Somatic_mutation"
+msgstr "Somatic mutation"
+
+msgid "Somatic_mosaicism"
+msgstr "Somatic mosaicism"
+
+msgid "Autosomal_dominant_somatic_cell_mutation"
+msgstr "Autosomal dominant somatic cell mutation"
+
+msgid "Y-linked_inheritance"
+msgstr "Y-linked inheritance"
+
+msgid "Autosomal_dominant_contiguous_gene_syndrome"
+msgstr "Autosomal dominant contiguous gene syndrome"
+
+msgid "Contiguous_gene_syndrome"
+msgstr "Contiguous gene syndrome"
+
+msgid "Sex-limited_autosomal_dominant"
+msgstr "Sex-limited autosomal dominant"
+
+msgid "Familial_predisposition"
+msgstr "Familial predisposition"
+
+msgid "Male-limited_autosomal_dominant"
+msgstr "Male-limited autosomal dominant"
+
+msgid "Genetic_anticipation"
+msgstr "Genetic anticipation"
+
+msgid "Genetic_anticipation_with_paternal_anticipation_bias"
+msgstr "Genetic anticipation with paternal anticipation bias"
+
+msgid "Sporadic"
+msgstr "Sporadic"
+
+msgid "Polygenic_inheritance"
+msgstr "Polygenic inheritance"
+
+msgid "Digenic_inheritanec"
+msgstr "Digenic inheritanec"
+
+msgid "Autosomal_dominant_inheritance_with_maternal_imprinting"
+msgstr "Autosomal dominant inheritance with maternal imprintin"
+
+msgid "Autosomal_dominant_germline_de_novo_mutation"
+msgstr "Autosomal dominant germline de novo mutation"
