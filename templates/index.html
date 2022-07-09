@@ -2,6 +2,8 @@
 
 {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
 <html lang="ja">
+{% elif get_locale() == "ko" or get_locale() == "ko_KO" %}
+<html lang="ko">
 {% else %}
 <html lang="en">
 {% endif %}
@@ -143,19 +145,17 @@
                             <option value="{{ request.path }}?lang=ja" selected>日本語</option>
                             <option value="{{ request.path }}?lang=ko">한국어</option>
                         </select>
-                        {% endif %}
-                        {% if get_locale() == "en" or get_locale() == "en_EN" %}
-                        <select class="select-text" onChange="location.href=value;">
-                            <option value="{{ request.path }}?lang=en" selected>English</option>
-                            <option value="{{ request.path }}?lang=ja">日本語</option>
-                            <option value="{{ request.path }}?lang=ko">한국어</option>
-                        </select>
-                        {% endif %}
-                        {% if get_locale() == "ko" or get_locale() == "ko_KO" %}
+                        {% elif get_locale() == "ko" or get_locale() == "ko_KO" %}
                         <select class="select-text" onChange="location.href=value;">
                             <option value="{{ request.path }}?lang=en">English</option>
                             <option value="{{ request.path }}?lang=ja">日本語</option>
                             <option value="{{ request.path }}?lang=ko" selected>한국어</option>
+                        </select>
+                        {% else %}
+                        <select class="select-text" onChange="location.href=value;">
+                            <option value="{{ request.path }}?lang=en" selected>English</option>
+                            <option value="{{ request.path }}?lang=ja">日本語</option>
+                            <option value="{{ request.path }}?lang=ko">한국어</option>
                         </select>
                         {% endif %}
                         <span class="select-highlight"></span>
@@ -178,12 +178,10 @@
                         <a href="/"><img src="/static/images/pcf/top/logo_color.svg" alt=""></a>
                         {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
                         <p>希少・遺伝性疾患検索システム</p>
-                        {% endif %}
-                        {% if get_locale() == "en" or get_locale() == "en_EN" %}
-                        <p>Search System for Rare Genetic Diseases</p>
-                        {% endif %}
-                        {% if get_locale() == "ko" or get_locale() == "ko_KO" %}
+                        {% elif get_locale() == "ko" or get_locale() == "ko_KO" %}
                         <p>희귀·유전성 질환 검색 시스템</p>
+                        {% else %}
+                        <p>Search System for Rare Genetic Diseases</p>
                         {% endif %}
                     </div>
                     <div id="search_box_form"></div>
