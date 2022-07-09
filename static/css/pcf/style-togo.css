@@ -4450,3 +4450,83 @@ label {
 #dbcls-common-footer .footer__common {
     clear: both;
 }
+
+
+
+
+/*lan*/
+.language {
+    position: relative;
+    display: block;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 325px;
+    color: #cccccc;
+    vertical-align: middle;
+    text-align: left;
+    user-select: none;
+    -webkit-touch-callout: none;
+  }
+  .language .placeholder {
+    position: relative;
+    display: block;
+    background-color: #393d41;
+    z-index: 1;
+    padding: 0.7em 1em;
+    border-radius: 2px;
+    cursor: pointer;
+  }
+  .language .placeholder:hover {
+    background: #34383c;
+  }
+  .language .placeholder:after {
+    position: absolute;
+    right: 1em;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: "FontAwesome";
+    content: "";
+    z-index: 10;
+    margin-left: 0.5em;
+  }
+  
+  .language.is-open .placeholder:after {
+    content: "";
+  }
+  .language.is-open ul {
+    display: block;
+  }
+  .language.select--white .placeholder {
+    background: #fafafa;
+    color: #999;
+  }
+  .language.select--white .placeholder:hover {
+    background: #fafafa;
+  }
+  .language ul {
+    display: none;
+    position: absolute;
+    overflow: hidden;
+    overflow-y: auto;
+    width: 100%;
+    background: #fafafa;
+    border-radius: 2px;
+    top: 100%;
+    left: 0;
+    list-style: none;
+    margin: 5px 0 0 0;
+    padding: 0;
+    z-index: 100;
+    max-height: 120px;
+  }
+  .language ul li {
+    display: block;
+    text-align: left;
+    padding: 0.8em 1em 0.8em 1em;
+    color: #999;
+    cursor: pointer;
+  }
+  .language ul li:hover {
+    background: #4ebbf0;
+    color: #fff;
+  }

@@ -48,10 +48,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.1/css/swiper.min.css">
     <link rel="stylesheet" href="/static/css/pcf/bootstrap.css">
     <link rel="stylesheet" href="/static/css/pcf/style-togo.css">
-	<link rel="stylesheet" href="/static/css/pcf/tippy.css">
-	<link rel="stylesheet" href="/static/css/pcf/search-box-form.css">
-	<link rel="stylesheet" href="/static/css/pcf/text-input.css">
-	<link rel="stylesheet" href="/static/css/pcf/list-input.css">
+    <link rel="stylesheet" href="/static/css/pcf/tippy.css">
+    <link rel="stylesheet" href="/static/css/pcf/search-box-form.css">
+    <link rel="stylesheet" href="/static/css/pcf/text-input.css">
+    <link rel="stylesheet" href="/static/css/pcf/list-input.css">
 
     <link
         href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Noto+Sans+JP:wght@100;300;400;500;700;900&display=swap"
@@ -63,7 +63,7 @@
     <link rel="stylesheet" href="/static/css/pcf/token-input-facebook.css" type="text/css" />
     <!-- popup-tokeninput -->
     <link rel="stylesheet" href="/static/css/pcf/popup-hierarchy-hpo.css">
-	<!-- tippy -->
+    <!-- tippy -->
     <link rel="stylesheet" href="https://unpkg.com/tippy.js@6/animations/scale.css" />
     <link rel="stylesheet" href="https://unpkg.com/tippy.js@6/animations/scale-extreme.css" />
     <!-- Modernizr JS -->
@@ -74,13 +74,14 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/static/images/pcf/top/favicon-16x16.png">
     <link rel="manifest" href="/static/images/pcf/top/site.webmanifest">
     <link rel="mask-icon" href="/static/images/pcf/top/safari-pinned-tab.svg" color="#2a3356">
+
     <meta name="msapplication-TileColor" content="#2a3356">
     <meta name="theme-color" content="#ffffff">
     <!--favicon end-->
 </head>
 
 <body spellcheck="false">
-	<div id="fh5co-loader"></div>
+    <div id="fh5co-loader"></div>
     <header class="search-header">
         <div class="wrapper search-header_wrapper">
             <div class="search-header_top">
@@ -133,8 +134,18 @@
                             </li>
                         </ul>
                     </nav>
-                    <div class="language"><a href="{{ request.path }}?lang=en">EN</a> / <a
-                            href="{{ request.path }}?lang=ja">JA</a></div>
+                    <div class="language select--white">
+                        <span class="placeholder"><i class="fa-regular fa-globe"></i>Language</span>
+                        <ul>
+                            <li data-value="en"><a href="{{ request.path }}?lang=en">English</a></li>
+                            <li data-value="ja"><a href="{{ request.path }}?lang=ja">日本語</a></li>
+                            <li data-value="kr"><a href="{{ request.path }}?lang=kr">한국어</a></li>
+                        </ul>
+                        <input type="hidden" name="changemetoo" />
+                    </div>
+                    <!--<a href="{{ request.path }}?lang=en">EN</a>/
+                        <a href="{{ request.path }}?lang=ja">JA</a>/
+                        <a href="#">KR</a>-->
                     <!--<div class="site-header_end">
                         <a class="button" href="#">Login<i class="material-icons">expand_more</i></a>
                     </div>-->
@@ -154,7 +165,7 @@
                         <p>Search System for Rare Genetic Diseases</p>
                         {% endif %}
                     </div>
-					<div id="search_box_form"></div>
+                    <div id="search_box_form"></div>
                 </div>
                 <div class="search-ex">
                     <a href="#" id="ex_phenotypes">ex) {{ _('index_Sample') }}</a>
@@ -1201,56 +1212,71 @@
 <script type="text/javascript" src="/static/js/pcf/jquery.textinput_hpo.js"></script>
 <script type="text/javascript" src="/static/js/pcf/jquery.listinput.js"></script>
 <script type="text/javascript">
-    var pcf_show_loading = function(){
-        if($('#fh5co-loader').css('display') === 'none') $("#fh5co-loader").fadeIn("normal");
+    var pcf_show_loading = function () {
+        if ($('#fh5co-loader').css('display') === 'none') $("#fh5co-loader").fadeIn("normal");
     };
 
-    var pcf_hide_loading = function() {
-        if($('#fh5co-loader').css('display') === 'none') return;
+    var pcf_hide_loading = function () {
+        if ($('#fh5co-loader').css('display') === 'none') return;
         $("#fh5co-loader").fadeOut("slow");
     };
 
     $(document).ready(function () {
 
         $("#search_box_form").search_box_form({
-            'url_tokeninput_hpo':           '/tokeninput_hpo',
-            'url_tokeninput_hpo_second':    '/pcf_get_hpo_by_text',
-            'url_popup_hierarchy_hpo':      '/popup_hierarchy_hpo',
-            'url_load_hpo_data':            '/get_hpo_data_by_hpo_id',
+            'url_tokeninput_hpo': '/tokeninput_hpo',
+            'url_tokeninput_hpo_second': '/pcf_get_hpo_by_text',
+            'url_popup_hierarchy_hpo': '/popup_hierarchy_hpo',
+            'url_load_hpo_data': '/get_hpo_data_by_hpo_id',
 {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
-			'lang':                         "ja",
-{% else %}
-			'lang':                         "en",
-{% endif %}
-            'form_para_target':             "omim",
-            'form_para_filter':             "",
-			'form_para_filter_vgp':         "",
-            'form_para_size':               "",
-            'form_para_display_format':     "full",
-            'show_loading':                 pcf_show_loading,
-            'hide_loading':                 pcf_hide_loading,
-			'is_hierarchy_fullscreen':		true,
-			'schema':                       'schema-2021',
-			'text_input_schema':            'manual',
+			'lang': "ja",
+        {% else %}
+        'lang': "en",
+        {% endif %}
+        'form_para_target': "omim",
+        'form_para_filter': "",
+        'form_para_filter_vgp': "",
+        'form_para_size': "",
+        'form_para_display_format': "full",
+        'show_loading': pcf_show_loading,
+        'hide_loading': pcf_hide_loading,
+        'is_hierarchy_fullscreen': true,
+        'schema': 'schema-2021',
+        'text_input_schema': 'manual',
         });
 
-        $("#ex_phenotypes").click(function () {
-			$("#search_box_form").search_box_form('add_token', { id: "{{ _('index_Sample_1_id') }}", name: "{{ _('index_Sample_1_name') }}" });
-			$("#search_box_form").search_box_form('add_token', { id: "{{ _('index_Sample_2_id') }}", name: "{{ _('index_Sample_2_name') }}" });
-			$("#search_box_form").search_box_form('add_token', { id: "{{ _('index_Sample_3_id') }}", name: "{{ _('index_Sample_3_name') }}" });
-			$("#search_box_form").search_box_form('add_token', { id: "{{ _('index_Sample_4_id') }}", name: "{{ _('index_Sample_4_name') }}" });
-			$("#search_box_form").search_box_form('add_token', { id: "{{ _('index_Sample_5_id') }}", name: "{{ _('index_Sample_5_name') }}" });
-			
-            return false;
-        });
-    
-		$('[data-toggle="tooltip"]').tooltip({'trigger':'hover'});
+    $("#ex_phenotypes").click(function () {
+        $("#search_box_form").search_box_form('add_token', { id: "{{ _('index_Sample_1_id') }}", name: "{{ _('index_Sample_1_name') }}" });
+        $("#search_box_form").search_box_form('add_token', { id: "{{ _('index_Sample_2_id') }}", name: "{{ _('index_Sample_2_name') }}" });
+        $("#search_box_form").search_box_form('add_token', { id: "{{ _('index_Sample_3_id') }}", name: "{{ _('index_Sample_3_name') }}" });
+        $("#search_box_form").search_box_form('add_token', { id: "{{ _('index_Sample_4_id') }}", name: "{{ _('index_Sample_4_name') }}" });
+        $("#search_box_form").search_box_form('add_token', { id: "{{ _('index_Sample_5_id') }}", name: "{{ _('index_Sample_5_name') }}" });
+
+        return false;
+    });
+
+    $('[data-toggle="tooltip"]').tooltip({ 'trigger': 'hover' });
     });
 
     $('.rater').rate({
         max_value: 5,
         step_size: 0.1,
         initial_value: 0
+    });
+</script>
+<script>
+    $('.language').on('click', '.placeholder', function () {
+        var parent = $(this).closest('.language');
+        if (!parent.hasClass('is-open')) {
+            parent.addClass('is-open');
+            $('.language.is-open').not(parent).removeClass('is-open');
+        } else {
+            parent.removeClass('is-open');
+        }
+    }).on('click', 'ul>li', function () {
+        var parent = $(this).closest('.language');
+        parent.removeClass('is-open').find('.placeholder').text($(this).text());
+        parent.find('input[type=hidden]').attr('value', $(this).attr('data-value'));
     });
 </script>
 
