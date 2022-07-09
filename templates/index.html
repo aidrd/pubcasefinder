@@ -137,11 +137,27 @@
                         </ul>
                     </nav>
                     <div class="language">
-                        <select class="select-text" required>
+                        {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
+                        <select class="select-text" onChange="location.href=value;">
                             <option value="{{ request.path }}?lang=en">English</option>
+                            <option value="{{ request.path }}?lang=ja" selected>日本語</option>
+                            <option value="{{ request.path }}?lang=ko">한국어</option>
+                        </select>
+                        {% endif %}
+                        {% if get_locale() == "en" or get_locale() == "en_EN" %}
+                        <select class="select-text" onChange="location.href=value;">
+                            <option value="{{ request.path }}?lang=en" selected>English</option>
                             <option value="{{ request.path }}?lang=ja">日本語</option>
                             <option value="{{ request.path }}?lang=ko">한국어</option>
                         </select>
+                        {% endif %}
+                        {% if get_locale() == "ko" or get_locale() == "ko_KO" %}
+                        <select class="select-text" onChange="location.href=value;">
+                            <option value="{{ request.path }}?lang=en">English</option>
+                            <option value="{{ request.path }}?lang=ja">日本語</option>
+                            <option value="{{ request.path }}?lang=ko" selected>한국어</option>
+                        </select>
+                        {% endif %}
                         <span class="select-highlight"></span>
                         <span class="select-bar"></span>
                         <label class="select-label"><i class="material-symbols-outlined">
@@ -160,9 +176,11 @@
                         <a href="/"><img src="/static/images/pcf/top/logo_color.svg" alt=""></a>
                         {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
                         <p>希少・遺伝性疾患検索システム</p>
-                        {% else if get_locale() == "en" or get_locale() == "en_EN" %}
+                        {% endif %}
+                        {% if get_locale() == "en" or get_locale() == "en_EN" %}
                         <p>Search System for Rare Genetic Diseases</p>
-                        {% else if get_locale() == "ko" or get_locale() == "ko_KO" %}
+                        {% endif %}
+                        {% if get_locale() == "ko" or get_locale() == "ko_KO" %}
                         <p>희귀·유전성 질환 검색 시스템</p>
                         {% endif %}
                     </div>
