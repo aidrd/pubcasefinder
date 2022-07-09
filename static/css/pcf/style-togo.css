@@ -4455,6 +4455,7 @@ label {
     border-radius: 2em;
     background-color: #fafafa;
     padding: 10px 10px 10px 40px;
+    max-width: 110px;
   }
   
   .select-text {
@@ -4464,6 +4465,7 @@ label {
     border-radius: 0;
     border: none;
     border-radius: 2em;
+    width: 100%;
   }
   
   /* Remove focus */
