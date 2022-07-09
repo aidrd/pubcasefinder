@@ -4460,7 +4460,6 @@ label {
     font-family: inherit;
     background-color: transparent;
     padding: 10px 10px 10px 40px;
-    font-size: 18px;
     border-radius: 0;
     border: none;
     background-color: #fafafa;
@@ -4498,7 +4497,6 @@ label {
   /* LABEL ======================================= */
   .select-label {
     color: rgba(0,0,0, 0.26);
-    font-size: 18px;
     font-weight: normal;
     position: absolute;
     pointer-events: none;
@@ -4511,7 +4509,6 @@ label {
   .select-text:focus ~ .select-label, .select-text:valid ~ .select-label {
     color: #2F80ED;
     transition: 0.2s ease all;
-    font-size: 14px;
     padding-left: 12px;
   }
   
@@ -4534,3 +4531,8 @@ label {
   
 
   
+@media (max-width: 750px){
+    .search-header .search-header_wrapper .search-header_top .search-header_left .language {
+        margin-left: 1em;
+    } 
+}
