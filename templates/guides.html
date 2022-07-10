@@ -77,11 +77,36 @@
                             </li>
                         </ul>
                     </nav>
-                    <span class="language"><a href="{{ request.path }}?lang=en">EN</a> / <a
-                            href="{{ request.path }}?lang=ja">JA</a></span>
-                    <!--<div class="site-header_end">
-                        <a class="button" href="#">Login<i class="material-icons">expand_more</i></a>
-                    </div>-->
+
+                    <div class="language">
+                        {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
+                        <select class="select-text" onChange="location.href=value;">
+                            <option value="{{ request.path }}?lang=en">English</option>
+                            <option value="{{ request.path }}?lang=ja" selected>日本語</option>
+                            <option value="{{ request.path }}?lang=ko">한국어</option>
+                        </select>
+                        {% elif get_locale() == "ko" or get_locale() == "ko_KR" %}
+                        <select class="select-text" onChange="location.href=value;">
+                            <option value="{{ request.path }}?lang=en">English</option>
+                            <option value="{{ request.path }}?lang=ja">日本語</option>
+                            <option value="{{ request.path }}?lang=ko" selected>한국어</option>
+                        </select>
+                        {% else %}
+                        <select class="select-text" onChange="location.href=value;">
+                            <option value="{{ request.path }}?lang=en" selected>English</option>
+                            <option value="{{ request.path }}?lang=ja">日本語</option>
+                            <option value="{{ request.path }}?lang=ko">한국어</option>
+                        </select>
+                        {% endif %}
+                        <span class="select-highlight"></span>
+                        <span class="select-bar"></span>
+                        <label class="select-label">
+                            <i class="material-symbols-outlined">
+			      language
+			    </i>
+                        </label>
+                    </div>
+
                 </div>
             </div>
         </div>
