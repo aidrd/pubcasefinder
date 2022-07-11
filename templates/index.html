@@ -271,38 +271,44 @@
                     <div class="modal_img">
                         <img src="/static/images/pcf/top/system_01.png">
                         {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
-                          <h2>疾患を探す</h2>
+                        <h2>疾患を探す</h2>
                         {% elif get_locale() == "ko" or get_locale() == "ko_KR" %}
-                          <h2>질환 찾기</h2>
+                        <h2>질환 찾기</h2>
                         {% else %}
-                          <h2>Finding Diseases</h2>
+                        <h2>Finding Diseases</h2>
                         {% endif %}
                         <div class="link_area">
                             <div>
-                                <div class="modal_link"><a data-target="modal9" class="modal_switch btn_prev"><span class="material-icons">arrow_back</span></a></div>
-                                <div class="modal_link"><a data-target="modal2" class="modal_switch btn_next"><span class="material-icons">arrow_forward</span></a></div>
+                                <div class="modal_link"><a data-target="modal9" class="modal_switch btn_prev"><span
+                                            class="material-icons">arrow_back</span></a></div>
+                                <div class="modal_link"><a data-target="modal2" class="modal_switch btn_next"><span
+                                            class="material-icons">arrow_forward</span></a></div>
                             </div>
                         </div>
                         {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
-                          <p>入力した症状と関連性の高い順に疾患をランキング形式で提示します。</p>
+                        <p>入力した症状と関連性の高い順に疾患をランキング形式で提示します。</p>
                         {% elif get_locale() == "ko" or get_locale() == "ko_KR" %}
-                          <p>입력한 증상과 연관성이 높은 순서대로 질환을 랭킹한 결과를 제시합니다.</p>
+                        <p>입력한 증상과 연관성이 높은 순서대로 질환을 랭킹한 결과를 제시합니다.</p>
                         {% else %}
-                          <p>Ranked lists of rare and genetic diseases are produced for medical professionals.</p>
+                        <p>Ranked lists of rare and genetic diseases are produced for medical professionals.</p>
                         {% endif %}
                     </div>
                     <div class="modal_list">
                         <h3>TIPS</h3>
                         <img src="/static/images/pcf/top/activity01.png">
                         {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
-                          <p>診療録から自動的に症状を抽出し、それらを入力とした疾患ランキング結果を得ることができます。</p>
-                          <button onClick="javascript:window.open('https://pubcasefinder.dbcls.jp/ehr', '_blank');">Input Free-Text</button>
+                        <p>診療録から自動的に症状を抽出し、それらを入力とした疾患ランキング結果を得ることができます。</p>
+                        <button onClick="javascript:window.open('https://pubcasefinder.dbcls.jp/ehr', '_blank');">Input
+                            Free-Text</button>
                         {% elif get_locale() == "ko" or get_locale() == "ko_KR" %}
-                          <p>진료록에서 자동으로 증상을 추출하고 이들을 입력으로 한 질환 랭킹 결과를 얻을 수 있습니다.</p>
-                          <button onClick="javascript:window.open('https://doc2hpo.wglab.org/', '_blank');">Input Free-Text</button>
+                        <p>진료록에서 자동으로 증상을 추출하고 이들을 입력으로 한 질환 랭킹 결과를 얻을 수 있습니다.</p>
+                        <button onClick="javascript:window.open('https://doc2hpo.wglab.org/', '_blank');">Input
+                            Free-Text</button>
                         {% else %}
-                          <p>You can automatically extract signs and symptoms from medical records by doc2hpo and obtain a ranked list of diseases based on these inputs.</p>
-                          <button onClick="javascript:window.open('https://doc2hpo.wglab.org/', '_blank');">Input Free-Text</button>
+                        <p>You can automatically extract signs and symptoms from medical records by doc2hpo and obtain a
+                            ranked list of diseases based on these inputs.</p>
+                        <button onClick="javascript:window.open('https://doc2hpo.wglab.org/', '_blank');">Input
+                            Free-Text</button>
                         {% endif %}
                     </div>
                     <p><a class="modal_close">
@@ -316,37 +322,43 @@
                     <div class="modal_img">
                         <img src="/static/images/pcf/top/system_02.png">
                         {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
-                          <h2>症例を共有</h2>
+                        <h2>症例を共有</h2>
                         {% elif get_locale() == "ko" or get_locale() == "ko_KR" %}
-                          <h2>증례 공유</h2>
+                        <h2>증례 공유</h2>
                         {% else %}
-                          <h2>Sharing Cases</h2>
+                        <h2>Sharing Cases</h2>
                         {% endif %}
                         <div class="link_area">
                             <div>
-                                <div class="modal_link"><a data-target="modal1" class="modal_switch btn_prev"><span class="material-icons">arrow_back</span></a></div>
-                                <div class="modal_link"><a data-target="modal3" class="modal_switch btn_next"><span class="material-icons">arrow_forward</span></a></div>
+                                <div class="modal_link"><a data-target="modal1" class="modal_switch btn_prev"><span
+                                            class="material-icons">arrow_back</span></a></div>
+                                <div class="modal_link"><a data-target="modal3" class="modal_switch btn_next"><span
+                                            class="material-icons">arrow_forward</span></a></div>
                             </div>
                         </div>
                         {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
-                          <p>症状情報の共有に最適なPhenopackets形式に対応します。</p>
+                        <p>症状情報の共有に最適なPhenopackets形式に対応します。</p>
                         {% elif get_locale() == "ko" or get_locale() == "ko_KR" %}
-                          <p>증상 정보 공유에 최적인 Phenopackets 형식을 지원합니다.</p>
+                        <p>증상 정보 공유에 최적인 Phenopackets 형식을 지원합니다.</p>
                         {% else %}
-                          <p>PubCaseFinder will support the Phenopackets format, which is ideal for sharing phenotypic data.</p>
+                        <p>PubCaseFinder will support the Phenopackets format, which is ideal for sharing phenotypic
+                            data.</p>
                         {% endif %}
                     </div>
                     <div class="modal_list">
                         <h3>TIPS</h3>
                         <img src="/static/images/pcf/top/activity02.png">
                         {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
-                          <p>診療録から自動抽出した症状をPhenopackets形式で保存できます。今後、より広範な情報をPhenopackets形式で保存できる機能を提供する予定です。</p>
+                        <p>診療録から自動抽出した症状をPhenopackets形式で保存できます。今後、より広範な情報をPhenopackets形式で保存できる機能を提供する予定です。</p>
                         {% elif get_locale() == "ko" or get_locale() == "ko_KR" %}
-                          <p>진료록에서 자동 추출한 증상을 Phenopackets 형식으로 저장할 수 있습니다. 향후 보다 광범위한 정보를 Phenopackets 형식으로 저장할 수 있는 기능을 제공할 예정입니다.</p>
+                        <p>진료록에서 자동 추출한 증상을 Phenopackets 형식으로 저장할 수 있습니다. 향후 보다 광범위한 정보를 Phenopackets 형식으로 저장할 수 있는 기능을
+                            제공할 예정입니다.</p>
                         {% else %}
-                          <p>In the future, we plan to provide the capability to save more individual's medically relevant data in Phenopackets format.</p>
+                        <p>In the future, we plan to provide the capability to save more individual's medically relevant
+                            data in Phenopackets format.</p>
                         {% endif %}
-                        <button onClick="javascript:window.open('http://phenopackets.org/', '_blank');">What is Phenopackets</button>
+                        <button onClick="javascript:window.open('http://phenopackets.org/', '_blank');">What is
+                            Phenopackets</button>
                     </div>
                     <p><a class="modal_close">
                             <div class="batsu">×</div>
@@ -359,37 +371,44 @@
                     <div class="modal_img">
                         <img src="/static/images/pcf/top/system_03.png">
                         {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
-                          <h2>API提供</h2>
+                        <h2>API提供</h2>
                         {% elif get_locale() == "ko" or get_locale() == "ko_KR" %}
-                        	<h2>API 제공</h2>
+                        <h2>API 제공</h2>
                         {% else %}
-                          <h2>PubCaseFinder API</h2>
+                        <h2>PubCaseFinder API</h2>
                         {% endif %}
                         <div class="link_area">
                             <div>
-                                <div class="modal_link"><a data-target="modal2" class="modal_switch btn_prev"><span class="material-icons">arrow_back</span></a></div>
-                                <div class="modal_link"><a data-target="modal4" class="modal_switch btn_next"><span class="material-icons">arrow_forward</span></a></div>
+                                <div class="modal_link"><a data-target="modal2" class="modal_switch btn_prev"><span
+                                            class="material-icons">arrow_back</span></a></div>
+                                <div class="modal_link"><a data-target="modal4" class="modal_switch btn_next"><span
+                                            class="material-icons">arrow_forward</span></a></div>
                             </div>
                         </div>
                         {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
-                          <p>PubCaseFinderが提供する機能の多くをAPIとして公開しています。
-                        {% elif get_locale() == "ko" or get_locale() == "ko_KR" %}
-                          <p>PubCaseFinder가 제공하는 기능의 대부분을 API로서 공개하고 있습니다.</p>
+                        <p>PubCaseFinderが提供する機能の多くをAPIとして公開しています。
+                            {% elif get_locale() == "ko" or get_locale() == "ko_KR" %}
+                        <p>PubCaseFinder가 제공하는 기능의 대부분을 API로서 공개하고 있습니다.</p>
                         {% else %}
-                          <p>We provide APIs to query PubCaseFinder.</p>
+                        <p>We provide APIs to query PubCaseFinder.</p>
                         {% endif %}
                     </div>
                     <div class="modal_list">
                         <h3>TIPS</h3>
                         <img src="/static/images/pcf/top/activity03.png">
                         {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
-                          <p>疾患や遺伝子のランキング結果をJSON/TSV形式で取得できます。本APIはGA4GHの<a target="_blank" href="https://www.matchmakerexchange.org/">Matchmaker Exchange</a>プロジェクトでも活用されています。</p>
+                        <p>疾患や遺伝子のランキング結果をJSON/TSV形式で取得できます。本APIはGA4GHの<a target="_blank"
+                                href="https://www.matchmakerexchange.org/">Matchmaker Exchange</a>プロジェクトでも活用されています。</p>
                         {% elif get_locale() == "ko" or get_locale() == "ko_KR" %}
-                          <p>질환 및 유전자 순위 결과를 JSON/TSV 형식으로 취득할 수 있습니다. 본 API는 GA4GH의 Matchmaker Exchange 프로젝트에서도 활용되고 있습니다.</p>
+                        <p>질환 및 유전자 순위 결과를 JSON/TSV 형식으로 취득할 수 있습니다. 본 API는 GA4GH의 Matchmaker Exchange 프로젝트에서도 활용되고
+                            있습니다.</p>
                         {% else %}
-                          <p>The PubCaseFinder API has been adopted by several patient repositories in the <a target="_blank" href="https://www.matchmakerexchange.org/">Matchmaker Exchange</a>project.</p>
+                        <p>The PubCaseFinder API has been adopted by several patient repositories in the <a
+                                target="_blank" href="https://www.matchmakerexchange.org/">Matchmaker
+                                Exchange</a>project.</p>
                         {% endif %}
-                        <button onClick="javascript:window.open('https://pubcasefinder.dbcls.jp/api', '_blank');">View the PubCaseFinder API</button>
+                        <button onClick="javascript:window.open('https://pubcasefinder.dbcls.jp/api', '_blank');">View
+                            the PubCaseFinder API</button>
                     </div>
                     <p><a class="modal_close">
                             <div class="batsu">×</div>
@@ -402,39 +421,47 @@
                     <div class="modal_img">
                         <img src="/static/images/pcf/top/system_04.png">
                         {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
-                          <h2>教育現場で活用</h2>
+                        <h2>教育現場で活用</h2>
                         {% elif get_locale() == "ko" or get_locale() == "ko_KR" %}
-                          <h2>교육 현장에서 활용</h2>
+                        <h2>교육 현장에서 활용</h2>
                         {% else %}
-                          <h2>Use in Education</h2>
+                        <h2>Use in Education</h2>
                         {% endif %}
                         <div class="link_area">
                             <div>
-                                <div class="modal_link"><a data-target="modal3" class="modal_switch btn_prev"><span class="material-icons">arrow_back</span></a>
+                                <div class="modal_link"><a data-target="modal3" class="modal_switch btn_prev"><span
+                                            class="material-icons">arrow_back</span></a>
                                 </div>
-                                <div class="modal_link"><a data-target="modal5" class="modal_switch btn_next"><span class="material-icons">arrow_forward</span></a>
+                                <div class="modal_link"><a data-target="modal5" class="modal_switch btn_next"><span
+                                            class="material-icons">arrow_forward</span></a>
                                 </div>
                             </div>
                         </div>
                         {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
-                          <p>臨床遺伝学等の教育用ツールとして活用可能です。</p>
+                        <p>臨床遺伝学等の教育用ツールとして活用可能です。</p>
                         {% elif get_locale() == "ko" or get_locale() == "ko_KR" %}
-                          <p>임상 유전학 등의 교육용 도구로 활용 가능합니다.</p>
+                        <p>임상 유전학 등의 교육용 도구로 활용 가능합니다.</p>
                         {% else %}
-                          <p>PubCaseFinder can be used as an educational tool for clinical genetics.</p>
+                        <p>PubCaseFinder can be used as an educational tool for clinical genetics.</p>
                         {% endif %}
                     </div>
                     <div class="modal_list">
                         <h3>TIPS</h3>
-                        <iframe class="education_movie" width="330" height="158" src="" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        <iframe class="education_movie" width="330" height="158" src="" title="YouTube video player"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen></iframe>
                         {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
-                          <p>欧州最大規模の医療施設エラスムス大学医療センターの授業で取り上げられています。PubCaseFinderを用いた演習問題も設定されています。</p>
+                        <p>欧州最大規模の医療施設エラスムス大学医療センターの授業で取り上げられています。PubCaseFinderを用いた演習問題も設定されています。</p>
                         {% elif get_locale() == "ko" or get_locale() == "ko_KR" %}
-                          <p>유럽 최대 규모의 의료 시설 Erasmus 대학 의료 센터 수업에서 거론되고 있습니다. PubCaseFinder를 이용한 연습 문제도 설정되어 있습니다.</p>
+                        <p>유럽 최대 규모의 의료 시설 Erasmus 대학 의료 센터 수업에서 거론되고 있습니다. PubCaseFinder를 이용한 연습 문제도 설정되어 있습니다.</p>
                         {% else %}
-                          <p>In a class at Erasmus Medical Center, one of the largest medical facilities in Europe, PubCaseFinder has been introduced and used for exercises.</p>
+                        <p>In a class at Erasmus Medical Center, one of the largest medical facilities in Europe,
+                            PubCaseFinder has been introduced and used for exercises.</p>
                         {% endif %}
-                        <button onClick="javascript:window.open('https://cis.erasmusmc.nl/reports/438c09d4-cc52-4c5b-ae3b-6555ad4a77c4/html', '_blank');">View the Erasmus MC website</button>
+                        <button
+                            onClick="javascript:window.open('https://cis.erasmusmc.nl/reports/438c09d4-cc52-4c5b-ae3b-6555ad4a77c4/html', '_blank');">View
+                            the Erasmus MC website</button>
                     </div>
                     <p><a class="modal_close">
                             <div class="batsu">×</div>
@@ -447,38 +474,46 @@
                     <div class="modal_img">
                         <img src="/static/images/pcf/top/system_05.png">
                         {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
-                          <h2>症例報告を探す</h2>
+                        <h2>症例報告を探す</h2>
                         {% elif get_locale() == "ko" or get_locale() == "ko_KR" %}
-                          <h2>증례 보고 찾기</h2>
+                        <h2>증례 보고 찾기</h2>
                         {% else %}
-                          <h2>Finding Case Reports</h2>
+                        <h2>Finding Case Reports</h2>
                         {% endif %}
                         <div class="link_area">
                             <div>
-                                <div class="modal_link"><a data-target="modal4" class="modal_switch btn_prev"><span class="material-icons">arrow_back</span></a></div>
-                                <div class="modal_link"><a data-target="modal6" class="modal_switch btn_next"><span class="material-icons">arrow_forward</span></a></div>
+                                <div class="modal_link"><a data-target="modal4" class="modal_switch btn_prev"><span
+                                            class="material-icons">arrow_back</span></a></div>
+                                <div class="modal_link"><a data-target="modal6" class="modal_switch btn_next"><span
+                                            class="material-icons">arrow_forward</span></a></div>
                             </div>
                         </div>
                         {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
-                          <p>疾患ごとに日本語および英語の症例報告を検索できます。</p>
+                        <p>疾患ごとに日本語および英語の症例報告を検索できます。</p>
                         {% elif get_locale() == "ko" or get_locale() == "ko_KR" %}
-                          <p>각 질환에 대한 사례 보고서를 검색할 수 있습니다.</p>
+                        <p>각 질환에 대한 사례 보고서를 검색할 수 있습니다.</p>
                         {% else %}
-                          <p>You can search for case reports for each disease.</p>
+                        <p>You can search for case reports for each disease.</p>
                         {% endif %}
                     </div>
                     <div class="modal_list">
                         <h3>TIPS</h3>
                         <img src="/static/images/pcf/top/activity05.png">
                         {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
-                          <p>JSTが提供するJ-STAGEおよびJ-GLOBALに収載されている日本語症例報告を疾患ごとに検索できます。</p>
-                          <button onClick="javascript:window.open('https://pubcasefinder.dbcls.jp/result?target=orphanet&phenotype=HP:0000347_ja,HP:0003022_ja,HP:0009381_ja,HP:0000204_ja,HP:0000625_ja&filter=MONDO:0007318&size=10&display_format=full&lang=ja', '_blank');">View example</button>
+                        <p>JSTが提供するJ-STAGEおよびJ-GLOBALに収載されている日本語症例報告を疾患ごとに検索できます。</p>
+                        <button
+                            onClick="javascript:window.open('https://pubcasefinder.dbcls.jp/result?target=orphanet&phenotype=HP:0000347_ja,HP:0003022_ja,HP:0009381_ja,HP:0000204_ja,HP:0000625_ja&filter=MONDO:0007318&size=10&display_format=full&lang=ja', '_blank');">View
+                            example</button>
                         {% elif get_locale() == "ko" or get_locale() == "ko_KR" %}
-                          <p>PubMed에 포함된 30만 건의 발표된 사례 보고서는 각 질병에 대해 검색 가능하다.</p>
-                          <button onClick="javascript:window.open('https://pubcasefinder.dbcls.jp/result?target=orphanet&phenotype=HP:0000347,HP:0003022,HP:0009381,HP:0000204,HP:0000625&filter=MONDO:0007318&size=10&display_format=full&lang=en', '_blank');">View example</button>
+                        <p>PubMed에 포함된 30만 건의 발표된 사례 보고서는 각 질병에 대해 검색 가능하다.</p>
+                        <button
+                            onClick="javascript:window.open('https://pubcasefinder.dbcls.jp/result?target=orphanet&phenotype=HP:0000347,HP:0003022,HP:0009381,HP:0000204,HP:0000625&filter=MONDO:0007318&size=10&display_format=full&lang=en', '_blank');">View
+                            example</button>
                         {% else %}
-                          <p>300,000 published case reports included in PubMed are searchable for each disease.</p>
-                          <button onClick="javascript:window.open('https://pubcasefinder.dbcls.jp/result?target=orphanet&phenotype=HP:0000347,HP:0003022,HP:0009381,HP:0000204,HP:0000625&filter=MONDO:0007318&size=10&display_format=full&lang=en', '_blank');">View example</button>
+                        <p>300,000 published case reports included in PubMed are searchable for each disease.</p>
+                        <button
+                            onClick="javascript:window.open('https://pubcasefinder.dbcls.jp/result?target=orphanet&phenotype=HP:0000347,HP:0003022,HP:0009381,HP:0000204,HP:0000625&filter=MONDO:0007318&size=10&display_format=full&lang=en', '_blank');">View
+                            example</button>
                         {% endif %}
 
                     </div>
@@ -493,38 +528,47 @@
                     <div class="modal_img">
                         <img src="/static/images/pcf/top/system_06.png">
                         {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
-                          <h2>症例を探す</h2>
+                        <h2>症例を探す</h2>
                         {% elif get_locale() == "ko" or get_locale() == "ko_KR" %}
-                          <h2>증례 찾기</h2>
+                        <h2>증례 찾기</h2>
                         {% else %}
-                          <h2>Finding Open-Sharing Cases</h2>
+                        <h2>Finding Open-Sharing Cases</h2>
                         {% endif %}
                         <div class="link_area">
                             <div>
-                                <div class="modal_link"><a data-target="modal5" class="modal_switch btn_prev"><span class="material-icons">arrow_back</span></a></div>
-                                <div class="modal_link"><a data-target="modal7" class="modal_switch btn_next"><span class="material-icons">arrow_forward</span></a></div>
+                                <div class="modal_link"><a data-target="modal5" class="modal_switch btn_prev"><span
+                                            class="material-icons">arrow_back</span></a></div>
+                                <div class="modal_link"><a data-target="modal7" class="modal_switch btn_next"><span
+                                            class="material-icons">arrow_forward</span></a></div>
                             </div>
                         </div>
                         {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
-                          <p>インターネット上で公開されている約19,000件の症例を検索できます。</p>
+                        <p>インターネット上で公開されている約19,000件の症例を検索できます。</p>
                         {% elif get_locale() == "ko" or get_locale() == "ko_KR" %}
-                          <p>인터넷에 공개되어 있는 약 19,000건의 증례를 검색할 수 있습니다.</p>
+                        <p>인터넷에 공개되어 있는 약 19,000건의 증례를 검색할 수 있습니다.</p>
                         {% else %}
-                          <p>You can search about 19,000 open-sharing cases available on the Internet.</p>
+                        <p>You can search about 19,000 open-sharing cases available on the Internet.</p>
                         {% endif %}
                     </div>
                     <div class="modal_list">
                         <h3>TIPS</h3>
                         <img src="/static/images/pcf/top/activity06.png">
                         {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
-                          <p>入力した症状・遺伝子に関連する公開症例を検索でき、それら症例を公開するウェブサイトにアクセスできます。</p>
-                          <button onClick="javascript:window.open('https://pubcasefinder.dbcls.jp/result?target=case&phenotype=HP:0001903_ja,HP:0000952_ja,HP:0001744_ja,HP:0004444_ja&filter=GENEID:2038,GENEID:6708,GENEID:6521,GENEID:286,GENEID:6710&size=10&display_format=full&lang=ja', '_blank');">View example</button>
+                        <p>入力した症状・遺伝子に関連する公開症例を検索でき、それら症例を公開するウェブサイトにアクセスできます。</p>
+                        <button
+                            onClick="javascript:window.open('https://pubcasefinder.dbcls.jp/result?target=case&phenotype=HP:0001903_ja,HP:0000952_ja,HP:0001744_ja,HP:0004444_ja&filter=GENEID:2038,GENEID:6708,GENEID:6521,GENEID:286,GENEID:6710&size=10&display_format=full&lang=ja', '_blank');">View
+                            example</button>
                         {% elif get_locale() == "ko" or get_locale() == "ko_KR" %}
-                          <p>입력한 증상·유전자와 관련된 공개 증례를 검색할 수 있으며, 이들 증례를 공개하는 웹사이트에 접속할 수 있습니다.</p>
-                          <button onClick="javascript:window.open('https://pubcasefinder.dbcls.jp/result?target=case&phenotype=HP:0001903,HP:0000952,HP:0001744,HP:0004444&filter=GENEID:2038,GENEID:6708,GENEID:6521,GENEID:286,GENEID:6710&size=10&display_format=full&lang=en', '_blank');">View example</button>
+                        <p>입력한 증상·유전자와 관련된 공개 증례를 검색할 수 있으며, 이들 증례를 공개하는 웹사이트에 접속할 수 있습니다.</p>
+                        <button
+                            onClick="javascript:window.open('https://pubcasefinder.dbcls.jp/result?target=case&phenotype=HP:0001903,HP:0000952,HP:0001744,HP:0004444&filter=GENEID:2038,GENEID:6708,GENEID:6521,GENEID:286,GENEID:6710&size=10&display_format=full&lang=en', '_blank');">View
+                            example</button>
                         {% else %}
-                          <p>By specifying phenotypes and genes, you can search for open-sharing cases and access their websites.</p>
-                          <button onClick="javascript:window.open('https://pubcasefinder.dbcls.jp/result?target=case&phenotype=HP:0001903,HP:0000952,HP:0001744,HP:0004444&filter=GENEID:2038,GENEID:6708,GENEID:6521,GENEID:286,GENEID:6710&size=10&display_format=full&lang=en', '_blank');">View example</button>
+                        <p>By specifying phenotypes and genes, you can search for open-sharing cases and access their
+                            websites.</p>
+                        <button
+                            onClick="javascript:window.open('https://pubcasefinder.dbcls.jp/result?target=case&phenotype=HP:0001903,HP:0000952,HP:0001744,HP:0004444&filter=GENEID:2038,GENEID:6708,GENEID:6521,GENEID:286,GENEID:6710&size=10&display_format=full&lang=en', '_blank');">View
+                            example</button>
                         {% endif %}
                     </div>
                     <p><a class="modal_close">
@@ -538,37 +582,45 @@
                     <div class="modal_img">
                         <img src="/static/images/pcf/top/system_07.png">
                         {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
-                          <h2>バリアントを絞り込む</h2>
+                        <h2>バリアントを絞り込む</h2>
                         {% elif get_locale() == "ko" or get_locale() == "ko_KR" %}
-                          <h2>변이 필터링</h2>
+                        <h2>변이 필터링</h2>
                         {% else %}
-                          <h2>Filtering Variants</h2>
+                        <h2>Filtering Variants</h2>
                         {% endif %}
                         <div class="link_area">
                             <div>
-                                <div class="modal_link"><a data-target="modal6" class="modal_switch btn_prev"><span class="material-icons">arrow_back</span></a></div>
-                                <div class="modal_link"><a data-target="modal8" class="modal_switch btn_next"><span class="material-icons">arrow_forward</span></a></div>
+                                <div class="modal_link"><a data-target="modal6" class="modal_switch btn_prev"><span
+                                            class="material-icons">arrow_back</span></a></div>
+                                <div class="modal_link"><a data-target="modal8" class="modal_switch btn_next"><span
+                                            class="material-icons">arrow_forward</span></a></div>
                             </div>
                         </div>
                         {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
-                          <p>疾患原因の候補遺伝子を入力症状との関連度でランキングできます。</p>
+                        <p>疾患原因の候補遺伝子を入力症状との関連度でランキングできます。</p>
                         {% elif get_locale() == "ko" or get_locale() == "ko_KR" %}
-                          <p>입력한 증상과의 관련도로 질환 원인 후보 유전자를 랭킹 할 수 있습니다.</p>
+                        <p>입력한 증상과의 관련도로 질환 원인 후보 유전자를 랭킹 할 수 있습니다.</p>
                         {% else %}
-                          <p>You can prioritize candidate disease-causing genes according to the phenotypic similarity.</p>
+                        <p>You can prioritize candidate disease-causing genes according to the phenotypic similarity.
+                        </p>
                         {% endif %}
                     </div>
                     <div class="modal_list">
                         <h3>TIPS</h3>
                         <img src="/static/images/pcf/top/activity07.png">
                         {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
-                          <p>Filterに候補遺伝子名を入力すると，その候補遺伝子に関連する疾患・遺伝子・症例のランキングに絞り込まれます。</p>
-                          <button onClick="javascript:window.open('https://pubcasefinder.dbcls.jp/result?target=gene&phenotype=HP:0001903_ja,HP:0000952_ja,HP:0001744_ja,HP:0004444_ja&filter=GENEID:2038,GENEID:6708,GENEID:6521,GENEID:286,GENEID:6710&size=10&display_format=full&jang=ja', '_blank');">View example</button>
+                        <p>Filterに候補遺伝子名を入力すると，その候補遺伝子に関連する疾患・遺伝子・症例のランキングに絞り込まれます。</p>
+                        <button
+                            onClick="javascript:window.open('https://pubcasefinder.dbcls.jp/result?target=gene&phenotype=HP:0001903_ja,HP:0000952_ja,HP:0001744_ja,HP:0004444_ja&filter=GENEID:2038,GENEID:6708,GENEID:6521,GENEID:286,GENEID:6710&size=10&display_format=full&jang=ja', '_blank');">View
+                            example</button>
                         {% elif get_locale() == "ko" or get_locale() == "ko_KR" %}
-                          <p>Filter에 후보 유전자를 입력하면, 그 후보 유전자와 관련된 질환·유전자·증례의 랭킹으로 범위가 좁혀집니다.</p>
+                        <p>Filter에 후보 유전자를 입력하면, 그 후보 유전자와 관련된 질환·유전자·증례의 랭킹으로 범위가 좁혀집니다.</p>
                         {% else %}
-                          <p>By specifying candidate disease-causing genes in Filter, you can get ranked lists of diseases, genes, and open-sharing case related to the input.</p>
-                          <button onClick="javascript:window.open('https://pubcasefinder.dbcls.jp/result?target=gene&phenotype=HP:0001903,HP:0000952,HP:0001744,HP:0004444&filter=GENEID:2038,GENEID:6708,GENEID:6521,GENEID:286,GENEID:6710&size=10&display_format=full&lang=en', '_blank');">View example</button>
+                        <p>By specifying candidate disease-causing genes in Filter, you can get ranked lists of
+                            diseases, genes, and open-sharing case related to the input.</p>
+                        <button
+                            onClick="javascript:window.open('https://pubcasefinder.dbcls.jp/result?target=gene&phenotype=HP:0001903,HP:0000952,HP:0001744,HP:0004444&filter=GENEID:2038,GENEID:6708,GENEID:6521,GENEID:286,GENEID:6710&size=10&display_format=full&lang=en', '_blank');">View
+                            example</button>
                         {% endif %}
                     </div>
                     <p><a class="modal_close">
@@ -1191,36 +1243,36 @@
 
     $(document).ready(function () {
 
-      $("#search_box_form").search_box_form({
-          'url_tokeninput_hpo': '/tokeninput_hpo',
-          'url_tokeninput_hpo_second': '/pcf_get_hpo_by_text',
-          'url_popup_hierarchy_hpo': '/popup_hierarchy_hpo',
-          'url_load_hpo_data': '/get_hpo_data_by_hpo_id',
+        $("#search_box_form").search_box_form({
+            'url_tokeninput_hpo': '/tokeninput_hpo',
+            'url_tokeninput_hpo_second': '/pcf_get_hpo_by_text',
+            'url_popup_hierarchy_hpo': '/popup_hierarchy_hpo',
+            'url_load_hpo_data': '/get_hpo_data_by_hpo_id',
           {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
           'lang': "ja",
-          {% else %}
-          'lang': "en",
-          {% endif %}
-          'form_para_target': "omim",
-          'form_para_filter': "",
-          'form_para_filter_vgp': "",
-          'form_para_size': "",
-          'form_para_display_format': "full",
-          'show_loading': pcf_show_loading,
-          'hide_loading': pcf_hide_loading,
-          'is_hierarchy_fullscreen': true,
-          'schema': 'schema-2021',
-          'text_input_schema': 'manual',
+        {% else %}
+        'lang': "en",
+        {% endif %}
+        'form_para_target': "omim",
+        'form_para_filter': "",
+        'form_para_filter_vgp': "",
+        'form_para_size': "",
+        'form_para_display_format': "full",
+        'show_loading': pcf_show_loading,
+        'hide_loading': pcf_hide_loading,
+        'is_hierarchy_fullscreen': true,
+        'schema': 'schema-2021',
+        'text_input_schema': 'manual',
         });
 
-      $("#ex_phenotypes").click(function () {
-          $("#search_box_form").search_box_form('add_token', { id: "{{ _('index_Sample_1_id') }}", name: "{{ _('index_Sample_1_name') }}" });
-          $("#search_box_form").search_box_form('add_token', { id: "{{ _('index_Sample_2_id') }}", name: "{{ _('index_Sample_2_name') }}" });
-          $("#search_box_form").search_box_form('add_token', { id: "{{ _('index_Sample_3_id') }}", name: "{{ _('index_Sample_3_name') }}" });
-          $("#search_box_form").search_box_form('add_token', { id: "{{ _('index_Sample_4_id') }}", name: "{{ _('index_Sample_4_name') }}" });
-          $("#search_box_form").search_box_form('add_token', { id: "{{ _('index_Sample_5_id') }}", name: "{{ _('index_Sample_5_name') }}" });
+    $("#ex_phenotypes").click(function () {
+        $("#search_box_form").search_box_form('add_token', { id: "{{ _('index_Sample_1_id') }}", name: "{{ _('index_Sample_1_name') }}" });
+        $("#search_box_form").search_box_form('add_token', { id: "{{ _('index_Sample_2_id') }}", name: "{{ _('index_Sample_2_name') }}" });
+        $("#search_box_form").search_box_form('add_token', { id: "{{ _('index_Sample_3_id') }}", name: "{{ _('index_Sample_3_name') }}" });
+        $("#search_box_form").search_box_form('add_token', { id: "{{ _('index_Sample_4_id') }}", name: "{{ _('index_Sample_4_name') }}" });
+        $("#search_box_form").search_box_form('add_token', { id: "{{ _('index_Sample_5_id') }}", name: "{{ _('index_Sample_5_name') }}" });
 
-          return false;
+        return false;
     });
 
     $('[data-toggle="tooltip"]').tooltip({ 'trigger': 'hover' });
