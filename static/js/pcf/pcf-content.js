@@ -2840,7 +2840,8 @@
 			_run_ajax(ajax_item_list[0][SETTING_KEY_URLSTR],'GET', null, 'text', true, true, function(data){
 				callback_success(data,ajax_item_list[0]);
 				// do logical ,create ranking list, and continue
-				if(_isFunction(callback)) callback(phenotype_object_list, filter_object_list, filter_vgp_object_list);
+				//if(_isFunction(callback)) callback(phenotype_object_list, filter_object_list, filter_vgp_object_list);
+				callback_after_all_call();
 				return;
 			});
 			return;
