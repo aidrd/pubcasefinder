@@ -32,6 +32,8 @@
     <meta name="msapplication-TileColor" content="#2a3356">
     <meta name="theme-color" content="#ffffff">
     <!--favicon end-->
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 </head>
 
 <body>
@@ -77,11 +79,36 @@
                             </li>
                         </ul>
                     </nav>
-                    <span class="language"><a href="{{ request.path }}?lang=en">EN</a> / <a
-                            href="{{ request.path }}?lang=ja">JA</a></span>
-                    <!--<div class="site-header_end">
-                        <a class="button" href="#">Login<i class="material-icons">expand_more</i></a>
-                    </div>-->
+
+                    <div class="language">
+                        {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
+                        <select class="select-text" onChange="location.href=value;">
+                            <option value="{{ request.path }}?lang=en">English</option>
+                            <option value="{{ request.path }}?lang=ja" selected>日本語</option>
+                            <option value="{{ request.path }}?lang=ko">한국어</option>
+                        </select>
+                        {% elif get_locale() == "ko" or get_locale() == "ko_KR" %}
+                        <select class="select-text" onChange="location.href=value;">
+                            <option value="{{ request.path }}?lang=en">English</option>
+                            <option value="{{ request.path }}?lang=ja">日本語</option>
+                            <option value="{{ request.path }}?lang=ko" selected>한국어</option>
+                        </select>
+                        {% else %}
+                        <select class="select-text" onChange="location.href=value;">
+                            <option value="{{ request.path }}?lang=en" selected>English</option>
+                            <option value="{{ request.path }}?lang=ja">日本語</option>
+                            <option value="{{ request.path }}?lang=ko">한국어</option>
+                        </select>
+                        {% endif %}
+                        <span class="select-highlight"></span>
+                        <span class="select-bar"></span>
+                        <label class="select-label">
+                            <i class="material-symbols-outlined">
+                                language
+                            </i>
+                        </label>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -136,11 +163,11 @@
                             which facilitate precise patient phenotyping. The text search function enables users to
                             select appropriate phenotypes from the list of hits in a partial match, including
                             synonyms.<br><br>
-			    {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
+                            {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
                             <img src="/static/images/pcf/guides/Beginners_Guide_1_ja.gif">
-			    {% else %}
+                            {% else %}
                             <img src="/static/images/pcf/guides/Beginners_Guide_1.gif">
-			    {% endif %}
+                            {% endif %}
                         </p>
                         <br>
                         <h3>Result</h3>
