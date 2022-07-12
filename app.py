@@ -609,7 +609,7 @@ def pcf_expand_get_nando_id_by_nando_id():
 # API: Share URL
 # GET method
 # /pcf_share?share=[SHARE]&url=[URL]
-@app.route('/pcf_share', methods=['GET'])
+@app.route('/pcf_share', methods=['GET', 'POST'])
 def api_pcf_get_share():
     return ('OK'), 200
 
