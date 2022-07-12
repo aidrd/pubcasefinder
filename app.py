@@ -577,9 +577,15 @@ def pcf_expand_get_mondo_id_by_mondo_id():
     if request.args.get('mondo_id') is not None:
         r_mondo_id = request.args.get('mondo_id')
 
-    list_mondo_id = ["MONDO:0009903","MONDO:0007943"]
-    #return jsonify(result)
-    return jsonify(list_mondo_id)
+    #url_api_pcf_expand_get_mondo_id_by_mondo_id  = "https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_expand_get_mondo_id_by_mondo_id_onepathup_onlyone"
+    url_api_pcf_expand_get_mondo_id_by_mondo_id  = "https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_expand_get_mondo_id_by_mondo_id_min200_onlyone"
+    dict_param = {"mondo_id":r_mondo_id}
+    r_post = requests.post(url_api_pcf_expand_get_mondo_id_by_mondo_id, data=dict_param)
+    json_post = r_post.json()
+    return jsonify(json_post)
+
+    #list_mondo_id = ["MONDO:0002118"]
+    #return jsonify(list_mondo_id)
 
 
 
