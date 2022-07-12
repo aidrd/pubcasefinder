@@ -28,8 +28,11 @@
 	<link
 		href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Noto+Sans+JP:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
 
+
 	<!-- <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> -->
-	<link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined" rel="stylesheet">
+	<!--  <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined" rel="stylesheet">  -->
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<!--  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />  -->
 	<!-- <link rel="stylesheet" href="/static/css/animate.css"> -->
 	<!-- <link rel="stylesheet" href="/static/css/icomoon.css"> -->
 
@@ -51,6 +54,8 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/static/images/pcf/top/favicon-16x16.png">
     <link rel="manifest" href="/static/images/pcf/top/site.webmanifest">
     <link rel="mask-icon" href="/static/images/pcf/top/safari-pinned-tab.svg" color="#2a3356">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <meta name="msapplication-TileColor" content="#2a3356">
     <meta name="theme-color" content="#ffffff">
     <!--favicon end-->
@@ -84,9 +89,35 @@
 					<a href="/" class="brand"><img src="/static/images/pcf/logo_color.svg" alt=""></a>
 				</div>
 				<div class="search-header_left">
-					<span><a id="link_en" href="/result?target={{ r_target }}&phenotype={{ r_phenotype }}&filter={{ r_filter }}&size={{ r_size }}&display_format={{ r_display_format }}&lang=en">EN</a> / <a id="link_ja" href="/result?target={{ r_target }}&phenotype={{ r_phenotype }}&filter={{ r_filter }}&size={{ r_size }}&display_format={{ r_display_format }}&lang=ja">JA</a>
+<!-- 
+					<span>
+						<a id="link_en" href="/result?target={{ r_target }}&phenotype={{ r_phenotype }}&filter={{ r_filter }}&size={{ r_size }}&display_format={{ r_display_format }}&lang=en">EN</a> / 
+						<a id="link_ja" href="/result?target={{ r_target }}&phenotype={{ r_phenotype }}&filter={{ r_filter }}&size={{ r_size }}&display_format={{ r_display_format }}&lang=ja">JA</a>
 					</span>
 					<button id="btn_menu"><span class="material-icons">menu</span></button>
+ -->
+
+					<button id="btn_menu"><span class="material-icons">menu</span></button>
+					<div class="language">
+					    {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
+					    <select class="select-text" onChange="location.href=value;">
+					        <option id="link_en" value="/result?target={{ r_target }}&phenotype={{ r_phenotype }}&filter={{ r_filter }}&size={{ r_size }}&display_format={{ r_display_format }}&lang=en">English</option>
+					        <option id="link_ja" value="/result?target={{ r_target }}&phenotype={{ r_phenotype }}&filter={{ r_filter }}&size={{ r_size }}&display_format={{ r_display_format }}&lang=ja" selected>日本語</option>
+					    </select>
+					    {% else %}
+					    <select class="select-text" onChange="location.href=value;">
+					        <option id="link_en" value="/result?target={{ r_target }}&phenotype={{ r_phenotype }}&filter={{ r_filter }}&size={{ r_size }}&display_format={{ r_display_format }}&lang=en" selected>English</option>
+					        <option id="link_ja" value="/result?target={{ r_target }}&phenotype={{ r_phenotype }}&filter={{ r_filter }}&size={{ r_size }}&display_format={{ r_display_format }}&lang=ja">日本語</option>
+					    </select>
+					    {% endif %}
+					    <span class="select-highlight"></span>
+					    <span class="select-bar"></span>
+					    <label class="select-label">
+					        <i class="material-symbols-outlined">
+					            language
+					        </i>
+					    </label>
+					</div>
 				</div>
 			</div>
 			<div class="search-box_wrapper">
@@ -829,8 +860,10 @@
 		share_link_val = url_str;
 
 		$('#link_en').attr('href',url_str_en);
+		$('#link_en').val(url_str_en);
 
 		$('#link_ja').attr('href',url_str_ja);
+		$('#link_ja').val(url_str_ja);
 
 	};
 

@@ -50,11 +50,98 @@ body {
   align-items: center;
 }
 
+/*
 .search-header .search-header_wrapper .search-header_top .search-header_left span {
   margin-right: 11px;
   display: block;
 }
+*/
+.search-header .search-header_wrapper .search-header_top .search-header_left .language {
+    margin-right: 1.5em;
+	margin-left:  1em;
+    white-space: nowrap;
+    transition: all 0.5s 0s ease;
+    text-align: none;
+    line-height: 1.42857;
+    position: relative;
+    border-radius: 2em;
+    background-color: #fafafa;
+    padding: 10px 10px 10px 40px;
+    max-width: 110px;
+}
 
+  .select-text {
+    position: relative;
+    font-family: inherit;
+    background-color: transparent;
+    border-radius: 0;
+    border: none;
+    border-radius: 2em;
+    width: 100%;
+  }
+
+  .select-text:focus {
+    outline: none;
+    border-bottom: 1px solid rgba(0,0,0, 0);
+  }
+
+  .select .select-text {
+    appearance: none;
+    -webkit-appearance:none
+  }
+
+  .select:after {
+    position: absolute;
+    top: 18px;
+    right: 10px;
+    /* Styling the down arrow */
+    width: 0;
+    height: 0;
+    padding: 0;
+    content: '';
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 6px solid rgba(0, 0, 0, 0.12);
+    pointer-events: none;
+  }
+
+  .select-label {
+    color: rgba(0,0,0, 0.26);
+    font-weight: normal;
+    position: absolute;
+    pointer-events: none;
+    left: 0;
+    top: 10px;
+    transition: 0.2s ease all;
+  }
+
+  .select-text:focus ~ .select-label, .select-text:valid ~ .select-label {
+    color: #2F80ED;
+    transition: 0.2s ease all;
+    padding-left: 12px;
+  }
+  .select-bar {
+    position: relative;
+    display: block;
+    width: 100px;
+  }
+
+
+  .select-bar:before, .select-bar:after {
+    content: '';
+    height: 2px;
+    width: 0;
+    bottom: 1px;
+    position: absolute;
+    background: #2F80ED;
+    transition: 0.2s ease all;
+  }
+
+@media (max-width: 970px){
+    .search-header .search-header_wrapper .search-header_top .search-header_left .language {
+        margin-left: 1em;
+    }
+}
 .search-header .search-header_wrapper .search-header_top .search-header_left span a{
   text-decoration: none;
 }
@@ -237,7 +324,7 @@ border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-left:  auto;
+    margin-left:  10px;
 }
 
 #btn_vgp_download {
@@ -248,7 +335,7 @@ border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-left:  10px;
+    margin-left:  auto;
 }
 
 #btn_filter_textinput {
