@@ -140,6 +140,7 @@ body {
 @media (max-width: 970px){
     .search-header .search-header_wrapper .search-header_top .search-header_left .language {
         margin-left: 1em;
+        margin-right: 0;
     }
 }
 .search-header .search-header_wrapper .search-header_top .search-header_left span a{
