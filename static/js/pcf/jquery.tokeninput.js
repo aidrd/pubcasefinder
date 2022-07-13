@@ -118,18 +118,19 @@
             var id    = item['id'].replace(/_ja$/g,'');
             var name  = item['name'];
             var theme = this.theme ? '-'+this.theme : '';
-            return  '<li class=\"token-input-li token-input-token-term'+theme+'\ d-flex flex-row '+ UISETTING_TAG_SIZE_CLASS[uisetting_tag_size] +'\">'+
-                      '<div class=\"d-flex flex-column\">'+
+            return  '<li class=\"token-input-li token-input-token-term'+theme+' '+ UISETTING_TAG_SIZE_CLASS[uisetting_tag_size] +'\">'+
+                      '<p>'+
                         '<span class=\"token-input-li token-input-token-word'+theme+' token-input-token-id'+theme+'\">' +
                         (this.enableHTML ? id : _escapeHTML(id)) + '</span>'+
                         '<span class=\"token-input-li token-input-token-word'+theme+' token-input-token-name'+theme+'\">' +
                         (this.enableHTML ? name : _escapeHTML(name)) + '</span>'+
-                      '</div>'+
+                      '</p>'+
                       '<div style=\"position:relative;\" class=\"token-input-li token-input-token-word'+theme+' token-input-token-icon'+theme+'\">'+
                         '<div class=\"material-icons token-input-li\" style=\"position:absolute;top:50%;left:50%;transform: translate(-50%, -50%);\">expand_more</div>'+
                       '</div>'+
                     '</li>';
         },
+
 		highlightTerm: function(value, term) {
 			var enableHTML = this.enableHTML;
 			var regexp_special_chars = new RegExp('[.\\\\+*?\\[\\^\\]$(){}=!<>|:\\-]', 'g');
@@ -737,14 +738,6 @@
 			let idx_end   = li_list.length - 2;
 			let idx_start = li_list.length - num -1;
 
-/*			
-			for(let idx=idx_start;idx<=idx_end;idx++){
-
-				//$(li_list[idx]).addClass($(input).data("settings").classes.highlightedToken).hide();
-				$(li_list[idx]).hide();
-				$(li_list[idx]).delay(600).fadeIn('slow');
-			}
-*/			
 			var j = idx_start;
 		
 			var inter = setInterval(function() {

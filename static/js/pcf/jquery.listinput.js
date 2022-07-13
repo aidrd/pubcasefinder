@@ -237,13 +237,12 @@
 			
 			// get the user input text from textarea
 			let usr_input_text = $text_input_textarea.get_text();
-			let text1 = usr_input_text.toUpperCase();
 			if(usr_input_text.length === 0){
 				alert('Please input first!');
 				$text_input_textarea.set_focus();
 				return false;
 			} 
-			
+			let text1 = usr_input_text.toUpperCase();	
 			
 			var settings_now = $btn_trigger.data(SETTINGS_KEY);
 			
@@ -672,19 +671,24 @@
 				i++;
 			}
 
-
-			var j = 0;
+			if(rows.length < 30){
+				var j = 0;
 		
-			var inter = setInterval(function() {
-			    if (j < rows.length) {
-			      $table.append(rows[j]);
-			      $table.find('tr:last-child').hide() //hide the row
-			      $table.find('tr:last-child').show('slow') //show the row
-			      j++;
-			    } else {
-			      clearInterval(inter)
-			    }
-			  }, 100); //milli-second gap you want to give
+				var inter = setInterval(function() {
+				    if (j < rows.length) {
+				      $table.append(rows[j]);
+				      $table.find('tr:last-child').hide() //hide the row
+				      $table.find('tr:last-child').show('slow') //show the row
+				      j++;
+				    } else {
+				      clearInterval(inter)
+				    }
+				  }, 100); //milli-second gap you want to give
+			}else{
+				for(let j=0;j < rows.length; j++){
+					$table.append(rows[j]);
+				}
+			}
 		};		
 
 		this.get_table=function(){

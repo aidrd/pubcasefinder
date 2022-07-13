@@ -2840,7 +2840,8 @@
 			_run_ajax(ajax_item_list[0][SETTING_KEY_URLSTR],'GET', null, 'text', true, true, function(data){
 				callback_success(data,ajax_item_list[0]);
 				// do logical ,create ranking list, and continue
-				if(_isFunction(callback)) callback(phenotype_object_list, filter_object_list, filter_vgp_object_list);
+				//if(_isFunction(callback)) callback(phenotype_object_list, filter_object_list, filter_vgp_object_list);
+				callback_after_all_call();
 				return;
 			});
 			return;
@@ -2957,7 +2958,7 @@
 		},
 		send_share_url: function(urlstr){
 			let share_url_str = _construct_url(URL_SHARE, {[SETTING_KEY_SHARE]: SHARE_TYPE_URL,[SETTING_KEY_URL]:encodeURIComponent(urlstr)});
-			_run_ajax(share_url_str,'GET', null, 'text', true, true, null, null);
+			_run_ajax(share_url_str,'POST', null, 'text', true, true, null, null);
 		},
 		get_selected_num: function(){
 			let target = _get_active_target();
