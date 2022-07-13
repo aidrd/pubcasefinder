@@ -2957,8 +2957,9 @@
 			_selectTab(current_target);
 		},
 		send_share_url: function(urlstr){
-			let share_url_str = _construct_url(URL_SHARE, {[SETTING_KEY_SHARE]: SHARE_TYPE_URL,[SETTING_KEY_URL]:encodeURIComponent(urlstr)});
-			_run_ajax(share_url_str,'POST', null, 'text', true, true, null, null);
+			//let share_url_str = _construct_url(URL_SHARE, {[SETTING_KEY_SHARE]: SHARE_TYPE_URL,[SETTING_KEY_URL]:encodeURIComponent(urlstr)});
+			let data={share:'url',url:encodeURIComponent(urlstr)};
+			_run_ajax(URL_SHARE,'POST', data, 'text', true, true, null, null);
 		},
 		get_selected_num: function(){
 			let target = _get_active_target();
