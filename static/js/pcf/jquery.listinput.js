@@ -16,12 +16,12 @@
 			},
 			[SCHEMA_FILTER]: {
 				[LANGUAGE_EN] : {
-					'title': 'Import NCBI GENE Ids',
-					'title2' :'Import Human NCBI GENE Ids.<br /> You can extract multiple NCBI Gene ids from any kind of textual input. NCBI Gene ids must satisfy the format GENEID:xxxxxxx to be recognized.',
+					'title': 'Import NCBI Gene IDs',
+					'title2' :'You can extract multiple NCBI Gene IDs from any kind of textual input.<br /> NCBI Gene IDs must satisfy the format <b>GENEID:xxxxxxx</b> to be recognized.',
 				},
 				[LANGUAGE_JA] : {
-					'title': 'Import NCBI GENE Ids',
-					'title2' : 'Import Human NCBI GENE Ids.<br /> You can extract multiple NCBI GENE ids from any kind of textual input. NCBI GENE ids must satisfy the format GENEID:xxxxxxx to be recognized.',
+					'title': 'Import NCBI Gene IDs',
+					'title2' : 'You can extract multiple NCBI Gene IDs from any kind of textual input.<br /> NCBI Gene IDs must satisfy the format <b>GENEID:xxxxxxx</b> to be recognized.',
 				}
 			},
 		},
