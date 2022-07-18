@@ -26,8 +26,7 @@
 	<link rel="stylesheet" href="/static/css/pcf/list-input.css">
 	<link rel="stylesheet" href="/static/css/pcf/mobile.css">
 	<link
-		href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Noto+Sans+JP:wght@100;300;400;500;700;900&display=swap"
-		rel="stylesheet">
+		href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Noto+Sans+JP:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
 
 
 	<!-- <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> -->
@@ -41,29 +40,25 @@
 	<link rel="stylesheet" href="/static/css/pcf/token-input-facebook.css">
 	<link rel="stylesheet" href="/static/css/pcf/popup-hierarchy-hpo.css">
 	<link rel="stylesheet" href="/static/css/pcf/popup-hierarchy-filter.css">
-	<!--
+<!--
 	<link rel="stylesheet" href="https://unpkg.com/tippy.js@6/animations/scale.css" />
 	<link rel="stylesheet" href="https://unpkg.com/tippy.js@6/animations/scale-extreme.css" />
 	-->
 	<link rel="icon" href="/static/images/favicon.ico">
 
 	<!-- favicon for mobile -->
-	<!--link rel="apple-touch-icon" sizes="180x180" href="/static/images/apple-touch-icon.png"-->
-	<!--favicon start-->
-	<link rel="apple-touch-icon" sizes="180x180" href="/static/images/pcf/top/apple-touch-icon.png">
-	<link rel="icon" type="image/png" sizes="32x32" href="/static/images/pcf/top/favicon-32x32.png">
-	<link rel="icon" type="image/png" sizes="16x16" href="/static/images/pcf/top/favicon-16x16.png">
-	<link rel="manifest" href="/static/images/pcf/top/site.webmanifest">
-	<link rel="mask-icon" href="/static/images/pcf/top/safari-pinned-tab.svg" color="#2a3356">
-	<link rel="stylesheet"
-		href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-	<meta name="msapplication-TileColor" content="#2a3356">
-	<meta name="theme-color" content="#ffffff">
-	<link rel="stylesheet"
-		href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-	<link rel="stylesheet"
-		href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
-	<!--favicon end-->
+    <!--link rel="apple-touch-icon" sizes="180x180" href="/static/images/apple-touch-icon.png"-->
+    <!--favicon start-->
+    <link rel="apple-touch-icon" sizes="180x180" href="/static/images/pcf/top/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/static/images/pcf/top/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/static/images/pcf/top/favicon-16x16.png">
+    <link rel="manifest" href="/static/images/pcf/top/site.webmanifest">
+    <link rel="mask-icon" href="/static/images/pcf/top/safari-pinned-tab.svg" color="#2a3356">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <meta name="msapplication-TileColor" content="#2a3356">
+    <meta name="theme-color" content="#ffffff">
+    <!--favicon end-->
 
 	<!--schema.rog-->
 	<script type="application/ld+json">
@@ -94,7 +89,7 @@
 					<a href="/" class="brand"><img src="/static/images/pcf/logo_color.svg" alt=""></a>
 				</div>
 				<div class="search-header_left">
-					<!-- 
+<!-- 
 					<span>
 						<a id="link_en" href="/result?target={{ r_target }}&phenotype={{ r_phenotype }}&filter={{ r_filter }}&size={{ r_size }}&display_format={{ r_display_format }}&lang=en">EN</a> / 
 						<a id="link_ja" href="/result?target={{ r_target }}&phenotype={{ r_phenotype }}&filter={{ r_filter }}&size={{ r_size }}&display_format={{ r_display_format }}&lang=ja">JA</a>
@@ -104,32 +99,24 @@
 
 					<button id="btn_menu"><span class="material-icons">menu</span></button>
 					<div class="language">
-						{% if get_locale() == "ja" or get_locale() == "ja_JP" %}
-						<select class="select-text" onChange="location.href=value;">
-							<option id="link_en"
-								value="/result?target={{ r_target }}&phenotype={{ r_phenotype }}&filter={{ r_filter }}&size={{ r_size }}&display_format={{ r_display_format }}&lang=en">
-								English</option>
-							<option id="link_ja"
-								value="/result?target={{ r_target }}&phenotype={{ r_phenotype }}&filter={{ r_filter }}&size={{ r_size }}&display_format={{ r_display_format }}&lang=ja"
-								selected>日本語</option>
-						</select>
-						{% else %}
-						<select class="select-text" onChange="location.href=value;">
-							<option id="link_en"
-								value="/result?target={{ r_target }}&phenotype={{ r_phenotype }}&filter={{ r_filter }}&size={{ r_size }}&display_format={{ r_display_format }}&lang=en"
-								selected>English</option>
-							<option id="link_ja"
-								value="/result?target={{ r_target }}&phenotype={{ r_phenotype }}&filter={{ r_filter }}&size={{ r_size }}&display_format={{ r_display_format }}&lang=ja">
-								日本語</option>
-						</select>
-						{% endif %}
-						<span class="select-highlight"></span>
-						<span class="select-bar"></span>
-						<label class="select-label">
-							<i class="material-symbols-outlined">
-								language
-							</i>
-						</label>
+					    {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
+					    <select class="select-text" onChange="location.href=value;">
+					        <option id="link_en" value="/result?target={{ r_target }}&phenotype={{ r_phenotype }}&filter={{ r_filter }}&size={{ r_size }}&display_format={{ r_display_format }}&lang=en">English</option>
+					        <option id="link_ja" value="/result?target={{ r_target }}&phenotype={{ r_phenotype }}&filter={{ r_filter }}&size={{ r_size }}&display_format={{ r_display_format }}&lang=ja" selected>日本語</option>
+					    </select>
+					    {% else %}
+					    <select class="select-text" onChange="location.href=value;">
+					        <option id="link_en" value="/result?target={{ r_target }}&phenotype={{ r_phenotype }}&filter={{ r_filter }}&size={{ r_size }}&display_format={{ r_display_format }}&lang=en" selected>English</option>
+					        <option id="link_ja" value="/result?target={{ r_target }}&phenotype={{ r_phenotype }}&filter={{ r_filter }}&size={{ r_size }}&display_format={{ r_display_format }}&lang=ja">日本語</option>
+					    </select>
+					    {% endif %}
+					    <span class="select-highlight"></span>
+					    <span class="select-bar"></span>
+					    <label class="select-label">
+					        <i class="material-symbols-outlined">
+					            language
+					        </i>
+					    </label>
 					</div>
 				</div>
 			</div>
@@ -137,13 +124,11 @@
 				<div id="search_box_form"></div>
 				<div class="search-button" id="div_search_button">
 					<!-- filter button -->
-					<button id="btn_search_filter" data-toggle="collapse" data-target="#search-box-filter"
-						aria-expanded="false" aria-controls="search-box-filter">
+					<button id="btn_search_filter" data-toggle="collapse" data-target="#search-box-filter" aria-expanded="false" aria-controls="search-box-filter">
 						Filter<i class="material-icons">expand_more</i>
 					</button>
 
-					<button id="btn_search_vgp" data-toggle="collapse" data-target="#search-box-vgp"
-						aria-expanded="false" aria-controls="search-box-vgp">
+					<button id="btn_search_vgp" data-toggle="collapse" data-target="#search-box-vgp" aria-expanded="false" aria-controls="search-box-vgp">
 						Virtual Gene Panel<i class="material-icons">expand_more</i>
 					</button>
 
@@ -155,16 +140,16 @@
 					<!-- share button -->
 					{% if r_lang == "ja" %}
 					<button id="btn_search_share" data-toggle="tooltip" data-placement="top" title="共有">
-						{% else %}
-						<button id="btn_search_share" data-toggle="tooltip" data-placement="top" title="Share">
-							{% endif %}
-							<span class="material-icons">share</span>
-						</button>
+					{% else %}
+					<button id="btn_search_share" data-toggle="tooltip" data-placement="top" title="Share">
+					{% endif %}
+						<span class="material-icons">share</span>
+					</button>
 
-						<!-- display button -->
-						<button id="btn_search_display">
-							Display options<i class="material-icons">expand_more</i>
-						</button>
+					<!-- display button -->
+					<button id="btn_search_display">
+						Display options<i class="material-icons">expand_more</i>
+					</button>
 				</div>
 			</div>
 
@@ -172,80 +157,64 @@
 				<div class="search-box-advanced_wrapper">
 					<div class="search-box-filter_title">
 						{% if r_lang == "ja" %}
-						<b>結果を絞り込む</b>&nbsp;&nbsp;&nbsp;<font style="color:#C7DAAA;">|</font>&nbsp;&nbsp;&nbsp;<font>
-							Examples:&nbsp;</font>
-						<a class="filter-sample"
-							href="/result?target=omim&phenotype=HP:0000347_ja,HP:0003022_ja,HP:0009381_ja,HP:0000204_ja,HP:0000625_ja&filter=MONDO:0007179&size=10&display_format=full&lang=ja">Example1</a>
-						<a class="filter-sample"
-							href="/result?target=omim&phenotype=HP:0001903_ja,HP:0000952_ja,HP:0001744_ja,HP:0004444_ja&filter=GENEID:2038,GENEID:6708,GENEID:6521,GENEID:286,GENEID:6710,AND_HP:0000006&size=10&display_format=full&lang=ja">Example2</a>
-						<a class="filter-sample"
-							href="/result?target=omim&phenotype=HP:0000347_ja,HP:0003022_ja,HP:0009381_ja,HP:0000204_ja,HP:0000625_ja&filter=HP:0000007,AND_MONDO:0019056,NOT_MONDO:0020124&size=10&display_format=full&lang=ja">Example3</a>
+						<b>結果を絞り込む</b>&nbsp;&nbsp;&nbsp;<font style="color:#C7DAAA;">|</font>&nbsp;&nbsp;&nbsp;<font>Examples:&nbsp;</font>
+						<a class="filter-sample" href="/result?target=omim&phenotype=HP:0000347_ja,HP:0003022_ja,HP:0009381_ja,HP:0000204_ja,HP:0000625_ja&filter=MONDO:0007179&size=10&display_format=full&lang=ja">Example1</a>
+						<a class="filter-sample" href="/result?target=omim&phenotype=HP:0001903_ja,HP:0000952_ja,HP:0001744_ja,HP:0004444_ja&filter=GENEID:2038,GENEID:6708,GENEID:6521,GENEID:286,GENEID:6710,AND_HP:0000006&size=10&display_format=full&lang=ja">Example2</a>
+						<a class="filter-sample" href="/result?target=omim&phenotype=HP:0000347_ja,HP:0003022_ja,HP:0009381_ja,HP:0000204_ja,HP:0000625_ja&filter=HP:0000007,AND_MONDO:0019056,NOT_MONDO:0020124&size=10&display_format=full&lang=ja">Example3</a>
 						{% else %}
-						<b>Filter to narrow your search results</b>&nbsp;&nbsp;&nbsp;<font style="color:#C7DAAA;">|
-						</font>&nbsp;&nbsp;&nbsp;<font>Examples:&nbsp;</font>
-						<a class="filter-sample"
-							href="/result?target=omim&phenotype=HP:0000347,HP:0003022,HP:0009381,HP:0000204,HP:0000625&filter=MONDO:0007179&size=10&display_format=full&lang=en">Example1</a>
-						<a class="filter-sample"
-							href="/result?target=omim&phenotype=HP:0001903,HP:0000952,HP:0001744,HP:0004444&filter=GENEID:2038,GENEID:6708,GENEID:6521,GENEID:286,GENEID:6710,AND_HP:0000006&size=10&display_format=full&lang=en">Example2</a>
-						<a class="filter-sample"
-							href="/result?target=omim&phenotype=HP:0000347,HP:0003022,HP:0009381,HP:0000204,HP:0000625&filter=HP:0000007,AND_MONDO:0019056,NOT_MONDO:0020124&size=10&display_format=full&lang=en">Example3</a>
+						<b>Filter to narrow your search results</b>&nbsp;&nbsp;&nbsp;<font style="color:#C7DAAA;">|</font>&nbsp;&nbsp;&nbsp;<font>Examples:&nbsp;</font>
+						<a class="filter-sample" href="/result?target=omim&phenotype=HP:0000347,HP:0003022,HP:0009381,HP:0000204,HP:0000625&filter=MONDO:0007179&size=10&display_format=full&lang=en">Example1</a>
+						<a class="filter-sample" href="/result?target=omim&phenotype=HP:0001903,HP:0000952,HP:0001744,HP:0004444&filter=GENEID:2038,GENEID:6708,GENEID:6521,GENEID:286,GENEID:6710,AND_HP:0000006&size=10&display_format=full&lang=en">Example2</a>
+						<a class="filter-sample" href="/result?target=omim&phenotype=HP:0000347,HP:0003022,HP:0009381,HP:0000204,HP:0000625&filter=HP:0000007,AND_MONDO:0019056,NOT_MONDO:0020124&size=10&display_format=full&lang=en">Example3</a>
 						{% endif %}
 
 						{% if r_lang == "ja" %}
 						<button id="btn_filter_textinput" data-toggle="tooltip" data-placement="top" title="遺伝子のリストを入力">
-							{% else %}
-							<button id="btn_filter_textinput" data-toggle="tooltip" data-placement="top"
-								title="Input NCBI Gene ids">
-								{% endif %}
-								<img src="/static/images/pcf/HPOID.svg"></img>
-							</button>
+						{% else %}
+						<button id="btn_filter_textinput" data-toggle="tooltip" data-placement="top" title="Input NCBI Gene ids">
+						{% endif %}
+							<img src="/static/images/pcf/HPOID.svg"></img>
+						</button>
 					</div>
 					<textarea class="form-control" rows="1" id="tokeninput_filters" name="str_filters"></textarea>
 				</div>
 			</div>
-
+			
 			<div class="search-advanced collapse" id="search-box-vgp">
 				<div class="search-box-advanced_wrapper">
 					<div class="search-box-filter_title">
 						{% if r_lang == "ja" %}
 						<b>遺伝子パネルを設定</b>
 						<span class="in-circle" data-toggle="tooltip" data-placement="top" data-html="true"
-							title="疾患名・遺伝子・パネル (PanelApp, PanelApp Australia) <br />を組み合わせ，任意の遺伝子パネルを設定できます．<br />Expandボタンで，入力した疾患をより包括的な疾患に<br />自動変換できます．">?</span>
+							  title="疾患名・遺伝子・パネル (PanelApp, PanelApp Australia) <br />を組み合わせ，任意の遺伝子パネルを設定できます．<br />Expandボタンで，入力した疾患をより包括的な疾患に<br />自動変換できます．">?</span>
 						{% else %}
 						<b>Set up a virtual gene panel</b>
 						<span class="in-circle" data-toggle="tooltip" data-placement="top" data-html="true"
-							title="You can set up any virtual gene panels by combining disease <br />names, genes, and panels (PanelApp, PanelApp Australia), <br />and use the expand button to automatically convert the input <br />diseases into more comprehensive diseases.">?</span>
+							  title="You can set up any virtual gene panels by combining disease <br />names, genes, and panels (PanelApp, PanelApp Australia), <br />and use the expand button to automatically convert the input <br />diseases into more comprehensive diseases.">?</span>
 						{% endif %}
 						&nbsp;&nbsp;&nbsp;
 						<font style="color:#C7DAAA;">|</font>
 						&nbsp;&nbsp;&nbsp;
 						<font>Examples:&nbsp;</font>
-						<a class="filter-sample"
-							href="/result?target=gene&phenotype=HP:0000347,HP:0003022,HP:0009381,HP:0000204,HP:0000625&filter=&vgp=MONDO:0044970&size=10&display_format=full&lang=en">Example1</a>
-						<a class="filter-sample"
-							href="/result?target=gene&phenotype=HP:0000347,HP:0003022,HP:0009381,HP:0000204,HP:0000625&filter=&vgp=MONDO:0044970,PA:529,PAA:181,GENEID:538,GENEID:5053&size=10&display_format=full&lang=en">Example2</a>
-						<a class="filter-sample"
-							href="/result?target=gene&phenotype=HP:0000347,HP:0003022,HP:0009381,HP:0000204,HP:0000625&filter=GENEID:10,GENEID:100,GENEID:10000,GENEID:10002,GENEID:10008,GENEID:1001,GENEID:10013,GENEID:100131801,GENEID:100134444,GENEID:100144748,GENEID:100151683,GENEID:10019,GENEID:10020,GENEID:10021,GENEID:10046,GENEID:10049,GENEID:100506658,GENEID:10056,GENEID:10058,GENEID:10059,GENEID:10060,GENEID:10075,GENEID:10082,GENEID:10083,GENEID:10084,GENEID:1009,GENEID:10102,GENEID:10111,GENEID:10117,GENEID:10126,GENEID:10128,GENEID:1013,GENEID:10133,GENEID:10134,GENEID:10142,GENEID:10149,GENEID:10157,GENEID:10159,GENEID:10161,GENEID:10165,GENEID:10166,GENEID:1019,GENEID:10194,GENEID:10195,GENEID:102,GENEID:10205,GENEID:1021,GENEID:10210,GENEID:10216,GENEID:10225,GENEID:10235,GENEID:10243,GENEID:10262,GENEID:10265,GENEID:10269,GENEID:1027,GENEID:10273,GENEID:10274,GENEID:1028,GENEID:10280,GENEID:10283,GENEID:1029,GENEID:10290,GENEID:10293,GENEID:10295,GENEID:10297,GENEID:103,GENEID:10300,GENEID:10309,GENEID:10312,GENEID:10319,GENEID:10320,GENEID:10324,GENEID:10329,GENEID:10342,GENEID:10345,GENEID:10347,GENEID:10352,GENEID:10367,GENEID:10369,GENEID:10370,GENEID:10371,GENEID:10381,GENEID:10382,GENEID:10397,GENEID:1041,GENEID:10413,GENEID:10436,GENEID:10456,GENEID:10457,GENEID:10459,GENEID:10461,GENEID:10463,GENEID:10464,GENEID:10466,GENEID:10472,GENEID:10479,GENEID:10481,GENEID:10483,GENEID:10484,GENEID:10491,GENEID:1050,GENEID:10516,GENEID:10518,GENEID:10519,GENEID:10522,GENEID:10528,GENEID:1053,GENEID:10535,GENEID:10555,GENEID:10558,GENEID:10559,GENEID:1056,GENEID:10560,GENEID:10564,GENEID:10568,GENEID:10577,GENEID:10584,GENEID:10585,GENEID:10586,GENEID:10587,GENEID:10594,GENEID:10599,GENEID:10613,GENEID:10616,GENEID:10617,GENEID:1062,GENEID:1063,GENEID:10641,GENEID:10653,GENEID:10654,GENEID:10661,GENEID:10664,GENEID:10667,GENEID:10682,GENEID:10683,GENEID:10686,GENEID:10695,GENEID:10699,GENEID:107,GENEID:1071,GENEID:10715,GENEID:10716,GENEID:10717,GENEID:1073,GENEID:10733,GENEID:10735,GENEID:10743,GENEID:10747,GENEID:10749,GENEID:1075,GENEID:10758,GENEID:10765,GENEID:10771,GENEID:10785,GENEID:1080,GENEID:10804,GENEID:10806,GENEID:10815,GENEID:10841,GENEID:10846,GENEID:10847,GENEID:10878,GENEID:10892,GENEID:10907,GENEID:10908,GENEID:10913,GENEID:10916,GENEID:10939,GENEID:10940,GENEID:10978,GENEID:10982,GENEID:10984,GENEID:10999,GENEID:11005,GENEID:11019,GENEID:11020,GENEID:1103,GENEID:11041,GENEID:11043,GENEID:1105,GENEID:1106,GENEID:11078,GENEID:11081,GENEID:1109,GENEID:11093,GENEID:111,GENEID:11107,GENEID:11113,GENEID:11128,GENEID:11133,GENEID:11136,GENEID:11141,GENEID:11146,GENEID:11149,GENEID:11151,GENEID:11152,GENEID:11154,GENEID:11155,GENEID:11160,GENEID:11181,GENEID:112,GENEID:1120,GENEID:11200,GENEID:1121,GENEID:11212,GENEID:11222,GENEID:11224,GENEID:1123,GENEID:11231,GENEID:11232,GENEID:11234,GENEID:11235,GENEID:11236,GENEID:112476,GENEID:11253,GENEID:11274,GENEID:112744,GENEID:112752,GENEID:112755,GENEID:11277,GENEID:11280,GENEID:112802,GENEID:11281,GENEID:112817,GENEID:11284,GENEID:11285,GENEID:112858,GENEID:112939,GENEID:1130,GENEID:1131,GENEID:11311,GENEID:11315,GENEID:113179,GENEID:113189,GENEID:11322,GENEID:113235,GENEID:113246,GENEID:113278,GENEID:11330,GENEID:1134,GENEID:11340,GENEID:1135,GENEID:113612,GENEID:1137,GENEID:1139,GENEID:1140,GENEID:114034,GENEID:1141,GENEID:114327,GENEID:1144,GENEID:1145,GENEID:114548,GENEID:1146,GENEID:1147,GENEID:114803,GENEID:114902,GENEID:114928,GENEID:115286,GENEID:115399,GENEID:115650,GENEID:115948,GENEID:116085,GENEID:1161,GENEID:116150,GENEID:116228,GENEID:116369,GENEID:116442,GENEID:116461,GENEID:116519,GENEID:117144,GENEID:117155,GENEID:1174,GENEID:1175,GENEID:117531,GENEID:117581,GENEID:1180,GENEID:1181,GENEID:1183,GENEID:1184,GENEID:118429,GENEID:1186,GENEID:1187,GENEID:1188,GENEID:118856,GENEID:1193,GENEID:119559,GENEID:120,GENEID:1200,GENEID:1201,GENEID:120227,GENEID:1203,GENEID:120892,GENEID:121214,GENEID:1213,GENEID:121340,GENEID:121391,GENEID:121512,GENEID:122402,GENEID:122481,GENEID:122622,GENEID:122961,GENEID:123016,GENEID:123041,GENEID:123263,GENEID:1234,GENEID:123606,GENEID:123624,GENEID:123872,GENEID:124093,GENEID:1244,GENEID:124454,GENEID:124512,GENEID:124583,GENEID:124590,GENEID:124997,GENEID:125336,GENEID:1258,GENEID:1259,GENEID:125988,GENEID:1261,GENEID:126129,GENEID:126326,GENEID:126328,GENEID:126410,GENEID:126695,GENEID:126792,GENEID:1272,GENEID:127534,GENEID:1277,GENEID:1278,GENEID:127833,GENEID:1280,GENEID:1281&vgp=MONDO:0044970,PA:529,PAA:181,GENEID:538,GENEID:5053&size=10&display_format=full&lang=en">Example3</a>
+						<a class="filter-sample" href="/result?target=gene&phenotype=HP:0000347,HP:0003022,HP:0009381,HP:0000204,HP:0000625&filter=&vgp=MONDO:0044970&size=10&display_format=full&lang=en">Example1</a>
+						<a class="filter-sample" href="/result?target=gene&phenotype=HP:0000347,HP:0003022,HP:0009381,HP:0000204,HP:0000625&filter=&vgp=MONDO:0044970,PA:529,PAA:181,GENEID:538,GENEID:5053&size=10&display_format=full&lang=en">Example2</a>
+						<a class="filter-sample" href="/result?target=gene&phenotype=HP:0000347,HP:0003022,HP:0009381,HP:0000204,HP:0000625&filter=GENEID:10,GENEID:100,GENEID:10000,GENEID:10002,GENEID:10008,GENEID:1001,GENEID:10013,GENEID:100131801,GENEID:100134444,GENEID:100144748,GENEID:100151683,GENEID:10019,GENEID:10020,GENEID:10021,GENEID:10046,GENEID:10049,GENEID:100506658,GENEID:10056,GENEID:10058,GENEID:10059,GENEID:10060,GENEID:10075,GENEID:10082,GENEID:10083,GENEID:10084,GENEID:1009,GENEID:10102,GENEID:10111,GENEID:10117,GENEID:10126,GENEID:10128,GENEID:1013,GENEID:10133,GENEID:10134,GENEID:10142,GENEID:10149,GENEID:10157,GENEID:10159,GENEID:10161,GENEID:10165,GENEID:10166,GENEID:1019,GENEID:10194,GENEID:10195,GENEID:102,GENEID:10205,GENEID:1021,GENEID:10210,GENEID:10216,GENEID:10225,GENEID:10235,GENEID:10243,GENEID:10262,GENEID:10265,GENEID:10269,GENEID:1027,GENEID:10273,GENEID:10274,GENEID:1028,GENEID:10280,GENEID:10283,GENEID:1029,GENEID:10290,GENEID:10293,GENEID:10295,GENEID:10297,GENEID:103,GENEID:10300,GENEID:10309,GENEID:10312,GENEID:10319,GENEID:10320,GENEID:10324,GENEID:10329,GENEID:10342,GENEID:10345,GENEID:10347,GENEID:10352,GENEID:10367,GENEID:10369,GENEID:10370,GENEID:10371,GENEID:10381,GENEID:10382,GENEID:10397,GENEID:1041,GENEID:10413,GENEID:10436,GENEID:10456,GENEID:10457,GENEID:10459,GENEID:10461,GENEID:10463,GENEID:10464,GENEID:10466,GENEID:10472,GENEID:10479,GENEID:10481,GENEID:10483,GENEID:10484,GENEID:10491,GENEID:1050,GENEID:10516,GENEID:10518,GENEID:10519,GENEID:10522,GENEID:10528,GENEID:1053,GENEID:10535,GENEID:10555,GENEID:10558,GENEID:10559,GENEID:1056,GENEID:10560,GENEID:10564,GENEID:10568,GENEID:10577,GENEID:10584,GENEID:10585,GENEID:10586,GENEID:10587,GENEID:10594,GENEID:10599,GENEID:10613,GENEID:10616,GENEID:10617,GENEID:1062,GENEID:1063,GENEID:10641,GENEID:10653,GENEID:10654,GENEID:10661,GENEID:10664,GENEID:10667,GENEID:10682,GENEID:10683,GENEID:10686,GENEID:10695,GENEID:10699,GENEID:107,GENEID:1071,GENEID:10715,GENEID:10716,GENEID:10717,GENEID:1073,GENEID:10733,GENEID:10735,GENEID:10743,GENEID:10747,GENEID:10749,GENEID:1075,GENEID:10758,GENEID:10765,GENEID:10771,GENEID:10785,GENEID:1080,GENEID:10804,GENEID:10806,GENEID:10815,GENEID:10841,GENEID:10846,GENEID:10847,GENEID:10878,GENEID:10892,GENEID:10907,GENEID:10908,GENEID:10913,GENEID:10916,GENEID:10939,GENEID:10940,GENEID:10978,GENEID:10982,GENEID:10984,GENEID:10999,GENEID:11005,GENEID:11019,GENEID:11020,GENEID:1103,GENEID:11041,GENEID:11043,GENEID:1105,GENEID:1106,GENEID:11078,GENEID:11081,GENEID:1109,GENEID:11093,GENEID:111,GENEID:11107,GENEID:11113,GENEID:11128,GENEID:11133,GENEID:11136,GENEID:11141,GENEID:11146,GENEID:11149,GENEID:11151,GENEID:11152,GENEID:11154,GENEID:11155,GENEID:11160,GENEID:11181,GENEID:112,GENEID:1120,GENEID:11200,GENEID:1121,GENEID:11212,GENEID:11222,GENEID:11224,GENEID:1123,GENEID:11231,GENEID:11232,GENEID:11234,GENEID:11235,GENEID:11236,GENEID:112476,GENEID:11253,GENEID:11274,GENEID:112744,GENEID:112752,GENEID:112755,GENEID:11277,GENEID:11280,GENEID:112802,GENEID:11281,GENEID:112817,GENEID:11284,GENEID:11285,GENEID:112858,GENEID:112939,GENEID:1130,GENEID:1131,GENEID:11311,GENEID:11315,GENEID:113179,GENEID:113189,GENEID:11322,GENEID:113235,GENEID:113246,GENEID:113278,GENEID:11330,GENEID:1134,GENEID:11340,GENEID:1135,GENEID:113612,GENEID:1137,GENEID:1139,GENEID:1140,GENEID:114034,GENEID:1141,GENEID:114327,GENEID:1144,GENEID:1145,GENEID:114548,GENEID:1146,GENEID:1147,GENEID:114803,GENEID:114902,GENEID:114928,GENEID:115286,GENEID:115399,GENEID:115650,GENEID:115948,GENEID:116085,GENEID:1161,GENEID:116150,GENEID:116228,GENEID:116369,GENEID:116442,GENEID:116461,GENEID:116519,GENEID:117144,GENEID:117155,GENEID:1174,GENEID:1175,GENEID:117531,GENEID:117581,GENEID:1180,GENEID:1181,GENEID:1183,GENEID:1184,GENEID:118429,GENEID:1186,GENEID:1187,GENEID:1188,GENEID:118856,GENEID:1193,GENEID:119559,GENEID:120,GENEID:1200,GENEID:1201,GENEID:120227,GENEID:1203,GENEID:120892,GENEID:121214,GENEID:1213,GENEID:121340,GENEID:121391,GENEID:121512,GENEID:122402,GENEID:122481,GENEID:122622,GENEID:122961,GENEID:123016,GENEID:123041,GENEID:123263,GENEID:1234,GENEID:123606,GENEID:123624,GENEID:123872,GENEID:124093,GENEID:1244,GENEID:124454,GENEID:124512,GENEID:124583,GENEID:124590,GENEID:124997,GENEID:125336,GENEID:1258,GENEID:1259,GENEID:125988,GENEID:1261,GENEID:126129,GENEID:126326,GENEID:126328,GENEID:126410,GENEID:126695,GENEID:126792,GENEID:1272,GENEID:127534,GENEID:1277,GENEID:1278,GENEID:127833,GENEID:1280,GENEID:1281&vgp=MONDO:0044970,PA:529,PAA:181,GENEID:538,GENEID:5053&size=10&display_format=full&lang=en">Example3</a>
 
 						{% if r_lang == "ja" %}
-						<button id="btn_vgp_download" data-toggle="tooltip" data-placement="top"
-							title="この遺伝子パネルをダウンロード">
-							{% else %}
-							<button id="btn_vgp_download" data-toggle="tooltip" data-placement="top"
-								title="Download this virtual gene panel">
-								{% endif %}
-								<span class="material-icons">save_alt</span>
-							</button>
+						<button id="btn_vgp_download" data-toggle="tooltip" data-placement="top" title="この遺伝子パネルをダウンロード">
+						{% else %}
+						<button id="btn_vgp_download" data-toggle="tooltip" data-placement="top" title="Download this virtual gene panel">
+						{% endif %}
+							 <span class="material-icons">save_alt</span>
+						</button>
 
-							{% if r_lang == "ja" %}
-							<button id="btn_vgp_textinput" data-toggle="tooltip" data-placement="top"
-								title="遺伝子のリストを入力">
-								{% else %}
-								<button id="btn_vgp_textinput" data-toggle="tooltip" data-placement="top"
-									title="Input NCBI Gene ids">
-									{% endif %}
-									<img src="/static/images/pcf/HPOID.svg"></img>
-								</button>
+						{% if r_lang == "ja" %}
+						<button id="btn_vgp_textinput" data-toggle="tooltip" data-placement="top" title="遺伝子のリストを入力">
+						{% else %}
+						<button id="btn_vgp_textinput" data-toggle="tooltip" data-placement="top" title="Input NCBI Gene ids">
+						{% endif %}
+							<img src="/static/images/pcf/HPOID.svg"></img>
+						</button>
 					</div>
 					<textarea class="form-control" rows="1" id="tokeninput_vgps" name="str_vgps"></textarea>
 					<div style="width:100%;margin-bottom:5px;">
@@ -257,316 +226,234 @@
 
 		</div>
 	</header>
-	{% if r_lang == "ja" %}
+{% if r_lang == "ja" %}
 	<input type=hidden id="r_lang" value="ja" />
-	{% else %}
+{% else %}
 	<input type=hidden id="r_lang" value="en" />
-	{% endif %}
+{% endif %}
 	<section class="content-wrapper">
 		<div class="content-panel" id="pcf-content"></div>
 		<div class='credit'></div>
 	</section>
 
-	<div id="popover_html_phenotype" style="display:none;">
-		<table>
-			<tr>
-				<th class="popup_content_class">HPO ID </th>
-				<td><a href="popup_content_hpo_url" target="_blank">popup_content_pcf-phenotype-id</td>
-			</tr>
+<div id="popover_html_phenotype" style="display:none;">
+	<table>
+		<tr><th class="popup_content_class">HPO ID	</th><td><a href="popup_content_hpo_url" target="_blank">popup_content_pcf-phenotype-id</td></tr>
 
-			{% if r_lang == "en" %}
-			<tr>
-				<th class="popup_content_class">Label</th>
-				<td>popup_content_name_en</td>
-			</tr>
-			{% else %}
-			<tr>
-				<th class="popup_content_class">Label(ja) </th>
-				<td>popup_content_name_ja</td>
-			</tr>
-			<tr>
-				<th class="popup_content_class">Label(en) </th>
-				<td>popup_content_name_en</td>
-			</tr>
-			{% endif %}
+{% if r_lang == "en" %}
+		<tr><th class="popup_content_class">Label</th><td>popup_content_name_en</td></tr>
+{% else %}
+		<tr><th class="popup_content_class">Label(ja) </th><td>popup_content_name_ja</td></tr>
+		<tr><th class="popup_content_class">Label(en) </th><td>popup_content_name_en</td></tr>
+{% endif %}
 
-			<tr>
-				<th class="popup_content_class">Definition</th>
-				<td>popup_content_definition</td>
-			</tr>
-			<tr>
-				<th class="popup_content_class">Comment </th>
-				<td>popup_content_comment</td>
-			</tr>
-			<tr>
-				<th class="popup_content_class">Synonym </th>
-				<td>popup_content_synonym</td>
-			</tr>
-		</table>
+		<tr><th class="popup_content_class">Definition</th><td>popup_content_definition</td></tr>
+		<tr><th class="popup_content_class">Comment   </th><td>popup_content_comment</td></tr>
+		<tr><th class="popup_content_class">Synonym   </th><td>popup_content_synonym</td></tr>
+	</table>
+</div>
+
+<div id="popover_html_disease" style="display:none;">
+	<table>
+		<tr><th class="popup_content_class">MONDO ID  </th><td><a href="popup_content_mondo_url" target="_blank">popup_content_pcf-disease-id</td></tr>
+{% if r_lang == "en" %}
+		<tr><th class="popup_content_class">Label     </th><td>popup_content_name_en</td></tr>
+{% else %}
+		<tr><th class="popup_content_class">Label(ja) </th><td>popup_content_name_ja</td></tr>
+		<tr><th class="popup_content_class">Label(en) </th><td>popup_content_name_en</td></tr>
+{% endif %}
+		<tr><th class="popup_content_class">Definition</th><td>popup_content_definition</td></tr>
+		<tr><th class="popup_content_class">Synonym   </th><td>popup_content_synonym</td></tr>
+		<tr><th class="popup_content_class">OMIM	  </th><td>popup_content_omim_list</td></tr>
+		<tr><th class="popup_content_class">Orphanet  </th><td>popup_content_orpha_list</td></tr>
+	</table>
+</div>
+
+<div id="popover_html_gene" style="display:none;">
+	<table>
+		<tr><th class="popup_content_class">NCBI Gene ID</th><td><a href="popup_content_ncbi_gene_url" target="_blank">popup_content_pcf-gene-id</a></td></tr>
+		<tr><th class="popup_content_class">HGNC symbol</th><td><a href="popup_content_hgnc_gene_url" target="_blank">popup_content_hgnc_gene_symbol</a></td></tr>
+		<tr><th class="popup_content_class">Synonym</th><td>popup_content_synonym</td></tr>
+		<tr><th class="popup_content_class">Full name</th><td>popup_content_full_name</td></tr>
+		<tr><th class="popup_content_class">Other full name</th><td>popup_content_other_full_name</td></tr>
+		<tr><th class="popup_content_class">Summary</th><td>popup_content_summary</td></tr>
+		<tr><th class="popup_content_class">Type of gene</th><td>popup_content_type_of_gene</td></tr>
+		<tr><th class="popup_content_class">Location</th><td>popup_content_location</td></tr>
+		<tr>
+			<th class="popup_content_class">Link</th>
+			<td>
+				<a href="http://www.hgmd.cf.ac.uk/ac/gene.php?gene=popup_content_hgnc_gene_symbol" target="_blank">HGMD</a>
+				<a href="https://www.ncbi.nlm.nih.gov/clinvar/?term=popup_content_hgnc_gene_symbol" target="_blank">ClinVar</a>
+				<a href="https://togovar.biosciencedbc.jp/?term=popup_content_hgnc_gene_symbol" target="_blank">TogoVar</a>
+				<a href="https://www.ncbi.nlm.nih.gov/CBBresearch/Lu/Demo/LitVar/#!?query=popup_content_hgnc_gene_symbol" target="_blank">LitVar</a>
+				<a href="https://www.ncbi.nlm.nih.gov/research/pubtator/?view=docsum&query=popup_content_hgnc_gene_symbol" target="_blank">PubTator</a>
+				<a href="http://www.dgidb.org/genes/popup_content_hgnc_gene_symbol#_interactions" target="_blank">DGIdb</a>
+			</td>
+		</tr>
+	</table>
+</div>
+
+<div onclick="topFunction()" id="btn_back_to_top" title="Go to top">
+  <img style="height:60px;width:60px;" src="/static/images/pcf/TOP.png"></img>
+</div>
+
+<div class="modal fade" tabindex="-1" role="dialog" id="alert_dialog">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="alertModalLabel">New message</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="message-text" class="col-form-label">Server Response:</label>
+            <textarea class="form-control" id="alert_response_text" readonly></textarea>
+          </div>
+          <div class="form-group">
+            <label for="message-text" class="col-form-label">URL:</label>
+            <textarea class="form-control" id="alert_url" readonly></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary"   id="btn_retry">Try again</button>
+        <button type="button" class="btn btn-info"      id="btn_copy_alert_url">Copy URL to clipboard</button>
+        <button type="button" class="btn btn-secondary" id="btn_alert_close" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" tabindex="-1" role="dialog" id="alert_dialog_msg">
+  <div class="modal-dialog modal-dialog-centered"  role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="alert_dialog_msg_title">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p id="alert_dialog_msg_body">Modal body text goes here.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="dropdown-menu_download" class="dropdown-menu-wrapper">
+<form class="px-1 py-2" id="download-form">
+	<label>
+		{% if r_lang == "ja" %}
+			<b>ダウンロード</b>
+		{% else %}
+			<b>Download</b>
+		{% endif %}
+	</label>
+	<table>
+		<tr>
+			<td style="vertical-align: middle;">Target:</td>
+			<td id="str_target">
+			   {% if r_target == "omim" %}
+			 Genetic Disease
+			   {% elif r_target == "orphanet" %}
+			 Rare Disease
+			   {% elif r_target == "gene" %}
+			 Gene
+			   {% elif r_target == "case" %}
+			 Case
+			   {% else %}
+			 Genetic Disease
+			   {% endif %}
+			</td>
+		</tr>
+		<tr>
+			<td style="vertical-align: middle;padding-left:0;padding-right:10px;">Selection:</td>
+			<td>
+			  <select style="width:200px;" class="form-control custom-select" id="sel_download_option">
+				 <option value="all_shown">All displayed results</option>
+				 <option value="all">All results</option>
+				 <option value="sel">Selection (n)</option>
+			  </select>
+			</td>
+		</tr>
+		<tr>
+			<td style="vertical-align: middle;padding-left:0;padding-right:10px;">Format:</td>
+			<td>
+			  <select style="width:200px;" class="form-control custom-select" id="sel_download_format">
+				 <option value="tsv">TSV</option>
+				 <option value="json">JSON</option>
+			  </select>
+			</td>
+		</tr>
+	</table>
+	<!-- <div class="btn-toolbar d-flex flex-row-reverse" style="margin-top:10px;"> -->
+	<div class="btn-toolbar" style="margin-top:10px;">
+	  <button onclick="btn_download_click(event);" class="action-button" id="btn_download" style="margin-right:0px;">Download</button>
 	</div>
+</form>
+</div>
 
-	<div id="popover_html_disease" style="display:none;">
-		<table>
-			<tr>
-				<th class="popup_content_class">MONDO ID </th>
-				<td><a href="popup_content_mondo_url" target="_blank">popup_content_pcf-disease-id</td>
-			</tr>
-			{% if r_lang == "en" %}
-			<tr>
-				<th class="popup_content_class">Label </th>
-				<td>popup_content_name_en</td>
-			</tr>
-			{% else %}
-			<tr>
-				<th class="popup_content_class">Label(ja) </th>
-				<td>popup_content_name_ja</td>
-			</tr>
-			<tr>
-				<th class="popup_content_class">Label(en) </th>
-				<td>popup_content_name_en</td>
-			</tr>
-			{% endif %}
-			<tr>
-				<th class="popup_content_class">Definition</th>
-				<td>popup_content_definition</td>
-			</tr>
-			<tr>
-				<th class="popup_content_class">Synonym </th>
-				<td>popup_content_synonym</td>
-			</tr>
-			<tr>
-				<th class="popup_content_class">OMIM </th>
-				<td>popup_content_omim_list</td>
-			</tr>
-			<tr>
-				<th class="popup_content_class">Orphanet </th>
-				<td>popup_content_orpha_list</td>
-			</tr>
-		</table>
+<div id="dropdown-menu_share" class="dropdown-menu-wrapper">
+<form class="px-2 py-2">
+<label>
+	{% if r_lang == "ja" %}
+	<b>共有リンク</b>
+	{% else %}
+	<b>Link</b>
+	{% endif %}
+</label>
+	<table>
+		<tr>
+			<td style="vertical-align: middle;">
+				<input style="width:340px;" type="text" id="share_link" value="https://pubcasefinder.dbcls.jp/result?target={{ r_target }}&phenotype={{ r_phenotype }}&filter={{ r_filter }}&size={{ r_size }}&display_format={{ r_display_format }}&lang={{ r_lang }}" readonly>
+			</td>
+  		</tr>
+	</table>
+	<div class="btn-toolbar" style="margin-top:10px;">
+		<button class="action-button" id="btn_copy_link">Copy Link</button>
+		<button class="action-button" id="btn_email_link">E-mail</button>
 	</div>
+</form>
+</div>
 
-	<div id="popover_html_gene" style="display:none;">
+
+<div id="dropdown-menu_display" class="dropdown-menu-wrapper">
+	<form class="px-3 py-2">
+		<label>
+			{% if r_lang == "ja" %}
+			<b>表示オプション</b>
+			{% else %}
+			<b>Display options</b>
+			{% endif %}
+		</label>
 		<table>
 			<tr>
-				<th class="popup_content_class">NCBI Gene ID</th>
-				<td><a href="popup_content_ncbi_gene_url" target="_blank">popup_content_pcf-gene-id</a></td>
-			</tr>
-			<tr>
-				<th class="popup_content_class">HGNC symbol</th>
-				<td><a href="popup_content_hgnc_gene_url" target="_blank">popup_content_hgnc_gene_symbol</a></td>
-			</tr>
-			<tr>
-				<th class="popup_content_class">Synonym</th>
-				<td>popup_content_synonym</td>
-			</tr>
-			<tr>
-				<th class="popup_content_class">Full name</th>
-				<td>popup_content_full_name</td>
-			</tr>
-			<tr>
-				<th class="popup_content_class">Other full name</th>
-				<td>popup_content_other_full_name</td>
-			</tr>
-			<tr>
-				<th class="popup_content_class">Summary</th>
-				<td>popup_content_summary</td>
-			</tr>
-			<tr>
-				<th class="popup_content_class">Type of gene</th>
-				<td>popup_content_type_of_gene</td>
-			</tr>
-			<tr>
-				<th class="popup_content_class">Location</th>
-				<td>popup_content_location</td>
-			</tr>
-			<tr>
-				<th class="popup_content_class">Link</th>
+				<td style="vertical-align: middle;padding-left:0;padding-right:10px;">Format:</td>
 				<td>
-					<a href="http://www.hgmd.cf.ac.uk/ac/gene.php?gene=popup_content_hgnc_gene_symbol"
-						target="_blank">HGMD</a>
-					<a href="https://www.ncbi.nlm.nih.gov/clinvar/?term=popup_content_hgnc_gene_symbol"
-						target="_blank">ClinVar</a>
-					<a href="https://togovar.biosciencedbc.jp/?term=popup_content_hgnc_gene_symbol"
-						target="_blank">TogoVar</a>
-					<a href="https://www.ncbi.nlm.nih.gov/CBBresearch/Lu/Demo/LitVar/#!?query=popup_content_hgnc_gene_symbol"
-						target="_blank">LitVar</a>
-					<a href="https://www.ncbi.nlm.nih.gov/research/pubtator/?view=docsum&query=popup_content_hgnc_gene_symbol"
-						target="_blank">PubTator</a>
-					<a href="http://www.dgidb.org/genes/popup_content_hgnc_gene_symbol#_interactions"
-						target="_blank">DGIdb</a>
+					<select style="width:150px;" class="custom-select" id="str_display_format" onchange="str_display_format_onchange(this.value);">
+						<option value="full" {% if r_display_format == "full" %} selected {% endif %}>Full</option>
+						<option value="summary" {% if r_display_format == "summary" %} selected {% endif %}>Summary</option>
+			  		</select>
 				</td>
 			</tr>
-		</table>
-	</div>
-
-	<div onclick="topFunction()" id="btn_back_to_top" title="Go to top">
-		<img style="height:60px;width:60px;" src="/static/images/pcf/TOP.png"></img>
-	</div>
-
-	<div class="modal fade" tabindex="-1" role="dialog" id="alert_dialog">
-		<div class="modal-dialog modal-dialog-centered" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h3 class="modal-title" id="alertModalLabel">New message</h3>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<div class="modal-body">
-					<form>
-						<div class="form-group">
-							<label for="message-text" class="col-form-label">Server Response:</label>
-							<textarea class="form-control" id="alert_response_text" readonly></textarea>
-						</div>
-						<div class="form-group">
-							<label for="message-text" class="col-form-label">URL:</label>
-							<textarea class="form-control" id="alert_url" readonly></textarea>
-						</div>
-					</form>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-primary" id="btn_retry">Try again</button>
-					<button type="button" class="btn btn-info" id="btn_copy_alert_url">Copy URL to clipboard</button>
-					<button type="button" class="btn btn-secondary" id="btn_alert_close"
-						data-dismiss="modal">Close</button>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<div class="modal fade" tabindex="-1" role="dialog" id="alert_dialog_msg">
-		<div class="modal-dialog modal-dialog-centered" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="alert_dialog_msg_title">Modal title</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<div class="modal-body">
-					<p id="alert_dialog_msg_body">Modal body text goes here.</p>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div id="dropdown-menu_download" class="dropdown-menu-wrapper">
-		<form class="px-1 py-2" id="download-form">
-			<label>
-				{% if r_lang == "ja" %}
-				<b>ダウンロード</b>
-				{% else %}
-				<b>Download</b>
-				{% endif %}
-			</label>
-			<table>
-				<tr>
-					<td style="vertical-align: middle;">Target:</td>
-					<td id="str_target">
-						{% if r_target == "omim" %}
-						Genetic Disease
-						{% elif r_target == "orphanet" %}
-						Rare Disease
-						{% elif r_target == "gene" %}
-						Gene
-						{% elif r_target == "case" %}
-						Case
-						{% else %}
-						Genetic Disease
-						{% endif %}
-					</td>
-				</tr>
-				<tr>
-					<td style="vertical-align: middle;padding-left:0;padding-right:10px;">Selection:</td>
-					<td>
-						<select style="width:200px;" class="form-control custom-select" id="sel_download_option">
-							<option value="all_shown">All displayed results</option>
-							<option value="all">All results</option>
-							<option value="sel">Selection (n)</option>
-						</select>
-					</td>
-				</tr>
-				<tr>
-					<td style="vertical-align: middle;padding-left:0;padding-right:10px;">Format:</td>
-					<td>
-						<select style="width:200px;" class="form-control custom-select" id="sel_download_format">
-							<option value="tsv">TSV</option>
-							<option value="json">JSON</option>
-						</select>
-					</td>
-				</tr>
-			</table>
-			<!-- <div class="btn-toolbar d-flex flex-row-reverse" style="margin-top:10px;"> -->
-			<div class="btn-toolbar" style="margin-top:10px;">
-				<button onclick="btn_download_click(event);" class="action-button" id="btn_download"
-					style="margin-right:0px;">Download</button>
-			</div>
-		</form>
-	</div>
-
-	<div id="dropdown-menu_share" class="dropdown-menu-wrapper">
-		<form class="px-2 py-2">
-			<label>
-				{% if r_lang == "ja" %}
-				<b>共有リンク</b>
-				{% else %}
-				<b>Link</b>
-				{% endif %}
-			</label>
-			<table>
-				<tr>
-					<td style="vertical-align: middle;">
-						<input style="width:340px;" type="text" id="share_link"
-							value="https://pubcasefinder.dbcls.jp/result?target={{ r_target }}&phenotype={{ r_phenotype }}&filter={{ r_filter }}&size={{ r_size }}&display_format={{ r_display_format }}&lang={{ r_lang }}"
-							readonly>
-					</td>
-				</tr>
-			</table>
-			<div class="btn-toolbar" style="margin-top:10px;">
-				<button class="action-button" id="btn_copy_link">Copy Link</button>
-				<button class="action-button" id="btn_email_link">E-mail</button>
-			</div>
-		</form>
-	</div>
-
-
-	<div id="dropdown-menu_display" class="dropdown-menu-wrapper">
-		<form class="px-3 py-2">
-			<label>
-				{% if r_lang == "ja" %}
-				<b>表示オプション</b>
-				{% else %}
-				<b>Display options</b>
-				{% endif %}
-			</label>
-			<table>
-				<tr>
-					<td style="vertical-align: middle;padding-left:0;padding-right:10px;">Format:</td>
-					<td>
-						<select style="width:150px;" class="custom-select" id="str_display_format"
-							onchange="str_display_format_onchange(this.value);">
-							<option value="full" {% if r_display_format=="full" %} selected {% endif %}>Full</option>
-							<option value="summary" {% if r_display_format=="summary" %} selected {% endif %}>Summary
-							</option>
-						</select>
-					</td>
-				</tr>
-				<tr>
-					<td style="vertical-align: middle; padding-right:10px;" nowrap>Per page:</td>
-					<td>
-						<select style="width:150px;" class="custom-select" id="str_size"
-							onchange="str_size_onchange(this.value);">
-							<option value=10 {% if r_size=="10" %} selected {% endif %}>10</option>
-							<option value=20 {% if r_size=="20" %} selected {% endif %}>20</option>
-							<option value=50 {% if r_size=="50" %} selected {% endif %}>50</option>
-							<option value=100 {% if r_size=="100" %} selected {% endif %}>100</option>
-							<option value=200 {% if r_size=="200" %} selected {% endif %}>200</option>
-						</select>
-					</td>
-				</tr>
-				<!--
+			<tr>
+				<td style="vertical-align: middle; padding-right:10px;" nowrap>Per page:</td>
+				<td>
+					<select style="width:150px;" class="custom-select" id="str_size" onchange="str_size_onchange(this.value);">
+						<option value=10  {% if r_size == "10" %} selected {% endif %}>10</option>
+						<option value=20  {% if r_size == "20" %} selected {% endif %}>20</option>
+						<option value=50  {% if r_size == "50" %} selected {% endif %}>50</option>
+						<option value=100 {% if r_size == "100" %} selected {% endif %}>100</option>
+						<option value=200 {% if r_size == "200" %} selected {% endif %}>200</option>
+					</select>
+				</td>
+			</tr>
+<!--
 			<tr>
 				<td style="vertical-align: middle; padding-right:10px;" nowrap>Header:</td>
 				<td>
@@ -577,9 +464,9 @@
 				</td>
 			</tr>
 -->
-			</table>
-		</form>
-	</div>
+		</table>
+	</form>
+</div>
 
 
 
@@ -587,10 +474,8 @@
 
 <script type="text/javascript" src="/static/js/pcf/jquery.min.js">
 
-< !--START: Common footer-- >
-		<script type="text/javascript"
-			src="https://pubcasefinder.dbcls.jp/static/common-header-and-footer/script/common-footer.js"
-			id="common-footer__script"></script>
+<!-- START: Common footer -->
+<script type="text/javascript" src="https://pubcasefinder.dbcls.jp/static/common-header-and-footer/script/common-footer.js" id="common-footer__script"></script>
 <!-- END: Common footer -->
 
 <script type="text/javascript"
@@ -634,69 +519,69 @@
 <script type="text/javascript" src="/static/js/pcf/jquery.listinput.js"></script>
 <script>
 
-			var pcf_show_loading = function(){
+	var pcf_show_loading = function(){
 		if($('#fh5co-loader').css('display') === 'none') $("#fh5co-loader").fadeIn("normal");
-			//$('.popover').popover('hide');
-			tippy.hideAll();
+		//$('.popover').popover('hide');
+		tippy.hideAll();
 	};
 
-			var pcf_hide_loading = function() {
+	var pcf_hide_loading = function() {
 		if($('#fh5co-loader').css('display') === 'none') return;
-			$("#fh5co-loader").fadeOut("slow");
+		$("#fh5co-loader").fadeOut("slow");
 	};
 
-			var pcf_show_alert_dialog = function(jqXHR, textStatus, errorThrown, url_str, retry_data_obj){
-				$('.modal-backdrop').remove();
-			let $alert_dialog = $("#alert_dialog");
-			$('#alertModalLabel').text("Error occured.");
-			if(jqXHR.statusText){
-				let msgtext = jqXHR.status + ': ' + jqXHR.statusText;
+	var pcf_show_alert_dialog = function(jqXHR, textStatus, errorThrown, url_str, retry_data_obj){
+		$('.modal-backdrop').remove();
+		let $alert_dialog = $("#alert_dialog");
+		$('#alertModalLabel').text("Error occured.");
+		if(jqXHR.statusText){
+			let msgtext = jqXHR.status + ': ' + jqXHR.statusText;
 			if(jqXHR.responseText){
 				msgtext += '\n' + jqXHR.responseText;
 			}
 			$('#alert_response_text').text(msgtext);
 		}else{
-				$('#alert_response_text').text(jqXHR.status + ': ' + jqXHR.responseText);
+			$('#alert_response_text').text(jqXHR.status + ': ' + jqXHR.responseText);
 		}
-			$('#alert_url').text(url_str);
-			$('#btn_retry').data('RETRY_DATA', retry_data_obj);
-			$("#alert_dialog").modal('show');
-			if($('header').is(":hidden")) $('header').show();
+		$('#alert_url').text(url_str);
+		$('#btn_retry').data('RETRY_DATA', retry_data_obj);
+		$("#alert_dialog").modal('show');
+		if($('header').is(":hidden")) $('header').show();
 	}
 
-			var pcf_show_alert_dialog_msg = function(title,msg){
-				let $alert_dialog = $("#alert_dialog_msg");
-			$('#alert_dialog_msg_title').text(title);
-			$('#alert_dialog_msg_body').text(msg);
-			$alert_dialog.modal('show');
-			$('header').show();
+	var pcf_show_alert_dialog_msg = function(title,msg){
+		let $alert_dialog = $("#alert_dialog_msg");
+		$('#alert_dialog_msg_title').text(title);
+		$('#alert_dialog_msg_body').text(msg);
+		$alert_dialog.modal('show');
+		$('header').show();
     }
 
-			$('#alert_dialog').scroll(function (event) {
-				event.stopPropagation();
-			return false;
+	$('#alert_dialog').scroll(function (event) {
+		event.stopPropagation();
+		return false;
 	});
 
-			$('#alert_dialog_msg').scroll(function (event) {
-				event.stopPropagation();
-			return false;
+    $('#alert_dialog_msg').scroll(function (event) {
+        event.stopPropagation();
+        return false;
     });
 
-			function btn_download_click(e) {
+	function btn_download_click(e) {
 
-				$("#pcf-content").pcf_content('download', hpo_id_list, $('#sel_download_option').val(), $('#sel_download_format').val());
+		$("#pcf-content").pcf_content('download',hpo_id_list,$('#sel_download_option').val(), $('#sel_download_format').val());
 
-			tippy.hideAll();
+		tippy.hideAll();
 
-			e.preventDefault();
-			e.stopPropagation();
-			return false;
+		e.preventDefault();
+		e.stopPropagation();
+		return false;
 	};
 
-			$('#btn_copy_link')
-			.tooltip({'title':'URL Copied to clipboard!', 'trigger':'manual', 'placement':'bottom'})
-			.on('click', function (e) {
-				$(this).tooltip('show');
+	$('#btn_copy_link')
+		.tooltip({'title':'URL Copied to clipboard!', 'trigger':'manual', 'placement':'bottom'})
+		.on('click', function (e) {
+			$(this).tooltip('show');
 			let copyTarget = document.getElementById("share_link");
 			copyTarget.select();
 			document.execCommand("Copy");
@@ -707,14 +592,14 @@
 			e.stopPropagation();
 			return false;
 		})
-			.on('mouseleave', function () {
-				$(this).tooltip('hide');
+		.on('mouseleave', function () {
+			$(this).tooltip('hide');
 		});
 
-			$('#btn_copy_alert_url')
-			.tooltip({'title':'URL Copied to clipboard!', 'trigger':'manual', 'placement':'bottom'})
-			.on('click', function (e) {
-				$(this).tooltip('show');
+	$('#btn_copy_alert_url')
+		.tooltip({'title':'URL Copied to clipboard!', 'trigger':'manual', 'placement':'bottom'})
+		.on('click', function (e) {
+			$(this).tooltip('show');
 			let copyTarget = document.getElementById("alert_url");
 			copyTarget.select();
 			document.execCommand("Copy");
@@ -722,115 +607,115 @@
 			e.stopPropagation();
 			return false;
 		})
-			.on('mouseleave', function () {
-				$(this).tooltip('hide');
+		.on('mouseleave', function () {
+			$(this).tooltip('hide');
 		});
 
-			$('#btn_retry').on('click', function (e) {
-				$('#btn_alert_close').trigger('click');
-			setTimeout(function() {
-				let retry_data_obj = $('#btn_retry').data('RETRY_DATA');
+	$('#btn_retry').on('click', function (e) {
+		$('#btn_alert_close').trigger('click');
+		setTimeout(function() {
+			let retry_data_obj = $('#btn_retry').data('RETRY_DATA');
 			$("#pcf-content").pcf_content('retry', retry_data_obj);
 		}, 100);
 	});
 
-			$('#alert_dialog').on('shown.bs.modal', function () {
-				setTimeout(function () {
-					$('#alert_response_text').trigger('focus');
-				}, 10);
+	$('#alert_dialog').on('shown.bs.modal', function () {
+		setTimeout(function() {
+        	$('#alert_response_text').trigger('focus');
+		}, 10);
 	});
 
-			$('#btn_email_link').on('click', function (e) {
-				let copyTarget = document.getElementById("share_link");
-			copyTarget.select();
-			let link_text = copyTarget.value;
+	$('#btn_email_link').on('click', function (e) {
+		let copyTarget = document.getElementById("share_link");
+		copyTarget.select();
+		let link_text = copyTarget.value;
 
-			$("#pcf-content").pcf_content('send_share_url', link_text);
+		$("#pcf-content").pcf_content('send_share_url', link_text);
 
-			let mail = 'mailto:?body=' + encodeURIComponent(link_text);
-			let a = document.createElement('a');
-			a.href = mail;
-			a.click();
+		let mail = 'mailto:?body=' + encodeURIComponent(link_text);
+		let a = document.createElement('a');
+		a.href = mail;
+		a.click();
 
-			e.preventDefault();
-			e.stopPropagation();
-			return false;
+		e.preventDefault();
+		e.stopPropagation();
+		return false;
 	});
 
 
-			function getDocHeight() {
+	function getDocHeight() {
 		var D = document;
-			return Math.max(
+		return Math.max(
 			D.body.scrollHeight, D.documentElement.scrollHeight,
 			D.body.offsetHeight, D.documentElement.offsetHeight,
 			D.body.clientHeight, D.documentElement.clientHeight
-			);
+		);
 	}
 
-			var iev=0;
-			var ieold = (/MSIE (\d+\.\d+);/.test(navigator.userAgent));
-			var trident = !!navigator.userAgent.match(/Trident\/7.0/);
-			var rv=navigator.userAgent.indexOf("rv:11.0");
+	var iev=0;
+	var ieold = (/MSIE (\d+\.\d+);/.test(navigator.userAgent));
+	var trident = !!navigator.userAgent.match(/Trident\/7.0/);
+	var rv=navigator.userAgent.indexOf("rv:11.0");
 
-			if (ieold) iev=new Number(RegExp.$1);
-			if (navigator.appVersion.indexOf("MSIE 10") != -1) iev=10;
-			if (trident&&rv!=-1) iev=11;
+	if (ieold) iev=new Number(RegExp.$1);
+	if (navigator.appVersion.indexOf("MSIE 10") != -1) iev=10;
+	if (trident&&rv!=-1) iev=11;
 
-			if(typeof InstallTrigger !== 'undefined' || iev == 11) {
-				// Firefox or IE 11
-				$(window).on('scroll', function (e) {
+	if(typeof InstallTrigger !== 'undefined' || iev == 11) {
+		// Firefox or IE 11
+		$(window).on('scroll', function(e){
 
-					if ($.magnificPopup.instance.contentContainer && $('.mfp-wrap')) {
-						let $inlineContentBase = $.magnificPopup.instance.contentContainer.find('div.popup-hierarchy-hpo-inline-content-base');
-						if ($inlineContentBase && $inlineContentBase.is(":visible")) return;
-					}
+			if($.magnificPopup.instance.contentContainer && $('.mfp-wrap')) {
+				let $inlineContentBase = $.magnificPopup.instance.contentContainer.find('div.popup-hierarchy-hpo-inline-content-base');
+				if($inlineContentBase && $inlineContentBase.is(":visible")) return;
+			}
 
-					let tid = e.target.getAttribute('id');
-					if (tid && (tid === 'alert_response_text' ||
-						tid === 'alert_url' ||
-						tid.startsWith('copy_content_'))) return;
+			let tid = e.target.getAttribute('id');
+			if(tid && ( tid === 'alert_response_text' ||
+				    tid === 'alert_url' ||
+				    tid.startsWith('copy_content_'))) return;
 
-					tippy.hideAll();
+			tippy.hideAll();
 
-					if (document.body.scrollTop > 110 || document.documentElement.scrollTop > 110) {
-						$('#btn_back_to_top').show();
-					} else {
-						$('#btn_back_to_top').hide();
-					}
-				});
+			if (document.body.scrollTop > 110 || document.documentElement.scrollTop > 110) {
+				$('#btn_back_to_top').show();
+			} else {
+				$('#btn_back_to_top').hide();
+			}
+		});
 	} else {
-				$('body').on('mousewheel', function (e) {
+		$('body').on('mousewheel', function(e){
 
-					if ($.magnificPopup.instance.contentContainer && $('.mfp-wrap')) {
-						let $inlineContentBase = $.magnificPopup.instance.contentContainer.find('div.popup-hierarchy-hpo-inline-content-base');
-						if ($inlineContentBase && $inlineContentBase.is(":visible")) return;
-					}
+			if($.magnificPopup.instance.contentContainer && $('.mfp-wrap')) {
+				let $inlineContentBase = $.magnificPopup.instance.contentContainer.find('div.popup-hierarchy-hpo-inline-content-base');
+				if($inlineContentBase && $inlineContentBase.is(":visible")) return;
+			}
 
-					let tid = e.target.getAttribute('id');
-					if (tid && (tid === 'alert_response_text' ||
-						tid === 'alert_url' ||
-						tid.startsWith('copy_content_'))) return;
+			let tid = e.target.getAttribute('id');
+                        if(tid && ( tid === 'alert_response_text' ||
+                                    tid === 'alert_url' ||
+                                    tid.startsWith('copy_content_'))) return;
 
 
 
-					tippy.hideAll();
+			tippy.hideAll();
 
-					if (document.body.scrollTop > 110 ||
-						document.documentElement.scrollTop > 110 ||
-						$('html').scrollTop() > 110 ||
-						$('body').scrollTop() > 110) {
-						$('#btn_back_to_top').show();
-					} else {
-						$('#btn_back_to_top').hide();
-					}
-				});
+			if (document.body.scrollTop > 110 ||
+			    document.documentElement.scrollTop > 110 ||
+			    $('html').scrollTop() > 110 ||
+			    $('body').scrollTop() > 110) {
+				$('#btn_back_to_top').show();
+			} else {
+				$('#btn_back_to_top').hide();
+			}
+		});
 	}
 
 
-			$(document).on('keydown', function(e) {
+	$(document).on('keydown', function(e) {
 	    // ESCAPE key pressed
 	    if (e.keyCode == 27) {
-				tippy.hideAll();
+	        tippy.hideAll();
 	    }
 	});
 
@@ -838,7 +723,7 @@
 	var lastScrollTop = 0;
 	function str_header_onchange(isAutoHide){
 		if(isAutoHide === 'true') {
-				lastScrollTop = 0;
+			lastScrollTop = 0;
 			if(typeof InstallTrigger !== 'undefined' || iev == 11) {
 				// Firefox or IE 11
 				$(window).on('scroll', window_on_scroll);
@@ -855,20 +740,20 @@
 
 	}
 
-			function window_on_scroll(e){
+	function window_on_scroll(e){
 		if($.magnificPopup.instance.contentContainer && $('.mfp-wrap')) {
-				let $inlineContentBase = $.magnificPopup.instance.contentContainer.find('div.popup-hierarchy-hpo-inline-content-base');
+			let $inlineContentBase = $.magnificPopup.instance.contentContainer.find('div.popup-hierarchy-hpo-inline-content-base');
 			if($inlineContentBase && $inlineContentBase.is(":visible")) return true;
 		}
 
-			if(e.target.getAttribute('id') === 'alert_response_text' || e.target.getAttribute('id') === 'alert_url') return;
+		if(e.target.getAttribute('id') === 'alert_response_text' || e.target.getAttribute('id') === 'alert_url') return;
 
-			st = $(this).scrollTop();
-			if(st < lastScrollTop) {
-				//console.log('Up');
-				//$('header').show();
-				//$('header').fadeIn("slow");
-				$('header').slideDown(500);
+		st = $(this).scrollTop();
+		if(st < lastScrollTop) {
+			//console.log('Up');
+			//$('header').show();
+			//$('header').fadeIn("slow");
+			$('header').slideDown(500);
 		}
 		else if(st > lastScrollTop) {
 			//console.log('Down');
@@ -878,29 +763,29 @@
 				$('header').slideUp(500);
 			}
 		}
-			lastScrollTop = st;
+		lastScrollTop = st;
 
 		if($(window).scrollTop() + $(window).height() >= getDocHeight()-50) {
-				$('header').slideDown(500);
+			$('header').slideDown(500);
 		}
 
 	}
 
-			function window_on_wheel(e){
+	function window_on_wheel(e){
 		if($.magnificPopup.instance.contentContainer && $('.mfp-wrap')) {
-				let $inlineContentBase = $.magnificPopup.instance.contentContainer.find('div.popup-hierarchy-hpo-inline-content-base');
+			let $inlineContentBase = $.magnificPopup.instance.contentContainer.find('div.popup-hierarchy-hpo-inline-content-base');
 			if($inlineContentBase && $inlineContentBase.is(":visible")) return true;
 		}
 
-			if(e.target.getAttribute('id') === 'alert_response_text' || e.target.getAttribute('id') === 'alert_url') return;
+		if(e.target.getAttribute('id') === 'alert_response_text' || e.target.getAttribute('id') === 'alert_url') return;
 
 		if(e.originalEvent.wheelDelta > 0) {
-				//console.log('Up');
-				//$('header').show();
-				//$('header').fadeIn("slow");
-				$('header').slideDown(500);
+			//console.log('Up');
+			//$('header').show();
+			//$('header').fadeIn("slow");
+			$('header').slideDown(500);
 		}
-			else if(e.originalEvent.wheelDelta < 0) {
+		else if(e.originalEvent.wheelDelta < 0) {
 			//console.log('Down');
 			//$('header').hide();
 			//$('header').fadeOut("slow");
@@ -910,37 +795,37 @@
 		}
 
 		if($(window).scrollTop() + $(window).height() >= getDocHeight()-50) {
-				$('header').slideDown(500);
+			$('header').slideDown(500);
 		}
 	}
 
-			*/
+*/
 
-			function topFunction() {
+	function topFunction() {
 		if($('header').is(":visible")===false) $('header').show();
-			document.body.scrollTop = 0;
-			document.documentElement.scrollTop = 0;
-			$('#btn_back_to_top').hide();
+		document.body.scrollTop = 0;
+		document.documentElement.scrollTop = 0;
+		$('#btn_back_to_top').hide();
 	}
 
-			var r_display_format_val = "{{ r_display_format }}";
-			function str_display_format_onchange(display_format) {
-				$("#pcf-content").pcf_content('update_display_format', display_format);
-			r_display_format_val = display_format;
-			tippy.hideAll();
-			update_download_link();
-			$('#search_box_form').search_box_form('update_display_format',display_format);
-			return false;
+	var r_display_format_val = "{{ r_display_format }}";
+	function str_display_format_onchange(display_format) {
+		$("#pcf-content").pcf_content('update_display_format', display_format);
+		r_display_format_val = display_format;
+		tippy.hideAll();
+		update_download_link();
+		$('#search_box_form').search_box_form('update_display_format',display_format);
+		return false;
 	}
 
-			var r_size_val = "{{ r_size }}";
-			function str_size_onchange(size) {
-				$("#pcf-content").pcf_content('update_size', parseInt(size));
-			r_size_val = size;
-			tippy.hideAll();
-			update_download_link();
-			$('#search_box_form').search_box_form('update_size',size);
-			return false;
+	var r_size_val = "{{ r_size }}";
+	function str_size_onchange(size) {
+		$("#pcf-content").pcf_content('update_size', parseInt(size));
+		r_size_val = size;
+		tippy.hideAll();
+		update_download_link();
+		$('#search_box_form').search_box_form('update_size',size);
+		return false;
 	}
 
 //	$("#phenotouch").click(function (e){
@@ -954,204 +839,204 @@
 
 	var share_link_val = "https://pubcasefinder.dbcls.jp/result?target={{ r_target }}&phenotype={{ r_phenotype }}&filter={{ r_filter }}&size={{ r_size }}&display_format={{ r_display_format }}&lang={{ r_lang }}";
 
-			function update_download_link() {
-				let target    = $("#pcf-content").pcf_content('get_target');
-			let phenotype = hpo_id_list;
-			let filter    = $("#tokeninput_filters").tokenInput_filter("get_url_str");
-			let filter_vgp= $("#tokeninput_vgps").tokenInput_filter("get_url_str");
-			let size      = r_size_val;
-			let format    = r_display_format_val;
-			let lang      = $("#r_lang").val();
+	function update_download_link() {
+		let target    = $("#pcf-content").pcf_content('get_target');
+		let phenotype = hpo_id_list;
+		let filter    = $("#tokeninput_filters").tokenInput_filter("get_url_str");
+		let filter_vgp= $("#tokeninput_vgps").tokenInput_filter("get_url_str");
+		let size      = r_size_val;
+		let format    = r_display_format_val;
+		let lang      = $("#r_lang").val();
 
-			let url_str = window.location.protocol + "//" + window.location.host + window.location.pathname +
-			"?target="+target+"&phenotype="+phenotype+"&filter="+filter+"&vgp="+filter_vgp+"&size="+size+"&display_format="+format+"&lang="+lang;
+		let url_str = window.location.protocol + "//" + window.location.host + window.location.pathname +
+					"?target="+target+"&phenotype="+phenotype+"&filter="+filter+"&vgp="+filter_vgp+"&size="+size+"&display_format="+format+"&lang="+lang;
 
-			let url_str_en = window.location.protocol + "//" + window.location.host + window.location.pathname +
-			"?target="+target+"&phenotype="+phenotype+"&filter="+filter+"&vgp="+filter_vgp+"&size="+size+"&display_format="+format+"&lang=en";
+		let url_str_en = window.location.protocol + "//" + window.location.host + window.location.pathname +
+					"?target="+target+"&phenotype="+phenotype+"&filter="+filter+"&vgp="+filter_vgp+"&size="+size+"&display_format="+format+"&lang=en";
 
-			let url_str_ja = window.location.protocol + "//" + window.location.host + window.location.pathname +
-			"?target="+target+"&phenotype="+phenotype+"&filter="+filter+"&vgp="+filter_vgp+"&size="+size+"&display_format="+format+"&lang=ja";
+		let url_str_ja = window.location.protocol + "//" + window.location.host + window.location.pathname +
+					"?target="+target+"&phenotype="+phenotype+"&filter="+filter+"&vgp="+filter_vgp+"&size="+size+"&display_format="+format+"&lang=ja";
 
-			share_link_val = url_str;
+		share_link_val = url_str;
 
-			$('#link_en').attr('href',url_str_en);
-			$('#link_en').val(url_str_en);
+		$('#link_en').attr('href',url_str_en);
+		$('#link_en').val(url_str_en);
 
-			$('#link_ja').attr('href',url_str_ja);
-			$('#link_ja').val(url_str_ja);
+		$('#link_ja').attr('href',url_str_ja);
+		$('#link_ja').val(url_str_ja);
 
 	};
 
-			var resizeTimer = false;
+	var resizeTimer = false;
 
-			$(window).on('resize', function(e) {
-				tippy.hideAll();
+	$(window).on('resize', function(e) {
+		tippy.hideAll();
 
-			$("#tokeninput_filters").tokenInput_filter("resize_input_box");
+		$("#tokeninput_filters").tokenInput_filter("resize_input_box");
 
-			if( !resizeTimer ) {
-				$(window).trigger('resizestart');
+		if( !resizeTimer ) {
+			$(window).trigger('resizestart');
 		}
 
-			clearTimeout(resizeTimer);
-			resizeTimer = setTimeout(function() {
-				resizeTimer = false;
+		clearTimeout(resizeTimer);
+		resizeTimer = setTimeout(function() {
+			resizeTimer = false;
 			$(window).trigger('resizeend');
 		}, 250);
 	}).on('resizestart', function(){
-				//console.log('Started resizing the window');
-			}).on('resizeend', function(){
-				//console.log('Done resizing the window');
-				customizeLevelPos();
+	//console.log('Started resizing the window');
+	}).on('resizeend', function(){
+	//console.log('Done resizing the window');
+		customizeLevelPos();
 	});
 
-			function modify_modal_on_show(isFullScreen){
+    function modify_modal_on_show(isFullScreen){
         if(isFullScreen){
-				$('.mfp-bg').css({ 'top': '0', 'opacity': '0.8' });
-			$('.mfp-wrap').css({'top':'0'});
-			$('header').css({'top': '24px'});
-			$('.mfp-container').css({'max-height':'','overflow-x':'','overflow-y':''});
+            $('.mfp-bg').css({'top':'0','opacity':'0.8'});
+            $('.mfp-wrap').css({'top':'0'});
+            $('header').css({'top': '24px'});
+            $('.mfp-container').css({'max-height':'','overflow-x':'','overflow-y':''});
         }else{
-				$('header').css({ 'top': '0' });
-			var pos = Math.ceil($('#search_box_form').offset().top + $('#search_box_form').height());
-			$('.mfp-bg').css({'top': pos+'px','opacity':'0'});
-			$('.mfp-wrap').css({'top': pos+'px'});
+            $('header').css({'top': '0'});
+            var pos = Math.ceil($('#search_box_form').offset().top + $('#search_box_form').height());
+            $('.mfp-bg').css({'top': pos+'px','opacity':'0'});
+            $('.mfp-wrap').css({'top': pos+'px'});
 
-			//popup-hierarchy-hpo-inline-content-base
-			let max_height= Math.floor(document.documentElement.clientHeight) - Math.ceil(pos);
-			$('.mfp-container').css({'max-height':max_height+'px','overflow-x':'hidden','overflow-y':'scroll'});
+            //popup-hierarchy-hpo-inline-content-base
+            let max_height= Math.floor(document.documentElement.clientHeight) - Math.ceil(pos);
+            $('.mfp-container').css({'max-height':max_height+'px','overflow-x':'hidden','overflow-y':'scroll'});
 		}
 	}
-			function after_init_gui(){
-				$("#tokeninput_filters").tokenInput_filter('hide_clear_button');
-			$("#tokeninput_vgps").tokenInput_filter('hide_clear_button');
+	function after_init_gui(){
+		$("#tokeninput_filters").tokenInput_filter('hide_clear_button');
+		$("#tokeninput_vgps").tokenInput_filter('hide_clear_button');
 	}
 
-			function after_modal_close(){
-				$('header').css({ 'top': '24px' });
-			$("#tokeninput_filters").tokenInput_filter('show_clear_button');
-			$("#tokeninput_vgps").tokenInput_filter('show_clear_button');
+	function after_modal_close(){
+		$('header').css({'top': '24px'});
+		$("#tokeninput_filters").tokenInput_filter('show_clear_button');
+		$("#tokeninput_vgps").tokenInput_filter('show_clear_button');
 	}
 
-			function customizeLevelPos(){
+	function customizeLevelPos(){
 		if($.magnificPopup.instance.contentContainer && $('.mfp-wrap')){
-				let $inlineContentBase = $.magnificPopup.instance.contentContainer.find('div.popup-hierarchy-hpo-inline-content-base');
+			let $inlineContentBase = $.magnificPopup.instance.contentContainer.find('div.popup-hierarchy-hpo-inline-content-base');
 			if($inlineContentBase){
 				let $table = $inlineContentBase.find('div.popup-hierarchy-hpo-table.popup-hierarchy-hpo-class-content-base');
-			let popup_hierarchy_hpo_table_border_spacing = 10;
-			let $popup_wrapper = $('.mfp-wrap');
-			if($popup_wrapper && $popup_wrapper.offset()){
+				let popup_hierarchy_hpo_table_border_spacing = 10;
+				let $popup_wrapper = $('.mfp-wrap');
+				if($popup_wrapper && $popup_wrapper.offset()){
 					if($popup_wrapper.offset().top == 0){
-				//$table.css({'border-spacing': popup_hierarchy_hpo_table_border_spacing+'px','width':'100%','margin-top':'0','margin-left':'0'});
-			}else{
-				$('header').css({ 'top': 0 });
+						//$table.css({'border-spacing': popup_hierarchy_hpo_table_border_spacing+'px','width':'100%','margin-top':'0','margin-left':'0'});
+					}else{
+						$('header').css({'top': 0});
 
-			$div_search_button = $("#div_search_button");
+						$div_search_button = $("#div_search_button");
 
-			var pos = Math.ceil($div_search_button.offset().top);
+						var pos = Math.ceil($div_search_button.offset().top);
 
-			//var left = $div_search_button.offset().left-popup_hierarchy_hpo_table_border_spacing;
-			//var width = $div_search_button.width() + (popup_hierarchy_hpo_table_border_spacing * 2);
-			$('.mfp-bg').css({'top': pos+'px','opacity':'0'});
-			$('.mfp-wrap').css({'top': pos+'px'});
+						//var left = $div_search_button.offset().left-popup_hierarchy_hpo_table_border_spacing;
+						//var width = $div_search_button.width() + (popup_hierarchy_hpo_table_border_spacing * 2);
+						$('.mfp-bg').css({'top': pos+'px','opacity':'0'});
+						$('.mfp-wrap').css({'top': pos+'px'});
 
-			let max_height= Math.floor(document.documentElement.clientHeight) - pos;
-			$('.mfp-container').css({'max-height':max_height+'px','overflow-x':'hidden','overflow-y':'scroll'});
+			                        let max_height= Math.floor(document.documentElement.clientHeight) - pos;
+                        			$('.mfp-container').css({'max-height':max_height+'px','overflow-x':'hidden','overflow-y':'scroll'});
 
 						//$table.css({'width':'100%','margin-left':'0'});
 					}
 			   }
 			}
 		}else{
-				$('header').css({ 'top': '24px' });
+			$('header').css({'top': '24px'});
 		}
 	}
 
-			function set_filter_num(){
+	function set_filter_num(){
 
-				let filter_str = $("#tokeninput_filters").tokenInput_filter("get_url_str");
+		let filter_str = $("#tokeninput_filters").tokenInput_filter("get_url_str");
 
-			let count = filter_str.split(',').length;
+		let count = filter_str.split(',').length;
 		if(filter_str && count > 0){
-				$('#btn_search_filter').html("Filter(" + count + ")<i class=\"material-icons\">expand_more</i>");
+		    $('#btn_search_filter').html("Filter("+count+")<i class=\"material-icons\">expand_more</i>");
 		}else{
-				$('#btn_search_filter').html("Filter<i class=\"material-icons\">expand_more</i>");
+		    $('#btn_search_filter').html("Filter<i class=\"material-icons\">expand_more</i>");
 		}
 	};
 
-			function set_filter_vgp_num(){
+    function set_filter_vgp_num(){
 
-				let filter_str = $("#tokeninput_vgps").tokenInput_filter("get_url_str");
-			let count = filter_str.split(',').length;
+        let filter_str = $("#tokeninput_vgps").tokenInput_filter("get_url_str");
+        let count = filter_str.split(',').length;
         if(filter_str && count > 0){
-				$('#btn_search_vgp').html("Virtual Gene Panel(" + count + ")<i class=\"material-icons\">expand_more</i>");
+            $('#btn_search_vgp').html("Virtual Gene Panel("+count+")<i class=\"material-icons\">expand_more</i>");
         }else{
-				$('#btn_search_vgp').html("Virtual Gene Panel<i class=\"material-icons\">expand_more</i>");
+            $('#btn_search_vgp').html("Virtual Gene Panel<i class=\"material-icons\">expand_more</i>");
         }
     };
 
 
-			function onFilterChanged(){
-				set_filter_num();
-			update_download_link();
-			setTimeout(function() {
-				let filter_str = $("#tokeninput_filters").tokenInput_filter("get_url_str");
+	function onFilterChanged(){
+		set_filter_num();
+		update_download_link();
+		setTimeout(function() {
+			let filter_str = $("#tokeninput_filters").tokenInput_filter("get_url_str");
 			$("#pcf-content").pcf_content('update_filter', filter_str);
 			$('#search_box_form').search_box_form('update_filter',filter_str);
 		}, 10);
 
-			let lang = $("#r_lang").val();
-			if(lang === 'en'){
-				$("#pcf-content").pcf_content('send_share_url', $('#link_en').attr('href'));
+		let lang = $("#r_lang").val();
+		if(lang === 'en'){
+			$("#pcf-content").pcf_content('send_share_url', $('#link_en').attr('href'));
 		}else{
-				$("#pcf-content").pcf_content('send_share_url', $('#link_ja').attr('href'));
+			$("#pcf-content").pcf_content('send_share_url', $('#link_ja').attr('href'));
 		}
 
-			return false;
+		return false;
 	};
 
 
 
-			function onFilterChanged_vgp(){
-				set_filter_vgp_num();
-			update_download_link();
-			setTimeout(function() {
-				let filter_str = $("#tokeninput_vgps").tokenInput_filter("get_url_str");
-			$("#pcf-content").pcf_content('update_filter_vgp', filter_str);
-			$('#search_box_form').search_box_form('update_filter_vgp',filter_str);
+    function onFilterChanged_vgp(){
+        set_filter_vgp_num();
+        update_download_link();
+        setTimeout(function() {
+            let filter_str = $("#tokeninput_vgps").tokenInput_filter("get_url_str");
+            $("#pcf-content").pcf_content('update_filter_vgp', filter_str);
+            $('#search_box_form').search_box_form('update_filter_vgp',filter_str);
         }, 10);
-			let lang = $("#r_lang").val();
-			if(lang === 'en'){
-				$("#pcf-content").pcf_content('send_share_url', $('#link_en').attr('href'));
+        let lang = $("#r_lang").val();
+        if(lang === 'en'){
+            $("#pcf-content").pcf_content('send_share_url', $('#link_en').attr('href'));
         }else{
-				$("#pcf-content").pcf_content('send_share_url', $('#link_ja').attr('href'));
+            $("#pcf-content").pcf_content('send_share_url', $('#link_ja').attr('href'));
         }
-			return false;
+        return false;
     };
 
 
-			var hpo_id_list = "{{ r_phenotype }}";
-			var filter_id_list = "{{ r_filter }}";
-			var filter_vgp_id_list = "{{ r_vgp }}";
+	var hpo_id_list = "{{ r_phenotype }}";
+	var filter_id_list = "{{ r_filter }}";
+	var filter_vgp_id_list = "{{ r_vgp }}";
 
-			{% if r_target == "omim" %}
-			var str_target_label = "Genetic Disease";
-			{% elif r_target == "orphanet" %}
-			var str_target_label = "Rare Disease";
-			{% elif r_target == "gene" %}
-			var str_target_label = "Gene";
-			{% elif r_target == "case" %}
-			var str_target_label = "Case";
-			{% else %}
-			var str_target_label = "Genetic Disease";
-			{% endif %}
+	{% if r_target == "omim" %}
+	var str_target_label = "Genetic Disease";
+	{% elif r_target == "orphanet" %}
+	var str_target_label = "Rare Disease";
+	{% elif r_target == "gene" %}
+	var str_target_label = "Gene";
+	{% elif r_target == "case" %}
+	var str_target_label = "Case";
+	{% else %}
+	var str_target_label = "Genetic Disease";
+	{% endif %}
 
-			$(document).ready(function() {
+	$(document).ready(function() {
 
 		const template_download = document.getElementById('dropdown-menu_download');
-			template_download.style.display = 'block';
-			tippy('#btn_search_download', {
-				arrow:         true,
+		template_download.style.display = 'block';
+		tippy('#btn_search_download', {
+			arrow:         true,
 			allowHTML:     true,
 			appendTo:      document.body,
 			animation:     'scale-extreme',
@@ -1165,17 +1050,17 @@
 			onShown(instance) {
 				$('#str_target').html(str_target_label);
 
-			let selected_num = $("#pcf-content").pcf_content('get_selected_num');
+				let selected_num = $("#pcf-content").pcf_content('get_selected_num');
 
-			let options = $('#sel_download_option').find('option');
-			$(options[2]).text('Selection (' + selected_num + ')');
+				let options = $('#sel_download_option').find('option');
+				$(options[2]).text('Selection (' + selected_num + ')');
 			},
 		});
 
-			const template_share = document.getElementById('dropdown-menu_share');
-			template_share.style.display = 'block';
-			tippy('#btn_search_share', {
-				arrow:         true,
+		const template_share = document.getElementById('dropdown-menu_share');
+		template_share.style.display = 'block';
+		tippy('#btn_search_share', {
+			arrow:         true,
 			allowHTML:     true,
 			appendTo:      document.body,
 			animation:     'scale-extreme',
@@ -1191,13 +1076,13 @@
 			},
 		});
 
-			r_size_val = $("#str_size").val();
-			r_display_format_val = $("#str_display_format").val();
+		r_size_val = $("#str_size").val();
+		r_display_format_val = $("#str_display_format").val();
 
-			const template_display = document.getElementById('dropdown-menu_display');
-			template_display.style.display = 'block';
-			tippy('#btn_search_display', {
-				arrow:         true,
+		const template_display = document.getElementById('dropdown-menu_display');
+		template_display.style.display = 'block';
+		tippy('#btn_search_display', {
+			arrow:         true,
 			allowHTML:     true,
 			appendTo:      document.body,
 			animation:     'scale-extreme',
@@ -1211,8 +1096,8 @@
 		});
 
 
-			tippy('#btn_menu', {
-				arrow:         false,
+		tippy('#btn_menu', {
+			arrow:         false,
 			allowHTML:     true,
 			appendTo:      document.body,
 			strategy:     'fixed',
@@ -1221,230 +1106,226 @@
 			theme:        'pcf_menu',
 			content(reference){
 				return	"<ul id=\"ul_menu\" class=\"sub-menu\">" +
-			"<li><a href=\"https://pubcasefinder.dbcls.jp/guides\">Guides</a></li>" +
-	"<li><a href=\"https://pubcasefinder.dbcls.jp/api\">API</a></li>" +
-		"<li><a href=\"https://pubcasefinder.dbcls.jp/history\">History</a></li>" +
-		"<li><a href=\"https://pubcasefinder.dbcls.jp/termsofservice\">Terms</a></li>" +
-		"<li><a href=\"https://pubcasefinder.dbcls.jp/sources\">Sources</a></li>" +
-		"<li><a href=\"https://integbio.jp/rdf/dataset/pubcasefinder\" target=\"_blank\">RDF</a></li>" +
-		"<li><a href=\"mailto:support@dbcls.rois.ac.jp,pubcasefinder@dbcls.rois.ac.jp\">Contact</a></li>" +
-		"</ul>";
+                      "<li><a href=\"https://pubcasefinder.dbcls.jp/guides\">Guides</a></li>" +
+                      "<li><a href=\"https://pubcasefinder.dbcls.jp/api\">API</a></li>" +
+                      "<li><a href=\"https://pubcasefinder.dbcls.jp/history\">History</a></li>" +
+                      "<li><a href=\"https://pubcasefinder.dbcls.jp/termsofservice\">Terms</a></li>" +
+                      "<li><a href=\"https://pubcasefinder.dbcls.jp/sources\">Sources</a></li>" +
+                      "<li><a href=\"https://integbio.jp/rdf/dataset/pubcasefinder\" target=\"_blank\">RDF</a></li>" +
+                      "<li><a href=\"mailto:support@dbcls.rois.ac.jp,pubcasefinder@dbcls.rois.ac.jp\">Contact</a></li>"+
+					"</ul>";
 			},
 		});
 
-	$("#search_box_form").search_box_form({
-		'url_tokeninput_hpo': '/tokeninput_hpo',
-		'url_tokeninput_hpo_second': '/pcf_get_hpo_by_text',
-		'url_popup_hierarchy_hpo': '/popup_hierarchy_hpo',
-		'url_load_hpo_data': '/get_hpo_data_by_hpo_id',
-		'lang': "{{ r_lang }}",
-		'form_para_target': "{{ r_target }}",
-		'form_para_filter': "{{ r_filter }}",
-		'form_para_size': "{{ r_size }}",
-		'form_para_display_format': "{{ r_display_format }}",
-		'show_loading': pcf_show_loading,
-		'hide_loading': pcf_hide_loading,
-		'modify_modal_on_show': modify_modal_on_show,
-		'after_modal_close': after_modal_close,
-		'is_hierarchy_fullscreen': false,
-		'schema': 'schema-2021',
-		'text_input_schema': 'auto',
-	});
-
-	$('#btn_vgp_expand').on('click', function () {
-		let filter_str = $("#tokeninput_vgps").tokenInput_filter("get_url_str");
-		if (!filter_str || filter_str.length === 0) {
-			alert("No virtual gene panel data found!");
-			return;
-		}
-		$("#pcf-content").pcf_content('expand_vgp', filter_str, function (trash1, trash2, expanded_object_list) {
-			$("#tokeninput_vgps").tokenInput_filter('expand', expanded_object_list);
-			setTimeout(function () {
-				onFilterChanged_vgp();
-			}, 10);
+		$("#search_box_form").search_box_form({
+			'url_tokeninput_hpo':			'/tokeninput_hpo',
+			'url_tokeninput_hpo_second':	'/pcf_get_hpo_by_text',
+			'url_popup_hierarchy_hpo':		'/popup_hierarchy_hpo',
+			'url_load_hpo_data':			'/get_hpo_data_by_hpo_id',
+			'lang':							"{{ r_lang }}",
+			'form_para_target':				"{{ r_target }}",
+			'form_para_filter':				"{{ r_filter }}",
+			'form_para_size':				"{{ r_size }}",
+			'form_para_display_format':		"{{ r_display_format }}",
+			'show_loading':					pcf_show_loading,
+			'hide_loading':					pcf_hide_loading,
+			'modify_modal_on_show':			modify_modal_on_show,
+			'after_modal_close':			after_modal_close,
+			'is_hierarchy_fullscreen':		false,
+			'schema':						'schema-2021',
+			'text_input_schema':			'auto',
 		});
-	});
 
-	$('#btn_vgp_download').on('click', function () {
-		let filter_str = $("#tokeninput_vgps").tokenInput_filter("get_url_str");
-		$("#pcf-content").pcf_content('download_vgp', filter_str, function () {
-			//$('#btn_vgp_download').removeAttr('disabled');
+		$('#btn_vgp_expand').on('click', function(){
+			let filter_str = $("#tokeninput_vgps").tokenInput_filter("get_url_str");
+			if(!filter_str || filter_str.length === 0){
+				alert("No virtual gene panel data found!");
+				return;
+			}
+			$("#pcf-content").pcf_content('expand_vgp',filter_str, function(trash1, trash2, expanded_object_list){
+				$("#tokeninput_vgps").tokenInput_filter('expand',expanded_object_list);
+				setTimeout(function() {
+					onFilterChanged_vgp();
+				}, 10);
+            });
 		});
-	});
 
-
-	$("#tokeninput_vgps").tokenInput_filter("/tokeninput_vgp", {
-		'theme': "facebook",
-		'schema': "vgp",
-            {% if r_lang %}
-	'language': "{{ r_lang }}",
-		{% endif %}
-	'onFilterChanged' : onFilterChanged_vgp,
-		'onLongerQuery'   : function(text) {
-			$('#btn_vgp_textinput').listinput('start_modal_with_text', text)
-		}
+        $('#btn_vgp_download').on('click', function(){
+            let filter_str = $("#tokeninput_vgps").tokenInput_filter("get_url_str");
+			$("#pcf-content").pcf_content('download_vgp',filter_str,function(){
+                //$('#btn_vgp_download').removeAttr('disabled');
+            });
         });
 
-	$("#tokeninput_vgps")
-		.popupRelationFilter('/popup_hierarchy_genes',
-			{
-				'modify_modal_on_show': modify_modal_on_show,
-				'after_modal_close': function () { after_modal_close(); },
-				'after_init_gui': after_init_gui,
+
+        $("#tokeninput_vgps").tokenInput_filter("/tokeninput_vgp", {
+            'theme' : "facebook",
+            'schema': "vgp",
+            {% if r_lang %}
+            'language':   "{{ r_lang }}",
+            {% endif %}
+            'onFilterChanged' : onFilterChanged_vgp,
+			'onLongerQuery'   : function(text){
+				$('#btn_vgp_textinput').listinput('start_modal_with_text',text)
+			}
+        });
+
+        $("#tokeninput_vgps")
+            .popupRelationFilter('/popup_hierarchy_genes',
+									{'modify_modal_on_show': modify_modal_on_show,
+                                     'after_modal_close':   function(){after_modal_close();},
+                                     'after_init_gui':       after_init_gui,
                                     {% if r_lang %}
-	'language_in': "{{ r_lang }}",
-		{% endif %}
-	'onFilterChanged': onFilterChanged_vgp
+                                     'language_in':   "{{ r_lang }}",
+                                    {% endif %}
+                                     'onFilterChanged':      onFilterChanged_vgp
                                     });
 
 
-	$("#tokeninput_filters").tokenInput_filter("/tokeninput_filter", {
-		'theme': "facebook",
-		'schema': "default",
+		$("#tokeninput_filters").tokenInput_filter("/tokeninput_filter", {
+			'theme' : "facebook",
+			'schema': "default",
 			{% if r_lang %}
-	'language': "{{ r_lang }}",
-		{% endif %}
-	'onFilterChanged' : onFilterChanged,
-		'onLongerQuery'   : function(text) {
-			$('#btn_filter_textinput').listinput('start_modal_with_text', text)
-		}
+			'language':   "{{ r_lang }}",
+			{% endif %}
+			'onFilterChanged' : onFilterChanged,
+			'onLongerQuery'   : function(text){
+				$('#btn_filter_textinput').listinput('start_modal_with_text',text)
+			}
 		});
 
-	$("#tokeninput_filters")
-		.popupRelationFilter('/popup_hierarchy_genes', {
-			'modify_modal_on_show': modify_modal_on_show,
-			'after_modal_close': function () { after_modal_close(); },
-			'after_init_gui': after_init_gui,
+		$("#tokeninput_filters")
+			.popupRelationFilter('/popup_hierarchy_genes',{'modify_modal_on_show': modify_modal_on_show,
+								     'after_modal_close':   function(){after_modal_close();},
+								     'after_init_gui':       after_init_gui,
 						            {% if r_lang %}
-	'language_in': "{{ r_lang }}",
-		{% endif %}
-	'onFilterChanged': onFilterChanged
+						             'language_in':   "{{ r_lang }}",
+						            {% endif %}
+									 'onFilterChanged':      onFilterChanged
 								    });
 
-	$("#pcf-content").pcf_content({
+		$("#pcf-content").pcf_content({
 			{% if r_target %}
-	'target': "{{ r_target }}",
-		{% endif %}
-	{% if r_lang %}
-	'lang': "{{ r_lang }}",
-		{% endif %}
-	{% if r_size %}
-	'size': { { r_size } },
-	{% endif %}
-	{% if r_display_format %}
-	'format': "{{ r_display_format }}",
-		{% else %}
-	'format': "summary",
-		{% endif %}
-	'onSelectTab': function(tab_label_text, target) {
-		if (target === 'case') {
-			$('#btn_search_download').prop('disabled', true);
-
-			{% if r_lang == "ja" %}
-			$('#btn_search_download').tooltip('dispose').tooltip({ title: 'Caseはダウンロードできません', trigger: 'hover' });
-			{% else %}
-			$('#btn_search_download').tooltip('dispose').tooltip({ title: 'Case is not available for download', trigger: 'hover' });
+			'target':	"{{ r_target }}",
 			{% endif %}
-		} else {
-			$('#btn_search_download').prop('disabled', false);
-
-			{% if r_lang == "ja" %}
-			$('#btn_search_download').tooltip('dispose').tooltip({ title: 'ダウンロード', trigger: 'hover' });
-			{% else %}
-			$('#btn_search_download').tooltip('dispose').tooltip({ title: 'Download', trigger: 'hover' });
+			{% if r_lang %}
+			'lang':		"{{ r_lang }}",
 			{% endif %}
-		}
+			{% if r_size %}
+			'size':		{{ r_size }},
+			{% endif %}
+			{% if r_display_format %}
+			'format':	"{{ r_display_format }}",
+			{% else %}
+			'format': 	"summary",
+			{% endif %}
+			'onSelectTab': function(tab_label_text,target){
+				if(target === 'case'){
+					$('#btn_search_download').prop('disabled', true);
 
-		str_target_label = tab_label_text;
-		$('#str_target').html(tab_label_text);
+					{% if r_lang == "ja" %}
+					$('#btn_search_download').tooltip('dispose').tooltip({title: 'Caseはダウンロードできません',trigger:'hover'});
+					{% else %}
+					$('#btn_search_download').tooltip('dispose').tooltip({title: 'Case is not available for download',trigger:'hover'});
+					{% endif %}
+				}else{
+					$('#btn_search_download').prop('disabled', false);
 
-		update_download_link();
+					{% if r_lang == "ja" %}
+					$('#btn_search_download').tooltip('dispose').tooltip({title: 'ダウンロード',trigger:'hover'});
+					{% else %}
+					$('#btn_search_download').tooltip('dispose').tooltip({title: 'Download',trigger:'hover'});
+					{% endif %}
+				}
 
-		$('#search_box_form').search_box_form('update_target', target);
-	},
-	'load_filter_ids': function() {
-		return $("#tokeninput_filters").tokenInput_filter("get");
-	},
-	'add_token': function(item) {
-		$("#search_box_form").search_box_form('add_token', item);
-	},
+				str_target_label = tab_label_text;
+				$('#str_target').html(tab_label_text);
+
+				update_download_link();
+
+				$('#search_box_form').search_box_form('update_target',target);
+			},
+			'load_filter_ids': function(){
+				return $("#tokeninput_filters").tokenInput_filter("get");
+			},
+			'add_token': function(item){
+				$("#search_box_form").search_box_form('add_token', item);
+			},
 		});
 
-	$("#btn_vgp_textinput").listinput({
-		'url': '/pcf_get_gene_data_by_gene_id', 'schema': 'filter', 'language': "{{ r_lang }}",
-		'output_list': function (filter_vgp_obj_list) {
-			let counter = 0;
-			filter_vgp_obj_list.forEach(function (item) {
-				if (Object.keys(item).length > 0) {
-					$("#tokeninput_vgps").tokenInput_filter("add", item);
-					counter++;
-				}
-			});
-			if (counter > 0) onFilterChanged_vgp();
+		$("#btn_vgp_textinput").listinput({	'url':'/pcf_get_gene_data_by_gene_id', 'schema':'filter','language': "{{ r_lang }}",
+											'output_list': function(filter_vgp_obj_list){
+												let counter =0;
+												filter_vgp_obj_list.forEach(function(item){
+													if(Object.keys(item).length > 0){
+														$("#tokeninput_vgps").tokenInput_filter("add", item);
+														counter++;
+													}
+												});
+												if(counter > 0)	onFilterChanged_vgp();
+											}
+										  });
+
+		$("#btn_filter_textinput").listinput({'url':'/pcf_get_gene_data_by_gene_id', 'schema':'filter','language': "{{ r_lang }}",
+											  'output_list': function(filter_vgp_obj_list){
+																let counter =0;
+																filter_vgp_obj_list.forEach(function(item){
+																	if(Object.keys(item).length > 0){
+																		$("#tokeninput_filters").tokenInput_filter("add", item);
+																		counter++;
+																	}
+																});
+																if(counter > 0) onFilterChanged();
+												}
+											});
+
+
+
+		if(!filter_id_list){
+			setTimeout(function(){
+				$("#tokeninput_filters").tokenInput_filter('set_input_box_default_width');
+			}, 100);
 		}
-	});
 
-	$("#btn_filter_textinput").listinput({
-		'url': '/pcf_get_gene_data_by_gene_id', 'schema': 'filter', 'language': "{{ r_lang }}",
-		'output_list': function (filter_vgp_obj_list) {
-			let counter = 0;
-			filter_vgp_obj_list.forEach(function (item) {
-				if (Object.keys(item).length > 0) {
-					$("#tokeninput_filters").tokenInput_filter("add", item);
-					counter++;
-				}
-			});
-			if (counter > 0) onFilterChanged();
+		if(!filter_vgp_id_list){
+			setTimeout(function(){
+				$("#tokeninput_vgps").tokenInput_filter('set_input_box_default_width');
+			}, 100);
 		}
-	});
+
+		$("#pcf-content").pcf_content('load_phenotype_and_filter_objects_by_ids',hpo_id_list,filter_id_list,filter_vgp_id_list,
+			function(hpo_obj_list, filter_obj_list, filter_vgp_obj_list){
+				let id_list = [];
+				hpo_obj_list.forEach(function(item){
+					$("#search_box_form").search_box_form('add_token', item);
+					id_list.push(item.id);
+				});
+				hpo_id_list = id_list.join(",");
+
+				filter_obj_list.forEach(function(item){
+					if(Object.keys(item).length > 0){
+						$("#tokeninput_filters").tokenInput_filter("add", item);
+					}
+				});
+				filter_id_list = $("#tokeninput_filters").tokenInput_filter("get_url_str");
+	            if(filter_id_list){
+    	            $('#btn_search_filter').trigger('click');
+        	    }
 
 
-
-	if (!filter_id_list) {
-		setTimeout(function () {
-			$("#tokeninput_filters").tokenInput_filter('set_input_box_default_width');
-		}, 100);
-	}
-
-	if (!filter_vgp_id_list) {
-		setTimeout(function () {
-			$("#tokeninput_vgps").tokenInput_filter('set_input_box_default_width');
-		}, 100);
-	}
-
-	$("#pcf-content").pcf_content('load_phenotype_and_filter_objects_by_ids', hpo_id_list, filter_id_list, filter_vgp_id_list,
-		function (hpo_obj_list, filter_obj_list, filter_vgp_obj_list) {
-			let id_list = [];
-			hpo_obj_list.forEach(function (item) {
-				$("#search_box_form").search_box_form('add_token', item);
-				id_list.push(item.id);
-			});
-			hpo_id_list = id_list.join(",");
-
-			filter_obj_list.forEach(function (item) {
-				if (Object.keys(item).length > 0) {
-					$("#tokeninput_filters").tokenInput_filter("add", item);
+				filter_vgp_obj_list.forEach(function(item){
+					if(Object.keys(item).length > 0){
+						$("#tokeninput_vgps").tokenInput_filter("add", item);
+					}
+				});
+				filter_vgp_id_list = $("#tokeninput_vgps").tokenInput_filter("get_url_str");
+				if(filter_vgp_id_list){
+					$('#btn_search_vgp').trigger('click');
 				}
-			});
-			filter_id_list = $("#tokeninput_filters").tokenInput_filter("get_url_str");
-			if (filter_id_list) {
-				$('#btn_search_filter').trigger('click');
-			}
 
-
-			filter_vgp_obj_list.forEach(function (item) {
-				if (Object.keys(item).length > 0) {
-					$("#tokeninput_vgps").tokenInput_filter("add", item);
-				}
-			});
-			filter_vgp_id_list = $("#tokeninput_vgps").tokenInput_filter("get_url_str");
-			if (filter_vgp_id_list) {
-				$('#btn_search_vgp').trigger('click');
-			}
-
-			if (hpo_id_list.length > 0) {
-				$("#pcf-content").pcf_content('search', { 'phenotype': hpo_id_list.replace(/_ja/gi, ''), 'filter': filter_id_list, 'filter_vgp': filter_vgp_id_list });
-			} else {
+			if(hpo_id_list.length > 0){
+				$("#pcf-content").pcf_content('search',{'phenotype':hpo_id_list.replace(/_ja/gi,''),'filter':filter_id_list,'filter_vgp':filter_vgp_id_list});
+			}else{
 				pcf_hide_loading();
 			}
 
@@ -1459,11 +1340,11 @@
 
 
 
-	$('[data-toggle="tooltip"]').tooltip({ 'trigger': 'hover' });
+		$('[data-toggle="tooltip"]').tooltip({'trigger':'hover'});
 
-	$('div[data-tippy-root]').mouseout(function (e) {
-		tippy.hideAll();
-	});
+		$('div[data-tippy-root]').mouseout(function(e){
+			 tippy.hideAll();
+		});
 	});
 
 </script>
