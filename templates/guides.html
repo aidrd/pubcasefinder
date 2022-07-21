@@ -114,7 +114,13 @@
         </div>
     </header>
 
+    {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
 
+    {% elif get_locale() == "ko" or get_locale() == "ko_KR" %}
+
+    {% else %}
+
+    {% endif %}
     <!--guides page-->
     <div class="help-wrapper">
         <section class="content">
@@ -135,8 +141,15 @@
                 </div>
                 <div class="column-right panel_area">
                     <div class="right-wrap tab_panel active">
+                        {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
                         <h2>Overview</h2>
+                        {% elif get_locale() == "ko" or get_locale() == "ko_KR" %}
+                        <h2>개요</h2>
+                        {% else %}
+                        <h2>Overview</h2>
+                        {% endif %}
                         <span><img src="/static/images/pcf/top/logo_color.svg"></span>
+                        {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
                         <p>Welcome to PubCaseFinder! PubCaseFinder is a web-based clinical decision support system that
                             provides ranked lists of genetic and rare diseases using Human Phenotype Ontology
                             (HPO)-based phenotypic similarities.
@@ -154,6 +167,32 @@
                             liability with respect to damages incurred by the change, discontinuation or termination of
                             the Service.
                         </p>
+                        {% elif get_locale() == "ko" or get_locale() == "ko_KR" %}
+                        <p>PubCaseFinder에 오신 것을 환영합니다! PubCaseFinder는 인간 표현형 온톨로지(HPO) 기반 표현형 유사성을 사용하여 유전자 및 희귀 질환의 순위 목록을 제공하는 웹 기반 임상 의사 결정 지원 시스템입니다.
+                        </p>
+                        <h3>면책조항</h3>
+                        <p>PubCaseFinder는 자격을 갖춘 면허가 있는 의사가 희귀 및 유전 질환에 대한 연구를 지원하고 교육 보조 수단으로 사용하도록 고안되었습니다. PubCaseFinder는 의사의 조언 없이 의학적 결정을 내리는 데 사용되어서는 안 됩니다. PubCaseFinder는 데이터의 정확성, 임상적 타당성 또는 유용성을 확인하지 않고 조사 도구로서 선의의 데이터를 제공합니다. 데이터를 상업적으로 사용하는 경우 <a
+                            href="https://pubcasefinder.dbcls.jp/sources">소스</a>의 라이선스를 참조해여 상업적 사용 범위를 확인합니다. PubCaseFinder는 명시적이든 묵시적이든 어떠한 보증도 하지 않으며 데이터 사용 목적에 대해 법적 책임이나 책임을 지지 않습니다. DBCLS는 서비스의 변경, 중단 또는 종료로 인해 발생한 손해에 대해 책임을 지지 않습니다.
+                        </p>
+                        {% else %}
+                        <p>Welcome to PubCaseFinder! PubCaseFinder is a web-based clinical decision support system that
+                            provides ranked lists of genetic and rare diseases using Human Phenotype Ontology
+                            (HPO)-based phenotypic similarities.
+                        </p>
+                        <h3>Disclaimer</h3>
+                        <p>The PubCaseFinder is intended to be used by qualified and licensed physicians to assist in
+                            the research about rare and genetic diseases and for use as a teaching aid. The
+                            PubCaseFinder should not be used to make medical decisions without the advice of a
+                            physician. PubCaseFinder provides data in good faith as a investigative tool, but without
+                            verifying the accuracy, clinical validity or utility of the data. In case of commercial use
+                            of data, you must refer to the license of the <a
+                                href="https://pubcasefinder.dbcls.jp/sources">source</a> and confirm the scope of
+                            commercial use. PubCaseFinder makes no warranty, express or implied, nor assumes any legal
+                            liability or responsibility for any purpose for which the data are used. DBCLS shall bear no
+                            liability with respect to damages incurred by the change, discontinuation or termination of
+                            the Service.
+                        </p>
+                        {% endif %}
                     </div>
                     <div class="right-wrap tab_panel">
                         <h2>Beginner's Guide</h2>
