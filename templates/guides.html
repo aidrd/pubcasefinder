@@ -118,7 +118,13 @@
     <!--guides page-->
     <div class="help-wrapper">
         <section class="content">
+            {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
             <h1>How To Use PubCaseFinder</h1>
+            {% elif get_locale() == "ko" or get_locale() == "ko_KR" %}
+            <h1>PubCaseFinder 사용 방법</h1>
+            {% else %}
+            <h1>How To Use PubCaseFinder</h1>
+            {% endif %}
             <div class="column-wrapper tab_box">
                 <div class="column-left">
                     <ul class="sidenav btn_area">
