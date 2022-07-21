@@ -113,14 +113,6 @@
             </div>
         </div>
     </header>
-
-    {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
-
-    {% elif get_locale() == "ko" or get_locale() == "ko_KR" %}
-
-    {% else %}
-
-    {% endif %}
     <!--guides page-->
     <div class="help-wrapper">
         <section class="content">
@@ -171,8 +163,7 @@
                         <p>PubCaseFinder에 오신 것을 환영합니다! PubCaseFinder는 인간 표현형 온톨로지(HPO) 기반 표현형 유사성을 사용하여 유전자 및 희귀 질환의 순위 목록을 제공하는 웹 기반 임상 의사 결정 지원 시스템입니다.
                         </p>
                         <h3>면책조항</h3>
-                        <p>PubCaseFinder는 자격을 갖춘 면허가 있는 의사가 희귀 및 유전 질환에 대한 연구를 지원하고 교육 보조 수단으로 사용하도록 고안되었습니다. PubCaseFinder는 의사의 조언 없이 의학적 결정을 내리는 데 사용되어서는 안 됩니다. PubCaseFinder는 데이터의 정확성, 임상적 타당성 또는 유용성을 확인하지 않고 조사 도구로서 선의의 데이터를 제공합니다. 데이터를 상업적으로 사용하는 경우 <a
-                            href="https://pubcasefinder.dbcls.jp/sources">소스</a>의 라이선스를 참조해여 상업적 사용 범위를 확인합니다. PubCaseFinder는 명시적이든 묵시적이든 어떠한 보증도 하지 않으며 데이터 사용 목적에 대해 법적 책임이나 책임을 지지 않습니다. DBCLS는 서비스의 변경, 중단 또는 종료로 인해 발생한 손해에 대해 책임을 지지 않습니다.
+                        <p>PubCaseFinder는 자격을 갖춘 의사들에게 희귀 및 유전 질환에 대한 연구를 지원하고 교육 보조 수단으로 사용하도록 고안되었습니다. PubCaseFinder는 의사의 조언 없이 의료상의 결정을 내리는데 사용해서는 안 됩니다. PubCaseFinder는 조사 툴로서 성실하게 데이터를 제공하지만, 데이터의 정확성, 임상적 타당성, 유용성을 검증하는 것은 아닙니다. 데이터를 상업적으로 사용하는 경우에는 <a href="https://pubcasefinder.dbcls.jp/sources">출처</a> 라이선스를 참고하여 상업적으로 사용하는 범위를 확인해야 합니다. PubCaseFinde는 데이터가 사용되는 목적에 대해 명시적 또는 묵시적으로 어떠한 보증도 하지 않으며 법적 책임도 지지 않습니다. DBCLS는 서비스의 변경, 중단 또는 종료로 인해 발생한 손해에 대해 어떠한 책임도 지지 않습니다.
                         </p>
                         {% else %}
                         <p>Welcome to PubCaseFinder! PubCaseFinder is a web-based clinical decision support system that
@@ -195,61 +186,143 @@
                         {% endif %}
                     </div>
                     <div class="right-wrap tab_panel">
-                        <h2>Beginner's Guide</h2>
-                        <p>
-                            You can easily check how to use PubCaseFinder on YouTube.<br><br>
-                            <iframe width="100%" height="400" src="https://www.youtube.com/embed/sPK1FrdN0Dw"
-                                title="YouTube video player" frameborder="0"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                allowfullscreen></iframe>
-                        </p>
-                        <h3>Input</h3>
-                        <p>PubCaseFinder provides several functions to help users enter a large number of phenotypes,
-                            which facilitate precise patient phenotyping. The text search function enables users to
-                            select appropriate phenotypes from the list of hits in a partial match, including
-                            synonyms.<br><br>
-                            {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
-                            <img src="/static/images/pcf/guides/Beginners_Guide_1_ja.gif">
-                            {% else %}
-                            <img src="/static/images/pcf/guides/Beginners_Guide_1.gif">
-                            {% endif %}
-                        </p>
-                        <br>
-                        <h3>Result</h3>
-                        <p>A set of phenotypes entered by you can be compared with genetic diseases, rare diseases,
-                            causative genes, and open-sharing cases on the basis of phenotypic similarity. A higher
-                            phenotypic similarity will show a higher probability for a candidate disease, causative
-                            gene, or similar case. <br><br>
-                            <img src="/static/images/pcf/guides/Beginners_Guide_2.png">
-                        </p>
-                        <br>
-                        <h3>Hierarchical Structure View</h3>
-                        The hierarchical structure view function enables you to easily identify higher and lower concept
-                        terms of a given phenotype. For example, you can find the phenotype 'microcephaly' by searching
-                        its synonym 'small head' and then replace the term with its lower concept 'congenital
-                        microcephaly' using the hierarchical structure function.<br><br>
-                        <img src="/static/images/pcf/guides/Beginners_Guide_3.gif">
-                        </p>
-                        <h3>Filter</h3>
-                        <p>
-                            The filter function enables you to filter ranked lists in PubCaseFinder to specify a
-                            National Center for Biotechnology Information (NCBI) Gene ID as a causative gene, an Human
-                            Phenotype Ontology (HPO) term as a mode of inheritance, and/or a Monarch Disease Ontology
-                            (Mondo) term as a disease name. When an HPO or Mondo term is specified, all its lower
-                            concepts are also subject to the filter. Moreover, this filter supports search expressions
-                            using logical operators. For example, when specifying 'autosomal dominant inheritance
-                            (HP:0000006),' the ranked list is filtered to 3328 genetic diseases. When specifying
-                            'autoimmune disease (MONDO:0007179),' the list is filtered to 56 genetic diseases. When both
-                            'autosomal dominant inheritance (HP:0000006)' and 'autoimmune disease (MONDO:0007179)' are
-                            specified using 'AND' as a logical operator, the ranked list of genetic diseases is filtered
-                            to 30.<br><br>
-                            <img src="/static/images/pcf/guides/Beginners_Guide_4.gif">
-                        </p>
-                        <br>
-                        <h3>Download and Share</h3>
-                        <p>You can download the result in tsv or json format and get a link to share the result.<br><br>
-                            <img src="/static/images/pcf/guides/Beginners_Guide_5.gif">
-                        </p>
+                        {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
+                          <h2>Beginner's Guide</h2>
+                          <p>
+                              You can easily check how to use PubCaseFinder on YouTube.<br><br>
+                              <iframe width="100%" height="400" src="https://www.youtube.com/embed/sPK1FrdN0Dw"
+                                  title="YouTube video player" frameborder="0"
+                                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                  allowfullscreen></iframe>
+                          </p>
+                          <h3>Input</h3>
+                          <p>PubCaseFinder provides several functions to help users enter a large number of phenotypes,
+                              which facilitate precise patient phenotyping. The text search function enables users to
+                              select appropriate phenotypes from the list of hits in a partial match, including
+                              synonyms.<br><br>
+                              <img src="/static/images/pcf/guides/Beginners_Guide_1_ja.gif">
+                          </p>
+                          <br>
+                          <h3>Result</h3>
+                          <p>A set of phenotypes entered by you can be compared with genetic diseases, rare diseases,
+                              causative genes, and open-sharing cases on the basis of phenotypic similarity. A higher
+                              phenotypic similarity will show a higher probability for a candidate disease, causative
+                              gene, or similar case. <br><br>
+                              <img src="/static/images/pcf/guides/Beginners_Guide_2.png">
+                          </p>
+                          <br>
+                          <h3>Hierarchical Structure View</h3>
+                          The hierarchical structure view function enables you to easily identify higher and lower concept
+                          terms of a given phenotype. For example, you can find the phenotype 'microcephaly' by searching
+                          its synonym 'small head' and then replace the term with its lower concept 'congenital
+                          microcephaly' using the hierarchical structure function.<br><br>
+                          <img src="/static/images/pcf/guides/Beginners_Guide_3.gif">
+                          </p>
+                          <h3>Filter</h3>
+                          <p>
+                              The filter function enables you to filter ranked lists in PubCaseFinder to specify a
+                              National Center for Biotechnology Information (NCBI) Gene ID as a causative gene, an Human
+                              Phenotype Ontology (HPO) term as a mode of inheritance, and/or a Monarch Disease Ontology
+                              (Mondo) term as a disease name. When an HPO or Mondo term is specified, all its lower
+                              concepts are also subject to the filter. Moreover, this filter supports search expressions
+                              using logical operators. For example, when specifying 'autosomal dominant inheritance
+                              (HP:0000006),' the ranked list is filtered to 3328 genetic diseases. When specifying
+                              'autoimmune disease (MONDO:0007179),' the list is filtered to 56 genetic diseases. When both
+                              'autosomal dominant inheritance (HP:0000006)' and 'autoimmune disease (MONDO:0007179)' are
+                              specified using 'AND' as a logical operator, the ranked list of genetic diseases is filtered
+                              to 30.<br><br>
+                              <img src="/static/images/pcf/guides/Beginners_Guide_4.gif">
+                          </p>
+                          <br>
+                          <h3>Download and Share</h3>
+                          <p>You can download the result in tsv or json format and get a link to share the result.<br><br>
+                              <img src="/static/images/pcf/guides/Beginners_Guide_5.gif">
+                          </p>
+                        {% elif get_locale() == "ko" or get_locale() == "ko_KR" %}
+                          <h2>초보자 가이드</h2>
+                          <p>
+                              유튜브에서 PubCaseFinder 사용법을 쉽게 확인할 수 있습니다.<br><br>
+                              <iframe width="100%" height="400" src="https://www.youtube.com/embed/sPK1FrdN0Dw"
+                                  title="YouTube video player" frameborder="0"
+                                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                  allowfullscreen></iframe>
+                          </p>
+                          <h3>입력</h3>
+                          <p>PubCaseFinder는 사용자가 많은 수의 표현형을 입력할 수 있도록 도와주는 여러 기능을 제공하여 정확한 환자의 표현형 입력을 용이하게 한다. 텍스트 검색 기능을 사용하면 동의어를 포함하여 부분 일치 항목 목록에서 적절한 표현형을 선택할 수 있습니다.<br><br>
+                              <img src="/static/images/pcf/guides/Beginners_Guide_1.gif">
+                          </p>
+                          <br>
+                          <h3>결과</h3>
+                          <p>입력된 표현형 한 세트에 대해 표현형 유사성을 바탕으로 유전질환, 희귀질환, 원인 유전자, 공개 공유 증례와 비교할 수 있습니다. 표현형의 유사도가 높을수록 후보가 되는 질환, 원인 유전자, 유사 증례 확률이 높다는 것을 보여줍니다.<br><br>
+                              <img src="/static/images/pcf/guides/Beginners_Guide_2.png">
+                          </p>
+                          <br>
+                          <h3>계층 구조 보기</h3>
+                          계층 구조 보기 기능을 사용하면 주어진 표현형의 상위 개념 항과 하위 개념 항을 쉽게 식별할 수 있습니다. 예를 들어 표현형 "microcephaly"의 동의어 "small head"를 검색하여 찾아내고 계층구조 기능을 사용하여 그 하위 개념 "congenital microcephaly"로 대체할 수 있습니다.<br><br>
+                          <img src="/static/images/pcf/guides/Beginners_Guide_3.gif">
+                          </p>
+                          <h3>필터</h3>
+                          <p>PubCaseFinder의 필터 기능은 한 개 또는 복수의 입력이 가능합니다. 원인 유전자로 NCBI(National Center for Biotechnology Information) Gene ID, 유전 형식으로 HPO(Human Phenotype Ontology) term, 병명으로 Mondo(Monarch Disease Ontology) term을 지정할 수 있으며 입력된 내용에 의해 순위 목록이 필터링 됩니다. HPO나 Mondo가 지정되면 그 하위 개념도 모두 필터의 대상이 됩니다. 또한 이 필터는 논리 연산자를 사용한 검색 식을 지원합니다. 예를 들어 'autosomal dominant inheritance (HP:0000006)'를 지정할 때 순위 목록은 3,328개의 유전 질환으로 필터링 됩니다. 'autoimmune disease (MONDO:0007179)'를 지정하면 56개 유전 질환으로 필터링 됩니다. 'autosomal dominant inheritance (HP:0000006)'와 'autoimmune disease (MONDO:0007179)'를 'AND' 논리 연산자로 지정할 경우 유전 질환 순위 목록이 30개로 필터링 됩니다.<br><br>
+                              <img src="/static/images/pcf/guides/Beginners_Guide_4.gif">
+                          </p>
+                          <br>
+                          <h3>다운로드 및 공유</h3>
+                          <p>결과를 tsv 또는 json 형식으로 다운로드하고 결과를 공유하는 링크를 얻을 수 있습니다.<br><br>
+                              <img src="/static/images/pcf/guides/Beginners_Guide_5.gif">
+                          </p>
+                        {% else %}
+                          <h2>Beginner's Guide</h2>
+                          <p>
+                              You can easily check how to use PubCaseFinder on YouTube.<br><br>
+                              <iframe width="100%" height="400" src="https://www.youtube.com/embed/sPK1FrdN0Dw"
+                                  title="YouTube video player" frameborder="0"
+                                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                  allowfullscreen></iframe>
+                          </p>
+                          <h3>Input</h3>
+                          <p>PubCaseFinder provides several functions to help users enter a large number of phenotypes,
+                              which facilitate precise patient phenotyping. The text search function enables users to
+                              select appropriate phenotypes from the list of hits in a partial match, including
+                              synonyms.<br><br>
+                              <img src="/static/images/pcf/guides/Beginners_Guide_1.gif">
+                          </p>
+                          <br>
+                          <h3>Result</h3>
+                          <p>A set of phenotypes entered by you can be compared with genetic diseases, rare diseases,
+                              causative genes, and open-sharing cases on the basis of phenotypic similarity. A higher
+                              phenotypic similarity will show a higher probability for a candidate disease, causative
+                              gene, or similar case. <br><br>
+                              <img src="/static/images/pcf/guides/Beginners_Guide_2.png">
+                          </p>
+                          <br>
+                          <h3>Hierarchical Structure View</h3>
+                          The hierarchical structure view function enables you to easily identify higher and lower concept
+                          terms of a given phenotype. For example, you can find the phenotype 'microcephaly' by searching
+                          its synonym 'small head' and then replace the term with its lower concept 'congenital
+                          microcephaly' using the hierarchical structure function.<br><br>
+                          <img src="/static/images/pcf/guides/Beginners_Guide_3.gif">
+                          </p>
+                          <h3>Filter</h3>
+                          <p>
+                              The filter function enables you to filter ranked lists in PubCaseFinder to specify a
+                              National Center for Biotechnology Information (NCBI) Gene ID as a causative gene, an Human
+                              Phenotype Ontology (HPO) term as a mode of inheritance, and/or a Monarch Disease Ontology
+                              (Mondo) term as a disease name. When an HPO or Mondo term is specified, all its lower
+                              concepts are also subject to the filter. Moreover, this filter supports search expressions
+                              using logical operators. For example, when specifying 'autosomal dominant inheritance
+                              (HP:0000006),' the ranked list is filtered to 3328 genetic diseases. When specifying
+                              'autoimmune disease (MONDO:0007179),' the list is filtered to 56 genetic diseases. When both
+                              'autosomal dominant inheritance (HP:0000006)' and 'autoimmune disease (MONDO:0007179)' are
+                              specified using 'AND' as a logical operator, the ranked list of genetic diseases is filtered
+                              to 30.<br><br>
+                              <img src="/static/images/pcf/guides/Beginners_Guide_4.gif">
+                          </p>
+                          <br>
+                          <h3>Download and Share</h3>
+                          <p>You can download the result in tsv or json format and get a link to share the result.<br><br>
+                              <img src="/static/images/pcf/guides/Beginners_Guide_5.gif">
+                          </p>
+                        {% endif %}
                     </div>
                 </div>
             </div>
