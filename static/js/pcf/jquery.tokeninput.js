@@ -604,6 +604,7 @@
 	  // The token holding the input box
 	  var input_token = $("<li />")
 		  .addClass($(input).data("settings").classes.inputToken)
+		  .addClass(UISETTING_TAG_SIZE_CLASS[$(input).data("settings").uisetting_tag_size])	
 		  .appendTo(token_list)
 		  .append(input_box);
 

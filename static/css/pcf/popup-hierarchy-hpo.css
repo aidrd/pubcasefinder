@@ -391,31 +391,50 @@ ul.hpo-token-input-list.token-input-list-facebook li.token-input-token-facebook 
 	display:flex;
 }
 
-ul.hpo-token-input-list.token-input-list-facebook li.token-input-li.uisetting_tag_size_m div span.token-input-token-id-facebook {
+ul.hpo-token-input-list.token-input-list-facebook li.token-input-token-facebook.uisetting_tag_size_m {
+    padding: 0.2em;
+}
+ul.hpo-token-input-list.token-input-list-facebook li.token-input-token-facebook.uisetting_tag_size_m p {
+    line-height: 18px;
+    padding-top: 2px;
+}
+
+ul.hpo-token-input-list.token-input-list-facebook li.token-input-token-facebook.uisetting_tag_size_m p span.token-input-token-id-facebook {
 	display: none !important;
 }
 
 ul.hpo-token-input-list.token-input-list-facebook li.token-input-input-token-facebook.uisetting_tag_size_m input {
-	font-size: 16px !important;
+	font-size: 17px !important;
 	line-height: 24px;
 }
 
-ul.hpo-token-input-list.token-input-list-facebook li.token-input-li.uisetting_tag_size_s div span.token-input-token-id-facebook {
-    display: none !important;
-}
-
-ul.hpo-token-input-list.token-input-list-facebook li.token-input-li.uisetting_tag_size_m div span.token-input-token-name-facebook {
-	height: 24px;
-}
-ul.hpo-token-input-list.token-input-list-facebook li.token-input-li.uisetting_tag_size_s div span.token-input-token-name-facebook {
-	font-size: 13px !important;
-	height: 16px !important;
+ul.hpo-token-input-list.token-input-list-facebook li.token-input-token-facebook.uisetting_tag_size_s {
+    padding: 0.1em;
 }
 
 ul.hpo-token-input-list.token-input-list-facebook li.token-input-input-token-facebook.uisetting_tag_size_s input {
-    font-size: 13px !important;
+    font-size: 16px !important;
     line-height: 16px;
 }
+
+ul.hpo-token-input-list.token-input-list-facebook li.token-input-token-facebook.uisetting_tag_size_s p {
+    line-height: 15px;
+}
+
+ul.hpo-token-input-list.token-input-list-facebook li.token-input-token-facebook.uisetting_tag_size_s p span.token-input-token-id-facebook {
+    display: none !important;
+}
+
+ul.hpo-token-input-list.token-input-list-facebook li.token-input-token-facebook.uisetting_tag_size_s p span.token-input-token-name-facebook {
+    font-size:16px;
+}
+
+ul.hpo-token-input-list.token-input-list-facebook li.token-input-token-facebook.uisetting_tag_size_s .token-input-token-word-facebook.token-input-token-icon-facebook {
+    height: 15px;
+    width:  15px;
+}
+
+
 
 ul.hpo-token-input-list.token-input-list-facebook li.token-input-token-facebook:hover {
 	background-color: #5670a6;
