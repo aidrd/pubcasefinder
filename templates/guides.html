@@ -142,7 +142,7 @@
                         {% endif %}
                         <span><img src="/static/images/pcf/top/logo_color.svg"></span>
                         {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
-                        <p>PubCaseFinderにようこそ！PubCaseFinderは兆候および症状を入力とし、それらと関連性が高い順に希少・遺伝性疾患をランキング提示する希少・遺伝性疾患検索システムです。
+                        <p>PubCaseFinderにようこそ！PubCaseFinderは兆候および症状を入力とし、それらと関連性が高い順に希少疾患、遺伝性疾患、疾患原因遺伝子、類似症例をランキング提示する希少・遺伝性疾患検索システムです。
                         </p>
                         <h3>免責事項</h3>
                         <p>本サービスは医学的判断に使用しない情報提供を目的とした、医学教科書その他参考資料を参照するための検索を行うプログラムです。薬機法に基づく承認を受けた医療機器ではないため、検索の結果についてはそのことを考慮に入れて使用してください。本サービスが提供する疾患リストまたそれに付随する情報は、全希少・遺伝性疾患の一部の情報であることに注意してください。本サービスを用いて医師の助言なしに医学的判断を下すべきではありません。本サービスは検索システムとして誠実にデータを提供しますが、データの正確性、臨床的妥当性または有用性を検証することはありません。DBCLSは、明示的にも黙示的にも、データの使用に関して、法的責任を含む一切の責任を負うものではありません。データを商用利用する場合は、<a href="https://pubcasefinder.dbcls.jp/sources">ソース</a>のライセンスを参照し，商用利用の範囲を確認してください。DBCLSは、本サービスの変更、中断、または終了により被った損害に関しても、一切の責任を負うものではありません。また、DBCLSサイトの<a href="https://dbcls.rois.ac.jp/policy.html">サイトポリシー</a>内「免責事項」にも準ずるものとします。
@@ -177,50 +177,36 @@
                         {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
                           <h2>Beginner's Guide</h2>
                           <p>
-                              YouTube動画でPubCaseFinderの使い方を簡単に確認できます。<br><br>
-                              <iframe width="100%" height="400" src="https://www.youtube.com/embed/sPK1FrdN0Dw"
-                                  title="YouTube video player" frameborder="0"
-                                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                  allowfullscreen></iframe>
+                            YouTube動画でPubCaseFinderの使い方を簡単に確認できます。<br><br>
+                            <iframe width="100%" height="400" src="https://www.youtube.com/embed/sPK1FrdN0Dw"
+                                    title="YouTube video player" frameborder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowfullscreen></iframe>
                           </p>
-                          <h3>Input</h3>
-                          <p>検索ボックスに患者の兆候および症状を入力します。詳しく兆候・症状を入力するとよりよいランキング結果を得ることができます。そのため、PubCaseFinderは兆候・症状を簡単に入力するための機能をいくつか提供しています。<br><br>
+                          <h3>検索クエリを入力</h3>
+                          <p>検索ボックスに患者の兆候および症状を入力します。兆候・症状を詳しく入力すると、よりよいランキング結果を得ることができます。そのため、PubCaseFinderは兆候・症状を簡単に入力するための機能をいくつか提供しています。<br><br>
                               <img src="/static/images/pcf/guides/Beginners_Guide_1_ja.gif">
                           </p>
                           <br>
-                          <h3>Result</h3>
-                          <p>A set of phenotypes entered by you can be compared with genetic diseases, rare diseases,
-                              causative genes, and open-sharing cases on the basis of phenotypic similarity. A higher
-                              phenotypic similarity will show a higher probability for a candidate disease, causative
-                              gene, or similar case. <br><br>
+                          <h3>結果</h3>
+                          <p>
+			    入力した兆候・症状と関連性が高い順に希少疾患、遺伝性疾患、疾患原因遺伝子、類似症例がランキング提示されます．<br><br>
                               <img src="/static/images/pcf/guides/Beginners_Guide_2.png">
                           </p>
                           <br>
-                          <h3>Hierarchical Structure View</h3>
-                          The hierarchical structure view function enables you to easily identify higher and lower concept
-                          terms of a given phenotype. For example, you can find the phenotype 'microcephaly' by searching
-                          its synonym 'small head' and then replace the term with its lower concept 'congenital
-                          microcephaly' using the hierarchical structure function.<br><br>
+                          <h3>兆候・症状の階層情報を表示</h3>
+			  <p>
+			    入力した兆候・症状について、より具体的な兆候・症状やそれらをまとめる兆候・症状を簡単に確認でき、また置き換えることも可能です。以下に、'small head'と入力して'microcephaly'を検索し、'microcephaly'パネルをクリックすることで、その具体的な兆候・症状を確認することができ、その中の'congenital microcephaly'と置き換える例を示します。<br><br>
                           <img src="/static/images/pcf/guides/Beginners_Guide_3.gif">
                           </p>
-                          <h3>Filter</h3>
+                          <h3>検索結果をフィルタリング</h3>
                           <p>
-                              The filter function enables you to filter ranked lists in PubCaseFinder to specify a
-                              National Center for Biotechnology Information (NCBI) Gene ID as a causative gene, an Human
-                              Phenotype Ontology (HPO) term as a mode of inheritance, and/or a Monarch Disease Ontology
-                              (Mondo) term as a disease name. When an HPO or Mondo term is specified, all its lower
-                              concepts are also subject to the filter. Moreover, this filter supports search expressions
-                              using logical operators. For example, when specifying 'autosomal dominant inheritance
-                              (HP:0000006),' the ranked list is filtered to 3328 genetic diseases. When specifying
-                              'autoimmune disease (MONDO:0007179),' the list is filtered to 56 genetic diseases. When both
-                              'autosomal dominant inheritance (HP:0000006)' and 'autoimmune disease (MONDO:0007179)' are
-                              specified using 'AND' as a logical operator, the ranked list of genetic diseases is filtered
-                              to 30.<br><br>
+			    Filterボックスに疾患原因遺伝子、遺伝形式、疾患名を入力することができ、それらと関連する結果のみにフィルタリングすることが出来ます。疾患名を入力した場合は、その疾患のサブタイプとなる疾患群も全てフィルタリングされます。遺伝形式も同様です。本Filterは、論理演算子のAND、OR、NOTをサポートしています。以下にフィルタリングの例を示します。まず、常染色体顕性遺伝（autosomal dominant inheritance）を入力することで、ランキングを7,848件から3,328件にフィルタリングします。次に自己免疫疾患（autoimmune disease）を入力し、論理演算子をANDに変更することで、ランキングを30件にフィルタリング出来ます。<br><br>
                               <img src="/static/images/pcf/guides/Beginners_Guide_4.gif">
                           </p>
                           <br>
-                          <h3>Download and Share</h3>
-                          <p>You can download the result in tsv or json format and get a link to share the result.<br><br>
+                          <h3>検索結果をダウンロード・共有</h3>
+                          <p>検索結果をTSVもしくはJSON形式でダウンロード出来ます。また、結果を共有するためのリンクを得ることも出来ます。<br><br>
                               <img src="/static/images/pcf/guides/Beginners_Guide_5.gif">
                           </p>
                         {% elif get_locale() == "ko" or get_locale() == "ko_KR" %}
