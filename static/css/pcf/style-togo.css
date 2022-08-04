@@ -4585,11 +4585,11 @@ label {
     cursor :pointer;
     height: 0;
     overflow-y: hidden;
-    transition: padding-bottom 0.5s, padding-top 0.5s;
+    /*transition: padding-bottom 0.5s, padding-top 0.5s;
     -webkit-transition: padding-bottom 0.5s, padding-top 0.5s;
     -moz-transition: padding-bottom 0.5s, padding-top 0.5s;
     -ms-transition: padding-bottom 0.5s, padding-top 0.5s;
-    -o-transition: padding-bottom 0.5s, padding-top 0.5s;
+    -o-transition: padding-bottom 0.5s, padding-top 0.5s;*/
   }
 
 
