@@ -611,6 +611,16 @@ def pcf_expand_get_nando_id_by_nando_id():
 # /pcf_share?share=[SHARE]&url=[URL]
 @app.route('/pcf_share', methods=['GET', 'POST'])
 def api_pcf_get_share():
+    r_share = ""
+    r_url = ""
+    if request.args.get('share') is not None:
+        r_share = request.args.get('share')
+    if request.args.get('url') is not None:
+        r_url = request.args.get('url')
+
+    if r_share == "url":
+        app.logger.error(r_url)
+
     return ('OK'), 200
 
 
