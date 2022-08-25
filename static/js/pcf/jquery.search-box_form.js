@@ -459,8 +459,45 @@
 						.attr('id', 'submit_button')
 						.click(function(){
 							runSubmit();
+							//openMagnificPopupte_submit_button();
 						});
 		}
+
+		function openMagnificPopupte_submit_button(){
+			var magnificPopup = document.getElementById('magnificPopup');
+			if (!magnificPopup) { magnificPopup = init_magnificPopup(); }
+			else {	
+				if($('#magnificPopup').css('display') === 'none'){
+					$('#magnificPopup').show();
+				}else{
+					$('#magnificPopup').hide();
+				}
+			}
+		}
+
+		function init_magnificPopup(){
+			var $magnificPopup = $('<div>').attr('id', 'magnificPopup')
+										   .attr('tabindex', '-1')
+										   .css({'top':'151px',
+												 'opacity':0.01,
+												 'left': 0,
+												 'width':'100%',
+												 'heigt':'100%',
+												 'z-index':1042,
+												 'position' : 'fixed',
+												 'background':'#0b0b0b',
+												 'overflow': 'hidden auto'})
+											.appendTo('body');
+			$magnificPopup.css({'height':'100%'});
+			var $div1 = $('<div>').addClass("popup-hierarchy-hpo-table popup-hierarchy-hpo-loading").appendTo($magnificPopup);
+			var $div2 = $('<div>').addClass("popup-hierarchy-hpo-tr").appendTo($div1);
+			var $div3 = $('<div>').addClass("popup-hierarchy-hpo-td").css({'vertical-align': 'middle'}).text('Loading...').appendTo($div2);
+
+
+			
+
+		}
+
 
 		function runSubmit(){
 
@@ -551,7 +588,7 @@
 			//create_hpo_list_input_button(settings.lang).appendTo($div_l3);
 			let $list_input_trigger_btn = create_list_input_button(settings.lang).appendTo($div_l3);
 			$list_input_trigger_btn.listinput({ 
-				url:		'/get_hpo_data_by_hpo_id',
+				url_hpoid:		'/get_hpo_data_by_hpo_id',
 				schema:		'hpo',
 				language:	settings.lang,
 				output_list: function(obj_list){
@@ -603,8 +640,9 @@
 						 second_url_str:      settings.url_tokeninput_hpo_second, 
 						 doSubmit:            runSubmit,
 						 onLongerQuery:       settings.schema === SCHEMA_2022 ? 
-	 											function(text){$('#btn_text_input_trigger').textinput_hpo('start_modal_with_text',text)} :
-	 											function(text){$('#hpo-list-input-button').listinput('start_modal_with_text',text)}
+	 											function(text){$('#btn_text_input_trigger').textinput_hpo('start_modal_with_text',text);} :
+	 											function(text){$('#hpo-list-input-button').listinput('start_modal_with_text',text);},
+						 onClickDelete:		function() { $("#tokeninput_hpo").popupRelationHPO('triggerChangeState');}
 						}
 					   );
 
@@ -621,7 +659,8 @@
 									//setTimeout(function() {
 									//	$('#token-input-tokeninput_hpo').focus();
 									//}, 50);
-								}
+								},
+							   'prependTo': div_search_box_form.id
 							  });
 
 	};

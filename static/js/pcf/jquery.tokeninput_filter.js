@@ -4,7 +4,7 @@
 ;(function ($) {
 	
 	var ua = navigator.userAgent.toLowerCase();
-	var isSafari = (ua.indexOf('safari') > -1) && (ua.indexOf('chrome') == -1);
+	var isSafari = (ua.indexOf('safari') > -1) && (ua.indexOf('chrome') === -1);
 	
 	const TOKENINPUT_ITEM_SETTINGS_KEY = 'tokeninput';
 	
@@ -13,22 +13,26 @@
 		  LANGUAGE={
 			[SCHEMA_DEFAULT]:{
 				[LANGUAGE_EN]:{
-					hintText:          "Type in disease names, mode of inheritance, and causative genes",
+					hintText:          "Type in disease names, modes of inheritance, and causative genes",
 					searchformulaText: "Query box",
+                    textinput_title:   "Input NCBI Gene ids"
 				},
 				[LANGUAGE_JA]:{
 					hintText:          "疾患名・遺伝形式・疾患原因遺伝子を入力",
 					searchformulaText: "検索式",
+                    textinput_title:   "遺伝子のリストを入力"
 				}
 			},
 			[SCHEMA_VGP]:{
 				[LANGUAGE_EN]:{
 					hintText:          "Type in disease names, genes, and panel names (PanelApp, PanelApp Australia)",
 					searchformulaText: "",
+                    textinput_title:   "遺伝子のリストを入力"
 				},
 				[LANGUAGE_JA]:{
 					hintText:          "疾患名・遺伝子・パネル名 (PanelApp, PanelApp Australia) を入力",
 					searchformulaText: "",
+                    textinput_title:   "遺伝子のリストを入力"
 				}
 			}
 		};
@@ -37,31 +41,38 @@
 		  CATEGORY_NANDO='NANDO:',CATEGORY_PANELAPP='PA:',CATEGORY_PANELAPP_AU='PAA:',
 		  CATEGORY_LIST=[CATEGORY_HP,CATEGORY_GENE,CATEGORY_PANELAPP,CATEGORY_PANELAPP_AU,CATEGORY_MONDO,CATEGORY_NANDO],
 		  CATEGORY_TD_ID_WIDTH = {
-			[CATEGORY_HP]:          100,
-			[CATEGORY_MONDO]:       135,
-			[CATEGORY_GENE]:        130,
-			[CATEGORY_NANDO]:       120,
-			[CATEGORY_PANELAPP]:    70,
-			[CATEGORY_PANELAPP_AU]: 80
+			[CATEGORY_HP]:          140,
+			[CATEGORY_MONDO]:       140,
+			[CATEGORY_GENE]:        140,
+			[CATEGORY_NANDO]:       140,
+			[CATEGORY_PANELAPP]:    140,
+			[CATEGORY_PANELAPP_AU]: 140
 		  },
+          CATEGORY_TITLE_CLASS = {
+            [CATEGORY_HP]:          'hp',
+            [CATEGORY_MONDO]:       'mondo',
+            [CATEGORY_GENE]:        'geneid',
+            [CATEGORY_NANDO]:       'nando',
+            [CATEGORY_PANELAPP]:    'pa',
+            [CATEGORY_PANELAPP_AU]: 'paa'
+          },
 		  CATEGORY_LABELS = {
 			[LANGUAGE_EN]:	{
-				[CATEGORY_HP]: 			'Mode of inheritance : Number of hits[__NUMBER__] ',
-				[CATEGORY_MONDO]: 		'Diseases(Mondo) : Number of hits[__NUMBER__] ',
-				[CATEGORY_GENE]: 		'Genes : Number of hits[__NUMBER__] ',
-				[CATEGORY_NANDO]: 		'Diseases(Nando) : Number of hits [__NUMBER__] ',
-				[CATEGORY_PANELAPP]:	'PanelApp: Number of hits [__NUMBER__] ',
-				[CATEGORY_PANELAPP_AU]:	'PanelApp Australia: Number of hits [__NUMBER__] '
+				[CATEGORY_HP]: 			'Mode of inheritance - Number of hits [__NUMBER__] ',
+				[CATEGORY_MONDO]: 		'Diseases(Mondo) - Number of hits [__NUMBER__] ',
+				[CATEGORY_GENE]: 		'Genes - Number of hits [__NUMBER__] ',
+				[CATEGORY_NANDO]: 		'Diseases (NANDO) - Number of hits [__NUMBER__] ',
+				[CATEGORY_PANELAPP]:	'PanelApp - Number of hits [__NUMBER__] ',
+				[CATEGORY_PANELAPP_AU]:	'PanelApp Australia - Number of hits [__NUMBER__] '
 			} ,
 			[LANGUAGE_JA]:	{
-				[CATEGORY_HP]: 			'遺伝形式: ヒット件数[__NUMBER__] ',
-				[CATEGORY_MONDO]: 		'疾患(Mondo): ヒット件数[__NUMBER__] ',
-				[CATEGORY_GENE]: 		'遺伝子: ヒット件数[__NUMBER__] ',
-				[CATEGORY_NANDO]: 		'疾患(Nando): ヒット件数[__NUMBER__] ',
-				[CATEGORY_PANELAPP]:	'PanelApp: ヒット件数[__NUMBER__] ',
-				[CATEGORY_PANELAPP_AU]:	'PanelApp Autralia: ヒット件数[__NUMBER__] '
-			},
-
+				[CATEGORY_HP]: 			'遺伝形式 - ヒット件数[__NUMBER__] ',
+				[CATEGORY_MONDO]: 		'疾患(Mondo) - ヒット件数[__NUMBER__] ',
+				[CATEGORY_GENE]: 		'遺伝子 - ヒット件数[__NUMBER__] ',
+				[CATEGORY_NANDO]: 		'疾患(NANDO) - ヒット件数[__NUMBER__] ',
+				[CATEGORY_PANELAPP]:	'PanelApp - ヒット件数[__NUMBER__] ',
+				[CATEGORY_PANELAPP_AU]:	'PanelApp Autralia - ヒット件数[__NUMBER__] '
+			}
 		  },
 		  CATEGORY_DISPLAY_MAXNUM=10,
 		  EXPANDABLE_CATEGORY_LIST=[CATEGORY_MONDO,CATEGORY_NANDO];
@@ -87,7 +98,10 @@
 
 		input_box_default_width: 750,
 
-		schema:          SCHEMA_DEFAULT,		
+		schema:          SCHEMA_DEFAULT,
+
+        ifShowTextinputAndClearBtn: true,
+        
 		hintText:        "",
 		noResultsText:   "No results",
 		searchingText:   "Searching...",
@@ -115,7 +129,7 @@
 			var id_prefix = '';
 			var id_suffix = '';
 			if(id.match(/^([A-Z]+)\:[0-9]+$/)) id_prefix = RegExp.$1;
-			if(id_prefix == 'HP' || id_prefix == 'MONDO' ||  id_prefix == 'GENEID' || id_prefix == 'NANDO'){
+			if(id_prefix === 'HP' || id_prefix === 'MONDO' ||  id_prefix === 'GENEID' || id_prefix === 'NANDO'){
 				id_suffix = '-'+id_prefix.toLowerCase();
 			}
 			
@@ -136,17 +150,19 @@
 			'<span class="'+this.classes.tokenWord+' '+this.classes.tokenName+'">' + (this.enableHTML ? name : _escapeHTML(name)) + '</span>';
 			if(synonym instanceof Array){
 				var str = this.zenhan(synonym.join(' | '));
-				value += '&nbsp;<b>|</b>&nbsp;<span class="'+this.classes.tokenWord+' '+this.classes.tokenSynonym+'">' + (this.enableHTML ? str : _escapeHTML(str)) + '</span>';
+				//value += '&nbsp;<b>|</b>&nbsp;<span class="'+this.classes.tokenWord+' '+this.classes.tokenSynonym+'">' + (this.enableHTML ? str : _escapeHTML(str)) + '</span>';
+				value += '&nbsp;|&nbsp;<span class="'+this.classes.tokenWord+' '+this.classes.tokenSynonym+'">' + (this.enableHTML ? str : _escapeHTML(str)) + '</span>';
 			}
 			value += '</td></tr></table>';
 			value += '</li>';
 			return value;
 		},
 		resultsFormatter_title: function(category, num, language) {
-			var li_class = [this.classes.tokenCategory];
+			let li_class = [this.classes.tokenCategory, 'd-flex', 'flex-row'];
+			let span_class = CATEGORY_TITLE_CLASS[category];
 			let display_text = CATEGORY_LABELS[language][category].replace('__NUMBER__', num);
-			var value = '<li class="'+li_class.join(' ')+'">'+
-						  '<span>' + display_text + '</span>' +
+			let value = '<li class="'+li_class.join(' ')+'">'+
+						  '<div class="'+ span_class +'">' + display_text + '</div>' +
 						'</li>';
 			return value;
 		},
@@ -179,7 +195,7 @@
 			if(typeof id_prefix === "string" && id_prefix.length){
 				id_suffix = '-'+id_prefix.toLowerCase();
 			}
-			if(id_prefix == 'HP' || id_prefix == 'MONDO'){
+			if(id_prefix === 'HP' || id_prefix === 'MONDO' || id_prefix === 'NANDO'){
 				add_arrow = true;
 			}
 
@@ -245,24 +261,24 @@
 			'<div class="'+li_class.join(' ')+'">'+
 				'<div class="'+this.classes.tokenWord+' '+this.classes.tokenLogicaloperator+'">'+
 					'<select class="'+select_class+'">';
-			if(display_AND != 'none'){
+			if(display_AND !== 'none'){
 				html += '<option class="'+this.classes.tokenLogicaloperatorItem+' '+this.classes.tokenLogicaloperatorItemAnd+'" value="'+this.tokenLogicaloperatorItemAndValue+'" ' +selected_AND +' style="display:'+display_AND+';">AND</option>';
 			}
-			if(display_OR != 'none'){
+			if(display_OR !== 'none'){
 				html += '<option class="'+this.classes.tokenLogicaloperatorItem+' '+this.classes.tokenLogicaloperatorItemOr+'" value="'+this.tokenLogicaloperatorItemORValue+'" ' +selected_OR +' style="display:'+display_OR+';">OR</option>';
 			}
 			
 			if(schema === SCHEMA_DEFAULT){
 				html += '<option class="'+this.classes.tokenLogicaloperatorItem+' '+this.classes.tokenLogicaloperatorItemNot+'" value="'+this.tokenLogicaloperatorItemNOTValue+'" ' +selected_NOT +'>NOT</option>';
 			}
-			if(display_NONE != 'none'){
+			if(display_NONE !== 'none'){
 				html += '<option class="'+this.classes.tokenLogicaloperatorItem+' '+this.classes.tokenLogicaloperatorItemNone+'" value="'+this.tokenLogicaloperatorItemNONEValue+'" ' +selected_NONE+' style="display:'+display_NONE+';">&nbsp;</option>';
 			}
 			html += '</select>'+
 				'</div>'+
 				'<p>'+
-					'<span class="'+this.classes.tokenWord+' '+this.classes.tokenId+'">' + (this.enableHTML ? id : _escapeHTML(id)) + '</span>'+
-					'<span class="'+this.classes.tokenWord+' '+this.classes.tokenName+'">' + (this.enableHTML ? name : _escapeHTML(name)) + '</span>'+
+					'<span class="'+this.classes.tokenWord+' '+this.classes.tokenId+'"  title="'+(this.enableHTML ? name : _escapeHTML(name))+'">' + (this.enableHTML ? id : _escapeHTML(id)) + '</span>'+
+					'<span class="'+this.classes.tokenWord+' '+this.classes.tokenName+'" title="'+(this.enableHTML ? name : _escapeHTML(name))+'">' + (this.enableHTML ? name : _escapeHTML(name)) + '</span>'+
 				'</p>';
 
 
@@ -326,7 +342,10 @@
 		idPrefix: "token-input-",
 		
 		// Keep track if the input is currently in disabled mode
-		disabled: false
+		disabled: false,
+
+		url_geneid:		null,
+		url_genesymbol:	null
 	};
 
 	// Default classes to use when theming
@@ -463,7 +482,7 @@
 				let name = item.name;
 				if(_hasJA(name)) id = id + "_ja";
 				if('logicaloperator' in item) id = item.logicaloperator + id;
-				if(retStr == "") {
+				if(retStr === "") {
 					retStr = id;
 				}else{
 					retStr = retStr + ',' + id;
@@ -486,15 +505,7 @@
 			this.data("tokenInputObject").resize_input_box();
 			return this;
 		},
-		hide_clear_button: function() {
-			this.data("tokenInputObject").hide_clear_button();
-			return this;
-		},
-		show_clear_button: function() {
-			this.data("tokenInputObject").show_clear_button();
-			return this;
-		},
-		set_input_box_default_width: function() {
+        set_input_box_default_width: function() {
 			this.data("tokenInputObject").set_input_box_default_width();
 			return this;
 		},
@@ -827,31 +838,79 @@
 			})
 			.appendTo($token_list_wrapper_table_td_left);
 
-		var $token_list_wrapper_table_td_right = $('<div>').addClass("d-flex justify-content-center align-items-center").css({'border-left':'solid 1px #ddd'}).appendTo($token_list_wrapper_table);
+        if(settings.ifShowTextinputAndClearBtn){
+            //var $token_list_wrapper_table_td_right = $('<div>').addClass("d-flex justify-content-center align-items-center").css({'border-left':'solid 1px #ddd'}).appendTo($token_list_wrapper_table);
+            let $token_list_wrapper_table_td_right = $('<div>').addClass("d-flex flex-column td_right").appendTo($token_list_wrapper_table);
 
-		var $clear_button = $('<button>clear</button>').addClass("round-button").addClass("material-icons").addClass("tokeninput_filter_clear")
-			.click(function(){
-				_clear_all_tokens();
-				resize_input();
-				//onFilterChanged();
-				let callback1 = $(input).data("settings").onFilterChanged;
-				if(!isTriggeredFromPopup() && $.isFunction(callback1)) {
-					setTimeout(function(){ callback1(); }, 50);
-				}
+            let $div_upper = $('<div>').addClass('btn_wrapper').appendTo($token_list_wrapper_table_td_right);
+            let $btn_textinput = $("<button><img src=\"/static/images/pcf/HPOID_grey.svg\"></img></button>")
+                                    .addClass('btn_textinput')
+                                    .attr({
+                                        'id' :                  input.id + '-textinput-btn',
+                                        'data-toggle' :         "tooltip",
+                                        'data-placement':       "top",
+                                        'data-original-title':  LANGUAGE[settings.schema][settings.language]['textinput_title'],
+                                        'title':""
+                                    })
+                                    .appendTo($div_upper);
+                                
+            $btn_textinput.listinput({	
+				'url_geneid':		settings.url_geneid,
+				'url_genesymbol':	settings.url_genesymbol,
+				'schema':			'filter',
+				'language':			settings.language,
+				'output_list':		function(filter_vgp_obj_list){
+										let counter =0;
+										filter_vgp_obj_list.forEach(function(item){
+											if(Object.keys(item).length > 0){
+												add_token_pure(item);
+												counter++;
+											}
+										});
+										if(counter > 0) {
+											resize_input();
+											let callback1 = $(input).data("settings").onFilterChanged;
+											if($.isFunction(callback1)) {
+												setTimeout(function(){ callback1(); }, 50);
+											}
+										}
+									}
+                                    
+				});           
 
-			})
-			.appendTo($token_list_wrapper_table_td_right);
+			$(input).data("settings").onLongerQuery =  function(text){
+                let btn_id = input.id + '-textinput-btn';
+                $('#'+btn_id).listinput('start_modal_with_text',text);
+            }; 
 
-		this.hide_clear_button = function(){
+            let $div_down = $('<div>').addClass('btn_wrapper').appendTo($token_list_wrapper_table_td_right);    
+            //let $clear_button = $('<button>clear</button>').addClass("round-button").addClass("material-icons").addClass("tokeninput_filter_clear")
+            $('<button>clear</button>').addClass("round-button").addClass("material-icons")
+                .click(function(){
+                    _clear_all_tokens();
+                    resize_input();
+                    //onFilterChanged();
+                    let callback1 = $(input).data("settings").onFilterChanged;
+                    if(!isTriggeredFromPopup() && $.isFunction(callback1)) {
+                        setTimeout(function(){ callback1(); }, 50);
+                    }
+                })
+                .appendTo($div_down);
+            
+            
+        }
+
+/*
+        this.hide_clear_button = function(){
 			$(".tokeninput_filter_clear").css({'display':'none'}).parent().css({'border-left':'0'});
-		}
+		};
 		
 		this.show_clear_button = function(){
 			$(".tokeninput_filter_clear").css({'display':'block'}).parent().css({'border-left':'1px solid rgb(221,221,221)'});
 			$clear_button.css({'display':'block'});
 			$clear_button.parent().css({'border-left':'1px solid rgb(221,221,221)'});
-		}
-
+		};
+*/
 		// The token holding the input box
 		var input_token = $("<li id=\"li_input_token\" draggable=\"false\"  style=\"-webkit-user-drag:none;\" />")
 			.addClass($(input).data("settings").classes.inputToken)
@@ -893,7 +952,7 @@
 			$.each(li_data, function (index, value) {
 				insert_token(value,index);
 				checkTokenLimit();
-				input_box.attr("placeholder", null)
+				input_box.attr("placeholder", null);
 			});
 		}
 
@@ -1013,7 +1072,7 @@
 		// to the [disable] parameter.
 		function toggleDisabled(disable) {
 			if (typeof disable === 'boolean') {
-				$(input).data("settings").disabled = disable
+				$(input).data("settings").disabled = disable;
 			} else {
 				$(input).data("settings").disabled = !$(input).data("settings").disabled;
 			}
@@ -1142,6 +1201,35 @@
 			return $this_token;
 		}
 
+		function add_token_pure (item) {
+			// See if the token already exists and select it if we don't want duplicates
+			if(token_count > 0 && $(input).data("settings").preventDuplicates) {
+				var found_existing_token = null;
+				token_list.children().each(function () {
+					var existing_token = $(this);
+					var existing_data = $.data(existing_token.get(0), TOKENINPUT_ITEM_SETTINGS_KEY);
+					if(existing_data && existing_data[settings.tokenValue] === item[settings.tokenValue]) {
+						found_existing_token = existing_token;
+						return false;
+					}
+				});
+
+				if(found_existing_token) {
+					select_token(found_existing_token);
+					input_token.insertAfter(found_existing_token);
+					focusWithTimeout(input_box);
+					return;
+				}
+			}
+			// Insert the new tokens
+			if($(input).data("settings").tokenLimit === null || token_count < $(input).data("settings").tokenLimit) {
+				insert_token(item,saved_tokens.length);
+				// Remove the placeholder so it's not seen after you've added a token
+				input_box.attr("placeholder", null);
+				checkTokenLimit();
+			}
+		}
+
 		// Add a token to the token list based on user input
 		function add_token (item) {
 			var callback = $(input).data("settings").onAdd;
@@ -1170,7 +1258,7 @@
 			input_box.width(1);
 
 			// Insert the new tokens
-			if($(input).data("settings").tokenLimit == null || token_count < $(input).data("settings").tokenLimit) {
+			if($(input).data("settings").tokenLimit === null || token_count < $(input).data("settings").tokenLimit) {
 				insert_token(item,saved_tokens.length);
 				// Remove the placeholder so it's not seen after you've added a token
 				input_box.attr("placeholder", null);
@@ -1247,8 +1335,8 @@
 
 			// Remove this token from the saved list
 			saved_tokens = saved_tokens.slice(0,index).concat(saved_tokens.slice(index+1));
-			if (saved_tokens.length == 0) {
-				input_box.attr("placeholder", settings.placeholder)
+			if (saved_tokens.length === 0) {
+				input_box.attr("placeholder", settings.placeholder);
 			}
 			if(index < selected_token_index) selected_token_index--;
 
@@ -1258,9 +1346,7 @@
 			token_count -= 1;
 
 			if($(input).data("settings").tokenLimit !== null) {
-				input_box
-					.show()
-					.val("");
+				input_box.show().val("");
 				focusWithTimeout(input_box);
 			}
 
@@ -1295,7 +1381,7 @@
 			var settings = $(input).data("settings");
 			var tokenValue = settings.tokenValue;
 			var token_values;
-			if(typeof tokenValue == 'function'){
+			if(typeof tokenValue === 'function'){
 				token_values = $.map(saved_tokens, function (el,index) {
 					return tokenValue.call(this, el, index);
 				});
@@ -1315,10 +1401,10 @@
 				token_value_pure = token_value.replace(/AND_/,'');
 				token_value_pure = token_value_pure.replace(/NOT_/,'');
 				token_value_pure = token_value_pure.replace(/OR_/,'');
-				if(token_value.indexOf(settings.tokenLogicaloperatorItemAndValue)==0){
+				if(token_value.indexOf(settings.tokenLogicaloperatorItemAndValue)===0){
 					logicaloperatorInput_value = '('+logicaloperatorInput_value+space+'AND <span class="'+settings.classes.logicaloperatorInputItemId+'">'+token_value_pure+'</span>)';
 				}
-				else if(token_value.indexOf(settings.tokenLogicaloperatorItemNOTValue)==0){
+				else if(token_value.indexOf(settings.tokenLogicaloperatorItemNOTValue)===0){
 					logicaloperatorInput_value = '('+logicaloperatorInput_value+space+'NOT <span class="'+settings.classes.logicaloperatorInputItemId+'">'+token_value_pure+'</span>)';
 				}
 				else if(index){
@@ -1333,6 +1419,7 @@
 
 		// Hide and clear the results dropdown
 		function hide_dropdown () {
+			
 			dropdown.hide().empty();
 
 			var callback = $(input).data("settings").onHideDropdownItem;
@@ -1342,6 +1429,7 @@
 
 			selected_dropdown_item = null;
 			$(window).off('scroll resize', resize_dropdown);
+
 		}
 
 		function show_dropdown() {
@@ -1352,7 +1440,7 @@
 					left: token_list.offset().left,
 					width: token_list.width(),
 					'z-index': $(input).data("settings").zindex,
-					'overflow': 'auto',
+					'overflow': 'auto'
 				})
 				.show();
 			$(window).off('scroll resize', resize_dropdown);
@@ -1418,7 +1506,7 @@
 					$.each(results, function(index, value) {
 						var notFound = true;
 						$.each(currentTokens, function(cIndex, cValue) {
-							if (value[$(input).data("settings").propertyToSearch] == cValue[$(input).data("settings").propertyToSearch]) {
+							if (value[$(input).data("settings").propertyToSearch] === cValue[$(input).data("settings").propertyToSearch]) {
 								notFound = false;
 								return false;
 							}
@@ -1686,7 +1774,7 @@
 					if ($(input).data("settings").excludeCurrent) {
 						var currentTokens = $(input).data("tokenInputObject").getTokens();
 						var tokenList = $.map(currentTokens, function (el) {
-							if(typeof $(input).data("settings").tokenValue == 'function')
+							if(typeof $(input).data("settings").tokenValue === 'function')
 								return $(input).data("settings").tokenValue.call(this, el);
 
 							return el[$(input).data("settings").tokenValue];
@@ -1742,7 +1830,7 @@
 		// compute the dynamic URL
 		function computeURL() {
 			var settings = $(input).data("settings");
-			return typeof settings.url == 'function' ? settings.url.call(settings) : settings.url;
+			return typeof settings.url === 'function' ? settings.url.call(settings) : settings.url;
 		}
 
 		// Bring browser focus to the specified object.
@@ -1764,8 +1852,8 @@
 			var $target = $(e.target);
 
 			$target.on('dragend', function(e){
-				token_list.find('li').off('dragend dragover drop dragenter dragleave')
-				token_list.find('div.'+$(input).data("settings").classes.dragdrop).css({'box-shadow':'none'});
+				token_list.find('li').off('dragend dragover drop dragenter dragleave');
+                token_list.find('div.'+$(input).data("settings").classes.dragdrop).css({'box-shadow':'none'});
 			});
 
 			token_list.find('li').each(function(){
@@ -1781,7 +1869,7 @@
 				$this.on('drop', function(e){
 					e.preventDefault();
 
-					token_list.find('li').off('dragend dragover drop dragenter dragleave')
+					token_list.find('li').off('dragend dragover drop dragenter dragleave');
 					token_list.find('div.'+$(input).data("settings").classes.dragdrop).css({'box-shadow':'none'});
 
 					$target.insertBefore($(e.target).closest('li'));
@@ -1852,17 +1940,17 @@
 jQuery.extend({
 	stringify : function stringify(obj) {
 		var t = typeof (obj);
-		if (t != "object" || obj === null) {
-			if (t == "string") obj = '"' + obj + '"';
+		if (t !== "object" || obj === null) {
+			if (t === "string") obj = '"' + obj + '"';
 			return String(obj);
 		}
 		else{
-			var n, v, json = [], arr = (obj && obj.constructor == Array);
+			var n, v, json = [], arr = (obj && obj.constructor === Array);
 			for (n in obj) {
 				v = obj[n];
 				t = typeof(v);
 				if (obj.hasOwnProperty(n)) {
-					if (t == "string") v = '"' + v + '"'; else if (t == "object" && v !== null) v = jQuery.stringify(v);
+					if (t === "string") v = '"' + v + '"'; else if (t === "object" && v !== null) v = jQuery.stringify(v);
 					json.push((arr ? "" : '"' + n + '":') + String(v));
 				}
 			}

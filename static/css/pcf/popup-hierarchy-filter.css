@@ -354,20 +354,43 @@ ul.filter-token-input-list.token-input-list-facebook li.token-input-selected-tok
 li.token-input-token-category-facebook {
     width:100%;
 	margin:0;
-	padding:0;	
+	padding-left:0 !important;
+    padding-top: 5px !important;
+    padding-bottom: 5px !important;
 	border:0;
+	height: 45px;
 }
 
-li.token-input-token-category-facebook span {
-	margin: 0;
+li.token-input-token-category-facebook div {
     width: 50%;
-	height: 100%;
-    background-color: #4e8ba2;
+    height: 100%;
     color: #fff;
-    font-weight: 600;
-	font-size: 16px;
-	padding: 5px 10px 5px 0.5rem;
+    font-size: 16px;
+    padding-top: 5px;
+    padding-left: 0.5rem;
+}
+li.token-input-token-category-facebook .geneid {
+    background-color: #777; /*#81877B;*/
+} 
 
+li.token-input-token-category-facebook .mondo {
+    background-color: #f26bd7; /*#FC74FC;*/
+}
+
+li.token-input-token-category-facebook .hp {
+    background-color: #55B95D; /*#6DD109;*/
+}
+
+li.token-input-token-category-facebook .nando {
+    background-color: #2CACF6; /*#096891;*/
+}
+
+li.token-input-token-category-facebook .pa {
+    background-color: #C7AD04; /*#F3C50B;*/
+}
+
+li.token-input-token-category-facebook .paa {
+    background-color: #C7AD04; /*#F3C50B;*/
 }
 
 /* GENEID:XXXXX */
@@ -975,3 +998,45 @@ select.popup-hierarchy-filter-language-change {
 	display: none;
 }
 
+
+
+
+.filter_wrapper_table {
+    width: 100%;
+    min-width:  685px;
+    min-height: 106px;
+    height:     106px;
+    max-height: 106px;
+    border: 1px solid rgb(174, 176, 181);
+    border-radius: 5px;
+    border-collapse: separate;
+}
+
+.filter_wrapper_table .td_right{
+    width:       52px;
+    min-width:   52px;
+    height:      100%;
+	border-left: solid 1px #ddd;
+}
+
+.filter_wrapper_table .td_right .btn_wrapper {
+    width: 100%;
+    height: 50%;
+}
+
+
+.filter_wrapper_table .td_right .btn_wrapper .btn_textinput {
+    border: solid 1px #AEB0B5;
+    border-radius: 50%;
+    margin: 8px 8px 8px 8px;
+    padding: 4px;
+    width: 37px;
+    height: 37px;
+    color: #AEB0B5;
+    font-size: 18px;
+}
+
+.filter_wrapper_table .td_right .btn_wrapper .btn_textinput img {
+	max-width: 94%;
+    margin-bottom: 2px;
+}

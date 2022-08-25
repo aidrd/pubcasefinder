@@ -23,14 +23,14 @@
 				'sample_label': {
 					[OBSERVED_Y] : 'Observed',
 					[OBSERVED_N] : 'Not Observed'
-				},
+				}
 			},
 			[LANGUAGE_JA] : {
 				'placeholder' : 'Import Human Phenotype Onotology(HPO) Term Ids. You can extract multiple HPO term ids from any kind of textual input. HPO term ids must satisfy the format HP:xxxxxxx to be recognized.',
 				'sample_label': {
 					[OBSERVED_Y] : '症状あり',
 					[OBSERVED_N] : '症状なし'
-				},
+				}
 			}
 		}	
 	;
@@ -65,6 +65,8 @@
 		
 		// function called when output hpo list.
 		output_hpo: null,
+        
+        searchDelay: 3000
 	};
 
 
@@ -78,13 +80,13 @@
 		return typeof value !== 'undefined';
 	},
 	_hasJA = function( str ) {
-		return ( str && str.match(/[\u30a0-\u30ff\u3040-\u309f\u3005-\u3006\u30e0-\u9fcf]+/) )? true : false
+		return ( str && str.match(/[\u30a0-\u30ff\u3040-\u309f\u3005-\u3006\u30e0-\u9fcf]+/) )? true : false;
 	},
 	_hasDE = function( str ) {
-		return ( str && str.match(/[äöüÄÖÜß]+/) )? true : false
+		return ( str && str.match(/[äöüÄÖÜß]+/) )? true : false;
 	},
 	_hasNL = function( str ) {
-		return ( str && str.match(/[\u30a0-\u30ff\u3040-\u309f\u3005-\u3006\u30e0-\u9fcf]+/) )? true : false
+		return ( str && str.match(/[\u30a0-\u30ff\u3040-\u309f\u3005-\u3006\u30e0-\u9fcf]+/) )? true : false;
 	},
 	_text_input_show_loader = function(text){
 		if(text){
@@ -110,7 +112,7 @@
 		},
 		start_modal_with_text: function(text){
 			$(this).data(OBJECT_KEY).start_modal_with_text(text);
-		},
+		}
 	};
 
 	$.fn.textinput_hpo = function (method) {
@@ -138,9 +140,7 @@
 							   .attr({'id':'text-input-modal','tabindex':-1,'role':'dialog','aria-labelledby':'text-input-modal-title','aria-hidden':true})
 							   .scroll(function(e) {e.stopPropagation();})
 							   .appendTo("body");
-							   
 		var $modal_dialog  = $('<div>').addClass('modal-dialog modal-dialog-centered modal-xl').appendTo($modal);
-
 		var $modal_content = $('<div>').addClass('modal-content').appendTo($modal_dialog);
 
 		// loader ui
@@ -148,40 +148,58 @@
 		var $div_loader_wrapper = $('<div>').addClass("d-flex flex-row").appendTo($text_input_loader);
 		$('<span>').addClass("text-input-loader-gif").appendTo($div_loader_wrapper);
 		$('<span>').attr('id', 'text-input-loader-text').appendTo($div_loader_wrapper);
-		
+
+        // modal content
 		var $modal_header  = $('<div>').addClass('modal-header p-0').appendTo($modal_content);
 		$('<h5><img src=\"/static/images/pcf/HPOID.svg\"></img> Extract Phenotypes And Human Phenotype Ontology Term Ids From Free-Text</h5>')
 			.addClass('modal-title').attr('id','text-input-modal-title').appendTo($modal_header);
 
 		var $modal_body = $('<div>').addClass('modal-body m-0 p-0 d-flex justify-content-between').appendTo($modal_content);		
 
-
 		var $text_input_textarea_wrapper = $('<div>').addClass('text-input-wrapper').appendTo($modal_body);
 		var $text_input_textarea         = new $.TextInputHPO.HPO_textarea(current_settings.language, function(hpo_id){$text_input_table.chosen(hpo_id);});
 		$text_input_textarea.get_textarea().appendTo($text_input_textarea_wrapper);
 			
-		//var $text_input_table_wrapper    = $('<div>').addClass('text-input-wrapper').css({'overflow-y':'auto'}).appendTo($modal_body);
 		var $text_input_table_wrapper    = $('<div>').addClass('text-input-wrapper').appendTo($modal_body);
-		var $text_input_table            = new $.TextInputHPO.HPO_table(current_settings.language, 
-																		function(hpo_id){$text_input_textarea.chosen(hpo_id);},
-																		function(hpo_id,class_observed){$text_input_textarea.changeObservedStatus(hpo_id, class_observed);}
-																		);
+		var $text_input_table = new $.TextInputHPO.HPO_table(
+                                        current_settings.language, 
+                                        function(hpo_id){$text_input_textarea.chosen(hpo_id);},
+                                        function(hpo_id,class_observed){$text_input_textarea.changeObservedStatus(hpo_id, class_observed);}
+                                    );
 		$text_input_table.get_table().appendTo($text_input_table_wrapper);
 
-		if(current_settings.schema === SCHEMA_AUTO) {
+        if(current_settings.schema === SCHEMA_AUTO) {
 			//SCHEMA_AUTO
 			let tid = $text_input_textarea.get_textarea_id();
-			$('body').on('focus', '#'+tid, function() {
-				let text = $text_input_textarea.get_text();
-				$text_input_textarea.keep_text(text);
-			}).on('blur keyup paste input', '#'+tid, function() {
-				let text = $text_input_textarea.get_text();
-				let text_before = $text_input_textarea.get_kept_text();
-			    if (text !== text_before) {
-					$text_input_textarea.keep_text(text);
-			        setTimeout(function(){_trigger_parse_text();}, 1000);
-			    }
+			$('body').on('paste input', '#'+tid, function() {
+                _trigger_parse_text();
 			});			
+            
+			$('body').on('keydown', '#'+tid, function(event) {
+                switch(event.keyCode) {
+				  case KEY.LEFT:
+				  case KEY.RIGHT:
+				  case KEY.UP:
+				  case KEY.DOWN:
+                  case KEY.ESCAPE:
+                  case KEY.TAB:
+                  case KEY.SHIFT:
+                  case KEY.CTRL:
+                  case KEY.ALT:        
+                  case KEY.ESCAPE:
+                  case KEY.PAGE_UP:
+                  case KEY.PAGE_DOWN:
+                  case KEY.END:
+                  case KEY.HOME:
+                      //console.log('no input,code ' + event.keyCode);
+                      break;
+                  default:
+                    //console.log('input,code ' + event.keyCode);
+                    setTimeout(function(){ _trigger_parse_text();}, 50);
+                    break;
+                }
+			});			            
+            
 		}else{
 			//SCHEMA_MANUAL
 			$('<button>').attr('id','text-input-parse-button').addClass("round-button material-icons").text('chevron_right')
@@ -260,17 +278,12 @@
 		//
 		// functions of parsing text
 		//	
-		var _trigger_parse_text = function(){
-			
-			let text = $text_input_textarea.get_text();
-			let text_before = $text_input_textarea.get_kept_text();
-		
-			if(text !== text_before){
-				return;
-			} 
-			_parse_text();
-		};
-				
+        var timeout;
+        function _trigger_parse_text(){
+            clearTimeout(timeout);
+            timeout = setTimeout(function(){_parse_text();}, $(btn_trigger).data(SETTINGS_KEY).searchDelay);
+        }
+        
 		var _parse_text = function(){
 			//clear table
 			$text_input_table.clear();
@@ -283,8 +296,7 @@
 				return false;
 			} 
 			
-			
-			//usr_input_text = _normalize_text(usr_input_text);
+			usr_input_text = _normalize_text(usr_input_text);
 			
 			// find hpo match in text
 			let hpomatches = _search_hpomatch_from_text(usr_input_text);
@@ -294,7 +306,6 @@
 			
 			// output match to textarea
 			$text_input_textarea.add(usr_input_text, hpomatches);
-			
 		};
 
 		function _normalize_text(note) {
@@ -438,6 +449,9 @@
 		var $textarea = $('<div>').attr('id', 'text-input-area')
 								  .attr('contenteditable','true')
 								  .attr('data-placeholder', LANGUAGE[this.language].placeholder)
+                                  .attr('autocomplete','off')
+                                  .attr('autocapitalize','off')
+                                  .attr('spellcheck', false)
 								  .addClass('text-input-textarea');
 
 		var onChosenSpan = onChosen;
@@ -445,7 +459,8 @@
 		this.get_textarea_id = function(){
 			return 'text-input-area';
 		};
-		
+
+        /*
 		this.keep_text = function(text){
 			$textarea.data('before', text);
 		};
@@ -453,7 +468,7 @@
 		this.get_kept_text = function(){
 			return $textarea.data('before');
 		};
-
+        */
 		this.clear = function(){
 			$textarea.empty();
 		};
@@ -508,13 +523,13 @@
 
 		this.set_focus = function(){
 			setTimeout(function() {$textarea.trigger('focus');}, 10);
-		}
+		};
 		
 		this.add_text = function(text){
 			let lst = text.split('\n');
 			let parsed_text = '<div>' + lst.join('</div><div>') + '</div>'; 
 			$textarea.empty().append(parsed_text);
-		}
+		};
 
 		this.add = function(normalized_text, hpomatches){
 
@@ -561,7 +576,7 @@
 
 		this.get_textarea = function(){
 			return $textarea;
-		}
+		};
 		
 	};
 
@@ -581,7 +596,7 @@
 			if(_isFunction(onChangeObservedStatus)){
 				onChangeObservedStatus(hpo_id, observed_class);
 			}
-		}
+		};
 
 		this.clear = function(){
 			$table.find("tr").remove();
@@ -603,7 +618,7 @@
 				ret.push(hpo_item);
 			});
 			return ret;
-		}
+		};
 		
 		this.add = function(hpomatches){
 			
@@ -641,7 +656,7 @@
 										}
 								   });
 
-				let $td1 = $('<td>').addClass('select').appendTo($tr);
+				let $td1 = $('<td>').addClass('selection').appendTo($tr);
 				let $cbx = $('<input>', {type: 'checkbox', name: 'hpo_list', "checked":"checked"}).appendTo($td1);
 				
 				let name_text = eterm_in_dic;
@@ -690,31 +705,31 @@
 						})
 						.text(LANGUAGE[this.language]['sample_label'][OBSERVED_N])
 						.appendTo($li_ctl_upper2);
-				
+
+                //$table.append($tr);
 				rows.push($tr);
 				i++;
 			}
 
 
 			var j = 0;
-		
 			var inter = setInterval(function() {
 			    if (j < rows.length) {
 			      $table.append(rows[j]);
-			      $table.find('tr:last-child').hide() //hide the row
-			      $table.find('tr:last-child').show('slow') //show the row
+			      $table.find('tr:last-child').hide(); //hide the row
+			      $table.find('tr:last-child').show('slow'); //show the row
 			      j++;
 			    } else {
-			      clearInterval(inter)
+			      clearInterval(inter);
 			    }
-			  }, 100); //milli-second gap you want to give
+			  }, 50); //milli-second gap you want to give
 			
 			$('.dropdown-toggle').dropdown();
 		};		
 
 		this.get_table=function(){
 			return $table;
-		}
+		};
 	};
 	
 	$.TextInputHPO.HPO_dic = function () {

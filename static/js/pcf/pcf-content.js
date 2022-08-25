@@ -19,10 +19,12 @@
 		  URL_DOWNLOAD                              = 'https://pubcasefinder.dbcls.jp/pcf_download',
 		  URL_PCF_FILTER_GET_OMIM_ID_BY_MONDO_ID            = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_filter_get_omim_id_by_mondo_id',
 		  URL_PCF_FILTER_GET_OMIM_ID_BY_NCBI_GENE_ID        = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_filter_get_omim_id_by_ncbi_gene_id',
+		  URL_PCF_FILTER_GET_OMIM_ID_BY_MULTI_NCBI_GENE_ID  = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_filter_get_omim_id_by_multi_ncbi_gene_id',
 		  URL_PCF_FILTER_GET_OMIM_ID_BY_INHERITANCE_HPO_ID  = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_filter_get_omim_id_by_inheritance_hpo_id',
 		  URL_PCF_FILTER_GET_ALL_OMIM_ID                    = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_filter_get_all_omim_id',
 		  URL_PCF_FILTER_GET_ORPHA_ID_BY_MONDO_ID           = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_filter_get_orpha_id_by_mondo_id',
 		  URL_PCF_FILTER_GET_ORPHA_ID_BY_NCBI_GENE_ID       = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_filter_get_orpha_id_by_ncbi_gene_id',
+		  URL_PCF_FILTER_GET_ORPHA_ID_BY_MULTI_NCBI_GENE_ID = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_filter_get_orpha_id_by_multi_ncbi_gene_id',
 		  URL_PCF_FILTER_GET_ORPHA_ID_BY_INHERITANCE_HPO_ID = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_filter_get_orpha_id_by_inheritance_hpo_id',
 		  URL_PCF_FILTER_GET_ALL_ORPHA_ID                   = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_filter_get_all_orpha_id',
 		  URL_PCF_FILTER_GET_GENE_ID_BY_MONDO_ID            = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_filter_get_gene_id_by_mondo_id',
@@ -120,14 +122,14 @@
 				},
 				'SAMPLE_TAG_LABEL': {
 					[TARGET_OMIM]:     [{'CLASS':'list-tag_blue', 'TEXT':'Matched Phenotype'},
-										{'CLASS':'list-tag_green','TEXT':'Modes of Inheritance'},
+										{'CLASS':'list-tag_green','TEXT':'Mode of Inheritance'},
 										{'CLASS':'list-tag_gray', 'TEXT':'Causative Gene'}],
 					[TARGET_ORPHANET]: [{'CLASS':'list-tag_blue', 'TEXT':'Matched Phenotype'},
-										{'CLASS':'list-tag_green','TEXT':'Modes of Inheritance'},
+										{'CLASS':'list-tag_green','TEXT':'Mode of Inheritance'},
 										{'CLASS':'list-tag_gray', 'TEXT':'Causative Gene'}],
 					[TARGET_GENE]:     [{'CLASS':'list-tag_blue', 'TEXT':'Matched Phenotype'},
 										{'CLASS':'list-tag_red',  'TEXT':'Disease Name'},
-										{'CLASS':'list-tag_green','TEXT':'Modes of Inheritance'}],
+										{'CLASS':'list-tag_green','TEXT':'Mode of Inheritance'}],
 					[TARGET_CASE]:     [{'CLASS':'list-tag_blue', 'TEXT':'Matched Phenotype'},
 										{'CLASS':'list-tag_gray', 'TEXT':'Matched Causative Gene'}]
 				},
@@ -141,7 +143,7 @@
 			}
 		};
 
-	const NANDO_LABEL = {'NANDO_1':'難病情報(指定)','NANDO_2':'難病情報(小慢)','DEFAULT':'難病情報'}
+	const NANDO_LABEL = {'NANDO_1':'難病情報(指定)','NANDO_2':'難病情報(小慢)','DEFAULT':'難病情報'};
 
 	const SETTING_KEY_TARGET         = 'PCF-TARGET',
 		  SETTING_KEY_PHENOTYPE      = 'PCF-PHENOTYPE',
@@ -150,6 +152,7 @@
 		  SETTING_KEY_SIZE           = 'PCF-SIZE',
 		  DISPLAY_FORMAT_FULL        = 'full', 
 		  DISPLAY_FORMAT_SUMMARY     = 'summary',
+		  DISPLAY_FORMAT_SHORT       = 'short',
 		  SETTING_KEY_DISPLAY_FORMAT = 'PCF-DISPLAY-FORMAT',
 		  SETTING_KEY_LANG           = 'PCF-LANG',
 		  SETTING_KEY_ID_LST         = 'PCF-ID-LST',
@@ -180,7 +183,7 @@
 		[SETTING_KEY_LANG]:           LANGUAGE_JA,
 		[SETTING_KEY_ONSELECTTAB]:    null,
 		[SETTING_KEY_LOAD_FILTER_IDS]:null,
-		'add_token':				  null,
+		'add_token':				  null
 	};
 
 
@@ -246,7 +249,7 @@
 		'Polygenic inheritance':'HP:0010982',
 		'Digenic inheritanec':'HP:0010984',
 		'Autosomal dominant inheritance with maternal imprinting':'HP:0012275',
-		'Autosomal dominant germline de novo mutation':'HP:0025352',
+		'Autosomal dominant germline de novo mutation':'HP:0025352'
 	};
 
 	const LOGICAL_NOT = "LOGI-NOT",LOGICAL_AND = "LOGI-AND",LOGICAL_OR = "LOGI-OR",LOGICAL_AND_NOT = "LOGI-AND-NOT",LOGICAL_OR_NOT = "LOGI-OR-NOT",
@@ -277,6 +280,10 @@
 				[FILTER_TYPE_HPO]   : "",
 				[FILTER_TYPE_ALL]   : ""
 			}
+		},
+		FILTER_MULTI_GENE_URL_HASH = {
+			[TARGET_OMIM]:URL_PCF_FILTER_GET_OMIM_ID_BY_MULTI_NCBI_GENE_ID,
+			[TARGET_ORPHANET]:URL_PCF_FILTER_GET_ORPHA_ID_BY_MULTI_NCBI_GENE_ID
 		},
 		FILTER_NAME_URL_HASH = {
 			[FILTER_TYPE_HGNC]  : URL_PCF_CONVERT_GENESYMBOL_TO_NCBI_GENE_ID,
@@ -340,7 +347,7 @@
 			return LOGICAL_AND;
 		}else if(RegExp_NOT.test(filter_id)){
 			return LOGICAL_AND_NOT;
-		}else if(order == 0){
+		}else if(order === 0){
 			return LOGICAL_AND;
 		}else{
 			return LOGICAL_OR;
@@ -367,34 +374,23 @@
 
 	function _get_filter_name_or_id(filter_type,lang,json_data,id){
 		let ret = '';
-		if(filter_type === FILTER_TYPE_MONDO){
-			if('name_en' in json_data)	ret = json_data.name_en;
-			if(lang === LANGUAGE_JA && 'name_ja' in json_data && !_isEmpty(json_data.name_ja)) ret = json_data.name_ja;
-
-		}else if(filter_type === FILTER_TYPE_NANDO){
-			if('name_en' in json_data)	ret = json_data.name_en;
-			if(lang === LANGUAGE_JA && 'name_ja' in json_data && !_isEmpty(json_data.name_ja)) ret = json_data.name_ja;
-
-		}else if(filter_type === FILTER_TYPE_PA){
-			
-			if('name_en' in json_data)	ret = json_data.name_en;
-
-		}else if(filter_type === FILTER_TYPE_PAA){
-			
-			if('name_en' in json_data)	ret = json_data.name_en;
-			
+		if(filter_type === FILTER_TYPE_MONDO || filter_type === FILTER_TYPE_NANDO){
+            if(id in json_data){
+                if('name_en' in json_data[id])	ret = json_data[id].name_en;
+                if(lang === LANGUAGE_JA && 'name_ja' in json_data[id] && !_isEmpty(json_data[id].name_ja)) ret = json_data[id].name_ja;
+            }
+		}else if(filter_type === FILTER_TYPE_PA || filter_type === FILTER_TYPE_PAA || filter_type === FILTER_TYPE_GENEID){
+            if(id in json_data){
+                if('name_en' in json_data[id])	ret = json_data[id].name_en;
+            }
 		}else if(filter_type === FILTER_TYPE_HPO){
 			if(id in json_data){
 				if('name_en' in json_data[id]) ret = json_data[id].name_en;
 				if(lang === LANGUAGE_JA && 'name_ja' in json_data[id] && !_isEmpty(json_data[id].name_ja)) ret = json_data[id].name_ja;
 			}
-		}else if(filter_type === FILTER_TYPE_GENEID){
-			if(id in json_data){
-                if('name_en' in json_data[id]) ret = json_data[id].name_en;
-            }
 		}else if(filter_type === FILTER_TYPE_HGNC){
-			if(_isArray(json_data) && json_data.length > 0){
-				ret = json_data[0].ncbi_gene_id;
+			if(!_isEmpty(json_data) && id in json_data){
+				ret = json_data[id];
 			}
 		}else if("hgnc_gene_symbol" in json_data){
 			ret = json_data["hgnc_gene_symbol"];
@@ -460,7 +456,7 @@
 	
 	function _get_phenotype_name_from_cache(hpo_id,language){
 		if (!(hpo_id in pcf_phenotype_name_cache)) return "";
-		if(language == LANGUAGE_EN)return pcf_phenotype_name_cache[hpo_id].name_en;
+		if(language === LANGUAGE_EN)return pcf_phenotype_name_cache[hpo_id].name_en;
 		return pcf_phenotype_name_cache[hpo_id].name_ja;
 	}
 
@@ -468,7 +464,7 @@
 	var pcf_case_report_count_cache = {
 		[LANGUAGE_EN]:{},
 		[LANGUAGE_JA]:{}
-	}
+	};
 
 	function _set_case_report_count_data_to_cache(json_data,lang){
 		json_data.forEach(function(item){
@@ -707,12 +703,16 @@
 			url_str = _construct_url_str(URL_PCF_FILTER_GET_OMIM_ID_BY_MONDO_ID,{[URL_PARA_MONDO_ID]: setting[SETTING_KEY_ID_LST]});
 		}else if(url_key === URL_PCF_FILTER_GET_OMIM_ID_BY_NCBI_GENE_ID){
 			url_str = _construct_url_str(URL_PCF_FILTER_GET_OMIM_ID_BY_NCBI_GENE_ID,{[URL_PARA_NCBI_GENE_ID]: setting[SETTING_KEY_ID_LST].replace(/ENT/,"GENEID")});
+		}else if(url_key === URL_PCF_FILTER_GET_OMIM_ID_BY_MULTI_NCBI_GENE_ID){
+			url_str = _construct_url_str(URL_PCF_FILTER_GET_OMIM_ID_BY_MULTI_NCBI_GENE_ID,{[URL_PARA_NCBI_GENE_ID]: setting[SETTING_KEY_ID_LST].replace(/GENEID:/g,"")});
 		}else if(url_key === URL_PCF_FILTER_GET_OMIM_ID_BY_INHERITANCE_HPO_ID){
 			url_str = _construct_url_str(URL_PCF_FILTER_GET_OMIM_ID_BY_INHERITANCE_HPO_ID,{[URL_PARA_HPO_ID]: setting[SETTING_KEY_ID_LST]});
 		}else if(url_key === URL_PCF_FILTER_GET_ORPHA_ID_BY_MONDO_ID){
 			url_str = _construct_url_str(URL_PCF_FILTER_GET_ORPHA_ID_BY_MONDO_ID,{[URL_PARA_MONDO_ID]: setting[SETTING_KEY_ID_LST]});
 		}else if(url_key === URL_PCF_FILTER_GET_ORPHA_ID_BY_NCBI_GENE_ID){
 			url_str = _construct_url_str(URL_PCF_FILTER_GET_ORPHA_ID_BY_NCBI_GENE_ID,{[URL_PARA_NCBI_GENE_ID]: setting[SETTING_KEY_ID_LST].replace(/ENT/,"GENEID")});
+		}else if(url_key === URL_PCF_FILTER_GET_ORPHA_ID_BY_MULTI_NCBI_GENE_ID){
+			url_str = _construct_url_str(URL_PCF_FILTER_GET_ORPHA_ID_BY_MULTI_NCBI_GENE_ID,{[URL_PARA_NCBI_GENE_ID]: setting[SETTING_KEY_ID_LST].replace(/GENEID:/g,"")});
 		}else if(url_key === URL_PCF_FILTER_GET_ORPHA_ID_BY_INHERITANCE_HPO_ID){
 			url_str = _construct_url_str(URL_PCF_FILTER_GET_ORPHA_ID_BY_INHERITANCE_HPO_ID,{[URL_PARA_HPO_ID]: setting[SETTING_KEY_ID_LST]});
 		}else if(url_key === URL_PCF_FILTER_GET_GENE_ID_BY_MONDO_ID){
@@ -752,7 +752,7 @@
 		}else if(url_key === URL_PCF_FILTER_GET_CASE_ID_BY_PAA_ID) {
 			url_str = _construct_url_str(URL_PCF_FILTER_GET_CASE_ID_BY_PAA_ID,{[URL_PARA_PAA_ID]: setting[SETTING_KEY_ID_LST]});  
 		}else if(url_key === URL_PCF_CONVERT_GENESYMBOL_TO_NCBI_GENE_ID){
-			url_str = _construct_url_str(URL_PCF_CONVERT_GENESYMBOL_TO_NCBI_GENE_ID,{hgnc_gene_symbol: setting[SETTING_KEY_ID_LST].replace(/HGNC:/i,'')});
+			url_str = _construct_url_str(URL_PCF_CONVERT_GENESYMBOL_TO_NCBI_GENE_ID,{hgnc_gene_symbol: setting[SETTING_KEY_ID_LST].replaceAll(/HGNC:/ig,'')});
 		}else if(url_key === URL_SHARE){
 			if(setting[SETTING_KEY_SHARE] === SHARE_TYPE_URL){
 				// share url
@@ -903,7 +903,7 @@
 		for(let i =0;i<hash[key_id].length;i++){
 			let id  = hash[key_id][i];
 			let url = hash[key_url][i];
-			ret = ret + "<a href=\""+url+"\" target=\"_blank\">"+id+"</a>"
+			ret = ret + "<a href=\""+url+"\" target=\"_blank\">"+id+"</a>";
 		}
 		return ret;
 	}
@@ -1073,7 +1073,7 @@
 					url:      url_str_full,
 					type:     'GET',
 					async:    true,
-					dataType: 'text',
+					dataType: 'text'
 				}).done(function(data,textStatus,jqXHR) {
 						let json_data = JSON.parse(data);
 						let [content, max_text_len] = _contruct_popup_content(popup_id,popup_type,json_data, popup_class);
@@ -1097,7 +1097,7 @@
 				}).always(function(){
 					instance._isFetching = false;
 				});
-			},
+			}
 		});
 		
 		return $(button);
@@ -1106,10 +1106,11 @@
 	function _contruct_detail(id, phenoList, item, lang, target, display_format, $container_panel, ranking_item, setting){
 
 		let isJA = (lang === LANGUAGE_JA);
-		let isDisplayFull = (display_format === DISPLAY_FORMAT_FULL);
+		//let isDisplayFull = (display_format === DISPLAY_FORMAT_FULL);
 		
 		// 1. english title
-		let $h3 = $('<h3>').appendTo($container_panel);
+        let $title = $('<div>').addClass('title').addClass('d-flex flew-row').appendTo($container_panel);
+		let $h3 = $('<h3>').addClass('flex-fill').appendTo($title);
 		if(target === TARGET_CASE){
 			$h3.html("<a href=\""+ranking_item.url+"\" target=\"_blank\">"+id+"</a>");
 			$h3.addClass('title-case');
@@ -1123,24 +1124,67 @@
 			$h3.text(id);
 		}
 
+		$btn_expand = $('<span>').addClass("material-icons").addClass('ctl').addClass(display_format).text("expand_more")
+					   .data('display_format',display_format)
+					   .click(function(){
+							let display_format = $(this).data('display_format');
+							let isSubTitleExisted = $(this).data('isSubTitleExisted');
+
+							if($(this).hasClass(display_format)){
+							   if(display_format === DISPLAY_FORMAT_FULL){
+								   $(this).closest('.list-content_right').removeClass(display_format).addClass(DISPLAY_FORMAT_SHORT);
+								   $(this).removeClass(display_format).addClass(DISPLAY_FORMAT_SHORT);
+							   }else{
+								   $(this).closest('.list-content_right').removeClass(display_format).addClass(DISPLAY_FORMAT_FULL);
+								   if(!isSubTitleExisted) $title.css({'margin-bottom':'0.5em'});
+								   $(this).removeClass(display_format).addClass(DISPLAY_FORMAT_FULL);
+							   }
+							}else{
+							   if(display_format === DISPLAY_FORMAT_FULL){
+								   $(this).closest('.list-content_right').removeClass(DISPLAY_FORMAT_SUMMARY).removeClass(DISPLAY_FORMAT_SHORT).addClass(display_format);
+								   $(this).removeClass(DISPLAY_FORMAT_SUMMARY).removeClass(DISPLAY_FORMAT_SHORT).addClass(display_format);
+							   }else{
+								   $(this).closest('.list-content_right').removeClass(DISPLAY_FORMAT_FULL).addClass(display_format);
+									if(!isSubTitleExisted) $title.css({'margin-bottom':'0'});
+								   $(this).removeClass(DISPLAY_FORMAT_FULL).addClass(display_format);
+							   }
+							}
+					   });
+		if(display_format !== DISPLAY_FORMAT_FULL){
+			$btn_expand.appendTo($title);
+		}
+		
 		// 2. japanese title
 		if(target === TARGET_CASE){
-			$h3.css({'margin-bottom':'0.5em'});
+			$btn_expand.data('isSubTitleExisted', false);
+			//$h3.css({'margin-bottom':'0.5em'});
 		} else if(isJA && ("omim_disease_name_ja" in item)){
 			$("<h2>").text(item.omim_disease_name_ja).appendTo($container_panel);
+			$btn_expand.data('isSubTitleExisted', true);
 		}else if(isJA && ("orpha_disease_name_ja" in item)){
 			$("<h2>").text(item.orpha_disease_name_ja).appendTo($container_panel);
+			$btn_expand.data('isSubTitleExisted', true);
 		}else if(target === TARGET_GENE){
 			if(!_isEmpty(item.synonym)){
 				$("<h2>").text('Also known as: ' + item.synonym.join(', ')).appendTo($container_panel);
+				$btn_expand.data('isSubTitleExisted', true);
+			}else{
+				$btn_expand.data('isSubTitleExisted', false);
 			}
 		}else{
-			$h3.css({'margin-bottom':'0.5em'});
+			//$h3.css({'margin-bottom':'0.5em'});
+			if(display_format !== DISPLAY_FORMAT_SHORT){
+				$title.css({'margin-bottom':'0.5em'});
+				$btn_expand.data('isSubTitleExisted', true);
+			}else{
+				$btn_expand.data('isSubTitleExisted', false);
+			}
 		}
 
 		// 3. phenotypes list
 		if(!_isEmpty(phenoList)){
-			let $container_list_query = $('<div>').addClass("d-flex").addClass("flex-wrap").addClass("list-tag-wrapper").appendTo($container_panel);
+			//let $container_list_query = $('<div>').addClass("d-flex").addClass("flex-wrap").addClass("list-tag-wrapper").appendTo($container_panel);
+            let $container_list_query = $('<div>').addClass("list-tag-wrapper").appendTo($container_panel);
 			phenoList.split(',').forEach(function(hpo_id){
 				let label_text = _get_phenotype_name_from_cache(hpo_id,lang);
 				if(_isEmpty(label_text)){
@@ -1160,7 +1204,8 @@
 			if((_isExistVal("inheritance_en",item)) || (_isExistVal("hgnc_gene_symbol",item) )){
 				
 				//let $container_list_heredity = $('<div>').addClass("list-heredity-disease").appendTo($container_panel);
-				let $container_list_heredity = $('<div>').addClass("d-flex").addClass("flex-wrap").addClass("list-tag-wrapper").appendTo($container_panel);
+				//let $container_list_heredity = $('<div>').addClass("d-flex").addClass("flex-wrap").addClass("list-tag-wrapper").appendTo($container_panel);
+                let $container_list_heredity = $('<div>').addClass("list-tag-wrapper").appendTo($container_panel);
 				
 				if(_isExistVal("inheritance_en",item)){
 					for(let hpo_id in item.inheritance_en){
@@ -1180,7 +1225,8 @@
 			}
 		}else if(target === TARGET_GENE){
 			if(_isExistVal("mondo_disease_name_en",item)){
-				let $container_list_diseasename = $('<div>').addClass("d-flex").addClass("flex-wrap").addClass("list-tag-wrapper").appendTo($container_panel);
+				//let $container_list_diseasename = $('<div>').addClass("d-flex").addClass("flex-wrap").addClass("list-tag-wrapper").appendTo($container_panel);
+                let $container_list_diseasename = $('<div>').addClass("list-tag-wrapper").appendTo($container_panel);
 				
 				for(let mondo_id in item.mondo_disease_name_en){
 					let text = item.mondo_disease_name_en[mondo_id];
@@ -1191,7 +1237,8 @@
 			}
 			
 			if(_isExistVal("inheritance_en",item)){
-				let $container_list_disease = $('<div>').addClass("d-flex").addClass("flex-wrap").addClass("list-tag-wrapper").appendTo($container_panel);
+				//let $container_list_disease = $('<div>').addClass("d-flex").addClass("flex-wrap").addClass("list-tag-wrapper").appendTo($container_panel);
+                let $container_list_disease = $('<div>').addClass("list-tag-wrapper").appendTo($container_panel);
 				for(let i=0;i<item.inheritance_en.length;i++){
 					let text = item.inheritance_en[i];
 					if(isJA)text = item.inheritance_ja[i];
@@ -1209,7 +1256,8 @@
 			if(_isExistVal("hgnc_gene_symbol",ranking_item)){
 
 				//let $container_list_heredity = $('<div>').addClass("list-heredity-disease").appendTo($container_panel);
-				let $container_list_heredity = $('<div>').addClass("d-flex").addClass("flex-wrap").addClass("list-tag-wrapper").appendTo($container_panel);
+				//let $container_list_heredity = $('<div>').addClass("d-flex").addClass("flex-wrap").addClass("list-tag-wrapper").appendTo($container_panel);
+                let $container_list_heredity = $('<div>').addClass("list-tag-wrapper").appendTo($container_panel);
 
 				Object.keys(ranking_item.hgnc_gene_symbol).forEach(function(id){
 					let text = ranking_item["hgnc_gene_symbol"][id];
@@ -1219,13 +1267,13 @@
 		}
 		
 		// 5. description p
-		if(target !== TARGET_CASE && isDisplayFull && _isExistVal("description",item)){
+		if(target !== TARGET_CASE && _isExistVal("description",item)){
 			let $p = $('<p>').text(item.description).appendTo($container_panel);
 			let href_str = encodeURIComponent(item.description);
 			    href_str = "https://translate.google.co.jp/?sl=en&tl=ja&text=" + href_str + "&op=translate&hl=ja";
 			
 			$("<a>").text(" >> Translate(Google)").attr( 'href', href_str).attr('target', '_blank').appendTo($p);
-		}else if(target === TARGET_GENE  && isDisplayFull){
+		}else if(target === TARGET_GENE){
 			if(_isExistVal("ncbi_gene_summary",item)){
 				let $p = $('<p>').text(item.ncbi_gene_summary).appendTo($container_panel);
 				let href_str = encodeURIComponent(item.ncbi_gene_summary);
@@ -1236,8 +1284,9 @@
 		
 		
 		// 6. list link line
-		if(isDisplayFull && target !== TARGET_CASE){
-			let $list_link_panel = $('<div>').addClass("d-flex").addClass("flex-wrap").addClass("list-link").appendTo($container_panel);
+		if(target !== TARGET_CASE){
+			//let $list_link_panel = $('<div>').addClass("d-flex").addClass("flex-wrap").addClass("list-link").appendTo($container_panel);
+            let $list_link_panel = $('<div>').addClass("list-link").appendTo($container_panel);
 			
 			if(_isExistVal("omim_url" ,item)){
 				$('<a>').text(id).attr('href',item.omim_url).attr('target','_blank').appendTo($list_link_panel);
@@ -1330,7 +1379,7 @@
 				item.gene_reviews_url.forEach(function(url_str){
 					//https://www.ncbi.nlm.nih.gov/books/NBK1153/
 					let ix = url_str.indexOf('books/');
-					if(ix != -1){
+					if(ix !== -1){
 						let ustr = url_str.substring(ix);
 						ustr = ustr.replace('books','');
 						ustr = ustr.replace('/','');
@@ -1346,7 +1395,7 @@
 				item.gtr_url.forEach(function(url_str){
 					//https://www.ncbi.nlm.nih.gov/gtr/all/tests/?term=C2676137/
 					let ix = url_str.indexOf('term=');
-					if(ix != -1){
+					if(ix !== -1){
 						let ustr = url_str.substring(ix);
 						ustr = ustr.replace(/term=/,'');
 						ustr = ustr.replace('/','');
@@ -1359,9 +1408,9 @@
 		}
 		
 		//7. list link line
-		if(isDisplayFull && (target === TARGET_OMIM || target === TARGET_ORPHANET)) {
+		if(target === TARGET_OMIM || target === TARGET_ORPHANET) {
 
-			let mondo_id = ""
+			let mondo_id = "";
 			if(_isExistVal("mondo_id",item)) mondo_id = item["mondo_id"][0];
 
 			let case_report_count_ja = _get_case_report_count_data_from_cache(mondo_id, LANGUAGE_JA);
@@ -1373,7 +1422,7 @@
 	
 			let isOrpha = (target === TARGET_ORPHANET);
 
-			$('<div>').css({'width':'100%'}).pcf_collapse_panel({
+			$('<div>').addClass('list-show_wrapper').pcf_collapse_panel({
 				"LABEL_PHENOTYPE"   : LANGUAGE[lang].DETAIL_LABEL.PHENOTYPE_LST,
 				"LABEL_JA_CASE"     : LANGUAGE[lang].DETAIL_LABEL.JA_REPORT,
 				"LABEL_EN_CASE"     : LANGUAGE[lang].DETAIL_LABEL.EN_REPORT,
@@ -1391,7 +1440,7 @@
 				"popup_class"            : CLASS_POPUP_PHENOTYPE_INLIST,
 				"popup_func"             : _contruct_popup_button,
 				"isorpha"                : isOrpha,
-				"add_token"				 : setting.add_token,
+				"add_token"				 : setting.add_token
 			}).appendTo($container_panel);
 		}
 
@@ -1402,7 +1451,7 @@
 		let isJA      = (lang===LANGUAGE_JA);
 		let target_id = rank.id;
 		let score     = rank.score * 100;
-		if(score > 100) score = 100		
+		if(score > 100) score = 100;		
 		score = score.toFixed(1)+"%";
 
 		let phenotype_list_str = "";
@@ -1647,6 +1696,7 @@
 		if(_is_target_status_data_loaded(target)) return;
 
 		let $target_tab_panel = tab_panel_lst[target];
+        
 
 		let ranking_list = _get_ranking_data_from_cache(setting);
 		if(_isEmpty(ranking_list)) return;
@@ -1707,8 +1757,8 @@
 		}
 		for(;(i<ranking_list.length && data_counter>0);i++){
 			
-			let $tr = $('<div>').addClass(CLASS_ROW);
-			if($last_row == null){
+			let $tr = $('<div>').addClass(CLASS_ROW).addClass('flex-row').addClass(target);
+			if($last_row === null){
 				//when initialize tab panel
 				$tr.appendTo($target_tab_panel);				
 			}else{
@@ -1716,41 +1766,28 @@
 			}
 			$last_row = $tr;
 			
-			let $td_left  = $('<div>').addClass('list-content_left').appendTo($tr);
-			let $td_right = $('<div>').addClass('list-content_right').addClass('flex-fill').appendTo($tr);
+			let $td_left  = $('<div>').addClass('list-content_left').addClass(display_format).appendTo($tr);
+			let $td_right = $('<div>').addClass('list-content_right').addClass('flex-fill').addClass(display_format).appendTo($tr);
 
-			// left
-			let $rank = $('<div>').addClass('rank').appendTo($td_left);
-			let input_str = "<input type=\"checkbox\" value=\""+ranking_list[i].id+"\" name=\"target_id\"><p>"+(i+1)+"</p></input>";
-			let $input_checkbox = $(input_str).appendTo($rank);
-			$input_checkbox.change(function(){
-				_on_select_changed();
-			});
-			
-
-			//let score = (ranking_list[i].score * 100).toFixed(1)+"%";
+			// score
 	        let score     = ranking_list[i].score * 100;
-    	    if(score > 100) score = 100
+    	    if(score > 100) score = 100;
 	        score = score.toFixed(1)+"%";
 			score = score.replace('100.0','100');
-			let $percentage = $("<span>("+ score+")</span>").appendTo($td_left);
-			if(!isDisplayFull) $percentage.addClass('summary');
-			
+
+			// buttons
+			let copy_button = null;
+			let $like_button = null;
 			if(target !== TARGET_CASE){
-
-				let $list_content_left_bt = $('<div>').addClass('list-content_left_bt').appendTo($td_left);
-
 				if(ranking_list[i].id in detail_data ){
-
-					let copy_button = document.createElement('a');
-		
-					if(isDisplayFull){
+					copy_button = document.createElement('a');
+					if(display_format === DISPLAY_FORMAT_SHORT){
+						copy_button.innerHTML = "<i class=\"material-icons\">content_copy</i>";
+					}else if(display_format === DISPLAY_FORMAT_FULL){
 						copy_button.innerHTML = "Copy<i class=\"material-icons\">content_copy</i>";
 					}else{
 						copy_button.innerHTML = "<i class=\"material-icons\">content_copy</i>";
 					}
-
-	
 					let copy_button_id = 'btn_copy_' + target + "_" + i;
 					tippy(copy_button, {
 						allowHTML:      true,
@@ -1763,52 +1800,48 @@
 						placement:      'bottom-start',
 						copy_button_id: copy_button_id,
 						onCreate(instance) {
-			    			// Setup our own custom state properties
+							// Setup our own custom state properties
 							instance._isSetClickEvent = false;
 						},
 						onShown(instance) {
 							let copy_button_id = instance.props.copy_button_id;							
 							let pid = "copy_content_"+copy_button_id;
 							$("#" + pid).focus();
-							
-							if (instance._isSetClickEvent) {
-								return;
-							}
-
+							if (instance._isSetClickEvent) return;
 							// set click event
 							$("#"+copy_button_id).tooltip({'title':'Summary successfully copied', 'trigger':'manual', 'placement':'bottom'})
 											.on('click', function (e) {
 												let $copy_button = $(this);
 												$copy_button.tooltip('show');
 												let text = $copy_button.parent().prev().find("p").text();
-												
+
 												if (window.clipboardData && window.clipboardData.setData) {
-												    // Internet Explorer-specific code path to prevent textarea being shown while dialog is visible.
+													// Internet Explorer-specific code path to prevent textarea being shown while dialog is visible.
 													window.clipboardData.setData("Text", text);
 												}
 												else if (document.queryCommandSupported && document.queryCommandSupported("copy")) {
-												        let textarea = document.createElement("textarea");
-												        textarea.style = "position: absolute; left: -1000px; top: -1000px";
-												        textarea.textContent = text;
-												        document.body.appendChild(textarea);
-												        //textarea.select();
-												        try {
-													            let selection = document.getSelection();
-												                selection.removeAllRanges();
-												
-												                let range = document.createRange();
-												                range.selectNodeContents(textarea);
-												                selection.addRange(range);
-												
-												                document.execCommand('copy');
-												                selection.removeAllRanges();
-												        }
-												        catch (ex) {
-												                console.warn("Copy to clipboard failed.", ex);
-												        }
-												        finally {
-												                document.body.removeChild(textarea);
-												        }
+														let textarea = document.createElement("textarea");
+														textarea.style = "position: absolute; left: -1000px; top: -1000px";
+														textarea.textContent = text;
+														document.body.appendChild(textarea);
+														//textarea.select();
+														try {
+																let selection = document.getSelection();
+																selection.removeAllRanges();
+
+																let range = document.createRange();
+																range.selectNodeContents(textarea);
+																selection.addRange(range);
+
+																document.execCommand('copy');
+																selection.removeAllRanges();
+														}
+														catch (ex) {
+																console.warn("Copy to clipboard failed.", ex);
+														}
+														finally {
+																document.body.removeChild(textarea);
+														}
 												}
 												return false;
 											})
@@ -1829,30 +1862,24 @@
 											" >"+
 											"<i style=\"font-size:18px;vertical-align:sub;\" class=\"material-icons\">content_copy</i>Copy to the clipboard</button>"+
 								"</div>";
-						},
+						}
 					});
 
-					if(isDisplayFull){
-						let $copy_button_wrapper = $('<span>').appendTo($list_content_left_bt);
-						$(copy_button).css({'height':'1.1rem'}).appendTo($copy_button_wrapper);
-					}else{
-						$(copy_button).appendTo($list_content_left_bt);
-					}
-	
-					let $like_button = $('<a>').appendTo($list_content_left_bt);
-					if(isDisplayFull){
+					$like_button = $('<a>');
+					if(display_format === DISPLAY_FORMAT_SHORT){
+						$like_button.append("<i class=\"material-icons\">favorite_border</i>");
+					}else if(display_format === DISPLAY_FORMAT_FULL){
 						$like_button.text("Like").append("<i class=\"material-icons\">favorite_border</i>");
 					}else{
-						$list_content_left_bt.addClass('summary');
 						$like_button.append("<i class=\"material-icons\">favorite_border</i>");
 						$like_button.css({'margin-left': '15px'});
 					}
-	
+					
+
 					$like_button.data(SETTING_KEY_TARGET,target).data(SETTING_KEY_ID_LST,ranking_list[i].matched_hpo_id)
 								.data(SETTING_KEY_TARGET_ID,ranking_list[i].id)
 								.on('click', function (e) {
-									let $btn = $(this) 
-								
+									let $btn = $(this); 
 									if($btn.hasClass('liked')){
 										$btn.removeClass('liked');
 										$btn.find('i').text('favorite_border');
@@ -1871,7 +1898,56 @@
 								});
 				}
 			}
+				
+			// left
+			if(display_format === DISPLAY_FORMAT_SHORT){
+				$td_left.addClass('d-flex flex-row');
+				
+				let $sel = $('<div>').addClass('sel').appendTo($td_left);
+				$("<input type=\"checkbox\" value=\""+ranking_list[i].id+"\" name=\"target_id\"></input>")
+					.change(function(){_on_select_changed();}).appendTo($sel);
 
+				/// rank
+				$('<div>').addClass('rank').text(i+1).appendTo($td_left);
+
+	            /// score
+				$("<div>("+ score+")</div>").appendTo($td_left);
+
+				if(target !== TARGET_CASE){
+					if(ranking_list[i].id in detail_data ){
+						let $copy_button_wrapper = $('<div>').appendTo($td_left);
+						$(copy_button).appendTo($copy_button_wrapper);
+
+						let $like_button_wrapper = $('<div>').appendTo($td_left);
+						$like_button.appendTo($like_button_wrapper);
+					}
+				}
+			}else{
+				let $rank = $('<div>').addClass('rank').appendTo($td_left);
+				let input_str = "<input type=\"checkbox\" value=\""+ranking_list[i].id+"\" name=\"target_id\"><p>"+(i+1)+"</p></input>";
+				$(input_str).change(function(){ _on_select_changed(); }).appendTo($rank);
+				
+				let $percentage = $("<span>("+ score+")</span>").appendTo($td_left);
+				if(!isDisplayFull) $percentage.addClass('summary');
+
+				if(target !== TARGET_CASE){
+					let $list_content_left_bt = $('<div>').addClass('list-content_left_bt').appendTo($td_left);
+
+					if(ranking_list[i].id in detail_data ){
+						if(isDisplayFull){
+							let $copy_button_wrapper = $('<span>').appendTo($list_content_left_bt);
+							$(copy_button).css({'height':'1.1rem'}).appendTo($copy_button_wrapper);
+						}else{
+							$(copy_button).appendTo($list_content_left_bt);
+						}
+	
+						$like_button.appendTo($list_content_left_bt);
+						
+						if(!isDisplayFull) $list_content_left_bt.addClass('summary');
+					}
+				}
+
+			}
 			
 			//right
 			if(target === TARGET_CASE){
@@ -1881,8 +1957,8 @@
 			} else {
 				$td_right.text('No Search Results for ('+ranking_list[i].id+').').css({'text-align':'center','vertical-align':'middle'});
 			}
-			
-			data_counter--;
+
+            data_counter--;
 		}
 
 		// bottom
@@ -1974,7 +2050,7 @@
 		
 		var callback_fail_after_all_call = function(){
 			pcf_hide_loading();
-		}
+		};
 		
 		if(ajax_item_list.length === 0){
 			_show_result(setting);
@@ -2054,7 +2130,7 @@
 			let ranking_data_new = [];
 			ranking_data_without_filter.forEach(function(item){
 				let obj = $.extend(true,{}, item);
-				for(geneid in filter_vgp_gene_hash){
+				for(let geneid in filter_vgp_gene_hash){
 					//filter_vgp_gene_hash[geneid]['cases'].forEach(function(case_id){
 					for(let i=0;i<filter_vgp_gene_hash[geneid]['cases'].length;i++){
 						case_id=filter_vgp_gene_hash[geneid]['cases'][i];
@@ -2157,7 +2233,7 @@
 			ranking_data_new.forEach(function(item){
 				let obj = $.extend(true,{}, item);
 				let found = false;
-				for(geneid in filter_vgp_gene_hash){
+				for(let geneid in filter_vgp_gene_hash){
 					
 					for(let i=0;i<filter_vgp_gene_hash[geneid]['cases'].length;i++){
 					//filter_vgp_gene_hash[geneid]['cases'].forEach(function(case_id){
@@ -2371,12 +2447,15 @@
 		
 		// 2. filter
 		let type_filter = 'filter';
+		let type_filter_multi_gene = 'filter_multi_gene';
 		let items_total_hash = {};
 		let result_ranking_id_hash = {};
 		let filter_list_str    = setting[SETTING_KEY_FILTER];		
 		if(filter_list_str.length > 0){
 			// analyze filter one by one
 			let filter_list = filter_list_str.split(',');
+            let idx_items_total_hash = 0;
+            let continuous_gene_filter = {};
 			for(let i=0; i<filter_list.length; i++){
 	
 				let str_filter_id = filter_list[i];
@@ -2385,54 +2464,94 @@
 				let logical_type  = _get_logical_by_filter_id(str_filter_id, i);
 				let url_str       = FILTER_URL_HASH[target_str][filter_type];
 	
+                if( target_str !== TARGET_GENE && target_str !== TARGET_CASE &&
+                    filter_type === FILTER_TYPE_GENEID && 
+                    (logical_type === LOGICAL_OR || (i===0 && logical_type === LOGICAL_AND))
+                    ){
+                    if(_isEmpty(continuous_gene_filter)){
+                        continuous_gene_filter.index = idx_items_total_hash;
+                        continuous_gene_filter.id = id;
+                        continuous_gene_filter.filter_type = filter_type;
+                        continuous_gene_filter.logical_type = logical_type;
+                        continuous_gene_filter.url_str = FILTER_MULTI_GENE_URL_HASH[target_str];
+                    }else{
+                        continuous_gene_filter.id = continuous_gene_filter.id + ',' + id;
+                    }
+                    continue;
+                }else{
+                    if(!_isEmpty(continuous_gene_filter)){
+                        // output 
+                        items_total_hash[idx_items_total_hash] = $.extend(true,{}, continuous_gene_filter);
+                        let url_str_full = _construct_url(continuous_gene_filter.url_str,{[SETTING_KEY_ID_LST]:continuous_gene_filter.id});
+                        let obj = {[SETTING_KEY_URLSTR]: url_str_full, 'type': type_filter_multi_gene, 'index': idx_items_total_hash};
+                        ajax_item_list.push(obj);
+                        idx_items_total_hash++;
+                        continuous_gene_filter = {};
+                    }
+                }
 				// keep the item 
-				items_total_hash[i] ={
-					'index'        : i,
+				items_total_hash[idx_items_total_hash] ={
+					'index'        : idx_items_total_hash,
 					'str_filter_id': str_filter_id,
 					'id'           : id,
 					'filter_type'  : filter_type,
-					'logical_type' : logical_type,
+					'logical_type' : logical_type
 				};
-				
+                
 				// check if need get data through ajax
 				if(!_isEmpty(url_str)){
-					let url_str_full = _construct_url(url_str,{[SETTING_KEY_ID_LST]:id});
-					let obj = {[SETTING_KEY_URLSTR]:url_str_full, 'type': 'filter', 'index': i};
+
+                    let url_str_full = _construct_url(url_str,{[SETTING_KEY_ID_LST]:id});
+					let obj = {[SETTING_KEY_URLSTR]:url_str_full, 'type': 'filter', 'index': idx_items_total_hash};
 					ajax_item_list.push(obj);
 				}else{
 					// no need to get data through ajax
 					if(target_str === TARGET_GENE && filter_type === FILTER_TYPE_GENEID){
 						let gene_id = id.replace(/ENT/,"GENEID");
-						result_ranking_id_hash[i] = {};
-						result_ranking_id_hash[i][gene_id]=1;
+						result_ranking_id_hash[idx_items_total_hash] = {};
+						result_ranking_id_hash[idx_items_total_hash][gene_id]=1;
 					}else{
-						result_ranking_id_hash[i] = {};
+						result_ranking_id_hash[idx_items_total_hash] = {};
 					}
 				}
+                idx_items_total_hash++;
 			}		
+
+            if(!_isEmpty(continuous_gene_filter)){
+                // output 
+                items_total_hash[idx_items_total_hash] = $.extend(true,{}, continuous_gene_filter);
+                let url_str_full = _construct_url(continuous_gene_filter.url_str,{[SETTING_KEY_ID_LST]:continuous_gene_filter.id});
+                let obj = {[SETTING_KEY_URLSTR]: url_str_full, 'type': type_filter_multi_gene, 'index': idx_items_total_hash};
+                ajax_item_list.push(obj);
+                idx_items_total_hash++;
+                continuous_gene_filter = {};
+            }
 		}
 
+
+
+
 		// 3. filter_vgp
-		let filter_vgp_gene_hash = {};
-		let filter_vgp_list_str    = setting[SETTING_KEY_FILTER_VGP];		
-		if(filter_vgp_list_str.length > 0){
-			// analyze filter one by one
-			let filter_vgp_list = filter_vgp_list_str.split(',');
-			for(let i=0; i<filter_vgp_list.length; i++){
-	
-				let str_filter_vgp_id = filter_vgp_list[i];
-				let id            = _get_id_from_filter_id(str_filter_vgp_id);
-				let filter_type   = _get_filter_type_by_filter_id(str_filter_vgp_id);
-				if(target_str !== TARGET_CASE && filter_type === FILTER_TYPE_GENEID){
-					filter_vgp_gene_hash[id] = 1;
-					continue;
-				}
-				let url_str      = FILTER_VGP_URL_HASH[target_str][filter_type];
-				let url_str_full = _construct_url(url_str,{[SETTING_KEY_ID_LST]:id});
-				let obj = {[SETTING_KEY_URLSTR]:url_str_full, 'type': 'filter_vgp', 'filter_type': filter_type,'filter_vgp_id':id};
-				ajax_item_list.push(obj);
-			}		
-		}
+        let filter_vgp_gene_hash = {};
+        let filter_vgp_list_str    = setting[SETTING_KEY_FILTER_VGP];
+        if(filter_vgp_list_str.length > 0){
+            // analyze filter one by one
+            let filter_vgp_list = filter_vgp_list_str.split(',');
+            for(let i=0; i<filter_vgp_list.length; i++){
+
+                let str_filter_vgp_id = filter_vgp_list[i];
+                let id            = _get_id_from_filter_id(str_filter_vgp_id);
+                let filter_type   = _get_filter_type_by_filter_id(str_filter_vgp_id);
+                if(target_str !== TARGET_CASE && filter_type === FILTER_TYPE_GENEID){
+                    filter_vgp_gene_hash[id] = 1;
+                    continue;
+                }
+                let url_str      = FILTER_VGP_URL_HASH[target_str][filter_type];
+                let url_str_full = _construct_url(url_str,{[SETTING_KEY_ID_LST]:id});
+                let obj = {[SETTING_KEY_URLSTR]:url_str_full, 'type': 'filter_vgp', 'filter_type': filter_type,'filter_vgp_id':id};
+                ajax_item_list.push(obj);
+            }      
+        }
 
 
 
@@ -2445,9 +2564,13 @@
 				
 				ranking_data_without_filter = json_data;
 				_set_ranking_data_into_cache(ranking_data_without_filter,setting_without_filter);
-				
+			}else if(item.type === type_filter_multi_gene){
+				let idx = item.index;
+				result_ranking_id_hash[idx] = {};
+				json_data.forEach(function(target_data_id){
+					result_ranking_id_hash[idx][target_data_id] = 1;
+				});
 			}else if(item.type === type_filter){
-
 				let idx = item.index;
 				result_ranking_id_hash[idx] = {};
 				if(!_isEmpty(json_data)){
@@ -2458,7 +2581,7 @@
 							});
 						}
 					}else{
-						for(jid in json_data){
+						for(let jid in json_data){
 							if(!_isEmpty(json_data[jid])){
 								json_data[jid].forEach(function(target_data_id){
 									result_ranking_id_hash[idx][target_data_id] = 1;
@@ -2469,21 +2592,19 @@
 				}
 			}else{
 				// type filter vgp
-				
 				if(!_isEmpty(json_data)){
-					
 					if(target_str === TARGET_CASE){
-								for(geneid in json_data){
-									if(!_isEmpty(json_data[geneid]) && 'cases' in json_data[geneid] && !_isEmpty(json_data[geneid]['cases'])){
-										if(geneid in filter_vgp_gene_hash){
-											filter_vgp_gene_hash[geneid]['cases'].concat(json_data[geneid]['cases']);
-										}else{
-											filter_vgp_gene_hash[geneid] = json_data[geneid];
-										}
-									}
-								}
+                        for(let geneid in json_data){
+                            if(!_isEmpty(json_data[geneid]) && 'cases' in json_data[geneid] && !_isEmpty(json_data[geneid]['cases'])){
+                                if(geneid in filter_vgp_gene_hash){
+                                    filter_vgp_gene_hash[geneid]['cases'].concat(json_data[geneid]['cases']);
+                                }else{
+                                    filter_vgp_gene_hash[geneid] = json_data[geneid];
+                                }
+                            }
+                        }
 					}else{
-						for(jid in json_data){
+						for(let jid in json_data){
 							json_data[jid].forEach(function(target_data_id){
 								filter_vgp_gene_hash[target_data_id] = 1;
 							});
@@ -2503,7 +2624,7 @@
 		
 		var callback_fail_after_all_call = function(){
 			pcf_hide_loading();
-		}
+		};
 		
 		if(ajax_item_list.length === 0){
 			if(Object.keys(result_ranking_id_hash).length >0 || Object.keys(filter_vgp_gene_hash).length >0){
@@ -2546,13 +2667,13 @@
 			callback_fail:		callback_fail
 		};
 
-		if(http_type=="GET"){
+		if(http_type==="GET"){
 
 			$.ajax({	
 				url:      url_str,  // 通信先のURL
 				type:     http_type,// 使用するHTTPメソッド(get/post)
 				async:    async,    // 使用するHTTPメソッド(true/false)
-				dataType: response_dataType,
+				dataType: response_dataType
 				//timeout:  3000,
 			}).done(function(data1,textStatus,jqXHR) {
 				if(_isFunction(callback))callback(data1);
@@ -2573,7 +2694,7 @@
 				async:    async,    // 使用するHTTPメソッド(true/false)
 				data:     post_data,
 				proccessData: false, 
-				dataType: response_dataType,
+				dataType: response_dataType
 			}).done(function(data1,textStatus,jqXHR) {
 				if(_isFunction(callback))callback(data1);
 			}).fail(function(jqXHR, textStatus, errorThrown ) {
@@ -2712,50 +2833,51 @@
 		}
 
 		// 2. filter list
-		let type_filter = 'type_filter';
-		let filter_id_list_str =filter_id_list.trim();
-		if(filter_id_list_str.length > 0){
+        let type_filter = 'type_filter';
+        let filter_id_list_str =filter_id_list.trim();
+        if(filter_id_list_str.length > 0){
 			let filter_id_list_tmp = filter_id_list_str.split(',');
+            let filter_type_hash = {};
 			for(let i=0; i<filter_id_list_tmp.length;i++){
 				let str_filter_id= filter_id_list_tmp[i];
-				let logical_str  = _get_logical_str_by_filter_id(str_filter_id);
 				let id           = _get_id_from_filter_id(str_filter_id);
 				let filter_type  = _get_filter_type_by_filter_id(str_filter_id);
+                if(filter_type in filter_type_hash){
+                    filter_type_hash[filter_type]  = filter_type_hash[filter_type] + ',' + id;
+                }else{
+                    filter_type_hash[filter_type]  = id;
+                }
+            }
+            Object.keys(filter_type_hash).forEach(function (filter_type) {
 				let url_str      = FILTER_NAME_URL_HASH[filter_type];
-				let url_str_full = _construct_url(url_str,{[SETTING_KEY_ID_LST]:id});
-				ajax_item_list.push({[SETTING_KEY_URLSTR] : url_str_full, 
-									 'type'               : type_filter,
-									 'str_filter_id'      : str_filter_id,
-									 'index'              : i,
-									 'filter_type'        : filter_type,
-									 'id'                 : id,
-									 'logical_str'        : logical_str});
-			}
-		}
-			
+				let url_str_full = _construct_url(url_str,{[SETTING_KEY_ID_LST]: filter_type_hash[filter_type]});
+				ajax_item_list.push({[SETTING_KEY_URLSTR] : url_str_full, 'type':type_filter, 'filter_type': filter_type});
+            });
+        }
+
 		// 3. filter vgp list
 		let type_filter_vgp = 'type_filter_vgp';
 		let filter_vgp_id_list_str =filter_vgp_id_list.trim(); 
 		if(filter_vgp_id_list_str.length > 0){
 			let filter_vgp_id_list_tmp = filter_vgp_id_list_str.split(',');
+            let filter_type_hash = {};
 			for(let i=0; i<filter_vgp_id_list_tmp.length;i++){
 				// MONDO,GENEID,HGNC,NANDO,PA,PAA
 				let str_filter_id= filter_vgp_id_list_tmp[i];
 				let id           = _get_id_from_filter_id(str_filter_id);
 				let filter_type  = _get_filter_type_by_filter_id(str_filter_id);
-				let url_str      = FILTER_VGP_NAME_URL_HASH[filter_type];
-				let url_str_full = _construct_url(url_str,{[SETTING_KEY_ID_LST]:id});
-				ajax_item_list.push({[SETTING_KEY_URLSTR] : url_str_full, 
-									 'type'               : type_filter_vgp,
-									 'str_filter_id'      : str_filter_id,
-									 'index'              : i,
-									 'filter_type'        : filter_type,
-									 'id'                 : id
-									 });
+                if(filter_type in filter_type_hash){
+                    filter_type_hash[filter_type]  = filter_type_hash[filter_type] + ',' + id;
+                }else{
+                    filter_type_hash[filter_type]  = id;
+                }
 			}
+            Object.keys(filter_type_hash).forEach(function (filter_type) {
+				let url_str      = FILTER_VGP_NAME_URL_HASH[filter_type];
+				let url_str_full = _construct_url(url_str,{[SETTING_KEY_ID_LST]: filter_type_hash[filter_type]});
+				ajax_item_list.push({[SETTING_KEY_URLSTR] : url_str_full, 'type':type_filter_vgp, 'filter_type': filter_type});
+            });
 		}
-			
-			
 			
 		var callback_success = function(data,item){
 			let json_data = _parseJson(data);
@@ -2771,42 +2893,42 @@
 						}
 					}else{
 						if(str_hpo_id in json_data){
-							let obj = {'id':str_hpo_id, 'name':json_data[str_hpo_id].name_en}
+							let obj = {'id':str_hpo_id, 'name':json_data[str_hpo_id].name_en};
 							phenotype_object_list.push(obj);
 						}
 					}
 				});
 				_set_phenotype_name_data_to_cache(json_data);
 			}else if(item.type === type_filter){
-				let idx = item.index;
-				result_filter_hash[idx] = {};
 				if(!_isEmpty(json_data)){
-					let lang = LANGUAGE_EN;
-					if(item.str_filter_id.match(/_ja$/i))lang = LANGUAGE_JA;
-					let val = _get_filter_name_or_id(item.filter_type, lang, json_data, item.id);
-					if(!_isEmpty(val)){
-						if(item.filter_type === FILTER_TYPE_HGNC){
-							result_filter_hash[idx] = {'id': "GENEID:" +val, 'name':item.id.replace(/HGNC:/i,''), 'logicaloperator':item.logical_str};
-						}else{
-							result_filter_hash[idx] = {'id':item.str_filter_id, 'name':val, 'logicaloperator':item.logical_str};
-						}
-					}
+                    if(item.filter_type === FILTER_TYPE_HGNC){
+                        if(_isArray(json_data) && json_data.length > 0){
+                            for(let i = 0; i < json_data.length; i++){
+                                let key = "HGNC:" + json_data[i].hgnc_gene_symbol;
+                                result_filter_hash[key] = json_data[i].ncbi_gene_id;
+                            }
+                        }
+                    }else{
+                        Object.keys(json_data).forEach(function (key) {
+                            result_filter_hash[key] = json_data[key];
+                        });
+                    }
 				}
 			}else{
-				let idx = item.index;
-				result_filter_vgp_hash[idx] = {};
 				if(!_isEmpty(json_data)){
-					let lang = LANGUAGE_EN;
-					if(item.str_filter_id.match(/_ja$/i))lang = LANGUAGE_JA;
-					let val = _get_filter_name_or_id(item.filter_type, lang, json_data, item.id);
-					if(!_isEmpty(val)){
-						if(item.filter_type === FILTER_TYPE_HGNC){
-							result_filter_vgp_hash[idx] = {'id': "GENEID:" +val, 'name':item.id.replace(/HGNC:/i,'')};
-						}else{
-							result_filter_vgp_hash[idx] = {'id':item.str_filter_id, 'name':val};
-						}
-					}
-				}
+                    if(item.filter_type === FILTER_TYPE_HGNC){
+                        if(_isArray(json_data) && json_data.length > 0){
+                            for(let i = 0; i < json_data.length; i++){
+                                let key = "HGNC:" + json_data[i].hgnc_gene_symbol;
+                                result_filter_vgp_hash[key] = json_data[i].ncbi_gene_id;
+                            }
+                        }
+                    }else{
+                        Object.keys(json_data).forEach(function (key) {
+                            result_filter_vgp_hash[key] = json_data[key];
+                        });
+                    }
+                }
 			}
 		};
 		
@@ -2815,23 +2937,61 @@
 		};
 	
 		var callback_after_all_call = function(){
-			Object.keys(result_filter_hash).sort().forEach(function(idx){
-				filter_object_list.push(result_filter_hash[idx]);
-			});
 
-			Object.keys(result_filter_vgp_hash).sort().forEach(function(idx){
-				filter_vgp_object_list.push(result_filter_vgp_hash[idx]);
-			});
-			
+            if(filter_id_list_str.length > 0){
+                let filter_id_list_tmp = filter_id_list_str.split(',');
+                for(let i=0; i<filter_id_list_tmp.length;i++){
+                    let str_filter_id= filter_id_list_tmp[i];
+                    let logical_str  = _get_logical_str_by_filter_id(str_filter_id);
+                    let id           = _get_id_from_filter_id(str_filter_id);
+                    let filter_type  = _get_filter_type_by_filter_id(str_filter_id);
+                    if(id in result_filter_hash){
+                        let lang = LANGUAGE_EN;
+                        if(str_filter_id.match(/_ja$/i))lang = LANGUAGE_JA;
+                        let val = _get_filter_name_or_id(filter_type, lang, {[id]: result_filter_hash[id]}, id);
+                        if(!_isEmpty(val)){
+                            if(filter_type === FILTER_TYPE_HGNC){
+                                filter_object_list.push({'id': "GENEID:" +val,'name':id.replace(/HGNC:/i,''),'logicaloperator':logical_str});
+                            }else{
+                                filter_object_list.push({'id':str_filter_id, 'name':val, 'logicaloperator':logical_str});
+                            }
+                        }
+                    }
+                }
+            }
+
+            if(filter_vgp_id_list_str.length > 0){
+                let filter_vgp_id_list_tmp = filter_vgp_id_list_str.split(',');
+                for(let i=0; i<filter_vgp_id_list_tmp.length;i++){
+                    // MONDO,GENEID,HGNC,NANDO,PA,PAA
+                    let str_filter_id= filter_vgp_id_list_tmp[i];
+                    let id           = _get_id_from_filter_id(str_filter_id);
+                    let filter_type  = _get_filter_type_by_filter_id(str_filter_id);
+                    
+                    if(id in result_filter_vgp_hash){
+                        let lang = LANGUAGE_EN;
+                        if(str_filter_id.match(/_ja$/i))lang = LANGUAGE_JA;
+                        let val = _get_filter_name_or_id(filter_type, lang, {[id]: result_filter_vgp_hash[id]}, id);
+                        if(!_isEmpty(val)){
+                            if(filter_type === FILTER_TYPE_HGNC){
+                                filter_vgp_object_list.push({'id': "GENEID:" +val,'name':id.replace(/HGNC:/i,'')});
+                            }else{
+                                filter_vgp_object_list.push({'id':str_filter_id, 'name':val});
+                            }
+                        }
+                    }
+                }
+            }
+            
 			if(_isFunction(callback)){
 				callback(phenotype_object_list, filter_object_list,filter_vgp_object_list);
 			}
-			return
+			return;
 		};
 		
 		var callback_fail_after_all_call = function(){
 			pcf_hide_loading();
-		}
+		};
 		
 		if(ajax_item_list.length === 0){
 			pcf_hide_loading();
@@ -3062,7 +3222,7 @@
 			var callback_success = function(data,item){
 				let json_data = _parseJson(data);
 				if(!_isEmpty(json_data)){
-					for(jid in json_data){
+					for(let jid in json_data){
 						json_data[jid].forEach(function(target_data_id){
 							if(target_data_id in filter_vgp_gene_hash){
 								filter_vgp_gene_hash[target_data_id] = filter_vgp_gene_hash[target_data_id] + ',' + jid;
@@ -3106,7 +3266,7 @@
 			var callback_fail_after_all_call = function(){
 				pcf_hide_loading();
 				if(_isFunction(callback))callback();
-			}
+			};
 		
 			if(ajax_item_list.length === 0){
 				// do download
@@ -3188,7 +3348,7 @@
 		
 			var callback_fail_after_all_call = function(){
 				pcf_hide_loading();
-			}
+			};
 		
 			if(ajax_item_list.length === 1){
 				_run_ajax(ajax_item_list[0][SETTING_KEY_URLSTR],'GET', null, 'text', true, true, function(data){
@@ -3231,7 +3391,7 @@
 						}
 					}else{
 						if(str_hpo_id in json_data){
-							let obj = {'id':str_hpo_id, 'name':json_data[str_hpo_id].name_en}
+							let obj = {'id':str_hpo_id, 'name':json_data[str_hpo_id].name_en};
 							phenotype_object_list.push(obj);
 						}
 					}
@@ -3247,7 +3407,7 @@
 
 				return;
 			});
-		},
+		}
 	};
 	
 	$.fn.pcf_content = function (method) {
