@@ -963,17 +963,16 @@
 
 		function isNeedOverflewHidden(text){
 			let width = Math.floor(($(window).width()-80) / 3) - 110;
-			console.log('col width: ' + width);
+			//console.log('col width: ' + width);
 			
-			console.log(text);
+			//console.log(text);
 			var canvas = document.createElement('canvas');
 			var context = canvas.getContext('2d');
 			//context.font = "1rem, 'IBM Plex Sans', sans-serif, 'Noto Sans JP'";
 			context.font = "1rem, " + $(document.body).css('font-family');
 			var dimension = context.measureText(text);
 			var width_measured = Math.floor(dimension.width * 1.5);//line height
-			console.log('Measured Text Width: ' + width_measured);
-
+			//console.log('Measured Text Width: ' + width_measured);
 			return width_measured > width * 2;
 		}
 
@@ -1462,7 +1461,7 @@
 							}
 						});
 						if(copy_values.length){
-							$('<textarea>').addClass(current_settings.cssContentCopyClass).css({display:'none'}).text(copy_values.join(current_settings.copy_delimiter)).appendTo($content);
+							$('<textarea>').addClass(current_settings.cssContentCopyClass).css({display:'none'}).text(copy_values.join(current_settings.copy_delimiter)).appendTo($contentTable);
 						}
 					});					
 				}else{
