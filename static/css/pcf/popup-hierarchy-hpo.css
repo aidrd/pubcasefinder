@@ -88,17 +88,6 @@
 	width: 100%;
 	position: relative;
 }
-.popup-hierarchy-hpo-base-schema_2022 {
-    display:inline-block;
-    background-color: #ffffff;
-    border: 1px solid lightgrey;
-	box-shadow: 0 0 8px grey;
-    border-radius: 8px;
-	padding: 15px;
-    width: 100%;
-    position: relative;
-}
-
 
 .popup-hierarchy-hpo-top-bar,
 .popup-hierarchy-hpo-bottom-bar {
@@ -110,30 +99,227 @@
 	text-align: center;
 }
 
+.popup-hierarchy-hpo-separator {
+	margin:             0px 3px 0px 0px;
+	height:             14px;
+	border-style:       solid;
+	border-width:       0px 1px;
+	border-left-color:  #aca899;
+	border-right-color: white;
+	display:            inline-block;
+	font-size:          1px;
+	overflow:           hidden;
+	cursor:             default;
+	width:              0px;
+	line-height:        0px;
+}
+
+.popup-hierarchy-hpo-base-schema_2022 {
+    display:inline-block;
+    background-color: #ffffff;
+    border: 1px solid lightgrey;
+    box-shadow: 0 0 8px lightgrey;
+    border-radius: 8px;
+    padding: 15px;
+    width: 100%;
+    position: relative;
+}
+
 .popup-hierarchy-hpo-top-bar-schema_2022 {
 	color: #4472C4;
+	font-size: 1.1rem;
     padding-bottom: 10px;
     border-bottom: 1px solid #4472c4;
+	width: 100%;
 }
 .popup-hierarchy-hpo-top-bar-schema_2022.superclass {text-align: right;}
+.popup-hierarchy-hpo-top-bar-schema_2022.selfclass {text-align: left;color:black;}
 .popup-hierarchy-hpo-top-bar-schema_2022.subclass {text-align: left;}
+
+.popup-hierarchy-hpo-top-bar-schema_2022.selfclass span:before {
+  content: "";
+  display: inline-block;
+  width:  11px;
+  height: 11px;
+  margin-right: 8px;
+  margin-left: 0px;
+  background-color: #4472c4;
+}
+
+.popup-hierarchy-hpo-content-schema_2022 {width: 100%;}
+.popup-hierarchy-hpo-content-schema_2022.superclass {padding-right:0px;text-align:right;}
+.popup-hierarchy-hpo-content-schema_2022.subclass {padding-left:0px;text-align:left;}
+
+.popup-hierarchy-hpo-content-row-schema_2022{width: 100%;}
+.popup-hierarchy-hpo-content-row-schema_2022.bottomline{border-bottom: 1px solid #efe7e7;}
+.popup-hierarchy-hpo-content-row-schema_2022 th{
+  color:#4472c4;
+  white-space:nowrap;
+  text-align:left;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-right: 10px;
+  font-weight: 400;
+}
+.popup-hierarchy-hpo-content-row-schema_2022 td{padding-top:10px;padding-bottom:10px;}
+.popup-hierarchy-hpo-content-row-schema_2022 td label{margin-bottom:0px; margin-left: 5px; margin-right: 10px;}
+.popup-hierarchy-hpo-buttons-base-schema_2022 td {white-space: nowrap;}
+
+.popup-hierarchy-hpo-content-row-schema_2022 td.switch {
+  display:flex;
+}
+.popup-hierarchy-hpo-content-row-schema_2022 td.switch div.content {
+  width:99%;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  height: 48px;
+}
+.popup-hierarchy-hpo-content-row-schema_2022 td.switch.on div.content {
+  overflow-y: auto;
+  height: unset;
+}
+
+
+.popup-hierarchy-hpo-content-row-schema_2022 td.switch div.control span{cursor:pointer;color: #394466;}
+.popup-hierarchy-hpo-content-row-schema_2022 td.switch div.control span:before {
+	font-family: 'Material Icons';
+    content: '\e146';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 1.2em;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    vertical-align: text-bottom;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    -webkit-font-feature-settings: 'liga';
+    -webkit-font-smoothing: antialiased;
+    color: #394466;
+}
+
+.popup-hierarchy-hpo-content-row-schema_2022 td.switch.on div.control span:before {
+	content: '\e909';
+	color: red;
+}
+
+.popup-hierarchy-hpo-buttons-base-schema_2022 {white-space: nowrap;}
+.popup-hierarchy-hpo-buttons-base-schema_2022 button {
+	text-align: center;
+	vertical-align: middle;
+	white-space: nowrap;
+	font-size: 16px;
+	border-radius: 4px;
+	height:26px;
+	width:26px;
+}
+.popup-hierarchy-hpo-buttons-base-schema_2022 button.popup-hierarchy-hpo-button-add {
+	color: white;
+	background-color: #F73859;
+	border-color: #F73859;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+.popup-hierarchy-hpo-buttons-base-schema_2022 button.popup-hierarchy-hpo-button-add:hover {
+  color: #fff;
+  background-color: #ec5c75;
+  border-color: #ec5c75;
+}
+.popup-hierarchy-hpo-buttons-base-schema_2022 button.popup-hierarchy-hpo-button-replace {
+	color: white;
+	background-color: #0096AA;
+	border-color: #0096AA;
+	margin-left: 5px;
+	padding-left: 6px;
+	padding-top:  2px;
+	padding-right: 6px;
+}
+.popup-hierarchy-hpo-buttons-base-schema_2022 button.popup-hierarchy-hpo-button-replace:hover {
+    color: white;
+    background-color: #21AEC1;
+    border-color:#21AEC1;
+}
+.popup-hierarchy-hpo-buttons-base-schema_2022 button.popup-hierarchy-hpo-button-replace img {
+	width:14px;
+	height:14px;
+	vertical-align:baseline;
+}
+.popup-hierarchy-hpo-number-base-schema_2022 {white-space: nowrap;}
+.popup-hierarchy-hpo-number-schema_2022{
+    border-radius: 8px;
+    background-color: #aab3b7;
+    margin: 0 4px;
+    cursor: default;
+    min-width: 10px;
+    padding: 3px 7px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #fff;
+    line-height: 1;
+    vertical-align: middle;
+    white-space: nowrap;
+    text-align: center;
+}
+
+.popup-hierarchy-hpo-link-base-schema_2022 {width:90%} 
+.popup-hierarchy-hpo-link-schema_2022 {
+    white-space: normal;
+    color: #4472C4;
+    display: inline-block;
+    border: transparent 1px dotted;
+    border-radius: 8px;
+    padding: 0;
+    transition: 0s;
+}
+.popup-hierarchy-hpo-link-schema_2022:focus {color: #4472C4;}
+
+.popup-hierarchy-hpo-link-schema_2022>span:first-child {text-decoration: underline;}
+
+.popup-hierarchy-hpo-buttons-schema_2022 {
+    padding-top: 10px;
+	padding-bottom: 10px;
+    /*text-align: left;*/
+	width: 100%;
+    position: relative;
+}
+
+.popup-hierarchy-hpo-buttons-schema_2022 .popup-hierarchy-hpo-selection-base-schema_2022 {
+	text-align:right;
+/*	justify-content:right;*/
+}
+select.popup-hierarchy-hpo-language-change-schema_2022 {
+    cursor: pointer;
+    color: black;
+    background-color: white;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    border: 1px solid #d3c8c8;
+	padding: 2px 4px 2px 4px;
+	-webkit-appearance: auto;
+	appearance: auto;
+}
+
+
+.popup-hierarchy-hpo-buttons-schema_2022 .popup-hierarchy-hpo-buttons-base {text-align: left;}
+.popup-hierarchy-hpo-buttons-schema_2022 .popup-hierarchy-hpo-buttons-base button{
+  padding: 2px 4px 2px 4px !important;
+  font-size: 15px !important;
+}
+
+.popup-hierarchy-hpo-buttons-schema_2022 .popup-hierarchy-hpo-buttons-base .popup-hierarchy-hpo-separator{
+  margin: 0px 7px 0px 5px;
+  vertical-align: middle;
+  height: 26px;
+}
 
 
 .popup-hierarchy-hpo-content {
 	padding: 10px;
 	color: #000000;
 }
-
-.popup-hierarchy-hpo-content-schema_2022 {
-	display:        table;
-    width:          100%;
-    border-spacing: 0px 5px;
-	padding-top:    5px;
-    padding-bottom: 5px;
-}
-.popup-hierarchy-hpo-content-schema_2022.superclass {padding-right:0px;}
-.popup-hierarchy-hpo-content-schema_2022.subclass {padding-left:0px;}
-
 
 .popup-hierarchy-hpo-content.popup-hierarchy-hpo-checkbox-group label{
 	font-size: 1rem;
@@ -152,24 +338,16 @@
 	white-space: normal;
 	color: #4472C4;
 	display: inline-block;
-/*	display: table-cell;*/
-/*	text-decoration: underline;*/
 	border: transparent 1px dotted;
 	border-radius: 8px;
-/*	padding: 0 4px;*/
 	padding: 0;
 	transition: 0s;
 }
 .popup-hierarchy-hpo-link:focus {
 	color: #4472C4;
-/*	text-decoration: underline;*/
 }
 .popup-hierarchy-hpo-link-focus {
-/*
-	color: red;
-*/
 	color: #4472C4;
-/*	text-decoration: underline;*/
 	border-color: gray;
 	background-color: #FBE5D6;
 }
@@ -186,14 +364,9 @@
 
 .popup-hierarchy-hpo-link-number {
 	border-radius: 8px;
-/*	background-color: #5fbc4a;*/
 	background-color: #aab3b7;
-/*	padding-bottom: 4px;*/
-/*	margin: 0 8px;*/
 	margin: 0 4px;
 	cursor: default;
-/*	display: inline-block;*/
-/*	display: table-cell;*/
 	min-width: 10px;
 	padding: 3px 7px;
 	font-size: 14px;
@@ -296,7 +469,6 @@
 }
 .popup-hierarchy-hpo-subclass {
 	text-align: left;
-
 }
 .popup-hierarchy-hpo-selectedphenotype {
 }

@@ -2,6 +2,9 @@
 
 	var CSS_PREFIX = 'popup-hierarchy-hpo-';
 
+	const LANGUAGE_EN='en',LANGUAGE_JA='ja',
+		  SCHEMA_2022='schema_2022',SCHEMA_2016='schema_2016';
+	
 	var DEFAULT_SETTINGS = {
 		// Search settings
 		method: "GET",
@@ -15,81 +18,101 @@
 		defaultTokenId : 'HP:0000118',
 		disabledTokenIds : ['HP:0000118'],
 
-		cssInlineContentClass: CSS_PREFIX+'inline-content',
+		cssInlineContentClass:     CSS_PREFIX+'inline-content',
 		cssInlineContentBaseClass: CSS_PREFIX+'inline-content-base',
 
 		cssTokenInputContentBaseClass: CSS_PREFIX+'tokeninput-content-base',
-		cssClassContentBaseClass: CSS_PREFIX+'class-content-base',
-		cssWebGLContentBaseClass: CSS_PREFIX+'webgl-content-base',
+		cssClassContentBaseClass:      CSS_PREFIX+'class-content-base',
+		cssWebGLContentBaseClass:      CSS_PREFIX+'webgl-content-base',
 
 		cssTableClass: CSS_PREFIX+'table',
-		cssTrClass: CSS_PREFIX+'tr',
-		cssTdClass: CSS_PREFIX+'td',
+		cssTrClass:    CSS_PREFIX+'tr',
+		cssTdClass:    CSS_PREFIX+'td',
 
-		cssBaseClass: CSS_PREFIX+'base',
-		cssTopBarClass: CSS_PREFIX+'top-bar',
-		cssBottomBarClass: CSS_PREFIX+'bottom-bar',
-		cssContentClass: CSS_PREFIX+'content',
+		cssBaseClass:        CSS_PREFIX+'base',
+		cssTopBarClass:      CSS_PREFIX+'top-bar',
+		cssBottomBarClass:   CSS_PREFIX+'bottom-bar',
+		cssContentClass:     CSS_PREFIX+'content',
 		cssLinkBaseRowClass: CSS_PREFIX+'link-base-row',
-		cssLinkBaseClass: CSS_PREFIX+'link-base',
-		cssLinkClass: CSS_PREFIX+'link',
-		cssLinkNumberClass: CSS_PREFIX+'link-number',
-		cssLinkFocusClass: CSS_PREFIX+'link-focus',
-		cssTokenClass: CSS_PREFIX+'token',
-		cssTokenListClass: CSS_PREFIX+'token-list',
+		cssLinkBaseClass:    CSS_PREFIX+'link-base',
+		cssLinkClass:        CSS_PREFIX+'link',
+		cssLinkNumberClass:  CSS_PREFIX+'link-number',
+		cssLinkFocusClass:   CSS_PREFIX+'link-focus',
+		cssTokenClass:       CSS_PREFIX+'token',
+		cssTokenListClass:   CSS_PREFIX+'token-list',
 
-		cssSelfContentClass: CSS_PREFIX+'self-content',
+		cssSelfContentClass:  CSS_PREFIX+'self-content',
 		cssOtherContentClass: CSS_PREFIX+'other-content',
-		cssCloseButtonClass: CSS_PREFIX+'close-button',
+		cssCloseButtonClass:  CSS_PREFIX+'close-button',
 
 		cssCheckboxGroupClass: CSS_PREFIX+'checkbox-group',
-		cssProgressClass: CSS_PREFIX+'progress',
+		cssProgressClass:      CSS_PREFIX+'progress',
 
 		cssSelectedPhenotypeClass: CSS_PREFIX+'selectedphenotype',
 
 		cssButtonDisabledClass: CSS_PREFIX+'button-disabled',
-		cssButtonAddClass: CSS_PREFIX+'button-add',
-		cssButtonReplaceClass: CSS_PREFIX+'button-replace',
-		cssButtonCopyClass: CSS_PREFIX+'button-copy',
+		cssButtonAddClass:      CSS_PREFIX+'button-add',
+		cssButtonReplaceClass:  CSS_PREFIX+'button-replace',
+		cssButtonCopyClass:     CSS_PREFIX+'button-copy',
+		cssSeparatorClass:      CSS_PREFIX+'separator',
 
-		cssButtonBaseClass: CSS_PREFIX+'buttons-base',
-		cssButtonsClass: CSS_PREFIX+'buttons',
-		cssContentTableClass: CSS_PREFIX+'content-table',
-		cssContentTrClass: CSS_PREFIX+'content-tr',
-		cssContentThClass: CSS_PREFIX+'content-th',
-		cssContentTdClass: CSS_PREFIX+'content-td',
+
+		cssButtonBaseClass:     CSS_PREFIX+'buttons-base',
+		cssButtonsClass:        CSS_PREFIX+'buttons',
+		cssContentTableClass:   CSS_PREFIX+'content-table',
+		cssContentTrClass:      CSS_PREFIX+'content-tr',
+		cssContentThClass:      CSS_PREFIX+'content-th',
+		cssContentTdClass:      CSS_PREFIX+'content-td',
 		cssContentTdColonClass: CSS_PREFIX+'content-td-colon',
-		cssContentCopyClass: CSS_PREFIX+'content-copy',
+		cssContentCopyClass:    CSS_PREFIX+'content-copy',
 
 		cssWebGLContentClass: CSS_PREFIX+'webgl-content',
 
 		cssFMATreeListContentClass: CSS_PREFIX+'fmatreelist-content',
 
-		cssFMAListContentClass: CSS_PREFIX+'fmalist-content',
+		cssFMAListContentClass:       CSS_PREFIX+'fmalist-content',
 		cssFMAListContentSelectClass: CSS_PREFIX+'fmalist-content-select',
-		cssFMAListContentHoverClass: CSS_PREFIX+'fmalist-content-hover',
-		cssHPOListContentClass: CSS_PREFIX+'hpolist-content',
+		cssFMAListContentHoverClass:  CSS_PREFIX+'fmalist-content-hover',
+		cssHPOListContentClass:       CSS_PREFIX+'hpolist-content',
 
 		cssWebGLSwitchContentClass: CSS_PREFIX+'webgl-switch-content',
-		cssLanguageChangeClass: CSS_PREFIX+'language-change',
-		cssWebGLHomeContentClass: CSS_PREFIX+'webgl-home-content',
+		cssLanguageChangeClass:     CSS_PREFIX+'language-change',
+		cssWebGLHomeContentClass:   CSS_PREFIX+'webgl-home-content',
 
-		cssResultsTooltipClass: CSS_PREFIX+'results-tooltip',
+		cssResultsTooltipClass:      CSS_PREFIX+'results-tooltip',
 		cssResultsTooltipTitleClass: CSS_PREFIX+'results-tooltip-title',
 
 		cssNumberOfHitsClass: CSS_PREFIX+'number-of-hits',
 
 		cssLoadingClass: CSS_PREFIX+'loading',
+		
 		loadingText: 'Loading...',
 
-		titleSuperclass : 'superclass',
-		titleSubclass : 'subclass',
-		titleSelfclass : 'selfclass',
+		titleSuperclass: 'superclass',
+		titleSubclass:   'subclass',
+		titleSelfclass:  'selfclass',
 
-		keySuperclass : 'superclass',
-		keySubclass : 'subclass',
-		keySelfclass : 'selfclass',
-		language_in : 'en',
+		keySuperclass: 'superclass',
+		keySubclass:   'subclass',
+		keySelfclass:  'selfclass',
+
+		schema: SCHEMA_2016,
+		[SCHEMA_2022]:	{
+			cssBaseClass:          CSS_PREFIX+'base'           + '-' + SCHEMA_2022,
+			cssTopBarClass:        CSS_PREFIX+'top-bar'        + '-' + SCHEMA_2022,
+			cssContentClass:       CSS_PREFIX+'content'        + '-' + SCHEMA_2022,
+			cssContentRowClass:    CSS_PREFIX+'content-row'    + '-' + SCHEMA_2022,
+			cssButtonsClass:       CSS_PREFIX+'buttons'        + '-' + SCHEMA_2022,
+			cssButtonBaseClass:    CSS_PREFIX+'buttons-base'   + '-' + SCHEMA_2022,
+			cssSelectionBaseClass: CSS_PREFIX+'selection-base' + '-' + SCHEMA_2022,
+			cssLanguageChangeClass:CSS_PREFIX+'language-change'+ '-' + SCHEMA_2022,
+			cssNumberBaseClass:    CSS_PREFIX+'number-base'    + '-' + SCHEMA_2022,
+			cssNumberClass:        CSS_PREFIX+'number'         + '-' + SCHEMA_2022,
+			cssLinkBaseClass:      CSS_PREFIX+'link-base'      + '-' + SCHEMA_2022,
+			cssLinkClass:          CSS_PREFIX+'link'           + '-' + SCHEMA_2022
+		},
+		
+		language_in: LANGUAGE_EN,
 		language : {
 			'ja' : {
 				superclass : '上位概念',
@@ -106,7 +129,11 @@
 				clear : 'Clear',
 				close : 'Close',
 
-				id : 'HPO Id',
+				exclude : '症状の有無',
+				exclude_hash : { 0: 'あり', 1: 'なし'},
+				severity : '重要性',
+				severity_hash : {0:'通常', 1:'高い', 2:'低い'},
+				id : 'HPO ID',
 				name : '症状(日)',
 				english : '症状(英)',
 				definition : '症状定義',
@@ -154,7 +181,11 @@
 				clear : 'Clear',
 				close : 'Close',
 
-				id : 'HPO Id',
+				exclude : 'Exclude',
+				exclude_hash : { 0: 'Yes', 1: 'No'},
+				severity : 'Clinical relevance',
+				severity_hash : {0:'Normal', 1:'Distinctive finding', 2:'Minor finding'},
+				id : 'HPO ID',
 				name : 'Name',
 				english : 'English',
 				definition : 'Definition',
@@ -420,13 +451,100 @@
 
 		var click_timeoutID = null;
 		function createOtherContent(values, options) {
+
 			options = options || {};
+			
 			var hidden = options.hidden ? true : false;
-			var $td = $('<'+current_settings.nodeName+'>').addClass(current_settings.cssTdClass).addClass(current_settings.cssOtherContentClass);
+
+			var $otherContentBase = $('<'+current_settings.nodeName+'>').addClass(current_settings.cssTdClass).addClass(current_settings.cssOtherContentClass);
+
+			if(!current_settings.use_webgl && !current_settings.is_hierarchy_fullscreen){					
+				if(!hidden && $.isArray(values) && values.length){
+					
+					var $base = $('<'+current_settings.nodeName+'>').addClass(current_settings[SCHEMA_2022].cssBaseClass).addClass(current_settings.cssOtherContentClass)
+																	.click(function(e){e.stopPropagation();e.preventDefault();return false;})
+																	.appendTo($otherContentBase);
+					if(isString(options.classname)) $base.addClass(options.classname);
+					
+					if(isString(options['title']) && options['title'].length){
+						var $title = $('<'+current_settings.nodeName+'>').addClass(current_settings[SCHEMA_2022].cssTopBarClass).text(options['title']).appendTo($base);
+						if(isString(options.classname)) $title.addClass(options.classname);
+					}
+
+					var $content = $('<table>').addClass(current_settings[SCHEMA_2022].cssContentClass).appendTo($base);
+					var cnt=0;
+					$.each(values.sort(function(a,b){
+						var a_name = a.name;
+						var b_name = b.name;
+						if(runSearchOptions.hasJA && isString(a.name_ja)) a_name = a.name_ja;
+						if(runSearchOptions.hasJA && isString(b.name_ja)) b_name = b.name_ja;
+						return a_name<b_name?-1:(a_name>b_name?1:0);
+					}), function(){
+
+						var $link_base = $('<tr>').addClass(current_settings[SCHEMA_2022].cssContentRowClass).appendTo($content);					
+						if(cnt < values.length -1) {
+							$link_base.addClass('bottomline');
+							cnt++;
+						}
+						
+						var text = this.name;
+						if(runSearchOptions.hasJA && isString(this.name_ja)) text = this.name_ja;
+						
+						var $number_html;
+						if(isNumeric(this.count)){
+							if(options.formatNumber){
+								$number_html = $('<span>').addClass(current_settings[SCHEMA_2022].cssNumberClass).text(this.count);
+							}
+							else{
+								text += ' ('+this.count+')';
+							}
+						}
+
+						var data = {
+							'target' : $.extend(true, {},tokeninput_target),
+							'self' : $.extend(true, {},this)
+						};
+
+						//subclass
+						if(isString(options.classname) && options.classname === CSS_PREFIX+current_settings.keySubclass){
+							addExecuteButtons(data, existsTokenInputItemFromID(this.id), false).appendTo($link_base);
+							if($number_html) $number_html.appendTo($('<td>').addClass(current_settings[SCHEMA_2022].cssNumberBaseClass).appendTo($link_base));
+						}
+
+						var $a_base = $('<td>').addClass(current_settings[SCHEMA_2022].cssLinkBaseClass).appendTo($link_base);
+
+						var $a = $('<a>').addClass(current_settings[SCHEMA_2022].cssLinkClass)
+										.attr({'href':'#'})
+										.data(OBJECT_KEY, this)
+										.click(function(){
+											var data = $(this).data(OBJECT_KEY);
+											if(click_timeoutID){
+												clearTimeout(click_timeoutID);
+											}
+											click_timeoutID = setTimeout(function(){
+												click_timeoutID = null;
+												runSearch(data.id);
+											},100);
+											return false;
+										})
+										.appendTo($a_base);
+
+						$('<span>').text(text).appendTo($a);
+
+						//superclass
+						if(isString(options.classname) && options.classname === CSS_PREFIX+current_settings.keySuperclass){
+							if($number_html) $number_html.appendTo($('<td>').addClass(current_settings[SCHEMA_2022].cssNumberBaseClass).appendTo($link_base));
+							addExecuteButtons(data, existsTokenInputItemFromID(this.id), false).appendTo($link_base);
+						}
+					});
+				}				
+				return $otherContentBase;
+			}
+			
 			if(!hidden && $.isArray(values) && values.length){
 				var $base = $('<'+current_settings.nodeName+'>').addClass(current_settings.cssBaseClass).addClass(current_settings.cssOtherContentClass)
 																.click(function(e){e.stopPropagation();e.preventDefault();return false;})
-																.appendTo($td);
+																.appendTo($otherContentBase);
 				if(isString(options.classname)) $base.addClass(options.classname);
 				if(isString(options['title']) && options['title'].length){
 					var $title = $('<'+current_settings.nodeName+'>').addClass(current_settings.cssTopBarClass).text(options['title']).appendTo($base);
@@ -515,7 +633,7 @@
 
 				});
 			}
-			return $td;
+			return $otherContentBase;
 		}
 
 		function changeStateAddOrReplace(){
@@ -657,8 +775,12 @@
 		function addExecuteButtons(data,disabled, isBig){
 			if(!isBoolean(disabled)) disabled = disabled ? true : false;
 
-			var $button_base = $('<'+current_settings.nodeName+'>').addClass(current_settings.cssButtonBaseClass);
-
+			var $button_base;
+			if(!current_settings.use_webgl && !current_settings.is_hierarchy_fullscreen && !isBig){
+				$button_base = $('<td>').addClass(current_settings[SCHEMA_2022].cssButtonBaseClass);
+			}else{
+				$button_base = $('<'+current_settings.nodeName+'>').addClass(current_settings.cssButtonBaseClass);
+			}
 			$.each(['add','replace'], function(i,val){
 				var key = val;
 				var $button;
@@ -670,17 +792,19 @@
 										   .data(OBJECT_KEY,  $.extend(true, {},data,{'exec' : key.toLowerCase()})   )
 										   .appendTo($button_base);
 				} else {
+					$button = $('<button>').data(OBJECT_KEY,  $.extend(true, {},data,{'exec' : key.toLowerCase()})   ).appendTo($button_base);
 					if(key==='add'){
-						$button = $('<button>').addClass('material-icons').addClass('btn btn-primary')
-							.addClass(current_settings.cssButtonAddClass)
-							.text('post_add')
-							.data(OBJECT_KEY,  $.extend(true, {},data,{'exec' : key.toLowerCase()})   )
-							.appendTo($button_base);
+						if(!current_settings.use_webgl && !current_settings.is_hierarchy_fullscreen && !isBig){
+							$button.addClass('material-icons').addClass(current_settings.cssButtonAddClass).text('post_add');
+						}else{
+							$button.addClass('material-icons').addClass('btn btn-primary').addClass(current_settings.cssButtonAddClass).text('post_add');
+						}
 					}else{
-						$button = $('<button>').addClass('btn').addClass(current_settings.cssButtonReplaceClass)
-							.html('<img src="/static/images/pcf/replace-green.svg" style="width:12px;height:12px;vertical-align:baseline;"></img>')
-							.data(OBJECT_KEY,  $.extend(true, {},data,{'exec' : key.toLowerCase()})   )
-							.appendTo($button_base);
+						if(!current_settings.use_webgl && !current_settings.is_hierarchy_fullscreen && !isBig){
+							$button.addClass(current_settings.cssButtonReplaceClass).html('<img src="/static/images/pcf/replace-green.svg"></img>');
+						}else{
+							$button.addClass('btn').addClass(current_settings.cssButtonReplaceClass).html('<img src="/static/images/pcf/replace-green.svg" style="width:12px;height:12px;vertical-align:baseline;"></img>');
+						}
 					}
 				}
 
@@ -837,6 +961,22 @@
 			current_settings.language.ja[data_language_key] = value['name_ja'] ? value['name_ja'] : value['name'];
 		}
 
+		function isNeedOverflewHidden(text){
+			let width = Math.floor(($(window).width()-80) / 3) - 110;
+			console.log('col width: ' + width);
+			
+			console.log(text);
+			var canvas = document.createElement('canvas');
+			var context = canvas.getContext('2d');
+			//context.font = "1rem, 'IBM Plex Sans', sans-serif, 'Noto Sans JP'";
+			context.font = "1rem, " + $(document.body).css('font-family');
+			var dimension = context.measureText(text);
+			var width_measured = Math.floor(dimension.width * 1.5);//line height
+			console.log('Measured Text Width: ' + width_measured);
+
+			return width_measured > width * 2;
+		}
+
 		var __last_results = null;
 		function showResults(results) {
 			if(results){
@@ -870,7 +1010,6 @@
 				}else{
 					$inlineContent = $.magnificPopup.instance.contentContainer ? $.magnificPopup.instance.contentContainer : emptyInlineContent();
 				}
-				
 				$inlineContentBase = $('<'+current_settings.nodeName+'>').addClass(current_settings.cssInlineContentBaseClass).appendTo($inlineContent);
 			}
 
@@ -1136,196 +1275,373 @@
 			// self class content
 			var $td = $('<'+current_settings.nodeName+'>').addClass(current_settings.cssTdClass).addClass(current_settings.cssSelfContentClass).appendTo($tr);
 			if($.isArray(results[current_settings.keySelfclass]) && results[current_settings.keySelfclass].length){
-				var $base = $('<'+current_settings.nodeName+'>').addClass(current_settings.cssBaseClass)
-																.click(function(e){ e.stopPropagation(); e.preventDefault(); return false; })
-																.appendTo($td);
-				var $title = null;
-				if(isString(current_settings.titleSelfclass) && current_settings.titleSelfclass.length){
-					$title = $('<'+current_settings.nodeName+'>').addClass(current_settings.cssTopBarClass).text(current_settings.titleSelfclass).appendTo($base);
-				}
+				if(!current_settings.use_webgl && !current_settings.is_hierarchy_fullscreen){
+					var $base = $('<'+current_settings.nodeName+'>').addClass(current_settings[SCHEMA_2022].cssBaseClass).click(function(e){ e.stopPropagation(); e.preventDefault(); return false; }).appendTo($td);
 
-				var target_arr = [];
-				var arr = getTokenInputItems();
-				if($.isArray(arr)){
-					target_arr = $.grep(arr,function(data){return data.id===results[current_settings.keySelfclass][0].id;});
-				}
-				if(!isArray(results[current_settings.keySuperclass]) || results[current_settings.keySuperclass].length===0){
-					target_arr.push('dummy');
-				}
+					var $title = null;
+					if(isString(current_settings.titleSelfclass) && current_settings.titleSelfclass.length){
+						$title = $('<'+current_settings.nodeName+'>').addClass(current_settings[SCHEMA_2022].cssTopBarClass)
+																	.addClass(current_settings.titleSelfclass)
+																	.text(current_settings.titleSelfclass)
+																	.appendTo($base);
+					}
 
-				var data = {
-					'target' : $.extend(true, {},tokeninput_target),
-					'self' : $.extend(true, {},results[current_settings.keySelfclass][0])
-				};
+					var target_arr = [];
+					var arr = getTokenInputItems();
+					if($.isArray(arr)){
+						target_arr = $.grep(arr,function(data){return data.id===results[current_settings.keySelfclass][0].id;});
+					}
+					if(!isArray(results[current_settings.keySuperclass]) || results[current_settings.keySuperclass].length===0){
+						target_arr.push('dummy');
+					}
 
-				var $buttons = $('<'+current_settings.nodeName+'>').addClass(current_settings.cssButtonsClass).appendTo($base);
-				var $button_base = addExecuteButtons(data,target_arr.length!==0, true).appendTo($buttons);
+					var data = {
+						'target' : $.extend(true, {},tokeninput_target),
+						'self' : $.extend(true, {},results[current_settings.keySelfclass][0])
+					};
 
-				var $separator = $('<div>')
-					.css({
-						'margin':             '0px 3px 0px 0px',
-						'height':             '14px',
-						'border-style':       'solid',
-						'border-width':       '0px 1px',
-						'border-left-color':  '#aca899',
-						'border-right-color': 'white',
-						'display':            'inline-block',
-						'font-size':          '1px',
-						'overflow':           'hidden',
-						'cursor':             'default',
-						'width':              '0px',
-						'line-height':        '0px'
-					})
-					.appendTo($button_base);
+					var $buttons = $('<'+current_settings.nodeName+'>').addClass(current_settings[SCHEMA_2022].cssButtonsClass).addClass('d-flex flex-row').appendTo($base);
 
-				var $copy_button = $('<button>')
-					.addClass('btn btn-copy')
-					.addClass(current_settings.cssButtonCopyClass)
-					.attr({
-						'data-language-key':'copy',
-						'data-language-tooltip-key':'tooltip_copy',
-						'data-toggle':'tooltip',
-						'data-html':'true',
-						'data-original-title': language['tooltip_copy']
-					})
-					.text(language['copy'])
-					.appendTo($button_base)
-					.on('click',function(e){
-						$(this).tooltip('hide');
-						var $textarea = $('textarea.'+current_settings.cssContentCopyClass);
-						$textarea.show().get(0).select();
-						document.execCommand('copy');
-						$textarea.hide();
-					})
-					.tooltip();
-				
-				if($.isPlainObject( window['tmripple']) && $.isFunction(window['tmripple'].init)){
-					$copy_button.attr({'data-animation':'ripple'});
-					tmripple.init();
-				}
+					var $button_base = addExecuteButtons(data,target_arr.length!==0, true).appendTo($buttons);
+					var $separator = $('<div>').addClass(current_settings.cssSeparatorClass).appendTo($button_base);
+					var $copy_button = $('<button>')
+						.addClass('btn btn-copy')
+						.addClass(current_settings.cssButtonCopyClass)
+						.attr({
+							'data-language-key':'copy',
+							'data-language-tooltip-key':'tooltip_copy',
+							'data-toggle':'tooltip',
+							'data-html':'true',
+							'data-original-title': language['tooltip_copy']
+						})
+						.text(language['copy'])
+						.appendTo($button_base)
+						.on('click',function(e){
+							$(this).tooltip('hide');
+							var $textarea = $('textarea.'+current_settings.cssContentCopyClass);
+							$textarea.show().get(0).select();
+							document.execCommand('copy');
+							$textarea.hide();
+						})
+						.tooltip();
 
-				var $content = $('<'+current_settings.nodeName+'>').addClass(current_settings.cssContentClass).appendTo($base);
-				var $contentTable = $('<'+current_settings.nodeName+'>').addClass(current_settings.cssContentTableClass).appendTo($content);
+					if($.isPlainObject( window['tmripple']) && $.isFunction(window['tmripple'].init)){
+						$copy_button.attr({'data-animation':'ripple'});
+						tmripple.init();
+					}
 
-				var title_text_arr = [];
+					var $selection_base = $('<div>').addClass(current_settings[SCHEMA_2022].cssSelectionBaseClass).addClass('flex-fill').appendTo($buttons);
+					var selected_en = runSearchOptions.hasJA ? "":"selected";
+					var selected_ja = runSearchOptions.hasJA ? "selected":"";
+					var select_str =	'<select name=\"language\" class=\"'+current_settings[SCHEMA_2022].cssLanguageChangeClass+'\">' + 
+											'<option data-language-key=\"eng\" name=\"'+LANGUAGE_EN+'\" value=\"'+LANGUAGE_EN+'\" '+selected_en+'>'+language['eng']+'</option>' +
+											'<option data-language-key=\"jpn\" name=\"'+LANGUAGE_JA+'\" value=\"'+LANGUAGE_JA+'\" '+selected_ja+'>'+language['jpn']+'</option>' +
+										'</select>';
+					var $language_select = $(select_str).appendTo($selection_base)
+														.change(function(){
+															var $select = $(this);
+															var $select_option = $select.find('option:selected');
+															runSearchOptions.hasJA = $select_option.val()===LANGUAGE_JA;
+															if(executionLanguage_timeoutID){
+																clearTimeout(executionLanguage_timeoutID);
+															}
+															executionLanguage_timeoutID = setTimeout(function(){
+																executionLanguage_timeoutID = null;
+																showLoading();
+																showResults();
+															},100);
+														});
 
-				$.each(results[current_settings.keySelfclass], function(){
-					var result = this;
-					if($title && title_text_arr.length === 0){
-						$.each(['id','name'], function(){
-							var key = this;
+					//var $content = $('<'+current_settings.nodeName+'>').addClass(current_settings.cssContentClass).appendTo($base);
+					//var $contentTable = $('<'+current_settings.nodeName+'>').addClass(current_settings.cssContentTableClass).appendTo($content);
+					var $contentTable = $('<table>').addClass(current_settings[SCHEMA_2022].cssContentClass).appendTo($base);
+					
+					var title_text_arr = [];
+					$.each(results[current_settings.keySelfclass], function(){
+						var result = this;
+						
+						if($title && title_text_arr.length === 0){
+							$.each(['id','name'], function(){
+								var key = this;
+								var value = result[key];
+								if(runSearchOptions.hasJA){
+									if(isString(result[key+'_ja'])) value = result[key+'_ja'];
+								}
+								title_text_arr.push(value);
+							});
+							$title.empty();
+							//$title.text(title_text_arr.join(' '));
+							$('<span>').text(title_text_arr.join(' ')).appendTo($title);
+						}
+
+						
+
+						var copy_values = [];
+						var list = ['exclude','severity','id','name','English','definition','comment','synonym'];
+						var cnt = 0;
+						$.each(list, function(i,val){
+							var key = val;
 							var value = result[key];
 							if(runSearchOptions.hasJA){
 								if(isString(result[key+'_ja'])) value = result[key+'_ja'];
+								if(key==='English') value = result['name'];
+							}else if(key==='English'){
+								return;
 							}
-							title_text_arr.push(value);
-						});
-						$title.empty();
 
-						var $title_table = $('<'+current_settings.nodeName+'>').css({'display':'table','border-collapse':'collapse','width':'100%'}).appendTo($title);
-						var $title_tr = $('<'+current_settings.nodeName+'>').css({'display':'table-row'}).appendTo($title_table);
-						var $title_td1 = $('<'+current_settings.nodeName+'>').css({'display':'table-cell','text-align':'left','padding-left':'4px'}).text(title_text_arr.join(' ')).appendTo($title_tr);
-						var $title_td2 = $('<'+current_settings.nodeName+'>').css({'display':'table-cell','text-align':'right','width':'20px'}).appendTo($title_tr);
+							var $contentTr = $('<tr>').addClass(current_settings[SCHEMA_2022].cssContentRowClass).appendTo($contentTable);
+							if(cnt < list.length -1) {
+								$contentTr.addClass('bottomline');
+								cnt++;
+							}
 
-						if(!current_settings.use_webgl && !current_settings.is_hierarchy_fullscreen){
-							var $selectedphenotype_title_td_right = $('<'+current_settings.nodeName+'>').css({'display':'inline-block','text-align':'right','position':'relative'}).appendTo($title_td2);
-							$selectedphenotype_title_td_right.css({'margin-right':'0px','font-size':'14px'});
-							var $language_button = $('<button>')
-								.addClass(current_settings.cssLanguageChangeClass)
-								.addClass('btn btn-default')
-								.appendTo($selectedphenotype_title_td_right)
-								.text('')
-								.click(function(e){
-									e.preventDefault();
-									e.stopPropagation();
+							var label = language[key.toLowerCase()] ? language[key.toLowerCase()] : key;
+							var $th = $('<th>').text(label).appendTo($contentTr);
+							var $value_td = $('<td>').css({'text-align':'left'}).appendTo($contentTr);
+							
+							if(key==='exclude' || key==='severity'){
+								//$value_td.addClass('d-flex flex-row');
+								var hash = language[key + "_hash" ];
+								for(let val in hash){
+									let title_label = hash[val];
+									$('<input type=\"radio\" name=\"'+key+'\" value=\"'+val+'\">').appendTo($value_td);
+									$('<label>').text(title_label).appendTo($value_td);
+								}
+								if (!(key in result)) $contentTr.hide();
+							} else if(key==='name'){
+								var $a = $('<a>')
+								.addClass(current_settings.cssLinkClass)
+								.attr({'href':'#'})
+								.data(OBJECT_KEY, result)
+								.css({'border':'0px','display':'inline-block'/*,'width':'100%'*/})
+								.click(function(){
+									var data = $(this).data(OBJECT_KEY);
+									setTimeout(function(){
+										runSearch(data.id);
+									},0);
 									return false;
-								});
-							$language_button.css({'padding-right':'2px','padding-left':'2px'});
-							var $language_select = $('<select>')
-								.attr({'name':'language'})
-								.addClass(current_settings.cssLanguageChangeClass)
-								.appendTo($selectedphenotype_title_td_right)
-								.change(function(){
-									var $select = $(this);
-									var $select_option = $select.find('option:selected');
-									$select.prev('button').html($select_option.text()+'&nbsp;▼');;
-									runSearchOptions.hasJA = $select_option.val()==='ja';
-									if(executionLanguage_timeoutID){
-										clearTimeout(executionLanguage_timeoutID);
-									}
-									executionLanguage_timeoutID = setTimeout(function(){
-										executionLanguage_timeoutID = null;
-										showLoading();
-										showResults();
-									},100);
-								});
-							$language_select.css({'padding-right':'2px','padding-left':'2px'});
-							var $language_option_en = $('<option>').attr({'data-language-key':'eng','name':'en'}).val('en').text(language['eng']).appendTo($language_select);
-							var $language_option_jp = $('<option>').attr({'data-language-key':'jpn','name':'ja'}).val('ja').text(language['jpn']).appendTo($language_select);
+								})
+								.appendTo($value_td);
+								$('<span>').text(value).css({'border':'0px'}).appendTo($a);
 
-							var $language_select = $('select[name=language]');
-							$language_select.find('option').prop('selected', false);
-							$language_select.prev('button').html($language_select.find('option[name='+getCurrentLanguage()+']').prop('selected', true).text()+'&nbsp;▼');
+							}
+							else{
+								
+								if(isNeedOverflewHidden(value)){
+									$value_td.addClass('switch');
+									let $div_content = $('<div>').addClass('content').appendTo($value_td);
+									let $div_control = $('<div>').addClass('control').appendTo($value_td);
+									$("<span>").appendTo($div_control)
+										.click(function(){
+											$(this).closest("td").toggleClass('on');
+										});
+									if(key==='comment' && isString(value)){
+										$div_content.html(value.replace(/\\n/g,'<br />'));
+									}
+									else{
+										$div_content.text(value);
+									}
+								}else{
+									if(key==='comment' && isString(value)){
+										$value_td.html(value.replace(/\\n/g,'<br />'));
+									}
+									else{
+										$value_td.text(value);
+									}
+								}
+							}
+
+							if(current_settings.copy_items.indexOf(key)>=0){
+								$value_td.addClass(current_settings.cssContentCopyClass);
+								if(runSearchOptions.hasJA && key==='name'){
+									if(isString(result[key+'_ja']) && result[key+'_ja']!==result[key]) copy_values.push(value);
+								}
+								else{
+									copy_values.push(value);
+								}
+							}
+						});
+						if(copy_values.length){
+							$('<textarea>').addClass(current_settings.cssContentCopyClass).css({display:'none'}).text(copy_values.join(current_settings.copy_delimiter)).appendTo($content);
 						}
+					});					
+				}else{
+					var $base = $('<'+current_settings.nodeName+'>').addClass(current_settings.cssBaseClass)
+																	.click(function(e){ e.stopPropagation(); e.preventDefault(); return false; })
+																	.appendTo($td);
+					var $title = null;
+					if(isString(current_settings.titleSelfclass) && current_settings.titleSelfclass.length){
+						$title = $('<'+current_settings.nodeName+'>').addClass(current_settings.cssTopBarClass).text(current_settings.titleSelfclass).appendTo($base);
 					}
 
-					var copy_values = [];
-					$.each(['id','name','English','definition','comment','synonym'], function(i,val){
-						//var key = this.toString();
-						var key = val;
-						var value = result[key];
-						if(runSearchOptions.hasJA){
-							if(isString(result[key+'_ja'])) value = result[key+'_ja'];
-							if(key==='English') value = result['name'];
-						}else if(key==='English'){
-							return;
-						}
-						var label = language[key.toLowerCase()] ? language[key.toLowerCase()] : key;
-						var $contentTr = $('<'+current_settings.nodeName+'>').addClass(current_settings.cssContentTrClass).appendTo($contentTable);
-						$('<'+current_settings.nodeName+'>').addClass(current_settings.cssContentThClass).text(label).appendTo($contentTr);
-						$('<'+current_settings.nodeName+'>').addClass(current_settings.cssContentTdColonClass).text(':').appendTo($contentTr);
-						var $value_td = $('<'+current_settings.nodeName+'>').addClass(current_settings.cssContentTdClass).appendTo($contentTr);
-						if(key==='name'){
+					var target_arr = [];
+					var arr = getTokenInputItems();
+					if($.isArray(arr)){
+						target_arr = $.grep(arr,function(data){return data.id===results[current_settings.keySelfclass][0].id;});
+					}
+					if(!isArray(results[current_settings.keySuperclass]) || results[current_settings.keySuperclass].length===0){
+						target_arr.push('dummy');
+					}
 
-							var $a = $('<a>')
-							.addClass(current_settings.cssLinkClass)
-							.attr({'href':'#'})
-							.data(OBJECT_KEY, result)
-							.css({'border':'0px','display':'inline-block'/*,'width':'100%'*/})
-							.click(function(){
-								var data = $(this).data(OBJECT_KEY);
-								setTimeout(function(){
-									runSearch(data.id);
-								},0);
-								return false;
-							})
-							.appendTo($value_td);
-							$('<span>').text(value).css({'border':'0px'}).appendTo($a);
+					var data = {
+						'target' : $.extend(true, {},tokeninput_target),
+						'self' : $.extend(true, {},results[current_settings.keySelfclass][0])
+					};
 
+					var $buttons = $('<'+current_settings.nodeName+'>').addClass(current_settings.cssButtonsClass).appendTo($base);
+					var $button_base = addExecuteButtons(data,target_arr.length!==0, true).appendTo($buttons);
+
+					var $separator = $('<div>').addClass(current_settings.cssSeparatorClass).appendTo($button_base);
+
+					var $copy_button = $('<button>')
+						.addClass('btn btn-copy')
+						.addClass(current_settings.cssButtonCopyClass)
+						.attr({
+							'data-language-key':'copy',
+							'data-language-tooltip-key':'tooltip_copy',
+							'data-toggle':'tooltip',
+							'data-html':'true',
+							'data-original-title': language['tooltip_copy']
+						})
+						.text(language['copy'])
+						.appendTo($button_base)
+						.on('click',function(e){
+							$(this).tooltip('hide');
+							var $textarea = $('textarea.'+current_settings.cssContentCopyClass);
+							$textarea.show().get(0).select();
+							document.execCommand('copy');
+							$textarea.hide();
+						})
+						.tooltip();
+
+					if($.isPlainObject( window['tmripple']) && $.isFunction(window['tmripple'].init)){
+						$copy_button.attr({'data-animation':'ripple'});
+						tmripple.init();
+					}
+
+					var $content = $('<'+current_settings.nodeName+'>').addClass(current_settings.cssContentClass).appendTo($base);
+					var $contentTable = $('<'+current_settings.nodeName+'>').addClass(current_settings.cssContentTableClass).appendTo($content);
+
+					var title_text_arr = [];
+
+					$.each(results[current_settings.keySelfclass], function(){
+						var result = this;
+						if($title && title_text_arr.length === 0){
+							$.each(['id','name'], function(){
+								var key = this;
+								var value = result[key];
+								if(runSearchOptions.hasJA){
+									if(isString(result[key+'_ja'])) value = result[key+'_ja'];
+								}
+								title_text_arr.push(value);
+							});
+							$title.empty();
+
+							var $title_table = $('<'+current_settings.nodeName+'>').css({'display':'table','border-collapse':'collapse','width':'100%'}).appendTo($title);
+							var $title_tr = $('<'+current_settings.nodeName+'>').css({'display':'table-row'}).appendTo($title_table);
+							var $title_td1 = $('<'+current_settings.nodeName+'>').css({'display':'table-cell','text-align':'left','padding-left':'4px'}).text(title_text_arr.join(' ')).appendTo($title_tr);
+							var $title_td2 = $('<'+current_settings.nodeName+'>').css({'display':'table-cell','text-align':'right','width':'20px'}).appendTo($title_tr);
+
+							if(!current_settings.use_webgl && !current_settings.is_hierarchy_fullscreen){
+								var $selectedphenotype_title_td_right = $('<'+current_settings.nodeName+'>').css({'display':'inline-block','text-align':'right','position':'relative'}).appendTo($title_td2);
+								$selectedphenotype_title_td_right.css({'margin-right':'0px','font-size':'14px'});
+								var $language_button = $('<button>')
+									.addClass(current_settings.cssLanguageChangeClass)
+									.addClass('btn btn-default')
+									.appendTo($selectedphenotype_title_td_right)
+									.text('')
+									.click(function(e){
+										e.preventDefault();
+										e.stopPropagation();
+										return false;
+									});
+								$language_button.css({'padding-right':'2px','padding-left':'2px'});
+								var $language_select = $('<select>')
+									.attr({'name':'language'})
+									.addClass(current_settings.cssLanguageChangeClass)
+									.appendTo($selectedphenotype_title_td_right)
+									.change(function(){
+										var $select = $(this);
+										var $select_option = $select.find('option:selected');
+										$select.prev('button').html($select_option.text()+'&nbsp;▼');;
+										runSearchOptions.hasJA = $select_option.val()==='ja';
+										if(executionLanguage_timeoutID){
+											clearTimeout(executionLanguage_timeoutID);
+										}
+										executionLanguage_timeoutID = setTimeout(function(){
+											executionLanguage_timeoutID = null;
+											showLoading();
+											showResults();
+										},100);
+									});
+								$language_select.css({'padding-right':'2px','padding-left':'2px'});
+								var $language_option_en = $('<option>').attr({'data-language-key':'eng','name':'en'}).val('en').text(language['eng']).appendTo($language_select);
+								var $language_option_jp = $('<option>').attr({'data-language-key':'jpn','name':'ja'}).val('ja').text(language['jpn']).appendTo($language_select);
+
+								var $language_select = $('select[name=language]');
+								$language_select.find('option').prop('selected', false);
+								$language_select.prev('button').html($language_select.find('option[name='+getCurrentLanguage()+']').prop('selected', true).text()+'&nbsp;▼');
+							}
 						}
-						else{
-							if(key==='comment' && isString(value)){
-								$value_td.html(value.replace(/\\n/g,'<br />'));
+
+						var copy_values = [];
+						$.each(['id','name','English','definition','comment','synonym'], function(i,val){
+							//var key = this.toString();
+							var key = val;
+							var value = result[key];
+							if(runSearchOptions.hasJA){
+								if(isString(result[key+'_ja'])) value = result[key+'_ja'];
+								if(key==='English') value = result['name'];
+							}else if(key==='English'){
+								return;
+							}
+							var label = language[key.toLowerCase()] ? language[key.toLowerCase()] : key;
+							var $contentTr = $('<'+current_settings.nodeName+'>').addClass(current_settings.cssContentTrClass).appendTo($contentTable);
+							$('<'+current_settings.nodeName+'>').addClass(current_settings.cssContentThClass).text(label).appendTo($contentTr);
+							$('<'+current_settings.nodeName+'>').addClass(current_settings.cssContentTdColonClass).text(':').appendTo($contentTr);
+							var $value_td = $('<'+current_settings.nodeName+'>').addClass(current_settings.cssContentTdClass).appendTo($contentTr);
+							if(key==='name'){
+
+								var $a = $('<a>')
+								.addClass(current_settings.cssLinkClass)
+								.attr({'href':'#'})
+								.data(OBJECT_KEY, result)
+								.css({'border':'0px','display':'inline-block'/*,'width':'100%'*/})
+								.click(function(){
+									var data = $(this).data(OBJECT_KEY);
+									setTimeout(function(){
+										runSearch(data.id);
+									},0);
+									return false;
+								})
+								.appendTo($value_td);
+								$('<span>').text(value).css({'border':'0px'}).appendTo($a);
+
 							}
 							else{
-								$value_td.text(value);
+								if(key==='comment' && isString(value)){
+									$value_td.html(value.replace(/\\n/g,'<br />'));
+								}
+								else{
+									$value_td.text(value);
+								}
 							}
-						}
 
-						if(current_settings.copy_items.indexOf(key)>=0){
-							$value_td.addClass(current_settings.cssContentCopyClass);
-							if(runSearchOptions.hasJA && key==='name'){
-								if(isString(result[key+'_ja']) && result[key+'_ja']!==result[key]) copy_values.push(value);
+							if(current_settings.copy_items.indexOf(key)>=0){
+								$value_td.addClass(current_settings.cssContentCopyClass);
+								if(runSearchOptions.hasJA && key==='name'){
+									if(isString(result[key+'_ja']) && result[key+'_ja']!==result[key]) copy_values.push(value);
+								}
+								else{
+									copy_values.push(value);
+								}
 							}
-							else{
-								copy_values.push(value);
-							}
+						});
+						if(copy_values.length){
+							$('<textarea>').addClass(current_settings.cssContentCopyClass).css({display:'none'}).text(copy_values.join(current_settings.copy_delimiter)).appendTo($content);
 						}
 					});
-					if(copy_values.length){
-						$('<textarea>').addClass(current_settings.cssContentCopyClass).css({display:'none'}).text(copy_values.join(current_settings.copy_delimiter)).appendTo($content);
-					}
-				});
+				}
 			}
 
 			// sub class content
@@ -2520,16 +2836,12 @@
 				window.navigator.browserLanguage;
 		function isWindowNavigatorLanguageJa(){
 			//return windowNavigatorLanguage === "ja" || windowNavigatorLanguage.toLowerCase() === "ja-jp";
-			return current_settings.language_in === "ja";
+			return current_settings.language_in === LANGUAGE_JA;
 		}
 		var runSearchOptions = {hasJA:isWindowNavigatorLanguageJa()};
 		function runSearch(query,options) {
 
 			loadAllObj();
-//			if(current_settings.use_webgl && current_settings.active_webgl){
-//				showResults({});
-//				return;
-//			}
 
 			if(isObject(options) && isObject(runSearchOptions)){
 				if(options.tokenInputItems && runSearchOptions.tokenInputItems) delete runSearchOptions.tokenInputItems;
