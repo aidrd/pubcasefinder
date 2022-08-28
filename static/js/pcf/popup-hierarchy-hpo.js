@@ -1425,7 +1425,7 @@
 
 							}
 							else{
-								
+								value = value.replace(/\|/g, ' | ');		
 								if(isNeedOverflewHidden(value)){
 									$value_td.addClass('switch');
 									let $div_content = $('<div>').addClass('content').appendTo($value_td);
