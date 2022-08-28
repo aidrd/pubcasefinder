@@ -1396,7 +1396,7 @@
 
 							var label = language[key.toLowerCase()] ? language[key.toLowerCase()] : key;
 							var $th = $('<th>').text(label).appendTo($contentTr);
-							var $value_td = $('<td>').css({'text-align':'left'}).appendTo($contentTr);
+							var $value_td = $('<td>').css({'text-align':'left','width':'95%'}).appendTo($contentTr);
 							
 							if(key==='exclude' || key==='severity'){
 								//$value_td.addClass('d-flex flex-row');
