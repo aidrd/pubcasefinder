@@ -291,7 +291,7 @@
                     alert("The URL that retrieve GENE SYMBOL is not defined.");
                     return;
                 }
-                let url_str = settings_now.url_genesymbol + '?hgnc_gene_symbol=' + (text1.replace(/\n/g,',').replace(/\&/g,','));
+                let url_str = settings_now.url_genesymbol + '?hgnc_gene_symbol=' + (text1.replace(/\n/g,',').replace(/\&/g,',').replace(/ /g,','));
                 let obj = {[SETTING_KEY_URLSTR]:url_str, 'type': type_genesymbol};
                 ajax_item_list.push(obj);
 			}
