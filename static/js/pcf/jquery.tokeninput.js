@@ -255,6 +255,10 @@
 		});
 	}
 
+	function _hasJA(str) {
+		return ( str && str.match(/[\u30a0-\u30ff\u3040-\u309f\u3005-\u3006\u30e0-\u9fcf]+/) )? true : false;
+	};
+
 	// Additional public (exposed) methods
 	var methods = {
 		init: function(url_or_data_or_function, options) {
@@ -1228,6 +1232,12 @@
 			var query = input_box.val();
 
 			if(query && query.length) {
+				if($(input).data("settings").lang===LANGUAGE_EN && _hasJA(query)){
+					input_box.val("");
+					hide_dropdown();
+					return;
+				}
+
 				if(selected_token) {
 					deselect_token($(selected_token), POSITION.AFTER);
 				}
