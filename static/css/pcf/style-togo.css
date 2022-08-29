@@ -174,8 +174,6 @@ body {
     transition: all 0.5s 0s ease;
     text-align: none;
 	line-height: 1.42857;
-    height: 3em;
-    display: inline-flex;
 }
 
 
@@ -4455,10 +4453,6 @@ label {
 .language {
     position: relative;
     border-radius: 2em;
-    background-color: #fafafa;
-    padding: 10px 10px 10px 40px;
-    max-width: 110px;
-    cursor: pointer;
   }
   
   .select-text {
@@ -4468,6 +4462,12 @@ label {
     border-radius: 0;
     border: none;
     border-radius: 2em;
+    background-color: #fafafa;
+    padding: 10px 10px 10px 40px;
+    max-width: 110px;
+    cursor: pointer;
+    height: 3em;
+    display: inline-flex;
   }
   
   /* Remove focus */
