@@ -237,14 +237,16 @@
 						let $search_td = $('<td>').css({'white-space':'nowrap'}).appendTo($row);
 
 						let search_image_href_str = "http://www.google.com/search?q=" + hpo_name +"&tbm=isch";
-						$('<a class=\"material-icons-outlined\">image</a>')
+						//$('<a class=\"material-icons-outlined\">image</a>')
+						$('<a class=\"material-icons\">image</a>')
 							.attr('href',  search_image_href_str)
 							.attr('target','_blank')
 							.appendTo($search_td);
 					
 						let search_href_str = encodeURIComponent(hpo_name);
 						search_href_str = "https://www.google.com/search?q=" + search_href_str;
-						$('<a class=\"material-icons-outlined\">textsms</a>')
+						//$('<a class=\"material-icons-outlined\">textsms</a>')
+						$('<a class=\"material-icons\">textsms</a>')
 							.attr('href',  search_href_str)
 							.attr('target','_blank')
 							.css({'margin-left':'20px'})

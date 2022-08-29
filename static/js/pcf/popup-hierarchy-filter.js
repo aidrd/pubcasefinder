@@ -66,7 +66,6 @@
 
 		cssMONDOListContentSelectClass:	 CSS_PREFIX+'mondplist-content-select',
 		cssMONDOListContentClass:		 CSS_PREFIX+'genelist-content',
-
 		cssWebGLSwitchContentClass:	 CSS_PREFIX+'webgl-switch-content',
 		cssLanguageChangeClass:		 CSS_PREFIX+'language-change',
 		cssWebGLHomeContentClass:	 CSS_PREFIX+'webgl-home-content',
@@ -112,7 +111,7 @@
 				synonym		 : '同義語',
 
 				tooltip_title	: 'ここをクリック',
-				tooltip_copy	: '<div style="white-space:nowrap;text-align:center;">クリップボードに<br>MONDO Id、症状（日）、症状（英）<br>をコピーします</div>',
+				tooltip_copy	: '<div style="white-space:nowrap;text-align:center;">クリップボードに<br>MONDO Id、症状（日）、症状（英）<br>をコピーします</div>'
 			},
 			'en' : {
 				superclass		 : 'Superclass',
@@ -137,7 +136,7 @@
 				synonym		 : 'Synonym',
 
 				tooltip_title	 : 'Click Here',
-				tooltip_copy	 : 'Copy MONDO Id and Name to the clipboard',
+				tooltip_copy	 : 'Copy MONDO Id and Name to the clipboard'
 			}
 		},
 		okcancelButtonsAlign : 'right',
@@ -193,7 +192,7 @@
 		return typeof value !== 'undefined';
 	},
 	hasJA = function( str ) {
-		return ( str && str.match(/[\u30a0-\u30ff\u3040-\u309f\u3005-\u3006\u30e0-\u9fcf]+/) )? true : false
+		return ( str && str.match(/[\u30a0-\u30ff\u3040-\u309f\u3005-\u3006\u30e0-\u9fcf]+/) )? true : false;
 	};
 
 	var methods = {
@@ -203,7 +202,7 @@
 				$(this).data(SETTINGS_KEY, settings);
 				PopupRelationFilter(this, url_or_data_or_function, settings);
 			});
-		},
+		}
 	};
 
 	$.fn.popupRelationFilter = function (method) {
@@ -366,7 +365,7 @@
 					var b_name = b.name;
 					if(runSearchOptions.hasJA && isString(a.name_ja)) a_name = a.name_ja;
 					if(runSearchOptions.hasJA && isString(b.name_ja)) b_name = b.name_ja;
-					return a_name<b_name?-1:(a_name>b_name?1:0)
+					return a_name<b_name?-1:(a_name>b_name?1:0);
 				}), function(){
 					var text = this.name;
 					var $number_html;
@@ -473,6 +472,10 @@
 			var $buttonReplace = $('button.'+current_settings.cssButtonReplaceClass);
 
 			if($selectedToken && $selectedToken.length > 0){
+				var selectedToken_id = $($selectedToken[0]).find('span.' + tokeninput_classes['tokenId']).text();
+				var selectedToken_id_prefix = "";
+				if(selectedToken_id.match(/^([A-Z]+)\:[0-9]+$/)) selectedToken_id_prefix = RegExp.$1 + ":";
+
 				$buttonReplace.removeClass(current_settings.cssButtonDisabledClass);
 
 				$buttonReplace.each(function(){
@@ -482,7 +485,11 @@
 					var exists_data = $.grep(current_settings.disabledTokenIds, function(id){
 						return id===data.self.id;
 					}).length > 0 ? true : false;
-					if(isObject(tokenInputItemsHash[data.self.id]) || exists_data) $button.addClass(current_settings.cssButtonDisabledClass);
+					if(isObject(tokenInputItemsHash[data.self.id]) || exists_data){
+						$button.addClass(current_settings.cssButtonDisabledClass);
+					}else if(!selectedToken_id_prefix || !data.self.id.startsWith(selectedToken_id_prefix) ){
+						$button.addClass(current_settings.cssButtonDisabledClass);
+					}
 				});
 			}
 			else{
@@ -560,23 +567,24 @@
 
 			var $button_base = $('<'+current_settings.nodeName+'>').addClass(current_settings.cssButtonBaseClass);
 
-			$.each(['add','replace'], function(){
-				var key = this;
+			$.each(['add','replace'], function(i,val){
+				//var key = this;
+				var key = val;
 				//var $button = $('<button>').addClass('btn btn-primary').addClass(key=='add'?current_settings.cssButtonAddClass:current_settings.cssButtonReplaceClass).data(OBJECT_KEY,  $.extend(true, {},data,{'exec' : key.toLowerCase()})   ).text(current_settings.language[getCurrentLanguage()][key]).appendTo($button_base);
 				var $button;
 				if(isBig){
 					$button = $('<button>')
-							.addClass(key=='add'?'btn btn-primary':'btn')
-							.addClass(key=='add'?current_settings.cssButtonAddClass:current_settings.cssButtonReplaceClass)
-							.html(key=='add'?'<span class="material-icons" style="font-size:20px;vertical-align:sub;">post_add</span>&nbsp;' + current_settings.language[getCurrentLanguage()][key] :
+							.addClass(key==='add'?'btn btn-primary':'btn')
+							.addClass(key==='add'?current_settings.cssButtonAddClass:current_settings.cssButtonReplaceClass)
+							.html(key==='add'?'<span class="material-icons" style="font-size:20px;vertical-align:sub;">post_add</span>&nbsp;' + current_settings.language[getCurrentLanguage()][key] :
 									 //'<span class="material-icons" style="font-size:20px;vertical-align:sub;">autorenew</span>&nbsp;' + current_settings.language[getCurrentLanguage()][key])
 									'<img src="/static/images/pcf/replace-green.svg" style="width:18px;height:18px;vertical-align:sub;margin-right:5px"></img>&nbsp;' + current_settings.language[getCurrentLanguage()][key])
 							.data(OBJECT_KEY,  $.extend(true, {},data,{'exec' : key.toLowerCase()})   )
 							.appendTo($button_base);
 				}else{
-					if(key=='add'){
+					if(key==='add'){
 						$button = $('<button>').addClass('material-icons').addClass('btn btn-primary').addClass(current_settings.cssButtonAddClass)
-                                                        .text(key=='add'?'post_add':'autorenew')
+                                                        .text(key==='add'?'post_add':'autorenew')
                                                         .data(OBJECT_KEY,  $.extend(true, {},data,{'exec' : key.toLowerCase()})   )
                                                         .appendTo($button_base);
 					}else{
@@ -633,19 +641,18 @@
 		function addClearButtons(){
 			var $button_base = $('<'+current_settings.nodeName+'>').addClass(current_settings.cssButtonBaseClass);
 			var language = current_settings.language[getCurrentLanguage()];
+			var key = 'clear';
+			var $button = $('<button>').addClass('btn').addClass(key==='ok'?'btn-primary':'btn-default').data(OBJECT_KEY,  $.extend(true, {},{'exec' : key.toLowerCase()})   ).text(language[key] ? language[key] : key).appendTo($button_base);
 
-				var key = 'clear';
-				var $button = $('<button>').addClass('btn').addClass(key=='ok'?'btn-primary':'btn-default').data(OBJECT_KEY,  $.extend(true, {},{'exec' : key.toLowerCase()})   ).text(language[key] ? language[key] : key).appendTo($button_base);
-
-				if(current_settings.clearButtonAlign=='right'){
-					$button.css({'margin-right':'20px'});
-				}
-				if(current_settings.clearButtonAlign=='left'){
+			if(current_settings.clearButtonAlign==='right'){
+				$button.css({'margin-right':'20px'});
+			}
+			if(current_settings.clearButtonAlign==='left'){
 //					$button.css({'margin-left':'140px'});
-					$button.css({'margin-left':'0px'});
-				}
+				$button.css({'margin-left':'0px'});
+			}
 
-				$button.on('click',executionClear);
+			$button.on('click',executionClear);
 
 			return $button_base;
 		}
@@ -653,9 +660,9 @@
 		function addOKCancelButtons(){
 			var $button_base = $('<'+current_settings.nodeName+'>').addClass(current_settings.cssButtonBaseClass);
 			var language = current_settings.language[getCurrentLanguage()];
-			$.each(['ok','cancel'], function(){
-				var key = this;
-				var $button = $('<button>').addClass('btn').addClass(key=='ok'?'btn-primary':'btn-default').data(OBJECT_KEY,  $.extend(true, {},{'exec' : key.toLowerCase()})   ).text(language[key] ? language[key] : key).appendTo($button_base);
+			$.each(['ok','cancel'], function(i,val){
+				var key = val;
+				var $button = $('<button>').addClass('btn').addClass(key==='ok'?'btn-primary':'btn-default').data(OBJECT_KEY,  $.extend(true, {},{'exec' : key.toLowerCase()})   ).text(language[key] ? language[key] : key).appendTo($button_base);
 				$button.on('click',executionOKCancel);
 			});
 			return $button_base;
@@ -664,7 +671,7 @@
 		function getInlineContent(){
 			var cssInlineContentElement = current_settings.nodeName+'.'+current_settings.cssInlineContentClass;
 			var $inlineContent = $(cssInlineContentElement);
-			if($inlineContent.length==0){
+			if($inlineContent.length===0){
 				$inlineContent = $('<'+current_settings.nodeName+'>').addClass(current_settings.cssInlineContentClass).appendTo($(document.body));
 			}
 			return $inlineContent;
@@ -709,7 +716,7 @@
 			}
 
 			var $inlineContentBase = getContentBaseElement();
-			if($inlineContentBase.length==0){
+			if($inlineContentBase.length===0){
 				var $inlineContent = $.magnificPopup.instance.contentContainer ? $.magnificPopup.instance.contentContainer : emptyInlineContent();
 				$inlineContentBase = $('<'+current_settings.nodeName+'>').addClass(current_settings.cssInlineContentBaseClass).appendTo($inlineContent);
 			}
@@ -718,7 +725,7 @@
 			// tokeninput contents
 			/////////////////////////////////////////////////////////////////////////
 			var $table = $inlineContentBase.find(current_settings.nodeName+'.'+current_settings.cssTableClass+'.'+current_settings.cssTokenInputContentBaseClass);
-			if($table.length==0){
+			if($table.length===0){
 				$table = $('<'+current_settings.nodeName+'>').addClass(current_settings.cssTableClass).addClass(current_settings.cssTokenInputContentBaseClass).appendTo($inlineContentBase);
 				$table.css({
 					'border-spacing':'5px',
@@ -789,8 +796,8 @@
 				var onResult = function(results){
 					getTokenInputElement().off('add.tokenInput').on('add.tokenInput', function(e,token){
 						var $li = _addTokenInputItem(token,true);
-						changeStateAddOrReplace();
 						$li.trigger('click');
+						changeStateAddOrReplace();
 					});
 					$.PopupRelationFilterTokenTooltip();
 					return results;
@@ -799,9 +806,10 @@
 
 				var $selectedphenotype_textarea = $('<'+current_settings.inputNodeName+'>').attr({'id':current_settings.inputId}).appendTo($selectedphenotype_base);
 				$selectedphenotype_textarea[functionName](tokeninput_settings.url, $.extend(true, {}, tokeninput_settings, {zindex: 1444,
+					ifShowTextinputAndClearBtn: false,
 					onResult: onResult,
 					onCachedResult: onResult,
-					onAdd: function(token){
+					onAdd: function(token,type){
 						getTokenInputElement().trigger('add.tokenInput',[token]);
 
 //							var $li = _addTokenInputItem(token,true);
@@ -901,10 +909,10 @@
 				var $selectedphenotype_bottom_bar_td_right = $('<'+current_settings.nodeName+'>').css({'display':'table-cell','text-align':'right','padding-right':'4px'}).appendTo($selectedphenotype_bottom_bar_tr);
 
 
-				if(current_settings.clearButtonAlign=='left'){
+				if(current_settings.clearButtonAlign==='left'){
 					addClearButtons().appendTo($selectedphenotype_bottom_bar_td_left);
 				}
-				else if(current_settings.clearButtonAlign=='center'){
+				else if(current_settings.clearButtonAlign==='center'){
 					addClearButtons().appendTo($selectedphenotype_bottom_bar_td_center);
 				}
 				else{
@@ -912,10 +920,10 @@
 				}
 
 
-				if(current_settings.okcancelButtonsAlign=='left'){
+				if(current_settings.okcancelButtonsAlign==='left'){
 					addOKCancelButtons().appendTo($selectedphenotype_bottom_bar_td_left);
 				}
-				else if(current_settings.okcancelButtonsAlign=='center'){
+				else if(current_settings.okcancelButtonsAlign==='center'){
 					addOKCancelButtons().appendTo($selectedphenotype_bottom_bar_td_center);
 				}
 				else{
@@ -962,7 +970,7 @@
 				title: language.superclass,
 				classname: CSS_PREFIX+current_settings.keySuperclass,
 				formatNumber: true,
-				hidden: $.isArray(current_settings.disabledTokenIds) && results[current_settings.keySelfclass].filter(function(r){ return current_settings.disabledTokenIds.filter(function(id){ return id==r.id; }).length>0 ? true : false; }).length>0 ? true : false
+				hidden: $.isArray(current_settings.disabledTokenIds) && results[current_settings.keySelfclass].filter(function(r){ return current_settings.disabledTokenIds.filter(function(id){ return id===r.id; }).length>0 ? true : false; }).length>0 ? true : false
 			}).appendTo($tr);
 
 			// self class content
@@ -1062,8 +1070,8 @@
 						var value = result[key];
 						if(runSearchOptions.hasJA){
 							if(isString(result[key+'_ja'])) value = result[key+'_ja'];
-							if(key=='English') value = result['name'];
-						}else if(key=='English'){
+							if(key==='English') value = result['name'];
+						}else if(key==='English'){
 							return;
 						}
 						var label = language[key.toLowerCase()] ? language[key.toLowerCase()] : key;
@@ -1071,7 +1079,7 @@
 						$('<'+current_settings.nodeName+'>').addClass(current_settings.cssContentThClass).text(label).appendTo($contentTr);
 						$('<'+current_settings.nodeName+'>').addClass(current_settings.cssContentTdColonClass).text(':').appendTo($contentTr);
 						var $value_td = $('<'+current_settings.nodeName+'>').addClass(current_settings.cssContentTdClass).appendTo($contentTr);
-						if(key=='name'){
+						if(key==='name'){
 
 							var $a = $('<a>')
 							.addClass(current_settings.cssLinkClass)
@@ -1091,7 +1099,7 @@
 
 						}
 						else{
-							if(key=='comment' && isString(value)){
+							if(key==='comment' && isString(value)){
 								$value_td.html(value.replace(/\\n/g,'<br />'));
 							}
 							else{
@@ -1190,15 +1198,15 @@
 			//37←, 39→, 38↑, 40↓, 13:enter,
 			var $a = $.magnificPopup.instance.contentContainer ? $.magnificPopup.instance.contentContainer.find(current_settings.nodeName+'.'+current_settings.cssTdClass+' a.'+current_settings.cssLinkClass+'.'+current_settings.cssLinkFocusClass) : $();
 			if($a.length){
-				if(e.which==13){
+				if(e.which===13){
 					$a.get(0).click();
 				}
-				else if(e.which==27){
+				else if(e.which===27){
 				//	$('li').removeClass(tokeninput_classes['selectedToken']);
 					setTimeout(function(){closeMagnificPopup(); },51);
 					return false;
 				}
-				else if(e.which==38){
+				else if(e.which===38){
 					var expr = current_settings.nodeName+'.'+current_settings.cssLinkBaseClass;
 					var $prev_a = $a.parents(expr).prev(expr).find('a.'+current_settings.cssLinkClass);
 					if($prev_a.length){
@@ -1209,7 +1217,7 @@
 						return false;
 					}
 				}
-				else if(e.which==40){
+				else if(e.which===40){
 					var expr = current_settings.nodeName+'.'+current_settings.cssLinkBaseClass;
 					var $next_a = $a.parents(expr).next(expr).find('a.'+current_settings.cssLinkClass);
 					if($next_a.length){
@@ -1220,7 +1228,7 @@
 						return false;
 					}
 				}
-				else if(e.which==37){
+				else if(e.which===37){
 					var expr = current_settings.nodeName+'.'+current_settings.cssTdClass;
 					var $prev_a = $a.closest(expr).prev(expr).find('a.'+current_settings.cssLinkClass);
 					if($prev_a.length){
@@ -1231,7 +1239,7 @@
 						return false;
 					}
 				}
-				else if(e.which==39){
+				else if(e.which===39){
 					var expr = current_settings.nodeName+'.'+current_settings.cssTdClass;
 					var $next_a = $a.closest(expr).next(expr).find('a.'+current_settings.cssLinkClass);
 					if($next_a.length){
@@ -1292,7 +1300,7 @@
 					},
 					open: function() {
 						if(getLoadingElement().is(':visible')){
-							return
+							return;
 						}
 
 						var func = function(){
@@ -1358,7 +1366,7 @@
 				openMagnificPopup({
 					items: {src:   current_settings.nodeName+'.'+current_settings.cssInlineContentClass+'>'+ current_settings.nodeName + '.' + current_settings.cssLoadingClass},
 					type: 'inline',
-					modal: true,
+					modal: true
 				});
 			}
 			
@@ -1581,7 +1589,7 @@
 			var tokenInputItems = getOriginalTokenInputItems();
 			var tokenInputItemNodes = getOriginalTokenInputItemNodes();
 
-			options = options || {}
+			options = options || {};
 			if(isEmpty(options['lang'])) options['lang'] = isWindowNavigatorLanguageJa() ? 'ja' : 'en';
 
 			var o = $.extend(true, {}, options || {});
@@ -1605,11 +1613,11 @@
 						var title;
 						if(current_settings.tooltip_type === 'fixed'){
 							title = current_settings.language[getCurrentLanguage()]['tooltip_title'];
-							$li_node.attr({'data-language-tooltip-key':'tooltip_title'})
+							$li_node.attr({'data-language-tooltip-key':'tooltip_title'});
 						}
 						else{
 							title = data.name;
-							$li_node.attr({'data-language-tooltip-key':data.name})
+							$li_node.attr({'data-language-tooltip-key':data.name});
 						}
 						$li_node
 						.attr({'data-toggle':'tooltip', 'data-original-title': title});
@@ -1659,7 +1667,7 @@
 						data: {id: $.map(orgTokenInputItems, function(item){ return item.id.replace(/_ja$/g,''); })},
 						traditional: true,
 						crossDomain: true,
-						dataType: 'json',
+						dataType: 'json'
 					}).done(function(data, textStatus, jqXHR){
 //						console.log('done',data, textStatus, jqXHR);
 						if(isObject(data) && isNumeric(data.scaled_score)){
@@ -1778,17 +1786,17 @@
 
 				var language = current_settings.language[getCurrentLanguage()];
 
-				$.each(['name','English','definition','comment','synonym'], function(){
-					var key = this;
+				$.each(['name','English','definition','comment','synonym'], function(i,val){
+					var key = val;
 					var value = selfclass[key];
 					if(isWindowNavigatorLanguageJa()){	//ブラウザの言語設定が日本語の場合
 						//代表表現が日本語の場合
 						if(token_data['id'].lastIndexOf('_ja')>=0){
 							if(isString(selfclass[key+'_ja'])) return;
-							if(key=='English') value = selfclass['name'];
+							if(key==='English') value = selfclass['name'];
 						}
 						else{
-							if(key=='name'){
+							if(key==='name'){
 								if(isString(selfclass[key+'_ja'])){
 									value = selfclass[key+'_ja'];
 								}
@@ -1796,13 +1804,13 @@
 									return;
 								}
 							}
-							if(key=='English') return;
+							if(key==='English') return;
 						}
 					}
 					else if(token_data['id'].lastIndexOf('_ja')>=0){
-						if(key=='English') return;
+						if(key==='English') return;
 					}
-					else if(key=='name' || key=='English'){
+					else if(key==='name' || key==='English'){
 						return;
 					}
 					var label = language[key.toLowerCase()] ? language[key.toLowerCase()] : key;
@@ -1810,7 +1818,7 @@
 					$('<'+current_settings.nodeName+'>').addClass(current_settings.cssContentThClass).addClass(current_settings.cssContentThClass+'-'+key.toLowerCase()).text(label).appendTo($contentTr);
 					$('<'+current_settings.nodeName+'>').addClass(current_settings.cssContentTdColonClass).text(':').appendTo($contentTr);
 					var $value_td = $('<'+current_settings.nodeName+'>').addClass(current_settings.cssContentTdClass).addClass(current_settings.cssContentTdClass+'-'+key.toLowerCase()).appendTo($contentTr);
-					if(key=='comment' && isString(value)){
+					if(key==='comment' && isString(value)){
 						$value_td.html(value.replace(/\\n/g,'<br />'));
 					}
 					else{
@@ -1859,7 +1867,7 @@
 
 			if(isEmpty(node) || isEmpty(token_data) || !isObject(token_data)) return;
 
-			options = options || {}
+			options = options || {};
 			if(isEmpty(options['lang'])) options['lang'] = isWindowNavigatorLanguageJa() ? 'ja' : 'en';
 			if(isObject(options)){
 				if(isString(options['lang'])){

@@ -24,15 +24,20 @@ def pcf_get_pa_data_by_pa_id(r_pa_id):
     hash_data = {}
 
     if r_pa_id != "":
+        list_pas = r_pa_id.split(",")
         OBJ_MYSQL = MySQLdb.connect(unix_socket=db_sock, host="localhost", db=db_name, user=db_user, passwd=db_pw, charset="utf8")
-        sql_CaseGene = u"select panel_name from vgp where panel_id=%s"
+        sql_CaseGene = 'select panel_id,panel_name from vgp where panel_id in (%s)' % ','.join(['%s']*len(list_pas))
         cursor_CaseGene = OBJ_MYSQL.cursor()
-        cursor_CaseGene.execute(sql_CaseGene, (r_pa_id,))
-        value_CaseGene = cursor_CaseGene.fetchone()
-        if value_CaseGene:
-            panel_name = value_CaseGene[0]
-            hash_data['name_en'] = panel_name
+        cursor_CaseGene.execute(sql_CaseGene, list_pas)
+        values_CaseGene = cursor_CaseGene.fetchall()
         cursor_CaseGene.close()
+
+        for value_CaseGene in values_CaseGene:
+            pa_id = value_CaseGene[0]
+            if pa_id not in hash_data:
+                hash_data[pa_id] = {}
+                hash_data[pa_id]['name_en']=value_CaseGene[1]
+                hash_data[pa_id]['name_ja']=""
 
         OBJ_MYSQL.close()
 

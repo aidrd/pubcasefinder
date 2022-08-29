@@ -167,14 +167,6 @@
 						<a class="filter-sample" href="/result?target=omim&phenotype=HP:0001903,HP:0000952,HP:0001744,HP:0004444&filter=GENEID:2038,GENEID:6708,GENEID:6521,GENEID:286,GENEID:6710,AND_HP:0000006&size=10&display_format=full&lang=en">Example2</a>
 						<a class="filter-sample" href="/result?target=omim&phenotype=HP:0000347,HP:0003022,HP:0009381,HP:0000204,HP:0000625&filter=HP:0000007,AND_MONDO:0019056,NOT_MONDO:0020124&size=10&display_format=full&lang=en">Example3</a>
 						{% endif %}
-
-						{% if r_lang == "ja" %}
-						<button id="btn_filter_textinput" data-toggle="tooltip" data-placement="top" title="遺伝子のリストを入力">
-						{% else %}
-						<button id="btn_filter_textinput" data-toggle="tooltip" data-placement="top" title="Input NCBI Gene ids">
-						{% endif %}
-							<img src="/static/images/pcf/HPOID.svg"></img>
-						</button>
 					</div>
 					<textarea class="form-control" rows="1" id="tokeninput_filters" name="str_filters"></textarea>
 				</div>
@@ -206,14 +198,6 @@
 						<button id="btn_vgp_download" data-toggle="tooltip" data-placement="top" title="Download this virtual gene panel">
 						{% endif %}
 							 <span class="material-icons">save_alt</span>
-						</button>
-
-						{% if r_lang == "ja" %}
-						<button id="btn_vgp_textinput" data-toggle="tooltip" data-placement="top" title="遺伝子のリストを入力">
-						{% else %}
-						<button id="btn_vgp_textinput" data-toggle="tooltip" data-placement="top" title="Input NCBI Gene ids">
-						{% endif %}
-							<img src="/static/images/pcf/HPOID.svg"></img>
 						</button>
 					</div>
 					<textarea class="form-control" rows="1" id="tokeninput_vgps" name="str_vgps"></textarea>
@@ -438,6 +422,7 @@
 					<select style="width:150px;" class="custom-select" id="str_display_format" onchange="str_display_format_onchange(this.value);">
 						<option value="full" {% if r_display_format == "full" %} selected {% endif %}>Full</option>
 						<option value="summary" {% if r_display_format == "summary" %} selected {% endif %}>Summary</option>
+						<option value="short" {% if r_display_format == "short" %} selected {% endif %}>Short</option>
 			  		</select>
 				</td>
 			</tr>
@@ -719,88 +704,6 @@
 	    }
 	});
 
-/*
-	var lastScrollTop = 0;
-	function str_header_onchange(isAutoHide){
-		if(isAutoHide === 'true') {
-			lastScrollTop = 0;
-			if(typeof InstallTrigger !== 'undefined' || iev == 11) {
-				// Firefox or IE 11
-				$(window).on('scroll', window_on_scroll);
-			} else {
-				$('body').on('mousewheel', window_on_wheel);
-			}
-		}else{
-			if(typeof InstallTrigger !== 'undefined' || iev == 11) {
-				$(window).off('scroll', window_on_scroll);
-			} else {
-				$('body').off('mousewheel', window_on_wheel);
-			}
-		}
-
-	}
-
-	function window_on_scroll(e){
-		if($.magnificPopup.instance.contentContainer && $('.mfp-wrap')) {
-			let $inlineContentBase = $.magnificPopup.instance.contentContainer.find('div.popup-hierarchy-hpo-inline-content-base');
-			if($inlineContentBase && $inlineContentBase.is(":visible")) return true;
-		}
-
-		if(e.target.getAttribute('id') === 'alert_response_text' || e.target.getAttribute('id') === 'alert_url') return;
-
-		st = $(this).scrollTop();
-		if(st < lastScrollTop) {
-			//console.log('Up');
-			//$('header').show();
-			//$('header').fadeIn("slow");
-			$('header').slideDown(500);
-		}
-		else if(st > lastScrollTop) {
-			//console.log('Down');
-			//$('header').hide();
-			//$('header').fadeOut("slow");
-			if($(window).scrollTop() + $(window).height() < getDocHeight()-50) {
-				$('header').slideUp(500);
-			}
-		}
-		lastScrollTop = st;
-
-		if($(window).scrollTop() + $(window).height() >= getDocHeight()-50) {
-			$('header').slideDown(500);
-		}
-
-	}
-
-	function window_on_wheel(e){
-		if($.magnificPopup.instance.contentContainer && $('.mfp-wrap')) {
-			let $inlineContentBase = $.magnificPopup.instance.contentContainer.find('div.popup-hierarchy-hpo-inline-content-base');
-			if($inlineContentBase && $inlineContentBase.is(":visible")) return true;
-		}
-
-		if(e.target.getAttribute('id') === 'alert_response_text' || e.target.getAttribute('id') === 'alert_url') return;
-
-		if(e.originalEvent.wheelDelta > 0) {
-			//console.log('Up');
-			//$('header').show();
-			//$('header').fadeIn("slow");
-			$('header').slideDown(500);
-		}
-		else if(e.originalEvent.wheelDelta < 0) {
-			//console.log('Down');
-			//$('header').hide();
-			//$('header').fadeOut("slow");
-			if($(window).scrollTop() + $(window).height() < getDocHeight()-50) {
-				$('header').slideUp(500);
-			}
-		}
-
-		if($(window).scrollTop() + $(window).height() >= getDocHeight()-50) {
-			$('header').slideDown(500);
-		}
-	}
-
-*/
-
 	function topFunction() {
 		if($('header').is(":visible")===false) $('header').show();
 		document.body.scrollTop = 0;
@@ -827,15 +730,6 @@
 		$('#search_box_form').search_box_form('update_size',size);
 		return false;
 	}
-
-//	$("#phenotouch").click(function (e){
-//		$('.selected_at_popup').removeClass('selected_at_popup');
-//		$('.token-input-selected-token-facebook').removeClass('token-input-selected-token-facebook');
-//		$.PopupRelationHPOWithWebGL();
-//		e.preventDefault();
-//		e.stopPropagation();
-//		return false;
-//	});
 
 	var share_link_val = "https://pubcasefinder.dbcls.jp/result?target={{ r_target }}&phenotype={{ r_phenotype }}&filter={{ r_filter }}&size={{ r_size }}&display_format={{ r_display_format }}&lang={{ r_lang }}";
 
@@ -867,89 +761,18 @@
 
 	};
 
-	var resizeTimer = false;
-
 	$(window).on('resize', function(e) {
 		tippy.hideAll();
-
 		$("#tokeninput_filters").tokenInput_filter("resize_input_box");
-
-		if( !resizeTimer ) {
-			$(window).trigger('resizestart');
-		}
-
-		clearTimeout(resizeTimer);
-		resizeTimer = setTimeout(function() {
-			resizeTimer = false;
-			$(window).trigger('resizeend');
-		}, 250);
-	}).on('resizestart', function(){
-	//console.log('Started resizing the window');
-	}).on('resizeend', function(){
-	//console.log('Done resizing the window');
-		customizeLevelPos();
 	});
 
     function modify_modal_on_show(isFullScreen){
-        if(isFullScreen){
-            $('.mfp-bg').css({'top':'0','opacity':'0.8'});
-            $('.mfp-wrap').css({'top':'0'});
-            $('header').css({'top': '24px'});
-            $('.mfp-container').css({'max-height':'','overflow-x':'','overflow-y':''});
-        }else{
-            $('header').css({'top': '0'});
-            var pos = Math.ceil($('#search_box_form').offset().top + $('#search_box_form').height());
-            $('.mfp-bg').css({'top': pos+'px','opacity':'0'});
-            $('.mfp-wrap').css({'top': pos+'px'});
-
-            //popup-hierarchy-hpo-inline-content-base
-            let max_height= Math.floor(document.documentElement.clientHeight) - Math.ceil(pos);
-            $('.mfp-container').css({'max-height':max_height+'px','overflow-x':'hidden','overflow-y':'scroll'});
-		}
 	}
 	function after_init_gui(){
-		$("#tokeninput_filters").tokenInput_filter('hide_clear_button');
-		$("#tokeninput_vgps").tokenInput_filter('hide_clear_button');
 	}
 
 	function after_modal_close(){
 		$('header').css({'top': '24px'});
-		$("#tokeninput_filters").tokenInput_filter('show_clear_button');
-		$("#tokeninput_vgps").tokenInput_filter('show_clear_button');
-	}
-
-	function customizeLevelPos(){
-		if($.magnificPopup.instance.contentContainer && $('.mfp-wrap')){
-			let $inlineContentBase = $.magnificPopup.instance.contentContainer.find('div.popup-hierarchy-hpo-inline-content-base');
-			if($inlineContentBase){
-				let $table = $inlineContentBase.find('div.popup-hierarchy-hpo-table.popup-hierarchy-hpo-class-content-base');
-				let popup_hierarchy_hpo_table_border_spacing = 10;
-				let $popup_wrapper = $('.mfp-wrap');
-				if($popup_wrapper && $popup_wrapper.offset()){
-					if($popup_wrapper.offset().top == 0){
-						//$table.css({'border-spacing': popup_hierarchy_hpo_table_border_spacing+'px','width':'100%','margin-top':'0','margin-left':'0'});
-					}else{
-						$('header').css({'top': 0});
-
-						$div_search_button = $("#div_search_button");
-
-						var pos = Math.ceil($div_search_button.offset().top);
-
-						//var left = $div_search_button.offset().left-popup_hierarchy_hpo_table_border_spacing;
-						//var width = $div_search_button.width() + (popup_hierarchy_hpo_table_border_spacing * 2);
-						$('.mfp-bg').css({'top': pos+'px','opacity':'0'});
-						$('.mfp-wrap').css({'top': pos+'px'});
-
-			                        let max_height= Math.floor(document.documentElement.clientHeight) - pos;
-                        			$('.mfp-container').css({'max-height':max_height+'px','overflow-x':'hidden','overflow-y':'scroll'});
-
-						//$table.css({'width':'100%','margin-left':'0'});
-					}
-			   }
-			}
-		}else{
-			$('header').css({'top': '24px'});
-		}
 	}
 
 	function set_filter_num(){
@@ -1132,7 +955,7 @@
 			'modify_modal_on_show':			modify_modal_on_show,
 			'after_modal_close':			after_modal_close,
 			'is_hierarchy_fullscreen':		false,
-			'schema':						'schema-2021',
+			'schema':						'schema-2022',
 			'text_input_schema':			'auto',
 		});
 
@@ -1159,15 +982,14 @@
 
 
         $("#tokeninput_vgps").tokenInput_filter("/tokeninput_vgp", {
+            'url_geneid':       '/pcf_get_gene_data_by_gene_id',
+            'url_genesymbol':   'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_convert_genesymbol_to_ncbigeneid',
             'theme' : "facebook",
             'schema': "vgp",
             {% if r_lang %}
             'language':   "{{ r_lang }}",
             {% endif %}
-            'onFilterChanged' : onFilterChanged_vgp,
-			'onLongerQuery'   : function(text){
-				$('#btn_vgp_textinput').listinput('start_modal_with_text',text)
-			}
+            'onFilterChanged' : onFilterChanged_vgp
         });
 
         $("#tokeninput_vgps")
@@ -1183,15 +1005,14 @@
 
 
 		$("#tokeninput_filters").tokenInput_filter("/tokeninput_filter", {
+			'url_geneid':       '/pcf_get_gene_data_by_gene_id',
+			'url_genesymbol':   'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_convert_genesymbol_to_ncbigeneid',
 			'theme' : "facebook",
 			'schema': "default",
 			{% if r_lang %}
 			'language':   "{{ r_lang }}",
 			{% endif %}
-			'onFilterChanged' : onFilterChanged,
-			'onLongerQuery'   : function(text){
-				$('#btn_filter_textinput').listinput('start_modal_with_text',text)
-			}
+			'onFilterChanged' : onFilterChanged
 		});
 
 		$("#tokeninput_filters")
@@ -1252,34 +1073,6 @@
 				$("#search_box_form").search_box_form('add_token', item);
 			},
 		});
-
-		$("#btn_vgp_textinput").listinput({	'url':'/pcf_get_gene_data_by_gene_id', 'schema':'filter','language': "{{ r_lang }}",
-											'output_list': function(filter_vgp_obj_list){
-												let counter =0;
-												filter_vgp_obj_list.forEach(function(item){
-													if(Object.keys(item).length > 0){
-														$("#tokeninput_vgps").tokenInput_filter("add", item);
-														counter++;
-													}
-												});
-												if(counter > 0)	onFilterChanged_vgp();
-											}
-										  });
-
-		$("#btn_filter_textinput").listinput({'url':'/pcf_get_gene_data_by_gene_id', 'schema':'filter','language': "{{ r_lang }}",
-											  'output_list': function(filter_vgp_obj_list){
-																let counter =0;
-																filter_vgp_obj_list.forEach(function(item){
-																	if(Object.keys(item).length > 0){
-																		$("#tokeninput_filters").tokenInput_filter("add", item);
-																		counter++;
-																	}
-																});
-																if(counter > 0) onFilterChanged();
-												}
-											});
-
-
 
 		if(!filter_id_list){
 			setTimeout(function(){

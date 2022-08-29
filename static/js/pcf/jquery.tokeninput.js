@@ -13,11 +13,11 @@
 		  LANGUAGE_EN='en',
 		  LANGUAGE = {
 			[LANGUAGE_JA]:{
-				hintText: "患者の兆候または症状を入力",
+				hintText: "患者の兆候または症状を入力"
 			},
 			[LANGUAGE_EN]:{
-				hintText: "Type in patient's signs and symptoms",
-			},
+				hintText: "Type in patient's signs and symptoms"
+			}
 	};
 
     const UISETTING_TAG_SIZE_S = 's',
@@ -26,7 +26,7 @@
           UISETTING_TAG_SIZE_CLASS = {
             [UISETTING_TAG_SIZE_S]: 'uisetting_tag_size_s',
             [UISETTING_TAG_SIZE_M]: 'uisetting_tag_size_m',
-            [UISETTING_TAG_SIZE_L]: 'uisetting_tag_size_l',
+            [UISETTING_TAG_SIZE_L]: 'uisetting_tag_size_l'
           };
 
 	var DEFAULT_SETTINGS = {
@@ -169,7 +169,8 @@
 		onFreeTaggingAdd: null,
 		onDelete:         null,
 		onReady:          null,
-
+		onClickDelete:    null,
+		
 		onSelectDropdownItem: null,
 		onShowDropdownItem:   null,
 		onHideDropdownItem:   null,
@@ -185,7 +186,7 @@
 		// Keep track if the input is currently in disabled mode
 		disabled: false,
 
-		uisetting_tag_size: UISETTING_TAG_SIZE_L,
+		uisetting_tag_size: UISETTING_TAG_SIZE_L
 	};
 
 	// Default classes to use when theming
@@ -253,6 +254,10 @@
 	  		return HTML_ESCAPES[match];
 		});
 	}
+
+	function _hasJA(str) {
+		return ( str && str.match(/[\u30a0-\u30ff\u3040-\u309f\u3005-\u3006\u30e0-\u9fcf]+/) )? true : false;
+	};
 
 	// Additional public (exposed) methods
 	var methods = {
@@ -582,7 +587,6 @@
 				  if(selected_token) {
 					  deselect_token($(selected_token), POSITION.END);
 				  }
-
 				  // Focus input box
 				  focusWithTimeout(input_box);
 			  }
@@ -641,7 +645,7 @@
 		  $.each(li_data, function (index, value) {
 			  insert_token(value);
 			  checkTokenLimit();
-			  input_box.attr("placeholder", null)
+			  input_box.attr("placeholder", null);
 		  });
 	  }
 
@@ -672,27 +676,17 @@
 	  };
 
 	  this.add_hpo_list = function(hpo_list){
-		var j = 0;
-		var inter = setInterval(function() {
-		    if (j < hpo_list.length) {
-				add_token(hpo_list[j]);
-				let li_list   = token_list.find("li");
-				let new_li = li_list[li_list.length -2]; 
-		    	$(new_li).hide() //hide the row
-		    	$(new_li).show('slow') //show the row
-		    	j++;
-		    } else {
-		      clearInterval(inter)
+	
+		for( j=0; j < hpo_list.length; j++) {
+			add_token(hpo_list[j]);
+		} 
 
-			setTimeout(function() {
-				let element = document.getElementById("token-input-tokeninput_hpo");
-				element.scrollIntoViewIfNeeded();
-				$('#token-input-tokeninput_hpo').focus();
-        	}, 500);
-		      
-		    }
-		  }, 100); //milli-second gap you want to give
-	  }
+		setTimeout(function() {
+			let element = document.getElementById("token-input-tokeninput_hpo");
+			element.scrollIntoViewIfNeeded();
+			$('#token-input-tokeninput_hpo').focus();
+		}, 100);
+	  };
 
 	  this.remove = function(item) {
 		  token_list.children("li").each(function() {
@@ -731,7 +725,7 @@
 		}
 
 		$('li').addClass(UISETTING_TAG_SIZE_CLASS[uisetting_tag_size]);
-	  }
+	  };
 	  
 		this.blinkLastTokens = function(num) {
 
@@ -770,7 +764,7 @@
 	  // to the [disable] parameter.
 	  function toggleDisabled(disable) {
 		  if (typeof disable === 'boolean') {
-			  $(input).data("settings").disabled = disable
+			  $(input).data("settings").disabled = disable;
 		  } else {
 			  $(input).data("settings").disabled = !$(input).data("settings").disabled;
 		  }
@@ -841,13 +835,16 @@
 		  if(!readonly) {
 			$("<span>" + $(input).data("settings").deleteText + "</span>")
 				.addClass($(input).data("settings").classes.tokenDelete)
-//				.appendTo($this_token)
 				.prependTo($this_token)
 				.click(function () {
 					if (!$(input).data("settings").disabled) {
-//						delete_token($(this).parent());
 						delete_token($(this).closest('li'));
 						hiddenInput.change();
+						
+						var callback = $(input).data("settings").onClickDelete;
+						if($.isFunction(callback)) {
+							callback();
+						}						
 						return false;
 					}
 				});
@@ -903,7 +900,7 @@
 		  input_box.width(1);
 
 		  // Insert the new tokens
-		  if($(input).data("settings").tokenLimit == null || token_count < $(input).data("settings").tokenLimit) {
+		  if($(input).data("settings").tokenLimit === null || token_count < $(input).data("settings").tokenLimit) {
 			  insert_token(item);
 			  // Remove the placeholder so it's not seen after you've added a token
 			  input_box.attr("placeholder", null);
@@ -980,8 +977,8 @@
 
 		  // Remove this token from the saved list
 		  saved_tokens = saved_tokens.slice(0,index).concat(saved_tokens.slice(index+1));
-		  if (saved_tokens.length == 0) {
-			  input_box.attr("placeholder", settings.placeholder)
+		  if (saved_tokens.length === 0) {
+			  input_box.attr("placeholder", settings.placeholder);
 		  }
 		  if(index < selected_token_index) selected_token_index--;
 
@@ -1007,7 +1004,7 @@
 	  // Update the hidden input box value
 	  function update_hiddenInput(saved_tokens, hiddenInput) {
 		  var token_values = $.map(saved_tokens, function (el) {
-			  if(typeof $(input).data("settings").tokenValue == 'function')
+			  if(typeof $(input).data("settings").tokenValue === 'function')
 				return $(input).data("settings").tokenValue.call(this, el);
 
 			  return el[$(input).data("settings").tokenValue];
@@ -1046,7 +1043,7 @@
 				  width: token_list.width(),
 				  'z-index': $(input).data("settings").zindex,
 //				  'max-height': window_height,
-				  'overflow': 'auto',
+				  'overflow': 'auto'
 			  })
 			  .show();
 //		  $('html').on('scroll resize', resize_dropdown);
@@ -1115,7 +1112,7 @@
 				  $.each(results, function(index, value) {
 					  var notFound = true;
 					  $.each(currentTokens, function(cIndex, cValue) {
-						  if (value[$(input).data("settings").propertyToSearch] == cValue[$(input).data("settings").propertyToSearch]) {
+						  if (value[$(input).data("settings").propertyToSearch] === cValue[$(input).data("settings").propertyToSearch]) {
 							  notFound = false;
 							  return false;
 						  }
@@ -1235,6 +1232,12 @@
 			var query = input_box.val();
 
 			if(query && query.length) {
+				if($(input).data("settings").lang===LANGUAGE_EN && _hasJA(query)){
+					input_box.val("");
+					hide_dropdown();
+					return;
+				}
+
 				if(selected_token) {
 					deselect_token($(selected_token), POSITION.AFTER);
 				}
@@ -1279,7 +1282,7 @@
 							name:      name,
 							synonym:   null,
 							isSimilar: true
-						}
+						};
 						results.push(obj);
 					}
 
@@ -1355,7 +1358,7 @@
 					if ($(input).data("settings").excludeCurrent) {
 						var currentTokens = $(input).data("tokenInputObject").getTokens();
 						var tokenList = $.map(currentTokens, function (el) {
-							if(typeof $(input).data("settings").tokenValue == 'function')
+							if(typeof $(input).data("settings").tokenValue === 'function')
 								return $(input).data("settings").tokenValue.call(this, el);
 								return el[$(input).data("settings").tokenValue];
 						});
@@ -1420,7 +1423,7 @@
 		// compute the dynamic URL
 		function computeURL() {
 			var settings = $(input).data("settings");
-			return typeof settings.url == 'function' ? settings.url.call(settings) : settings.url;
+			return typeof settings.url === 'function' ? settings.url.call(settings) : settings.url;
 		}
 
 		function getSecondUrl() {

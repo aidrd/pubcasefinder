@@ -7,36 +7,37 @@
 			[SCHEMA_HPO]: {
 				[LANGUAGE_EN] : {
 					'title': 'Import Hpo Term List',
-					'title2' : 'Import Human Phenotype Onotology(HPO) Term Ids.<br /> You can extract multiple HPO term ids from any kind of textual input. HPO term ids must satisfy the format HP:xxxxxxx to be recognized.',
+					'title2' : 'Import Human Phenotype Onotology(HPO) Term Ids.<br /> You can extract multiple HPO term ids from any kind of textual input. HPO term ids must satisfy the format HP:xxxxxxx to be recognized.'
 				},
 				[LANGUAGE_JA] : {
 					'title': 'Import Hpo Term List',
-					'title2' : 'Import Human Phenotype Onotology(HPO) Term Ids.<br /> You can extract multiple HPO term ids from any kind of textual input. HPO term ids must satisfy the format HP:xxxxxxx to be recognized.',
+					'title2' : 'Import Human Phenotype Onotology(HPO) Term Ids.<br /> You can extract multiple HPO term ids from any kind of textual input. HPO term ids must satisfy the format HP:xxxxxxx to be recognized.'
 				}
 			},
 			[SCHEMA_FILTER]: {
 				[LANGUAGE_EN] : {
 					'title': 'Import NCBI Gene IDs',
-					'title2' :'You can extract multiple NCBI Gene IDs from any kind of textual input.<br /> NCBI Gene IDs must satisfy the format <b>GENEID:xxxxxxx</b> to be recognized.',
+					'title2' :'You can extract multiple NCBI Gene IDs from any kind of textual input.<br /> NCBI Gene IDs must satisfy the format <b>GENEID:xxxxxxx</b> to be recognized.'
 				},
 				[LANGUAGE_JA] : {
 					'title': 'Import NCBI Gene IDs',
-					'title2' : 'You can extract multiple NCBI Gene IDs from any kind of textual input.<br /> NCBI Gene IDs must satisfy the format <b>GENEID:xxxxxxx</b> to be recognized.',
+					'title2' : 'You can extract multiple NCBI Gene IDs from any kind of textual input.<br /> NCBI Gene IDs must satisfy the format <b>GENEID:xxxxxxx</b> to be recognized.'
 				}
-			},
+			}
 		},
 		CLASS_OBSERVED_Y = 'observed',
 		CLASS_OBSERVED_N = 'notobserved',
 		CLASS_CHOSEN     = 'chosen';
  
 	var DEFAULT_SETTINGS = {
-		schema:		 SCHEMA_HPO,
-		language:	 LANGUAGE_EN,
-		output_list: null,
-		url:		 null
+		schema:         SCHEMA_HPO,
+		language:       LANGUAGE_EN,
+		output_list:    null,
+		url_geneid:		null,
+        url_genesymbol: null,
+        url_hpoid:      null
 	};
 
-	//const reg_number = new RegExp('^\d+$');
 	const reg_number = new RegExp('^[0-9]*$');
 	
 	var _isFunction = function(value) {return $.isFunction(value);},
@@ -49,13 +50,18 @@
 				(_isObject(value) && Object.keys(value).length === 0);	
 	},
 	_isNumber = function(str){
-		//var pattern = /^\d+\.?\d*$/;
-		//return pattern.test(str);  // returns a boolean
 		return reg_number.test(str);
 	},
 	_attach_prefix_to_id = function(prefix, id){
 		return prefix + '-' + id;
 	},
+    _parseJson= function(text) {
+        var json_data = null;
+        try {
+            json_data = JSON.parse(text);
+        } catch (d) {}
+        return json_data;
+    },
 	_uniq_fast = function(a) {
 		let seen = {};
 		let out = [];
@@ -73,7 +79,6 @@
 
 
 	var methods = {
-		
 		init: function(options) {
 			var settings = $.extend(true,{}, DEFAULT_SETTINGS, options || {});
 			return this.each(function () {
@@ -83,7 +88,7 @@
 		},
 		start_modal_with_text: function(text){
 			$(this).data(OBJECT_KEY).start_modal_with_text(text);
-		},
+		}
 	};
 
 	$.fn.listinput = function (method) {
@@ -98,9 +103,9 @@
 	$.ListInput = function (btn_trigger, settings) {
 		
 		var $btn_trigger = $(btn_trigger);
-		
-		var prefix = $btn_trigger.attr('id');
-		
+
+        var prefix = $btn_trigger.attr('id');
+        
 		var current_settings = $btn_trigger.data(SETTINGS_KEY);
 
 		//
@@ -111,9 +116,7 @@
 		var $modal = $('<div>').addClass('modal fade list-input-modal')
 							   .attr({'id':modal_id,'tabindex':-1,'role':'dialog','aria-labelledby':modal_title_id,'aria-hidden':true})
 							   .appendTo("body");
-							   
 		var $modal_dialog  = $('<div>').addClass('modal-dialog modal-dialog-centered modal-xl').appendTo($modal);
-
 		var $modal_content = $('<div>').addClass('modal-content p-5').appendTo($modal_dialog);
 
 		// loader ui
@@ -142,18 +145,15 @@
 			$("#" + list_input_loader_id).fadeOut("slow");
 		};
 
-
-		
-		var $modal_header  = $('<div>').addClass('modal-header p-0').css({'border-bottom':'1px solid #dee2e6'}).appendTo($modal_content);
+		//var $modal_header  = $('<div>').addClass('modal-header p-0').css({'border-bottom':'1px solid #dee2e6'}).appendTo($modal_content);
+		var $modal_header  = $('<div>').addClass('modal-header list-input-header p-0').appendTo($modal_content);
 		$('<h7><img src=\"/static/images/pcf/HPOID.svg\"></img> '+LANGUAGE[current_settings.schema][current_settings.language].title+'</h7>')
 			.addClass('modal-title list-input-title').attr('id', modal_title_id).appendTo($modal_header);
 
 		var $modal_header2  = $('<div>').addClass('modal-header py-3 px-0').css({'border':'0'}).appendTo($modal_content);
 		$('<p>' + LANGUAGE[current_settings.schema][current_settings.language].title2 +'</p>').appendTo($modal_header2);
 
-
 		var $modal_body = $('<div>').addClass('modal-body m-0 p-0 d-flex justify-content-between').appendTo($modal_content);		
-
 
 		var $text_input_textarea_wrapper = $('<div>').addClass('list-input-wrapper').appendTo($modal_body);
 		var $text_input_textarea         = new $.ListInput.ListInput_textarea(prefix,function(selected_id){$text_input_table.chosen(selected_id);});
@@ -163,7 +163,7 @@
 		var $text_input_table            = new $.ListInput.ListInput_table(current_settings.language,prefix,function(selected_id){$text_input_textarea.chosen(selected_id);});
 		$text_input_table.get_table().appendTo($text_input_table_wrapper);
 
-		var parse_btn_id = _attach_prefix_to_id(prefix, 'list-input-parse-button')
+		var parse_btn_id = _attach_prefix_to_id(prefix, 'list-input-parse-button');
 		$('<button>').attr('id',parse_btn_id).addClass("round-button material-icons list-input-parse-button").text('chevron_right')
 					 .click(function(){_parse_text();}).appendTo($modal_body);
 
@@ -250,100 +250,131 @@
 			if(settings_now.schema === SCHEMA_HPO){
 				r = text1.match(/HP:(\d){7}/g);
 			}else{
-				
 				r = text1.match(/(ENT|GENEID):(\d)+/g);
 			}
 
-			if(!r){
-				if(settings_now.schema === SCHEMA_HPO){
-					alert("HPO term ids must satisfy the format HP:XXXXXXX.");
-				}else{
-					alert("NCBI GENE ids must satisfy the format ENT|GENEID:XXXXX.");
-				}
-				$text_input_textarea.set_focus();
-				return false;
-			}else if(settings_now.schema === SCHEMA_FILTER){
-				
+			if(!r && settings_now.schema === SCHEMA_HPO){
+                alert("HPO term ids must satisfy the format HP:XXXXXXX.");
+                $text_input_textarea.set_focus();
+                return false;
 			}
 
-			let unique = _uniq_fast(r);	
-			unique.sort(function(a, b) {
-			    if (a.length < b.length) return 1;	
-			    if (a.length > b.length) return -1;
-			    return 0;
-			});
-
-			let longers_hash = {};
-			for(let i=unique.length-1;i>=0;i--){
-				let key = unique[i];
-				let longers = [];
-				for(let j = i-1 ; j >= 0; j--){
-					let key_long = unique[j];
-					let idx = key_long.indexOf(key);
-					if(idx >= 0){
-						longers.push(j);
-					}
-				}
-				longers_hash[key] = longers;
-			}
-
-
-
-			let ids_text = unique.join(',');
-
-			let url_str = "";
-			if(current_settings.schema === SCHEMA_HPO){
-				url_str = settings_now.url + '?hpo_id=' + ids_text;
-			}else{
-				url_str = settings_now.url + '?gene_id=' + ids_text;
-			}
-
-			_show_loader('load data from server');
 			
-			$.ajax({
-				url:      url_str,  
-				type:     'GET',	
-				async:    true,    
-				dataType: 'text',
-				timeout:  3000,
-			}).done(function(data,textStatus,jqXHR) {
-				
+			let ajax_item_list=[];
+			let data_hash = {};
+            let type_hpo = 'hpo';
+            let type_geneid = 'geneid';
+            let type_genesymbol = 'genesymbol';
+			if(current_settings.schema === SCHEMA_HPO){
+                if(!settings_now.url_hpoid){
+        			alert("The URL that retrieve HPO term is not defined.");
+                    return;
+                }else{
+                    let ids_text = r.join(',');
+                    let url_str = settings_now.url_hpoid + '?hpo_id=' + ids_text;
+                    let obj = {[SETTING_KEY_URLSTR]:url_str, 'type': type_hpo};
+                    ajax_item_list.push(obj);
+                }
+			}else{
+                if(r){
+                    if(!settings_now.url_geneid){
+                        alert("The URL that retrieve GENEID is not defined.");
+                        return;
+                    }
+                    let ids_text = r.join(',');
+                    let url_str = settings_now.url_geneid + '?gene_id=' + ids_text;
+                    let obj = {[SETTING_KEY_URLSTR]:url_str, 'type': type_geneid};
+                    ajax_item_list.push(obj);
+                }
+
+                if(!settings_now.url_genesymbol){
+                    alert("The URL that retrieve GENE SYMBOL is not defined.");
+                    return;
+                }
+                let url_str = settings_now.url_genesymbol + '?hgnc_gene_symbol=' + (text1.replace(/\n/g,',').replace(/\&/g,',').replace(/ /g,','));
+                let obj = {[SETTING_KEY_URLSTR]:url_str, 'type': type_genesymbol};
+                ajax_item_list.push(obj);
+			}
+
+			var callback_success = function(data,item){
+				let json_data = _parseJson(data);
+				if(!_isEmpty(json_data)){
+                    if(item.type === type_hpo){
+                        for(let jid in json_data){
+                            data_hash[jid] = json_data[jid];
+                        }
+                    }else if(item.type === type_geneid){
+                        for(let jid in json_data){
+                            let obj={};
+                            obj[jid] = json_data[jid];
+                            data_hash[jid] = obj;
+                        }
+                    }else{
+                        for(let i=0;i<json_data.length;i++){
+                            let obj={};
+                            let geneid  = 'GENEID:' + json_data[i]['ncbi_gene_id'];
+                            let name_en = json_data[i]['hgnc_gene_symbol'];
+                            obj[geneid] = {'name_en':name_en, 'name_ja':''};
+                            data_hash[name_en] = obj;
+                        }
+                    }
+				}
+			};
+
+			var callback_fail = function() {
+                _hide_loader();
+				alert('Server access error!');
+			};
+
+            var callback_fail_after_all_call = function(){
 				_hide_loader();
-				
-				let json_data = JSON.parse(data);
-				if(_isEmpty(json_data)){
+			};
+
+			var callback_after_all_call = function(){
+				_hide_loader();
+
+				if(_isEmpty(data_hash)){
 					alert('no term found at text');
 					return;
 				}
+                
+                let unique = Object.keys(data_hash);
+                unique.sort(function(a, b) {
+                    if (a.length < b.length) return 1;	
+                    if (a.length > b.length) return -1;
+                    return 0;
+                });
 
-
-				
+                let longers_hash = {};
+                for(let i=unique.length-1;i>=0;i--){
+                    let key = unique[i];
+                    let longers = [];
+                    for(let j = i-1 ; j >= 0; j--){
+                        let key_long = unique[j];
+                        let idx = key_long.indexOf(key);
+                        if(idx >= 0){
+                            longers.push(j);
+                        }
+                    }
+                    longers_hash[key] = longers;
+                }
+                
 				let matches_lst = [];
 				let idx_hashtable = {};
 				$.each(unique, function(i, item) {
-					
-					if(!(item in json_data)){
-						return;
-					}
-
-
 					if(settings_now.schema === SCHEMA_HPO){
-
 						for(let pos=text1.indexOf(item); pos !== -1; pos = text1.indexOf(item, pos + 1)) {
-
 							//let term_in_text = usr_input_text.substring(pos, pos + item.length);
 							let obj =  {start:	 pos,
 										end:	 pos + item.length -1,
 										id:		 item,
-										name_en: json_data[item].name_en,
-										name_ja: json_data[item].name_ja,
+										name_en: data_hash[item].name_en,
+										name_ja: data_hash[item].name_ja
 										};
 							matches_lst.push(obj);
 						}
-
 						return;
 					}
-
 					
 					let none_longer_found = true;			
 					let long_lst = longers_hash[item];
@@ -357,26 +388,32 @@
 						} 
 					}
 
+                    let isGeneID = false;
+                    if(item.startsWith('GENEID:')){isGeneID = true;}
+
 					if(none_longer_found){
 						let counter = 0;
 						for(let pos=text1.indexOf(item); pos !== -1; pos = text1.indexOf(item, pos + 1)) {
 							
 							//check if a part of a longer id
-							let pos_next_letter = pos + item.length;
-							if(pos_next_letter < text1.length){
-								let next_letter = text1.substring(pos_next_letter, pos_next_letter + 1);
-								if(_isNumber(next_letter)){
-									// is a part of a longer item which has no value in json_data
-									continue;
-								}
-							}
-							
+                            if(isGeneID){
+                                let pos_next_letter = pos + item.length;
+                                if(pos_next_letter < text1.length){
+                                    let next_letter = text1.substring(pos_next_letter, pos_next_letter + 1);
+                                    if(_isNumber(next_letter)){
+                                        // is a part of a longer item which has no value in json_data
+                                        continue;
+                                    }
+                                }
+                            }
 							//let term_in_text = usr_input_text.substring(pos, pos + item.length);
+							let d = data_hash[item];
+							let geneid = Object.keys(d)[0];
 							let obj =  {start:	 pos,
 										end:	 pos + item.length -1,
-										id:		 item,
-										name_en: json_data[item].name_en,
-										name_ja: json_data[item].name_ja,
+										id:		 geneid,
+										name_en: d[geneid].name_en,
+										name_ja: d[geneid].name_ja
 										};
 							matches_lst.push(obj);
 							counter = counter + 1;
@@ -405,21 +442,24 @@
 							if(!isOverlapped){
 								
 								//check if a part of a longer id
-								let pos_next_letter = pos + item.length;
-								if(pos_next_letter < text1.length){
-									let next_letter = text1.substring(pos_next_letter, pos_next_letter + 1);
-									if(_isNumber(next_letter)){
-										// is a part of a longer item which has no value in json_data
-										continue;
-									}
-								}
-
+                                if(isGeneID){
+                                    let pos_next_letter = pos + item.length;
+                                    if(pos_next_letter < text1.length){
+                                        let next_letter = text1.substring(pos_next_letter, pos_next_letter + 1);
+                                        if(_isNumber(next_letter)){
+                                            // is a part of a longer item which has no value in json_data
+                                            continue;
+                                        }
+                                    }
+                                }
 								//let term_in_text = usr_input_text.substring(pos, pos + item.length);
+								let d = data_hash[item];
+								let geneid = Object.keys(d)[0];								
 								let obj = { start:	 pos,
 											end:	 pos + item.length -1,
-											id:		 item,
-											name_en: json_data[item].name_en,
-											name_ja: json_data[item].name_ja,
+											id:		 geneid,
+											name_en: d[geneid].name_en,
+											name_ja: d[geneid].name_ja
 
 								};
 								matches_lst.push(obj);
@@ -453,10 +493,113 @@
 				
 				// output match to textarea
 				$text_input_textarea.add(usr_input_text, matches_lst);
+                
+			};
+
+
+			_show_loader('load data from server');
+			if(ajax_item_list.length === 0){
+				// do download
+				callback_after_all_call();
+			}else if(ajax_item_list.length === 1){
 			
-			});
-		};
-	};
+				_run_ajax(ajax_item_list[0][SETTING_KEY_URLSTR],'GET', null, 'text', true, function(data){
+					callback_success(data,ajax_item_list[0]);
+					// do logical ,create ranking list, and continue
+					callback_after_all_call();
+					return;
+				});
+			
+				return;
+			}else {
+				_run_ajax_sequential(ajax_item_list, callback_success, callback_fail, callback_after_all_call, callback_fail_after_all_call);
+			}
+        };
+
+        var _run_ajax = function(url_str,http_type,post_data,response_dataType,async,callback,callback_fail){
+            if(http_type==="GET"){
+                $.ajax({	
+                    url:      url_str,  // 通信先のURL
+                    type:     http_type,// 使用するHTTPメソッド(get/post)
+                    async:    async,    // 使用するHTTPメソッド(true/false)
+                    dataType: response_dataType
+                    //timeout:  3000,
+                }).done(function(data1,textStatus,jqXHR) {
+                    if(_isFunction(callback))callback(data1);
+                }).fail(function(jqXHR, textStatus, errorThrown ) {
+                    //alert('Server access error:' + textStatus + ":" + errorThrown + '\nURL: ' + url_str);
+                    if(_isFunction(callback_fail)) callback_fail();
+                    alert('Server access error:' + textStatus + ":" + errorThrown + '\nURL: ' + url_str);
+                });
+            }else{
+                $.ajax({
+                    url:      url_str,  // 通信先のURL
+                    type:     http_type,// 使用するHTTPメソッド(get/post)
+                    async:    async,    // 使用するHTTPメソッド(true/false)
+                    data:     post_data,
+                    proccessData: false, 
+                    dataType: response_dataType
+                }).done(function(data1,textStatus,jqXHR) {
+                    if(_isFunction(callback))callback(data1);
+                }).fail(function(jqXHR, textStatus, errorThrown ) {
+                    //alert('Server access error:' + textStatus + ":" + errorThrown + '\nURL: ' + url_str);
+                    if(_isFunction(callback_fail)) callback_fail();
+                    _hide_loader();
+                    alert('Server access error:' + textStatus + ":" + errorThrown + '\nURL: ' + url_str);
+                });
+            }
+        };
+
+        const SETTING_KEY_URLSTR = 'url_str_full';
+        var _run_ajax_sequential = function(ajax_item_list, callback_success, callback_fail, callback_after_all_call, callback_fail_after_all_call){
+
+            // function to trigger the ajax call
+            var ajax_request = function(item) {
+
+                var deferred = $.Deferred();
+
+                $.ajax({
+                    url: item[SETTING_KEY_URLSTR],
+                    dataType: "text",
+                    type: 'GET',
+                    success: function(data) {
+                        // do something here
+                        if(_isFunction(callback_success)) callback_success(data,item);
+                        // mark the ajax call as completed
+                        deferred.resolve(data);
+                    },
+                    error: function(error) {
+                        // mark the ajax call as failed
+                        if(_isFunction(callback_fail)) callback_fail(error);
+                        deferred.reject(error);
+                    }
+                });
+
+                return deferred.promise();
+            };
+
+            var looper = $.Deferred().resolve();
+
+            // go through each item and call the ajax function
+            $.when.apply($, $.map(ajax_item_list, function(item, i) {
+                looper = looper.then(function() {
+                // trigger ajax call with item data
+                    return ajax_request(item);
+                });
+                return looper;
+            })).then(function() {
+                // run this after all ajax calls have completed
+                if(_isFunction(callback_after_all_call)) callback_after_all_call();
+                return;
+                //console.log('Done!');
+            }).fail(function() {
+                //console.log( 'I fire if one or more requests failed.' );
+                if(_isFunction(callback_fail_after_all_call)) callback_fail_after_all_call();
+                _hide_loader();
+                return;
+            });
+        };
+    };
 
 	$.ListInput.ListInput_textarea = function (prefix, onChosen) {
 		
@@ -525,14 +668,14 @@
 
 		this.set_focus = function(){
 			setTimeout(function() {$textarea.trigger('focus');}, 10);
-		}
+		};
 		
 		this.add_text = function(text){
 			let lst = text.split('\n');
 			let parsed_text = '<div>' + lst.join('</div><div>') + '</div>'; 
 			$textarea.empty();
 			$textarea.append(parsed_text);
-		}
+		};
 
 		this.add = function(normalized_text, matches){
 
@@ -579,7 +722,7 @@
 
 		this.get_textarea = function(){
 			return $textarea;
-		}
+		};
 		
 	};
 
@@ -613,7 +756,7 @@
 				ret.push(hpo_item);
 			});
 			return ret;
-		}
+		};
 		
 		this.add = function(hpomatches){
 			
@@ -627,7 +770,7 @@
 				}
 			}
 			
-			let rows = [];
+//			let rows = [];
 			let i = 0;
 			for( let key in hpo_list) {
 				let id	 = hpo_list[key].id;
@@ -648,7 +791,7 @@
 										}
 								   });
 
-				let $td1 = $('<td>').addClass('select').appendTo($tr);
+				let $td1 = $('<td>').addClass('selection').appendTo($tr);
 				let $cbx = $('<input>', {type: 'checkbox', name: 'list_input', "checked":"checked"}).appendTo($td1);
 				
 				let name_text = eterm_in_dic;
@@ -667,21 +810,23 @@
 				if(this.language === LANGUAGE_JA && jterm_in_dic) str = jterm_in_dic; 
 				$td3.text(str);
 
-				rows.push($tr);
+				//rows.push($tr);
+                $table.append($tr);
 				i++;
 			}
 
+/*
 			if(rows.length < 30){
 				var j = 0;
 		
 				var inter = setInterval(function() {
 				    if (j < rows.length) {
 				      $table.append(rows[j]);
-				      $table.find('tr:last-child').hide() //hide the row
-				      $table.find('tr:last-child').show('slow') //show the row
+				      $table.find('tr:last-child').hide(); //hide the row
+				      $table.find('tr:last-child').show('slow'); //show the row
 				      j++;
 				    } else {
-				      clearInterval(inter)
+				      clearInterval(inter);
 				    }
 				  }, 100); //milli-second gap you want to give
 			}else{
@@ -689,11 +834,12 @@
 					$table.append(rows[j]);
 				}
 			}
+ */
 		};		
 
 		this.get_table=function(){
 			return $table;
-		}
+		};
 	};
 	
 }(jQuery));

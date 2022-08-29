@@ -20,7 +20,7 @@
 				[UISETTING_LANGUAGE_ENGLISH]:     'English',
 				[UISETTING_LANGUAGE_JAPANESE]:    'Japanese',
 				[UISETTING_LANGUAGE_GERMANY]:     'Germany',
-				[UISETTING_LANGUAGE_NETHERLANDS]: 'Netherlands',
+				[UISETTING_LANGUAGE_NETHERLANDS]: 'Netherlands'
 		  },
 		  LANGUAGE = {
 			[LANGUAGE_JA] : {
@@ -36,7 +36,7 @@
 					[UISETTING_TAG_SIZE_S] : '小',
 					[UISETTING_TAG_SIZE_M] : '中',
 					[UISETTING_TAG_SIZE_L] : '大'
-				},
+				}
 			},
 			[LANGUAGE_EN] : {
 				'TEXT2HPO_URL'				: 'https://doc2hpo.wglab.org/',
@@ -50,7 +50,7 @@
 				'UISETTING_TAG_SIZE_LABEL'    : {
 					[UISETTING_TAG_SIZE_S] : 'Small',
 					[UISETTING_TAG_SIZE_M] : 'Medium',
-					[UISETTING_TAG_SIZE_L] : 'Large',
+					[UISETTING_TAG_SIZE_L] : 'Large'
 				}
 			}
 		};
@@ -79,7 +79,7 @@
 		text_input_schema:          TEXT_INPUT_SCHEMA_MANUAL,        
 
         uisetting_tag_size:			UISETTING_TAG_SIZE_L,
-		uisetting_language:			UISETTING_LANGUAGE_JAPANESE,
+		uisetting_language:			UISETTING_LANGUAGE_JAPANESE
     };
 
 	function setCookie(cname,cvalue){
@@ -97,7 +97,7 @@
 	    var ca = document.cookie.split(';');
 	    for(var i=0; i<ca.length; i++) {
 	        var c = ca[i].trim();
-	        if (c.indexOf(name)==0) { return c.substring(name.length,c.length); }
+	        if (c.indexOf(name)===0) { return c.substring(name.length,c.length); }
 	    }
 	    return "";
 	}
@@ -143,7 +143,7 @@
 		return typeof value !== 'undefined';
 	},
 	hasJA = function( str ) {
-		return ( str && str.match(/[\u30a0-\u30ff\u3040-\u309f\u3005-\u3006\u30e0-\u9fcf]+/) )? true : false
+		return ( str && str.match(/[\u30a0-\u30ff\u3040-\u309f\u3005-\u3006\u30e0-\u9fcf]+/) )? true : false;
 	}
 	;
 
@@ -206,7 +206,7 @@
 		add_token:	function(item) {
 			this.data("searchBoxFormObject").add_token(item);
 			return this;
-		},
+		}
 	};
 
 	// Expose the .tokenInput function to jQuery as a plugin
@@ -295,7 +295,7 @@
 				'src':            '/static/images/pcf/HPOID.svg',
 				'data-toggle':    'tooltip',
 				'data-placement': 'top',
-				'title':          LANGUAGE[language]['HPO_LIST_INPUT_BTN_TITLE'],
+				'title':          LANGUAGE[language]['HPO_LIST_INPUT_BTN_TITLE']
 			}).appendTo($btn);
 
 			return $btn;
@@ -309,7 +309,7 @@
 				'src':            '/static/images/pcf/HPOID.svg',
 				'data-toggle':    'tooltip',
 				'data-placement': 'top',
-				'title':          LANGUAGE[language]['HPO_LIST_INPUT_BTN_TITLE'],
+				'title':          LANGUAGE[language]['HPO_LIST_INPUT_BTN_TITLE']
 			}).appendTo($btn);
 
 			return $btn;
@@ -402,10 +402,13 @@
 
 			$('input[name=cbk_uisetting_language]').each(function() {
 				$(this).click(function(){
+					let isJAchecked = false;
 					let arr = [];
 					$('input[name=cbk_uisetting_language]:checked').each(function() {
 						let v = $(this).val();
+						if(v === LANGUAGE_JA) isJAchecked = true;
 						arr.push(v);
+						
 					});
 
 					let str = arr.join(',');
@@ -413,6 +416,12 @@
 					let oldsettings = $div_wrapper.data('SETTINGS');
 					let newsettings = $.extend({}, oldsettings, {'uisetting_language':str});
 					$div_wrapper.data('SETTINGS', newsettings);
+					if(isJAchecked){
+						$("#tokeninput_hpo").tokenInput("setOptions",{'lang':LANGUAGE_JA});
+					}else{
+						$("#tokeninput_hpo").tokenInput("setOptions",{'lang':LANGUAGE_EN});
+					}
+					
 				});
 			});
 			
@@ -441,7 +450,7 @@
 						//let selected_num = $("#pcf-content").pcf_content('get_selected_num');
 						//let options = $('#sel_download_option').find('option');
 						//$(options[2]).text('Selection (' + selected_num + ')');
-				    },
+				    }
 				}
 			);
 		}
@@ -459,8 +468,45 @@
 						.attr('id', 'submit_button')
 						.click(function(){
 							runSubmit();
+							//openMagnificPopupte_submit_button();
 						});
 		}
+
+		function openMagnificPopupte_submit_button(){
+			var magnificPopup = document.getElementById('magnificPopup');
+			if (!magnificPopup) { magnificPopup = init_magnificPopup(); }
+			else {	
+				if($('#magnificPopup').css('display') === 'none'){
+					$('#magnificPopup').show();
+				}else{
+					$('#magnificPopup').hide();
+				}
+			}
+		}
+
+		function init_magnificPopup(){
+			var $magnificPopup = $('<div>').attr('id', 'magnificPopup')
+										   .attr('tabindex', '-1')
+										   .css({'top':'151px',
+												 'opacity':0.01,
+												 'left': 0,
+												 'width':'100%',
+												 'heigt':'100%',
+												 'z-index':1042,
+												 'position' : 'fixed',
+												 'background':'#0b0b0b',
+												 'overflow': 'hidden auto'})
+											.appendTo('body');
+			$magnificPopup.css({'height':'100%'});
+			var $div1 = $('<div>').addClass("popup-hierarchy-hpo-table popup-hierarchy-hpo-loading").appendTo($magnificPopup);
+			var $div2 = $('<div>').addClass("popup-hierarchy-hpo-tr").appendTo($div1);
+			var $div3 = $('<div>').addClass("popup-hierarchy-hpo-td").css({'vertical-align': 'middle'}).text('Loading...').appendTo($div2);
+
+
+			
+
+		}
+
 
 		function runSubmit(){
 
@@ -551,7 +597,7 @@
 			//create_hpo_list_input_button(settings.lang).appendTo($div_l3);
 			let $list_input_trigger_btn = create_list_input_button(settings.lang).appendTo($div_l3);
 			$list_input_trigger_btn.listinput({ 
-				url:		'/get_hpo_data_by_hpo_id',
+				url_hpoid:		'/get_hpo_data_by_hpo_id',
 				schema:		'hpo',
 				language:	settings.lang,
 				output_list: function(obj_list){
@@ -603,8 +649,9 @@
 						 second_url_str:      settings.url_tokeninput_hpo_second, 
 						 doSubmit:            runSubmit,
 						 onLongerQuery:       settings.schema === SCHEMA_2022 ? 
-	 											function(text){$('#btn_text_input_trigger').textinput_hpo('start_modal_with_text',text)} :
-	 											function(text){$('#hpo-list-input-button').listinput('start_modal_with_text',text)}
+	 											function(text){$('#btn_text_input_trigger').textinput_hpo('start_modal_with_text',text);} :
+	 											function(text){$('#hpo-list-input-button').listinput('start_modal_with_text',text);},
+						 onClickDelete:		function() { $("#tokeninput_hpo").popupRelationHPO('triggerChangeState');}
 						}
 					   );
 
@@ -621,7 +668,8 @@
 									//setTimeout(function() {
 									//	$('#token-input-tokeninput_hpo').focus();
 									//}, 50);
-								}
+								},
+							   'prependTo': div_search_box_form.id
 							  });
 
 	};

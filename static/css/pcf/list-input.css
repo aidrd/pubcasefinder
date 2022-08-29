@@ -11,6 +11,10 @@
   z-index: 99999;
 }
 
+.list-input-header {
+  border-bottom: 1px solid #dee2e6;
+}
+
 .list-input-title {
   font-weight: bold;
   font-size: 1.2rem;
@@ -43,7 +47,7 @@
 
 .list-input-modal .modal-dialog .modal-content .modal-header { 
   border: 0px;
-  min-width: 790px;
+  /*min-width: 790px;*/
 }
 
 .list-input-modal .modal-dialog .modal-content .modal-body {
@@ -116,13 +120,13 @@
 }
 
 
-.list-input-modal .modal-dialog .modal-content .modal-body  .list-input-wrapper .list-input-table tbody tr td.select {
+.list-input-modal .modal-dialog .modal-content .modal-body  .list-input-wrapper .list-input-table tbody tr td.selection {
   width: 48px;
   padding-left: 16px;
   padding-right: 16px;
 }
 
-.list-input-modal .modal-dialog .modal-content .modal-body  .list-input-wrapper .list-input-table tbody tr td.select input[type="checkbox"] {
+.list-input-modal .modal-dialog .modal-content .modal-body  .list-input-wrapper .list-input-table tbody tr td.selection input[type="checkbox"] {
     height: 16px;
     width: 16px;
     accent-color: #394466;
@@ -135,7 +139,7 @@
     border-radius: 4px;
 }
 
-.list-input-modal .modal-dialog .modal-content .modal-body  .list-input-wrapper .list-input-table tbody tr td.select input[type="checkbox"]:checked {
+.list-input-modal .modal-dialog .modal-content .modal-body  .list-input-wrapper .list-input-table tbody tr td.selection input[type="checkbox"]:checked {
     background: #394466;
 }
 

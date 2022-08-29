@@ -73,6 +73,9 @@ from utils.api_pcf_get_paa_data_by_paa_id import pcf_get_paa_data_by_paa_id
 # API pcf_get_mondo_data_by_mondo_id
 from utils.api_pcf_get_mondo_data_by_mondo_id import pcf_get_mondo_data_by_mondo_id
 
+# API pcf_get_nando_data_by_nando_id
+from utils.api_pcf_get_nando_data_by_nando_id import pcf_get_nando_data_by_nando_id
+
 # API pcf_get_gene_data_by_gene_id
 from utils.api_pcf_get_gene_data_by_gene_id import pcf_get_gene_data_by_gene_id
 
@@ -553,6 +556,21 @@ def api_pcf_get_mondo_data_by_mondo_id():
         return jsonify(result)
 
 
+# API: Filter NANDO DATA: pcf_get_nando_data_by_nando_id
+# GET method
+# /pcf_get_nando_data_by_nando_id
+@app.route('/pcf_get_nando_data_by_nando_id', methods=['GET'])
+def api_pcf_get_nando_data_by_nando_id():
+
+    r_nando_id = ""
+    if request.args.get('nando_id') is not None:
+        r_nando_id = request.args.get('nando_id')
+
+    if request.method == 'GET':
+        result = pcf_get_nando_data_by_nando_id(r_nando_id)
+        return jsonify(result)
+
+
 # API: Filter GENE DATA: pcf_get_gene_data_by_gene_id
 # GET method
 # /pcf_get_gene_data_by_gene_id
@@ -609,8 +627,19 @@ def pcf_expand_get_nando_id_by_nando_id():
 # API: Share URL
 # GET method
 # /pcf_share?share=[SHARE]&url=[URL]
-@app.route('/pcf_share', methods=['GET', 'POST'])
+@app.route('/pcf_share', methods=['GET','POST'])
 def api_pcf_get_share():
+    r_share = ""
+    r_url = ""
+    if request.args.get('share') is not None:
+        r_share = request.args.get('share')
+
+    if request.args.get('url') is not None:
+        r_url = request.args.get('url')
+
+    if r_share == "url":
+        app.logger.error(r_url)
+
     return ('OK'), 200
 
 
@@ -1229,8 +1258,9 @@ def tokeninput_vgp():
             in_tokeninputs.append(mojimoji.zen_to_han(v, kana=False).lower())
         for v in tokeninputs:
             sql_params.append("%"+v+"%")
-#        for v in tokeninputs:
-#            sql_params.append("%"+v+"%")
+        # add for NANDO
+        for v in tokeninputs:
+            sql_params.append("%"+v+"%")
         # add for PA
         for v in tokeninputs:
             sql_params.append("%"+v+"%")
@@ -1267,6 +1297,19 @@ def tokeninput_vgp():
                               u"    OntoID " \
                               u") AS OntoTermMONDODbxref ON OntoTermMONDODbxref.OntoVersion=OntoTermMONDOInformation.OntoVersion AND OntoTermMONDODbxref.OntoID=OntoTermMONDOInformation.OntoID " \
                               u") AS A WHERE " \
+                              u"{0}" \
+                              u" UNION " \
+                              u"SELECT uid,Symbol,Synonyms,name_ja,EntrezID FROM (SELECT " \
+                              u"  OntoID AS uid " \
+                              u" ,OntoName AS Symbol " \
+                              u" ,OntoSynonymJa AS Synonyms " \
+                              u" ,OntoNameJa AS name_ja " \
+                              u" ,null AS EntrezID " \
+                              u" ,LOWER(TRIM(CONCAT(OntoID,' | ',OntoName,' | ',IFNULL(OntoNameJa,''),' | ',IFNULL(OntoSynonym,''),' | ',IFNULL(OntoSynonymJa,'')))) AS uid_value " \
+                              u" ,'NANDO' AS source " \
+                              u"FROM " \
+                              u"  OntoTermNANDOInformation " \
+                              u") as A WHERE " \
                               u"{0}" \
                               u" UNION " \
                               u"select distinct uid, " \
@@ -1448,10 +1491,12 @@ def popup_hierarchy_genes():
         #onto_id = request.args.get("q")
         onto_id_pre = request.args.get("q")
         onto_id = onto_id_pre.replace('_ja', '')
-        onto_id_prefix = re.search(r'^(HP|MONDO)', onto_id)
+        onto_id_prefix = re.search(r'^(HP|MONDO|NANDO)', onto_id)
         onto_name = "MONDO"
         if onto_id_prefix and onto_id_prefix.group() == "HP":
             onto_name = "HP"
+        elif onto_id_prefix and onto_id_prefix.group() == "NANDO":
+            onto_name = "NANDO"
 
         # MySQLへ接続
         OBJ_MYSQL = MySQLdb.connect(unix_socket=db_sock, host="localhost", db=db_name, user=db_user, passwd=db_pw, charset="utf8")
@@ -1464,6 +1509,9 @@ def popup_hierarchy_genes():
 
         # OntoTermMONDOInformationテーブルから情報取得
         sql_information = u"select OntoName, OntoSynonym, OntoDefinition, OntoComment, OntoParentNum, OntoChildNum, OntoNameJa from OntoTerm{0}Information where OntoID=%s".format(onto_name)
+        if onto_id_prefix and onto_id_prefix.group() == "NANDO":
+            sql_information = u"select OntoName, OntoSynonym, OntoDefinition, OntoComment, OntoParentNum, OntoChildNum, OntoNameJa, OntoSynonymJa, OntoDefinitionJa, OntoCommentJa from OntoTerm{0}Information where OntoID=%s".format(onto_name)
+
         sql_informations_fmt = u"select OntoID, OntoName, OntoChildNum, OntoNameJa from OntoTerm{0}Information where OntoID in (%s)".format(onto_name)
 
         sql_hierarchy_parent = u"select OntoParentID from OntoTerm{0}Hierarchy where OntoID=%s".format(onto_name)
@@ -1484,12 +1532,22 @@ def popup_hierarchy_genes():
             onto_parent_num = value_information[4]
             onto_child_num  = value_information[5]
             onto_name_ja    = value_information[6]
+
             dict_self_class['id']         = onto_id
             dict_self_class['name']       = onto_name
             dict_self_class['name_ja']    = onto_name_ja if onto_name_ja != "" else onto_name
             dict_self_class['synonym']    = onto_synonym
             dict_self_class['definition'] = onto_definition
             dict_self_class['comment']    = onto_comment
+            dict_self_class['synonym_ja']    = ""
+            dict_self_class['definition_ja'] = ""
+            dict_self_class['comment_ja']    = ""
+            if onto_id_prefix and onto_id_prefix.group() == "NANDO":
+                dict_self_class['synonym_ja']    = value_information[7]
+                dict_self_class['definition_ja'] = value_information[8]
+                dict_self_class['comment_ja']    = value_information[9]
+
+
 
             list_parent_child_onto_id = []
             # OntoTermMONDOHierarchyから親クラスの情報取得
