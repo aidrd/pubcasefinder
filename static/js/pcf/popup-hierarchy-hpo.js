@@ -109,7 +109,7 @@
 			cssNumberBaseClass:    CSS_PREFIX+'number-base'    + '-' + SCHEMA_2022,
 			cssNumberClass:        CSS_PREFIX+'number'         + '-' + SCHEMA_2022,
 			cssLinkBaseClass:      CSS_PREFIX+'link-base'      + '-' + SCHEMA_2022,
-			cssLinkClass:          CSS_PREFIX+'link'           + '-' + SCHEMA_2022
+			cssLinkClass:          CSS_PREFIX+'link'
 		},
 		
 		language_in: LANGUAGE_EN,
@@ -1412,7 +1412,7 @@
 								.addClass(current_settings.cssLinkClass)
 								.attr({'href':'#'})
 								.data(OBJECT_KEY, result)
-								.css({'border':'0px','display':'inline-block'/*,'width':'100%'*/})
+								//.css({'border':'0px','display':'inline-block'/*,'width':'100%'*/})
 								.click(function(){
 									var data = $(this).data(OBJECT_KEY);
 									setTimeout(function(){
@@ -2566,7 +2566,17 @@
 
 		function eventKeydown(e){
 			//37←, 39→, 38↑, 40↓, 13:enter,
-			var $a = $.magnificPopup.instance.contentContainer ? $.magnificPopup.instance.contentContainer.find(current_settings.nodeName+'.'+current_settings.cssTdClass+' a.'+current_settings.cssLinkClass+'.'+current_settings.cssLinkFocusClass) : $();
+			var $a;
+			if(!current_settings.use_webgl && !current_settings.is_hierarchy_fullscreen ) {
+				if(mfp_popup){
+					let $content_wrapper = mfp_popup.get_mfp_popup_content_wrapper();
+					$a = $content_wrapper.find('td a.'+current_settings[SCHEMA_2022].cssLinkClass+'.'+current_settings.cssLinkFocusClass);
+				}else{
+					$a = $();
+				}
+			}else{
+				$a = $.magnificPopup.instance.contentContainer ? $.magnificPopup.instance.contentContainer.find(current_settings.nodeName+'.'+current_settings.cssTdClass+' a.'+current_settings.cssLinkClass+'.'+current_settings.cssLinkFocusClass) : $();
+			}
 			if($a.length){
 				if(e.which === 13){
 					$a.get(0).click();
@@ -2586,6 +2596,9 @@
 				}
 				else if(e.which === 38){
 					var expr = current_settings.nodeName+'.'+current_settings.cssLinkBaseClass;
+					if(!current_settings.use_webgl && !current_settings.is_hierarchy_fullscreen ) {
+						expr = 'tr.'+current_settings[SCHEMA_2022].cssContentRowClass;
+					}
 					var $prev_a = $a.parents(expr).prev(expr).find('a.'+current_settings.cssLinkClass);
 					if($prev_a.length){
 						$a.removeClass(current_settings.cssLinkFocusClass);
@@ -2597,6 +2610,9 @@
 				}
 				else if(e.which === 40){
 					var expr = current_settings.nodeName+'.'+current_settings.cssLinkBaseClass;
+					if(!current_settings.use_webgl && !current_settings.is_hierarchy_fullscreen ) {
+						expr = 'tr.'+current_settings[SCHEMA_2022].cssContentRowClass;
+					}
 					var $next_a = $a.parents(expr).next(expr).find('a.'+current_settings.cssLinkClass);
 					if($next_a.length){
 						$a.removeClass(current_settings.cssLinkFocusClass);
