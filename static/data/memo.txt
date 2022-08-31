@@ -1,0 +1,3 @@
+
+# 日本語シノニム抽出
+perl ./extract_HPO_synonym.pl ./HPO-japanese.20220414.txt > ./HPO-japanese.20220414.txt.synonym
