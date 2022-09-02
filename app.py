@@ -839,6 +839,7 @@ def tokeninput_hpo():
         # requestから値を取得
         #tokeninput = request.args.get("q")
         tokeninputs = request.args.get("q").replace(u'　', u' ').split()
+        lang = request.args.get("lang")
         sql_params = []
         in_tokeninputs = []
         for v in tokeninputs:
@@ -853,43 +854,67 @@ def tokeninput_hpo():
         OBJ_MYSQL = MySQLdb.connect(unix_socket=db_sock, host="localhost", db=db_name, user=db_user, passwd=db_pw, charset="utf8")
         # ICテーブルに存在する各termの頻度で、表示するtermをソート
         #sql_OntoTerm = u"select distinct a.uid, a.uid_value, b.FreqSelf from IndexFormHP as a left join IC as b on replace(a.uid, '_ja', '')=b.OntoID where a.uid_value like %s order by b.FreqSelf desc, value"
-        sql_OntoTerm = u"select distinct a.uid, a.value, c.OntoSynonym, b.FreqSelf from IndexFormHP as a left join IC as b on replace(a.uid, '_ja', '')=b.OntoID LEFT JOIN OntoTermHPInformation AS c ON a.uid=c.OntoID where {0} OR (LENGTH(a.value)=CHARACTER_LENGTH(a.value) AND a.uid IN (SELECT OntoID FROM OntoTermHPSynonym WHERE {1})) order by b.FreqSelf desc, value".format(' AND '.join(map(lambda x: "a.uid_value collate utf8_unicode_ci like %s", tokeninputs)),' AND '.join(map(lambda x: "OntoSynonym collate utf8_unicode_ci like %s", tokeninputs)))
-        cursor_OntoTerm = OBJ_MYSQL.cursor()
-        cursor_OntoTerm.execute(sql_OntoTerm, tuple(sql_params))
-        values = cursor_OntoTerm.fetchall()
-        cursor_OntoTerm.close()
-        for value in values:
-            dict_json = {}
-            onto_id = mojimoji.zen_to_han(value[0], kana=False).lower()
-            onto_id_term = mojimoji.zen_to_han(value[1], kana=False).lower()
-            onto_id_synonym = []
+        #sql_OntoTerm = u"select distinct a.uid, a.value, c.OntoSynonym, b.FreqSelf from IndexFormHP as a left join IC as b on replace(a.uid, '_ja', '')=b.OntoID LEFT JOIN OntoTermHPInformation AS c ON a.uid=c.OntoID where {0} OR (LENGTH(a.value)=CHARACTER_LENGTH(a.value) AND a.uid IN (SELECT OntoID FROM OntoTermHPSynonym WHERE {1})) order by b.FreqSelf desc, value".format(' AND '.join(map(lambda x: "a.uid_value collate utf8_unicode_ci like %s", tokeninputs)),' AND '.join(map(lambda x: "OntoSynonym collate utf8_unicode_ci like %s", tokeninputs)))
+        sql_OntoTerm = ""
+        if lang == 'ja':
+            sql_OntoTerm = u"select  distinct a.uid, a.value, c.OntoSynonym, b.FreqSelf, c.OntoSynonymJa from IndexFormHP as a LEFT JOIN IC as b on replace(a.uid, '_ja', '')=b.OntoID LEFT JOIN OntoTermHPInformation AS c ON replace(a.uid, '_ja', '')=c.OntoID where ( {0}  AND LENGTH(a.value)!=CHARACTER_LENGTH(a.value) )  OR ( a.uid IN (SELECT OntoID FROM OntoTermHPSynonymJa WHERE {1})) order by b.FreqSelf desc, value".format(' AND '.join(map(lambda x: "a.uid_value collate utf8_unicode_ci like %s", tokeninputs)),' AND '.join(map(lambda x: "OntoSynonym collate utf8_unicode_ci like %s", tokeninputs)))
+        elif lang == 'en':
+            sql_OntoTerm = u"select  distinct a.uid, a.value, c.OntoSynonym, b.FreqSelf, c.OntoSynonymJa from IndexFormHP as a LEFT JOIN IC as b on a.uid=b.OntoID LEFT JOIN OntoTermHPInformation AS c ON a.uid=c.OntoID where ( {0}  AND LENGTH(a.value)=CHARACTER_LENGTH(a.value) )  OR ( a.uid IN (SELECT OntoID FROM OntoTermHPSynonym WHERE {1})) order by b.FreqSelf desc, value".format(' AND '.join(map(lambda x: "a.uid_value collate utf8_unicode_ci like %s", tokeninputs)),' AND '.join(map(lambda x: "OntoSynonym collate utf8_unicode_ci like %s", tokeninputs)))
+        elif lang == 'en,ja':
+            for v in tokeninputs:
+                sql_params.append("%"+v+"%")
+            sql_OntoTerm = u"select  distinct  a.uid,  a.value, c.OntoSynonym, b.FreqSelf, c.OntoSynonymJa from IndexFormHP as a LEFT JOIN IC as b on replace(a.uid, '_ja', '')=b.OntoID LEFT JOIN OntoTermHPInformation AS c ON replace(a.uid, '_ja', '')=c.OntoID where {0} OR (a.uid IN (SELECT OntoID FROM OntoTermHPSynonym WHERE {1}) ) OR (replace(a.uid, '_ja', '') IN (SELECT OntoID FROM OntoTermHPSynonymJa WHERE {2}) )  order by b.FreqSelf desc, value".format(' AND '.join(map(lambda x: "a.uid_value collate utf8_unicode_ci like %s", tokeninputs)),' AND '.join(map(lambda x: "OntoSynonym collate utf8_unicode_ci like %s", tokeninputs)),' AND '.join(map(lambda x: "OntoSynonym collate utf8_unicode_ci like %s", tokeninputs)))
+        #app.logger.error(sql_OntoTerm)
+        
+        if sql_OntoTerm != "":
+            cursor_OntoTerm = OBJ_MYSQL.cursor()
+            cursor_OntoTerm.execute(sql_OntoTerm, tuple(sql_params))
+            values = cursor_OntoTerm.fetchall()
+            cursor_OntoTerm.close()
+            for value in values:
+                dict_json = {}
+                onto_id = mojimoji.zen_to_han(value[0], kana=False).lower()
+                onto_id_term = mojimoji.zen_to_han(value[1], kana=False).lower()
+                onto_id_synonym = []
 
-            for in_tokeninput in in_tokeninputs:
-                if type(onto_id) is str and len(onto_id) and in_tokeninput not in onto_id:
-                    onto_id = None
-                if type(onto_id_term) is str and len(onto_id_term) and in_tokeninput not in onto_id_term:
-                    onto_id_term = None
-                if onto_id is None and onto_id_term is None:
-                    break
+                for in_tokeninput in in_tokeninputs:
+                    if type(onto_id) is str and len(onto_id) and in_tokeninput not in onto_id:
+                        onto_id = None
+                    if type(onto_id_term) is str and len(onto_id_term) and in_tokeninput not in onto_id_term:
+                        onto_id_term = None
+                    if onto_id is None and onto_id_term is None:
+                        break
 
-            if onto_id is None and onto_id_term is None and type(value[2]) is str and len(value[2]):
-                list_synonym = value[2].split('|')
-                for synonym in list_synonym:
-                    temp_synonym = mojimoji.zen_to_han(synonym, kana=False).lower()
-                    for in_tokeninput in in_tokeninputs:
-                        if type(temp_synonym) is str and len(temp_synonym) and in_tokeninput not in temp_synonym:
-                            temp_synonym = None
-                            break
-                    if temp_synonym is not None:
-                        onto_id_synonym.append(synonym)
+                if (lang == 'en' or lang == 'en,ja') and type(value[2]) is str and len(value[2]):
+                    list_synonym = value[2].split('|')
+                    for synonym in list_synonym:
+                        temp_synonym = mojimoji.zen_to_han(synonym, kana=False).lower()
+                        for in_tokeninput in in_tokeninputs:
+                            if type(temp_synonym) is str and len(temp_synonym) and in_tokeninput not in temp_synonym:
+                                temp_synonym = None
+                                break
+                        if temp_synonym is not None:
+                            onto_id_synonym.append(synonym)
 
-            dict_json['id'] = value[0]
-            dict_json['name'] = value[1].strip('"')
-            if len(onto_id_synonym)>0:
-                dict_json['synonym'] = onto_id_synonym
-            else:
-                dict_json['synonym'] = None
-            list_json.append(dict_json)
+                if (lang == 'ja' or lang == 'en,ja') and type(value[4]) is str and len(value[4]):
+                    list_synonym = value[4].split('|')
+                    for synonym in list_synonym:
+                        temp_synonym = mojimoji.zen_to_han(synonym, kana=False).lower()
+                        for in_tokeninput in in_tokeninputs:
+                            if type(temp_synonym) is str and len(temp_synonym) and in_tokeninput not in temp_synonym:
+                                temp_synonym = None
+                                break
+                        if temp_synonym is not None:
+                            onto_id_synonym.append(synonym)
+
+    
+                dict_json['id'] = value[0]
+                dict_json['name'] = value[1].strip('"')
+                if len(onto_id_synonym)>0:
+                    dict_json['synonym'] = onto_id_synonym
+                else:
+                    dict_json['synonym'] = None
+                list_json.append(dict_json)
 
     OBJ_MYSQL.close()
 

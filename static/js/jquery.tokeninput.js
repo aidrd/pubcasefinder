@@ -1265,6 +1265,7 @@
 
                   // Prepare the request
                   ajax_params.data[$(input).data("settings").queryParam] = query;
+                  ajax_params.data['lang'] = 'en,ja';
                   ajax_params.type = $(input).data("settings").method;
                   ajax_params.dataType = $(input).data("settings").contentType;
                   if ($(input).data("settings").crossDomain) {

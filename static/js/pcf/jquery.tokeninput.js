@@ -36,6 +36,7 @@
 		// Search settings
 		method:                  "GET",
 		queryParam:              "q",
+		queryParam_lang:         "lang",
 		searchDelay:             300,
 		minChars:                2,
 		propertyToSearch:        "name",
@@ -96,24 +97,6 @@
 			value += '</li>';
 			return value;
 		},
-/*
-		tokenFormatter: function(item) {
-			var id    = item['id'].replace(/_ja$/g,'');
-			var name  = item['name'];
-			var theme = this.theme ? '-'+this.theme : '';
-			return	'<li class=\"token-input-li token-input-token-term'+theme+'\">'+
-					  '<p>'+
-						'<span class=\"token-input-li token-input-token-word'+theme+' token-input-token-id'+theme+'\">' +
-						(this.enableHTML ? id : _escapeHTML(id)) + '</span>'+
-						'<span class=\"token-input-li token-input-token-word'+theme+' token-input-token-name'+theme+'\">' +
-						(this.enableHTML ? name : _escapeHTML(name)) + '</span>'+
-					  '</p>'+
-					  '<div style=\"position:relative;\" class=\"token-input-li token-input-token-word'+theme+' token-input-token-icon'+theme+'\">'+
-						'<div class=\"material-icons token-input-li\" style=\"position:absolute;top:50%;left:50%;transform: translate(-50%, -50%);\">expand_more</div>'+
-					  '</div>'+
-					'</li>';
-		},
-*/
         tokenFormatter: function(item, uisetting_tag_size) {
             var id    = item['id'].replace(/_ja$/g,'');
             var name  = item['name'];
@@ -186,7 +169,8 @@
 		// Keep track if the input is currently in disabled mode
 		disabled: false,
 
-		uisetting_tag_size: UISETTING_TAG_SIZE_L
+		uisetting_tag_size: UISETTING_TAG_SIZE_L,
+		uisetting_language: LANGUAGE_EN + "" + LANGUAGE_JA
 	};
 
 	// Default classes to use when theming
@@ -254,10 +238,6 @@
 	  		return HTML_ESCAPES[match];
 		});
 	}
-
-	function _hasJA(str) {
-		return ( str && str.match(/[\u30a0-\u30ff\u3040-\u309f\u3005-\u3006\u30e0-\u9fcf]+/) )? true : false;
-	};
 
 	// Additional public (exposed) methods
 	var methods = {
@@ -1232,11 +1212,6 @@
 			var query = input_box.val();
 
 			if(query && query.length) {
-				if($(input).data("settings").lang===LANGUAGE_EN && _hasJA(query)){
-					input_box.val("");
-					hide_dropdown();
-					return;
-				}
 
 				if(selected_token) {
 					deselect_token($(selected_token), POSITION.AFTER);
@@ -1268,7 +1243,7 @@
 
 			$.ajax({
 				url:      url_str,
-				type:     'GET',
+				type:     'GET'
 			}).done(function(data,textStatus,jqXHR) {
 				if(data && $.isArray(data) && data.length > 0){
 					let results = [];
@@ -1305,9 +1280,9 @@
 		// Do the actual search
 		function run_search(query) {
 		
-			var cache_key       = query + computeURL();
+			var cache_key       = query + "/" + $(input).data("settings").uisetting_language + computeURL();
 			var cached_results  = cache.get(cache_key);
-			var cache_key2      = query + getSecondUrl();
+			var cache_key2      = query + "/" + $(input).data("settings").uisetting_language + getSecondUrl();
 			var cached_results2 = cache.get(cache_key2);
 
 			if (cached_results && cached_results.length > 0) {
@@ -1347,6 +1322,7 @@
 
 					// Prepare the request
 					ajax_params.data[$(input).data("settings").queryParam] = query;
+					ajax_params.data[$(input).data("settings").queryParam_lang] = $(input).data("settings").uisetting_language;
 					ajax_params.type     = $(input).data("settings").method;
 					ajax_params.dataType = $(input).data("settings").contentType;
 					if ($(input).data("settings").crossDomain) {
