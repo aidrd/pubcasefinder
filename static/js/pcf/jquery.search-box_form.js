@@ -79,7 +79,7 @@
 		text_input_schema:          TEXT_INPUT_SCHEMA_MANUAL,        
 
         uisetting_tag_size:			UISETTING_TAG_SIZE_L,
-		uisetting_language:			UISETTING_LANGUAGE_JAPANESE
+		uisetting_language:			UISETTING_LANGUAGE_ENGLISH,UISETTING_LANGUAGE_JAPANESE
     };
 
 	function setCookie(cname,cvalue){
@@ -164,7 +164,6 @@
 			if(cookie_language){
 				settings['uisetting_language'] = cookie_language;
 			}else{
-				
 				if(isWindowNavigatorLanguageJa()){
 					settings['uisetting_language'] = UISETTING_LANGUAGE_ENGLISH + "," + UISETTING_LANGUAGE_JAPANESE;	
 				}else if(isWindowNavigatorLanguageDe()){
@@ -402,13 +401,10 @@
 
 			$('input[name=cbk_uisetting_language]').each(function() {
 				$(this).click(function(){
-					let isJAchecked = false;
 					let arr = [];
 					$('input[name=cbk_uisetting_language]:checked').each(function() {
 						let v = $(this).val();
-						if(v === LANGUAGE_JA) isJAchecked = true;
 						arr.push(v);
-						
 					});
 
 					let str = arr.join(',');
@@ -416,12 +412,7 @@
 					let oldsettings = $div_wrapper.data('SETTINGS');
 					let newsettings = $.extend({}, oldsettings, {'uisetting_language':str});
 					$div_wrapper.data('SETTINGS', newsettings);
-					if(isJAchecked){
-						$("#tokeninput_hpo").tokenInput("setOptions",{'lang':LANGUAGE_JA});
-					}else{
-						$("#tokeninput_hpo").tokenInput("setOptions",{'lang':LANGUAGE_EN});
-					}
-					
+					$("#tokeninput_hpo").tokenInput("setOptions",{'uisetting_language':str});
 				});
 			});
 			
@@ -627,7 +618,12 @@
 			let $ui_trigger_btn = create_uisetting_button(settings.lang).appendTo($div_l2);	
 			
 			create_uisetting_ui(settings.lang, settings.uisetting_tag_size, settings.uisetting_language, $ui_trigger_btn.attr('tid'));
-			
+
+			document.querySelector('div[contenteditable="true"]').addEventListener("paste", function(e) {
+			    e.preventDefault();
+			    var text = e.clipboardData.getData("text/plain");
+			    document.execCommand("insertHTML", false, text);
+			});		
 			
 		}else{
 			alert("UNKNOWN SCHEMA[" + settings.schema + "]");
@@ -644,8 +640,9 @@
         $("#tokeninput_hpo")
             .tokenInput(settings.url_tokeninput_hpo, 
 						{theme:               "facebook", 
-						 lang:                settings.lang, 
-						 uisetting_tag_size: settings.uisetting_tag_size,
+						 lang:                settings.lang,
+						 uisetting_language:  settings.uisetting_language,
+						 uisetting_tag_size:  settings.uisetting_tag_size,
 						 second_url_str:      settings.url_tokeninput_hpo_second, 
 						 doSubmit:            runSubmit,
 						 onLongerQuery:       settings.schema === SCHEMA_2022 ? 
