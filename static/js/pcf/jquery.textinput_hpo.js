@@ -160,14 +160,7 @@
 		var $text_input_textarea_wrapper = $('<div>').addClass('text-input-wrapper').appendTo($modal_body);
 		var $text_input_textarea         = new $.TextInputHPO.HPO_textarea(current_settings.language, function(hpo_id){$text_input_table.chosen(hpo_id);});
 		$text_input_textarea.get_textarea().appendTo($text_input_textarea_wrapper);
-		var div_id = $text_input_textarea.get_textarea_id();
-		document.querySelector('#'+div_id).addEventListener("paste", function(e) {
-		    e.preventDefault();
-		    var text = e.clipboardData.getData("text/plain");
-		    document.execCommand("insertHTML", false, text);
-		});
-
-	
+			
 		var $text_input_table_wrapper    = $('<div>').addClass('text-input-wrapper').appendTo($modal_body);
 		var $text_input_table = new $.TextInputHPO.HPO_table(
                                         current_settings.language, 

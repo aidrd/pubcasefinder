@@ -158,13 +158,6 @@
 		var $text_input_textarea_wrapper = $('<div>').addClass('list-input-wrapper').appendTo($modal_body);
 		var $text_input_textarea         = new $.ListInput.ListInput_textarea(prefix,function(selected_id){$text_input_table.chosen(selected_id);});
 		$text_input_textarea.get_textarea().appendTo($text_input_textarea_wrapper);
-        var div_id = $text_input_textarea.get_textarea_id();
-        document.querySelector('#'+div_id).addEventListener("paste", function(e) {
-            e.preventDefault();
-            var text = e.clipboardData.getData("text/plain");
-            document.execCommand("insertHTML", false, text);
-        });
-
 
 		var $text_input_table_wrapper    = $('<div>').addClass('list-input-wrapper').appendTo($modal_body);
 		var $text_input_table            = new $.ListInput.ListInput_table(current_settings.language,prefix,function(selected_id){$text_input_textarea.chosen(selected_id);});
