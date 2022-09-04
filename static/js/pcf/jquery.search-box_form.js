@@ -619,12 +619,6 @@
 			
 			create_uisetting_ui(settings.lang, settings.uisetting_tag_size, settings.uisetting_language, $ui_trigger_btn.attr('tid'));
 
-			document.querySelector('div[contenteditable="true"]').addEventListener("paste", function(e) {
-			    e.preventDefault();
-			    var text = e.clipboardData.getData("text/plain");
-			    document.execCommand("insertHTML", false, text);
-			});		
-			
 		}else{
 			alert("UNKNOWN SCHEMA[" + settings.schema + "]");
 		}
