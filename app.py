@@ -863,7 +863,7 @@ def tokeninput_hpo():
         elif lang == 'en,ja':
             for v in tokeninputs:
                 sql_params.append("%"+v+"%")
-            sql_OntoTerm = u"select  distinct  a.uid,  a.value, c.OntoSynonym, b.FreqSelf, c.OntoSynonymJa from IndexFormHP as a LEFT JOIN IC as b on replace(a.uid, '_ja', '')=b.OntoID LEFT JOIN OntoTermHPInformation AS c ON replace(a.uid, '_ja', '')=c.OntoID where {0} OR (a.uid IN (SELECT OntoID FROM OntoTermHPSynonym WHERE {1}) ) OR (replace(a.uid, '_ja', '') IN (SELECT OntoID FROM OntoTermHPSynonymJa WHERE {2}) )  order by b.FreqSelf desc, value".format(' AND '.join(map(lambda x: "a.uid_value collate utf8_unicode_ci like %s", tokeninputs)),' AND '.join(map(lambda x: "OntoSynonym collate utf8_unicode_ci like %s", tokeninputs)),' AND '.join(map(lambda x: "OntoSynonym collate utf8_unicode_ci like %s", tokeninputs)))
+            sql_OntoTerm = u"select  distinct  a.uid,  a.value, c.OntoSynonym, b.FreqSelf, c.OntoSynonymJa from IndexFormHP as a LEFT JOIN IC as b on replace(a.uid, '_ja', '')=b.OntoID LEFT JOIN OntoTermHPInformation AS c ON replace(a.uid, '_ja', '')=c.OntoID where {0} OR (a.uid IN (SELECT OntoID FROM OntoTermHPSynonym WHERE {1}) ) OR (a.uid IN (SELECT OntoID FROM OntoTermHPSynonymJa WHERE {2}) )  order by b.FreqSelf desc, value".format(' AND '.join(map(lambda x: "a.uid_value collate utf8_unicode_ci like %s", tokeninputs)),' AND '.join(map(lambda x: "OntoSynonym collate utf8_unicode_ci like %s", tokeninputs)),' AND '.join(map(lambda x: "OntoSynonym collate utf8_unicode_ci like %s", tokeninputs)))
         #app.logger.error(sql_OntoTerm)
         
         if sql_OntoTerm != "":

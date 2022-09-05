@@ -1377,7 +1377,6 @@
 
 						var copy_values = [];
 						var list = ['exclude','severity','id','name','English','definition','comment','synonym'];
-						var cnt = 0;
 						$.each(list, function(i,val){
 							var key = val;
 							var value = result[key];
@@ -1388,15 +1387,11 @@
 								return;
 							}
 
-							var $contentTr = $('<tr>').addClass(current_settings[SCHEMA_2022].cssContentRowClass).appendTo($contentTable);
-							if(cnt < list.length -1) {
-								$contentTr.addClass('bottomline');
-								cnt++;
-							}
+							var $contentTr = $('<tr>').addClass(current_settings[SCHEMA_2022].cssContentRowClass).addClass('bottomline').appendTo($contentTable);
 
 							var label = language[key.toLowerCase()] ? language[key.toLowerCase()] : key;
 							var $th = $('<th>').text(label).appendTo($contentTr);
-							var $value_td = $('<td>').css({'text-align':'left','width':'95%'}).appendTo($contentTr);
+							var $value_td = $('<td>').css({'text-align':'left','width':'100%','padding-left':'0px','padding-right':'0px'}).appendTo($contentTr);
 							
 							if(key==='exclude' || key==='severity'){
 								//$value_td.addClass('d-flex flex-row');
@@ -1460,6 +1455,8 @@
 								}
 							}
 						});
+						$contentTable.find('tr').last().removeClass('bottomline');
+						
 						if(copy_values.length){
 							$('<textarea>').addClass(current_settings.cssContentCopyClass).css({display:'none'}).text(copy_values.join(current_settings.copy_delimiter)).appendTo($contentTable);
 						}
