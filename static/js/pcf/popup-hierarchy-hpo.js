@@ -472,7 +472,6 @@
 					}
 
 					var $content = $('<table>').addClass(current_settings[SCHEMA_2022].cssContentClass).appendTo($base);
-					var cnt=0;
 					$.each(values.sort(function(a,b){
 						var a_name = a.name;
 						var b_name = b.name;
@@ -482,11 +481,8 @@
 					}), function(){
 
 						var $link_base = $('<tr>').addClass(current_settings[SCHEMA_2022].cssContentRowClass).appendTo($content);					
-						if(cnt < values.length -1) {
-							$link_base.addClass('bottomline');
-							cnt++;
-						}
-						
+						$link_base.addClass(options.classname);	
+
 						var text = this.name;
 						if(runSearchOptions.hasJA && isString(this.name_ja)) text = this.name_ja;
 						
@@ -3653,7 +3649,7 @@
 		function _set_level_pos(){
             let $prependTo = $('#'+ prependTo_id);
             let top = $prependTo.offset().top;
-            let pos = Math.ceil(top + $prependTo.height());
+            let pos = Math.ceil(top + $prependTo.height() + 1);
             $mfp_bg_local.css({'top': pos+'px'});
             $mfp_wrap_local.css({'top': pos+'px'});
             $webgl_trigger.css({'top': top+'px'});

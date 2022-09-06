@@ -121,9 +121,9 @@
   overflow-y: scroll;
 }
 
-#text-input-modal .modal-dialog .modal-content .modal-body  .text-input-wrapper .text-input-table tbody tr{
-  width: 100%;
-}
+#text-input-modal .modal-dialog .modal-content .modal-body  .text-input-wrapper .text-input-table tbody tr{width: 100%;}
+#text-input-modal .modal-dialog .modal-content .modal-body  .text-input-wrapper .text-input-table tbody tr.chosen td{background-color: #e8edf4;}
+
 
 #text-input-modal .modal-dialog .modal-content .modal-body  .text-input-wrapper .text-input-table tbody tr.chosen.observed{
   border: 1px solid red;

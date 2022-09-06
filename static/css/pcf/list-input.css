@@ -119,6 +119,8 @@
   border: 2px solid red;
 }
 
+.list-input-modal .modal-dialog .modal-content .modal-body  .list-input-wrapper .list-input-table tbody tr.chosen td{background-color: #e8edf4;}
+
 
 .list-input-modal .modal-dialog .modal-content .modal-body  .list-input-wrapper .list-input-table tbody tr td.selection {
   width: 48px;

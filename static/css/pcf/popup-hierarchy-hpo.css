@@ -118,7 +118,7 @@
     display:inline-block;
     background-color: #ffffff;
     border: 1px solid lightgrey;
-    box-shadow: 0 0 8px lightgrey;
+    box-shadow: 0px 8px 10px 1px rgb(0 0 0 / 14%), 0px 3px 14px 2px rgb(0 0 0 / 12%), 0px 5px 5px -3px rgb(0 0 0 / 20%);
     border-radius: 8px;
     padding: 15px;
     width: 100%;
@@ -126,14 +126,13 @@
 }
 
 .popup-hierarchy-hpo-top-bar-schema_2022 {
-	color: #4472C4;
 	font-size: 1.1rem;
     padding-bottom: 10px;
     border-bottom: 1px solid #4472c4;
 	width: 100%;
 }
 .popup-hierarchy-hpo-top-bar-schema_2022.superclass {text-align: right;}
-.popup-hierarchy-hpo-top-bar-schema_2022.selfclass {text-align: left;color:black;}
+.popup-hierarchy-hpo-top-bar-schema_2022.selfclass {text-align: left;}
 .popup-hierarchy-hpo-top-bar-schema_2022.subclass {text-align: left;}
 
 .popup-hierarchy-hpo-top-bar-schema_2022.selfclass span:before {
@@ -156,12 +155,16 @@
   color:#4472c4;
   white-space:nowrap;
   text-align:left;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
   padding-right: 10px;
   font-weight: 400;
 }
-.popup-hierarchy-hpo-content-row-schema_2022 td{padding-top:10px;padding-bottom:10px;}
+.popup-hierarchy-hpo-content-row-schema_2022 td{padding-top:5px;padding-bottom:5px;}
+
+.popup-hierarchy-hpo-content-row-schema_2022.popup-hierarchy-hpo-superclass td{padding-top:4px; padding-bottom: 0px;}
+.popup-hierarchy-hpo-content-row-schema_2022.popup-hierarchy-hpo-subclass   td{padding-top:4px; padding-bottom: 0px;}
+
 .popup-hierarchy-hpo-content-row-schema_2022 td label{margin-bottom:0px; margin-left: 5px; margin-right: 10px;}
 .popup-hierarchy-hpo-buttons-base-schema_2022 td {white-space: nowrap;}
 
@@ -180,7 +183,7 @@
 }
 
 
-.popup-hierarchy-hpo-content-row-schema_2022 td.switch div.control span{cursor:pointer;color: #394466;}
+.popup-hierarchy-hpo-content-row-schema_2022 td.switch div.control span{cursor:pointer;color: #4472c4;}
 .popup-hierarchy-hpo-content-row-schema_2022 td.switch div.control span:before {
 	font-family: 'Material Icons';
     content: '\e146';
@@ -197,7 +200,7 @@
     direction: ltr;
     -webkit-font-feature-settings: 'liga';
     -webkit-font-smoothing: antialiased;
-    color: #394466;
+    color: #4472c4;
 }
 
 .popup-hierarchy-hpo-content-row-schema_2022 td.switch.on div.control span:before {
@@ -301,8 +304,9 @@ select.popup-hierarchy-hpo-language-change-schema_2022 {
 	-moz-appearance: none;
 	appearance: none;
 	width: 70px;
+	height: 32px;
 	padding-left:4px;
-	font-family: 'branc';
+	font-family: 'IBM Plex Sans';
 	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2212%22%20height%3D%2212%22%20viewBox%3D%220%200%2012%2012%22%3E%3Ctitle%3Edown-arrow%3C%2Ftitle%3E%3Cg%20fill%3D%22%23000000%22%3E%3Cpath%20d%3D%22M10.293%2C3.293%2C6%2C7.586%2C1.707%2C3.293A1%2C1%2C0%2C0%2C0%2C.293%2C4.707l5%2C5a1%2C1%2C0%2C0%2C0%2C1.414%2C0l5-5a1%2C1%2C0%2C1%2C0-1.414-1.414Z%22%20fill%3D%22%23000000%22%3E%3C%2Fpath%3E%3C%2Fg%3E%3C%2Fsvg%3E");
 	background-size: 0.8em;
 	background-position: calc(100% - 0.3em) center;
@@ -314,6 +318,9 @@ select.popup-hierarchy-hpo-language-change-schema_2022 {
 .popup-hierarchy-hpo-buttons-schema_2022 .popup-hierarchy-hpo-buttons-base button{
   padding: 2px 4px 2px 4px !important;
   font-size: 15px !important;
+  height: 32px;
+  margin-bottom: 0px;
+  border: 1px;
 }
 
 .popup-hierarchy-hpo-buttons-schema_2022 .popup-hierarchy-hpo-buttons-base .popup-hierarchy-hpo-separator{
@@ -411,15 +418,8 @@ select.popup-hierarchy-hpo-language-change-schema_2022 {
 	white-space: nowrap;
 }
 .popup-hierarchy-hpo-buttons-base>button {
-/*
-	color: #ffffff;
-	background-color: #FF0E58;
-	border-radius: 10px;
-	border-color: #FF0E58;
-*/
 	padding-top: 2px;
 	padding-bottom: 2px;
-/*	font-size: 1em;*/
 }
 
 .popup-hierarchy-hpo-buttons-base>button:last-child {
@@ -452,17 +452,6 @@ select.popup-hierarchy-hpo-language-change-schema_2022 {
 }
 
 .popup-hierarchy-hpo-close-button {
-/*
-	background: transparent;
-	position: absolute;
-	right: 10px;
-	top: 0;
-	display: inline-block;
-	cursor: pointer;
-	font-weight: bold;
-	color: #666;
-*/
-
 	background: transparent;
 	display: inline-block;
 	cursor: pointer;
@@ -990,10 +979,10 @@ ul.popup-hierarchy-hpo-token-list {
 .popup-hierarchy-hpo-webgl-trigger-content {
     position: fixed;
 	top:   141px;
-	right: 10px;
+	right: 20px;
     z-index: 1045;
-    width: 104px;
-    height: 104px;
+    width:  90px;
+    height: 90px;
     background: #FFFFFF url(../popup-hierarchy-hpo/ICON_PhenoTouch.jpg?20180911153918) no-repeat 50% 50% / contain;
     border-radius: 10px;
     cursor: pointer;
