@@ -46,6 +46,221 @@
 	}
 }
 
+
+.btn {
+    margin-right: 4px;
+    margin-bottom: 4px;
+    font-family: "Open Sans", Arial, sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    border-radius: 4px;
+    -webkit-transition: 0.5s;
+    -o-transition: 0.5s;
+    transition: 0.5s;
+    padding: 8px 20px;
+}
+
+.btn.btn-default {
+    color: #333;
+    background-color: #fff;
+}
+
+
+.btn.btn-md {
+    padding: 8px 20px !important;
+}
+
+.btn.btn-lg {
+    padding: 18px 36px !important;
+}
+
+.btn:hover,
+.btn:active,
+.btn:focus {
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+.btn-primary {
+    background: #F73859;
+    color: #fff;
+    border: 2px solid #F73859;
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active {
+    background: #f8516d !important;
+    border-color: #f8516d !important;
+}
+
+.btn-primary.btn-outline {
+    background: transparent;
+    color: #F73859;
+    border: 2px solid #F73859;
+}
+
+.btn-primary.btn-outline:hover,
+.btn-primary.btn-outline:focus,
+.btn-primary.btn-outline:active {
+    background: #F73859;
+    color: #fff;
+}
+
+.btn-success {
+    background: #5cb85c;
+    color: #fff;
+    border: 2px solid #5cb85c;
+}
+
+.btn-success:hover,
+.btn-success:focus,
+.btn-success:active {
+    background: #4cae4c !important;
+    border-color: #4cae4c !important;
+}
+
+.btn-success.btn-outline {
+    background: transparent;
+    color: #5cb85c;
+    border: 2px solid #5cb85c;
+}
+
+.btn-success.btn-outline:hover,
+.btn-success.btn-outline:focus,
+.btn-success.btn-outline:active {
+    background: #5cb85c;
+    color: #fff;
+}
+
+.btn-info {
+    background: #5bc0de;
+    color: #fff;
+    border: 2px solid #5bc0de;
+}
+
+.btn-info:hover,
+.btn-info:focus,
+.btn-info:active {
+    background: #46b8da !important;
+    border-color: #46b8da !important;
+}
+
+.btn-info.btn-outline {
+    background: transparent;
+    color: #5bc0de;
+    border: 2px solid #5bc0de;
+}
+
+.btn-info.btn-outline:hover,
+.btn-info.btn-outline:focus,
+.btn-info.btn-outline:active {
+    background: #5bc0de;
+    color: #fff;
+}
+
+.btn-warning {
+    background: #f0ad4e;
+    color: #fff;
+    border: 2px solid #f0ad4e;
+}
+
+.btn-warning:hover,
+.btn-warning:focus,
+.btn-warning:active {
+    background: #eea236 !important;
+    border-color: #eea236 !important;
+}
+
+.btn-warning.btn-outline {
+    background: transparent;
+    color: #f0ad4e;
+    border: 2px solid #f0ad4e;
+}
+
+.btn-warning.btn-outline:hover,
+.btn-warning.btn-outline:focus,
+.btn-warning.btn-outline:active {
+    background: #f0ad4e;
+    color: #fff;
+}
+
+.btn-danger {
+    background: #d9534f;
+    color: #fff;
+    border: 2px solid #d9534f;
+}
+
+.btn-danger:hover,
+.btn-danger:focus,
+.btn-danger:active {
+    background: #d43f3a !important;
+    border-color: #d43f3a !important;
+}
+
+.btn-danger.btn-outline {
+    background: transparent;
+    color: #d9534f;
+    border: 2px solid #d9534f;
+}
+
+.btn-danger.btn-outline:hover,
+.btn-danger.btn-outline:focus,
+.btn-danger.btn-outline:active {
+    background: #d9534f;
+    color: #fff;
+}
+
+.btn-outline {
+    background: none;
+    border: 2px solid gray;
+    font-size: 16px;
+    -webkit-transition: 0.3s;
+    -o-transition: 0.3s;
+    transition: 0.3s;
+}
+
+.btn-outline:hover,
+.btn-outline:focus,
+.btn-outline:active {
+    box-shadow: none;
+}
+
+.btn.with-arrow {
+    position: relative;
+    -webkit-transition: 0.3s;
+    -o-transition: 0.3s;
+    transition: 0.3s;
+}
+
+.btn.with-arrow i {
+    visibility: hidden;
+    opacity: 0;
+    position: absolute;
+    right: 0px;
+    top: 50%;
+    margin-top: -8px;
+    -webkit-transition: 0.2s;
+    -o-transition: 0.2s;
+    transition: 0.2s;
+}
+
+.btn.with-arrow:hover {
+    padding-right: 50px;
+}
+
+.btn.with-arrow:hover i {
+    color: #fff;
+    right: 18px;
+    visibility: visible;
+    opacity: 1;
+}
+
+
+
 .mfp-s-ready .mfp-content,
 .mfp-s-ready .mfp-preloader {
 	height:100%;
@@ -403,9 +618,23 @@ select.popup-hierarchy-hpo-language-change-schema_2022 {
 }
 
 .popup-hierarchy-hpo-button-add,
-.popup-hierarchy-hpo-button-replace {
-	transition: unset;
+.popup-hierarchy-hpo-button-replace,
+.popup-hierarchy-hpo-button-copy {
+  transition: unset;
 }
+
+/*
+  display: inline-block;
+  text-align: center;
+  vertical-align: middle;
+  touch-action: manipulation; 
+  white-space: nowrap;
+  line-height: 1.42857;
+  font-family: "Open Sans", Arial, sans-serif;
+  font-weight: 400;
+  margin-right: 4px;
+*/
+
 
 .popup-hierarchy-hpo-buttons {
 	padding: 8px;
