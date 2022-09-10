@@ -172,7 +172,7 @@ body{
         height: 100vh;
         width: calc(100% - 295px);*/
         main{
-            padding: 1em 2em;
+            padding: 9em 2em 1em;
             #home-menu{
                 display: flex;
                 margin-right: 0;
@@ -764,7 +764,6 @@ h5{
     background: #fff;
     border-bottom: solid 1px #ddd;
     padding: 0.7em 2em;
-    margin-top: 5em;
     .menu-links{
         margin: auto 0;
         li{
@@ -842,4 +841,10 @@ h5{
 
 ::placeholder {
     color: #dadce0;
+  }
+
+
+  .search-header .search-header_wrapper{
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
   }

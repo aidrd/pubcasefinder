@@ -98,6 +98,56 @@
                 </div>
             </div>
         </div>
+        <nav id="menu-tab">
+            <ul class="menu-links">
+                <li class="nav-link">
+                    <a href="#" id="content-patients">
+                        <i class="bxt icon material-icons-outlined person_icon">
+                            person
+                        </i>
+                        <span class="text nav-text link_name">My patients</span>
+                        <h1 id="row_count">0</h1>
+                    </a>
+                </li>
+            </ul>
+            <div class="side-content">
+                <li class="">
+                    <a href="#" onclick="document.getElementById('import_btn').click()">
+                        <i class="icon material-symbols-outlined">
+                            folder_open
+                        </i>
+                        <span class="text nav-text link_name">Open</span>
+                        <input type="file" id="import_btn" onchange="importFile(event)">
+                    </a>
+                </li>
+
+                <li class="panel-wrap">
+                    <a href="#" class="panel-btn">
+                        <i class="icon material-symbols-outlined">
+                            save
+                        </i>
+                        <span class="text nav-text link_name">Save</span>
+                    </a>
+                    <div class="panel">
+                        <h5>Export</h5>
+                        <p>Format:
+                            <select name="file" id="dl-select">
+                                <option value="json">json</option>
+                                <option value="tsv">tsv</option>
+                            </select>
+                        </p>
+                        <button id="dl_table_button" onclick="getExportData(false)">Download</button>
+                    </div>
+                </li>
+                <li class="modal_open karte-btn karte-add" data-target="modal-karte" rel="noopener noreferrer">
+                    <i class="material-symbols-outlined">
+                        edit_square
+                    </i>
+                    <h5>Entry</h5>
+                </li>
+            </div>
+            </div>
+        </nav>
     </header>
     <section id="nav-left">
         <!--<nav class="sidebar global-nav">
@@ -157,56 +207,6 @@
         </div>
 
         </nav>-->
-        <nav id="menu-tab">
-            <ul class="menu-links">
-                <li class="nav-link">
-                    <a href="#" id="content-patients">
-                        <i class="bxt icon material-icons-outlined person_icon">
-                            person
-                        </i>
-                        <span class="text nav-text link_name">My patients</span>
-                        <h1 id="row_count">0</h1>
-                    </a>
-                </li>
-            </ul>
-            <div class="side-content">
-                <li class="">
-                    <a href="#" onclick="document.getElementById('import_btn').click()">
-                        <i class="icon material-symbols-outlined">
-                            folder_open
-                        </i>
-                        <span class="text nav-text link_name">Open</span>
-                        <input type="file" id="import_btn" onchange="importFile(event)">
-                    </a>
-                </li>
-
-                <li class="panel-wrap">
-                    <a href="#" class="panel-btn">
-                        <i class="icon material-symbols-outlined">
-                            save
-                        </i>
-                        <span class="text nav-text link_name">Save</span>
-                    </a>
-                    <div class="panel">
-                        <h5>Export</h5>
-                        <p>Format:
-                            <select name="file" id="dl-select">
-                                <option value="json">json</option>
-                                <option value="tsv">tsv</option>
-                            </select>
-                        </p>
-                        <button id="dl_table_button" onclick="getExportData(false)">Download</button>
-                    </div>
-                </li>
-                <li class="modal_open karte-btn karte-add" data-target="modal-karte" rel="noopener noreferrer">
-                    <i class="material-symbols-outlined">
-                        edit_square
-                    </i>
-                    <h5>Entry</h5>
-                </li>
-            </div>
-            </div>
-        </nav>
 
 
         <section class="home">

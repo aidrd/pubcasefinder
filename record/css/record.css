@@ -178,7 +178,7 @@ body {
 }
 
 #nav-left .home main {
-  padding: 1em 2em;
+  padding: 9em 2em 1em;
 }
 
 #nav-left .home main #home-menu {
@@ -767,7 +767,6 @@ h5 {
   background: #fff;
   border-bottom: solid 1px #ddd;
   padding: 0.7em 2em;
-  margin-top: 5em;
 }
 
 #menu-tab .menu-links {
@@ -845,4 +844,9 @@ h5 {
 
 ::placeholder {
   color: #dadce0;
+}
+
+.search-header .search-header_wrapper {
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
 }
