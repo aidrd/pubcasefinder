@@ -25,7 +25,7 @@ async function geneTable() {
     let tempData = {}
     resetData()
 
-    let geneTypeInfo = columns.genotypeInfo
+    let geneTypeInfo = columns['遺伝子型情報']
     geneTypeInfo.forEach(g => {
         geneSchema[g.columnName] = null
         geneHeaders.push(g.columnName)
@@ -48,7 +48,7 @@ async function geneTable() {
     }
 
     let keys = Object.keys(tempData)
-    if (keys.length > 0) {
+    if (keys.length > 0 && tempData[keys[0]]) {
         for (let i = 0; i < tempData[keys[0]].length; i++) {
             let gData = {}
             keys.forEach(k => {
