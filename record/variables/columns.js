@@ -1,6 +1,6 @@
 
 let columns = {
-    "basicInfo": [
+    "患者基本情報": [
         {
             "columnName": "患者ID",
             "dataKey": "patientID",
@@ -65,7 +65,7 @@ let columns = {
             "table": true
         }
     ],
-    "medicalInfo": [
+    "診療情報": [
         {
             "columnName": "臨床診断",
             "dataKey": "clinical-diagnosis",
@@ -206,7 +206,7 @@ let columns = {
             "table": true
         }
     ],
-    "genotypeInfo": [
+    "遺伝子型情報": [
         {
             "columnName": "Gene",
             "dataKey": "Gene",
@@ -305,7 +305,7 @@ let columns = {
             "table": true
         }
     ],
-    "familyInfo": [
+    "家系情報": [
         {
             "columnName": "家族歴",
             "dataKey": "family-info",

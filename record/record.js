@@ -266,7 +266,7 @@ function createColumns() {
                 } else if (v.columnName === '続柄') {
                     column.data = '続柄'
                     column.renderer = 'dropdown'
-                } else if (key === 'genotypeInfo' || v.columnName === '主訴') {
+                } else if (key === '遺伝子型情報' || v.columnName === '主訴') {
                     column.renderer = multipleRenderer
                     column.editor = false
                 } else if (v.columnName === '身長') {
@@ -388,29 +388,36 @@ function addColumn() {
     container.innerHTML = ''
 
     for (let [key, value] of Object.entries(columns)) {
+        createColumn(key, 'title')
         value.forEach(v => {
             if (!v.table) return
             createColumn(v.columnName, v.type)
         })
     }
 
+    if (customColumns.length > 0) createColumn('カスタム', 'title')
+
     customColumns.forEach(c => {
         createColumn(c, 'custom')
     })
 
     function createColumn(colName, type) {
-        container.innerHTML += `
-            <div>
-                <input  type="checkbox"
-                        class="modal_add_columns"
-                        id="${colName}"
-                        data-type="${type}"
-                        onchange="showHideColumn(this)"
-                        ${existingHeaders.includes(colName) ? 'checked' : ''}>
-                <label for="${colName}">${colName}</label>
-                ${type === 'custom' ? `<i class="material-icons-outlined" onclick="removeCustomColumn(${colName})">delete</i>` : ''}
-            </div>
-        `
+        if (type === 'title') {
+            container.innerHTML += `<div class="add_column_title">${colName}</div>`
+        } else {
+            container.innerHTML += `
+                <div>
+                    <input  type="checkbox"
+                            class="modal_add_columns"
+                            id="${colName}"
+                            data-type="${type}"
+                            onchange="showHideColumn(this)"
+                            ${existingHeaders.includes(colName) ? 'checked' : ''}>
+                    <label for="${colName}">${colName}</label>
+                    ${type === 'custom' ? `<i class="material-icons-outlined" onclick="removeCustomColumn(${colName})">delete</i>` : ''}
+                </div>
+            `
+        }
     }
 
     document.querySelector('.add').onclick = () => {
@@ -463,19 +470,26 @@ function showHideColumn(e) {
 }
 
 function removeCustomColumn(e) {
-    console.log(e)
-    let element = document.getElementById(e)
-    console.log(element)
+    // let element = document.getElementById(e)
 
-    delete dataSchema[e]
-    delete dataColumns[e]
+    // delete dataSchema[e]
+    // delete dataColumns[e]
 
-    customColumns.splice(customColumns.indexOf(e), 1)
+    // customColumns.splice(customColumns.indexOf(e), 1)
 
-    element.checked = false
-    showHideColumn(element)
+    // element.checked = false
+    // showHideColumn(element)
 
-    element.parentElement.remove()
+    // element.parentElement.remove()
+    delete dataSchema[e.id]
+    delete dataColumns[e.id]
+
+    customColumns.splice(customColumns.indexOf(e.id), 1)
+
+    e.checked = false
+    showHideColumn(e)
+
+    e.parentElement.remove()
 }
 
 function editTable(isSave) {
