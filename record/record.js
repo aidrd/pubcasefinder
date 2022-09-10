@@ -462,7 +462,13 @@ function showHideColumn(e) {
             colHeaders.indexOf(`<i class="material-icons-outlined sort_icon">swap_vert</i>${e.id}`),
             1
         )
-        headers = headers.filter(h => { return h.data !== e.id })
+
+        headers = headers.filter(h => {return h.data !== e.id })
+        // if (['体重', '身長', '頭囲'].includes(e.id)) {
+            
+        // } else {
+        //     headers = headers.filter(h => {return h.data !== e.id })
+        // }
         existingHeaders.splice(existingHeaders.indexOf(e.id), 1)
     }
 
