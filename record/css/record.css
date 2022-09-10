@@ -12,7 +12,7 @@
   /* ===== Colors ===== */
   --body-color: #F2F3F4;
   --sidebar-color: #FFF;
-  --primary-color: #3A4E98;
+  --primary-color: #000;
   --primary-color-light: #F6F5FF;
   --toggle-color: #DDD;
   --text-color: #5C5C5C;
@@ -109,17 +109,17 @@ body {
 }
 
 #nav-left .sidebar .menu-bar .menu ul li a:hover .text {
-  color: #3A4E98;
+  color: #000;
 }
 
 #nav-left .sidebar .menu-bar .menu ul li a:hover .icon {
-  color: #3A4E98;
+  color: #000;
 }
 
 #nav-left .sidebar .menu-bar .menu ul li .karte-add {
   padding: 12px;
   color: #fff;
-  background-color: #3A4E98;
+  background-color: #000;
   border-radius: 30px;
   margin-left: 0.5em;
 }
@@ -222,7 +222,7 @@ body {
   padding: 5px;
   height: min-content;
   color: #fff;
-  background-color: #3A4E98;
+  background-color: #000;
   border-radius: 6px;
   margin-left: auto;
 }
@@ -265,7 +265,7 @@ body {
 }
 
 #modal-karte #modal-karte-button button {
-  color: #fff;
+  color: #000;
   padding: 0.7em;
   margin-left: 2px;
   display: inline-flex;
@@ -281,11 +281,11 @@ body {
 }
 
 #modal-karte #modal-karte-button .modal-save {
-  background: #3A4E98;
+  background: #fff;
 }
 
 #modal-karte #modal-karte-button .modal-close {
-  background: #3A4E98;
+  background: #fff;
 }
 
 #modal-karte #modal-karte-button .modal-phenopackets {
@@ -300,7 +300,7 @@ body {
 #modal-karte .tab-wrap ul {
   display: flex;
   background: #F4F4F4;
-  color: #3A4E98;
+  color: #000;
   border-radius: 11px 11px 0 0;
 }
 
@@ -325,8 +325,8 @@ body {
 }
 
 #modal-karte .tab-wrap ul .show {
-  background: #3A4E98;
-  border-top: 2px solid #3A4E98;
+  background: #000;
+  border-top: 2px solid #000;
   color: #fff;
 }
 
@@ -363,7 +363,7 @@ body {
   background: #fff;
   position: relative;
   font-weight: normal;
-  color: #3A4E98;
+  color: #000;
   border-bottom: solid 1px #EDEDED;
 }
 
@@ -473,7 +473,7 @@ body {
 #modal-karte .tab-wrap .show .form-table tbody tr #group_wrap #fixed-menu {
   padding: 5px;
   color: #fff;
-  background-color: #3A4E98;
+  background-color: #000;
   border-radius: 30px;
   margin-left: 0.5em;
 }
@@ -522,7 +522,7 @@ body {
 #fixed-menu #fixed-menu-contents button {
   padding: 5px;
   color: #fff;
-  background-color: #3A4E98;
+  background-color: #000;
   border-radius: 30px;
   margin-left: 0.5em;
 }
@@ -596,7 +596,7 @@ a.panel-btn {
 
 .panel button {
   padding: 7px 10px;
-  background: #3A4E98;
+  background: #000;
   border-radius: 5px;
   color: #fff;
 }
@@ -745,7 +745,7 @@ h5 {
   padding: 0.8em 0 0.8em 1em;
   font-size: 1em;
   font-weight: normal;
-  color: #3A4E98;
+  color: #000;
 }
 
 #content-groups table tr td {
