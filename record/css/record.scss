@@ -291,7 +291,7 @@ body{
             background: #fff;
         }
         .modal-phenopackets{
-            background: #c4c4c4;
+            background: #fff;
         }
     }
     .tab-wrap{
@@ -625,12 +625,12 @@ h5{
   #myGrid {
       min-height: 70vh;
       margin: auto;
-      overflow: auto !important;
+      overflow: scroll !important;
       background: #fff;
   }
   
   .ht_master > .wtHolder {
-      min-height: 70vh;
+      min-height: 70vh !important;
   }
 
   #modalGrid {
