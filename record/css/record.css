@@ -565,9 +565,9 @@ a.panel-btn {
 
 .panel {
   display: none;
-  position: fixed;
-  top: 155px;
-  right: 90px;
+  position: absolute;
+  top: 40px;
+  right: 0;
   z-index: 1000;
   width: 200px;
   margin-left: -30px;
