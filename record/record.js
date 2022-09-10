@@ -352,7 +352,8 @@ async function updateTable(data) {
 }
 
 function addRow(data) {
-    let temp = structuredClone(newData)
+    // let temp = structuredClone(newData)
+    let temp = JSON.parse(JSON.stringify(newData))
 
     let d = new Date()
     let pcfNo = `P${d.getFullYear()}${d.getMonth() + 1}${d.getDate()}${d.getHours()}${d.getMinutes()}${d.getSeconds()}${d.getMilliseconds()}`
@@ -522,7 +523,3 @@ function rerenderTable() {
     hot.updateSettings(updateSettings)
     hot.render()
 }
-
-// function sortColumn() {
-//     console.log('sortColumn')
-// }

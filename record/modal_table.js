@@ -8,13 +8,15 @@ let modalTableSettings = {
 }
 
 let geneHot
-let geneSettings = structuredClone(modalTableSettings)
+// let geneSettings = structuredClone(modalTableSettings)
+let geneSettings = JSON.parse(JSON.stringify(modalTableSettings))
 let geneHeaders = [], geneColumns = []
 let geneSchema = {}, geneData = []
 let geneContainer = document.getElementById('geneModal')
 
 let bodyHot
-let bodySettings = structuredClone(modalTableSettings)
+// let bodySettings = structuredClone(modalTableSettings)
+let bodySettings = JSON.parse(JSON.stringify(modalTableSettings))
 let bodyHeaders = [], bodyColumns = []
 let bodySchema = {}, bodyData = {}
 let bodyContainer = document.getElementById('bodyModal')

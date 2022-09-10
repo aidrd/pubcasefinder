@@ -59,7 +59,8 @@ function openModal(isNew) {
 
         parent.innerHTML = ''
 
-        let data = element === 'group_options' ? structuredClone(groupOptions) : structuredClone(patientOptions)
+        // let data = element === 'group_options' ? structuredClone(groupOptions) : structuredClone(patientOptions)
+        let data = element === 'group_options' ? JSON.parse(JSON.stringify(groupOptions)) : JSON.parse(JSON.stringify(patientOptions))
 
         data.unshift('なし')
 
