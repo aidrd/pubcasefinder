@@ -15,7 +15,7 @@ let updateSettings = {
     width: '100%',
     height: 'auto',
     colWidths(i) {
-        return  i < 2 ? 43 : 100
+        return i < 2 ? 43 : 100
     },
     fixedColumnsLeft: 3,
     search: true,
@@ -44,7 +44,7 @@ async function initiateTable() {
         dataSchema: dataSchema,
         colHeaders: colHeaders,
         columns: headers,
-        hiddenColumns: {columns: hiddenColumns},
+        hiddenColumns: { columns: hiddenColumns },
     })
 
     hot = new Handsontable(hotContainer, updateSettings)
@@ -55,7 +55,7 @@ async function initiateTable() {
         const search = hot.getPlugin('search')
         search.query(event.target.value, (instance, row, col, data, testResult) => {
             instance.getCellMeta(row, col).isSearchResult = testResult
-            if (!testResult) return 
+            if (!testResult) return
             movePlugin.moveRows([row], 0)
         })
 
@@ -123,7 +123,7 @@ function getExportData() {
 
     if (isAll) dlData = contentData
 
-    if (type === 'json') exportedString = {'PATIENTS': dlData}
+    if (type === 'json') exportedString = { 'PATIENTS': dlData }
     if (type === 'csv' || type === 'tsv') exportedString = Papa.unparse(dlData.PATIENTS)
 
     exportFile()
@@ -132,16 +132,16 @@ function getExportData() {
         let a = document.createElement('a')
         a.download = `patients_${Date.now()}.${type}`
         a.style.visibility = 'hidden'
-    
+
         let data = `text/json;charset=utf-8,` +
-                   `${encodeURIComponent(JSON.stringify(exportedString, null, 4))}`
+            `${encodeURIComponent(JSON.stringify(exportedString, null, 4))}`
         a.href = `data:${data}`
-    
+
         if (type === 'csv' || type === 'tsv') {
             let data = new Blob(['\ufeff' + exportedString], { type: 'text/csv;charset=utf-8;' })
             a.href = URL.createObjectURL(data)
         }
-    
+
         document.body.appendChild(a)
         a.click()
         a.remove()
@@ -155,7 +155,7 @@ function onDragOver(event) {
         event.dataTransfer.dropEffect = 'move'
     }
 }
-  
+
 function onDrop(event) {
     event.preventDefault()
     let file = event.dataTransfer.items[0].getAsFile()
@@ -175,7 +175,7 @@ function onDrop(event) {
         updateTable(object.PATIENTS)
     })
 
-    reader.readAsText(file)  
+    reader.readAsText(file)
 }
 
 function convertObjectToArray(object) {
@@ -193,7 +193,7 @@ function convertObjectToArray(object) {
 
         data.push(pData)
     })
-  
+
     createTable(data)
 }
 
@@ -249,7 +249,7 @@ function createColumns() {
 
                 if (v.type === 'date') {
                     column.dateFormat = 'YYYY/MM',
-                    column.correctFormat = true
+                        column.correctFormat = true
                     column.datePickerConfig = {
                         firstDay: 0,
                         numberOfMonths: 1,
@@ -336,10 +336,10 @@ async function updateTable(data) {
 
     contentData.map(d => {
         let groupId = d['グループ名']
-        if(groupId && !(groupOptions.includes(groupId))) groupOptions.push(groupId)
+        if (groupId && !(groupOptions.includes(groupId))) groupOptions.push(groupId)
 
         let patientId = d['患者ID']
-        if(patientId && !(patientOptions.includes(patientId))) patientOptions.push(patientId)
+        if (patientId && !(patientOptions.includes(patientId))) patientOptions.push(patientId)
     })
 
     hot.updateSettings(updateSettings)
@@ -354,7 +354,7 @@ function addRow(data) {
     let temp = structuredClone(newData)
 
     let d = new Date()
-    let pcfNo = `P${d.getFullYear()}${d.getMonth()+1}${d.getDate()}${d.getHours()}${d.getMinutes()}${d.getSeconds()}${d.getMilliseconds()}`
+    let pcfNo = `P${d.getFullYear()}${d.getMonth() + 1}${d.getDate()}${d.getHours()}${d.getMinutes()}${d.getSeconds()}${d.getMilliseconds()}`
 
     temp.PCFNo = pcfNo
 
@@ -489,7 +489,7 @@ function editTable(isSave) {
 
     // existing patient
     let patientData = contentData.filter(d => { return d.PCFNo == currentPatient })[0]
-    
+
     for (let [k, v] of Object.entries(changedData)) {
         patientData[k] = v
         if (k === 'RelatedTo') patientData['relationship'] = v === 'なし' ? patientData['続柄'] : `${patientData['続柄']}<br>(${patientData['RelatedTo']})`
