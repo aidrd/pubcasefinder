@@ -669,7 +669,7 @@ h5 {
 .modal_content .button_wrap #add_column_input {
   border: solid 1px #d7d7d7;
   border-radius: 5px;
-  padding: 0.5em;
+  padding: 0 0.5em;
 }
 
 .modal_content .button_wrap .add {
