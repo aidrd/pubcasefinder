@@ -850,3 +850,8 @@ h5 {
 ::placeholder {
   color: #dadce0;
 }
+
+.search-header .search-header_wrapper {
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+}
