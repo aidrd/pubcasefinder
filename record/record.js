@@ -463,7 +463,9 @@ function showHideColumn(e) {
 }
 
 function removeCustomColumn(e) {
+    console.log(e)
     let element = document.getElementById(e)
+    console.log(element)
 
     delete dataSchema[e]
     delete dataColumns[e]

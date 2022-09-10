@@ -129,7 +129,7 @@ function addBodyRow() {
     bodyHot.alter('insert_row', bodyHot.countRows())
 }
 
-function resetData(type) {
+function resetData() {
     if (geneHot) {
         geneHeaders = []
         geneColumns = []
