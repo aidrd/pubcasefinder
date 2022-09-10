@@ -178,7 +178,7 @@ body {
 }
 
 #nav-left .home main {
-  padding: 1em 2em;
+  padding: 9em 2em 1em;
 }
 
 #nav-left .home main #home-menu {
@@ -202,7 +202,12 @@ body {
 #nav-left .home main #home-menu #table_menu span {
   display: inline-flex;
   align-items: center;
-  margin-left: 0.5em;
+  margin-left: 2px;
+  cursor: pointer;
+  padding: 0.3em 0.6em;
+  border: 1px solid #e6e6e6;
+  border-radius: 2em;
+  background: #fff;
 }
 
 #nav-left .home main #home-menu #table_menu #row_count {
@@ -617,14 +622,14 @@ h5 {
 }
 
 #myGrid {
-  min-height: 50vh;
+  min-height: 70vh;
   margin: auto;
   overflow: auto !important;
   background: #fff;
 }
 
 .ht_master > .wtHolder {
-  min-height: 50vh;
+  min-height: 70vh;
 }
 
 #modalGrid {
@@ -652,8 +657,8 @@ h5 {
   background: #fff;
   border-radius: 5px;
   position: absolute;
-  top: 15px;
-  right: -5px;
+  top: -16px;
+  right: 75px;
   box-shadow: 0 2px 15px 1px rgba(163, 163, 163, 0.2);
 }
 
@@ -669,7 +674,7 @@ h5 {
 }
 
 .modal_content .button_wrap .add {
-  padding: 7px 10px;
+  padding: 5px 10px;
   background: #F73859;
   border-radius: 5px;
   color: #fff;
@@ -781,6 +786,7 @@ h5 {
 #menu-tab .menu-links li #content-patients {
   display: inline-flex;
   font-weight: 500;
+  pointer-events: none;
 }
 
 #menu-tab .menu-links li #content-patients i {
@@ -803,6 +809,7 @@ h5 {
   margin: auto 0;
   margin-left: 5px;
   display: inline-flex;
+  cursor: pointer;
 }
 
 #menu-tab .side-content li i {
@@ -844,4 +851,13 @@ h5 {
 
 ::placeholder {
   color: #dadce0;
+}
+
+.search-header .search-header_wrapper {
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+}
+
+.wtHolder {
+  height: 70vh !important;
 }

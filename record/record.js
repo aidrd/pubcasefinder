@@ -206,7 +206,7 @@ function convertCSVToJSON(csv, isExport) {
 
     let patientsData = []
     let data = json.data
-    let notIncluded = [0, 1, 2]
+    let notIncluded = [0, 1]
     let headers = data[0]
 
     data.forEach((d, idx) => {
