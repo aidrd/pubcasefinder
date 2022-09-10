@@ -356,7 +356,7 @@ body {
 }
 
 #modal-karte .tab-wrap .show .form-table tbody tr th {
-  /* padding: 0.5em 0 0.5em 0; */
+  padding: 0.5em 0 0.5em 0;
   display: table-cell;
   vertical-align: middle;
   background: #fff;
@@ -854,4 +854,12 @@ h5 {
 .search-header .search-header_wrapper {
   padding-top: 0.5em;
   padding-bottom: 0.5em;
+}
+
+.modal_bg {
+  z-index: 9996 !important;
+}
+
+.modal_box {
+  z-index: 999 !important;
 }
