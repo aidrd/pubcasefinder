@@ -695,9 +695,16 @@ h5{
     background: #F2F3F4;
     line-height: 2em;
     width: auto;
+    .add_column_title{
+        color: #fff;
+        background: #000;
+        margin:1em 0 0.5em;
+        padding:0.5em 1em;
+    }
     div{
         display: flex;
         align-items: center;
+        margin-left: 1em;
         input{
             margin-bottom: 0;
         }
