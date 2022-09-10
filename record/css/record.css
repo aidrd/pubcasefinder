@@ -786,7 +786,7 @@ h5 {
 #menu-tab .menu-links li #content-patients {
   display: inline-flex;
   font-weight: 500;
-  pointer-events: none;
+  /* pointer-events: none; */
 }
 
 #menu-tab .menu-links li #content-patients i {
