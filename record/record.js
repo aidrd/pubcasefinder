@@ -18,7 +18,7 @@ let updateSettings = {
     colWidths(i) {
         return i < 2 ? 43 : 100
     },
-    fixedColumnsLeft: 3,
+    fixedColumnsLeft: 2,
     search: true,
     data: contentData,
     manualColumnMove: true,
