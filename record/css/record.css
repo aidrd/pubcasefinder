@@ -203,6 +203,7 @@ body {
   display: inline-flex;
   align-items: center;
   margin-left: 0.5em;
+  cursor: pointer;
 }
 
 #nav-left .home main #home-menu #table_menu #row_count {
@@ -352,7 +353,7 @@ body {
 }
 
 #modal-karte .tab-wrap .show .form-table tbody tr th {
-  /* padding: 0.5em 0 0.5em 0; */
+  padding: 0.5em 0 0.5em 0;
   display: table-cell;
   vertical-align: middle;
   background: #fff;
@@ -781,6 +782,7 @@ h5 {
 #menu-tab .menu-links li #content-patients {
   display: inline-flex;
   font-weight: 500;
+  pointer-events: none;
 }
 
 #menu-tab .menu-links li #content-patients i {
@@ -803,6 +805,7 @@ h5 {
   margin: auto 0;
   margin-left: 5px;
   display: inline-flex;
+  cursor: pointer;
 }
 
 #menu-tab .side-content li i {
