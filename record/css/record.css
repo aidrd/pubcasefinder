@@ -356,7 +356,7 @@ body {
 }
 
 #modal-karte .tab-wrap .show .form-table tbody tr th {
-  padding: 0.5em 0 0.5em 0;
+  /* padding: 0.5em 0 0.5em 0; */
   display: table-cell;
   vertical-align: middle;
   background: #fff;

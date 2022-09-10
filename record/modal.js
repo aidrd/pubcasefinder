@@ -34,7 +34,7 @@ function openModal(isNew) {
         });
 
         bodyData = {}
-        // bodyTable()
+        bodyTable()
         // geneData = {}
         // geneTable()
     });

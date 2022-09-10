@@ -81,19 +81,20 @@ function addGeneRow() {
 async function bodyTable() {
     resetData()
 
-    bodySchema = [{
+    bodySchema = {
         "日付": "",
         "体重": "",
         "身長": "",
         "頭囲": ""
-    }]
+    }
 
     if (currentPatient) {
         let patientData = contentData.filter(d => { return d.PCFNo == currentPatient })[0]
+        if (!patientData['身体情報']) patientData['身体情報'] = []
         bodyData = patientData['身体情報']
     }
 
-    bodyHeaders = Object.keys(bodySchema[0])
+    bodyHeaders = Object.keys(bodySchema)
     bodyColumns = []
 
     bodyHeaders.forEach((h, i) => {
