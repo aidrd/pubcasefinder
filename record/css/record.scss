@@ -190,7 +190,7 @@ body{
                     align-items: center;
                     margin-left: 2px;
                     cursor: pointer;
-                    padding: 0.3em 0.6em;
+                    padding: 0.3em 0.9em;
                     border: 1px solid #e6e6e6;
                     border-radius: 2em;
                     background: #fff;
@@ -572,9 +572,9 @@ body{
   }
   .panel{
     display: none;
-    position: fixed;
-    top: 155px;
-    right: 90px;
+    position: absolute;
+    top: 40px;
+    right: 0;
     z-index: 1000;
     width: 200px;
     margin-left: -30px;
@@ -659,7 +659,7 @@ h5{
       border-radius: 5px;
       position: absolute;
       top: -16px;
-    right: 75px;
+    right: 100px;
       box-shadow: 0 2px 15px 1px rgba(163, 163, 163, 0.2);
       .button_wrap{
         display: flex;
@@ -695,9 +695,16 @@ h5{
     background: #F2F3F4;
     line-height: 2em;
     width: auto;
+    .add_column_title{
+        color: #fff;
+        background: #000;
+        margin:1em 0 0.5em;
+        padding:0.5em 1em;
+    }
     div{
         display: flex;
         align-items: center;
+        margin-left: 1em;
         input{
             margin-bottom: 0;
         }
@@ -863,3 +870,5 @@ h5{
 .modal_box{
     z-index:999 !important;
 }
+
+
