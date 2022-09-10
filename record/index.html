@@ -612,6 +612,14 @@
             </div>
             <div class="tab-contents">
                 <p>ここに表現型情報が検索できます。</p>
+                <div style="width:65%;margin: 50px auto 0px auto;">
+                    <div class="search-box_wrapper">
+                        <div id="search_box_form"></div>
+                    </div>
+                    <div class="search-ex">
+                        <a href="#" id="ex_phenotypes">ex) {{ _('index_Sample') }}</a>
+                    </div>
+                </div>
             </div>
             <div class="tab-contents">
                 <p>
@@ -915,13 +923,14 @@
             var clickPanel = $("+.panel", this);
             clickPanel.toggle();
             $(".panel").not(clickPanel).slideUp(0);
-            $(".panel:visible").prev().css("background", "#ff5b77");
-            $(".panel:hidden").prev().css("background", "#F73859");
+            $(".panel:visible").prev().css("background", "#000");
+            $(".panel:hidden").prev().css("background", "#000");
             return false;
         });
 
     });
 </script>
+
 
 
 </html>
