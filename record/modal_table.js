@@ -10,7 +10,7 @@ let modalTableSettings = {
 let geneHot
 let geneSettings = structuredClone(modalTableSettings)
 let geneHeaders = [], geneColumns = []
-let geneSchema = {}, geneData = {}
+let geneSchema = {}, geneData = []
 let geneContainer = document.getElementById('geneModal')
 
 let bodyHot
@@ -20,62 +20,53 @@ let bodySchema = {}, bodyData = {}
 let bodyContainer = document.getElementById('bodyModal')
 
 async function geneTable() {
-    let data = [{
-        "Gene": "",
-        "Status": "",
-        "Strategy": "",
-        "Reference": "",
-        "Chr:Position": "",
-        "cDNA Change": "",
-        "Pathogenicity": "",
-        "Genotype": "",
-        "Transcript": "",
-        "Protein Change": "",
-        "Annotations": "",
-        "Inheritance": "",
-        "Evidence": "",
-        "Comments": ""
-    }]
+    let tempData = {}
 
-    getData('遺伝子型情報')
-
-    geneHeaders = Object.keys(data[0])
-    geneColumns = []
-
-    let geneSources = {
-        'Status': ['Rejected Candidate', 'Confirmed causa', 'Carrier', 'Tested Negative'],
-        'Strategy': ['Sequencing', 'Deletion/duplication', 'Familial mutation', 'Common mutations'],
-        'Reference': ['GRCh37 (hg19)', 'GRCh38 (hg38)', 'GRCh36 (hg18)'],
-        'Pathogenicity': ['Pathogenic', 'Likely Pathogenic', 'Varitant of Unknown Significance', 'Likely Benign', 'Benign', 'Investigation Needed'],
-        'Genotype': ['heterozygous', 'homozygous', 'hemizygous'],
-        'Annotations': ['missense', 'nonsense', 'insertion - in frame', 'insertion - frameshift', 'deletion - in frame', 'deletion - frameshift', 'indel - in frame', 'indel - frameshift', 'duplication', 'repeat expansion', 'synonymous', 'other'],
-        'Inheritance': ['de novo germline', 'de novo somatic mosaicism', 'maternal', 'paternal', 'unknown'],
-        'Evidence': ['Rare (MAF less than 0.01)', 'Predicted damaging by in silico models', 'Reported in other affected individuals']
-    }
-
-    geneHeaders.forEach((h, i) => {
-        if (!(Object.keys(geneSources).includes(h))) {
-            geneColumns.push({
-                data: h,
-            })
-        } else {
-            
-            geneColumns.push({
-                data: h,
-                type: 'dropdown',
-                source: geneSources[h]
-            })
-        }
+    let geneTypeInfo = columns.genotypeInfo
+    geneTypeInfo.forEach(g => {
+        geneSchema[g.columnName] = null
+        geneHeaders.push(g.columnName)
+        geneColumns.push({
+            data: g.columnName,
+            type: g.type,
+            source: g.options,
+            strict: true,
+            allowInvalid: false
+        })
     })
 
+    if (currentPatient) {
+        let patientData = contentData.filter(d => { return d.PCFNo == currentPatient })[0]
+        for (let [k, v] of Object.entries(patientData)) {
+            if (geneHeaders.includes(k)) {
+                tempData[k] = v
+            }
+        }
+    }
+
+    let keys = Object.keys(tempData)
+    if (keys.length > 0) {
+        for (let i = 0; i < tempData[keys[0]].length; i++) {
+            let gData = {}
+            keys.forEach(k => {
+                gData[k] = tempData[k][i]
+            })
+            geneData.push(gData)
+        }
+    }
+
     Object.assign(geneSettings, {
-        data: data,
+        data: geneData,
+        dataSchema: geneSchema,
         colHeaders: geneHeaders,
         columns: geneColumns,
+        colWidths: 130
     })
 
     if (!geneHot) {
         geneHot = new Handsontable(geneContainer, geneSettings)
+    } else {
+        geneHot.updateSettings(bodySettings)
     }
 }
 
@@ -91,11 +82,10 @@ async function bodyTable() {
         "頭囲": ""
     }]
 
-    getData('身体情報')
-    // if (currentPatient) {
-    //     let patientData = contentData.filter(d => { return d.PCFNo == currentPatient })[0]
-    //     bodyData = patientData['身体情報']
-    // }
+    if (currentPatient) {
+        let patientData = contentData.filter(d => { return d.PCFNo == currentPatient })[0]
+        bodyData = patientData['身体情報']
+    }
 
     bodyHeaders = Object.keys(bodySchema[0])
     bodyColumns = []
@@ -130,17 +120,4 @@ async function bodyTable() {
 
 function addBodyRow() {
     bodyHot.alter('insert_row', bodyHot.countRows())
-}
-
-function getData(key) {
-    if (!currentPatient) return
-
-    let patientData = contentData.filter(d => { return d.PCFNo == currentPatient })[0]
-
-    if (key === '身体情報') {
-        bodyData = patientData[key]
-    } else {
-        let tempData = []
-        console.log(patientData)
-    }
 }

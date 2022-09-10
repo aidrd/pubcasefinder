@@ -11,8 +11,7 @@ function openModal(isNew) {
     let pcfNo = `P${d.getFullYear()}${d.getMonth()+1}${d.getDate()}${d.getHours()}${d.getMinutes()}${d.getSeconds()}${d.getMilliseconds()}`
     if (isNew) document.getElementById('PCFNo').nextElementSibling.innerHTML = pcfNo
 
-    let cnt = hot.countRows() + 1
-    document.querySelector(`.tab-wrap *[name="patientID"]`).value = `P${cnt.toString().padStart(7, 0)}`
+    document.querySelector(`.tab-wrap *[name="patientID"]`).value = `P${count.toString().padStart(7, 0)}`
 
     modalResize();
     populateOptions('group_options')
