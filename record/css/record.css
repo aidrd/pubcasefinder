@@ -202,8 +202,12 @@ body {
 #nav-left .home main #home-menu #table_menu span {
   display: inline-flex;
   align-items: center;
-  margin-left: 0.5em;
+  margin-left: 2px;
   cursor: pointer;
+  padding: 0.3em 0.6em;
+  border: 1px solid #e6e6e6;
+  border-radius: 2em;
+  background: #fff;
 }
 
 #nav-left .home main #home-menu #table_menu #row_count {

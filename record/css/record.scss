@@ -188,8 +188,12 @@ body{
                 span{
                     display: inline-flex;
                     align-items: center;
-                    margin-left: 0.5em;
+                    margin-left: 2px;
                     cursor: pointer;
+                    padding: 0.3em 0.6em;
+                    border: 1px solid #e6e6e6;
+                    border-radius: 2em;
+                    background: #fff;
                 }
                 margin-left: auto;
                 #row_count{
