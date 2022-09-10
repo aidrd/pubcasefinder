@@ -48,7 +48,7 @@ async function geneTable() {
     }
 
     let keys = Object.keys(tempData)
-    if (keys.length > 0) {
+    if (keys.length > 0 && tempData[keys[0]]) {
         for (let i = 0; i < tempData[keys[0]].length; i++) {
             let gData = {}
             keys.forEach(k => {
