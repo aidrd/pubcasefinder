@@ -245,7 +245,8 @@ function createColumns() {
                     type: v.type,
                     source: v.options,
                     strict: true,
-                    allowInvalid: false
+                    allowInvalid: false,
+                    readOnly: false
                 }
 
                 if (v.type === 'date') {
@@ -462,15 +463,17 @@ function showHideColumn(e) {
 }
 
 function removeCustomColumn(e) {
-    delete dataSchema[e.id]
-    delete dataColumns[e.id]
+    let element = document.getElementById(e)
 
-    customColumns.splice(customColumns.indexOf(e.id), 1)
+    delete dataSchema[e]
+    delete dataColumns[e]
 
-    e.checked = false
-    showHideColumn(e)
+    customColumns.splice(customColumns.indexOf(e), 1)
 
-    e.parentElement.remove()
+    element.checked = false
+    showHideColumn(element)
+
+    element.parentElement.remove()
 }
 
 function editTable(isSave) {
