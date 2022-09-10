@@ -911,9 +911,13 @@
             tabContents.removeClass('show');
             tabContents.eq(elmIndex).addClass('show');
 
+            console.log($(tabContents.eq(elmIndex)).children('#geneModal')[0])
+
             if ($(tabContents.eq(elmIndex)).children('#geneModal')[0]) {
+                console.log('gene')
                 geneTable()
             } else if ($(tabContents.eq(elmIndex)).find('#bodyModal')[0]) {
+                console.log('body')
                 bodyTable()
             }
         });

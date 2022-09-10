@@ -23,6 +23,7 @@ let bodyContainer = document.getElementById('bodyModal')
 
 async function geneTable() {
     let tempData = {}
+    resetData()
 
     let geneTypeInfo = columns.genotypeInfo
     geneTypeInfo.forEach(g => {
@@ -68,7 +69,8 @@ async function geneTable() {
     if (!geneHot) {
         geneHot = new Handsontable(geneContainer, geneSettings)
     } else {
-        geneHot.updateSettings(bodySettings)
+        geneHot.updateSettings(geneSettings)
+        geneHot.render()
     }
 }
 
@@ -77,6 +79,8 @@ function addGeneRow() {
 }
 
 async function bodyTable() {
+    resetData()
+
     bodySchema = [{
         "日付": "",
         "体重": "",
@@ -117,9 +121,30 @@ async function bodyTable() {
         bodyHot = new Handsontable(bodyContainer, bodySettings)
     } else {
         bodyHot.updateSettings(bodySettings)
+        bodyHot.render()
     }
 }
 
 function addBodyRow() {
     bodyHot.alter('insert_row', bodyHot.countRows())
+}
+
+function resetData(type) {
+    if (geneHot) {
+        geneHeaders = []
+        geneColumns = []
+        geneSchema = {}
+        geneData = []
+        geneHot.updateSettings(bodySettings)
+        geneHot.render()
+    }
+
+    if (bodyHot) {
+        bodyHeaders = []
+        bodyColumns = []
+        bodySchema = {}
+        bodyData = {}
+        bodyHot.updateSettings(bodySettings)
+        bodyHot.render()
+    }
 }
