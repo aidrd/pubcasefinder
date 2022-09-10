@@ -619,14 +619,18 @@ h5{
   #import_btn { display: none; }
   
   #myGrid {
-      min-height: 50vh;
+      min-height: 70vh;
       margin: auto;
       overflow: auto !important;
       background: #fff;
   }
   
   .ht_master > .wtHolder {
-      min-height: 50vh;
+      min-height: 70vh;
+  }
+
+  .wtHolder{
+  height: 70vh;
   }
   
   #modalGrid {
