@@ -1,6 +1,7 @@
 let hot, exportPlugin, movePlugin
 let isAllChecked = true
 let toSave = false
+let count = 1
 
 let headers = [], colHeaders = [], existingHeaders = [], hiddenColumns = [], customColumns = []
 let dataSchema = {}, dataColumns = {}
@@ -358,8 +359,8 @@ function addRow(data) {
 
     temp.PCFNo = pcfNo
 
-    let cnt = hot.countRows() + 1
-    temp['患者ID'] = `P${cnt.toString().padStart(7, 0)}`
+    temp['患者ID'] = `P${count.toString().padStart(7, 0)}`
+    count++
 
     if (data) {
         for (let [k, v] of Object.entries(data)) {
@@ -463,6 +464,8 @@ function removeCustomColumn(e) {
     delete dataSchema[e.id]
     delete dataColumns[e.id]
 
+    customColumns.splice(customColumns.indexOf(e.id), 1)
+
     e.checked = false
     showHideColumn(e)
 
@@ -470,9 +473,10 @@ function removeCustomColumn(e) {
 }
 
 function editTable(isSave) {
-    // if (!isSave) {
-    //     if (!confirm('保存しますか？')) return resetData()
-    // }
+    if (!isSave) {
+        // if (!confirm('保存しますか？'))
+        return resetData()
+    }
 
     // new patient
     if (!currentPatient) {
