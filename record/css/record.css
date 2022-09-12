@@ -876,7 +876,6 @@ h5 {
 .genemodal_add {
   display: inline-flex;
   align-items: center;
-  margin-left: 2px;
   cursor: pointer;
   padding: 0.3em 0.9em;
   border-radius: 2em;
@@ -884,7 +883,7 @@ h5 {
   color: #fff;
 }
 
-.genemodal_add p {
+.genemodal_add h5 {
   display: inline-flex;
   cursor: pointer;
   font-size: 1em;
