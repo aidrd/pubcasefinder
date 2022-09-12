@@ -409,9 +409,6 @@ body{
                                 border: 1.5px solid #e3e3e3;
                                 border-radius: 0.3em;
                             }
-                            .input-top{
-                                margin-top: 0.5em;
-                            }
                             .birth_year{
                                 width: auto;
                             }
@@ -872,3 +869,7 @@ h5{
 }
 
 
+.row-3{
+    height: calc( 1.3em * 3 );
+    line-height: 1.3;
+}

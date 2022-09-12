@@ -356,7 +356,7 @@ body {
 }
 
 #modal-karte .tab-wrap .show .form-table tbody tr th {
-  /* padding: 0.5em 0 0.5em 0; */
+  padding: 0.5em 0 0.5em 0;
   display: table-cell;
   vertical-align: middle;
   background: #fff;
@@ -427,10 +427,6 @@ body {
   padding: 0.5em 1em;
   border: 1.5px solid #e3e3e3;
   border-radius: 0.3em;
-}
-
-#modal-karte .tab-wrap .show .form-table tbody tr td .input-top {
-  margin-top: 0.5em;
 }
 
 #modal-karte .tab-wrap .show .form-table tbody tr td .birth_year {
@@ -870,4 +866,9 @@ h5 {
 
 .modal_box {
   z-index: 999 !important;
+}
+
+.row-3 {
+  height: calc( 1.3em * 3);
+  line-height: 1.3;
 }
