@@ -888,3 +888,19 @@ h5 {
 #genemodal_add i {
   margin-right: 0.2em;
 }
+
+#bodyModal_add {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 0.3em 0.9em;
+  border-radius: 2em;
+  background: #000;
+  color: #fff;
+  margin-top: 0.5em;
+  float: left;
+}
+
+#bodyModal_add i {
+  margin-right: 0.2em;
+}
