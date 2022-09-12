@@ -897,6 +897,10 @@ h5 {
   border-radius: 0;
 }
 
+.genetic_list label {
+  margin-left: 0.85em;
+}
+
 .genetic_list details {
   display: flex;
 }
