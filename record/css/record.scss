@@ -366,6 +366,34 @@ body{
                             span {
                                 color: #888888;
                             }
+                            #bodyModal_add{
+                                display: inline-flex;
+                                align-items: center;
+                                cursor: pointer;
+                                padding: 0.3em 0.9em;
+                                border-radius: 2em;
+                                background: #000;
+                                color: #fff;
+                                margin-top: 0.5em;
+                                float: left;
+                                i{
+                                    margin-right: 0.2em;
+                                }
+                            }
+                            #genemodal_add{
+                                display: inline-flex;
+                                align-items: center;
+                                cursor: pointer;
+                                padding: 0.3em 0.9em;
+                                border-radius: 2em;
+                                background: #000;
+                                color: #fff;
+                                margin-top: 0.5em;
+                                float: left;
+                                i{
+                                    margin-right: 0.2em;
+                                }
+                            }
                         
                             .tag {
                                 display: grid;
@@ -875,32 +903,3 @@ h5{
 }
 
 
-#genemodal_add{
-    display: inline-flex;
-    align-items: center;
-    cursor: pointer;
-    padding: 0.3em 0.9em;
-    border-radius: 2em;
-    background: #000;
-    color: #fff;
-    margin-top: 0.5em;
-    float: left;
-    i{
-        margin-right: 0.2em;
-    }
-}
-
-#bodyModal_add{
-    display: inline-flex;
-    align-items: center;
-    cursor: pointer;
-    padding: 0.3em 0.9em;
-    border-radius: 2em;
-    background: #000;
-    color: #fff;
-    margin-top: 0.5em;
-    float: left;
-    i{
-        margin-right: 0.2em;
-    }
-}
