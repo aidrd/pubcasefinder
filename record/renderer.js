@@ -71,6 +71,13 @@ function editRenderer(instance, td, row, col, prop, value, cellProperties) {
                     $(`.tab-wrap input[name="${dataKey}"][value="${value ? '有' : '無'}"]`).prop('checked', true)
 
                     let textInput = $(`.tab-wrap input[name="${dataKey}-list"]`)
+                    // if (value === '無') {
+                    //     textInput.val('')
+                    //     textInput.hide()
+                    // } else {
+                    //     textInput.val(value)
+                    //     textInput.show()
+                    // }
                     if (value) textInput.val(value)
 
                     textInput.on('input', function() {
@@ -83,7 +90,12 @@ function editRenderer(instance, td, row, col, prop, value, cellProperties) {
 
                         if (radioValue === '無') {
                             textInput.val('')
+                            // textInput.hide()
                         }
+                        // else {
+                        //     textInput.val(value)
+                        //     textInput.show()
+                        // }
 
                         onchange(v.columnName, textInput.val())
                     })

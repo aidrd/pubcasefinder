@@ -11,14 +11,14 @@ let geneHot
 // let geneSettings = structuredClone(modalTableSettings)
 let geneSettings = JSON.parse(JSON.stringify(modalTableSettings))
 let geneHeaders = [], geneColumns = []
-let geneSchema = {}, geneData = []
+let geneSchema = {}, geneData = [], currentGeneData = []
 let geneContainer = document.getElementById('geneModal')
 
 let bodyHot
 // let bodySettings = structuredClone(modalTableSettings)
 let bodySettings = JSON.parse(JSON.stringify(modalTableSettings))
 let bodyHeaders = [], bodyColumns = []
-let bodySchema = {}, bodyData = {}
+let bodySchema = {}, bodyData = {}, currentBodyData = {}
 let bodyContainer = document.getElementById('bodyModal')
 
 async function geneTable() {
@@ -92,6 +92,7 @@ async function bodyTable() {
         let patientData = contentData.filter(d => { return d.PCFNo == currentPatient })[0]
         if (!patientData['身体情報']) patientData['身体情報'] = []
         bodyData = patientData['身体情報']
+        currentBodyData = JSON.parse(JSON.stringify(modalTableSettings))
     }
 
     bodyHeaders = Object.keys(bodySchema)
@@ -113,7 +114,7 @@ async function bodyTable() {
 
     Object.assign(bodySettings, {
         dataSchema: bodySchema,
-        data: bodyData,
+        data: currentBodyData,
         colHeaders: bodyHeaders,
         columns: bodyColumns,
     })

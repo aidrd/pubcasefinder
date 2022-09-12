@@ -35,8 +35,10 @@ function openModal(isNew) {
 
         bodyData = {}
         bodyTable()
-        // geneData = {}
-        // geneTable()
+    });
+
+    $('.modal-phenopackets').off().click(function (e) {
+        generatePhenopackets()
     });
 
     $(window).on('resize', function () {
@@ -110,4 +112,46 @@ function populateGroups() {
             tr.appendChild(td)
         })
     }
+}
+
+function generatePhenopackets() {
+    let patientData = contentData.filter(d => { return d.PCFNo == currentPatient })[0]    
+    if (!patientData) return
+
+    let vitalStatus = {
+        status: translate(patientData['状態'])
+    }
+
+    if (patientData['状態'] === '故人') {
+        vitalStatus.timeOfDeath = {
+            timestamp: patientData['没年月']
+        }
+    }
+
+    let phenopacket = {
+        phenopacket: {
+            id: patientData['グループ名'] || '',
+            subject: {
+                id: currentPatient,
+                sex: translate(patientData['性別']),
+                dateOfBirth: patientData['生年月'],
+                vitalStatus: vitalStatus
+            }
+        }
+    }
+
+    console.log('phenopacket', phenopacket)
+}
+
+let dictionary = {
+    '男性': 'MALE',
+    '女性': 'FEMALE',
+    '不明': 'UNKNOWN_STATUS',
+    '生存': 'ALIVE',
+    '故人': 'DECEASED'
+}
+
+function translate(word) {
+    if (!word) return ''
+    return dictionary[word]
 }
