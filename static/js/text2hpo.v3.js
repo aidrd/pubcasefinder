@@ -548,7 +548,7 @@ function _do_search_disease(){
 	//let url = "https://pubcasefinder.dbcls.jp/search_disease/phenotype:" + 
 	let url = "https://pubcasefinder.dbcls.jp/result?phenotype=" + 
 			  hpo_lst.join('_ja%2C') +'_ja'+
-			  "&target=omim&filter=&size=10&display_format=full";
+			  "&target=omim&filter=&size=10&display_format=full&lang=ja";
 	window.open(url);
 	//var form = document.createElement('form');
 	//form.action = url;
