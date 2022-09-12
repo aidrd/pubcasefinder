@@ -465,12 +465,12 @@ body {
   border-radius: 0;
 }
 
-#modal-karte .tab-wrap .show .form-table tbody tr td .genetic_list li label input {
-  margin-left: 1em;
+#modal-karte .tab-wrap .show .form-table tbody tr td .genetic_list details {
+  display: flex;
 }
 
-#modal-karte .tab-wrap .show .form-table tbody tr td .genetic_list ol {
-  margin-left: 2em;
+#modal-karte .tab-wrap .show .form-table tbody tr td .genetic_list label {
+  display: block;
 }
 
 #modal-karte .tab-wrap .show .form-table tbody tr #group_wrap {

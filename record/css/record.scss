@@ -438,15 +438,11 @@ body{
                                 background: none;
                                 color: #000;
                                 border-radius: 0;
-                                li{
-                                    label{
-                                        input{
-                                            margin-left: 1em; 
-                                        }
-                                    }
+                                details{
+                                    display: flex;
                                 }
-                                ol{
-                                    margin-left: 2em;
+                                label{
+                                    display: block;
                                 }
                             }
                         }
