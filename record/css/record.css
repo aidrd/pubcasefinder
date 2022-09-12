@@ -873,7 +873,7 @@ h5 {
   line-height: 1.3;
 }
 
-.genemodal_add {
+#genemodal_add {
   display: inline-flex;
   align-items: center;
   cursor: pointer;
@@ -881,12 +881,9 @@ h5 {
   border-radius: 2em;
   background: #000;
   color: #fff;
-  font-size: 1em;
+  margin-top: 0.5em;
 }
 
-.genemodal_add h5 {
-  display: inline-flex;
-  cursor: pointer;
-  font-size: 1em;
-  font-weight: 500;
+#genemodal_add i {
+  margin-right: 0.2em;
 }
