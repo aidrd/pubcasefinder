@@ -945,7 +945,9 @@
 			'url_tokeninput_hpo_second':	'/pcf_get_hpo_by_text',
 			'url_popup_hierarchy_hpo':		'/popup_hierarchy_hpo',
 			'url_load_hpo_data':			'/get_hpo_data_by_hpo_id',
+{% if r_lang %}
 			'lang':							"{{ r_lang }}",
+{% endif %}
 			'form_para_target':				"{{ r_target }}",
 			'form_para_filter':				"{{ r_filter }}",
 			'form_para_size':				"{{ r_size }}",
@@ -1126,12 +1128,6 @@
 			set_filter_num();
 			set_filter_vgp_num();
 		});
-
-
-
-
-
-
 
 		$('[data-toggle="tooltip"]').tooltip({'trigger':'hover'});
 
