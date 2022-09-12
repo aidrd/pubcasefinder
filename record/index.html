@@ -12,6 +12,10 @@
     <link rel='stylesheet' href="../static/css/pcf/branc-ie7.css">
     <link rel='stylesheet' href="../static/css/pcf/branc-ie7-codes.css">
     <link rel='stylesheet' href="../static/css/pcf/branc-embedded.css">
+    <link rel='stylesheet' href="css/branc.css">
+    <link rel='stylesheet' href="css/branc-ie7.css">
+    <link rel='stylesheet' href="css/branc-ie7-codes.css">
+    <link rel='stylesheet' href="css/branc-embedded.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.1/css/swiper.min.css">
     <link href="../static/css/pcf/remodal.css" rel="stylesheet">
@@ -643,15 +647,13 @@
                         </tr>
                         <tr>
                             <th id="genetic-form">遺伝形式</th>
-                            <td>
-                                <ul class="genetic_list">
-                                    <li>
-                                        <label for="sporadic">
-                                            <input id="sporadic" type="radio" name="genetic_list" value="sporadic"
-                                                data-columnname="sporadic">Sporadic
-                                        </label>
-                                    </li>
-                                    <li>
+                            <td class="genetic_list">
+                                <label for="sporadic">
+                                    <input id="sporadic" type="radio" name="genetic_list" value="sporadic"
+                                        data-columnname="sporadic">Sporadic
+                                </label>
+                                <details>
+                                    <summary>
                                         <label for="autosomal_dominant_inheritance">
                                             <input id="autosomal_dominant_inheritance" type="radio" name="genetic_list"
                                                 value="autosomal_dominant_inheritance"
@@ -659,128 +661,99 @@
                                             dominant
                                             inheritance
                                         </label>
-                                    </li>
-                                    <ol>
-                                        <li>
-                                            <label for="sex_limited_autosomal_dominant">
-                                                <input id="sex_limited_autosomal_dominant" type="radio"
-                                                    name="genetic_list" value="sex_limited_autosomal_dominant"
-                                                    data-columnname="">Sex-limited
-                                                autosomal dominant
-                                            </label>
-                                        </li>
-                                        <li>
-                                            <label for="autosomal_dominant_somatic_cell_mutation">
-                                                <input id="autosomal_dominant_somatic_cell_mutation" type="radio"
-                                                    name="genetic_list" value="autosomal_dominant_somatic_cell_mutation"
-                                                    data-columnname="autosomal_dominant_somatic_cell_mutation">
-                                                Autosomal
-                                                dominant somatic cell mutation
-                                            </label>
-                                        </li>
-                                        <li>
-                                            <label for="autosomal_dominant_contiguous_gene_syndrome">
-                                                <input id="autosomal_dominant_contiguous_gene_syndrome" type="radio"
-                                                    name="genetic_list"
-                                                    value="autosomal_dominant_contiguous_gene_syndrome"
-                                                    data-columnname="autosomal_dominant_contiguous_gene_syndrome">Autosomal
-                                                dominant contiguous gene syndrome
-                                            </label>
-                                        </li>
-                                    </ol>
-                                    <li>
-                                        <label for="autosomal_recessive_inheritance">
-                                            <input id="autosomal_recessive_inheritance" type="radio" name="genetic_list"
-                                                value="autosomal_recessive_inheritance"
-                                                data-columnname="autosomal_recessive_inheritance">Autosomal
-                                            recessive inheritance
-                                        </label>
-                                    </li>
-                                    <li>
+                                    </summary>
+                                    <label for="sex_limited_autosomal_dominant">
+                                        <input id="sex_limited_autosomal_dominant" type="radio" name="genetic_list"
+                                            value="sex_limited_autosomal_dominant" data-columnname="">Sex-limited
+                                        autosomal dominant
+                                    </label>
+                                    <label for="autosomal_dominant_somatic_cell_mutation">
+                                        <input id="autosomal_dominant_somatic_cell_mutation" type="radio"
+                                            name="genetic_list" value="autosomal_dominant_somatic_cell_mutation"
+                                            data-columnname="autosomal_dominant_somatic_cell_mutation">
+                                        Autosomal
+                                        dominant somatic cell mutation
+                                    </label>
+                                    <label for="autosomal_dominant_contiguous_gene_syndrome">
+                                        <input id="autosomal_dominant_contiguous_gene_syndrome" type="radio"
+                                            name="genetic_list" value="autosomal_dominant_contiguous_gene_syndrome"
+                                            data-columnname="autosomal_dominant_contiguous_gene_syndrome">
+                                        Autosomal
+                                        dominant contiguous gene syndrome
+                                    </label>
+                                </details>
+                                <label for="autosomal_recessive_inheritance">
+                                    <input id="autosomal_recessive_inheritance" type="radio" name="genetic_list"
+                                        value="autosomal_recessive_inheritance"
+                                        data-columnname="autosomal_recessive_inheritance">
+                                    Autosomal
+                                    recessive inheritance
+                                </label>
+                                <details>
+                                    <summary>
                                         <label for="gonosomal_inheritance">
                                             <input id="gonosomal_inheritance" type="radio" name="genetic_list"
                                                 value="gonosomal_inheritance"
                                                 data-columnname="gonosomal_inheritance">Gonosomal
                                             inheritance
                                         </label>
-                                    </li>
-                                    <ol>
-                                        <li>
-                                            <label for="x_linked_inheritance">
-                                                <input id="x_linked_inheritance" type="radio" name="genetic_list"
-                                                    value="x_linked_inheritance"
-                                                    data-columnname="x_linked_inheritance">X-linked
-                                                inheritance
-                                            </label>
-                                        </li>
-                                        <li>
-                                            <label for="x_linked_dominant_inheritance">
-                                                <input id="x_linked_dominant_inheritance" type="radio"
-                                                    name="genetic_list" value="x_linked_dominant_inheritance"
-                                                    data-columnname="x_linked_dominant_inheritance">X-linked
-                                                dominant inheritance
-                                            </label>
-                                        </li>
-                                        <li>
-                                            <label for="x_linked_recessive_inheritance">
-                                                <input id="x_linked_recessive_inheritance" type="radio"
-                                                    name="genetic_list" value="x_linked_recessive_inheritance"
-                                                    data-columnname="x_linked_recessive_inheritance">X-linked
-                                                recessive inheritance
-                                            </label>
-                                        </li>
-                                        <li>
-                                            <label for="y_linked_inheritance">
-                                                <input id="y_linked_inheritance" type="radio" name="genetic_list"
-                                                    value="y_linked_inheritance"
-                                                    data-columnname="y_linked_inheritance">Y-linked
-                                                inheritance
-                                            </label>
-                                        </li>
-                                    </ol>
-                                    <li>
+                                    </summary>
+                                    <label for="x_linked_inheritance">
+                                        <input id="x_linked_inheritance" type="radio" name="genetic_list"
+                                            value="x_linked_inheritance" data-columnname="x_linked_inheritance">X-linked
+                                        inheritance
+                                    </label>
+                                    <label for="x_linked_dominant_inheritance">
+                                        <input id="x_linked_dominant_inheritance" type="radio" name="genetic_list"
+                                            value="x_linked_dominant_inheritance"
+                                            data-columnname="x_linked_dominant_inheritance">X-linked
+                                        dominant inheritance
+                                    </label>
+                                    <label for="x_linked_recessive_inheritance">
+                                        <input id="x_linked_recessive_inheritance" type="radio" name="genetic_list"
+                                            value="x_linked_recessive_inheritance"
+                                            data-columnname="x_linked_recessive_inheritance">X-linked
+                                        recessive inheritance
+                                    </label>
+                                    <label for="y_linked_inheritance">
+                                        <input id="y_linked_inheritance" type="radio" name="genetic_list"
+                                            value="y_linked_inheritance" data-columnname="y_linked_inheritance">Y-linked
+                                        inheritance
+                                    </label>
+                                </details>
+                                <details>
+                                    <summary>
                                         <label for="multifactorial_inheritance">
                                             <input id="multifactorial_inheritance" type="radio" name="genetic_list"
                                                 value="multifactorial_inheritance"
                                                 data-columnname="multifactorial_inheritance">Multifactorial
                                             inheritance
                                         </label>
-                                    </li>
-                                    <ol>
-                                        <li>
-                                            <label for="digenic_inheritance">
-                                                <input id="digenic_inheritance" type="radio" name="genetic_list"
-                                                    value="digenic_inheritance"
-                                                    data-columnname="digenic_inheritance">Digenic
-                                                inheritance
-                                            </label>
-                                        </li>
-                                        <li>
-                                            <label for="oligogenic_inheritance">
-                                                <input id="oligogenic_inheritance" type="radio" name="genetic_list"
-                                                    value="oligogenic_inheritance"
-                                                    data-columnname="oligogenic_inheritance">Oligogenic
-                                                inheritance
-                                            </label>
-                                        </li>
-                                        <li>
-                                            <label for="polygenic_inheritance">
-                                                <input id="polygenic_inheritance" type="radio" name="genetic_list"
-                                                    value="polygenic_inheritance"
-                                                    data-columnname="polygenic_inheritance">Polygenic
-                                                inheritance
-                                            </label>
-                                        </li>
-                                    </ol>
-                                    <li>
-                                        <label for="mitochondrialx_inheritance">
-                                            <input id="mitochondrialx_inheritance" type="radio" name="genetic_list"
-                                                value="mitochondrialx_inheritance"
-                                                data-columnname="mitochondrialx_inheritance">Mitochondrial
-                                            inheritance
-                                        </label>
-                                    </li>
-                                </ul>
+                                    </summary>
+                                    <label for="digenic_inheritance">
+                                        <input id="digenic_inheritance" type="radio" name="genetic_list"
+                                            value="digenic_inheritance" data-columnname="digenic_inheritance">Digenic
+                                        inheritance
+                                    </label>
+                                    <label for="oligogenic_inheritance">
+                                        <input id="oligogenic_inheritance" type="radio" name="genetic_list"
+                                            value="oligogenic_inheritance"
+                                            data-columnname="oligogenic_inheritance">Oligogenic
+                                        inheritance
+                                    </label>
+                                    <label for="polygenic_inheritance">
+                                        <input id="polygenic_inheritance" type="radio" name="genetic_list"
+                                            value="polygenic_inheritance"
+                                            data-columnname="polygenic_inheritance">Polygenic
+                                        inheritance
+                                    </label>
+                                </details>
+                                <label for="mitochondrialx_inheritance">
+                                    <input id="mitochondrialx_inheritance" type="radio" name="genetic_list"
+                                        value="mitochondrialx_inheritance"
+                                        data-columnname="mitochondrialx_inheritance">Mitochondrial
+                                    inheritance
+                                </label>
                             </td>
                         </tr>
                         <tr>

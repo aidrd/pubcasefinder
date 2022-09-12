@@ -457,22 +457,6 @@ body {
   color: #e3e3e3;
 }
 
-#modal-karte .tab-wrap .show .form-table tbody tr td .genetic_list {
-  line-height: 1.5em;
-  display: block;
-  background: none;
-  color: #000;
-  border-radius: 0;
-}
-
-#modal-karte .tab-wrap .show .form-table tbody tr td .genetic_list li label input {
-  margin-left: 1em;
-}
-
-#modal-karte .tab-wrap .show .form-table tbody tr td .genetic_list ol {
-  margin-left: 2em;
-}
-
 #modal-karte .tab-wrap .show .form-table tbody tr #group_wrap {
   display: flex;
 }
@@ -795,6 +779,7 @@ h5 {
 
 #menu-tab .menu-links {
   margin: auto 0;
+  pointer-events: none;
 }
 
 #menu-tab .menu-links li a {
@@ -903,4 +888,28 @@ h5 {
 
 #genemodal_add i {
   margin-right: 0.2em;
+}
+
+.genetic_list {
+  line-height: 1.5em;
+  display: block;
+  background: none;
+  color: #000;
+  border-radius: 0;
+}
+
+.genetic_list label {
+  margin-left: 0.85em;
+}
+
+.genetic_list details {
+  display: flex;
+}
+
+.genetic_list details summary label {
+  margin-left: 0;
+}
+
+.genetic_list details label {
+  margin-left: 2em;
 }
