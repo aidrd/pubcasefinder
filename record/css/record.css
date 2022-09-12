@@ -779,6 +779,7 @@ h5 {
 
 #menu-tab .menu-links {
   margin: auto 0;
+  pointer-events: none;
 }
 
 #menu-tab .menu-links li a {

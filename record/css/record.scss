@@ -771,6 +771,7 @@ h5{
     padding: 0.7em 2em;
     .menu-links{
         margin: auto 0;
+        pointer-events: none;
         li{
             a{
                 display: inline-flex;
