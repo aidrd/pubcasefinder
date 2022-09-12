@@ -252,3 +252,19 @@
   background: blue;
 }
 
+
+.text2hpo-button {
+    border: solid 1px #AEB0B5;
+    border-radius: 5px;
+    color: black;
+    padding: 5px;
+    display: inline-block;
+    justify-content: center;
+    align-items: center;
+    /*margin-left: auto;*/
+}
+
+.text2hpo-button img {
+    height: 20px;
+    width:  20px;
+}

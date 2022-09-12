@@ -24,14 +24,18 @@
 				'sample_label': {
 					[OBSERVED_Y] : 'Observed',
 					[OBSERVED_N] : 'Not Observed'
-				}
+				},
+				'TEXT2HPO_URL': 'https://doc2hpo.wglab.org/',
+				'TEXT2HPO_BTN_TITLE': 'Input Free-Text (doc2hpo)'
 			},
 			[LANGUAGE_JA] : {
 				'placeholder' : 'Import Human Phenotype Onotology(HPO) Term Ids. You can extract multiple HPO term ids from any kind of textual input. HPO term ids must satisfy the format HP:xxxxxxx to be recognized.',
 				'sample_label': {
 					[OBSERVED_Y] : '症状あり',
 					[OBSERVED_N] : '症状なし'
-				}
+				},
+                'TEXT2HPO_URL': '/ehr',
+                'TEXT2HPO_BTN_TITLE': '文章から症状を自動抽出'
 			}
 		}	
 	;
@@ -151,9 +155,20 @@
 		$('<span>').attr('id', 'text-input-loader-text').appendTo($div_loader_wrapper);
 
         // modal content
-		var $modal_header  = $('<div>').addClass('modal-header p-0').appendTo($modal_content);
+		var $modal_header  = $('<div>').addClass('modal-header p-0 d-flex flex-row').appendTo($modal_content);
 		$('<h5><img src=\"/static/images/pcf/HPOID.svg\"></img> Extract Phenotypes And Human Phenotype Ontology Term Ids From Free-Text</h5>')
-			.addClass('modal-title').attr('id','text-input-modal-title').appendTo($modal_header);
+			.addClass('modal-title').addClass('flex-fill').attr('id','text-input-modal-title').appendTo($modal_header);
+		let lng = current_settings.language === LANGUAGE_JA ? LANGUAGE_JA : LANGUAGE_EN;
+		let $text2hpo_btn = $('<button>').addClass('text2hpo-button')
+										.data('TEXT2HPO_URL', LANGUAGE[lng]['TEXT2HPO_URL'])
+										.click(function(){window.open($(this).data('TEXT2HPO_URL'),'_blank');})
+										.appendTo($modal_header);
+        $('<img>').attr({
+                'src':            '/static/images/pcf/text_black.svg',
+                'data-toggle':    'tooltip',
+                'data-placement': 'top',
+                'title':          LANGUAGE[lng]['TEXT2HPO_BTN_TITLE']
+        }).appendTo($text2hpo_btn);
 
 		var $modal_body = $('<div>').addClass('modal-body m-0 p-0 d-flex justify-content-between').appendTo($modal_content);		
 
