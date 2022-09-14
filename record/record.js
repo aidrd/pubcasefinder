@@ -415,9 +415,9 @@ function addColumn() {
 
     modal.style.display = 'block'
 
-    document.querySelector('.close_modal').onclick = () => {
-        closeAddColumnModal()
-    }
+    // document.querySelector('.close_modal').onclick = () => {
+    //     closeAddColumnModal()
+    // }
 
     modal.onclick = (e) => {
         if (!e.target.closest('.modal_content')) closeAddColumnModal()
