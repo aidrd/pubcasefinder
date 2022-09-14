@@ -12,6 +12,10 @@
     <link rel='stylesheet' href="../static/css/pcf/branc-ie7.css">
     <link rel='stylesheet' href="../static/css/pcf/branc-ie7-codes.css">
     <link rel='stylesheet' href="../static/css/pcf/branc-embedded.css">
+    <link rel='stylesheet' href="css/branc.css">
+    <link rel='stylesheet' href="css/branc-ie7.css">
+    <link rel='stylesheet' href="css/branc-ie7-codes.css">
+    <link rel='stylesheet' href="css/branc-embedded.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.1/css/swiper.min.css">
     <link href="../static/css/pcf/remodal.css" rel="stylesheet">
@@ -441,7 +445,7 @@
                         <tr>
                             <th id="Note">備考</th>
                             <td>
-                                <textarea name="Note" cols="30" rows="10" data-columnname="概要"
+                                <textarea name="Note" cols="30" rows="5" data-columnname="概要"
                                     placeholder="ex)テキスト備考"></textarea>
                             </td>
                         </tr>
@@ -480,28 +484,29 @@
                         </tr>
                         <tr>
                             <th id="current-medical-history">現病歴</th>
-                            <td><input type="text" name="current-medical-history" value="" placeholder="ex)現病歴"
-                                    data-columnname="現病歴">
+                            <td><textarea type="text" name="current-medical-history" value="" placeholder="ex)現病歴"
+                                    data-columnname="現病歴" rows="3"></textarea>
                             </td>
                         </tr>
                         <tr>
                             <th id="previous-medical-history">既往歴</th>
-                            <td><input type="text" name="previous-medical-history" value="" placeholder="ex)既往歴"
-                                    data-columnname="既往歴">
+                            <td><textarea type="text" name="previous-medical-history" value="" placeholder="ex)既往歴"
+                                    data-columnname="既往歴" rows="3"></textarea>
                             </td>
                         </tr>
                         <tr>
                             <th id="prenatal-perinatal-history">
                                 出生前および周産期の病歴</th>
-                            <td><input type="text" name="prenatal-perinatal-history" value=""
-                                    placeholder="ex)出生前および周産期の病歴" data-columnname="出生前および周産期の病歴">
+                            <td><textarea type="text" name="prenatal-perinatal-history" value=""
+                                    placeholder="ex)出生前および周産期の病歴" data-columnname="出生前および周産期の病歴" rows="3"></textarea>
                             </td>
                         </tr>
                         <tr>
                             <th id="early-developmental-and-schooling-history">
                                 生育歴および教育歴</th>
-                            <td><input type="text" name="early-developmental-and-schooling-history" value=""
-                                    placeholder="ex)生育歴および教育歴" data-columnname="生育歴および教育歴">
+                            <td><textarea type="text" name="early-developmental-and-schooling-history" value=""
+                                    placeholder="ex)生育歴および教育歴" data-columnname="生育歴および教育歴" rows="3">
+                                </textarea>
                             </td>
                         </tr>
                         <tr>
@@ -555,14 +560,15 @@
                             <th id="body-data">身体情報</th>
                             <td>
                                 <div id="bodyModal"></div>
-                                <i class="material-icons-outlined" onclick="addBodyRow()">add_circle_outline</i></p>
+                                <span id="bodyModal_add" onclick="addBodyRow()">
+                                    <i class="material-icons-outlined">add_circle_outline</i>追加</span>
                             </td>
                         </tr>
                         <tr>
                             <th id="social-history">社会歴</th>
                             <td>
-                                <input class="input-top" type="text" name="social-history" value="" placeholder="ex)社会歴"
-                                    data-columnname="社会歴">
+                                <textarea type="text" name="social-history" value="" placeholder="ex)社会歴"
+                                    data-columnname="社会歴" rows="3"></textarea>
                             </td>
                         </tr>
                         <tr>
@@ -601,8 +607,8 @@
                         </tr>
                         <tr>
                             <th id="vaccination-history">渡航歴</th>
-                            <td><input type="text" name="vaccination-history" size="60" value="" placeholder="ex)渡航歴"
-                                    data-columnname="渡航歴">
+                            <td><textarea type="text" name="vaccination-history" size="60" value="" placeholder="ex)渡航歴"
+                                    data-columnname="渡航歴" rows="3"></textarea>
                             </td>
                         </tr>
                     </tbody>
@@ -622,7 +628,12 @@
             <div class="tab-contents">
                 <p>
                 <div id="geneModal"></div>
-                <i class="material-icons-outlined" onclick="addGeneRow()">add_circle_outline</i></p>
+                <span id="genemodal_add" onclick="addGeneRow()">
+                    <i class="material-icons-outlined">add_circle_outline
+                    </i>
+                    追加
+                </span>
+                </p>
             </div>
             <div class="tab-contents">
                 <table class="form-table">
@@ -630,21 +641,19 @@
                         <tr>
                             <th id="family-info">家族歴</th>
                             <td>
-                                <textarea name="family-info" cols="30" rows="10"
+                                <textarea name="family-info" cols="30" rows="5"
                                     placeholder="家族で見つかった健康状態を一覧表示する/発端者との関係を説明する" data-columnname="家族情報"></textarea>
                             </td>
                         </tr>
                         <tr>
                             <th id="genetic-form">遺伝形式</th>
-                            <td>
-                                <ul class="genetic_list">
-                                    <li>
-                                        <label for="sporadic">
-                                            <input id="sporadic" type="radio" name="genetic_list" value="sporadic"
-                                                data-columnname="sporadic">Sporadic
-                                        </label>
-                                    </li>
-                                    <li>
+                            <td class="genetic_list">
+                                <label for="sporadic">
+                                    <input id="sporadic" type="radio" name="genetic_list" value="sporadic"
+                                        data-columnname="sporadic">Sporadic
+                                </label>
+                                <details>
+                                    <summary>
                                         <label for="autosomal_dominant_inheritance">
                                             <input id="autosomal_dominant_inheritance" type="radio" name="genetic_list"
                                                 value="autosomal_dominant_inheritance"
@@ -652,128 +661,99 @@
                                             dominant
                                             inheritance
                                         </label>
-                                    </li>
-                                    <ol>
-                                        <li>
-                                            <label for="sex_limited_autosomal_dominant">
-                                                <input id="sex_limited_autosomal_dominant" type="radio"
-                                                    name="genetic_list" value="sex_limited_autosomal_dominant"
-                                                    data-columnname="">Sex-limited
-                                                autosomal dominant
-                                            </label>
-                                        </li>
-                                        <li>
-                                            <label for="autosomal_dominant_somatic_cell_mutation">
-                                                <input id="autosomal_dominant_somatic_cell_mutation" type="radio"
-                                                    name="genetic_list" value="autosomal_dominant_somatic_cell_mutation"
-                                                    data-columnname="autosomal_dominant_somatic_cell_mutation">
-                                                Autosomal
-                                                dominant somatic cell mutation
-                                            </label>
-                                        </li>
-                                        <li>
-                                            <label for="autosomal_dominant_contiguous_gene_syndrome">
-                                                <input id="autosomal_dominant_contiguous_gene_syndrome" type="radio"
-                                                    name="genetic_list"
-                                                    value="autosomal_dominant_contiguous_gene_syndrome"
-                                                    data-columnname="autosomal_dominant_contiguous_gene_syndrome">Autosomal
-                                                dominant contiguous gene syndrome
-                                            </label>
-                                        </li>
-                                    </ol>
-                                    <li>
-                                        <label for="autosomal_recessive_inheritance">
-                                            <input id="autosomal_recessive_inheritance" type="radio" name="genetic_list"
-                                                value="autosomal_recessive_inheritance"
-                                                data-columnname="autosomal_recessive_inheritance">Autosomal
-                                            recessive inheritance
-                                        </label>
-                                    </li>
-                                    <li>
+                                    </summary>
+                                    <label for="sex_limited_autosomal_dominant">
+                                        <input id="sex_limited_autosomal_dominant" type="radio" name="genetic_list"
+                                            value="sex_limited_autosomal_dominant" data-columnname="">Sex-limited
+                                        autosomal dominant
+                                    </label>
+                                    <label for="autosomal_dominant_somatic_cell_mutation">
+                                        <input id="autosomal_dominant_somatic_cell_mutation" type="radio"
+                                            name="genetic_list" value="autosomal_dominant_somatic_cell_mutation"
+                                            data-columnname="autosomal_dominant_somatic_cell_mutation">
+                                        Autosomal
+                                        dominant somatic cell mutation
+                                    </label>
+                                    <label for="autosomal_dominant_contiguous_gene_syndrome">
+                                        <input id="autosomal_dominant_contiguous_gene_syndrome" type="radio"
+                                            name="genetic_list" value="autosomal_dominant_contiguous_gene_syndrome"
+                                            data-columnname="autosomal_dominant_contiguous_gene_syndrome">
+                                        Autosomal
+                                        dominant contiguous gene syndrome
+                                    </label>
+                                </details>
+                                <label for="autosomal_recessive_inheritance">
+                                    <input id="autosomal_recessive_inheritance" type="radio" name="genetic_list"
+                                        value="autosomal_recessive_inheritance"
+                                        data-columnname="autosomal_recessive_inheritance">
+                                    Autosomal
+                                    recessive inheritance
+                                </label>
+                                <details>
+                                    <summary>
                                         <label for="gonosomal_inheritance">
                                             <input id="gonosomal_inheritance" type="radio" name="genetic_list"
                                                 value="gonosomal_inheritance"
                                                 data-columnname="gonosomal_inheritance">Gonosomal
                                             inheritance
                                         </label>
-                                    </li>
-                                    <ol>
-                                        <li>
-                                            <label for="x_linked_inheritance">
-                                                <input id="x_linked_inheritance" type="radio" name="genetic_list"
-                                                    value="x_linked_inheritance"
-                                                    data-columnname="x_linked_inheritance">X-linked
-                                                inheritance
-                                            </label>
-                                        </li>
-                                        <li>
-                                            <label for="x_linked_dominant_inheritance">
-                                                <input id="x_linked_dominant_inheritance" type="radio"
-                                                    name="genetic_list" value="x_linked_dominant_inheritance"
-                                                    data-columnname="x_linked_dominant_inheritance">X-linked
-                                                dominant inheritance
-                                            </label>
-                                        </li>
-                                        <li>
-                                            <label for="x_linked_recessive_inheritance">
-                                                <input id="x_linked_recessive_inheritance" type="radio"
-                                                    name="genetic_list" value="x_linked_recessive_inheritance"
-                                                    data-columnname="x_linked_recessive_inheritance">X-linked
-                                                recessive inheritance
-                                            </label>
-                                        </li>
-                                        <li>
-                                            <label for="y_linked_inheritance">
-                                                <input id="y_linked_inheritance" type="radio" name="genetic_list"
-                                                    value="y_linked_inheritance"
-                                                    data-columnname="y_linked_inheritance">Y-linked
-                                                inheritance
-                                            </label>
-                                        </li>
-                                    </ol>
-                                    <li>
+                                    </summary>
+                                    <label for="x_linked_inheritance">
+                                        <input id="x_linked_inheritance" type="radio" name="genetic_list"
+                                            value="x_linked_inheritance" data-columnname="x_linked_inheritance">X-linked
+                                        inheritance
+                                    </label>
+                                    <label for="x_linked_dominant_inheritance">
+                                        <input id="x_linked_dominant_inheritance" type="radio" name="genetic_list"
+                                            value="x_linked_dominant_inheritance"
+                                            data-columnname="x_linked_dominant_inheritance">X-linked
+                                        dominant inheritance
+                                    </label>
+                                    <label for="x_linked_recessive_inheritance">
+                                        <input id="x_linked_recessive_inheritance" type="radio" name="genetic_list"
+                                            value="x_linked_recessive_inheritance"
+                                            data-columnname="x_linked_recessive_inheritance">X-linked
+                                        recessive inheritance
+                                    </label>
+                                    <label for="y_linked_inheritance">
+                                        <input id="y_linked_inheritance" type="radio" name="genetic_list"
+                                            value="y_linked_inheritance" data-columnname="y_linked_inheritance">Y-linked
+                                        inheritance
+                                    </label>
+                                </details>
+                                <details>
+                                    <summary>
                                         <label for="multifactorial_inheritance">
                                             <input id="multifactorial_inheritance" type="radio" name="genetic_list"
                                                 value="multifactorial_inheritance"
                                                 data-columnname="multifactorial_inheritance">Multifactorial
                                             inheritance
                                         </label>
-                                    </li>
-                                    <ol>
-                                        <li>
-                                            <label for="digenic_inheritance">
-                                                <input id="digenic_inheritance" type="radio" name="genetic_list"
-                                                    value="digenic_inheritance"
-                                                    data-columnname="digenic_inheritance">Digenic
-                                                inheritance
-                                            </label>
-                                        </li>
-                                        <li>
-                                            <label for="oligogenic_inheritance">
-                                                <input id="oligogenic_inheritance" type="radio" name="genetic_list"
-                                                    value="oligogenic_inheritance"
-                                                    data-columnname="oligogenic_inheritance">Oligogenic
-                                                inheritance
-                                            </label>
-                                        </li>
-                                        <li>
-                                            <label for="polygenic_inheritance">
-                                                <input id="polygenic_inheritance" type="radio" name="genetic_list"
-                                                    value="polygenic_inheritance"
-                                                    data-columnname="polygenic_inheritance">Polygenic
-                                                inheritance
-                                            </label>
-                                        </li>
-                                    </ol>
-                                    <li>
-                                        <label for="mitochondrialx_inheritance">
-                                            <input id="mitochondrialx_inheritance" type="radio" name="genetic_list"
-                                                value="mitochondrialx_inheritance"
-                                                data-columnname="mitochondrialx_inheritance">Mitochondrial
-                                            inheritance
-                                        </label>
-                                    </li>
-                                </ul>
+                                    </summary>
+                                    <label for="digenic_inheritance">
+                                        <input id="digenic_inheritance" type="radio" name="genetic_list"
+                                            value="digenic_inheritance" data-columnname="digenic_inheritance">Digenic
+                                        inheritance
+                                    </label>
+                                    <label for="oligogenic_inheritance">
+                                        <input id="oligogenic_inheritance" type="radio" name="genetic_list"
+                                            value="oligogenic_inheritance"
+                                            data-columnname="oligogenic_inheritance">Oligogenic
+                                        inheritance
+                                    </label>
+                                    <label for="polygenic_inheritance">
+                                        <input id="polygenic_inheritance" type="radio" name="genetic_list"
+                                            value="polygenic_inheritance"
+                                            data-columnname="polygenic_inheritance">Polygenic
+                                        inheritance
+                                    </label>
+                                </details>
+                                <label for="mitochondrialx_inheritance">
+                                    <input id="mitochondrialx_inheritance" type="radio" name="genetic_list"
+                                        value="mitochondrialx_inheritance"
+                                        data-columnname="mitochondrialx_inheritance">Mitochondrial
+                                    inheritance
+                                </label>
                             </td>
                         </tr>
                         <tr>

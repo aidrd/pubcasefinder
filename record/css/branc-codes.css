@@ -1,0 +1,17 @@
+@charset "UTF-8";
+
+.icon-omim2:before { content: '\e800'; } /* '' */
+.icon-database:before { content: '\e801'; } /* '' */
+.icon-wrench:before { content: '\e802'; } /* '' */
+.icon-share:before { content: '\e803'; } /* '' */
+.icon-icon-movie:before { content: '\e805'; } /* '' */
+.icon-orphanet:before { content: '\e80b'; } /* '' */
+.icon-cause:before { content: '\e80d'; } /* '' */
+.icon-icon-search:before { content: '\e810'; } /* '' */
+.icon-icon-symptoms:before { content: '\e811'; } /* '' */
+.icon-mail-alt:before { content: '\f0e0'; } /* '' */
+.icon-doc-text-inv:before { content: '\f15c'; } /* '' */
+.icon-history:before { content: '\f1da'; } /* '' */
+.icon-question-circle-o:before { content: '\f29c'; } /* '' */
+.icon-users:before { content: '👥'; } /* '\1f465' */
+

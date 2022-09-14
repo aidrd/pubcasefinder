@@ -17,6 +17,13 @@ let updateSettings = {
     height: 'auto',
     colWidths(i) {
         return i < 2 ? 43 : 100
+        // return i < 2 ? 43 : null
+    },
+    autoColumnSize: {
+        useHeaders: true
+    },
+    hiddenRows: {
+        rows: []
     },
     fixedColumnsLeft: 2,
     search: true,
@@ -51,14 +58,25 @@ async function initiateTable() {
     hot = new Handsontable(hotContainer, updateSettings)
     exportPlugin = hot.getPlugin('exportFile')
     movePlugin = hot.getPlugin('manualRowMove')
+    hidePlugin = hot.getPlugin('hiddenRows')
+    hot.getPlugin('autoColumnSize').recalculateAllColumnsWidth()
+    hot.getSettings().colWidths[4] = hot.getPlugin('autoColumnSize').getColumnWidth(4)
 
     Handsontable.dom.addEvent(document.getElementById('search_input'), 'keyup', (event) => {
         const search = hot.getPlugin('search')
+        let searchResult = [], hideRows = []
         search.query(event.target.value, (instance, row, col, data, testResult) => {
             instance.getCellMeta(row, col).isSearchResult = testResult
             if (!testResult) return
+            // searchResult.push(row)
             movePlugin.moveRows([row], 0)
         })
+
+        // for(let i = 0; i < hot.countRows(); i++) {
+        //     if (!(searchResult.includes(i))) hideRows.push(i)
+        // }
+
+        // hidePlugin.hideRows(hideRows)
 
         hot.render()
     })
@@ -370,7 +388,12 @@ function addRow(data) {
         }
     }
 
+    console.log(document.getElementById('myGrid').scrollHeight)
+
     updateTable([temp])
+    document.getElementById('myGrid').scrollIntoView({
+        top: document.getElementById('myGrid').scrollHeight
+    })
 }
 
 function addColumn() {
@@ -510,7 +533,11 @@ function editTable(isSave) {
 
         let newPatient = {}
         elements.forEach(e => {
-            newPatient[e.dataset.columnname] = e.value
+            if (e.type === 'radio') {
+                newPatient[e.dataset.columnname] = $(`input[name="${e.name}"]:checked`).val() || null
+            } else {
+                newPatient[e.dataset.columnname] = e.value
+            }
         })
 
         addRow(newPatient)
@@ -525,6 +552,14 @@ function editTable(isSave) {
         if (k === 'RelatedTo') patientData['relationship'] = v === 'なし' ? patientData['続柄'] : `${patientData['続柄']}<br>(${patientData['RelatedTo']})`
     }
 
+    resetGeneData()
+
+    geneData.forEach(gd => {
+        for (let [k, v] of Object.entries(gd)) {
+            patientData[k].push(v)
+        }
+    })
+
     hot.render()
     resetData()
 
@@ -533,8 +568,11 @@ function editTable(isSave) {
         changedData = {}
     }
 
-    function saveGroup() {
-
+    function resetGeneData() {
+        let geneTypeInfo = columns['遺伝子型情報']
+        geneTypeInfo.forEach(g => {
+            patientData[g.columnName] = []
+        })
     }
 }
 
