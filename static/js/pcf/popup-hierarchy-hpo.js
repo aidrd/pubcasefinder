@@ -3033,7 +3033,7 @@
 								$li_node.removeClass('selected_at_popup');
 								$(tokenInputItemNodes).removeClass(tokeninput_classes['selectedToken']);
 								$(tokenInputItemNodes).removeClass(tokeninput_classes['highlightedToken']);
-								setTimeout(function(){	closeMagnificPopup();	},51);
+								setTimeout(function(){closeMagnificPopup_mfp_popup();	},51);
 								return false;
 							}else{
 								$(tokenInputItemNodes).removeClass('selected_at_popup');
