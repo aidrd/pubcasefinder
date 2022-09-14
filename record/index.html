@@ -333,7 +333,7 @@
                                 <!--<select name="RelatedTo" id="related_to" data-columnname="RelatedTo">
                                 </select>-->
                                 <select name="relationship" data-columnname="続柄">
-                                    <option value="発端者" selected>発端者</option>
+                                    <option value="発端者">発端者</option>
                                     <option value="父親">父親</option>
                                     <option value="母親">母親</option>
                                     <option value="兄弟姉妹">兄弟姉妹</option>
@@ -476,6 +476,7 @@
                             <th id="case-solved">診断状況</th>
                             <td>
                                 <select name="case-solved" data-columnname="診断状況">
+                                    <option value="" hidden>選択</option>
                                     <option value="解決">解決</option>
                                     <option value="新規候補">新規候補</option>
                                     <option value="VUS">VUS</option>
@@ -520,6 +521,7 @@
                             <th id="age-onset">発症年齢</th>
                             <td>
                                 <select name="age-onset" data-columnname="発症年齢">
+                                    <option value="" hidden>選択</option>
                                     <option value="unknown">不明</option>
                                     <option value="congenital-onset">先天性の発症</option>
                                     <option value="antenatal-onset">出生前発症</option>
