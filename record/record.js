@@ -15,12 +15,12 @@ let updateSettings = {
     rowHeaders: true,
     width: '100%',
     height: 'auto',
-    colWidths(i) {
-        return i < 2 ? 43 : 100
-        // return i < 2 ? 43 : null
-    },
+    // colWidths(i) {
+    //     return i < 2 ? 43 : 100
+    //     // return i < 2 ? 43 : null
+    // },
     autoColumnSize: {
-        useHeaders: true
+    	useHeaders: true
     },
     hiddenRows: {
         rows: []
@@ -52,15 +52,15 @@ async function initiateTable() {
         dataSchema: dataSchema,
         colHeaders: colHeaders,
         columns: headers,
-        hiddenColumns: { columns: hiddenColumns },
+        hiddenColumns: { columns: hiddenColumns }
     })
 
     hot = new Handsontable(hotContainer, updateSettings)
     exportPlugin = hot.getPlugin('exportFile')
     movePlugin = hot.getPlugin('manualRowMove')
-    hidePlugin = hot.getPlugin('hiddenRows')
-    hot.getPlugin('autoColumnSize').recalculateAllColumnsWidth()
-    hot.getSettings().colWidths[4] = hot.getPlugin('autoColumnSize').getColumnWidth(4)
+    // hidePlugin = hot.getPlugin('hiddenRows')
+    // hot.getPlugin('autoColumnSize').recalculateAllColumnsWidth()
+    // hot.getSettings().colWidths[4] = hot.getPlugin('autoColumnSize').getColumnWidth(4)
 
     Handsontable.dom.addEvent(document.getElementById('search_input'), 'keyup', (event) => {
         const search = hot.getPlugin('search')
@@ -388,21 +388,23 @@ function addRow(data) {
         }
     }
 
-    console.log(document.getElementById('myGrid').scrollHeight)
-
     updateTable([temp])
-    document.getElementById('myGrid').scrollIntoView({
-        top: document.getElementById('myGrid').scrollHeight
-    })
+    hot.scrollViewportTo(hot.countRows() - 1, 1)
 }
 
 function addColumn() {
     let modal = document.querySelector('.modal')
 
     modal.style.display = 'block'
+
     document.querySelector('.close_modal').onclick = () => {
-        modal.style.display = 'none'
+        // modal.style.display = 'none'
+        closeAddColumnModal()
     }
+
+    // document.onclick = (e) => {
+    //     if (!e.target.closest('.modal_content')) closeAddColumnModal()
+    // }
 
     let add = document.getElementById('add_column_input')
     add.value = ''
@@ -470,6 +472,12 @@ function addColumn() {
         rerenderTable()
 
         modal.style.display = 'none'
+        hot.scrollViewportTo('', existingHeaders.length - 1)
+    }
+
+    function closeAddColumnModal() {
+        modal.style.display = 'none'
+        // document.onclick = null
     }
 }
 
