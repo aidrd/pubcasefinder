@@ -59,8 +59,6 @@ async function initiateTable() {
     exportPlugin = hot.getPlugin('exportFile')
     movePlugin = hot.getPlugin('manualRowMove')
     // hidePlugin = hot.getPlugin('hiddenRows')
-    // hot.getPlugin('autoColumnSize').recalculateAllColumnsWidth()
-    // hot.getSettings().colWidths[4] = hot.getPlugin('autoColumnSize').getColumnWidth(4)
 
     Handsontable.dom.addEvent(document.getElementById('search_input'), 'keyup', (event) => {
         const search = hot.getPlugin('search')
@@ -146,6 +144,7 @@ function getExportData() {
     if (type === 'csv' || type === 'tsv') exportedString = Papa.unparse(dlData.PATIENTS)
 
     exportFile()
+    exportFile(type, file)
 
     function exportFile() {
         let a = document.createElement('a')
@@ -166,6 +165,25 @@ function getExportData() {
         a.remove()
     }
 }
+
+// function exportFile() {
+//     let a = document.createElement('a')
+//     a.download = `patients_${Date.now()}.${type}`
+//     a.style.visibility = 'hidden'
+
+//     let data = `text/json;charset=utf-8,` +
+//         `${encodeURIComponent(JSON.stringify(exportedString, null, 4))}`
+//     a.href = `data:${data}`
+
+//     if (type === 'csv' || type === 'tsv') {
+//         let data = new Blob(['\ufeff' + exportedString], { type: 'text/csv;charset=utf-8;' })
+//         a.href = URL.createObjectURL(data)
+//     }
+
+//     document.body.appendChild(a)
+//     a.click()
+//     a.remove()
+// }
 
 function onDragOver(event) {
     event.preventDefault()
@@ -398,13 +416,12 @@ function addColumn() {
     modal.style.display = 'block'
 
     document.querySelector('.close_modal').onclick = () => {
-        // modal.style.display = 'none'
         closeAddColumnModal()
     }
 
-    // document.onclick = (e) => {
-    //     if (!e.target.closest('.modal_content')) closeAddColumnModal()
-    // }
+    modal.onclick = (e) => {
+        if (!e.target.closest('.modal_content')) closeAddColumnModal()
+    }
 
     let add = document.getElementById('add_column_input')
     add.value = ''
@@ -477,7 +494,6 @@ function addColumn() {
 
     function closeAddColumnModal() {
         modal.style.display = 'none'
-        // document.onclick = null
     }
 }
 
