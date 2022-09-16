@@ -31,6 +31,7 @@
     <link type="text/css" rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/handsontable@12.1.0/dist/handsontable.full.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/yamljs@0.3.0/dist/yaml.min.js"></script>
     <meta name="msapplication-TileColor" content="#2a3356">
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="../static/css/pcf/style-togo.css">
@@ -240,9 +241,10 @@
                                 <div class="add"><i class="material-symbols-outlined">
                                         playlist_add
                                     </i>追加</div>
-                                <div class="close_modal">X</div>
+                                <!-- <div class="close_modal">X</div> -->
                             </div>
-                            <div class="modal_container" id="modal_container"></div>
+                            <div class="modal_container" id="modal_container">
+                            </div>
                         </div>
                     </div>
                     <!--<div id="fixed-menu-contents">
@@ -435,6 +437,7 @@
                             <th id="sex">性別</th>
                             <td>
                                 <select name="sex" data-columnname="性別">
+                                    <option value="" hidden>選択</option>
                                     <option value="男性">男性</option>
                                     <option value="女性">女性</option>
                                     <option value="その他">その他</option>
@@ -475,6 +478,7 @@
                             <th id="case-solved">診断状況</th>
                             <td>
                                 <select name="case-solved" data-columnname="診断状況">
+                                    <option value="" hidden>選択</option>
                                     <option value="解決">解決</option>
                                     <option value="新規候補">新規候補</option>
                                     <option value="VUS">VUS</option>
@@ -519,6 +523,7 @@
                             <th id="age-onset">発症年齢</th>
                             <td>
                                 <select name="age-onset" data-columnname="発症年齢">
+                                    <option value="" hidden>選択</option>
                                     <option value="unknown">不明</option>
                                     <option value="congenital-onset">先天性の発症</option>
                                     <option value="antenatal-onset">出生前発症</option>

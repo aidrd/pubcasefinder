@@ -24,7 +24,6 @@ function openModal(isNew) {
 
     $(modal).fadeIn();
 
-
     $('.modal_bg, .modal-close, .modal-save').off().click(function (e) {
         editTable($(this).hasClass('modal-save'))
 
@@ -140,7 +139,26 @@ function generatePhenopackets() {
         }
     }
 
-    console.log('phenopacket', phenopacket)
+    jsonToYaml()
+
+    function jsonToYaml() {
+        let jsonString = JSON.stringify(phenopacket)
+        exportFile('yaml', YAML.parse(jsonString))
+    }
+
+    function exportFile(type, file) {
+        let a = document.createElement('a')
+        a.download = `patients_${Date.now()}.${type}`
+        a.style.visibility = 'hidden'
+    
+        let data = `text/yaml;charset=utf-8,` +
+            `${encodeURIComponent(YAML.stringify(file, 10))}`
+        a.href = `data:${data}`
+    
+        document.body.appendChild(a)
+        a.click()
+        a.remove()
+    }
 }
 
 let dictionary = {
