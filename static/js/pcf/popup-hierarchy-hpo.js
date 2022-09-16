@@ -3625,13 +3625,21 @@
 			prependTo_id           = prependTo,
 			$webgl_trigger         = $trigger;
 
-		let $mfp_bg_local   = $('<div>').attr('id', DIV_POPUP_BG_ID).addClass('mfp-bg mfp-ready').css({'opacity':'0'}).appendTo('body');
+		var ATTACH_TO = '';
+		if($('div.top-wrapper').length) ATTACH_TO = '.top-wrapper';
+
+		let $mfp_bg_local   = $('<div>').attr('id', DIV_POPUP_BG_ID).addClass('mfp-bg mfp-ready').css({'opacity':'0'}).appendTo(ATTACH_TO ? ATTACH_TO : 'body');
 		let $mfp_wrap_local = $('<div>').attr('id', DIV_POPUP_WRAP_ID).addClass('mfp-wrap mfp-close-btn-in mfp-auto-cursor mfp-ready')
-										.attr('tabindex','-1').css({'overflow': 'hidden auto'}).appendTo('body');
+										.attr('tabindex','-1').css({'overflow': 'hidden auto'}).appendTo(ATTACH_TO ? ATTACH_TO : 'body');
 		let $mfp_container  = $('<div>').attr('id', DIV_POPUP_CONTAINER_ID).addClass("mfp-container mfp-s-ready mfp-inline-holder").appendTo($mfp_wrap_local);
 		let $mfp_content    = $('<div>').attr('id', DIV_POPUP_CONTENT_ID).addClass("mfp-content").appendTo($mfp_container);
-		$webgl_trigger.appendTo('body');
+		$webgl_trigger.appendTo(ATTACH_TO ? ATTACH_TO : 'body');
 
+        if(ATTACH_TO){
+            $mfp_bg_local.css({'z-index':96,'position':'absolute'});
+            $mfp_wrap_local.css({'z-index':97,'position':'absolute'});
+            $webgl_trigger.css({'z-index':97,'position':'absolute'});
+        }
 
 		if(prependTo_id){
 			_set_level_pos();
@@ -3654,8 +3662,12 @@
             $mfp_wrap_local.css({'top': pos+'px'});
             $webgl_trigger.css({'top': top+'px'});
             let max_height= Math.floor(document.documentElement.clientHeight) - Math.ceil(pos);
+			if(ATTACH_TO){
+				max_height= Math.floor($(ATTACH_TO).height()) - Math.ceil(pos);
+			}
             $mfp_container.css({'max-height':max_height+'px','overflow':'hidden auto'});
 		}
+
 
         function _get_mfp_popup_content_wrapper() {
             return $('#'+DIV_POPUP_CONTENT_ID);
