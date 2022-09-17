@@ -8,6 +8,10 @@
   font-family: 'Poppins', sans-serif;
 }
 
+html {
+  overscroll-behavior-x: none;
+}
+
 :root {
   /* ===== Colors ===== */
   --body-color: #F2F3F4;
