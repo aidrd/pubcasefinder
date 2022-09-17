@@ -932,3 +932,7 @@ h5 {
 .nav-sp .menu-item-has-children:hover ul {
   z-index: 5;
 }
+
+.input-top {
+  margin-top: 0.5em;
+}
