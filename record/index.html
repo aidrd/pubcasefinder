@@ -52,8 +52,9 @@
 
 </head>
 
-<body onbeforeunload="return beforeLoad()">
-    <header class="search-header search-header-karte">
+<!-- <body onbeforeunload="return beforeLoad()"> -->
+<body>
+        <header class="search-header search-header-karte">
         <div class="wrapper search-header_wrapper">
             <div class="search-header_top">
                 <div class="brand">
@@ -910,9 +911,12 @@
             $(".panel").not(clickPanel).slideUp(0);
             $(".panel:visible").prev().css("background", "#000");
             $(".panel:hidden").prev().css("background", "#000");
+
+            $('.panel').on('click', (e) => {
+                if (!e.target.closest('.export-panel')) $('.panel').hide()
+            })
             return false;
         });
-
     });
 </script>
 

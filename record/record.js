@@ -505,17 +505,33 @@ function showHideColumn(e) {
         colHeaders.push(col.colHeader)
         headers.push(col.column)
     } else {
+        console.log(e.id)
         colHeaders.splice(
             colHeaders.indexOf(`<i class="material-icons-outlined sort_icon">swap_vert</i>${e.id}`),
             1
         )
 
-        headers = headers.filter(h => {return h.data !== e.id })
-        // if (['体重', '身長', '頭囲'].includes(e.id)) {
+        // headers = headers.filter(h => {return h.data !== e.id })
+        if (['体重', '身長', '頭囲'].includes(e.id)) {
+            let index
+
+            // headers.forEach((h, i) => {
+            //     if (h.data ===)
+            // })
+            let header = headers.filter(h => {return h.data === '身体情報'})
+            let renderer
+            switch (e.id) {
+                case value:
+                    
+                    break
             
-        // } else {
-        //     headers = headers.filter(h => {return h.data !== e.id })
-        // }
+                default:
+                    break
+            }
+            console.log(header[0].renderer.name)
+        } else {
+            headers = headers.filter(h => {return h.data !== e.id })
+        }
         existingHeaders.splice(existingHeaders.indexOf(e.id), 1)
     }
 
