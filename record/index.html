@@ -53,8 +53,9 @@
 </head>
 
 <!-- <body onbeforeunload="return beforeLoad()"> -->
+
 <body>
-        <header class="search-header search-header-karte">
+    <header class="search-header search-header-karte">
         <div class="wrapper search-header_wrapper">
             <div class="search-header_top">
                 <div class="brand">
@@ -358,6 +359,14 @@
                         <tr>
                             <th id="birth">生年月</th>
                             <td>
+                                <input type="month" name="example">
+                                <!--<select name="birth_year" id="id_year" value="birth_year" placeholder="2000"
+                                    class="birth_year">
+                                </select>
+                                <select name="birth_month" id="id_month" value="birth_year">
+                                </select>
+
+
                                 <input type="text" name="birth_year" value="" placeholder="2000" class="birth_year"> /
                                 <select name="birth_month">
                                     <option value="">月</option>
@@ -373,7 +382,7 @@
                                     <option value="10">10</option>
                                     <option value="11">11</option>
                                     <option value="12">12</option>
-                                </select>
+                                </select>-->
                             </td>
                         </tr>
                         <tr>
@@ -393,7 +402,8 @@
                         <tr>
                             <th id="death">没年月</th>
                             <td>
-                                <input type="text" name="death_year" value="" placeholder="2000" class="death_year"> /
+                                <input type="month" name="example">
+                                <!--<input type="text" name="death_year" value="" placeholder="2000" class="death_year"> /
                                 <select name="death_month">
                                     <option value="">月</option>
                                     <option value="01">1</option>
@@ -409,13 +419,18 @@
                                     <option value="11">11</option>
                                     <option value="12">12</option>
                                 </select>
+                                <select name="death_year" id="id_year" value="death_year" placeholder="2000"
+                                    class="death_year">
+                                </select>
+                                <select name="death_month" id="id_month" value="death_year">
+                                </select>-->
                             </td>
                         </tr>
                         <tr>
                             <th id="sex">性別</th>
                             <td>
                                 <select name="sex" data-columnname="性別">
-                                    <option value="" hidden>選択</option>
+                                    <option value="" hidden>- 選択 -</option>
                                     <option value="男性">男性</option>
                                     <option value="女性">女性</option>
                                     <option value="その他">その他</option>
@@ -456,7 +471,7 @@
                             <th id="case-solved">診断状況</th>
                             <td>
                                 <select name="case-solved" data-columnname="診断状況">
-                                    <option value="" hidden>選択</option>
+                                    <option value="" hidden>- 選択 -</option>
                                     <option value="解決">解決</option>
                                     <option value="新規候補">新規候補</option>
                                     <option value="VUS">VUS</option>
@@ -501,7 +516,7 @@
                             <th id="age-onset">発症年齢</th>
                             <td>
                                 <select name="age-onset" data-columnname="発症年齢">
-                                    <option value="" hidden>選択</option>
+                                    <option value="" hidden>- 選択 -</option>
                                     <option value="unknown">不明</option>
                                     <option value="congenital-onset">先天性の発症</option>
                                     <option value="antenatal-onset">出生前発症</option>
@@ -884,9 +899,6 @@
             var clickPanel = $("+.panel", this);
             clickPanel.toggle();
             $(".panel").not(clickPanel).slideUp(0);
-            $(".panel:visible").prev().css("background", "#000");
-            $(".panel:hidden").prev().css("background", "#000");
-
             $('.panel').on('click', (e) => {
                 if (!e.target.closest('.export-panel')) $('.panel').hide()
             })
@@ -894,7 +906,31 @@
         });
     });
 </script>
+<script>
+    (function () {
+        'use strict';
+        var optionLoop, this_month, this_year, today;
+        today = new Date();
+        this_year = today.getFullYear();
+        this_month = today.getMonth() + 1;
+        optionLoop = function (start, end, id) {
+            var i, opt;
 
+            opt = null;
+            for (i = start; i <= end; i++) {
+                if (i === this_month) {
+                    opt += "<option value='" + i + "' selected>" + i + "</option>";
+                } else {
+                    opt += "<option value='" + i + "'>" + i + "</option>";
+                }
+            }
+            return document.getElementById(id).innerHTML = opt;
+        };
+        optionLoop(1950, this_year, 'id_year', this_year);
+        optionLoop(1, 12, 'id_month', this_month);
+    })();
+
+</script>
 
 
 </html>

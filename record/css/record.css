@@ -23,10 +23,6 @@
   --tran-05: all 0.3s ease;
 }
 
-html {
-  overscroll-behavior-x: none;
-}
-
 body {
   min-height: 100vh;
   background-color: var(--body-color);
@@ -436,7 +432,7 @@ body {
 }
 
 #modal-karte .tab-wrap .show .form-table tbody tr td select {
-  padding: 0.35em 1em;
+  padding: 0.35em 0.5em;
   border: 1.5px solid #e3e3e3;
   border-radius: 0.3em;
   appearance: button;
@@ -466,7 +462,7 @@ body {
 }
 
 #modal-karte .tab-wrap .show .form-table tbody tr #group_wrap select {
-  margin-right: 0.5em;
+  margin-left: 0.5em;
 }
 
 #modal-karte .tab-wrap .show .form-table tbody tr #group_wrap #fixed-menu {
@@ -854,16 +850,20 @@ h5 {
 }
 
 /*handsontable*/
-.handsontable thead th .relative {
+.handsontable thead tr th .relative {
   text-align: left;
   padding: 10px;
   font-size: 1.1em;
   display: grid;
 }
 
-.handsontable thead th .relative span .material-icons-outlined.sort_icon {
+.handsontable thead tr th .relative span .material-icons-outlined.sort_icon {
   font-size: 1.2em;
   vertical-align: -2px;
+}
+
+.handsontable thead tr td i {
+  text-align: center;
 }
 
 ::placeholder {
@@ -927,4 +927,12 @@ h5 {
 
 .genetic_list details label {
   margin-left: 2em;
+}
+
+.nav-sp .menu-item-has-children:hover ul {
+  z-index: 5;
+}
+
+.input-top {
+  margin-top: 0.5em;
 }
