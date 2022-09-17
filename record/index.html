@@ -923,7 +923,6 @@ end bits-->
             var elmIndex = tabBtn.index(this);
             tabContents.removeClass('show');
             tabContents.eq(elmIndex).addClass('show');
-            console.log($(tabContents.eq(elmIndex)).find('#bodyModal')[0])
 
             if ($(tabContents.eq(elmIndex)).children('#geneModal')[0]) {
                 geneTable()

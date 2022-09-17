@@ -79,6 +79,7 @@ function addGeneRow() {
 }
 
 async function bodyTable() {
+    console.log('bodyTable')
     resetData()
 
     bodySchema = {
@@ -92,7 +93,8 @@ async function bodyTable() {
         let patientData = contentData.filter(d => { return d.PCFNo == currentPatient })[0]
         if (!patientData['身体情報']) patientData['身体情報'] = []
         bodyData = patientData['身体情報']
-        currentBodyData = JSON.parse(JSON.stringify(modalTableSettings))
+        currentBodyData = bodyData
+        // currentBodyData = JSON.parse(JSON.stringify(modalTableSettings))
     }
 
     bodyHeaders = Object.keys(bodySchema)
