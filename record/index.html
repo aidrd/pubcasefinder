@@ -384,7 +384,12 @@
                         <tr>
                             <th id="birth">生年月</th>
                             <td>
-                                <input type="text" name="birth_year" value="" placeholder="2000" class="birth_year"> /
+                                <select name="birth_year" id="id_year" value="birth_year" placeholder="2000"
+                                    class="birth_year">
+                                </select>
+                                <select name="birth_month" id="id_month" value="birth_year">
+                                </select>
+                                <!--<input type="text" name="birth_year" value="" placeholder="2000" class="birth_year"> /
                                 <select name="birth_month">
                                     <option value="">月</option>
                                     <option value="01">1</option>
@@ -399,7 +404,7 @@
                                     <option value="10">10</option>
                                     <option value="11">11</option>
                                     <option value="12">12</option>
-                                </select>
+                                </select>-->
                             </td>
                         </tr>
                         <tr>
@@ -434,6 +439,11 @@
                                     <option value="10">10</option>
                                     <option value="11">11</option>
                                     <option value="12">12</option>
+                                </select>
+                                <select name="death_year" id="id_year" value="death_year" placeholder="2000"
+                                    class="death_year">
+                                </select>
+                                <select name="death_month" id="id_month" value="death_year">
                                 </select>
                             </td>
                         </tr>
@@ -917,7 +927,31 @@
         });
     });
 </script>
+<script>
+    (function () {
+        'use strict';
+        var optionLoop, this_month, this_year, today;
+        today = new Date();
+        this_year = today.getFullYear();
+        this_month = today.getMonth() + 1;
+        optionLoop = function (start, end, id) {
+            var i, opt;
 
+            opt = null;
+            for (i = start; i <= end; i++) {
+                if (i === this_month) {
+                    opt += "<option value='" + i + "' selected>" + i + "</option>";
+                } else {
+                    opt += "<option value='" + i + "'>" + i + "</option>";
+                }
+            }
+            return document.getElementById(id).innerHTML = opt;
+        };
+        optionLoop(1950, this_year, 'id_year', this_year);
+        optionLoop(1, 12, 'id_month', this_month);
+    })();
+
+</script>
 
 
 </html>
