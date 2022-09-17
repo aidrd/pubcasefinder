@@ -565,21 +565,28 @@ body{
     border-radius: 2em;
   }
   .panel{
+    min-height: 100vh;
+    width: 100vw;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    background: rgba(255, 255, 255, 0);
+    z-index: 200;
     display: none;
-    position: absolute;
-    top: 40px;
-    right: 0;
-    z-index: 1000;
-    width: 200px;
-    margin-left: -30px;
-    padding: 1em;
+    .export-panel{
+   height: fit-content;
     background: #fff;
-    border-radius: 3px;
-    box-shadow: 0 2px 15px 1px rgba(0,0,0,.2);
     color: #000;
-    h5{
+    border-radius: 5px;
+    position: absolute;
+    top: 130px;
+    right: 130px;
+    box-shadow: 0 2px 15px 1px rgba(163, 163, 163, 0.2);
+    padding: 1em;
+    h6{
         font-weight: bold;
         margin-bottom: 0.5em;
+        padding-left: 0;
     }
     p{
         margin-bottom: 0.5em;
@@ -595,6 +602,7 @@ body{
         border-radius: 5px;
         color: #fff;
     }
+}
   }
 
   .group_panel{

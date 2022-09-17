@@ -145,14 +145,16 @@
                         <span class="text nav-text link_name">Save</span>
                     </a>
                     <div class="panel">
-                        <h5>Export</h5>
-                        <p>Format:
-                            <select name="file" id="dl-select">
-                                <option value="json">json</option>
-                                <option value="tsv">tsv</option>
-                            </select>
-                        </p>
-                        <button id="dl_table_button" onclick="getExportData(false)">Download</button>
+                        <div class="export-panel">
+                            <h6>Export</h6>
+                            <p>Format:
+                                <select name="file" id="dl-select">
+                                    <option value="json">json</option>
+                                    <option value="tsv">tsv</option>
+                                </select>
+                            </p>
+                            <button id="dl_table_button" onclick="getExportData(false)">Download</button>
+                        </div>
                     </div>
                 </li>
                 <li class="modal_open karte-btn karte-add" data-target="modal-karte" rel="noopener noreferrer">
