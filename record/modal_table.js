@@ -1,7 +1,7 @@
 let modalTableSettings = {
     rowHeaders: true,
     height: 'auto',
-    colWidths: 100,
+    colWidths: 130,
     contextMenu: true,
     allowRemoveColumn: true,
     licenseKey: 'non-commercial-and-evaluation' // for non-commercial use only

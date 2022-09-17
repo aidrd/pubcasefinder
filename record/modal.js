@@ -307,3 +307,23 @@ function translate(word) {
     if (!word) return ''
     return dictionary[word]
 }
+
+// var optionLoop, this_month, this_year, today;
+//         today = new Date();
+//         this_year = today.getFullYear();
+//         this_month = today.getMonth() + 1;
+//         optionLoop = function (start, end, id) {
+//             var i, opt;
+
+//             opt = null;
+//             for (i = start; i <= end; i++) {
+//                 if (i === this_month) {
+//                     opt += "<option value='" + i + "' selected>" + i + "</option>";
+//                 } else {
+//                     opt += "<option value='" + i + "'>" + i + "</option>";
+//                 }
+//             }
+//             return document.getElementById(id).innerHTML = opt;
+//         };
+//         optionLoop(1950, this_year, 'id_year', this_year);
+//         optionLoop(1, 12, 'id_month', this_month);
