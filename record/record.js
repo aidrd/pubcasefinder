@@ -1,4 +1,4 @@
-let hot, exportPlugin, movePlugin
+let hot, exportPlugin, movePlugin, autoRowSizePlugin
 let isAllChecked = true
 let toSave = false
 let count = 1
@@ -15,10 +15,6 @@ let updateSettings = {
     rowHeaders: true,
     width: '100%',
     height: 'auto',
-    // colWidths(i) {
-    //     return i < 2 ? 43 : 100
-    //     // return i < 2 ? 43 : null
-    // },
     autoColumnSize: {
     	useHeaders: true
     },
@@ -45,6 +41,7 @@ initiateTable()
 async function initiateTable() {
     await createColumns()
 
+
     Object.assign(updateSettings, {
         data: [],
         dataSchema: dataSchema,
@@ -56,6 +53,7 @@ async function initiateTable() {
     hot = new Handsontable(hotContainer, updateSettings)
     exportPlugin = hot.getPlugin('exportFile')
     movePlugin = hot.getPlugin('manualRowMove')
+    autoRowSizePlugin = hot.getPlugin('AutoRowSize')
 
     Handsontable.dom.addEvent(document.getElementById('search_input'), 'keyup', (event) => {
         const search = hot.getPlugin('search')
@@ -363,8 +361,9 @@ async function updateTable(data) {
         contentData.push(d)
     })
 
+
     Object.assign(updateSettings, {
-        data: contentData
+        data: contentData,
     })
 
     localStorage.contentData = contentData
@@ -501,6 +500,7 @@ function showHideColumn(e) {
         existingHeaders.push(e.id)
         colHeaders.push(col.colHeader)
         headers.push(col.column)
+
     } else {
         colHeaders.splice(colHeaders.indexOf(`<i class="material-icons-outlined sort_icon">swap_vert</i>${e.id}`), 1)
 
