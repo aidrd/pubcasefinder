@@ -22,9 +22,7 @@ let updateSettings = {
     autoColumnSize: {
     	useHeaders: true
     },
-    hiddenColumns: {
-        columns: hiddenColumns
-    },
+    hiddenColumns: true,
     fixedColumnsLeft: 2,
     search: true,
     data: contentData,
@@ -58,7 +56,6 @@ async function initiateTable() {
     hot = new Handsontable(hotContainer, updateSettings)
     exportPlugin = hot.getPlugin('exportFile')
     movePlugin = hot.getPlugin('manualRowMove')
-    // hidePlugin = hot.getPlugin('hiddenRows')
 
     Handsontable.dom.addEvent(document.getElementById('search_input'), 'keyup', (event) => {
         const search = hot.getPlugin('search')
@@ -261,103 +258,6 @@ function convertCSVToJSON(csv, isExport) {
     })
 
     return { PATIENTS: patientsData }
-}
-
-function createColumns__() {
-    // headers = columns (settings - type, options, renderer, etc)
-    // colHeaders = headers
-    return new Promise((resolve, reject) => {
-        let defaultColumns = ['主訴', 'グループ名', '続柄', '性別', '家族ID', '患者ID']
-        // let actions = ['REMOVE', 'EDIT', 'CHECKBOX']
-        let actions = ['REMOVE', 'EDIT']
-
-        for (let [key, value] of Object.entries(columns)) {
-            console.log(key, value)
-            value.forEach(v => {
-                let colHeader = `<i class="material-icons-outlined sort_icon">swap_vert</i>${v.columnName}`
-
-                let column = {
-                    data: v.columnName,
-                    type: v.type,
-                    source: v.options,
-                    strict: true,
-                    allowInvalid: false,
-                    readOnly: false
-                }
-
-                if (v.type === 'date') {
-                    column.dateFormat = 'YYYY/MM',
-                        column.correctFormat = true
-                    column.datePickerConfig = {
-                        firstDay: 0,
-                        numberOfMonths: 1,
-                        licenseKey: 'non-commercial-and-evaluation',
-                    }
-                }
-
-                if (v.columnName === 'グループ名') {
-                    column.source = groupOptions
-                    column.allowInvalid = true
-                    column.strict = false
-                } else if (v.columnName === '続柄') {
-                    column.data = '続柄'
-                    column.renderer = 'dropdown'
-                } else if (key === '遺伝子型情報' || v.columnName === '主訴') {
-                    column.renderer = multipleRenderer
-                    column.editor = false
-                } else if (v.columnName === '身長') {
-                    column.editor = false
-                    column.data = `身体情報`
-                    column.renderer = heightRenderer
-                } else if (v.columnName === '体重') {
-                    column.editor = false
-                    column.data = `身体情報`
-                    column.renderer = weightRenderer
-                } else if (v.columnName === '頭囲') {
-                    column.editor = false
-                    column.data = `身体情報`
-                    column.renderer = headRenderer
-                }
-
-                if (defaultColumns.includes(v.columnName)) {
-                    colHeaders.push(colHeader)
-                    headers.push(column)
-                    existingHeaders.push(v.columnName)
-                }
-
-                dataColumns[v.columnName] = {
-                    colHeader: colHeader,
-                    column: column
-                }
-
-                let colName = v.columnName === '身長' || v.columnName === '体重' || v.columnName === '頭囲' ? '身体情報' : v.columnName
-
-                dataSchema[colName] = null
-            })
-        }
-
-        actions.forEach(a => {
-            let colHeaderText = ''
-            let headerText = {
-                data: 'PCFNo',
-                renderer: a === 'EDIT' ? editRenderer : removeRenderer
-            }
-
-            if (a === 'CHECKBOX') {
-                colHeaderText = `<input type="checkbox" class="header-checkbox" ${isAllChecked ? 'checked="checked"' : ''}>`
-                headerText.renderer = checkBoxRenderer
-            }
-
-            headers.unshift(headerText)
-            colHeaders.unshift(colHeaderText)
-        })
-
-        for (let i = actions.length + defaultColumns.length; i < headers.length; i++) {
-            hiddenColumns.push(i)
-        }
-
-        resolve()
-    })
 }
 
 function createColumns() {
