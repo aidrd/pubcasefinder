@@ -23,10 +23,6 @@
   --tran-05: all 0.3s ease;
 }
 
-html {
-  overscroll-behavior-x: none;
-}
-
 body {
   min-height: 100vh;
   background-color: var(--body-color);
@@ -927,4 +923,8 @@ h5 {
 
 .genetic_list details label {
   margin-left: 2em;
+}
+
+.nav-sp .menu-item-has-children:hover ul {
+  z-index: 5;
 }
