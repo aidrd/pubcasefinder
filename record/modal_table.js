@@ -79,7 +79,6 @@ function addGeneRow() {
 }
 
 async function bodyTable() {
-    console.log('bodyTable')
     resetData()
 
     bodySchema = {
