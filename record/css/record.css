@@ -23,6 +23,10 @@
   --tran-05: all 0.3s ease;
 }
 
+/* html {
+  overscroll-behavior-x: none;
+} */
+
 body {
   min-height: 100vh;
   background-color: var(--body-color);

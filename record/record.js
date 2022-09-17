@@ -610,3 +610,7 @@ function rerenderTable() {
     hot.updateSettings(updateSettings)
     hot.render()
 }
+
+function beforeLoad() {
+    return 'load'
+}
