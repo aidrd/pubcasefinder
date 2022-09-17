@@ -56,6 +56,35 @@ function openModal(patientId) {
         $('input[name="drinking-list"]').hide()
         $('input[name="smoking-list"]').hide()
         document.querySelector('.tab-btn').click()
+        dateOptions('birth')
+        dateOptions('death')
+    }
+
+    function dateOptions(type) {
+        var optionLoop, this_month, this_year, today
+        today = new Date()
+        this_year = today.getFullYear()
+        this_month = today.getMonth() + 1
+
+        optionLoop = function (start, end, id) {
+            let opt = `<option value="0">- ${end === 12 ? '月' : '年'}を選択 -</option>`
+ 
+            for (let i = start; i <= end; i++) {
+
+                let display = i
+                let value = i
+                let temp = i
+
+                if (temp % 10 === 0 && end !== 12) display = `${i}s`
+
+                opt += `<option value="${value.toString().padStart(2, '0')}">${display}</option>`
+            }
+
+            return document.querySelector(`.tab-wrap *[name="${id}"]`).innerHTML = opt
+        }
+
+        optionLoop(1950, this_year, `${type}_year`)
+        optionLoop(1, 12, `${type}_month`)
     }
 
     function populateOptions(element) {
@@ -141,6 +170,11 @@ function openModal(patientId) {
                     let monthKey = dataKey === 'birth_year' ? 'birth_month' : 'death_month'
                     let date = value ? value.split('/') : ['']
                     value = date[0]
+
+                    element.value = date[0]
+                    element.onchange = function () {
+                        onchange(dataKey === 'birth_year' ? '生年月' : '没年月')
+                    }
 
                     let monthElement = document.querySelector(`.tab-wrap *[name="${monthKey}"]`)
                     monthElement.value = date[1]
@@ -307,23 +341,3 @@ function translate(word) {
     if (!word) return ''
     return dictionary[word]
 }
-
-// var optionLoop, this_month, this_year, today;
-//         today = new Date();
-//         this_year = today.getFullYear();
-//         this_month = today.getMonth() + 1;
-//         optionLoop = function (start, end, id) {
-//             var i, opt;
-
-//             opt = null;
-//             for (i = start; i <= end; i++) {
-//                 if (i === this_month) {
-//                     opt += "<option value='" + i + "' selected>" + i + "</option>";
-//                 } else {
-//                     opt += "<option value='" + i + "'>" + i + "</option>";
-//                 }
-//             }
-//             return document.getElementById(id).innerHTML = opt;
-//         };
-//         optionLoop(1950, this_year, 'id_year', this_year);
-//         optionLoop(1, 12, 'id_month', this_month);
