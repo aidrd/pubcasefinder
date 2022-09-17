@@ -850,16 +850,20 @@ h5 {
 }
 
 /*handsontable*/
-.handsontable thead th .relative {
+.handsontable thead tr th .relative {
   text-align: left;
   padding: 10px;
   font-size: 1.1em;
   display: grid;
 }
 
-.handsontable thead th .relative span .material-icons-outlined.sort_icon {
+.handsontable thead tr th .relative span .material-icons-outlined.sort_icon {
   font-size: 1.2em;
   vertical-align: -2px;
+}
+
+.handsontable thead tr td i {
+  text-align: center;
 }
 
 ::placeholder {

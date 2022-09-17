@@ -838,6 +838,7 @@ h5{
 /*handsontable*/
 .handsontable{
     thead{
+        tr{
         th{
         .relative{
     text-align: left;
@@ -852,7 +853,12 @@ h5{
     }
 }
 }
+td{
+    i{
+        text-align: center;
+    }
 }
+}}
 }
 
 ::placeholder {
@@ -926,3 +932,4 @@ h5{
 .nav-sp .menu-item-has-children:hover ul{
     z-index: 5;
 }
+
