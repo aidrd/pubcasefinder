@@ -411,10 +411,6 @@ function addColumn() {
 
     modal.style.display = 'block'
 
-    // document.querySelector('.close_modal').onclick = () => {
-    //     closeAddColumnModal()
-    // }
-
     modal.onclick = (e) => {
         if (!e.target.closest('.modal_content')) closeAddColumnModal()
     }
@@ -463,7 +459,7 @@ function addColumn() {
         // colHeaders = headers
         if (add.value === '') return
 
-        let colHeader = `<i class="material-icons-outlined sort_icon">swap_vert</i>${add.value} `
+        let colHeader = `<i class="material-icons-outlined sort_icon">swap_vert</i>${add.value}`
 
         let column = {
             data: add.value,
@@ -502,6 +498,7 @@ function showHideColumn(e) {
         headers.push(col.column)
 
     } else {
+        // console.log(e, colHeaders.indexOf(`<i class="material-icons-outlined sort_icon">swap_vert</i>${e.id}`))
         colHeaders.splice(colHeaders.indexOf(`<i class="material-icons-outlined sort_icon">swap_vert</i>${e.id}`), 1)
 
         if (['体重', '身長', '頭囲'].includes(e.id)) {
@@ -544,6 +541,7 @@ function removeCustomColumn(e) {
     // showHideColumn(element)
 
     // element.parentElement.remove()
+    console.log('e', e)
     delete dataSchema[e.id]
     delete dataColumns[e.id]
 

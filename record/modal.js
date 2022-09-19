@@ -17,8 +17,9 @@ function openModal(patientId) {
 
     $(modal).fadeIn();
 
-    $('.modal_bg, .modal-close, .modal-save').off().click(function (e) {
-        editTable($(this).hasClass('modal-save'))
+    // $('.modal_bg, .modal-close, .modal-save').off().click(function (e) {
+    $('.modal-close, .modal-save').off().click(function (e) {
+            editTable($(this).hasClass('modal-save'))
 
         $('.modal_box').fadeOut();
         $('.modal_bg').fadeOut('slow', function () {
