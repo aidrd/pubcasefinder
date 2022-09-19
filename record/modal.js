@@ -68,10 +68,9 @@ function openModal(patientId) {
         this_month = today.getMonth() + 1
 
         optionLoop = function (start, end, id) {
-            let opt = `<option value="0">- ${end === 12 ? '月' : '年'}を選択 -</option>`
+            let opt = `<option value="0" hidden>- ${end === 12 ? '月' : '年'}を選択 -</option>`
  
             for (let i = start; i <= end; i++) {
-
                 let display = i
                 let value = i
                 let temp = i
@@ -220,7 +219,6 @@ function openModal(patientId) {
 
                 let type = element.type
                 if (type === 'radio') {
-                    console.log(dataKey)
                     $(`.tab-wrap input[name="${dataKey}"]`).on('click change', (e) => {
                         onchange(v.columnName, $(`.tab-wrap input[name="${dataKey}"]:checked`).val())
                     })
