@@ -498,7 +498,6 @@ function showHideColumn(e) {
         headers.push(col.column)
 
     } else {
-        // console.log(e, colHeaders.indexOf(`<i class="material-icons-outlined sort_icon">swap_vert</i>${e.id}`))
         colHeaders.splice(colHeaders.indexOf(`<i class="material-icons-outlined sort_icon">swap_vert</i>${e.id}`), 1)
 
         if (['体重', '身長', '頭囲'].includes(e.id)) {
