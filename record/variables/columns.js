@@ -317,7 +317,7 @@ let columns = {
             "columnName": "遺伝形式",
             "dataKey": "genetic_list",
             "type": "dropdown",
-            "options": ["Sporadic", "Autosomal dominant inheritance - Sex-limited autosomal dominant", "Autosomal dominant inheritance - Autosomal dominant somatic cell mutation", "Autosomal dominant inheritance - Autosomal dominant contiguous gene syndrome", "Autosomal recessive inheritance", "Gonosomal inheritance - X-linked inheritance - X-linked dominant inheritance", "Gonosomal inheritance - X-linked inheritance  - X-linked recessive inheritance", "Gonosomal inheritance - Y-linked inheritance", "Multifactorial inheritance - Digenic inheritance", "Multifactorial inheritance - Oligogenic inheritance", "Mitochondrial inheritance" ],
+            "options": ["Sporadic", "Autosomal dominant inheritance", "Autosomal dominant inheritance - Sex-limited autosomal dominant", "Autosomal dominant inheritance - Autosomal dominant somatic cell mutation", "Autosomal dominant inheritance - Autosomal dominant contiguous gene syndrome", "Autosomal recessive inheritance", "Gonosomal inheritance", "Gonosomal inheritance - X-linked inheritance", "Gonosomal inheritance - X-linked inheritance - X-linked dominant inheritance", "Gonosomal inheritance - X-linked inheritance  - X-linked recessive inheritance", "Gonosomal inheritance - Y-linked inheritance", "Multifactorial inheritance", "Multifactorial inheritance - Digenic inheritance", "Multifactorial inheritance - Oligogenic inheritance", "Multifactorial inheritance - Polygenic inheritance", "Mitochondrial inheritance"],
             "table": true
         },
         {

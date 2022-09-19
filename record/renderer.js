@@ -38,7 +38,8 @@ function multipleRenderer(instance, td, row, col, prop, value, cellProperties) {
         if (typeof value === 'string') {
             value = value.split(',')
         }
-        displayValue = value.join(',<br>')
+        // displayValue = value.join(',<br>')
+        displayValue = value.join('<br>')
     }
     // td.innerHTML = value ? value.join('<br>') : value
     td.innerHTML = displayValue
