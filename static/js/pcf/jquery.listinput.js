@@ -609,7 +609,30 @@
 		
 		var $textarea = $('<div>').attr('id', _attach_prefix_to_id(prefix, 'list-input-textarea'))
 								  .attr('contenteditable','true')
-								  .addClass('list-input-textarea');
+								  .addClass('list-input-textarea')
+	.on("paste", function (e) {
+        e.preventDefault();
+
+        var text;
+        var clp = (e.originalEvent || e).clipboardData;
+        if (clp === undefined || clp === null) {
+            text = window.clipboardData.getData("text") || "";
+            if (text !== "") {
+                if (window.getSelection) {
+                    var newNode = document.createElement("span");
+                    newNode.innerHTML = text;
+                    window.getSelection().getRangeAt(0).insertNode(newNode);
+                } else {
+                    document.selection.createRange().pasteHTML(text);
+                }
+            }
+        } else {
+            text = clp.getData('text/plain') || "";
+            if (text !== "") {
+                document.execCommand('insertText', false, text);
+            }
+        }
+    });
 
 		var onChosenSpan = onChosen;
 

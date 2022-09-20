@@ -468,7 +468,30 @@
                                   .attr('autocomplete','off')
                                   .attr('autocapitalize','off')
                                   .attr('spellcheck', false)
-								  .addClass('text-input-textarea');
+								  .addClass('text-input-textarea')
+								  .on("paste", function (e) {
+        e.preventDefault();
+
+        var text;
+        var clp = (e.originalEvent || e).clipboardData;
+        if (clp === undefined || clp === null) {
+            text = window.clipboardData.getData("text") || "";
+            if (text !== "") {
+                if (window.getSelection) {
+                    var newNode = document.createElement("span");
+                    newNode.innerHTML = text;
+                    window.getSelection().getRangeAt(0).insertNode(newNode);
+                } else {
+                    document.selection.createRange().pasteHTML(text);
+                }
+            }
+        } else {
+            text = clp.getData('text/plain') || "";
+            if (text !== "") {
+                document.execCommand('insertText', false, text);
+            }
+        }
+    });
 
 		var onChosenSpan = onChosen;
 
@@ -476,15 +499,6 @@
 			return 'text-input-area';
 		};
 
-        /*
-		this.keep_text = function(text){
-			$textarea.data('before', text);
-		};
-		
-		this.get_kept_text = function(){
-			return $textarea.data('before');
-		};
-        */
 		this.clear = function(){
 			$textarea.empty();
 		};
