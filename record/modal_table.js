@@ -1,7 +1,11 @@
 let modalTableSettings = {
     rowHeaders: true,
+    width: '100%',
     height: 'auto',
-    colWidths: 100,
+    // colWidths: 130,
+    autoColumnSize: {
+    	useHeaders: true
+    },
     contextMenu: true,
     allowRemoveColumn: true,
     licenseKey: 'non-commercial-and-evaluation' // for non-commercial use only
@@ -23,7 +27,7 @@ let bodyContainer = document.getElementById('bodyModal')
 
 async function geneTable() {
     let tempData = {}
-    resetData()
+    resetData('gene')
 
     let geneTypeInfo = columns['遺伝子型情報']
     geneTypeInfo.forEach(g => {
@@ -63,7 +67,6 @@ async function geneTable() {
         dataSchema: geneSchema,
         colHeaders: geneHeaders,
         columns: geneColumns,
-        colWidths: 130
     })
 
     if (!geneHot) {
@@ -79,7 +82,7 @@ function addGeneRow() {
 }
 
 async function bodyTable() {
-    resetData()
+    resetData('body')
 
     bodySchema = {
         "日付": "",
@@ -92,7 +95,8 @@ async function bodyTable() {
         let patientData = contentData.filter(d => { return d.PCFNo == currentPatient })[0]
         if (!patientData['身体情報']) patientData['身体情報'] = []
         bodyData = patientData['身体情報']
-        currentBodyData = JSON.parse(JSON.stringify(modalTableSettings))
+        currentBodyData = bodyData
+        // currentBodyData = JSON.parse(JSON.stringify(modalTableSettings))
     }
 
     bodyHeaders = Object.keys(bodySchema)
@@ -131,8 +135,8 @@ function addBodyRow() {
     bodyHot.alter('insert_row', bodyHot.countRows())
 }
 
-function resetData() {
-    if (geneHot) {
+function resetData(type) {
+    if (type === 'gene' && geneHot) {
         geneHeaders = []
         geneColumns = []
         geneSchema = {}
@@ -141,7 +145,7 @@ function resetData() {
         geneHot.render()
     }
 
-    if (bodyHot) {
+    if (type === 'body' && bodyHot) {
         bodyHeaders = []
         bodyColumns = []
         bodySchema = {}

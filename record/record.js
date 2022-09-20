@@ -1,4 +1,4 @@
-let hot, exportPlugin, movePlugin
+let hot, exportPlugin, movePlugin, autoRowSizePlugin
 let isAllChecked = true
 let toSave = false
 let count = 1
@@ -15,16 +15,10 @@ let updateSettings = {
     rowHeaders: true,
     width: '100%',
     height: 'auto',
-    // colWidths(i) {
-    //     return i < 2 ? 43 : 100
-    //     // return i < 2 ? 43 : null
-    // },
     autoColumnSize: {
     	useHeaders: true
     },
-    hiddenRows: {
-        rows: []
-    },
+    hiddenColumns: true,
     fixedColumnsLeft: 2,
     search: true,
     data: contentData,
@@ -47,6 +41,7 @@ initiateTable()
 async function initiateTable() {
     await createColumns()
 
+
     Object.assign(updateSettings, {
         data: [],
         dataSchema: dataSchema,
@@ -58,7 +53,7 @@ async function initiateTable() {
     hot = new Handsontable(hotContainer, updateSettings)
     exportPlugin = hot.getPlugin('exportFile')
     movePlugin = hot.getPlugin('manualRowMove')
-    // hidePlugin = hot.getPlugin('hiddenRows')
+    autoRowSizePlugin = hot.getPlugin('AutoRowSize')
 
     Handsontable.dom.addEvent(document.getElementById('search_input'), 'keyup', (event) => {
         const search = hot.getPlugin('search')
@@ -144,7 +139,7 @@ function getExportData() {
     if (type === 'csv' || type === 'tsv') exportedString = Papa.unparse(dlData.PATIENTS)
 
     exportFile()
-    exportFile(type, file)
+    // exportFile(type, file)
 
     function exportFile() {
         let a = document.createElement('a')
@@ -366,8 +361,9 @@ async function updateTable(data) {
         contentData.push(d)
     })
 
+
     Object.assign(updateSettings, {
-        data: contentData
+        data: contentData,
     })
 
     localStorage.contentData = contentData
@@ -414,10 +410,6 @@ function addColumn() {
     let modal = document.querySelector('.modal')
 
     modal.style.display = 'block'
-
-    // document.querySelector('.close_modal').onclick = () => {
-    //     closeAddColumnModal()
-    // }
 
     modal.onclick = (e) => {
         if (!e.target.closest('.modal_content')) closeAddColumnModal()
@@ -467,7 +459,7 @@ function addColumn() {
         // colHeaders = headers
         if (add.value === '') return
 
-        let colHeader = `<i class="material-icons-outlined sort_icon">swap_vert</i>${add.value} `
+        let colHeader = `<i class="material-icons-outlined sort_icon">swap_vert</i>${add.value}`
 
         let column = {
             data: add.value,
@@ -504,18 +496,32 @@ function showHideColumn(e) {
         existingHeaders.push(e.id)
         colHeaders.push(col.colHeader)
         headers.push(col.column)
-    } else {
-        colHeaders.splice(
-            colHeaders.indexOf(`<i class="material-icons-outlined sort_icon">swap_vert</i>${e.id}`),
-            1
-        )
 
-        headers = headers.filter(h => {return h.data !== e.id })
-        // if (['体重', '身長', '頭囲'].includes(e.id)) {
-            
-        // } else {
-        //     headers = headers.filter(h => {return h.data !== e.id })
-        // }
+    } else {
+        colHeaders.splice(colHeaders.indexOf(`<i class="material-icons-outlined sort_icon">swap_vert</i>${e.id}`), 1)
+
+        if (['体重', '身長', '頭囲'].includes(e.id)) {
+            let renderer
+            switch (e.id) {
+                case '体重':
+                    renderer = 'weightRenderer'
+                    break
+                case '身長':
+                    renderer = 'heightRenderer'
+                    break
+                case '頭囲':
+                    renderer = 'headRenderer'
+                    break
+            }
+
+            headers.forEach((h, i) => {
+                if (h.data !== '身体情報') return
+                if (h.renderer.name === renderer) headers.splice(i, 1)
+            })
+                        
+        } else {
+            headers = headers.filter(h => {return h.data !== e.id })
+        }
         existingHeaders.splice(existingHeaders.indexOf(e.id), 1)
     }
 
@@ -534,6 +540,7 @@ function removeCustomColumn(e) {
     // showHideColumn(element)
 
     // element.parentElement.remove()
+    console.log('e', e)
     delete dataSchema[e.id]
     delete dataColumns[e.id]
 
@@ -609,4 +616,8 @@ function rerenderTable() {
 
     hot.updateSettings(updateSettings)
     hot.render()
+}
+
+function beforeLoad() {
+    return 'load'
 }

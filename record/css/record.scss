@@ -344,10 +344,9 @@ body{
                         background: #fff;
                         box-shadow: 0 0 0 rgb(0, 0, 0 / 5%);
                         th {
-                            padding: 0.5em 0 0.5em 0;
+                            /*padding: 0.5em 0 0.5em 0;*/
                             display: table-cell;
                             vertical-align: middle;
-                            background: #fff;
                             position: relative;
                             font-weight: normal;
                             color: #000;
@@ -373,8 +372,7 @@ body{
                                 border-radius: 2em;
                                 background: #000;
                                 color: #fff;
-                                margin-top: 0.5em;
-                                float: left;
+                                margin-bottom: 0.5em;
                                 i{
                                     margin-right: 0.2em;
                                 }
@@ -411,14 +409,14 @@ body{
                                 border-radius: 0.3em;
                             }
                             select{
-                                padding: 0.35em 1em;
+                                padding: 0.35em 0.5em;
                                 border: 1.5px solid #e3e3e3;
                                 border-radius: 0.3em;
                                 appearance: button;
                             }
                             input{
                                 width: 100%;
-                                padding: 0.5em 1em;
+                                padding: 0.35em 0.5em;
                                 border: 1.5px solid #e3e3e3;
                                 border-radius: 0.3em;
                             }
@@ -436,7 +434,7 @@ body{
                         #group_wrap{
                             display: flex;
                             select{
-                                margin-right: 0.5em;
+                                margin-left: 0.5em;
                             }
                             #fixed-menu{
                                 padding: 5px;
@@ -565,21 +563,28 @@ body{
     border-radius: 2em;
   }
   .panel{
+    min-height: 100vh;
+    width: 100vw;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    background: rgba(255, 255, 255, 0);
+    z-index: 200;
     display: none;
-    position: absolute;
-    top: 40px;
-    right: 0;
-    z-index: 1000;
-    width: 200px;
-    margin-left: -30px;
-    padding: 1em;
+    .export-panel{
+   height: fit-content;
     background: #fff;
-    border-radius: 3px;
-    box-shadow: 0 2px 15px 1px rgba(0,0,0,.2);
     color: #000;
-    h5{
+    border-radius: 5px;
+    position: absolute;
+    top: 140px;
+    right: 140px;
+    box-shadow: 0 2px 15px 1px rgba(163, 163, 163, 0.2);
+    padding: 1em;
+    h6{
         font-weight: bold;
         margin-bottom: 0.5em;
+        padding-left: 0;
     }
     p{
         margin-bottom: 0.5em;
@@ -595,6 +600,7 @@ body{
         border-radius: 5px;
         color: #fff;
     }
+}
   }
 
   .group_panel{
@@ -653,8 +659,8 @@ h5{
       background: #fff;
       border-radius: 5px;
       position: absolute;
-      top: 195px;
-      right: 130px;
+      top: 205px;
+      right: 140px;
       box-shadow: 0 2px 15px 1px rgba(163, 163, 163, 0.2);
       .button_wrap{
         display: flex;
@@ -830,6 +836,7 @@ h5{
 /*handsontable*/
 .handsontable{
     thead{
+        tr{
         th{
         .relative{
     text-align: left;
@@ -844,7 +851,12 @@ h5{
     }
 }
 }
+td{
+    i{
+        text-align: center;
+    }
 }
+}}
 }
 
 ::placeholder {
@@ -882,8 +894,7 @@ h5{
     border-radius: 2em;
     background: #000;
     color: #fff;
-    margin-top: 0.5em;
-    float: left;
+    margin-bottom: 0.5em;
     i{
         margin-right: 0.2em;
     }
@@ -914,3 +925,12 @@ h5{
     }
 }
 
+
+.nav-sp .menu-item-has-children:hover ul{
+    z-index: 5;
+}
+
+
+.input-top{
+    margin-top: 0.5em;
+}
