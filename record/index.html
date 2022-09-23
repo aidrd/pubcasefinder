@@ -877,6 +877,44 @@
 <script src="../static/js/jaconv/jaconv.min.js"></script>
 <script type="text/javascript" src="../static/js/pcf/jquery.search-box_form.js"></script>
 <script type="text/javascript" src="../static/js/pcf/jquery.textinput_hpo.js"></script>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $("#search_box_form").search_box_form({
+            'url_tokeninput_hpo': '/tokeninput_hpo',
+            'url_tokeninput_hpo_second': '/pcf_get_hpo_by_text',
+            'url_popup_hierarchy_hpo': '/popup_hierarchy_hpo',
+            'url_load_hpo_data': '/get_hpo_data_by_hpo_id',
+            {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
+            'lang': "ja",
+        {% else %}
+        'lang': "en",
+        {% endif %}
+        'form_para_target': "omim",
+        'form_para_filter': "",
+        'form_para_filter_vgp': "",
+        'form_para_size': "",
+        'form_para_display_format': "full",
+        'is_hierarchy_fullscreen': false,
+        'schema': 'schema-2022',
+        'text_input_schema': 'auto'
+          });
+
+    $("#ex_phenotypes").click(function () {
+        $("#search_box_form").search_box_form('add_token', { id: "{{ _('index_Sample_1_id') }}", name: "{{ _('index_Sample_1_name') }}" });
+        $("#search_box_form").search_box_form('add_token', { id: "{{ _('index_Sample_2_id') }}", name: "{{ _('index_Sample_2_name') }}" });
+        $("#search_box_form").search_box_form('add_token', { id: "{{ _('index_Sample_3_id') }}", name: "{{ _('index_Sample_3_name') }}" });
+        $("#search_box_form").search_box_form('add_token', { id: "{{ _('index_Sample_4_id') }}", name: "{{ _('index_Sample_4_name') }}" });
+        $("#search_box_form").search_box_form('add_token', { id: "{{ _('index_Sample_5_id') }}", name: "{{ _('index_Sample_5_name') }}" });
+
+        return false;
+    });
+
+    $('[data-toggle="tooltip"]').tooltip({ 'trigger': 'hover' });
+    });
+
+</script>
 <!-- start bitsend bits-->
 <script type="text/javascript"
     src="https://dbcls.rois.ac.jp/DBCLS-common-header-footer/v2/script/common-header-and-footer.js"
