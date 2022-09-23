@@ -64,7 +64,8 @@
 </head>
 
 <!-- <body onbeforeunload="return beforeLoad()"> -->
-    <body>
+
+<body>
     <header class="search-header search-header-karte">
         <div class="wrapper search-header_wrapper">
             <div class="search-header_top">
@@ -361,7 +362,7 @@
                         <tr>
                             <th id="groupID">グループ名</th>
                             <td id="group_wrap">
-                                <input type="text" name="groupID" list="group_options" placeholder="G00000001"
+                                <input type="text" name="groupID" list="group_options" placeholder="X病院、Y診療科など"
                                     data-columnname="グループ名">
                                 <select id="group_options">
                                 </select>
@@ -452,7 +453,7 @@
                             <th id="Note">備考</th>
                             <td>
                                 <textarea name="Note" cols="30" rows="5" data-columnname="概要"
-                                    placeholder="ex)テキスト備考"></textarea>
+                                    placeholder="自由記載"></textarea>
                             </td>
                         </tr>
                     </tbody>
@@ -463,17 +464,17 @@
                     <tbody>
                         <tr>
                             <th id="clinical-diagnosis">臨床診断</th>
-                            <td><input type="text" name="clinical-diagnosis" value="" placeholder="ex)フェニルケトン尿症"
+                            <td><input type="text" name="clinical-diagnosis" value="" placeholder="ex)痙性椎麻痺"
                                     data-columnname="臨床診断">
                         </tr>
                         <tr>
                             <th id="final-diagnosis">確定診断</th>
-                            <td><input type="text" name="final-diagnosis" value="" placeholder="ex)フェニルアラニン水酸化酵素欠損症"
+                            <td><input type="text" name="final-diagnosis" value="" placeholder="ex)Krabbe病"
                                     data-columnname="確定診断" data-columnname="確定診断">
                         </tr>
                         <tr>
                             <th id="chief-complaint">主訴</th>
-                            <td><input type="text" name="chief-complaint" value="" placeholder="ex)ジストニア"
+                            <td><input type="text" name="chief-complaint" value="" placeholder="歩行障害"
                                     data-columnname="主訴">
                             </td>
                         </tr>
@@ -614,9 +615,15 @@
                             </td>
                         </tr>
                         <tr>
-                            <th id="vaccination-history">渡航歴</th>
-                            <td><textarea type="text" name="vaccination-history" size="60" value="" placeholder="ex)渡航歴"
+                            <th id="travel-history">渡航歴</th>
+                            <td><textarea type="text" name="travel-history" size="60" value="" placeholder="ex)渡航歴"
                                     data-columnname="渡航歴" rows="3"></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th id="vaccination-history">予防接種歴</th>
+                            <td><textarea type="text" name="vaccination-history" size="60" value=""
+                                    placeholder="ex)予防接種歴" data-columnname="予防接種歴" rows="3"></textarea>
                             </td>
                         </tr>
                     </tbody>
@@ -791,18 +798,18 @@
                                 近親婚</th>
                             <td>
                                 <label for="unknown-consanguine-marriage">
-                                    <input id="unknown-consanguine-marriage" type="radio" name="consanguine-marriage" value="不明"
-                                        data-columnname="近親婚">
+                                    <input id="unknown-consanguine-marriage" type="radio" name="consanguine-marriage"
+                                        value="不明" data-columnname="近親婚">
                                     不明
                                 </label>
                                 <label for="yes-consanguine-marriage">
-                                    <input id="yes-consanguine-marriage" type="radio" name="consanguine-marriage" value="有"
-                                        data-columnname="近親婚">
+                                    <input id="yes-consanguine-marriage" type="radio" name="consanguine-marriage"
+                                        value="有" data-columnname="近親婚">
                                     有
                                 </label>
                                 <label for="no-consanguine-marriage">
-                                    <input id="no-consanguine-marriage" type="radio" name="consanguine-marriage" value="無"
-                                        data-columnname="近親婚">
+                                    <input id="no-consanguine-marriage" type="radio" name="consanguine-marriage"
+                                        value="無" data-columnname="近親婚">
                                     無
                                 </label>
                             </td>
@@ -822,7 +829,8 @@
                                     有
                                 </label>
                                 <label for="no-abortion">
-                                    <input id="no-abortion" type="radio" name="abortion" value="無" data-columnname="流産が3回以上ある両親">
+                                    <input id="no-abortion" type="radio" name="abortion" value="無"
+                                        data-columnname="流産が3回以上ある両親">
                                     無
                                 </label>
                             </td>
