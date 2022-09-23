@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+
+{% if get_locale() == "ja" or get_locale() == "ja_JP" %}
+<html lang="ja">
+{% elif get_locale() == "ko" or get_locale() == "ko_KR" %}
+<html lang="ko">
+{% else %}
+<html lang="en">
+{% endif %}
+
+<head>
+    <!-- START: meta -->
+    <meta charset="UTF-8">
+    <!-- START: css -->
+    <link rel="stylesheet" href="https://unpkg.com/destyle.css@1.0.5/destyle.css">
+    <link rel="stylesheet" href="../static/css/pcf/bootstrap.css">
+    <link rel="stylesheet" href="../static/css/pcf/tippy.css">
+    <link rel="stylesheet" href="../static/css/pcf/search-box-form.css">
+    <link rel="stylesheet" href="../static/css/pcf/text-input.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="../static/css/pcf/magnific-popup.css">
+    <link rel="stylesheet" href="../static/css/pcf/token-input-facebook.css" type="text/css" />
+    <link rel="stylesheet" href="../static/css/pcf/popup-hierarchy-hpo.css">
+    <link rel="stylesheet" href="https://unpkg.com/tippy.js@6/animations/scale.css" />
+    <link rel="stylesheet" href="https://unpkg.com/tippy.js@6/animations/scale-extreme.css" />
+</head>
+
+<body spellcheck="false">
+    <div style="width:65%;margin: 50px auto 0px auto;">
+        <div class="search-box_wrapper">
+            <div id="search_box_form"></div>
+        </div>
+        <div class="search-ex">
+            <a href="#" id="ex_phenotypes">ex) {{ _('index_Sample') }}</a>
+        </div>
+    </div>
+</body>
+
+<!-- START: Common header and footer -->
+
+<!-- jQuery -->
+<script src="../static/js/pcf/jquery.min.js"></script>
+<script src="../static/js/jquery.easing.1.3.js"></script>
+<script src="../static/js/pcf/bootstrap-4.6.0.bundle.js"></script>
+<script src="https://unpkg.com/@popperjs/core@2"></script>
+<script src="https://unpkg.com/tippy.js@6"></script>
+<script src="../static/js/jquery.waypoints.min.js"></script>
+<script src="../static/js/jquery.countTo.js"></script>
+<script src="../static/js/pcf/jquery.magnific_popup.min.js"></script>
+<script src="../static/js/pcf/magnific-popup-options.js"></script>
+<script src="../static/js/jquery.stellar.min.js"></script>
+<script src="../static/js/pcf/rater.js"></script>
+<script src="../static/js/pcf/jquery.tokeninput.js"></script>
+<script src="../static/js/d3/3.5.17/d3.min.js"></script>
+<script src="../static/js/three.js-r84/build/three.min.js"></script>
+<script src="../static/js/three.js-r84/examples/js/Detector.js"></script>
+<script src="../static/js/three-bits/OBJLoader.js"></script>
+<script src="../static/js/three-bits/three-bits.js"></script>
+<script src="../static/js/three-bits/three-bits-renderer.js"></script>
+<script src="../static/js/three-bits/defaults.js"></script>
+<script type="text/javascript" src="../static/js/pcf/popup-hierarchy-hpo.js"></script>
+<script src="../static/js/button-ripple-effect.js"></script>
+<script src="../static/js/jaconv/jaconv.min.js"></script>
+<script type="text/javascript" src="../static/js/pcf/jquery.search-box_form.js"></script>
+<script type="text/javascript" src="../static/js/pcf/jquery.textinput_hpo.js"></script>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $("#search_box_form").search_box_form({
+            'url_tokeninput_hpo': '/tokeninput_hpo',
+            'url_tokeninput_hpo_second': '/pcf_get_hpo_by_text',
+            'url_popup_hierarchy_hpo': '/popup_hierarchy_hpo',
+            'url_load_hpo_data': '/get_hpo_data_by_hpo_id',
+          {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
+          'lang': "ja",
+        {% else %}
+        'lang': "en",
+        {% endif %}
+        'form_para_target': "omim",
+        'form_para_filter': "",
+        'form_para_filter_vgp': "",
+        'form_para_size': "",
+        'form_para_display_format': "full",
+        'is_hierarchy_fullscreen': false,
+        'schema': 'schema-2022',
+        'text_input_schema': 'auto'
+        });
+
+    $("#ex_phenotypes").click(function () {
+        $("#search_box_form").search_box_form('add_token', { id: "{{ _('index_Sample_1_id') }}", name: "{{ _('index_Sample_1_name') }}" });
+        $("#search_box_form").search_box_form('add_token', { id: "{{ _('index_Sample_2_id') }}", name: "{{ _('index_Sample_2_name') }}" });
+        $("#search_box_form").search_box_form('add_token', { id: "{{ _('index_Sample_3_id') }}", name: "{{ _('index_Sample_3_name') }}" });
+        $("#search_box_form").search_box_form('add_token', { id: "{{ _('index_Sample_4_id') }}", name: "{{ _('index_Sample_4_name') }}" });
+        $("#search_box_form").search_box_form('add_token', { id: "{{ _('index_Sample_5_id') }}", name: "{{ _('index_Sample_5_name') }}" });
+
+        return false;
+    });
+
+    $('[data-toggle="tooltip"]').tooltip({ 'trigger': 'hover' });
+  });
+
+</script>
+
+
+</html>
