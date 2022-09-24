@@ -22,6 +22,8 @@ function openModal(patientId) {
     $('.modal-close, .modal-copy').off().click(function (e) {
         editTable($(this).hasClass('modal-close'))
 
+        if ($(this).hasClass('modal-copy')) copyPatient()
+
         $('.modal_box').fadeOut();
         $('.modal_bg').fadeOut('slow', function () {
             $('.modal_bg').remove();
@@ -401,4 +403,15 @@ let dictionary = {
 function translate(word) {
     if (!word) return ''
     return dictionary[word]
+}
+
+function copyPatient() {
+    let patientId = document.getElementById('PCFNo').nextElementSibling.innerHTML
+    let patientData = contentData.filter(d => { return d.PCFNo == patientId })[0]
+    if (!patientData) return
+
+    let temp = JSON.parse(JSON.stringify(patientData))
+    delete temp.PCFNo
+
+    addRow(temp)
 }
