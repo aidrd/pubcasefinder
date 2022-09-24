@@ -195,15 +195,43 @@ function openModal(patientId) {
                     element.value = date[0]
                     element.onchange = function () {
                         onchange(dataKey === 'birth_year' ? '生年月' : '没年月')
-                        let age = new Date().getFullYear() - element.value
-                        document.querySelector(`.tab-wrap *[name="age"]`).value = age
-                        onchange('年齢', age)
+
+                        if (dataKey === 'birth_year') {
+                            let age = getAge()
+                            document.querySelector(`.tab-wrap *[name="age"]`).value = age
+                            onchange('年齢', age)
+                        }
                     }
 
                     let monthElement = document.querySelector(`.tab-wrap *[name="${monthKey}"]`)
                     monthElement.value = date[1]
                     monthElement.onchange = function () {
                         onchange(dataKey === 'birth_year' ? '生年月' : '没年月')
+
+                        if (dataKey === 'birth_year') {
+                            let age = getAge()
+                            document.querySelector(`.tab-wrap *[name="age"]`).value = age
+                            onchange('年齢', age)
+                        }
+                    }
+
+                    function getAge() {
+                        let d = new Date()
+                        let age
+                        let year = document.querySelector(`.tab-wrap *[name="birth_year"]`).value
+                        let month = document.querySelector(`.tab-wrap *[name="birth_month"]`).value
+
+                        if (!month) {
+                            age = d.getFullYear() - year
+                        } else if (month && year) {
+                            if (d.getMonth() >= month) {
+                                age = d.getFullYear() - year
+                            } else {
+                                age = d.getFullYear() - year - 1
+                            }
+                        }
+
+                        return age || ''
                     }
 
                     return
