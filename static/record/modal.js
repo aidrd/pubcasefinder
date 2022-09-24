@@ -119,7 +119,7 @@ function openModal(patientId) {
             option.innerText = d
             parent.appendChild(option)
         })
-        // console.log(parent)
+
         // parent.onchange = function() {
         //     console.log('changed')
         //     if (element === 'group_options') {
@@ -195,6 +195,9 @@ function openModal(patientId) {
                     element.value = date[0]
                     element.onchange = function () {
                         onchange(dataKey === 'birth_year' ? '生年月' : '没年月')
+                        let age = new Date().getFullYear() - element.value
+                        document.querySelector(`.tab-wrap *[name="age"]`).value = age
+                        onchange('年齢', age)
                     }
 
                     let monthElement = document.querySelector(`.tab-wrap *[name="${monthKey}"]`)
@@ -202,6 +205,8 @@ function openModal(patientId) {
                     monthElement.onchange = function () {
                         onchange(dataKey === 'birth_year' ? '生年月' : '没年月')
                     }
+
+                    return
                 } else if (dataKey === 'groupID') {
                     document.getElementById('group_options').onchange = function(e) {
                         onchange('グループ名', e.target.value)
