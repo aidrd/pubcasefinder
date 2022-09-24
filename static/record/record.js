@@ -136,7 +136,8 @@ function getExportData() {
     if (isAll) dlData = contentData
 
     if (type === 'json') exportedString = { 'PATIENTS': dlData }
-    if (type === 'csv' || type === 'tsv') exportedString = Papa.unparse(dlData.PATIENTS)
+    if (type === 'csv') exportedString = Papa.unparse(dlData.PATIENTS)
+    if (type === 'tsv') exportedString = Papa.unparse(dlData.PATIENTS, {delimiter: '\t'})
 
     exportFile()
     // exportFile(type, file)
