@@ -65,7 +65,6 @@
 </head>
 
 <!-- <body onbeforeunload="return beforeLoad()"> -->
-
 <body>
     <header class="search-header search-header-karte">
         <div class="wrapper search-header_wrapper">
@@ -242,6 +241,7 @@
             <main id="content-patients">
                 <div id="home-menu">
                     <input type="text" placeholder="キーワード検索" id="search_input">
+                    <span onclick="pageReload()"><i class="material-icons-outlined">add_circle_outline</i>リフレッシュ</span>
                     <div id="table_menu">
                         <span onclick="addColumn()"><i class="material-symbols-outlined">
                                 playlist_add_check

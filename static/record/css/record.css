@@ -634,10 +634,8 @@ h5 {
   max-height: 70vh !important;
 }
 
-#modalGrid {
-  height: 50vh !important;
-  border: 1px solid gray;
-  margin: auto;
+#geneModal > .ht_master > .wtHolder {
+  min-height: 30vh;
 }
 
 .hpo-parent {

@@ -108,7 +108,7 @@ function importFile(event) {
             object = JSON.parse(data)
         }
 
-        updateTable(object.PATIENTS)
+        updateTable(object.PATIENTS, fileType === 'text/csv' || fileType === 'text/tab-separated-values')
     })
     reader.readAsText(event.target.files[0])
 }
@@ -205,7 +205,7 @@ function onDrop(event) {
             object = JSON.parse(data)
         }
 
-        updateTable(object.PATIENTS)
+        updateTable(object.PATIENTS, fileType === 'text/csv' || fileType === 'text/tab-separated-values')
     })
 
     reader.readAsText(file)
@@ -243,6 +243,9 @@ function convertCSVToJSON(csv, isExport) {
 
     data.forEach((d, idx) => {
         let data = {}
+
+        if (idx > 0) data['PCFNo'] = d[0]
+
         for (let i = 0; i < d.length; i++) {
             if (isExport) {
                 if (notIncluded.includes(i)) continue
@@ -253,6 +256,7 @@ function convertCSVToJSON(csv, isExport) {
             let headerText = isExport ? headers[i].replace('<i class="material-icons-outlined sort_icon">swap_vert</i>', '') : headers[i]
             data[headerText] = d[i]
         }
+
         if (Object.keys(data).length > 0) patientsData.push(data)
     })
 
@@ -358,18 +362,53 @@ function createColumns() {
     })
 }
 
-async function updateTable(data) {
-    data.map(d => {
-        d['relationship'] = d['RelatedTo'] ? `${d['続柄']}<br>(${d['RelatedTo']})` : d['続柄']
-        contentData.push(d)
-    })
+async function updateTable(data, changeHeaders) {
+    console.log(data)
+    // headers = columns (settings - type, options, renderer, etc)
+    // colHeaders = headers
 
+    contentData = data
+
+    if (changeHeaders && contentData.length > 0) {
+        headers.splice(2, headers.length)
+        colHeaders.splice(2, colHeaders.length)
+        existingHeaders = []
+        customColumns = []
+
+        let newHeaders = Object.keys(data[0])
+        newHeaders.forEach(h => {
+            if (h === 'PCFNo') return
+
+            let headerTitle = `<i class=\"material-icons-outlined sort_icon\">swap_vert</i>${h}`
+            let headerData = {
+                data: h,
+                type: 'text',
+                readOnly: false
+            }
+
+            let colData = dataColumns[h]
+            if (colData) {
+                headerTitle = colData['colHeader']
+                headerData = colData['column']
+            } else {
+                customColumns.push(h)
+                dataColumns[h] = {
+                    colHeader: headerTitle,
+                    column: headerData
+                }
+            }
+
+            colHeaders.push(headerTitle)
+            headers.push(headerData)
+            existingHeaders.push(h)
+        })
+    }
 
     Object.assign(updateSettings, {
         data: contentData,
+        colHeaders: colHeaders,
+        columns: headers
     })
-
-    localStorage.contentData = contentData
 
     contentData.map(d => {
         let groupId = d['グループ名']
@@ -587,7 +626,7 @@ function editTable(isSave) {
 
     for (let [k, v] of Object.entries(changedData)) {
         patientData[k] = v
-        if (k === 'RelatedTo') patientData['relationship'] = v === 'なし' ? patientData['続柄'] : `${patientData['続柄']}<br>(${patientData['RelatedTo']})`
+        // if (k === 'RelatedTo') patientData['relationship'] = v === 'なし' ? patientData['続柄'] : `${patientData['続柄']}<br>(${patientData['RelatedTo']})`
     }
 
     resetGeneData()
@@ -626,6 +665,7 @@ function rerenderTable() {
 }
 
 function beforeLoad() {
+    localStorage.contentData = JSON.stringify(contentData)
     return 'load'
 }
 
