@@ -262,7 +262,8 @@ function createColumns() {
     // headers = columns (settings - type, options, renderer, etc)
     // colHeaders = headers
     return new Promise((resolve, reject) => {
-        let defaultColumns = ['主訴', 'グループ名', '続柄', '性別', '家族ID', '患者ID']
+        // let defaultColumns = ['主訴', 'グループ名', '続柄', '性別', '家族ID', '患者ID']
+        let defaultColumns = ['診断状況', '主訴', '確定診断', '臨床診断', '年齢', '性別', 'グループ名', '続柄', '家族ID', '患者ID']
         // let actions = ['REMOVE', 'EDIT', 'CHECKBOX']
         let actions = ['REMOVE', 'EDIT']
 
@@ -299,7 +300,7 @@ function createColumns() {
                     column.renderer = 'dropdown'
                 } else if (key === '遺伝子型情報' || v.columnName === '主訴') {
                     column.renderer = multipleRenderer
-                    column.editor = false
+                    if (key === '遺伝子型情報') column.editor = false
                 } else if (v.columnName === '身長') {
                     column.editor = false
                     column.data = `身体情報`
