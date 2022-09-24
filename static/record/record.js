@@ -102,7 +102,7 @@ function importFile(event) {
         let data = event.target.result
         let object
 
-        if (fileType === 'text/csv') {
+        if (fileType === 'text/csv' || fileType === 'text/tab-separated-values') {
             object = convertCSVToJSON(data)
         } else {
             object = JSON.parse(data)
