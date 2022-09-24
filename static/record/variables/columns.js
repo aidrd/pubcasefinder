@@ -44,6 +44,13 @@ let columns = {
             "table": true
         },
         {
+            "columnName": "年齢",
+            "dataKey": "age",
+            "type": "text",
+            "options": [],
+            "table": true
+        },
+        {
             "columnName": "没年月",
             "dataKey": "death",
             "type": "date",

@@ -340,9 +340,11 @@
                             </td>
                         </tr>
                         <tr>
-                            <th id="patientID">家族ID</th>
-                            <td><input type="text" name="FamilyID" value="" placeholder="F00000001"
+                            <th id="familyID">家族ID</th>
+                            <td id="group_wrap">
+                                <input type="text" name="FamilyID" value="" placeholder="F00000001"
                                     data-columnname="家族ID">
+                                <select id="family_options"></select>
                             </td>
                         </tr>
                         <tr>
@@ -365,8 +367,7 @@
                             <td id="group_wrap">
                                 <input type="text" name="groupID" list="group_options" placeholder="X病院、Y診療科など"
                                     data-columnname="グループ名">
-                                <select id="group_options">
-                                </select>
+                                <select id="group_options"></select>
                             </td>
                         </tr>
                         <tr>

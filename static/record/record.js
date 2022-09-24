@@ -5,7 +5,7 @@ let count = 1
 
 let headers = [], colHeaders = [], existingHeaders = [], hiddenColumns = [], customColumns = []
 let dataSchema = {}, dataColumns = {}
-let groupOptions = [], patientOptions = []
+let groupOptions = [], patientOptions = [], familyOptions = []
 
 let contentData = []
 
@@ -285,15 +285,16 @@ function createColumns() {
                 if (v.type === 'date') {
                     column.dateFormat = 'YYYY/MM',
                         column.correctFormat = true
-                    column.datePickerConfig = {
+                        column.datePickerConfig = {
                         firstDay: 0,
                         numberOfMonths: 1,
                         licenseKey: 'non-commercial-and-evaluation',
                     }
                 }
 
-                if (v.columnName === 'グループ名') {
+                if (v.columnName === 'グループ名' || v.columnName === '家族ID') {
                     column.source = groupOptions
+                    if (v.columnName === '家族ID') column.source = familyOptions
                     column.allowInvalid = true
                     column.strict = false
                 } else if (v.columnName === '続柄') {
@@ -376,6 +377,9 @@ async function updateTable(data) {
 
         let patientId = d['患者ID']
         if (patientId && !(patientOptions.includes(patientId))) patientOptions.push(patientId)
+
+        let familyId = d['家族ID']
+        if (familyId && !(familyOptions.includes(familyId))) familyOptions.push(familyId)
     })
 
     hot.updateSettings(updateSettings)

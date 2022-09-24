@@ -7,6 +7,7 @@ function openModal(patientId) {
 
     modalResize();
     populateOptions('group_options')
+    populateOptions('family_options')
 
     document.querySelector(`.tab-wrap *[name="groupID"]`).onclick = function () {
         document.getElementById('group_options').style.display = 'block'
@@ -94,9 +95,11 @@ function openModal(patientId) {
         parent.innerHTML = ''
 
         // let data = element === 'group_options' ? structuredClone(groupOptions) : structuredClone(patientOptions)
-        let data = element === 'group_options' ? JSON.parse(JSON.stringify(groupOptions)) : JSON.parse(JSON.stringify(patientOptions))
+        let data = element === 'group_options' ? JSON.parse(JSON.stringify(groupOptions)) : JSON.parse(JSON.stringify(familyOptions))
 
-        data.unshift('- 登録済みグループ名 -')
+        let firstOption = element === 'group_options' ? '- 登録済みグループ名 -' : '- 登録済み家族ID -'
+        // data.unshift('- 登録済みグループ名 -')
+        data.unshift(firstOption)
 
         data.forEach(d => {
             let option = document.createElement('option')
@@ -104,11 +107,16 @@ function openModal(patientId) {
             option.innerText = d
             parent.appendChild(option)
         })
-
-        parent.onchange = function() {
-            document.querySelector(`.tab-wrap *[name="groupID"]`).value = parent.options[parent.selectedIndex].value
-            parent.style.display = 'none'
-        }
+        // console.log(parent)
+        // parent.onchange = function() {
+        //     console.log('changed')
+        //     if (element === 'group_options') {
+        //         document.querySelector(`.tab-wrap *[name="groupID"]`).value = parent.options[parent.selectedIndex].value
+        //     } else {
+        //         document.querySelector(`.tab-wrap *[name="FamilyID"]`).value = parent.options[parent.selectedIndex].value
+        //     }
+        //     parent.style.display = 'none'
+        // }
     }
 
     function inputValues() {
