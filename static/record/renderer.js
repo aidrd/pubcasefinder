@@ -27,7 +27,10 @@ function removeRenderer(instance, td, row, col, prop, value, cellProperties) {
 
     td.innerHTML = `<i class="material-icons-outlined">delete</i>`
     td.onclick = function() {
-        if (confirm('削除してもよろしいでしょうか。')) hot.alter('remove_row', row, 1)
+        if (confirm('削除してもよろしいでしょうか。')) {
+            hot.alter('remove_row', row, 1)
+            document.getElementById('row_count').innerHTML = hot.countRows()
+        }
     }
 }
 

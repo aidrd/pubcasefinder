@@ -18,8 +18,8 @@ function openModal(patientId) {
     $(modal).fadeIn();
 
     // $('.modal_bg, .modal-close, .modal-save').off().click(function (e) {
-    $('.modal-close, .modal-save').off().click(function (e) {
-            editTable($(this).hasClass('modal-save'))
+    $('.modal-close, .modal-copy').off().click(function (e) {
+        editTable($(this).hasClass('modal-close'))
 
         $('.modal_box').fadeOut();
         $('.modal_bg').fadeOut('slow', function () {
@@ -121,7 +121,8 @@ function openModal(patientId) {
         } else {
             let d = new Date()
             PCFNo = `P${d.getFullYear()}${d.getMonth()+1}${d.getDate()}${d.getHours()}${d.getMinutes()}${d.getSeconds()}${d.getMilliseconds()}`
-            document.querySelector(`.tab-wrap *[name="patientID"]`).value = `P${count.toString().padStart(7, 0)}`        
+            let num = hot.countRows() + 1
+            document.querySelector(`.tab-wrap *[name="patientID"]`).value = `P${num.toString().padStart(7, 0)}`        
         }
 
         document.getElementById('PCFNo').nextElementSibling.innerHTML = PCFNo
@@ -183,7 +184,7 @@ function openModal(patientId) {
                     }
                 } else if (dataKey === 'groupID') {
                     document.getElementById('group_options').onchange = function(e) {
-                        onchange('groupID', e.target.value)
+                        onchange('グループ名', e.target.value)
                     }
                 }
 

@@ -393,7 +393,8 @@ function addRow(data) {
 
     temp.PCFNo = pcfNo
 
-    temp['患者ID'] = `P${count.toString().padStart(7, 0)}`
+    let num = hot.countRows() + 1
+    temp['患者ID'] = `P${num.toString().padStart(7, 0)}`
     count++
 
     if (data) {
