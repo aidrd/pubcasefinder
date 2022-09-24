@@ -78,7 +78,7 @@ let columns = {
             "dataKey": "final-diagnosis",
             "type": "text",
             "options": [],
-            "table": false
+            "table": true
         },
         {
             "columnName": "主訴",
