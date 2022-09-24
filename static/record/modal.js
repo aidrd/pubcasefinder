@@ -71,20 +71,32 @@ function openModal(patientId) {
         optionLoop = function (start, end, id) {
             let opt = `<option value="0" hidden>- ${end === 12 ? '月' : '年'}を選択 -</option>`
  
-            for (let i = start; i <= end; i++) {
-                let display = i
-                let value = i
-                let temp = i
-
-                if (temp % 10 === 0 && end !== 12) display = `${i}s`
-
-                opt += `<option value="${value.toString().padStart(2, '0')}">${display}</option>`
+            if (end === 12) {
+                for (let i = start; i <= end; i++) {
+                    let display = i
+                    let value = i
+                    let temp = i
+    
+                    if (temp % 10 === 0 && end !== 12) display = `${i}s`
+    
+                    opt += `<option value="${value.toString().padStart(2, '0')}">${display}</option>`
+                }
+            } else {
+                for (let i = end; i >= start; i--) {
+                    let display = i
+                    let value = i
+                    let temp = i
+    
+                    if (temp % 10 === 0 && end !== 12) display = `${i}s`
+    
+                    opt += `<option value="${value.toString().padStart(2, '0')}">${display}</option>`
+                }
             }
 
             return document.querySelector(`.tab-wrap *[name="${id}"]`).innerHTML = opt
         }
 
-        optionLoop(1950, this_year, `${type}_year`)
+        optionLoop(1900, this_year, `${type}_year`)
         optionLoop(1, 12, `${type}_month`)
     }
 
@@ -193,6 +205,10 @@ function openModal(patientId) {
                 } else if (dataKey === 'groupID') {
                     document.getElementById('group_options').onchange = function(e) {
                         onchange('グループ名', e.target.value)
+                    }
+                } else if (dataKey === 'FamilyID') {
+                    document.getElementById('family_options').onchange = function(e) {
+                        onchange('家族ID', e.target.value)
                     }
                 }
 
