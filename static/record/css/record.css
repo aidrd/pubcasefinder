@@ -195,6 +195,10 @@ body {
   margin-bottom: 1em;
 }
 
+#nav-left .home main #home-menu #refresh {
+  display: inline-block;
+}
+
 #nav-left .home main #home-menu #table_menu {
   margin-left: auto;
 }
