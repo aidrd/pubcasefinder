@@ -195,6 +195,7 @@ body {
 
 #nav-left .home main #home-menu #refresh {
   display: inline-flex;
+  margin: auto 0 auto 0.5em;
 }
 
 #nav-left .home main #home-menu #table_menu {
