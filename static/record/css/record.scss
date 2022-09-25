@@ -691,7 +691,7 @@ h5{
       }
   }
   .modal_container {
-    height: 25vh;
+    height: 50vh;
     overflow-y: auto;
     background: #F2F3F4;
     line-height: 2em;
@@ -703,7 +703,6 @@ h5{
         padding:0.3em 1em;
     }
     div{
-        display: flex;
         align-items: center;
         margin-left: 1em;
         input{
