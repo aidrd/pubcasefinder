@@ -199,7 +199,7 @@ body {
 }
 
 #nav-left .home main #home-menu #table_menu {
-  margin-left: auto;
+  margin: auto 0 auto auto;
 }
 
 #nav-left .home main #home-menu #table_menu span {
