@@ -192,9 +192,8 @@ function openModal(patientId) {
                 } else if (dataKey === 'birth_year' || dataKey === 'death_year') {
                     let monthKey = dataKey === 'birth_year' ? 'birth_month' : 'death_month'
                     let date = value ? value.split('/') : ['']
-                    value = date[0]
-
-                    element.value = date[0]
+                    let yearValue = date[0]
+                    if (yearValue) element.value = yearValue
                     element.onchange = function () {
                         onchange(dataKey === 'birth_year' ? '生年月' : '没年月')
 
@@ -206,7 +205,8 @@ function openModal(patientId) {
                     }
 
                     let monthElement = document.querySelector(`.tab-wrap *[name="${monthKey}"]`)
-                    monthElement.value = date[1]
+                    let monthValue = date[1]
+                    if (monthValue) monthElement.value = monthValue
                     monthElement.onchange = function () {
                         onchange(dataKey === 'birth_year' ? '生年月' : '没年月')
 
@@ -279,8 +279,6 @@ function openModal(patientId) {
 
                 let type = element.type
                 if (type === 'radio') {
-                    console.log(radioInput, value)
-
                     $(`.tab-wrap input[name="${dataKey}"]`).on('click change', (e) => {
                         onchange(v.columnName, $(`.tab-wrap input[name="${dataKey}"]:checked`).val())
                     })
