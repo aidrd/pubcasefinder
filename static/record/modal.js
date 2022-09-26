@@ -279,6 +279,8 @@ function openModal(patientId) {
 
                 let type = element.type
                 if (type === 'radio') {
+                    console.log(radioInput, value)
+
                     $(`.tab-wrap input[name="${dataKey}"]`).on('click change', (e) => {
                         onchange(v.columnName, $(`.tab-wrap input[name="${dataKey}"]:checked`).val())
                     })

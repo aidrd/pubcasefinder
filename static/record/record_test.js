@@ -366,8 +366,9 @@ async function updateTable(data, changeHeaders) {
     console.log(data)
     // headers = columns (settings - type, options, renderer, etc)
     // colHeaders = headers
-
-    contentData = data
+    data.map(d => {
+        contentData.push(d)
+    })
 
     if (changeHeaders && contentData.length > 0) {
         headers.splice(2, headers.length)
