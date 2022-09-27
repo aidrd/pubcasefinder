@@ -117,6 +117,7 @@ async function bodyTable() {
     })
 
     Object.assign(bodySettings, {
+        // width: 500,
         dataSchema: bodySchema,
         data: currentBodyData,
         colHeaders: bodyHeaders,

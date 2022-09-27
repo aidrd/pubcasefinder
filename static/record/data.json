@@ -13,6 +13,7 @@
       "没年月": "",
       "主訴": [],
       "発症年齢": "先天性の発症",
+      "遺伝形式": "Sporadic",
       "Gene": ["abcd", "bcd"],
       "Strategy": ["Sequencing", "Common Mutations"],
       "身体情報": [
