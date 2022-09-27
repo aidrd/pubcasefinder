@@ -115,6 +115,8 @@
   overflow-y:       auto;
   box-shadow:       none;
   margin:           0px;
+  font-size:        18px;
+  font-weight:      300;
 }
 
 #text-input-modal .modal-dialog .modal-content .modal-body  .text-input-wrapper .text-input-table tbody{
@@ -122,7 +124,7 @@
 }
 
 #text-input-modal .modal-dialog .modal-content .modal-body  .text-input-wrapper .text-input-table tbody tr{width: 100%;}
-#text-input-modal .modal-dialog .modal-content .modal-body  .text-input-wrapper .text-input-table tbody tr.chosen td{background-color: #e8edf4;}
+#text-input-modal .modal-dialog .modal-content .modal-body  .text-input-wrapper .text-input-table tbody tr.chosen td{background-color: #e8edf4 !important;}
 
 
 #text-input-modal .modal-dialog .modal-content .modal-body  .text-input-wrapper .text-input-table tbody tr.chosen.observed{

@@ -12,9 +12,10 @@ ul.token-input-list-facebook {
     z-index: 98;
     margin: 0;
     padding: 0;
-    background-color: #fff;
+    background-color: #fff !important;
     list-style-type: none;
     clear: left;
+	display: block !important;*/
 }
 
 ul.token-input-list-facebook li input {

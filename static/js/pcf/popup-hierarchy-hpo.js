@@ -2508,7 +2508,7 @@
 				};
 				func();
 
-				$(window).resize();
+				//$(window).resize();
 
 			}
 
@@ -3657,7 +3657,7 @@
 		function _set_level_pos(){
             let $prependTo = $('#'+ prependTo_id);
             let top = $prependTo.offset().top;
-            let pos = Math.ceil(top + $prependTo.height() + 1);
+            let pos = Math.ceil(top + $prependTo.height());
             $mfp_bg_local.css({'top': pos+'px'});
             $mfp_wrap_local.css({'top': pos+'px'});
             $webgl_trigger.css({'top': top+'px'});
@@ -3696,6 +3696,7 @@
 		
         function _show_mfp_popup(){
             if ($('#'+DIV_POPUP_BG_ID).is(':visible') === false) {
+				_set_level_pos();
                 $('#'+DIV_POPUP_BG_ID).show();
                 $('#'+DIV_POPUP_WRAP_ID).show();
 				$webgl_trigger.show();

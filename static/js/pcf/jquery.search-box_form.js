@@ -205,6 +205,9 @@
 		add_token:	function(item) {
 			this.data("searchBoxFormObject").add_token(item);
 			return this;
+		},
+		get_tokens: function() {
+			return this.data("searchBoxFormObject").get_tokens();
 		}
 	};
 
@@ -567,6 +570,11 @@
         this.add_token = function(item) {
             $("#tokeninput_hpo").tokenInput("add", item);
         };
+
+		this.get_tokens = function() {
+			return $("#tokeninput_hpo").tokenInput("get");
+		};
+
 
 		//
 		// Initialization UI

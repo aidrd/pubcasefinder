@@ -143,6 +143,7 @@
 		//
 		var $modal = $('<div>').addClass('modal fade')
 							   .attr({'id':'text-input-modal','tabindex':-1,'role':'dialog','aria-labelledby':'text-input-modal-title','aria-hidden':true})
+							   .css({'z-index':'1050'})
 							   .scroll(function(e) {e.stopPropagation();})
 							   .appendTo("body");
 		var $modal_dialog  = $('<div>').addClass('modal-dialog modal-dialog-centered modal-xl').appendTo($modal);
@@ -616,7 +617,7 @@
 		this.language = language;
 		
 		var $table = $('<table>').addClass("text-input-table form-control table table-hover p-0 ").attr('id','hpo-list-input-table');
-
+		var $tbody = $('<tbody>').appendTo($table);
 		var onChosenRow = onChosen;
 		var onChangeObservedStatus = onChange;
 
@@ -745,9 +746,12 @@
 			var j = 0;
 			var inter = setInterval(function() {
 			    if (j < rows.length) {
-			      $table.append(rows[j]);
-			      $table.find('tr:last-child').hide(); //hide the row
-			      $table.find('tr:last-child').show('slow'); //show the row
+			      //$table.append(rows[j]);
+			      //$table.find('tr:last-child').hide(); //hide the row
+			      //$table.find('tr:last-child').show('slow'); //show the row
+				  $tbody.append(rows[j]);
+				  $tbody.find('tr:last-child').hide();
+				  $tbody.find('tr:last-child').show('slow');
 			      j++;
 			    } else {
 			      clearInterval(inter);

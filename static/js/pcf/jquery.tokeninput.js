@@ -59,7 +59,7 @@
 		animateDropdown: true,
 		placeholder:     LANGUAGE[LANGUAGE_JA].hintText,
 		theme:           null,
-		zindex:          999,
+		zindex:          1999,
 		resultsLimit:    null,
 		enableHTML:      false,
 
@@ -730,7 +730,8 @@
 		};
 
 	  // Resize input to maximum width so the placeholder can be seen
-	  resize_input();
+      setTimeout(function(){ resize_input(); }, 50);
+	  //resize_input();
 
 	  //
 	  // Private functions
@@ -778,8 +779,14 @@
 			if(token_list_width - outerWidth < 0) token_list_width = token_list.width();
 			token_list_width -= outerWidth;
 		  });
-		  if(token_list_width<40) token_list_width = token_list.width();
-
+		  //if(token_list_width<40) token_list_width = token_list.width();
+		  if(token_list_width<40) {
+			if(token_list.width() > 0){
+				token_list_width = token_list.width();
+			}else{
+				token_list_width = 510;
+			}
+		  }
 		  input_box.outerWidth(Math.ceil(token_list_width)-1);
 
 	  }
