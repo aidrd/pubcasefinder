@@ -2,7 +2,7 @@ let newData = {
     "PCFNo": null,
     "患者ID": null,
     "患者さんメモ": null,
-    "グループID": null,
+    "グループ名": null,
     "続柄": null,
     "状態": null,
     "生年月": null,
@@ -19,9 +19,14 @@ let newData = {
     "症状": null,
     "主な検査結果": null,
     "アレルギー": null,
-    "体重": null,
-    "身長": null,
-    "頭囲": null,
+    "身体情報": [
+        {
+            "日付": null,
+            "身長": null,
+            "体重": null,
+            "頭囲": null
+        }
+    ],
     "飲酒量": null,
     "喫煙": null,
     "現在服用中の薬": null,

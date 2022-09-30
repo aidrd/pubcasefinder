@@ -156,8 +156,8 @@ function downloadSample(type) {
     let num = hot.countRows() + 1
     temp['患者ID'] = `P${num.toString().padStart(7, 0)}`
 
-    if (type === 'json') sampleData = { 'PATIENTS': temp }
-    if (type === 'excel') sampleData = {}
+    if (type === 'json') sampleData = { 'PATIENTS': [temp] }
+    if (type === 'excel') sampleData = Papa.unparse([temp], {delimiter: '\t'})
 
     exportFile(type === 'json' ? type : 'tsv', sampleData)
 }
@@ -363,6 +363,7 @@ function createColumns() {
 }
 
 async function updateTable(data, changeHeaders) {
+    console.log(data)
     // headers = columns (settings - type, options, renderer, etc)
     // colHeaders = headers
     data.map(d => {
@@ -483,7 +484,29 @@ function addColumn() {
 
     function createColumn(colName, type) {
         if (type === 'title') {
-            container.innerHTML += `<div class="add_column_title">${colName}</div>`
+            let icon
+
+            switch (colName) {
+                case '患者基本情報':
+                    icon = '<i class="bxt icon material-icons-outlined"> person</i>'
+                    break
+                case '診療情報':
+                    icon = '<i class="material-symbols-outlined">medical_information</i>'
+                    break
+                case '表現型情報':
+                    icon = '<i class="material-symbols-outlined">dns</i>'
+                    break
+                case '遺伝子型情報':
+                    icon = '<i class="icon-omim2"></i>'
+                    break
+                case '家系情報':
+                    icon = '<i class="material-symbols-outlined">diversity_3</i>'
+                    break
+                case 'カスタム':
+                    icon = '<i class="material-symbols-outlined">category</i><i class="material-symbols-outlined">category</i>'
+                    break
+            }
+            container.innerHTML += `<div class="add_column_title">${icon}${colName}</div>`
         } else {
             container.innerHTML += `
                 <div>
