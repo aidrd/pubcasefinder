@@ -8,15 +8,15 @@ let dataSchema = {}, dataColumns = {}
 let groupOptions = [], patientOptions = [], familyOptions = []
 
 let contentData = []
-let storage = localStorage.getItem('contentData')
-if (storage) contentData = JSON.parse(storage)
+// let storage = localStorage.getItem('contentData')
+// if (storage) contentData = JSON.parse(storage)
 
 let hotContainer = document.getElementById('myGrid')
 
 let updateSettings = {
     rowHeaders: true,
     width: '100%',
-    height: 'auto',
+    height: '100%',
     autoColumnSize: {
     	useHeaders: true
     },
@@ -665,7 +665,7 @@ function rerenderTable() {
 }
 
 function beforeLoad() {
-    if (contentData.length > 0) localStorage.contentData = JSON.stringify(contentData)
+    // if (contentData.length > 0) localStorage.contentData = JSON.stringify(contentData)
     return 'load'
 }
 

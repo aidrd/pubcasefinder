@@ -67,6 +67,7 @@ async function geneTable() {
         dataSchema: geneSchema,
         colHeaders: geneHeaders,
         columns: geneColumns,
+        height: '100%'
     })
 
     if (!geneHot) {

@@ -335,6 +335,7 @@ body {
 #modal-karte .tab-wrap .tab-contents {
   display: none;
   max-height: calc(100vh - 350px);
+  min-height: 20vh;
   overflow-y: scroll;
 }
 
@@ -631,6 +632,10 @@ h5 {
   margin: auto;
   overflow: scroll !important;
   background: #fff;
+}
+
+#geneModal {
+  min-height: 20vh;
 }
 
 .ht_master > .wtHolder {
