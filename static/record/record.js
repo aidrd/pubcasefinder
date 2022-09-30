@@ -8,8 +8,8 @@ let dataSchema = {}, dataColumns = {}
 let groupOptions = [], patientOptions = [], familyOptions = []
 
 let contentData = []
-// let storage = localStorage.getItem('contentData')
-// if (storage) contentData = JSON.parse(storage)
+let storage = localStorage.getItem('contentData')
+if (storage) contentData = JSON.parse(storage)
 
 let hotContainer = document.getElementById('myGrid')
 
@@ -35,7 +35,7 @@ let updateSettings = {
     },
     outsideClickDeselects: false,
     selectionMode: 'multiple',
-    licenseKey: 'non-commercial-and-evaluation' // for non-commercial use only
+    licenseKey: '17bfa-714c9-a7430-c4321-87c56' // for non-commercial use only
 }
 
 initiateTable()
@@ -254,7 +254,19 @@ function convertCSVToJSON(csv, isExport) {
             if (idx === 0) continue
 
             let headerText = isExport ? headers[i].replace('<i class="material-icons-outlined sort_icon">swap_vert</i>', '') : headers[i]
-            data[headerText] = d[i]
+
+            let value = d[i]
+
+            if (['体重', '身長', '頭囲'].includes(headerText)) {
+                let bodyInfo = contentData[idx - 1]['身体情報']
+                if (bodyInfo) {
+                    value = bodyInfo[bodyInfo.length - 1][headerText]
+                } else {
+                    value = ''
+                }
+            }
+
+            data[headerText] = value
         }
 
         if (Object.keys(data).length > 0) patientsData.push(data)
@@ -363,7 +375,6 @@ function createColumns() {
 }
 
 async function updateTable(data, changeHeaders) {
-    console.log(data)
     // headers = columns (settings - type, options, renderer, etc)
     // colHeaders = headers
     data.map(d => {
@@ -688,7 +699,7 @@ function rerenderTable() {
 }
 
 function beforeLoad() {
-    // if (contentData.length > 0) localStorage.contentData = JSON.stringify(contentData)
+    if (contentData.length > 0) localStorage.contentData = JSON.stringify(contentData)
     return 'load'
 }
 

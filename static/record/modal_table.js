@@ -8,7 +8,7 @@ let modalTableSettings = {
     },
     contextMenu: true,
     allowRemoveColumn: true,
-    licenseKey: 'non-commercial-and-evaluation' // for non-commercial use only
+    licenseKey: '17bfa-714c9-a7430-c4321-87c56' // for non-commercial use only
 }
 
 let geneHot
