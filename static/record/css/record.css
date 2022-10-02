@@ -731,7 +731,7 @@ h5 {
 }
 
 .modal_content .modal_container {
-  height: 50vh;
+  height: 60vh;
   overflow-y: auto;
   background: #F2F3F4;
   line-height: 2em;
@@ -746,7 +746,7 @@ h5 {
 }
 
 .modal_content .modal_container .add_column_title i {
-  font-size: 20px;
+  font-size: 17px;
   vertical-align: -4px;
   margin-right: 0.2em;
 }
