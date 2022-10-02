@@ -218,11 +218,17 @@ body {
   height: 2.6em;
   padding: 0.4em 1em;
   margin: auto 0;
+  margin-left: 0.2em;
 }
 
 #nav-left .home main #home-menu #table_menu span i {
   font-size: 20px;
   margin-right: 0.2em;
+}
+
+#nav-left .home main #home-menu #table_menu span:hover {
+  text-decoration: none;
+  opacity: 0.6;
 }
 
 #nav-left .home main #home-menu #table_menu .karte-add {
@@ -242,6 +248,11 @@ body {
 
 #nav-left .home main #home-menu #table_menu .karte-add i {
   color: #000;
+}
+
+#nav-left .home main #home-menu #table_menu .karte-add:hover {
+  text-decoration: none;
+  opacity: 0.6;
 }
 
 #nav-left .home main #home-menu #table_menu #row_count {
@@ -314,6 +325,11 @@ body {
   background: #fff;
 }
 
+#modal-karte #modal-karte-button .modal-close:hover {
+  text-decoration: none;
+  opacity: 0.6;
+}
+
 #modal-karte #modal-karte-button-sub {
   position: absolute;
   bottom: -50px;
@@ -350,6 +366,11 @@ body {
   margin-right: 0.2em;
 }
 
+#modal-karte #modal-karte-button-sub .modal-copy:hover {
+  text-decoration: none;
+  opacity: 0.6;
+}
+
 #modal-karte #modal-karte-button-sub .modal-phenopackets {
   background: #fff;
 }
@@ -357,6 +378,11 @@ body {
 #modal-karte #modal-karte-button-sub .modal-phenopackets i {
   font-size: 20px;
   margin-left: 0.2em;
+}
+
+#modal-karte #modal-karte-button-sub .modal-phenopackets:hover {
+  text-decoration: none;
+  opacity: 0.6;
 }
 
 #modal-karte .tab-wrap {
@@ -429,7 +455,7 @@ body {
   vertical-align: middle;
   position: relative;
   font-weight: normal;
-  color: #6c6c6c;
+  color: #79839a;
   text-align: right;
   border-bottom: solid 1px #EDEDED;
 }
@@ -647,10 +673,10 @@ a.panel-btn {
   color: #000;
   border-radius: 5px;
   position: absolute;
-  top: 140px;
-  right: 140px;
+  top: 130px;
+  right: 29px;
   box-shadow: 0 2px 15px 1px rgba(163, 163, 163, 0.2);
-  padding: 1em;
+  padding: 1em 1.5em;
 }
 
 .panel .export-panel h6 {
@@ -733,8 +759,8 @@ h5 {
   background: #fff;
   border-radius: 5px;
   position: absolute;
-  top: 205px;
-  right: 140px;
+  top: 200px;
+  right: 189px;
   box-shadow: 0 2px 15px 1px rgba(163, 163, 163, 0.2);
 }
 
@@ -781,7 +807,7 @@ h5 {
 
 .modal_content .modal_container .add_column_title {
   color: #fff;
-  background: #000;
+  background: #8f92a6;
   margin: 1em 0 0.5em;
   padding: 0.3em 1em;
 }
@@ -892,26 +918,35 @@ h5 {
 }
 
 #menu-tab .side-content li {
-  background: #e3e3e3;
-  margin-left: 2em;
-  border-radius: 3em;
-  color: #000;
-  padding: 0.4em 1em;
   margin: auto 0;
-  margin-left: 5px;
-  display: inline-flex;
-  cursor: pointer;
 }
 
 #menu-tab .side-content li i {
   vertical-align: -5px;
   font-size: 20px;
+  margin-right: 0.2em;
 }
 
 #menu-tab .side-content li h5 {
   display: block;
   margin: auto 0;
   padding-left: 0.5em;
+}
+
+#menu-tab .side-content li a {
+  background: #e3e3e3;
+  margin-left: 2em;
+  border-radius: 3em;
+  color: #000;
+  padding: 0.4em 1em;
+  margin-left: 5px;
+  display: inline-flex;
+  cursor: pointer;
+}
+
+#menu-tab .side-content li a:hover {
+  text-decoration: none;
+  opacity: 0.6;
 }
 
 #row_count {

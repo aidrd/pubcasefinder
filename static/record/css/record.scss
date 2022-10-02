@@ -204,9 +204,14 @@ body{
                     height: 2.6em;
                     padding: 0.4em 1em;
                     margin: auto 0;
+                    margin-left: 0.2em;
                     i{
                         font-size: 20px;
                         margin-right: 0.2em;
+                    }
+                    &:hover{
+                        text-decoration: none;
+                        opacity: 0.6;
                     }
                 }
                 .karte-add{
@@ -224,6 +229,10 @@ body{
                     margin-left: 0.5em;
                     i{
                         color: #000;
+                    }
+                    &:hover{
+                        text-decoration: none;
+                        opacity: 0.6;
                     }
                 }
                 #row_count{
@@ -313,6 +322,10 @@ body{
         }
         .modal-close{
             background: #fff;
+            &:hover{
+                text-decoration: none;
+                opacity: 0.6;
+            }
         }
     }
     #modal-karte-button-sub{
@@ -342,12 +355,20 @@ body{
                 font-size: 20px;
                 margin-right: 0.2em;
             }
+            &:hover{
+                text-decoration: none;
+                opacity: 0.6;
+            }
         }
         .modal-phenopackets{
             background: #fff;
             i{
                 font-size: 20px;
                 margin-left: 0.2em;
+            }
+            &:hover{
+                text-decoration: none;
+                opacity: 0.6;
             }
         }
     }
@@ -407,7 +428,7 @@ body{
                             vertical-align: middle;
                             position: relative;
                             font-weight: normal;
-                            color: #6c6c6c;
+                            color: #79839a;
                             text-align: right;
                             border-bottom: solid 1px #EDEDED;
                             span {
@@ -640,10 +661,10 @@ body{
     color: #000;
     border-radius: 5px;
     position: absolute;
-    top: 140px;
-    right: 140px;
+    top: 130px;
+    right: 29px;
     box-shadow: 0 2px 15px 1px rgba(163, 163, 163, 0.2);
-    padding: 1em;
+    padding: 1em 1.5em;
     h6{
         font-weight: bold;
         margin-bottom: 0.5em;
@@ -722,8 +743,8 @@ h5{
       background: #fff;
       border-radius: 5px;
       position: absolute;
-      top: 205px;
-      right: 140px;
+      top: 200px;
+      right: 189px;
       box-shadow: 0 2px 15px 1px rgba(163, 163, 163, 0.2);
       .button_wrap{
         display: flex;
@@ -761,7 +782,7 @@ h5{
     width: auto;
     .add_column_title{
         color: #fff;
-        background: #000;
+        background: #8f92a6;
         margin:1em 0 0.5em;
         padding:0.3em 1em;
         i{
@@ -868,23 +889,30 @@ h5{
         margin-right: 0;
         margin-left: auto;
         li{
-            background: rgb(227, 227, 227);
-            margin-left: 2em;
-            border-radius: 3em;
-            color: #000;
-            padding: 0.4em 1em;
             margin: auto 0;
-            margin-left: 5px;
-            display: inline-flex;
-            cursor: pointer;
             i{
                 vertical-align: -5px;
                 font-size: 20px;
+                margin-right: 0.2em;
             }
             h5{
                 display: block;
                 margin: auto 0;
                 padding-left: 0.5em;
+            }
+            a{
+                background: rgb(227, 227, 227);
+            margin-left: 2em;
+            border-radius: 3em;
+            color: #000;
+            padding: 0.4em 1em;
+            margin-left: 5px;
+            display: inline-flex;
+            cursor: pointer;
+                &:hover{
+                    text-decoration: none;
+                    opacity: 0.6;
+                }
             }
         }
     }
