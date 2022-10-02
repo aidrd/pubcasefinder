@@ -303,11 +303,12 @@ body {
 
 #modal-karte #modal-karte-button-sub button p {
   display: block;
-  margin: auto 0 auto 0.5em;
+  margin: auto 0;
 }
 
 #modal-karte #modal-karte-button-sub button img {
   width: 25px;
+  margin-left: 0.5em;
 }
 
 #modal-karte #modal-karte-button-sub .modal-copy {

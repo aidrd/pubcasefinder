@@ -302,10 +302,11 @@ body{
             }
             p{
                 display: block;
-                margin: auto 0 auto 0.5em;
+                margin: auto 0;
             }
             img{
                 width: 25px;
+                margin-left: 0.5em;
             }
         }
         .modal-copy{
