@@ -825,6 +825,21 @@ h5{
             }
         }
     }
+    .karte-add{
+        width: 4em;
+        height: 4em;
+        display: inline-block;
+        text-align: center;
+        line-height: 4.7em;
+        border-radius: 5em;
+        -webkit-backdrop-filter: blur(2em);
+        backdrop-filter: blur(2em);
+        box-shadow: 0 10px 15px 0 rgba(55, 67, 116, 0.353);
+        background: #fff;
+        i{
+            color: #000;
+        }
+    }
     .side-content{
         list-style-type: none;
         display: flex;
@@ -852,8 +867,10 @@ h5{
         }
     }
 }
+
+
 #row_count{
-    color: rgb(78, 75, 252);
+    color: #2F80ED;
     /* padding: 6px 10px; */
     margin: auto 0;
     margin-left: 0.5em;

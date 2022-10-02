@@ -842,6 +842,23 @@ h5 {
   font-size: 28px;
 }
 
+#menu-tab .karte-add {
+  width: 4em;
+  height: 4em;
+  display: inline-block;
+  text-align: center;
+  line-height: 4.7em;
+  border-radius: 5em;
+  -webkit-backdrop-filter: blur(2em);
+  backdrop-filter: blur(2em);
+  box-shadow: 0 10px 15px 0 rgba(55, 67, 116, 0.353);
+  background: #fff;
+}
+
+#menu-tab .karte-add i {
+  color: #000;
+}
+
 #menu-tab .side-content {
   list-style-type: none;
   display: flex;
@@ -873,7 +890,7 @@ h5 {
 }
 
 #row_count {
-  color: #4e4bfc;
+  color: #2F80ED;
   /* padding: 6px 10px; */
   margin: auto 0;
   margin-left: 0.5em;
