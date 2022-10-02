@@ -287,12 +287,11 @@ body {
 #modal-karte #modal-karte-button-sub {
   position: absolute;
   bottom: -50px;
-  right: 0;
 }
 
 #modal-karte #modal-karte-button-sub button {
   color: #000;
-  padding: 0.7em;
+  padding: 0.5em 1em;
   margin-left: 2px;
   display: inline-flex;
   border-radius: 5em;
@@ -866,17 +865,13 @@ h5 {
 }
 
 #row_count {
-  color: #fff;
-  background: #a4acc7;
-  border-radius: 2em;
+  color: #4e4bfc;
   /* padding: 6px 10px; */
-  width: 2.1em;
-  height: 2em;
   margin: auto 0;
   margin-left: 0.5em;
   text-align: center;
   line-height: 2em;
-  font-size: 0.8em;
+  font-size: 1em;
 }
 
 /*handsontable*/
@@ -968,4 +963,15 @@ h5 {
 
 .input-top {
   margin-top: 0.5em;
+}
+
+.nav-pc {
+  visibility: hidden;
+  display: none;
+}
+
+.nav-sp {
+  visibility: visible;
+  display: block;
+  margin-right: 1em;
 }
