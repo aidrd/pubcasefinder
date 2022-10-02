@@ -800,14 +800,14 @@ h5 {
 .modal_content .modal_container {
   height: 60vh;
   overflow-y: auto;
-  background: #F2F3F4;
+  background: #fff;
   line-height: 2em;
   width: auto;
 }
 
 .modal_content .modal_container .add_column_title {
-  color: #fff;
-  background: #8f92a6;
+  color: #000;
+  background: #ebebeb;
   margin: 1em 0 0.5em;
   padding: 0.3em 1em;
 }
@@ -831,6 +831,11 @@ h5 {
   font-size: 1em;
   font-weight: normal;
   margin-bottom: 0.2em;
+}
+
+.modal_content .modal_container div i {
+  font-size: 20px;
+  vertical-align: sub;
 }
 
 .selected_add_header {

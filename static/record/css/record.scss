@@ -777,12 +777,12 @@ h5{
   .modal_container {
     height: 60vh;
     overflow-y: auto;
-    background: #F2F3F4;
+    background: #fff;
     line-height: 2em;
     width: auto;
     .add_column_title{
-        color: #fff;
-        background: #8f92a6;
+        color: #000;
+        background: #ebebeb;
         margin:1em 0 0.5em;
         padding:0.3em 1em;
         i{
@@ -801,6 +801,10 @@ h5{
             font-size: 1em;
             font-weight: normal;
             margin-bottom: 0.2em;
+        }
+        i{
+            font-size: 20px;
+            vertical-align: sub;
         }
     }
     }
