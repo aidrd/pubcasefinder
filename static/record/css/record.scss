@@ -282,14 +282,33 @@ body{
             span{
                 width: 25px;
             }
+        }
+        .modal-close{
+            background: #fff;
+        }
+    }
+    #modal-karte-button-sub{
+        position: absolute;
+        bottom: -50px;
+        right: 0;
+        button{
+            color: #000;
+            padding: 0.7em;
+            margin-left: 2px;
+            display: inline-flex;
+            border-radius: 5em;
+            span{
+                width: 25px;
+            }
+            p{
+                display: block;
+                margin: auto 0 auto 0.5em;
+            }
             img{
                 width: 25px;
             }
         }
         .modal-copy{
-            background: #fff;
-        }
-        .modal-close{
             background: #fff;
         }
         .modal-phenopackets{
@@ -409,18 +428,21 @@ body{
                                 padding: 0.5em 0.3em;
                                 border: 1.5px solid #e3e3e3;
                                 border-radius: 0.3em;
+                                background: #fff;
                             }
                             select{
                                 padding: 0.35em 0.5em;
                                 border: 1.5px solid #e3e3e3;
                                 border-radius: 0.3em;
                                 appearance: button;
+                                background: #fff;
                             }
                             input{
                                 width: 100%;
                                 padding: 0.35em 0.5em;
                                 border: 1.5px solid #e3e3e3;
                                 border-radius: 0.3em;
+                                background: #fff;
                             }
                             .birth_year{
                                 width: auto;

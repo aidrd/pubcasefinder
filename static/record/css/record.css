@@ -279,19 +279,42 @@ body {
   width: 25px;
 }
 
-#modal-karte #modal-karte-button button img {
-  width: 25px;
-}
-
-#modal-karte #modal-karte-button .modal-copy {
-  background: #fff;
-}
-
 #modal-karte #modal-karte-button .modal-close {
   background: #fff;
 }
 
-#modal-karte #modal-karte-button .modal-phenopackets {
+#modal-karte #modal-karte-button-sub {
+  position: absolute;
+  bottom: -50px;
+  right: 0;
+}
+
+#modal-karte #modal-karte-button-sub button {
+  color: #000;
+  padding: 0.7em;
+  margin-left: 2px;
+  display: inline-flex;
+  border-radius: 5em;
+}
+
+#modal-karte #modal-karte-button-sub button span {
+  width: 25px;
+}
+
+#modal-karte #modal-karte-button-sub button p {
+  display: block;
+  margin: auto 0 auto 0.5em;
+}
+
+#modal-karte #modal-karte-button-sub button img {
+  width: 25px;
+}
+
+#modal-karte #modal-karte-button-sub .modal-copy {
+  background: #fff;
+}
+
+#modal-karte #modal-karte-button-sub .modal-phenopackets {
   background: #fff;
 }
 
@@ -335,7 +358,6 @@ body {
 #modal-karte .tab-wrap .tab-contents {
   display: none;
   max-height: calc(100vh - 350px);
-  min-height: 20vh;
   overflow-y: scroll;
 }
 
@@ -431,6 +453,7 @@ body {
   padding: 0.5em 0.3em;
   border: 1.5px solid #e3e3e3;
   border-radius: 0.3em;
+  background: #fff;
 }
 
 #modal-karte .tab-wrap .show .form-table tbody tr td select {
@@ -438,6 +461,7 @@ body {
   border: 1.5px solid #e3e3e3;
   border-radius: 0.3em;
   appearance: button;
+  background: #fff;
 }
 
 #modal-karte .tab-wrap .show .form-table tbody tr td input {
@@ -445,6 +469,7 @@ body {
   padding: 0.35em 0.5em;
   border: 1.5px solid #e3e3e3;
   border-radius: 0.3em;
+  background: #fff;
 }
 
 #modal-karte .tab-wrap .show .form-table tbody tr td .birth_year {
@@ -632,10 +657,6 @@ h5 {
   margin: auto;
   overflow: scroll !important;
   background: #fff;
-}
-
-#geneModal {
-  min-height: 20vh;
 }
 
 .ht_master > .wtHolder {
