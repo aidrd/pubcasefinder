@@ -878,7 +878,7 @@ h5 {
 }
 
 #menu-tab .side-content li {
-  background: #f3f3f3;
+  background: #e3e3e3;
   margin-left: 2em;
   border-radius: 3em;
   color: #000;
@@ -887,7 +887,6 @@ h5 {
   margin-left: 5px;
   display: inline-flex;
   cursor: pointer;
-  border: solid 1px #ededed;
 }
 
 #menu-tab .side-content li i {
