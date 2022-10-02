@@ -306,7 +306,7 @@ body{
             }
             img{
                 width: 25px;
-                margin-left: 0.5em;
+                margin-right: 0.5em;
             }
         }
         .modal-copy{
@@ -923,6 +923,10 @@ td{
     i{
         margin-right: 0.2em;
     }
+}
+
+#geneModal{
+    min-height: 200px;
 }
 
 

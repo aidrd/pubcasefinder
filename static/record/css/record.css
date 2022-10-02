@@ -308,7 +308,7 @@ body {
 
 #modal-karte #modal-karte-button-sub button img {
   width: 25px;
-  margin-left: 0.5em;
+  margin-right: 0.5em;
 }
 
 #modal-karte #modal-karte-button-sub .modal-copy {
@@ -929,6 +929,10 @@ h5 {
 
 #genemodal_add i {
   margin-right: 0.2em;
+}
+
+#geneModal {
+  min-height: 200px;
 }
 
 .genetic_list {
