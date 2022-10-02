@@ -183,7 +183,7 @@ body {
 
 #nav-left .home main #home-menu {
   display: flex;
-  margin-bottom: 1em;
+  margin: auto 0 0.9em 0;
 }
 
 #nav-left .home main #home-menu #search_input {
@@ -201,6 +201,8 @@ body {
 
 #nav-left .home main #home-menu #table_menu {
   margin: auto 0 auto auto;
+  display: flex;
+  justify-content: flex-end;
 }
 
 #nav-left .home main #home-menu #table_menu span {
@@ -213,6 +215,31 @@ body {
   border-radius: 2em;
   background: #000;
   color: #fff;
+  font-size: 1em;
+  height: 3em;
+}
+
+#nav-left .home main #home-menu #table_menu span i {
+  font-size: 19px;
+}
+
+#nav-left .home main #home-menu #table_menu .karte-add {
+  width: 4em;
+  height: 4em;
+  display: inline-block;
+  text-align: center;
+  line-height: 4.7em;
+  border-radius: 5em;
+  -webkit-backdrop-filter: blur(2em);
+  backdrop-filter: blur(2em);
+  box-shadow: 0 10px 15px 0 rgba(55, 67, 116, 0.353);
+  background: #fff;
+  margin-top: -0.5em;
+  margin-left: 0.5em;
+}
+
+#nav-left .home main #home-menu #table_menu .karte-add i {
+  color: #000;
 }
 
 #nav-left .home main #home-menu #table_menu #row_count {
@@ -841,23 +868,6 @@ h5 {
 
 #menu-tab .menu-links li #content-patients i {
   font-size: 28px;
-}
-
-#menu-tab .karte-add {
-  width: 4em;
-  height: 4em;
-  display: inline-block;
-  text-align: center;
-  line-height: 4.7em;
-  border-radius: 5em;
-  -webkit-backdrop-filter: blur(2em);
-  backdrop-filter: blur(2em);
-  box-shadow: 0 10px 15px 0 rgba(55, 67, 116, 0.353);
-  background: #fff;
-}
-
-#menu-tab .karte-add i {
-  color: #000;
 }
 
 #menu-tab .side-content {

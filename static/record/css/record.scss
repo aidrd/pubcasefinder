@@ -175,7 +175,7 @@ body{
             padding: 9.5em 2em 1em;
             #home-menu{
                 display: flex;
-                margin-bottom: 1em;
+                margin: auto 0 0.9em 0;
             #search_input{
                 background-color: #fff;
                 padding: 0.7em 1.2em;
@@ -188,6 +188,9 @@ body{
                 margin: auto 0 auto 0.5em;
             }
             #table_menu{
+                margin: auto 0 auto auto;
+                display: flex;
+                justify-content: flex-end;
                 span{
                     display: inline-flex;
                     align-items: center;
@@ -198,8 +201,29 @@ body{
                     border-radius: 2em;
                     background: #000;
                     color: #fff;
+                    font-size: 1em;
+                    height: 3em;
+                    i{
+                        font-size: 19px;
+                    }
                 }
-                margin: auto 0 auto auto;
+                .karte-add{
+                    width: 4em;
+                    height: 4em;
+                    display: inline-block;
+                    text-align: center;
+                    line-height: 4.7em;
+                    border-radius: 5em;
+                    -webkit-backdrop-filter: blur(2em);
+                    backdrop-filter: blur(2em);
+                    box-shadow: 0 10px 15px 0 rgba(55, 67, 116, 0.353);
+                    background: #fff;
+                    margin-top: -0.5em;
+                    margin-left: 0.5em;
+                    i{
+                        color: #000;
+                    }
+                }
                 #row_count{
                     color: #fff;
                     background-color: #293255;
@@ -824,21 +848,6 @@ h5{
                     font-size: 28px;
                 }
             }
-        }
-    }
-    .karte-add{
-        width: 4em;
-        height: 4em;
-        display: inline-block;
-        text-align: center;
-        line-height: 4.7em;
-        border-radius: 5em;
-        -webkit-backdrop-filter: blur(2em);
-        backdrop-filter: blur(2em);
-        box-shadow: 0 10px 15px 0 rgba(55, 67, 116, 0.353);
-        background: #fff;
-        i{
-            color: #000;
         }
     }
     .side-content{
