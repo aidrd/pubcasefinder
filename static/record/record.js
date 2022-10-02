@@ -18,7 +18,7 @@ let updateSettings = {
     width: '100%',
     height: '100%',
     autoColumnSize: {
-    	useHeaders: true
+        useHeaders: true
     },
     hiddenColumns: true,
     fixedColumnsLeft: 2,
@@ -139,7 +139,7 @@ function getExportData() {
 
     if (type === 'json') exportedString = { 'PATIENTS': dlData }
     if (type === 'csv') exportedString = Papa.unparse(dlData.PATIENTS)
-    if (type === 'tsv') exportedString = Papa.unparse(dlData.PATIENTS, {delimiter: '\t'})
+    if (type === 'tsv') exportedString = Papa.unparse(dlData.PATIENTS, { delimiter: '\t' })
 
     exportFile(type, exportedString)
 }
@@ -157,7 +157,7 @@ function downloadSample(type) {
     temp['患者ID'] = `P${num.toString().padStart(7, 0)}`
 
     if (type === 'json') sampleData = { 'PATIENTS': [temp] }
-    if (type === 'excel') sampleData = Papa.unparse([temp], {delimiter: '\t'})
+    if (type === 'excel') sampleData = Papa.unparse([temp], { delimiter: '\t' })
 
     exportFile(type === 'json' ? type : 'tsv', sampleData)
 }
@@ -301,7 +301,7 @@ function createColumns() {
                 if (v.type === 'date') {
                     column.dateFormat = 'YYYY/MM',
                         column.correctFormat = true
-                        column.datePickerConfig = {
+                    column.datePickerConfig = {
                         firstDay: 0,
                         numberOfMonths: 1,
                         licenseKey: 'non-commercial-and-evaluation',
@@ -514,7 +514,7 @@ function addColumn() {
                     icon = '<i class="material-symbols-outlined">diversity_3</i>'
                     break
                 case 'カスタム':
-                    icon = '<i class="material-symbols-outlined">category</i><i class="material-symbols-outlined">category</i>'
+                    icon = '<i class="material-symbols-outlined">category</i>'
                     break
             }
             container.innerHTML += `<div class="add_column_title">${icon}${colName}</div>`
@@ -598,9 +598,9 @@ function showHideColumn(e) {
                 if (h.data !== '身体情報') return
                 if (h.renderer.name === renderer) headers.splice(i, 1)
             })
-                        
+
         } else {
-            headers = headers.filter(h => {return h.data !== e.id })
+            headers = headers.filter(h => { return h.data !== e.id })
         }
         existingHeaders.splice(existingHeaders.indexOf(e.id), 1)
     }
