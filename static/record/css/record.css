@@ -337,7 +337,7 @@ body {
 }
 
 #modal-karte #modal-karte-button-sub button img {
-  width: 25px;
+  width: 20px;
   margin-right: 0.5em;
 }
 
@@ -345,8 +345,18 @@ body {
   background: #fff;
 }
 
+#modal-karte #modal-karte-button-sub .modal-copy i {
+  font-size: 20px;
+  margin-right: 0.2em;
+}
+
 #modal-karte #modal-karte-button-sub .modal-phenopackets {
   background: #fff;
+}
+
+#modal-karte #modal-karte-button-sub .modal-phenopackets i {
+  font-size: 20px;
+  margin-left: 0.2em;
 }
 
 #modal-karte .tab-wrap {
@@ -377,7 +387,8 @@ body {
 }
 
 #modal-karte .tab-wrap ul .tab-btn i {
-  font-size: 1em;
+  font-size: 17px;
+  vertical-align: -2px;
 }
 
 #modal-karte .tab-wrap ul .show {
