@@ -856,7 +856,7 @@ h5{
         margin-right: 0;
         margin-left: auto;
         li{
-            background: rgb(227, 227, 227);
+            background: #f3f3f3;
             margin-left: 2em;
             border-radius: 3em;
             color: #000;
@@ -865,6 +865,7 @@ h5{
             margin-left: 5px;
             display: inline-flex;
             cursor: pointer;
+            border: solid 1px #ededed;
             i{
                 vertical-align: -5px;
                 font-size: 20px;
