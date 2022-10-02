@@ -172,7 +172,7 @@ body{
         height: 100vh;
         width: calc(100% - 295px);*/
         main{
-            padding: 9em 2em 1em;
+            padding: 9.5em 2em 1em;
             #home-menu{
                 display: flex;
                 margin-bottom: 1em;
@@ -181,6 +181,7 @@ body{
                 padding: 0.7em 1.2em;
                 width: 50%;
                 border-radius: 3em;
+                height: 3em;
             }
             #reset{
                 display: inline-flex;

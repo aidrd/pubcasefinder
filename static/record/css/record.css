@@ -178,7 +178,7 @@ body {
 }
 
 #nav-left .home main {
-  padding: 9em 2em 1em;
+  padding: 9.5em 2em 1em;
 }
 
 #nav-left .home main #home-menu {
@@ -191,6 +191,7 @@ body {
   padding: 0.7em 1.2em;
   width: 50%;
   border-radius: 3em;
+  height: 3em;
 }
 
 #nav-left .home main #home-menu #reset {
