@@ -841,7 +841,8 @@ h5{
             display: inline-flex;
             cursor: pointer;
             i{
-                vertical-align: -6px;
+                vertical-align: -5px;
+                font-size: 20px;
             }
             h5{
                 display: block;
@@ -942,6 +943,9 @@ td{
     min-width: 30em;
     label{
         margin-left: 0.85em;
+        input{
+            margin-right: 0.2em;
+        }
     }
     details{
         display: flex;

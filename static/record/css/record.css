@@ -862,7 +862,8 @@ h5 {
 }
 
 #menu-tab .side-content li i {
-  vertical-align: -6px;
+  vertical-align: -5px;
+  font-size: 20px;
 }
 
 #menu-tab .side-content li h5 {
@@ -950,6 +951,10 @@ h5 {
 
 .genetic_list label {
   margin-left: 0.85em;
+}
+
+.genetic_list label input {
+  margin-right: 0.2em;
 }
 
 .genetic_list details {
