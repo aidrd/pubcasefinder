@@ -189,6 +189,7 @@ body{
                 margin: auto 0 auto 0.5em;
                 i{
                     color: #abb3c2;
+                    font-size: 1.6em;
                 }
             }
             #table_menu{
@@ -668,16 +669,17 @@ body{
     box-shadow: 0 2px 15px 1px rgba(163, 163, 163, 0.2);
     padding: 1em 1.5em;
     h6{
-        font-weight: bold;
-        margin-bottom: 0.5em;
+        margin-bottom: 0.3em;
         padding-left: 0;
+        font-size: 1.1em;
     }
     p{
-        margin-bottom: 0.5em;
+        margin-bottom: 0.6em;
         select{
             border: solid 1px #AEB0B5;
             border-radius: 5px;
             padding: 5px 10px;
+            appearance: button;
         }
     }
     button{

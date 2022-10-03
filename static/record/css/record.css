@@ -202,6 +202,7 @@ body {
 
 #nav-left .home main #home-menu #reset i {
   color: #abb3c2;
+  font-size: 1.6em;
 }
 
 #nav-left .home main #home-menu #table_menu {
@@ -684,19 +685,20 @@ a.panel-btn {
 }
 
 .panel .export-panel h6 {
-  font-weight: bold;
-  margin-bottom: 0.5em;
+  margin-bottom: 0.3em;
   padding-left: 0;
+  font-size: 1.1em;
 }
 
 .panel .export-panel p {
-  margin-bottom: 0.5em;
+  margin-bottom: 0.6em;
 }
 
 .panel .export-panel p select {
   border: solid 1px #AEB0B5;
   border-radius: 5px;
   padding: 5px 10px;
+  appearance: button;
 }
 
 .panel .export-panel button {
