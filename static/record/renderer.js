@@ -64,7 +64,7 @@ function headRenderer(instance, td, row, col, prop, value, cellProperties) {
 }
 
 function getLatest(type, value) {
-    if (!value) return ''
+    if (!value || value.length < 1) return ''
     return value[value.length - 1][type]
 }
 

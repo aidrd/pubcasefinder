@@ -111,7 +111,8 @@ function importFile(event) {
             object = JSON.parse(data)
         }
 
-        updateTable(object.PATIENTS, fileType === 'text/csv' || fileType === 'text/tab-separated-values')
+        // updateTable(object.PATIENTS, fileType === 'text/csv' || fileType === 'text/tab-separated-values')
+        updateTable(object.PATIENTS, true)
     })
     reader.readAsText(event.target.files[0])
 }
@@ -206,7 +207,8 @@ function onDrop(event) {
             object = JSON.parse(data)
         }
 
-        updateTable(object.PATIENTS, fileType === 'text/csv' || fileType === 'text/tab-separated-values')
+        // updateTable(object.PATIENTS, fileType === 'text/csv' || fileType === 'text/tab-separated-values')
+        updateTable(object.PATIENTS, true)
     })
 
     reader.readAsText(file)
@@ -259,11 +261,13 @@ function convertCSVToJSON(csv, isExport) {
             let value = d[i]
 
             if (['体重', '身長', '頭囲'].includes(headerText)) {
-                let bodyInfo = contentData[idx - 1]['身体情報']
-                if (bodyInfo) {
-                    value = bodyInfo[bodyInfo.length - 1][headerText]
-                } else {
-                    value = ''
+                if (contentData.length > 0) {
+                    let bodyInfo = contentData[idx - 1]['身体情報']
+                    if (bodyInfo) {
+                        value = bodyInfo[bodyInfo.length - 1][headerText]
+                    } else {
+                        value = ''
+                    }
                 }
             }
 
@@ -392,7 +396,44 @@ async function updateTable(data, changeHeaders) {
         newHeaders.forEach(h => {
             if (h === 'PCFNo') return
 
-            let headerTitle = `<i class=\"material-icons-outlined sort_icon\">swap_vert</i>${h}`
+            if (h === '身体情報') {
+                createColumn('体重')
+                createColumn('身長')
+                createColumn('頭囲')
+
+            } else {
+                createColumn(h)
+            }
+
+
+
+            // let headerTitle = `<i class=\"material-icons-outlined sort_icon\">swap_vert</i>${h}`
+            // let headerData = {
+            //     data: h,
+            //     type: 'text',
+            //     readOnly: false
+            // }
+
+            // let colData = dataColumns[h]
+            // if (colData) {
+            //     headerTitle = colData['colHeader']
+            //     headerData = colData['column']
+            // } else {
+            //     customColumns.push(h)
+            //     dataColumns[h] = {
+            //         colHeader: headerTitle,
+            //         column: headerData
+            //     }
+            // }
+
+            // colHeaders.push(headerTitle)
+            // headers.push(headerData)
+            // existingHeaders.push(h)
+        })
+    }
+
+    function createColumn(h) {
+        let headerTitle = `<i class=\"material-icons-outlined sort_icon\">swap_vert</i>${h}`
             let headerData = {
                 data: h,
                 type: 'text',
@@ -414,7 +455,6 @@ async function updateTable(data, changeHeaders) {
             colHeaders.push(headerTitle)
             headers.push(headerData)
             existingHeaders.push(h)
-        })
     }
 
     Object.assign(updateSettings, {
