@@ -731,7 +731,7 @@ function editTable(isSave) {
 
     hot.render()
     resetData()
-    resetGeneData()
+    // resetGeneData()
 
     function resetData() {
         currentPatient = ''
