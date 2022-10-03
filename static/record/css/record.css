@@ -782,14 +782,19 @@ h5 {
 .modal_content .button_wrap .add {
   padding: 5px 10px;
   background: #000;
-  border-radius: 5px;
+  border-radius: 25px;
   color: #fff;
   width: fit-content;
-  margin-left: 0.7em;
+  margin-left: 0.5em;
 }
 
 .modal_content .button_wrap .add i {
   vertical-align: -6px;
+}
+
+.modal_content .button_wrap .add:hover {
+  text-decoration: none;
+  opacity: 0.6;
 }
 
 .modal_content .button_wrap .close_modal {
