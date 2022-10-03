@@ -405,8 +405,6 @@ async function updateTable(data, changeHeaders) {
                 createColumn(h)
             }
 
-
-
             // let headerTitle = `<i class=\"material-icons-outlined sort_icon\">swap_vert</i>${h}`
             // let headerData = {
             //     data: h,
