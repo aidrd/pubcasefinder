@@ -25,8 +25,12 @@ let bodyHeaders = [], bodyColumns = []
 let bodySchema = {}, bodyData = {}, currentBodyData = {}
 let bodyContainer = document.getElementById('bodyModal')
 
+
 async function geneTable() {
+    if (!toReset) return
+
     let tempData = {}
+
     resetData('gene')
 
     let geneTypeInfo = columns['遺伝子型情報']
@@ -76,6 +80,8 @@ async function geneTable() {
         geneHot.updateSettings(geneSettings)
         geneHot.render()
     }
+
+    toReset = false
 }
 
 function addGeneRow() {

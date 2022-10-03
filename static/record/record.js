@@ -1,6 +1,7 @@
 let hot, exportPlugin, movePlugin, autoRowSizePlugin
 let isAllChecked = true
 let toSave = false
+let toReset = true
 let count = 1
 
 let headers = [], colHeaders = [], existingHeaders = [], hiddenColumns = [], customColumns = []
@@ -8,8 +9,8 @@ let dataSchema = {}, dataColumns = {}
 let groupOptions = [], patientOptions = [], familyOptions = []
 
 let contentData = []
-let storage = localStorage.getItem('contentData')
-if (storage) contentData = JSON.parse(storage)
+// let storage = localStorage.getItem('contentData')
+// if (storage) contentData = JSON.parse(storage)
 
 let hotContainer = document.getElementById('myGrid')
 
@@ -35,7 +36,7 @@ let updateSettings = {
     },
     outsideClickDeselects: false,
     selectionMode: 'multiple',
-    licenseKey: '17bfa-714c9-a7430-c4321-87c56' // for non-commercial use only
+    licenseKey: '17bfa-714c9-a7430-c4321-87c56'
 }
 
 initiateTable()
@@ -633,6 +634,7 @@ function removeCustomColumn(e) {
 }
 
 function editTable(isSave) {
+    toReset = true
     if (!isSave) {
         // if (!confirm('保存しますか？'))
         return resetData()
@@ -651,6 +653,19 @@ function editTable(isSave) {
             }
         })
 
+        if (geneData.length > 0) {
+            let geneDataKeys = Object.keys(geneData[0])
+            geneDataKeys.forEach(k => {
+                newPatient[k] = []
+            })
+
+            geneData.forEach(gd => {
+                for (let [k, v] of Object.entries(gd)) {
+                    newPatient[k].push(v)
+                }
+            })
+        }
+
         addRow(newPatient)
         return
     }
@@ -663,16 +678,24 @@ function editTable(isSave) {
         // if (k === 'RelatedTo') patientData['relationship'] = v === 'なし' ? patientData['続柄'] : `${patientData['続柄']}<br>(${patientData['RelatedTo']})`
     }
 
-    resetGeneData()
+    if (geneData.length > 0) {
+        let geneDataKeys = Object.keys(geneData[0])
+        geneDataKeys.forEach(k => {
+            patientData[k] = []
+        })
 
-    geneData.forEach(gd => {
-        for (let [k, v] of Object.entries(gd)) {
-            patientData[k].push(v)
-        }
-    })
+        geneData.forEach(gd => {
+            for (let [k, v] of Object.entries(gd)) {
+                patientData[k].push(v)
+            }
+        })
+    }
+
+    
 
     hot.render()
     resetData()
+    resetGeneData()
 
     function resetData() {
         currentPatient = ''
@@ -699,7 +722,7 @@ function rerenderTable() {
 }
 
 function beforeLoad() {
-    if (contentData.length > 0) localStorage.contentData = JSON.stringify(contentData)
+    // if (contentData.length > 0) localStorage.contentData = JSON.stringify(contentData)
     return 'load'
 }
 

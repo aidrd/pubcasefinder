@@ -207,6 +207,13 @@ let columns = {
         },
         {
             "columnName": "渡航歴",
+            "dataKey": "travel-history",
+            "type": "text",
+            "options": [],
+            "table": true
+        },
+        {
+            "columnName": "予防接種歴",
             "dataKey": "vaccination-history",
             "type": "text",
             "options": [],
