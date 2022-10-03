@@ -434,17 +434,16 @@ body{
                             font-weight: normal;
                             color: #79839a;
                             text-align: right;
-                            border-bottom: solid 1px #EDEDED;
+                            border-bottom: 1px solid #EDEDED;
                             span {
                                 color: #636463;
                             }
                         }
                         td {
-                            background-color: #fff;
                             padding: 0.7em 0 0.7em 1em;
                             display: table-cell;
                             vertical-align: middle;
-                            border-bottom: solid 1px #EDEDED;
+                            border-bottom: 1px solid #EDEDED;
                             span {
                                 color: #888888;
                             }
@@ -488,7 +487,7 @@ body{
                             textarea{
                                 width: 100%;
                                 height: auto;
-                                padding: 0.5em 0.3em;
+                                padding: 0.35em 0.5em;
                                 border: 1.5px solid #e3e3e3;
                                 border-radius: 0.3em;
                                 background: #fff;
@@ -516,7 +515,6 @@ body{
                             ::placeholder{
                                 color: #e3e3e3;
                             }
-                            
                         }
                         #group_wrap{
                             display: flex;

@@ -462,7 +462,7 @@ body {
   font-weight: normal;
   color: #79839a;
   text-align: right;
-  border-bottom: solid 1px #EDEDED;
+  border-bottom: 1px solid #EDEDED;
 }
 
 #modal-karte .tab-wrap .show .form-table tbody tr th span {
@@ -470,11 +470,10 @@ body {
 }
 
 #modal-karte .tab-wrap .show .form-table tbody tr td {
-  background-color: #fff;
   padding: 0.7em 0 0.7em 1em;
   display: table-cell;
   vertical-align: middle;
-  border-bottom: solid 1px #EDEDED;
+  border-bottom: 1px solid #EDEDED;
 }
 
 #modal-karte .tab-wrap .show .form-table tbody tr td span {
@@ -524,7 +523,7 @@ body {
 #modal-karte .tab-wrap .show .form-table tbody tr td textarea {
   width: 100%;
   height: auto;
-  padding: 0.5em 0.3em;
+  padding: 0.35em 0.5em;
   border: 1.5px solid #e3e3e3;
   border-radius: 0.3em;
   background: #fff;
