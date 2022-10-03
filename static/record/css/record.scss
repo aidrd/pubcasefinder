@@ -1063,3 +1063,51 @@ td{
     display: block;
     margin-right: 1em;
 }
+
+
+
+.first-users-wrap{
+    text-decoration: underline;
+    margin: auto 0;
+    margin-right: 0.7em;
+    color: #2F80ED;
+    i{
+        vertical-align: -5px;
+        font-size: 20px;
+        margin-right: -0.1em;
+    }
+    }
+    .panel{
+        background-color: rgba(0, 0, 0, 0.5);
+        .first-users-panel{
+        background: #fff;
+        color: #000;
+        border-radius: 5px;
+        max-width: 50em;
+        padding: 3em 0 0;
+        margin: 3em auto;
+        text-align: center;
+        position: sticky;
+        img{
+            display: block;
+            margin: 0 auto;
+        }
+        h6{
+            margin: 0.6em 0 0.2em;
+            font-size: large;
+        }
+        .users01{
+            width: 6em;
+        }
+        span{
+            text-align: center;
+            color: #79839a;
+            font-size: 0.9em;
+        }
+        p{
+            text-align: center;
+            margin-top: 1em;
+            margin-bottom: -1em;
+        }
+    }
+    }
