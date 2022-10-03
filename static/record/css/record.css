@@ -1097,11 +1097,11 @@ h5 {
   margin-right: -0.1em;
 }
 
-.panel {
+.panel_first {
   background-color: rgba(0, 0, 0, 0.5);
 }
 
-.panel .first-users-panel {
+.panel_first .first-users-panel {
   background: #fff;
   color: #000;
   border-radius: 20px;
@@ -1112,27 +1112,27 @@ h5 {
   position: sticky;
 }
 
-.panel .first-users-panel img {
+.panel_first .first-users-panel img {
   display: block;
   margin: 0 auto;
 }
 
-.panel .first-users-panel h6 {
+.panel_first .first-users-panel h6 {
   margin: 0.6em 0 0.2em;
   font-size: large;
 }
 
-.panel .first-users-panel .users01 {
+.panel_first .first-users-panel .users01 {
   width: 6em;
 }
 
-.panel .first-users-panel span {
+.panel_first .first-users-panel span {
   text-align: center;
   color: #79839a;
   font-size: 0.9em;
 }
 
-.panel .first-users-panel p {
+.panel_first .first-users-panel p {
   text-align: center;
   margin-top: 1em;
   margin-bottom: -1em;
