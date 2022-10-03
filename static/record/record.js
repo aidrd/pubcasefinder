@@ -691,8 +691,6 @@ function editTable(isSave) {
         })
     }
 
-    
-
     hot.render()
     resetData()
     resetGeneData()
@@ -722,7 +720,7 @@ function rerenderTable() {
 }
 
 function beforeLoad() {
-    // if (contentData.length > 0) localStorage.contentData = JSON.stringify(contentData)
+    if (contentData.length > 0) localStorage.contentData = JSON.stringify(contentData)
     return 'load'
 }
 
