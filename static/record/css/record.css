@@ -200,6 +200,10 @@ body {
   margin: auto 0 auto 0.5em;
 }
 
+#nav-left .home main #home-menu #reset i {
+  color: #abb3c2;
+}
+
 #nav-left .home main #home-menu #table_menu {
   margin: auto 0 auto auto;
   display: flex;
