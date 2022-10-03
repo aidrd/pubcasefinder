@@ -816,6 +816,7 @@ h5 {
   font-size: 17px;
   vertical-align: -4px;
   margin-right: 0.2em;
+  float: none;
 }
 
 .modal_content .modal_container div {
@@ -836,6 +837,8 @@ h5 {
 .modal_content .modal_container div i {
   font-size: 20px;
   vertical-align: sub;
+  float: right;
+  margin-right: 0.8em;
 }
 
 .selected_add_header {
