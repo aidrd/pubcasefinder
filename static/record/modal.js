@@ -89,9 +89,9 @@ function openModal(patientId) {
                     let value = i
                     let temp = i
     
-                    opt += `<option value="${value.toString().padStart(2, '0')}" ${temp % 10 === 0 ? 'disabled' : ''}>${display}</option>`
+                    opt += `<option value="${value.toString().padStart(2, '0')}"}>${display}</option>`
 
-                    if (temp % 10 === 0) opt += `<option value="${value.toString().padStart(2, '0')}">${display}s</option>`
+                    // if (temp % 10 === 0) opt += `<option value="${value.toString().padStart(2, '0')}">${display}s</option>`
                 }
             }
 
