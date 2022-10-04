@@ -112,7 +112,7 @@ function importFile(event) {
         }
 
         // updateTable(object.PATIENTS, fileType === 'text/csv' || fileType === 'text/tab-separated-values')
-        updateTable(object.PATIENTS, true)
+        updateTable(object.PATIENTS, fileType)
     })
     reader.readAsText(event.target.files[0])
 }
@@ -208,7 +208,7 @@ function onDrop(event) {
         }
 
         // updateTable(object.PATIENTS, fileType === 'text/csv' || fileType === 'text/tab-separated-values')
-        updateTable(object.PATIENTS, true)
+        updateTable(object.PATIENTS, fileType)
     })
 
     reader.readAsText(file)
@@ -386,73 +386,60 @@ async function updateTable(data, changeHeaders) {
         contentData.push(d)
     })
 
-    if (changeHeaders && contentData.length > 0) {
-        headers.splice(2, headers.length)
-        colHeaders.splice(2, colHeaders.length)
-        existingHeaders = []
-        customColumns = []
-
+    if (contentData.length > 0) {
         let newHeaders = Object.keys(data[0])
-        newHeaders.forEach(h => {
-            if (h === 'PCFNo') return
 
-            if (h === '身体情報') {
-                createColumn('体重')
-                createColumn('身長')
-                createColumn('頭囲')
-
-            } else {
-                createColumn(h)
-            }
-
-            // let headerTitle = `<i class=\"material-icons-outlined sort_icon\">swap_vert</i>${h}`
-            // let headerData = {
-            //     data: h,
-            //     type: 'text',
-            //     readOnly: false
-            // }
-
-            // let colData = dataColumns[h]
-            // if (colData) {
-            //     headerTitle = colData['colHeader']
-            //     headerData = colData['column']
-            // } else {
-            //     customColumns.push(h)
-            //     dataColumns[h] = {
-            //         colHeader: headerTitle,
-            //         column: headerData
-            //     }
-            // }
-
-            // colHeaders.push(headerTitle)
-            // headers.push(headerData)
-            // existingHeaders.push(h)
-        })
+        if (changeHeaders  === 'text/csv' || changeHeaders === 'text/tab-separated-values') {
+            headers.splice(2, headers.length)
+            colHeaders.splice(2, colHeaders.length)
+            existingHeaders = []
+            customColumns = []
+    
+            newHeaders.forEach(h => {
+                if (h === 'PCFNo') return
+    
+                if (h === '身体情報') {
+                    createColumn('体重')
+                    createColumn('身長')
+                    createColumn('頭囲')
+    
+                } else {
+                    createColumn(h)
+                }
+            })
+        } else {
+            newHeaders.forEach(h => {
+                if (h === 'PCFNo' || h === '身体情報') return
+                if (!(Object.keys(dataColumns).includes(h))) createColumn(h, true)
+            })
+        }
     }
 
-    function createColumn(h) {
+    function createColumn(h, isHidden) {
         let headerTitle = `<i class=\"material-icons-outlined sort_icon\">swap_vert</i>${h}`
-            let headerData = {
-                data: h,
-                type: 'text',
-                readOnly: false
-            }
+        let headerData = {
+            data: h,
+            type: 'text',
+            readOnly: false
+        }
 
-            let colData = dataColumns[h]
-            if (colData) {
-                headerTitle = colData['colHeader']
-                headerData = colData['column']
-            } else {
-                customColumns.push(h)
-                dataColumns[h] = {
-                    colHeader: headerTitle,
-                    column: headerData
-                }
+        let colData = dataColumns[h]
+        if (colData) {
+            headerTitle = colData['colHeader']
+            headerData = colData['column']
+        } else {
+            customColumns.push(h)
+            dataColumns[h] = {
+                colHeader: headerTitle,
+                column: headerData
             }
+        }
 
-            colHeaders.push(headerTitle)
-            headers.push(headerData)
-            existingHeaders.push(h)
+        if (isHidden) return
+ 
+        colHeaders.push(headerTitle)
+        headers.push(headerData)
+        existingHeaders.push(h)
     }
 
     Object.assign(updateSettings, {
