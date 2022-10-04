@@ -676,7 +676,13 @@ function editTable(isSave) {
             if (e.type === 'radio') {
                 newPatient[e.dataset.columnname] = $(`input[name="${e.name}"]:checked`).val() || null
             } else {
-                newPatient[e.dataset.columnname] = e.value
+                let value = e.value
+                if (e.dataset.columnname === '生年月' || e.dataset.columnname === '没年月') {
+                    let pre = e.dataset.columnname === '生年月' ? 'birth' : 'death'
+                    value = `${document.querySelector(`.tab-wrap *[name="${pre}_year"]`).value}/${document.querySelector(`.tab-wrap *[name="${pre}_month"]`).value}`
+                }
+
+                newPatient[e.dataset.columnname] = value
             }
         })
 
