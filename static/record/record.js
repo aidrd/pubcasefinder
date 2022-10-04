@@ -597,6 +597,8 @@ function addColumn() {
         customColumns.push(add.value)
         createColumn(add.value, 'custom')
 
+        contentData.map(c => c[add.value] = null)
+
         rerenderTable()
 
         modal.style.display = 'none'
@@ -684,7 +686,6 @@ function editTable(isSave) {
 
         let newPatient = {}
         elements.forEach(e => {
-            console.log(e.dataset.columnname)
             if (e.type === 'radio') {
                 newPatient[e.dataset.columnname] = $(`input[name="${e.name}"]:checked`).val() || null
             } else {

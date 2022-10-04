@@ -199,7 +199,7 @@ let columns = {
             "table": true
         },
         {
-            "columnName": "内服歴",
+            "columnName": "内服薬",
             "dataKey": "medications",
             "type": "text",
             "options": [],
