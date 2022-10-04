@@ -33,7 +33,7 @@ let newData = {
     "社会歴": null,
     "飲酒量": null,
     "喫煙": null,
-    "内服歴": null,
+    "内服薬": null,
     "渡航歴": null,
     "予防接種歴": null,
     "Gene": [],

@@ -684,6 +684,7 @@ function editTable(isSave) {
 
         let newPatient = {}
         elements.forEach(e => {
+            console.log(e.dataset.columnname)
             if (e.type === 'radio') {
                 newPatient[e.dataset.columnname] = $(`input[name="${e.name}"]:checked`).val() || null
             } else {
@@ -704,6 +705,7 @@ function editTable(isSave) {
             })
         }
 
+        delete newPatient['undefined']
         addRow(newPatient)
         return
     }
