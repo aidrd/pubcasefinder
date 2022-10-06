@@ -208,6 +208,10 @@
 		},
 		get_tokens: function() {
 			return this.data("searchBoxFormObject").get_tokens();
+		},
+		clear_tokens:  function(item) {
+			this.data("searchBoxFormObject").clear_tokens();
+			return this;
 		}
 	};
 
@@ -575,6 +579,9 @@
 			return $("#tokeninput_hpo").tokenInput("get");
 		};
 
+		this.clear_tokens = function() {
+			$("#tokeninput_hpo").tokenInput("clear");
+		};
 
 		//
 		// Initialization UI

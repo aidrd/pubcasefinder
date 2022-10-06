@@ -1,0 +1,1 @@
+ static/record/css/record.css static/record/css/record.min.css static/record/css/record.scss static/record/modal_table.js static/record/record.js static/record/variables/emptyData.js  templates/record.html  
