@@ -44,6 +44,22 @@ def pcf_get_gene_data_by_gene_id(r_gene_id):
                 else:
                     hash_data[gene_id]['name_en'] = value_gene[2]
 
+        sql_gene2 = 'select EntrezID,Symbol,SymbolSynonym from DiseaseGeneOMIM where EntrezID in (%s)' % ','.join(['%s']*len(list_genes))
+        cursor_gene2 = OBJ_MYSQL.cursor()
+        cursor_gene2.execute(sql_gene2, list_genes)
+        values_gene2 = cursor_gene2.fetchall()
+        cursor_gene2.close()
+        for value_gene in values_gene2:
+            gene_id   = value_gene[0].replace('ENT','GENEID')
+            if gene_id not in hash_data:
+                hash_data[gene_id] = {}
+                hash_data[gene_id]['name_en']=""
+                hash_data[gene_id]['name_ja']=""
+                if value_gene[1]:
+                    hash_data[gene_id]['name_en'] = value_gene[1]
+                else:
+                    hash_data[gene_id]['name_en'] = value_gene[2]
+
 
         OBJ_MYSQL.close()
 
