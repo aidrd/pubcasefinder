@@ -129,6 +129,14 @@ db_pw   = app.config['DBPW']
 #####
 
 #####
+# display record
+# /
+@app.route('/record')
+def record():
+    return render_template('record.html')
+
+
+#####
 # display top page
 # /
 @app.route('/')
