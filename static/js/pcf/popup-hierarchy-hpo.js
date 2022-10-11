@@ -3658,17 +3658,25 @@
             let $prependTo = $('#'+ prependTo_id);
             let top = $prependTo.offset().top;
 			if(!ATTACH_TO){
-				top = top - document.body.scrollTop;
+				if(document.documentElement.scrollTop){
+					top = top - document.documentElement.scrollTop;
+				}else if(document.body.scrollTop){
+					top = top - document.body.scrollTop;
+				}
 			}
             let pos = Math.ceil(top + $prependTo.height());
             $mfp_bg_local.css({'top': pos+'px'});
             $mfp_wrap_local.css({'top': pos+'px'});
             $webgl_trigger.css({'top': top+'px'});
-            let max_height= Math.floor(document.documentElement.clientHeight) - Math.ceil(pos);
-			if(ATTACH_TO){
-				max_height= Math.floor($(ATTACH_TO).height()) - Math.ceil(pos);
+            //let max_height= Math.floor(document.documentElement.clientHeight) - Math.ceil(pos);
+			//if(ATTACH_TO){
+			//	max_height= Math.floor($(ATTACH_TO).height()) - Math.ceil(pos);
+			//}
+            //$mfp_container.css({'max-height':max_height+'px','overflow':'hidden auto'});
+			if(!ATTACH_TO){
+				let max_height= Math.floor(document.documentElement.clientHeight) - Math.ceil(pos);
+				$mfp_container.css({'max-height':max_height+'px','overflow':'hidden auto'});
 			}
-            $mfp_container.css({'max-height':max_height+'px','overflow':'hidden auto'});
 		}
 
 
