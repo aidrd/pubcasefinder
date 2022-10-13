@@ -283,7 +283,7 @@
 				setTimeout(function(){_parse_text();}, 500);
 				$btn_trigger.data("pre_set_text", "");
 			}
-			$text_input_textarea.set_focus();
+			//$text_input_textarea.set_focus();
 		});
 		
 		// end of ui initialize
