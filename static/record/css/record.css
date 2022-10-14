@@ -983,7 +983,6 @@ h5 {
   text-align: left;
   padding: 10px;
   font-size: 1.1em;
-  display: grid;
 }
 
 .handsontable thead tr th .relative span .material-icons-outlined.sort_icon {
