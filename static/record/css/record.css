@@ -445,6 +445,10 @@ body {
   border-spacing: 0;
   width: 100%;
   text-align: left;
+  border-collapse: collapse;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  table-layout: fixed;
+  width: 100%;
 }
 
 #modal-karte .tab-wrap .show .form-table tbody tr {
@@ -464,6 +468,8 @@ body {
   color: #79839a;
   text-align: right;
   border-bottom: 1px solid #EDEDED;
+  width: 7em;
+  padding-right: 1em;
 }
 
 #modal-karte .tab-wrap .show .form-table tbody tr th span {
@@ -471,7 +477,7 @@ body {
 }
 
 #modal-karte .tab-wrap .show .form-table tbody tr td {
-  padding: 0.7em 0 0.7em 1em;
+  padding: 0.7em 0 0.7em 0;
   display: table-cell;
   vertical-align: middle;
   border-bottom: 1px solid #EDEDED;
@@ -584,6 +590,14 @@ body {
 
 #modal-karte .tab-wrap .show .form-table tbody tr:last-child {
   border-bottom: 0;
+}
+
+#modal-karte .tab-wrap .show .treatment-table tbody tr th {
+  width: 9em;
+}
+
+#modal-karte .tab-wrap .show .family-table tbody tr th {
+  width: 9em;
 }
 
 /*mobile*/
@@ -1041,7 +1055,6 @@ h5 {
   background: none;
   color: #000;
   border-radius: 0;
-  min-width: 30em;
 }
 
 .genetic_list label {

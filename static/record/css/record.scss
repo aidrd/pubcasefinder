@@ -420,6 +420,10 @@ body{
                 border-spacing: 0;
                 width: 100%;
                 text-align: left;
+                border-collapse: collapse;
+                border: 1px solid rgba(0,0,0,.1);
+                table-layout: fixed;
+                width: 100%;
                 tbody{
                     tr {
                         min-height: 38px;
@@ -436,12 +440,14 @@ body{
                             color: #79839a;
                             text-align: right;
                             border-bottom: 1px solid #EDEDED;
+                            width: 7em;
+                            padding-right: 1em;
                             span {
                                 color: #636463;
                             }
                         }
                         td {
-                            padding: 0.7em 0 0.7em 1em;
+                            padding: 0.7em 0 0.7em 0;
                             display: table-cell;
                             vertical-align: middle;
                             border-bottom: 1px solid #EDEDED;
@@ -539,6 +545,24 @@ body{
 
                         &:last-child{
                             border-bottom:0;
+                        }
+                    }
+                }
+            }
+            .treatment-table{
+                tbody{
+                    tr{
+                        th{
+                            width: 9em;
+                        }
+                    }
+                }
+            }
+            .family-table{
+                tbody{
+                    tr{
+                        th{
+                            width: 9em;
                         }
                     }
                 }
@@ -1021,7 +1045,6 @@ td{
     background: none;
     color: #000;
     border-radius: 0;
-    min-width: 30em;
     label{
         margin-left: 0.85em;
         input{
