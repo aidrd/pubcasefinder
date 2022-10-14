@@ -445,8 +445,6 @@ body {
   border-spacing: 0;
   width: 100%;
   text-align: left;
-  border-collapse: collapse;
-  border: 1px solid rgba(0, 0, 0, 0.1);
   table-layout: fixed;
   width: 100%;
 }
@@ -593,11 +591,11 @@ body {
 }
 
 #modal-karte .tab-wrap .show .treatment-table tbody tr th {
-  width: 9em;
+  width: 11em;
 }
 
 #modal-karte .tab-wrap .show .family-table tbody tr th {
-  width: 9em;
+  width: 12em;
 }
 
 /*mobile*/

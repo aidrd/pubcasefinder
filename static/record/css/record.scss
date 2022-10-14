@@ -420,8 +420,6 @@ body{
                 border-spacing: 0;
                 width: 100%;
                 text-align: left;
-                border-collapse: collapse;
-                border: 1px solid rgba(0,0,0,.1);
                 table-layout: fixed;
                 width: 100%;
                 tbody{
@@ -553,7 +551,7 @@ body{
                 tbody{
                     tr{
                         th{
-                            width: 9em;
+                            width: 11em;
                         }
                     }
                 }
@@ -562,7 +560,7 @@ body{
                 tbody{
                     tr{
                         th{
-                            width: 9em;
+                            width: 12em;
                         }
                     }
                 }
