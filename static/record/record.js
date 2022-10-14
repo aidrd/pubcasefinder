@@ -2,7 +2,7 @@ let hot, exportPlugin, movePlugin, autoRowSizePlugin
 let isAllChecked = true
 let toSave = false
 let toReset = true
-let count = 1
+let count
 
 let headers = [], colHeaders = [], existingHeaders = [], hiddenColumns = [], customColumns = []
 let dataSchema = {}, dataColumns = {}
@@ -16,6 +16,7 @@ let hotContainer = document.getElementById('myGrid')
 
 let updateSettings = {
     rowHeaders: true,
+    rowHeights: 30,
     width: '100%',
     height: '100%',
     autoColumnSize: {
@@ -31,11 +32,13 @@ let updateSettings = {
     contextMenu: true,
     allowRemoveColumn: true,
     columnSorting: {
-        indicator: false,
+        indicator: true,
         sortEmptyCells: false
     },
+    filters: true,
+    dropdownMenu: true,
     outsideClickDeselects: false,
-    selectionMode: 'multiple',
+    // selectionMode: 'multiple',
     licenseKey: '17bfa-714c9-a7430-c4321-87c56'
 }
 
@@ -477,7 +480,14 @@ function addRow(data) {
     temp.PCFNo = pcfNo
 
     let num = hot.countRows() + 1
-    temp['患者ID'] = `P${num.toString().padStart(7, 0)}`
+
+    if (count) {
+        temp['患者ID'] = `P${count.toString().padStart(7, 0)}`
+    } else {
+        temp['患者ID'] = `P${num.toString().padStart(7, 0)}`
+        count = num
+    }
+
     count++
 
     if (data) {
