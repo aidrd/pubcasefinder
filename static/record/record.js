@@ -2,7 +2,7 @@ let hot, exportPlugin, movePlugin, autoRowSizePlugin
 let isAllChecked = true
 let toSave = false
 let toReset = true
-let count = 1
+let count
 
 let headers = [], colHeaders = [], existingHeaders = [], hiddenColumns = [], customColumns = []
 let dataSchema = {}, dataColumns = {}
@@ -16,6 +16,7 @@ let hotContainer = document.getElementById('myGrid')
 
 let updateSettings = {
     rowHeaders: true,
+    rowHeights: 30,
     width: '100%',
     height: '100%',
     autoColumnSize: {
@@ -31,11 +32,13 @@ let updateSettings = {
     contextMenu: true,
     allowRemoveColumn: true,
     columnSorting: {
-        indicator: false,
+        indicator: true,
         sortEmptyCells: false
     },
+    filters: true,
+    dropdownMenu: true,
     outsideClickDeselects: false,
-    selectionMode: 'multiple',
+    // selectionMode: 'multiple',
     licenseKey: '17bfa-714c9-a7430-c4321-87c56'
 }
 
@@ -256,7 +259,7 @@ function convertCSVToJSON(csv, isExport) {
 
             if (idx === 0) continue
 
-            let headerText = isExport ? headers[i].replace('<i class="material-icons-outlined sort_icon">swap_vert</i>', '') : headers[i]
+            let headerText = isExport ? headers[i].replace('<i class="material-icons-outlined sort_icon"></i>', '') : headers[i]
 
             let value = d[i]
 
@@ -292,7 +295,7 @@ function createColumns() {
         for (let [key, value] of Object.entries(columns)) {
             console.log(key, value)
             value.forEach(v => {
-                let colHeader = `<i class="material-icons-outlined sort_icon">swap_vert</i>${v.columnName}`
+                let colHeader = `<i class="material-icons-outlined sort_icon"></i>${v.columnName}`
 
                 let column = {
                     data: v.columnName,
@@ -416,7 +419,7 @@ async function updateTable(data, changeHeaders) {
     }
 
     function createColumn(h, isHidden) {
-        let headerTitle = `<i class=\"material-icons-outlined sort_icon\">swap_vert</i>${h}`
+        let headerTitle = `<i class=\"material-icons-outlined sort_icon\"></i>${h}`
         let headerData = {
             data: h,
             type: 'text',
@@ -477,7 +480,14 @@ function addRow(data) {
     temp.PCFNo = pcfNo
 
     let num = hot.countRows() + 1
-    temp['患者ID'] = `P${num.toString().padStart(7, 0)}`
+
+    if (count) {
+        temp['患者ID'] = `P${count.toString().padStart(7, 0)}`
+    } else {
+        temp['患者ID'] = `P${num.toString().padStart(7, 0)}`
+        count = num
+    }
+
     count++
 
     if (data) {
@@ -565,7 +575,7 @@ function addColumn() {
         // colHeaders = headers
         if (add.value === '') return
 
-        let colHeader = `<i class="material-icons-outlined sort_icon">swap_vert</i>${add.value}`
+        let colHeader = `<i class="material-icons-outlined sort_icon"></i>${add.value}`
 
         let column = {
             data: add.value,
@@ -606,7 +616,7 @@ function showHideColumn(e) {
         headers.push(col.column)
 
     } else {
-        colHeaders.splice(colHeaders.indexOf(`<i class="material-icons-outlined sort_icon">swap_vert</i>${e.id}`), 1)
+        colHeaders.splice(colHeaders.indexOf(`<i class="material-icons-outlined sort_icon"></i>${e.id}`), 1)
 
         if (['体重', '身長', '頭囲'].includes(e.id)) {
             let renderer
