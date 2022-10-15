@@ -309,6 +309,7 @@
 
 		var mfp_popup = null;
 		if(!current_settings.use_webgl && !current_settings.is_hierarchy_fullscreen && current_settings.prependTo){
+/*
 			let $webgl_trigger  = $('<div>').addClass("popup-hierarchy-hpo-webgl-trigger-content")
 										.click(function(e){
 											$('.selected_at_popup').removeClass('selected_at_popup');
@@ -323,6 +324,8 @@
 										});
 
 			mfp_popup = new $.PopupRelationHPO.Mfp_Popup(current_settings.prependTo, $webgl_trigger);
+*/
+			mfp_popup = new $.PopupRelationHPO.Mfp_Popup(current_settings.prependTo);
 		}
 
 		this.triggerChangeState = function(){
@@ -3617,13 +3620,13 @@
 		});
 	};
 
-    $.PopupRelationHPO.Mfp_Popup = function (prependTo, $trigger) {
+    //$.PopupRelationHPO.Mfp_Popup = function (prependTo, $trigger) {
+	$.PopupRelationHPO.Mfp_Popup = function (prependTo) {
         var DIV_POPUP_BG_ID        = 'mfp_bg_local', 
 			DIV_POPUP_WRAP_ID      = 'mfp_wrap_local',
             DIV_POPUP_CONTAINER_ID = 'mfp_container_local', 
 			DIV_POPUP_CONTENT_ID   = 'mfp_content_local',
-			prependTo_id           = prependTo,
-			$webgl_trigger         = $trigger;
+			prependTo_id           = prependTo;
 
 		var ATTACH_TO = '';
 		if($('div.top-wrapper').length) ATTACH_TO = '.top-wrapper';
@@ -3633,12 +3636,10 @@
 										.attr('tabindex','-1').css({'overflow': 'hidden auto'}).appendTo(ATTACH_TO ? ATTACH_TO : 'body');
 		let $mfp_container  = $('<div>').attr('id', DIV_POPUP_CONTAINER_ID).addClass("mfp-container mfp-s-ready mfp-inline-holder").appendTo($mfp_wrap_local);
 		let $mfp_content    = $('<div>').attr('id', DIV_POPUP_CONTENT_ID).addClass("mfp-content").appendTo($mfp_container);
-		$webgl_trigger.appendTo(ATTACH_TO ? ATTACH_TO : 'body');
 
         if(ATTACH_TO){
             $mfp_bg_local.css({'z-index':96,'position':'absolute'});
             $mfp_wrap_local.css({'z-index':97,'position':'absolute'});
-            $webgl_trigger.css({'z-index':97,'position':'absolute'});
         }
 
 		if(prependTo_id){
@@ -3647,8 +3648,6 @@
 
 		$mfp_wrap_local.hide();
 		$mfp_bg_local.hide();
-		$webgl_trigger.hide();
-
 
 	    $(window).on('resize', function(e) {
 			_set_level_pos();
@@ -3667,7 +3666,6 @@
             let pos = Math.ceil(top + $prependTo.height());
             $mfp_bg_local.css({'top': pos+'px'});
             $mfp_wrap_local.css({'top': pos+'px'});
-            $webgl_trigger.css({'top': top+'px'});
             //let max_height= Math.floor(document.documentElement.clientHeight) - Math.ceil(pos);
 			//if(ATTACH_TO){
 			//	max_height= Math.floor($(ATTACH_TO).height()) - Math.ceil(pos);
@@ -3698,7 +3696,6 @@
             if ($('#'+DIV_POPUP_BG_ID).is(':visible')) {
                 $('#'+DIV_POPUP_WRAP_ID).hide();				
                 $('#'+DIV_POPUP_BG_ID).hide();
-				$webgl_trigger.hide();
             }
         };
 		this.hide_mfp_popup = function(){
@@ -3712,7 +3709,6 @@
 				}
                 $('#'+DIV_POPUP_BG_ID).show();
                 $('#'+DIV_POPUP_WRAP_ID).show();
-				$webgl_trigger.show();
             }
         };		
         this.show_mfp_popup = function(){
@@ -3729,7 +3725,6 @@
 			if($('#'+DIV_POPUP_BG_ID).is(':visible')){
 	            _get_mfp_popup_content_wrapper().empty();
     	        _hide_mfp_popup();
-				$webgl_trigger.hide();
 			}
         };
         this.set_mfp_popup_transparent = function(){

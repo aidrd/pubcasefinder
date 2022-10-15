@@ -254,8 +254,10 @@ body {
 .search-header .search-header_wrapper .search-advanced .search-box-advanced_wrapper {
   width: 65%;
   min-width: 685px;
-  padding-top:2.0rem;
-  padding-bottom:2.0rem;
+  /*padding-top:2.0rem;*/
+  padding-top:0.8rem;
+  /*padding-bottom:2.0rem;*/
+  padding-bottom:1rem;
   margin: 0 auto 0 auto;
 }
 

@@ -25,8 +25,9 @@
 					[OBSERVED_Y] : 'Observed',
 					[OBSERVED_N] : 'Not Observed'
 				},
-				'TEXT2HPO_URL': 'https://doc2hpo.wglab.org/',
-				'TEXT2HPO_BTN_TITLE': 'Input Free-Text (doc2hpo)'
+				'TEXT2HPO_URL':         'https://doc2hpo.wglab.org/',
+				'TEXT2HPO_BTN_TITLE':   'Input Free-Text (doc2hpo)',
+				'PHENOTOUCH_BTN_TITLE': 'Find Phenotypes using Human 3D Model'
 			},
 			[LANGUAGE_JA] : {
 				'placeholder' : 'Import Human Phenotype Onotology(HPO) Term Ids. You can extract multiple HPO term ids from any kind of textual input. HPO term ids must satisfy the format HP:xxxxxxx to be recognized.',
@@ -34,8 +35,9 @@
 					[OBSERVED_Y] : '症状あり',
 					[OBSERVED_N] : '症状なし'
 				},
-                'TEXT2HPO_URL': '/ehr',
-                'TEXT2HPO_BTN_TITLE': '文章から症状を自動抽出'
+                'TEXT2HPO_URL':          '/ehr',
+                'TEXT2HPO_BTN_TITLE':    '文章から症状を自動抽出',
+				'PHENOTOUCH_BTN_TITLE' : 'ヒト3Dモデルを利用して症状を検索'
 			}
 		}	
 	;
@@ -161,6 +163,7 @@
 			.addClass('modal-title').addClass('flex-fill').attr('id','text-input-modal-title').appendTo($modal_header);
 		let lng = current_settings.language === LANGUAGE_JA ? LANGUAGE_JA : LANGUAGE_EN;
 		let $text2hpo_btn = $('<button>').addClass('text2hpo-button')
+										.attr({'id':'text2hpo-button'})
 										.data('TEXT2HPO_URL', LANGUAGE[lng]['TEXT2HPO_URL'])
 										.click(function(){window.open($(this).data('TEXT2HPO_URL'),'_blank');})
 										.appendTo($modal_header);
@@ -170,6 +173,28 @@
                 'data-placement': 'top',
                 'title':          LANGUAGE[lng]['TEXT2HPO_BTN_TITLE']
         }).appendTo($text2hpo_btn);
+
+		let $phenotouch_button = $('<button>').addClass('phenotouch-button')
+											  .attr({'id':'phenotouch-button'})
+											  .click(function(e){
+													$('#text-input-close-button').trigger('click');
+													setTimeout(function(){
+														$('.selected_at_popup').removeClass('selected_at_popup');
+														$('.token-input-selected-token-facebook').removeClass('token-input-selected-token-facebook');
+														$.PopupRelationHPOWithWebGL();
+													}, 100);
+													e.preventDefault();
+													e.stopPropagation();
+													return false;
+												})
+											   .appendTo($modal_header);;
+
+		$('<img>').attr({
+				'src':    '/static/images/pcf/3d_black.svg',
+				'data-toggle':    'tooltip',
+				'data-placement': 'top',
+				'title':          LANGUAGE[lng]['PHENOTOUCH_BTN_TITLE']
+		}).appendTo($phenotouch_button);
 
 		var $modal_body = $('<div>').addClass('modal-body m-0 p-0 d-flex justify-content-between').appendTo($modal_content);		
 
