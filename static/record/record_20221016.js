@@ -4,11 +4,6 @@ let toSave = false
 let toReset = true
 let count
 
-let defaultColumns = ['診断状況', '主訴', '確定診断', '臨床診断', '年齢', '性別', 'グループ名', '続柄', '家族ID', '患者ID']
-// let defaultColumns = ['主訴', '年齢', '性別', 'グループ名', '続柄', '家族ID', '患者ID']
-let actions = ['REMOVE', 'EDIT']
-// let actions = ['REMOVE', 'EDIT', 'CHECKBOX']
-
 let headers = [], colHeaders = [], existingHeaders = [], hiddenColumns = [], customColumns = []
 let dataSchema = {}, dataColumns = {}
 let groupOptions = [], patientOptions = [], familyOptions = []
@@ -26,42 +21,14 @@ let updateSettings = {
     rowHeights: 30,
     defaultRowHeight: 30,
     autoRowSize: true,
-    // autoColumnSize: {
-    //     useHeaders: true
-    // },
+    autoColumnSize: {
+        useHeaders: true
+    },
     hiddenColumns: true,
     fixedColumnsLeft: 2,
     search: true,
     data: contentData,
     manualColumnMove: true,
-    // afterColumnMove: (movedColumns, finalIndex, dropIndex, movePossible, orderChanged) => {
-    //     if (!orderChanged) return
-
-    //     // e.preventDefault()
-    //     console.log('hi')
-    //     console.log(movedColumns, finalIndex)
-
-    //     let count = 0
-
-    //     // headers = columns (settings - type, options, renderer, etc)
-    //     // colHeaders = headers
-    //     movedColumns.forEach(c => {
-    //         // colHeaders.splice(col.sequence, 0, col.colHeader)
-    //         // headers.splice(col.sequence, 0, col.column)
-    //         // this.splice(to, 0, this.splice(from, 1)[0])
-    //         let tempColHeader = colHeaders[c]
-    //         let tempHeaders = headers[c]
-    //         // colHeaders.splice(c, 1)
-    //         // headers.splice(c, 1)
-    //         // console.log('before', colHeaders)
-    //         // colHeaders.splice(finalIndex + count, 0, tempColHeader)
-    //         // headers.splice(finalIndex + count, 0, tempHeaders)
-    //         // console.log('after', colHeaders)
-    //         count++
-    //     })
-
-    //     // rerenderTable()
-    // },
     manualColumnResize: true,
     manualRowMove: true,
     contextMenu: true,
@@ -155,8 +122,22 @@ async function initiateTable() {
 }
 
 function importFile(event) {
-    let file = event.target.files[0]
-    fileReader(file, file.type)
+    let fileType = event.target.files[0].type
+    let reader = new FileReader()
+    reader.onload = (event => {
+        let data = event.target.result
+        let object
+
+        if (fileType === 'text/csv' || fileType === 'text/tab-separated-values') {
+            object = convertCSVToJSON(data)
+        } else {
+            object = JSON.parse(data)
+        }
+
+        // updateTable(object.PATIENTS, fileType === 'text/csv' || fileType === 'text/tab-separated-values')
+        updateTable(object.PATIENTS, fileType)
+    })
+    reader.readAsText(event.target.files[0])
 }
 
 function getExportData() {
@@ -180,28 +161,12 @@ function getExportData() {
     let dlData = convertCSVToJSON(exportedString, true)
 
     if (isAll) dlData = contentData
-    
 
-    // if (type === 'json') exportedString = { 'PATIENTS': dlData }
-    if (type === 'json') exportedString = getJSONDownload(dlData)
+    if (type === 'json') exportedString = { 'PATIENTS': dlData }
     if (type === 'csv') exportedString = Papa.unparse(dlData.PATIENTS)
     if (type === 'tsv') exportedString = Papa.unparse(dlData.PATIENTS, { delimiter: '\t' })
 
     exportFile(type, exportedString)
-
-    function getJSONDownload(dlData) {
-        let jsonResult = { 'PATIENTS': dlData }
-        let headers = []
-
-        colHeaders.forEach(c => {
-            let header = c.replace('<i class="material-icons-outlined sort_icon"></i>', '')
-            if (header !== '') headers.push(header)
-        })
-
-        jsonResult['visibleColumns'] = headers
-
-        return jsonResult
-    }
 }
 
 function downloadSample(type) {
@@ -252,10 +217,8 @@ function onDragOver(event) {
 function onDrop(event) {
     event.preventDefault()
     let file = event.dataTransfer.items[0].getAsFile()
-    fileReader(file, file.type)
-}
+    let fileType = file.type
 
-function fileReader(file, fileType) {
     let reader = new FileReader()
     reader.onload = (event => {
         let data = event.target.result
@@ -267,20 +230,10 @@ function fileReader(file, fileType) {
             object = JSON.parse(data)
         }
 
+        // updateTable(object.PATIENTS, fileType === 'text/csv' || fileType === 'text/tab-separated-values')
         updateTable(object.PATIENTS, fileType)
-
-        if (object.visibleColumns) {
-            colHeaders.length = 2
-            headers.length = 2
-
-            object.visibleColumns.forEach(vc => {
-                colHeaders.push(dataColumns[vc]['colHeader'])
-                headers.push(dataColumns[vc]['column'])
-            })
-
-            rerenderTable()
-        }
     })
+
     reader.readAsText(file)
 }
 
@@ -354,7 +307,11 @@ function createColumns() {
     // headers = columns (settings - type, options, renderer, etc)
     // colHeaders = headers
     return new Promise((resolve, reject) => {
-        let colSequence = 2
+        // let defaultColumns = ['主訴', 'グループ名', '続柄', '性別', '家族ID', '患者ID']
+        let defaultColumns = ['診断状況', '主訴', '確定診断', '臨床診断', '年齢', '性別', 'グループ名', '続柄', '家族ID', '患者ID']
+        // let actions = ['REMOVE', 'EDIT', 'CHECKBOX']
+        let actions = ['REMOVE', 'EDIT']
+
         for (let [key, value] of Object.entries(columns)) {
             console.log(key, value)
             value.forEach(v => {
@@ -412,11 +369,8 @@ function createColumns() {
 
                 dataColumns[v.columnName] = {
                     colHeader: colHeader,
-                    column: column,
-                    sequence: colSequence
+                    column: column
                 }
-
-                colSequence++
 
                 let colName = v.columnName === '身長' || v.columnName === '体重' || v.columnName === '頭囲' ? '身体情報' : v.columnName
 
@@ -439,8 +393,6 @@ function createColumns() {
             headers.unshift(headerText)
             colHeaders.unshift(colHeaderText)
         })
-
-        // defaultColumns.forEach()
 
         for (let i = actions.length + defaultColumns.length; i < headers.length; i++) {
             hiddenColumns.push(i)
@@ -473,6 +425,7 @@ async function updateTable(data, changeHeaders) {
                     createColumn('体重')
                     createColumn('身長')
                     createColumn('頭囲')
+    
                 } else {
                     createColumn(h)
                 }
@@ -677,32 +630,11 @@ function addColumn() {
 function showHideColumn(e) {
     if (e.checked) {
         let col = dataColumns[e.id]
-        console.log(col)
 
-        // headers.length = 2
-        // // hot.getColHeader().splice(col.sequence, 0, col.colHeader)
-        // // console.log(hot.getColHeader())
-
-        // colHeaders = [...hot.getColHeader()]
-        // // console.log('before', colHeaders)
-        // colHeaders.splice(col.sequence, 0, col.colHeader)
-        // // console.log('after', colHeaders)
-
-        // for (let i = 2; i < colHeaders.length; i++) {
-        //     let header = colHeaders[i].replace('<i class="material-icons-outlined sort_icon"></i>', '')
-        //     console.log(header)
-        //     headers.push(dataColumns[header]['column'])
-        // }
-        // console.log(colHeaders)
-        // console.log(headers)
-
-        //original
         existingHeaders.push(e.id)
         colHeaders.push(col.colHeader)
         headers.push(col.column)
-        //end original
-        // colHeaders.splice(col.sequence, 0, col.colHeader)
-        // headers.splice(col.sequence, 0, col.column)
+
     } else {
         colHeaders.splice(colHeaders.indexOf(`<i class="material-icons-outlined sort_icon"></i>${e.id}`), 1)
 

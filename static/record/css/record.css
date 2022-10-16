@@ -755,6 +755,10 @@ h5 {
   max-height: 70vh !important;
 }
 
+#myGrid td {
+  max-width: 30em !important;
+}
+
 .my-custom-search-result-class{
   background-color: none;
 }
