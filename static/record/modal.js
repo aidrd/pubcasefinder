@@ -144,7 +144,13 @@ function openModal(patientId) {
             let d = new Date()
             PCFNo = `P${d.getFullYear()}${d.getMonth()+1}${d.getDate()}${d.getHours()}${d.getMinutes()}${d.getSeconds()}${d.getMilliseconds()}`
             let num = hot.countRows() + 1
-            document.querySelector(`.tab-wrap *[name="patientID"]`).value = `P${num.toString().padStart(7, 0)}`        
+            if (count) {
+                document.querySelector(`.tab-wrap *[name="patientID"]`).value = `P${count.toString().padStart(7, 0)}`
+            } else {
+                document.querySelector(`.tab-wrap *[name="patientID"]`).value = `P${num.toString().padStart(7, 0)}`
+                count = num
+            }        
+            // document.querySelector(`.tab-wrap *[name="patientID"]`).value = `P${num.toString().padStart(7, 0)}`        
         }
 
         document.getElementById('PCFNo').nextElementSibling.innerHTML = PCFNo

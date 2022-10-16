@@ -15,10 +15,12 @@ let contentData = []
 let hotContainer = document.getElementById('myGrid')
 
 let updateSettings = {
-    rowHeaders: true,
-    rowHeights: 30,
     width: '100%',
     height: '100%',
+    rowHeaders: true,
+    rowHeights: 30,
+    defaultRowHeight: 30,
+    autoRowSize: true,
     autoColumnSize: {
         useHeaders: true
     },
@@ -63,22 +65,40 @@ async function initiateTable() {
 
     Handsontable.dom.addEvent(document.getElementById('search_input'), 'keyup', (event) => {
         const search = hot.getPlugin('search')
-        let searchResult = [], hideRows = []
-        search.query(event.target.value, (instance, row, col, data, testResult) => {
-            instance.getCellMeta(row, col).isSearchResult = testResult
-            if (!testResult) return
-            // searchResult.push(row)
-            movePlugin.moveRows([row], 0)
+
+        const queryResult = search.query(event.target.value)
+        const totalIndexes = Array.from(Array(hot.countRows()).keys())
+        let matching = queryResult.map(obj => obj.row)
+
+        hot.updateSettings({
+            hiddenRows: {
+                rows: totalIndexes
+            }    	
         })
-
-        // for(let i = 0; i < hot.countRows(); i++) {
-        //     if (!(searchResult.includes(i))) hideRows.push(i)
-        // }
-
-        // hidePlugin.hideRows(hideRows)
-
+        
+        if(event.target.value === ''){
+            hot.updateSettings({
+                hiddenRows: {
+                rows: []
+                }    	
+            })
+        }
+        
+        hot.getPlugin('HiddenRows').showRows(matching)
         hot.render()
     })
+
+    document.getElementById('search_input').addEventListener('search', function(event) {
+        if(event.target.value === ''){
+            hot.updateSettings({
+                hiddenRows: {
+                rows: []
+                }    	
+            })
+        }
+
+        hot.render()
+      })
 
     Handsontable.dom.addEvent(hotContainer, 'mousedown', function (event) {
         if (event.target.nodeName == 'INPUT' && event.target.classList.contains('header-checkbox')) {
