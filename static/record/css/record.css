@@ -991,10 +991,6 @@ h5 {
 }
 
 /*handsontable*/
-.handsontable thead tr {
-  max-width: 30em;
-}
-
 .handsontable thead tr th .relative {
   text-align: left;
   padding: 10px;
