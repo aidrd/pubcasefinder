@@ -23,10 +23,6 @@
   --tran-05: all 0.3s ease;
 }
 
-html {
-  overscroll-behavior-x: none;
-}
-
 body {
   height: 100vh;
   overflow-y: hidden;
@@ -1012,6 +1008,14 @@ h5 {
 .handsontable thead tr th .relative span .material-icons-outlined.sort_icon {
   font-size: 1.2em;
   vertical-align: -2px;
+}
+
+.handsontable thead tr :nth-child(2) .relative {
+  display: none;
+}
+
+.handsontable thead tr :nth-child(3) .relative {
+  display: none;
 }
 
 .handsontable thead tr td i {
