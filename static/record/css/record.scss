@@ -972,10 +972,10 @@ h5{
         tr{
         th{
         .relative{
-    text-align: left;
-    padding: 10px;
-    font-size: 1.1em;
-    span{
+            text-align: left;
+            padding: 10px;
+            font-size: 1.1em;
+        span{
           .material-icons-outlined.sort_icon {
           font-size: 1.2em;
           vertical-align: -2px;
@@ -983,6 +983,17 @@ h5{
     }
 }
 }
+:nth-child(2) {
+    .relative{
+        display: none;
+    }
+}
+:nth-child(3) {
+    .relative{
+        display: none;
+    }
+}
+
 td{
     i{
         text-align: center;

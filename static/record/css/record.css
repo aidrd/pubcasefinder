@@ -1002,6 +1002,14 @@ h5 {
   vertical-align: -2px;
 }
 
+.handsontable thead tr :nth-child(2) .relative {
+  display: none;
+}
+
+.handsontable thead tr :nth-child(3) .relative {
+  display: none;
+}
+
 .handsontable thead tr td i {
   text-align: center;
 }
