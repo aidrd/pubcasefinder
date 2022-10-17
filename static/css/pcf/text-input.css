@@ -81,9 +81,11 @@
   box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
 }
 
-#text-input-modal .modal-dialog .modal-content .modal-body  .text-input-wrapper .text-input-textarea:empty:not(:focus)::before {
+/* #text-input-modal .modal-dialog .modal-content .modal-body  .text-input-wrapper .text-input-textarea:empty:not(:focus)::before { */
+#text-input-modal .modal-dialog .modal-content .modal-body  .text-input-wrapper .text-input-textarea:empty::before {
   content: attr(data-placeholder);
-  color:gray;
+  color:   gray;
+  display: block;
 }
 
 #text-input-modal .modal-dialog .modal-content .modal-body  .text-input-wrapper .text-input-textarea span{
