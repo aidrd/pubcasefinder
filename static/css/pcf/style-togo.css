@@ -4468,6 +4468,7 @@ label {
     border-radius: 0;
     border: none;
     border-radius: 2em;
+    cursor: pointer;
   }
   
   /* Remove focus */
