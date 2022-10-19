@@ -20,7 +20,8 @@
 	const LANGUAGE_EN='en', LANGUAGE_JA='ja',
 		  LANGUAGE = {
 			[LANGUAGE_EN] : {
-				'placeholder' : 'Import Human Phenotype Onotology(HPO) Term Ids. You can extract multiple HPO term ids from any kind of textual input. HPO term ids must satisfy the format HP:xxxxxxx to be recognized.',
+			        'title'       : 'Extract patient\'s signs and symptoms from free-text',
+				'placeholder' : 'Type in the patient phenotype description.',
 				'sample_label': {
 					[OBSERVED_Y] : 'Observed',
 					[OBSERVED_N] : 'Not Observed'
@@ -30,13 +31,14 @@
 				'PHENOTOUCH_BTN_TITLE': 'Find Phenotypes using Human 3D Model'
 			},
 			[LANGUAGE_JA] : {
-				'placeholder' : 'Import Human Phenotype Onotology(HPO) Term Ids. You can extract multiple HPO term ids from any kind of textual input. HPO term ids must satisfy the format HP:xxxxxxx to be recognized.',
+			        'title'       : '日本語のテキストから自動で患者の兆候や症状を抽出します。',
+				'placeholder' : '診療録や症例報告などのテキストを入力してください。',
 				'sample_label': {
 					[OBSERVED_Y] : '症状あり',
 					[OBSERVED_N] : '症状なし'
 				},
                 'TEXT2HPO_URL':          '/ehr',
-                'TEXT2HPO_BTN_TITLE':    '文章から症状を自動抽出',
+                'TEXT2HPO_BTN_TITLE':    '文章から症状を自動抽出（高機能版）',
 				'PHENOTOUCH_BTN_TITLE' : 'ヒト3Dモデルを利用して症状を検索'
 			}
 		}	
@@ -159,7 +161,7 @@
 
         // modal content
 		var $modal_header  = $('<div>').addClass('modal-header p-0 d-flex flex-row').appendTo($modal_content);
-		$('<h5><img src=\"/static/images/pcf/HPOID.svg\"></img> Extract Phenotypes And Human Phenotype Ontology Term Ids From Free-Text</h5>')
+		$('<h5><img src=\"/static/images/pcf/HPOID.svg\"></img> Automatically extract signs and symptoms from free-text.</h5>')
 			.addClass('modal-title').addClass('flex-fill').attr('id','text-input-modal-title').appendTo($modal_header);
 		let lng = current_settings.language === LANGUAGE_JA ? LANGUAGE_JA : LANGUAGE_EN;
 		let $text2hpo_btn = $('<button>').addClass('text2hpo-button')

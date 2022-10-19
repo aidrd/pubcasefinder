@@ -42,7 +42,7 @@
 			[LANGUAGE_EN] : {
 				'TEXT2HPO_URL'				: 'https://doc2hpo.wglab.org/',
 				'TEXT2HPO_BTN_TITLE'		: 'Input Free-Text (doc2hpo)',
-				'TEXT_INPUT_TITLE'			: 'Automatically extract HPO term from text',
+				'TEXT_INPUT_TITLE'			: 'Automatically extract signs and symptoms from free-text',
 				'PHENOTOUCH_BTN_TITLE'		: 'Find Phenotypes using Human 3D Model',
 				'HPO_LIST_INPUT_BTN_TITLE'  : 'Input HPO IDs',
 				'UISETTING_BTN_TITLE'		   : 'Setting',
