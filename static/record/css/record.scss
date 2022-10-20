@@ -985,12 +985,16 @@ h5{
 }
 :nth-child(2) {
     .relative{
+        button{
         display: none;
+    }
     }
 }
 :nth-child(3) {
     .relative{
-        display: none;
+        button{
+            display: none;
+        }
     }
 }
 

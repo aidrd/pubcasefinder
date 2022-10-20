@@ -751,14 +751,6 @@ h5 {
   max-height: 70vh !important;
 }
 
-#myGrid td {
-  max-width: 30em !important;
-}
-
-.my-custom-search-result-class{
-  background-color: none;
-}
-
 #modalGrid {
   height: 50vh !important;
   border: 1px solid gray;
@@ -1010,11 +1002,11 @@ h5 {
   vertical-align: -2px;
 }
 
-.handsontable thead tr :nth-child(2) .relative {
+.handsontable thead tr :nth-child(2) .relative button {
   display: none;
 }
 
-.handsontable thead tr :nth-child(3) .relative {
+.handsontable thead tr :nth-child(3) .relative button {
   display: none;
 }
 
