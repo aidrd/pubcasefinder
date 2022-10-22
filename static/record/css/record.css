@@ -23,6 +23,10 @@
   --tran-05: all 0.3s ease;
 }
 
+html {
+  overscroll-behavior-x: none;
+}
+
 body {
   height: 100vh;
   overflow-y: hidden;
@@ -745,6 +749,10 @@ h5 {
   margin: auto;
   overflow: scroll !important;
   background: #fff;
+}
+
+#myGrid td {
+  max-width: 30em !important;
 }
 
 .ht_master > .wtHolder {
