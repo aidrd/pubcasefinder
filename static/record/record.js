@@ -272,10 +272,12 @@ function fileReader(file, fileType) {
         if (object.visibleColumns) {
             colHeaders.length = 2
             headers.length = 2
+            existingHeaders = []
 
             object.visibleColumns.forEach(vc => {
                 colHeaders.push(dataColumns[vc]['colHeader'])
                 headers.push(dataColumns[vc]['column'])
+                existingHeaders.push(vc)
             })
 
             rerenderTable()
@@ -677,7 +679,6 @@ function addColumn() {
 function showHideColumn(e) {
     if (e.checked) {
         let col = dataColumns[e.id]
-        console.log(col)
 
         // headers.length = 2
         // // hot.getColHeader().splice(col.sequence, 0, col.colHeader)
