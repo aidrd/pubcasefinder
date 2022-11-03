@@ -266,7 +266,7 @@
 		
 		$('<button>').addClass('btn btn-secondary py-1').attr('data-dismiss',"modal").attr('id',"text-input-close-button").text("CANCEL").appendTo($div_button);
 									   
-		$('<button>').addClass('btn btn-primary py-1 mr-0').attr('id',"text-input-apply-button").text("APPLY")
+		$('<button>').addClass('btn btn-primary py-1 mr-0').attr('id',"text-input-apply-button").text("ADD")
 					 .click(function(){
 						let hpo_list = $text_input_table.get_hpo_list();
 						if(hpo_list.length){
