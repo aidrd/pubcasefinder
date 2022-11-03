@@ -129,9 +129,9 @@ db_pw   = app.config['DBPW']
 #####
 
 #####
-# display record
+# display case
 # /
-@app.route('/record')
+@app.route('/case')
 def record():
     return render_template('record.html')
 
