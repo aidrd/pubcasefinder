@@ -30,11 +30,11 @@ my $obo_filename = shift;
 my $output_filename_prefix = shift;
 my $if_check_id_consistency = shift;
 
-our $DB_NAME = "pubcases";
-our $DB_USER = "pubcase";
-our $DB_PASS = "pubcase0712";
-our $DB_HOST = "localhost";
-our $DB_PORT = "3306";
+our $DB_NAME = "";
+our $DB_USER = "";
+our $DB_PASS = "";
+our $DB_HOST = "";
+our $DB_PORT = "";
 
 
 my $dbh = DBI->connect("dbi:mysql:dbname=$DB_NAME;host=$DB_HOST;port=$DB_PORT","$DB_USER","$DB_PASS") or die "$!\n Error: failed to connect to DB.\n";
