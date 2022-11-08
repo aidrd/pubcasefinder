@@ -3,7 +3,8 @@ $(document).ready(_onload());
 const SERVER_POST_URL = "https://dev-pubcasefinder.dbcls.jp/get_hpo_by_text";
 const SERVER_POST_LIMIT = 30;
 //const HPO_DIC = "/static/data/POET_dictionary_manbyoAB_temp_ver.02-01-with.tsv.utf8.bits.20220222.v2";
-const HPO_DIC = "/static/data/HPO-japanese.20220414-20220831.text2hpo.txt";
+//const HPO_DIC = "/static/data/HPO-japanese.20220414-20220831.text2hpo.txt";
+const HPO_DIC = "/static/data/HPO-japanese.20221104.text2hpo.txt";
 const EXAMPLE_TEXT = "【全体像(1)】コントロール不良の高血圧(Hypertension)・糖尿病(Diabetes mellitus)で定期通院中の82歳女性の尿蛋白・全身浮腫。"+
 					  "ネフローゼ症候群を中心とした腎疾患を疑い，腎生検を含めた精査目的での入院。<br>"+
 					  "【主訴】全身倦怠感，全身浮腫<br>【現病歴(2)】入院1か月前より倦怠感が出現し徐々に増悪，"+

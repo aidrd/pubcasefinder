@@ -1,7 +1,8 @@
 ;(function ($) {
 
 	//const HPO_DIC="/static/data/POET_dictionary_manbyoAB_temp_ver.02-01-with.tsv.utf8.bits.20220612.v4",
-	const HPO_DIC="/static/data/HPO-japanese.20220414-20220831.textinput.txt",
+	//const HPO_DIC="/static/data/HPO-japanese.20220414-20220831.textinput.txt",
+	const HPO_DIC="/static/data/HPO-japanese.20221104.textinput.txt",
 		  IS_NOTOBSERVED_REGEX='[な無](かった|く|い|し)|(られ|され|おら|せ|でき|出来|みえ|認め)ず',
 		  IS_NOTOBSERVED_CHARS_NUM=20,
 		  IS_NOTOBSERVED_STOP_LETTERS=["\,","\.","\。","\．","\\n"];
