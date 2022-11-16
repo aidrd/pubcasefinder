@@ -82,6 +82,22 @@ https://pubcasefinder.dbcls.jp/result?target=gene&phenotype=HP:0000347,HP:000302
                 {% endif %}
             </ul>
             <ul>
+                <li class="topics-title">2022/04/21</li>
+                {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
+                <li>
+		  <div>
+                        <a href="https://www.takeda.com/ja-jp/" target="_blank">武田薬品工業株式会社</a>が進める疾患検索システム「Docpedia CaseSearch」の開発において、PubCaseFinderの技術およびAPIを提供しました。同サービスは日本の医師の9割以上にあたる31万人以上が登録する医療従事者専門サイトm3.comから提供されます。<br>詳しくは<a href="https://www.takeda.com/ja-jp/announcements/2022/docpedia-casesearch/" target="_blank">プレスリリース</a>をご参照ください。<br>
+		  </div>
+                </li>
+                {% else %}
+                <li>
+                    <div>
+		        <a href="https://www.takeda.com" target="_blank">TAKEDA Japan</a> has developed the disease search system called 'Docpedia CaseSearch' using PubCaseFinder technology and APIs.<br>The press release is <a href="https://www.takeda.com/ja-jp/announcements/2022/docpedia-casesearch/" target="_blank">here</a>.<br>
+                    </div>
+                </li>
+                {% endif %}
+            </ul>
+            <ul>
                 <li class="topics-title">2022/04/01</li>
                 {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
                 <li>PubCaseFinder v2.1.0 を公開しました。症状入力がより便利になりました（もしかして機能の追加）。また、HPO IDのリスト入力に対応しました。
