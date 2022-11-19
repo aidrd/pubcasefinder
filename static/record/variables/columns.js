@@ -342,7 +342,7 @@ let categories = [
                 type: 'text',
                 table: true,
                 displayName: {
-                    en: 'headCircumference',
+                    en: 'Head Circumference',
                     ja: '頭囲',
                     ko: ''
                 }
@@ -453,7 +453,7 @@ let categories = [
                     ko: ''
                 },
                 options: {
-                    dataValue: ['Rejected Candidate', 'Confirmed causa', 'Carrier', 'Tested Negative'],['Rejected Candidate', 'Confirmed causa', 'Carrier', 'Tested Negative'],
+                    dataValue: ['Rejected Candidate', 'Confirmed causa', 'Carrier', 'Tested Negative'],
                     en: ['Rejected Candidate', 'Confirmed causa', 'Carrier', 'Tested Negative'],
                     ja: ['Rejected Candidate', 'Confirmed causa', 'Carrier', 'Tested Negative'],
                     ko: []
