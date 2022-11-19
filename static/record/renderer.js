@@ -45,6 +45,7 @@ function multipleRenderer(instance, td, row, col, prop, value, cellProperties) {
         displayValue = value.join('<br>')
     }
     // td.innerHTML = value ? value.join('<br>') : value
+    if (prop !== '主訴') td.classList.add('htDimmed')
     td.innerHTML = displayValue
 }
 
