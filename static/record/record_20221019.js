@@ -1,39 +1,80 @@
 let hot, exportPlugin, movePlugin, autoRowSizePlugin
 let isAllChecked = true
 let toSave = false
-let count = 1
+let toReset = true
+let count
+
+let defaultColumns = ['診断状況', '主訴', '確定診断', '臨床診断', '年齢', '性別', 'グループ名', '続柄', '家族ID', '患者ID']
+// let defaultColumns = ['主訴', '年齢', '性別', 'グループ名', '続柄', '家族ID', '患者ID']
+let actions = ['REMOVE', 'EDIT']
+// let actions = ['REMOVE', 'EDIT', 'CHECKBOX']
 
 let headers = [], colHeaders = [], existingHeaders = [], hiddenColumns = [], customColumns = []
 let dataSchema = {}, dataColumns = {}
 let groupOptions = [], patientOptions = [], familyOptions = []
 
 let contentData = []
+// let storage = localStorage.getItem('contentData')
+// if (storage) contentData = JSON.parse(storage)
 
 let hotContainer = document.getElementById('myGrid')
 
 let updateSettings = {
-    rowHeaders: true,
     width: '100%',
-    height: 'auto',
-    autoColumnSize: {
-    	useHeaders: true
-    },
+    height: '100%',
+    rowHeaders: true,
+    rowHeights: 30,
+    defaultRowHeight: 30,
+    autoRowSize: true,
+    // autoColumnSize: {
+    //     useHeaders: true
+    // },
     hiddenColumns: true,
     fixedColumnsLeft: 2,
     search: true,
     data: contentData,
     manualColumnMove: true,
+    // afterColumnMove: (movedColumns, finalIndex, dropIndex, movePossible, orderChanged) => {
+    //     if (!orderChanged) return
+
+    //     // e.preventDefault()
+    //     console.log('hi')
+    //     console.log(movedColumns, finalIndex)
+
+    //     let count = 0
+
+    //     // headers = columns (settings - type, options, renderer, etc)
+    //     // colHeaders = headers
+    //     movedColumns.forEach(c => {
+    //         // colHeaders.splice(col.sequence, 0, col.colHeader)
+    //         // headers.splice(col.sequence, 0, col.column)
+    //         // this.splice(to, 0, this.splice(from, 1)[0])
+    //         let tempColHeader = colHeaders[c]
+    //         let tempHeaders = headers[c]
+    //         // colHeaders.splice(c, 1)
+    //         // headers.splice(c, 1)
+    //         // console.log('before', colHeaders)
+    //         // colHeaders.splice(finalIndex + count, 0, tempColHeader)
+    //         // headers.splice(finalIndex + count, 0, tempHeaders)
+    //         // console.log('after', colHeaders)
+    //         count++
+    //     })
+
+    //     // rerenderTable()
+    // },
     manualColumnResize: true,
     manualRowMove: true,
     contextMenu: true,
     allowRemoveColumn: true,
     columnSorting: {
-        indicator: false,
+        indicator: true,
         sortEmptyCells: false
     },
+    filters: true,
+    dropdownMenu: true,
     outsideClickDeselects: false,
-    selectionMode: 'multiple',
-    licenseKey: 'non-commercial-and-evaluation' // for non-commercial use only
+    // selectionMode: 'multiple',
+    licenseKey: '17bfa-714c9-a7430-c4321-87c56'
 }
 
 initiateTable()
@@ -57,22 +98,40 @@ async function initiateTable() {
 
     Handsontable.dom.addEvent(document.getElementById('search_input'), 'keyup', (event) => {
         const search = hot.getPlugin('search')
-        let searchResult = [], hideRows = []
-        search.query(event.target.value, (instance, row, col, data, testResult) => {
-            instance.getCellMeta(row, col).isSearchResult = testResult
-            if (!testResult) return
-            // searchResult.push(row)
-            movePlugin.moveRows([row], 0)
+
+        const queryResult = search.query(event.target.value)
+        const totalIndexes = Array.from(Array(hot.countRows()).keys())
+        let matching = queryResult.map(obj => obj.row)
+
+        hot.updateSettings({
+            hiddenRows: {
+                rows: totalIndexes
+            }    	
         })
-
-        // for(let i = 0; i < hot.countRows(); i++) {
-        //     if (!(searchResult.includes(i))) hideRows.push(i)
-        // }
-
-        // hidePlugin.hideRows(hideRows)
-
+        
+        if(event.target.value === ''){
+            hot.updateSettings({
+                hiddenRows: {
+                rows: []
+                }    	
+            })
+        }
+        
+        hot.getPlugin('HiddenRows').showRows(matching)
         hot.render()
     })
+
+    document.getElementById('search_input').addEventListener('search', function(event) {
+        if(event.target.value === ''){
+            hot.updateSettings({
+                hiddenRows: {
+                rows: []
+                }    	
+            })
+        }
+
+        hot.render()
+      })
 
     Handsontable.dom.addEvent(hotContainer, 'mousedown', function (event) {
         if (event.target.nodeName == 'INPUT' && event.target.classList.contains('header-checkbox')) {
@@ -96,21 +155,8 @@ async function initiateTable() {
 }
 
 function importFile(event) {
-    let fileType = event.target.files[0].type
-    let reader = new FileReader()
-    reader.onload = (event => {
-        let data = event.target.result
-        let object
-
-        if (fileType === 'text/csv' || fileType === 'text/tab-separated-values') {
-            object = convertCSVToJSON(data)
-        } else {
-            object = JSON.parse(data)
-        }
-
-        updateTable(object.PATIENTS)
-    })
-    reader.readAsText(event.target.files[0])
+    let file = event.target.files[0]
+    fileReader(file, file.type)
 }
 
 function getExportData() {
@@ -134,52 +180,66 @@ function getExportData() {
     let dlData = convertCSVToJSON(exportedString, true)
 
     if (isAll) dlData = contentData
+    
 
-    if (type === 'json') exportedString = { 'PATIENTS': dlData }
+    // if (type === 'json') exportedString = { 'PATIENTS': dlData }
+    if (type === 'json') exportedString = getJSONDownload(dlData)
     if (type === 'csv') exportedString = Papa.unparse(dlData.PATIENTS)
-    if (type === 'tsv') exportedString = Papa.unparse(dlData.PATIENTS, {delimiter: '\t'})
+    if (type === 'tsv') exportedString = Papa.unparse(dlData.PATIENTS, { delimiter: '\t' })
 
-    exportFile()
-    // exportFile(type, file)
+    exportFile(type, exportedString)
 
-    function exportFile() {
-        let a = document.createElement('a')
-        a.download = `patients_${Date.now()}.${type}`
-        a.style.visibility = 'hidden'
+    function getJSONDownload(dlData) {
+        let jsonResult = { 'PATIENTS': dlData }
+        let headers = []
 
-        let data = `text/json;charset=utf-8,` +
-            `${encodeURIComponent(JSON.stringify(exportedString, null, 4))}`
-        a.href = `data:${data}`
+        colHeaders.forEach(c => {
+            let header = c.replace('<i class="material-icons-outlined sort_icon"></i>', '')
+            if (header !== '') headers.push(header)
+        })
 
-        if (type === 'csv' || type === 'tsv') {
-            let data = new Blob(['\ufeff' + exportedString], { type: 'text/csv;charset=utf-8;' })
-            a.href = URL.createObjectURL(data)
-        }
+        jsonResult['visibleColumns'] = headers
 
-        document.body.appendChild(a)
-        a.click()
-        a.remove()
+        return jsonResult
     }
 }
 
-// function exportFile() {
-//     let a = document.createElement('a')
-//     a.download = `patients_${Date.now()}.${type}`
-//     a.style.visibility = 'hidden'
+function downloadSample(type) {
+    let sampleData
+    let temp = JSON.parse(JSON.stringify(newData))
 
-//     let data = `text/json;charset=utf-8,` +
-//         `${encodeURIComponent(JSON.stringify(exportedString, null, 4))}`
-//     a.href = `data:${data}`
+    let d = new Date()
+    let pcfNo = `P${d.getFullYear()}${d.getMonth() + 1}${d.getDate()}${d.getHours()}${d.getMinutes()}${d.getSeconds()}${d.getMilliseconds()}`
 
-//     if (type === 'csv' || type === 'tsv') {
-//         let data = new Blob(['\ufeff' + exportedString], { type: 'text/csv;charset=utf-8;' })
-//         a.href = URL.createObjectURL(data)
-//     }
+    temp.PCFNo = pcfNo
 
-//     document.body.appendChild(a)
-//     a.click()
-//     a.remove()
-// }
+    let num = hot.countRows() + 1
+    temp['患者ID'] = `P${num.toString().padStart(7, 0)}`
+
+    if (type === 'json') sampleData = { 'PATIENTS': [temp] }
+    if (type === 'excel') sampleData = Papa.unparse([temp], { delimiter: '\t' })
+
+    exportFile(type === 'json' ? type : 'tsv', sampleData)
+}
+
+function exportFile(type, file) {
+    let a = document.createElement('a')
+    a.download = `patients_${Date.now()}.${type}`
+    a.style.visibility = 'hidden'
+
+    let data = `text/json;charset=utf-8,` +
+        `${encodeURIComponent(JSON.stringify(file, null, 4))}`
+    a.href = `data:${data}`
+
+    if (type === 'csv' || type === 'tsv') {
+        let data = new Blob(['\ufeff' + file], { type: 'text/csv;charset=utf-8;' })
+        a.href = URL.createObjectURL(data)
+    }
+
+    document.body.appendChild(a)
+    a.click()
+    a.remove()
+}
 
 function onDragOver(event) {
     event.preventDefault()
@@ -192,8 +252,10 @@ function onDragOver(event) {
 function onDrop(event) {
     event.preventDefault()
     let file = event.dataTransfer.items[0].getAsFile()
-    let fileType = file.type
+    fileReader(file, file.type)
+}
 
+function fileReader(file, fileType) {
     let reader = new FileReader()
     reader.onload = (event => {
         let data = event.target.result
@@ -205,9 +267,22 @@ function onDrop(event) {
             object = JSON.parse(data)
         }
 
-        updateTable(object.PATIENTS)
-    })
+        updateTable(object.PATIENTS, fileType)
 
+        if (object.visibleColumns) {
+            colHeaders.length = 2
+            headers.length = 2
+            existingHeaders = []
+
+            object.visibleColumns.forEach(vc => {
+                colHeaders.push(dataColumns[vc]['colHeader'])
+                headers.push(dataColumns[vc]['column'])
+                existingHeaders.push(vc)
+            })
+
+            rerenderTable()
+        }
+    })
     reader.readAsText(file)
 }
 
@@ -243,6 +318,9 @@ function convertCSVToJSON(csv, isExport) {
 
     data.forEach((d, idx) => {
         let data = {}
+
+        if (idx > 0) data['PCFNo'] = d[0]
+
         for (let i = 0; i < d.length; i++) {
             if (isExport) {
                 if (notIncluded.includes(i)) continue
@@ -250,9 +328,24 @@ function convertCSVToJSON(csv, isExport) {
 
             if (idx === 0) continue
 
-            let headerText = isExport ? headers[i].replace('<i class="material-icons-outlined sort_icon">swap_vert</i>', '') : headers[i]
-            data[headerText] = d[i]
+            let headerText = isExport ? headers[i].replace('<i class="material-icons-outlined sort_icon"></i>', '') : headers[i]
+
+            let value = d[i]
+
+            if (['体重', '身長', '頭囲'].includes(headerText)) {
+                if (contentData.length > 0) {
+                    let bodyInfo = contentData[idx - 1]['身体情報']
+                    if (bodyInfo) {
+                        value = bodyInfo[bodyInfo.length - 1][headerText]
+                    } else {
+                        value = ''
+                    }
+                }
+            }
+
+            data[headerText] = value
         }
+
         if (Object.keys(data).length > 0) patientsData.push(data)
     })
 
@@ -263,15 +356,11 @@ function createColumns() {
     // headers = columns (settings - type, options, renderer, etc)
     // colHeaders = headers
     return new Promise((resolve, reject) => {
-        // let defaultColumns = ['主訴', 'グループ名', '続柄', '性別', '家族ID', '患者ID']
-        let defaultColumns = ['診断状況', '主訴', '確定診断', '臨床診断', '年齢', '性別', 'グループ名', '続柄', '家族ID', '患者ID']
-        // let actions = ['REMOVE', 'EDIT', 'CHECKBOX']
-        let actions = ['REMOVE', 'EDIT']
-
+        let colSequence = 2
         for (let [key, value] of Object.entries(columns)) {
             console.log(key, value)
             value.forEach(v => {
-                let colHeader = `<i class="material-icons-outlined sort_icon">swap_vert</i>${v.columnName}`
+                let colHeader = `<i class="material-icons-outlined sort_icon"></i>${v.columnName}`
 
                 let column = {
                     data: v.columnName,
@@ -285,7 +374,7 @@ function createColumns() {
                 if (v.type === 'date') {
                     column.dateFormat = 'YYYY/MM',
                         column.correctFormat = true
-                        column.datePickerConfig = {
+                    column.datePickerConfig = {
                         firstDay: 0,
                         numberOfMonths: 1,
                         licenseKey: 'non-commercial-and-evaluation',
@@ -325,8 +414,11 @@ function createColumns() {
 
                 dataColumns[v.columnName] = {
                     colHeader: colHeader,
-                    column: column
+                    column: column,
+                    sequence: colSequence
                 }
+
+                colSequence++
 
                 let colName = v.columnName === '身長' || v.columnName === '体重' || v.columnName === '頭囲' ? '身体情報' : v.columnName
 
@@ -350,6 +442,8 @@ function createColumns() {
             colHeaders.unshift(colHeaderText)
         })
 
+        // defaultColumns.forEach()
+
         for (let i = actions.length + defaultColumns.length; i < headers.length; i++) {
             hiddenColumns.push(i)
         }
@@ -358,18 +452,73 @@ function createColumns() {
     })
 }
 
-async function updateTable(data) {
+async function updateTable(data, changeHeaders) {
+    // headers = columns (settings - type, options, renderer, etc)
+    // colHeaders = headers
     data.map(d => {
-        d['relationship'] = d['RelatedTo'] ? `${d['続柄']}<br>(${d['RelatedTo']})` : d['続柄']
         contentData.push(d)
     })
 
+    if (contentData.length > 0) {
+        let newHeaders = Object.keys(data[0])
+
+        if (changeHeaders  === 'text/csv' || changeHeaders === 'text/tab-separated-values') {
+            headers.splice(2, headers.length)
+            colHeaders.splice(2, colHeaders.length)
+            existingHeaders = []
+            customColumns = []
+    
+            newHeaders.forEach(h => {
+                if (h === 'PCFNo') return
+    
+                if (h === '身体情報') {
+                    createColumn('体重')
+                    createColumn('身長')
+                    createColumn('頭囲')
+                } else {
+                    createColumn(h)
+                }
+            })
+        } else {
+            newHeaders.forEach(h => {
+                if (h === 'PCFNo' || h === '身体情報') return
+                if (!(Object.keys(dataColumns).includes(h))) createColumn(h, true)
+            })
+        }
+    }
+
+    function createColumn(h, isHidden) {
+        let headerTitle = `<i class=\"material-icons-outlined sort_icon\"></i>${h}`
+        let headerData = {
+            data: h,
+            type: 'text',
+            readOnly: false
+        }
+
+        let colData = dataColumns[h]
+        if (colData) {
+            headerTitle = colData['colHeader']
+            headerData = colData['column']
+        } else {
+            customColumns.push(h)
+            dataColumns[h] = {
+                colHeader: headerTitle,
+                column: headerData
+            }
+        }
+
+        if (isHidden) return
+ 
+        colHeaders.push(headerTitle)
+        headers.push(headerData)
+        existingHeaders.push(h)
+    }
 
     Object.assign(updateSettings, {
         data: contentData,
+        colHeaders: colHeaders,
+        columns: headers
     })
-
-    localStorage.contentData = contentData
 
     contentData.map(d => {
         let groupId = d['グループ名']
@@ -400,7 +549,14 @@ function addRow(data) {
     temp.PCFNo = pcfNo
 
     let num = hot.countRows() + 1
-    temp['患者ID'] = `P${num.toString().padStart(7, 0)}`
+
+    if (count) {
+        temp['患者ID'] = `P${count.toString().padStart(7, 0)}`
+    } else {
+        temp['患者ID'] = `P${num.toString().padStart(7, 0)}`
+        count = num
+    }
+
     count++
 
     if (data) {
@@ -444,7 +600,29 @@ function addColumn() {
 
     function createColumn(colName, type) {
         if (type === 'title') {
-            container.innerHTML += `<div class="add_column_title">${colName}</div>`
+            let icon
+
+            switch (colName) {
+                case '患者基本情報':
+                    icon = '<i class="bxt icon material-icons-outlined"> person</i>'
+                    break
+                case '診療情報':
+                    icon = '<i class="material-symbols-outlined">medical_information</i>'
+                    break
+                case '表現型情報':
+                    icon = '<i class="material-symbols-outlined">dns</i>'
+                    break
+                case '遺伝子型情報':
+                    icon = '<i class="icon-omim2"></i>'
+                    break
+                case '家系情報':
+                    icon = '<i class="material-symbols-outlined">diversity_3</i>'
+                    break
+                case 'カスタム':
+                    icon = '<i class="material-symbols-outlined">category</i>'
+                    break
+            }
+            container.innerHTML += `<div class="add_column_title">${icon}${colName}</div>`
         } else {
             container.innerHTML += `
                 <div>
@@ -466,7 +644,7 @@ function addColumn() {
         // colHeaders = headers
         if (add.value === '') return
 
-        let colHeader = `<i class="material-icons-outlined sort_icon">swap_vert</i>${add.value}`
+        let colHeader = `<i class="material-icons-outlined sort_icon"></i>${add.value}`
 
         let column = {
             data: add.value,
@@ -485,6 +663,8 @@ function addColumn() {
         customColumns.push(add.value)
         createColumn(add.value, 'custom')
 
+        contentData.map(c => c[add.value] = null)
+
         rerenderTable()
 
         modal.style.display = 'none'
@@ -500,12 +680,32 @@ function showHideColumn(e) {
     if (e.checked) {
         let col = dataColumns[e.id]
 
+        // headers.length = 2
+        // // hot.getColHeader().splice(col.sequence, 0, col.colHeader)
+        // // console.log(hot.getColHeader())
+
+        // colHeaders = [...hot.getColHeader()]
+        // // console.log('before', colHeaders)
+        // colHeaders.splice(col.sequence, 0, col.colHeader)
+        // // console.log('after', colHeaders)
+
+        // for (let i = 2; i < colHeaders.length; i++) {
+        //     let header = colHeaders[i].replace('<i class="material-icons-outlined sort_icon"></i>', '')
+        //     console.log(header)
+        //     headers.push(dataColumns[header]['column'])
+        // }
+        // console.log(colHeaders)
+        // console.log(headers)
+
+        //original
         existingHeaders.push(e.id)
         colHeaders.push(col.colHeader)
         headers.push(col.column)
-
+        //end original
+        // colHeaders.splice(col.sequence, 0, col.colHeader)
+        // headers.splice(col.sequence, 0, col.column)
     } else {
-        colHeaders.splice(colHeaders.indexOf(`<i class="material-icons-outlined sort_icon">swap_vert</i>${e.id}`), 1)
+        colHeaders.splice(colHeaders.indexOf(`<i class="material-icons-outlined sort_icon"></i>${e.id}`), 1)
 
         if (['体重', '身長', '頭囲'].includes(e.id)) {
             let renderer
@@ -525,9 +725,9 @@ function showHideColumn(e) {
                 if (h.data !== '身体情報') return
                 if (h.renderer.name === renderer) headers.splice(i, 1)
             })
-                        
+
         } else {
-            headers = headers.filter(h => {return h.data !== e.id })
+            headers = headers.filter(h => { return h.data !== e.id })
         }
         existingHeaders.splice(existingHeaders.indexOf(e.id), 1)
     }
@@ -560,6 +760,7 @@ function removeCustomColumn(e) {
 }
 
 function editTable(isSave) {
+    toReset = true
     if (!isSave) {
         // if (!confirm('保存しますか？'))
         return resetData()
@@ -574,10 +775,30 @@ function editTable(isSave) {
             if (e.type === 'radio') {
                 newPatient[e.dataset.columnname] = $(`input[name="${e.name}"]:checked`).val() || null
             } else {
-                newPatient[e.dataset.columnname] = e.value
+                let value = e.value
+                if (e.dataset.columnname === '生年月' || e.dataset.columnname === '没年月') {
+                    let pre = e.dataset.columnname === '生年月' ? 'birth' : 'death'
+                    value = `${document.querySelector(`.tab-wrap *[name="${pre}_year"]`).value}/${document.querySelector(`.tab-wrap *[name="${pre}_month"]`).value}`
+                }
+
+                newPatient[e.dataset.columnname] = value
             }
         })
 
+        if (geneData.length > 0) {
+            let geneDataKeys = Object.keys(geneData[0])
+            geneDataKeys.forEach(k => {
+                newPatient[k] = []
+            })
+
+            geneData.forEach(gd => {
+                for (let [k, v] of Object.entries(gd)) {
+                    newPatient[k].push(v)
+                }
+            })
+        }
+
+        delete newPatient['undefined']
         addRow(newPatient)
         return
     }
@@ -587,19 +808,25 @@ function editTable(isSave) {
 
     for (let [k, v] of Object.entries(changedData)) {
         patientData[k] = v
-        if (k === 'RelatedTo') patientData['relationship'] = v === 'なし' ? patientData['続柄'] : `${patientData['続柄']}<br>(${patientData['RelatedTo']})`
+        // if (k === 'RelatedTo') patientData['relationship'] = v === 'なし' ? patientData['続柄'] : `${patientData['続柄']}<br>(${patientData['RelatedTo']})`
     }
 
-    resetGeneData()
+    if (geneData.length > 0) {
+        let geneDataKeys = Object.keys(geneData[0])
+        geneDataKeys.forEach(k => {
+            patientData[k] = []
+        })
 
-    geneData.forEach(gd => {
-        for (let [k, v] of Object.entries(gd)) {
-            patientData[k].push(v)
-        }
-    })
+        geneData.forEach(gd => {
+            for (let [k, v] of Object.entries(gd)) {
+                patientData[k].push(v)
+            }
+        })
+    }
 
     hot.render()
     resetData()
+    // resetGeneData()
 
     function resetData() {
         currentPatient = ''
@@ -626,6 +853,7 @@ function rerenderTable() {
 }
 
 function beforeLoad() {
+    if (contentData.length > 0) localStorage.contentData = JSON.stringify(contentData)
     return 'load'
 }
 
