@@ -43,7 +43,7 @@ let categories = [
                     ko: ''
                 },
                 options: {
-                    dataValue: ['Proband', 'Father', 'Mother', 'Sibling', 'Other'],
+                    dataValue: ['proband', 'father', 'mother', 'sibling', 'other'],
                     en: ['Proband', 'Father', 'Mother', 'Sibling', 'Other'],
                     ja: ['発端者', '父親', '母親', '兄弟姉妹', 'その他'],
                     ko: []
@@ -73,7 +73,7 @@ let categories = [
                     ko: ''
                 },
                 options: {
-                    dataValue: ['Alive', 'Deceased'],
+                    dataValue: ['alive', 'deceased'],
                     en: ['Alive', 'Deceased'],
                     ja: ['生存', '故人'],
                     ko: []
@@ -127,7 +127,7 @@ let categories = [
                     ko: ''
                 },
                 options: {
-                    dataValue: ['Male', 'Female', 'Other', 'Unknown'],
+                    dataValue: ['male', 'female', 'other', 'unknown'],
                     en: ['Male', 'Female', 'Other', 'Unknown'],
                     ja: ['男性', '女性', 'その他', '不明'],
                     ko: []
@@ -203,7 +203,7 @@ let categories = [
                     ko: ''
                 },
                 options: {
-                    dataValue: ['Solved', 'Candidate', 'VUS', 'Unresolved'],
+                    dataValue: ['solved', 'candidate', 'VUS', 'unresolved'],
                     en: ['Solved', 'Candidate', 'VUS', 'Unresolved'],
                     ja: ['解決', '新規候補', 'VUS', '未解決'],
                     ko: []
@@ -281,7 +281,7 @@ let categories = [
                     ko: ''
                 },
                 options: {
-                    dataValue: ['Unknown', 'Congenital Onset', 'Antenatal Onset - Embryonal', 'Antenatal Onset - Fetal', 'Neonatal Onset', 'Infantile Onset', 'Childhood Onset', 'Juvenile Onset', 'Adult Onset - Young Adult', 'Adult Onset - Middle Age', 'Adult Onset - Late'],
+                    dataValue: ['unknown', 'congenitalOnset', 'antenatalOnsetEmbryonal', 'antenatalOnsetFetal', 'neonatalOnset', 'infantileOnset', 'childhoodOnset', 'juvenileOnset', 'adultOnsetYoungAdult', 'AaultOnsetMiddleAge', 'adultOnsetLate'],
                     en: ['Unknown', 'Congenital Onset', 'Antenatal Onset - Embryonal', 'Antenatal Onset - Fetal', 'Neonatal Onset', 'Infantile Onset', 'Childhood Onset', 'Juvenile Onset', 'Adult Onset - Young Adult', 'Adult Onset - Middle Age', 'Adult Onset - Late'],
                     ja: ['不明', '先天性の発症', '出生前発症 - 胎生期発症', '出生前発症- 胎児期発症', '新生児期発症', '幼児期発症', '小児期発症', '若年性発症（思春期発症）', '成人発症', '成人発症- 前期発症（青年期発症）', '成人発症- 中年期発症（壮年期発症）', '成人発症- 後期発症'],
                     ko: []
@@ -657,12 +657,12 @@ let categories = [
         columns: [
             {
                 columnID: 'f001',
-                dataKey: 'familyInfo',
+                dataKey: 'familyHistory',
                 phenoKey: '',
                 type: 'text',
                 table: true,
                 displayName: {
-                    en: 'Family Info',
+                    en: 'Family History',
                     ja: '家族歴',
                     ko: ''
                 }
@@ -697,7 +697,7 @@ let categories = [
                     ko: ''
                 },
                 options: {
-                    dataValue: ['Unknown', 'Yes', 'No'],
+                    dataValue: ['unknown', 'yes', 'no'],
                     en: ['Unknown', 'Yes', 'No'],
                     ja: ['不明', 'はい', 'いいえ'],
                     ko: []
@@ -715,7 +715,7 @@ let categories = [
                     ko: ''
                 },
                 options: {
-                    dataValue: ['Unknown', 'Yes', 'No'],
+                    dataValue: ['unknown', 'yes', 'no'],
                     en: ['Unknown', 'Yes', 'No'],
                     ja: ['不明', 'はい', 'いいえ'],
                     ko: []
@@ -733,7 +733,7 @@ let categories = [
                     ko: ''
                 },
                 options: {
-                    dataValue: ['Unknown', 'Yes', 'No'],
+                    dataValue: ['unknown', 'yes', 'no'],
                     en: ['Unknown', 'Yes', 'No'],
                     ja: ['不明', 'はい', 'いいえ'],
                     ko: []

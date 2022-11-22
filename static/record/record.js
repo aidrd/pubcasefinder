@@ -1,7 +1,7 @@
 let hot, exportPlugin
 
-let lang = 'ja'
-// let lang = 'en'
+// let lang = 'ja'
+let lang = 'en'
 let count
 
 // let defaultColumns = ['診断状況', '主訴', '確定診断', '臨床診断', '年齢', '性別', 'グループ名', '続柄', '家族ID', '患者ID']
@@ -355,35 +355,120 @@ function removeCustomColumn(e) {
     e.parentElement.remove()
 }
 
-function updateTable() {
+function addRow(data) {
+    // let temp = structuredClone(newData)
+    let temp = JSON.parse(JSON.stringify(newData))
+
+    let d = new Date()
+    let pcfNo = `P${d.getFullYear()}${d.getMonth() + 1}${d.getDate()}${d.getHours()}${d.getMinutes()}${d.getSeconds()}${d.getMilliseconds()}`
+
+    temp.PCFNo = pcfNo
+
+    let num = hot.countRows() + 1
+
+    if (count) {
+        temp['patientId'] = `P${count.toString().padStart(7, 0)}`
+    } else {
+        temp['patientId'] = `P${num.toString().padStart(7, 0)}`
+        count = num
+    }
+
+    count++
+
+    if (data) {
+        for (let [k, v] of Object.entries(data)) {
+            temp[k] = v
+        }
+    }
+
+    updateTable([temp])
+    hot.scrollViewportTo(hot.countRows() - 1, 1)
+}
+
+async function updateTable(data, changeHeaders) {
+    data.map(d => {
+        contentData.push(d)
+    })
+
+    if (contentData.length > 0) {
+        let newHeaders = Object.keys(data[0])
+
+        if (changeHeaders  === 'text/csv' || changeHeaders === 'text/tab-separated-values') {
+            columns.splice(2, columns.length)
+            colHeaders.splice(2, colHeaders.length)
+            existingColumns = []
+            customColumns = []
+    
+            newHeaders.forEach(h => {
+                if (h === 'PCFNo') return
+    
+                if (h === 'growthChart') {
+                    createColumn('体重')
+                    createColumn('身長')
+                    createColumn('頭囲')
+                } else {
+                    createColumn(h)
+                }
+            })
+        } else {
+            newHeaders.forEach(h => {
+                if (h === 'PCFNo' || h === 'growthChart') return
+                if (!(Object.keys(dataColumns).includes(h))) createColumn(h, true)
+            })
+        }
+    }
+
+    function getColumnName(h) {
+
+    }
+
+    function createColumn(h, key, isHidden) {
+        let headerTitle = `<i class=\"material-icons-outlined sort_icon\"></i>${h}`
+        let headerData = {
+            data: h,
+            type: 'text',
+            readOnly: false
+        }
+
+        let colData = dataColumns[h]
+        if (colData) {
+            headerTitle = colData['colHeader']
+            headerData = colData['column']
+        } else {
+            customColumns.push(h)
+            dataColumns[h] = {
+                colHeader: headerTitle,
+                column: headerData
+            }
+        }
+
+        if (isHidden) return
+ 
+        colHeaders.push(headerTitle)
+        columns.push(headerData)
+        existingColumns.push(h)
+    }
+
     Object.assign(updateSettings, {
         data: contentData,
         colHeaders: colHeaders,
         columns: columns
     })
 
-    hot.updateSettings(updateSettings)
-    hot.render()
-}
+    contentData.map(d => {
+        let groupId = d['group']
+        if (groupId && !(groupOptions.includes(groupId))) groupOptions.push(groupId)
 
-function rerenderTable() {
-    Object.assign(updateSettings, {
-        dataSchema: dataSchema,
-        colHeaders: colHeaders,
-        columns: columns
+        let familyId = d['familyId']
+        if (familyId && !(familyOptions.includes(familyId))) familyOptions.push(familyId)
     })
 
     hot.updateSettings(updateSettings)
     hot.render()
-}
 
-function beforeLoad() {
-    if (contentData.length > 0) localStorage.contentData = JSON.stringify(contentData)
-    return 'load'
-}
+    document.getElementById('row_count').innerHTML = `${hot.countRows()}`
 
-function pageReload() {
-    window.location.reload()
+    // populateGroups()
 }
 
 function importFile(event) {
@@ -431,4 +516,106 @@ function fileReader(file, fileType) {
         }
     })
     reader.readAsText(file)
+}
+
+function editTable(isSave) {
+    toReset = true
+    if (!isSave) {
+        // if (!confirm('保存しますか？'))
+        return resetData()
+    }
+
+    // new patient
+    if (!currentPatient) {
+        let elements = document.querySelectorAll(`.tab-wrap input, .tab-wrap select, .tab-wrap textarea`)
+
+        let newPatient = {}
+        elements.forEach(e => {
+            if (e.type === 'radio') {
+                newPatient[e.dataset.columnname] = $(`input[name="${e.name}"]:checked`).val() || null
+            } else {
+                let value = e.value
+                if (e.dataset.columnname === 'birth' || e.dataset.columnname === 'death') {
+                    let pre = e.dataset.columnname
+                    value = `${document.querySelector(`.tab-wrap *[name="${pre}_year"]`).value}/${document.querySelector(`.tab-wrap *[name="${pre}_month"]`).value}`
+                }
+
+                newPatient[e.dataset.columnname] = value
+            }
+        })
+
+        if (geneData.length > 0) {
+            let geneDataKeys = Object.keys(geneData[0])
+            geneDataKeys.forEach(k => {
+                newPatient[k] = []
+            })
+
+            geneData.forEach(gd => {
+                for (let [k, v] of Object.entries(gd)) {
+                    newPatient[k].push(v)
+                }
+            })
+        }
+
+        delete newPatient['undefined']
+        addRow(newPatient)
+        return
+    }
+
+    // existing patient
+    let patientData = contentData.filter(d => { return d.PCFNo == currentPatient })[0]
+
+    for (let [k, v] of Object.entries(changedData)) {
+        patientData[k] = v
+        // if (k === 'RelatedTo') patientData['relationship'] = v === 'なし' ? patientData['続柄'] : `${patientData['続柄']}<br>(${patientData['RelatedTo']})`
+    }
+
+    if (geneData.length > 0) {
+        let geneDataKeys = Object.keys(geneData[0])
+        geneDataKeys.forEach(k => {
+            patientData[k] = []
+        })
+
+        geneData.forEach(gd => {
+            for (let [k, v] of Object.entries(gd)) {
+                patientData[k].push(v)
+            }
+        })
+    }
+
+    hot.render()
+    resetData()
+    // resetGeneData()
+
+    function resetData() {
+        currentPatient = ''
+        changedData = {}
+    }
+
+    function resetGeneData() {
+        let geneTypeInfo = columns['遺伝子型情報']
+        geneTypeInfo.forEach(g => {
+            patientData[g.columnName] = []
+        })
+    }
+}
+
+function rerenderTable() {
+    Object.assign(updateSettings, {
+        dataSchema: dataSchema,
+        colHeaders: colHeaders,
+        columns: columns
+    })
+
+    hot.updateSettings(updateSettings)
+    hot.render()
+}
+
+function beforeLoad() {
+    if (contentData.length > 0) localStorage.contentData = JSON.stringify(contentData)
+    return 'load'
+}
+
+function pageReload() {
+    window.location.reload()
 }

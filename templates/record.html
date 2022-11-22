@@ -371,15 +371,15 @@
                         </tr>
                         <tr>
                             <th id="patientID">患者ID</th>
-                            <td><input type="text" name="patientID" value="" placeholder="P00000001"
-                                    data-columnname="患者ID">
+                            <td><input type="text" name="patientId" value="" placeholder="P00000001"
+                                    data-columnname="patientId">
                             </td>
                         </tr>
                         <tr>
                             <th id="familyID">家族ID</th>
                             <td id="group_wrap">
-                                <input type="text" name="FamilyID" value="" placeholder="F00000001"
-                                    data-columnname="家族ID">
+                                <input type="text" name="familyId" value="" placeholder="F00000001"
+                                    data-columnname="familyId">
                                 <select id="family_options"></select>
                             </td>
                         </tr>
@@ -388,21 +388,21 @@
                             <td id="relationship_td">
                                 <!--<select name="RelatedTo" id="related_to" data-columnname="RelatedTo">
                                 </select>-->
-                                <select name="relationship" data-columnname="続柄">
+                                <select name="relationship" data-columnname="relationship">
                                     <option value="" hidden>- 選択 -</option>
-                                    <option value="発端者">発端者</option>
-                                    <option value="父親">父親</option>
-                                    <option value="母親">母親</option>
-                                    <option value="兄弟姉妹">兄弟姉妹</option>
-                                    <option value="その他">その他</option>
+                                    <option value="proband">発端者</option>
+                                    <option value="father">父親</option>
+                                    <option value="mother">母親</option>
+                                    <option value="sibling">兄弟姉妹</option>
+                                    <option value="other">その他</option>
                                 </select>
                             </td>
                         </tr>
                         <tr>
                             <th id="groupID">グループ名</th>
                             <td id="group_wrap">
-                                <input type="text" name="groupID" list="group_options" placeholder="X病院、Y診療科など"
-                                    data-columnname="グループ名">
+                                <input type="text" name="group" list="group_options" placeholder="X病院、Y診療科など"
+                                    data-columnname="group">
                                 <select id="group_options"></select>
                             </td>
                         </tr>
@@ -410,28 +410,28 @@
                             <th id="birth">生年月</th>
                             <td>
                                 <select name="birth_year" id="birth_year" value="birth_year" placeholder="2000"
-                                    class="birth_year" data-columnname="生年月">
+                                    class="birth_year" data-columnname="birth">
                                 </select>
                                 <select name="birth_month" id="birth_month" value="birth_month"
-                                    data-columnname="生年月"></select>
+                                    data-columnname="birth"></select>
                             </td>
                         </tr>
                         <tr>
                             <th id="age">年齢</th>
                             <td id="age">
-                                <input type="text" name="age" list="age" placeholder="患者の年齢" data-columnname="年齢">
+                                <input type="text" name="age" list="age" placeholder="患者の年齢" data-columnname="age">
                             </td>
                         </tr>
                         <tr>
                             <th id="lifestatus">状態</th>
                             <td>
                                 <label for="alive">
-                                    <input id="alive" type="radio" name="lifestatus" value="生存" checked="checked"
-                                        data-columnname="状態">
+                                    <input id="alive" type="radio" name="lifeStatus" value="alive" checked="checked"
+                                        data-columnname="lifeStatus">
                                     生存
                                 </label>
                                 <label for="deceased">
-                                    <input id="deceased" type="radio" name="lifestatus" value="故人" data-columnname="状態">
+                                    <input id="deceased" type="radio" name="lifeStatus" value="deceased" data-columnname="lifeStatus">
                                     故人
                                 </label>
                             </td>
@@ -440,28 +440,28 @@
                             <th id="death">没年月</th>
                             <td>
                                 <select name="death_year" id="death_year" value="death_year" placeholder="2000"
-                                    class="death_year" data-columnname="没年月">
+                                    class="death_year" data-columnname="death">
                                 </select>
-                                <select name="death_month" id="death_month" value="death_year" data-columnname="没年月">
+                                <select name="death_month" id="death_month" value="death_year" data-columnname="death">
                                 </select>
                             </td>
                         </tr>
                         <tr>
                             <th id="sex">性別</th>
                             <td>
-                                <select name="sex" data-columnname="性別">
+                                <select name="sex" data-columnname="sex">
                                     <option value="" hidden>- 選択 -</option>
-                                    <option value="男性">男性</option>
-                                    <option value="女性">女性</option>
-                                    <option value="その他">その他</option>
-                                    <option value="不明">不明</option>
+                                    <option value="male">男性</option>
+                                    <option value="female">女性</option>
+                                    <option value="other">その他</option>
+                                    <option value="uknown">不明</option>
                                 </select>
                             </td>
                         </tr>
                         <tr>
                             <th id="Note">備考</th>
                             <td>
-                                <textarea name="Note" cols="30" rows="5" data-columnname="概要"
+                                <textarea name="note" cols="30" rows="5" data-columnname="note"
                                     placeholder="自由記載"></textarea>
                             </td>
                         </tr>
@@ -473,56 +473,56 @@
                     <tbody>
                         <tr>
                             <th id="clinical-diagnosis">臨床診断</th>
-                            <td><input type="text" name="clinical-diagnosis" value="" placeholder="ex)痙性椎麻痺"
-                                    data-columnname="臨床診断">
+                            <td><input type="text" name="clinicalDiagnosis" value="" placeholder="ex)痙性椎麻痺"
+                                    data-columnname="clinicalDiagnosis">
                         </tr>
                         <tr>
                             <th id="final-diagnosis">確定診断</th>
-                            <td><input type="text" name="final-diagnosis" value="" placeholder="ex)Krabbe病"
-                                    data-columnname="確定診断" data-columnname="確定診断">
+                            <td><input type="text" name="finalDiagnosis" value="" placeholder="ex)Krabbe病"
+                                    data-columnname="finalDiagnosis">
                         </tr>
                         <tr>
                             <th id="chief-complaint">主訴</th>
-                            <td><input type="text" name="chief-complaint" value="" placeholder="ex)歩行障害"
-                                    data-columnname="主訴">
+                            <td><input type="text" name="chiefComplaint" value="" placeholder="ex)歩行障害"
+                                    data-columnname="chiefComplaint">
                             </td>
                         </tr>
                         <tr>
                             <th id="case-solved">診断状況</th>
                             <td>
-                                <select name="case-solved" data-columnname="診断状況">
+                                <select name="caseSolved" data-columnname="caseSolved">
                                     <option value="" hidden>- 選択 -</option>
-                                    <option value="解決">解決</option>
-                                    <option value="新規候補">新規候補</option>
+                                    <option value="solved">解決</option>
+                                    <option value="candidate">新規候補</option>
                                     <option value="VUS">VUS</option>
-                                    <option value="未解決">未解決</option>
+                                    <option value="unresolved">未解決</option>
                                 </select>
                             </td>
                         </tr>
                         <tr>
                             <th id="current-medical-history">現病歴</th>
-                            <td><textarea type="text" name="current-medical-history" value="" placeholder="ex)現病歴"
-                                    data-columnname="現病歴" rows="3"></textarea>
+                            <td><textarea type="text" name="currentMedicalHistory" value="" placeholder="ex)現病歴"
+                                    data-columnname="currentMedicalHistory" rows="3"></textarea>
                             </td>
                         </tr>
                         <tr>
                             <th id="previous-medical-history">既往歴</th>
-                            <td><textarea type="text" name="previous-medical-history" value="" placeholder="ex)既往歴"
-                                    data-columnname="既往歴" rows="3"></textarea>
+                            <td><textarea type="text" name="previousMedicalHistory" value="" placeholder="ex)既往歴"
+                                    data-columnname="previousMedicalHistory" rows="3"></textarea>
                             </td>
                         </tr>
                         <tr>
                             <th id="prenatal-perinatal-history">
                                 出生前/周産期の病歴</th>
-                            <td><textarea type="text" name="prenatal-perinatal-history" value=""
-                                    placeholder="ex)出生前および周産期の病歴" data-columnname="出生前および周産期の病歴" rows="3"></textarea>
+                            <td><textarea type="text" name="prenatalPerinatalHistory" value=""
+                                    placeholder="ex)出生前および周産期の病歴" data-columnname="prenatalPerinatalHistory" rows="3"></textarea>
                             </td>
                         </tr>
                         <tr>
                             <th id="early-developmental-and-schooling-history">
                                 生育歴/教育歴</th>
-                            <td><textarea type="text" name="early-developmental-and-schooling-history" value=""
-                                    placeholder="ex)生育歴および教育歴" data-columnname="生育歴および教育歴" rows="3">
+                            <td><textarea type="text" name="earlyDevelopmentalAndSchoolingHistory" value=""
+                                    placeholder="ex)生育歴および教育歴" data-columnname="earlyDevelopmentalAndSchoolingHistory" rows="3">
                                 </textarea>
                             </td>
                         </tr>
@@ -531,45 +531,45 @@
                                 経過
                             </th>
                             <td><textarea type="text" name="process" size="60" value="" placeholder="ex)検査・治療計画"
-                                    data-columnname="経過" rows="3"></textarea>
+                                    data-columnname="process" rows="3"></textarea>
                             </td>
                         </tr>
                         <tr>
                             <th id="age-onset">発症年齢</th>
                             <td>
-                                <select name="age-onset" data-columnname="発症年齢">
+                                <select name="ageOnset" data-columnname="ageOnset">
                                     <option value="" hidden>- 選択 -</option>
-                                    <option value="不明">不明</option>
-                                    <option value="先天性の発症">先天性の発症</option>
-                                    <option value="出生前発症">出生前発症</option>
-                                    <option value="胎生期発症">-胎生期発症</option>
-                                    <option value="胎児期発症">-胎児期発症</option>
-                                    <option value="新生児期発症">新生児期発症</option>
-                                    <option value="i幼児期発症">幼児期発症</option>
-                                    <option value="小児期発症">小児期発症</option>
-                                    <option value="若年性発症（思春期発症）">若年性発症（思春期発症）</option>
-                                    <option value="成人発症">成人発症</option>
-                                    <option value="前期発症（青年期発症）">-前期発症（青年期発症）</option>
-                                    <option value="中年期発症（壮年期発症）">-中年期発症（壮年期発症）</option>
-                                    <option value="後期発症">-後期発症</option>
+                                    <option value="unknown">不明</option>
+                                    <option value="congenitalOnset">先天性の発症</option>
+                                    <option value="antenatalOnset">出生前発症</option>
+                                    <option value="antenatalOnsetEmbryonal">-胎生期発症</option>
+                                    <option value="antenatalOnsetFetal">-胎児期発症</option>
+                                    <option value="neonatalOnset">新生児期発症</option>
+                                    <option value="infantileOnset">幼児期発症</option>
+                                    <option value="childhoodOnset">小児期発症</option>
+                                    <option value="juvenileOnset">若年性発症（思春期発症）</option>
+                                    <option value="adultOnset">成人発症</option>
+                                    <option value="adultOnsetYoungAdult">-前期発症（青年期発症）</option>
+                                    <option value="adultOnsetMiddleAge">-中年期発症（壮年期発症）</option>
+                                    <option value="adultOnsetLate">-後期発症</option>
                                 </select>
                             </td>
                         </tr>
                         <tr>
                             <th id="examination-finding">検査所見</th>
-                            <td><input type="text" name="examination-finding" value="" placeholder="ex)検査所見"
-                                    data-columnname="検査所見">
+                            <td><input type="text" name="examinationFinding" value="" placeholder="ex)検査所見"
+                                    data-columnname="examinationFinding">
                             </td>
                         </tr>
                         <tr>
                             <th id="allergies">アレルギー</th>
                             <td>
                                 <label for="allergies">
-                                    <input id="no-allergies" type="radio" name="allergies" value="無" checked="checked">
+                                    <input id="no-allergies" type="radio" name="allergies" value="no" checked="checked">
                                     無
                                 </label>
                                 <label for="allergies">
-                                    <input id="yes-allergies" type="radio" name="allergies" value="有">
+                                    <input id="yes-allergies" type="radio" name="allergies" value="yes">
                                     有
                                 </label>
                                 <input class="input-top" type="text" name="allergies-list" value=""
@@ -587,19 +587,19 @@
                         <tr>
                             <th id="social-history">社会歴</th>
                             <td>
-                                <textarea type="text" name="social-history" value="" placeholder="ex)社会歴"
-                                    data-columnname="社会歴" rows="3"></textarea>
+                                <textarea type="text" name="socialHistory" value="" placeholder="ex)社会歴"
+                                    data-columnname="socialHistory" rows="3"></textarea>
                             </td>
                         </tr>
                         <tr>
                             <th id="drinking">飲酒量</th>
                             <td>
                                 <label for="drinking">
-                                    <input id="no-drinking" type="radio" name="drinking" value="無" checked="checked">
+                                    <input id="no-drinking" type="radio" name="drinking" value="no" checked="checked">
                                     無
                                 </label>
                                 <label for="drinking">
-                                    <input id="yes-drinking" type="radio" name="drinking" value="有">
+                                    <input id="yes-drinking" type="radio" name="drinking" value="yes">
                                     有
                                 </label>
                                 <input class="input-top" type="text" name="drinking-list" value="" placeholder="ex)飲酒量">
@@ -609,11 +609,11 @@
                             <th id="smoking">喫煙</th>
                             <td>
                                 <label for="smoking">
-                                    <input id="no-smoking" type="radio" name="smoking" value="無" checked="checked">
+                                    <input id="no-smoking" type="radio" name="smoking" value="no" checked="checked">
                                     無
                                 </label>
                                 <label for="smoking">
-                                    <input id="yes-smoking" type="radio" name="smoking" value="有">
+                                    <input id="yes-smoking" type="radio" name="smoking" value="yes">
                                     有
                                 </label>
                                 <input class="input-top" type="text" name="smoking-list" value="" placeholder="ex)喫煙">
@@ -622,19 +622,19 @@
                         <tr>
                             <th id="medications">内服薬</th>
                             <td><input type="text" name="medications" size="60" value="" placeholder="ex)内服薬"
-                                    data-columnname="内服薬">
+                                    data-columnname="medications">
                             </td>
                         </tr>
                         <tr>
                             <th id="travel-history">渡航歴</th>
-                            <td><textarea type="text" name="travel-history" size="60" value="" placeholder="ex)渡航歴"
-                                    data-columnname="渡航歴" rows="3"></textarea>
+                            <td><textarea type="text" name="travelHistory" size="60" value="" placeholder="ex)渡航歴"
+                                    data-columnname="travelHistory" rows="3"></textarea>
                             </td>
                         </tr>
                         <tr>
                             <th id="vaccination-history">予防接種歴</th>
-                            <td><textarea type="text" name="vaccination-history" size="60" value=""
-                                    placeholder="ex)予防接種歴" data-columnname="予防接種歴" rows="3"></textarea>
+                            <td><textarea type="text" name="vaccinationHistory" size="60" value=""
+                                    placeholder="ex)予防接種歴" data-columnname="vaccinationHistory" rows="3"></textarea>
                             </td>
                         </tr>
                     </tbody>
@@ -667,108 +667,108 @@
                         <tr>
                             <th id="family-info">家族歴</th>
                             <td>
-                                <textarea name="family-info" cols="30" rows="5"
-                                    placeholder="家族で見つかった健康状態を一覧表示する/発端者との関係を説明する" data-columnname="家族歴"></textarea>
+                                <textarea name="familyHistory" cols="30" rows="5"
+                                    placeholder="家族で見つかった健康状態を一覧表示する/発端者との関係を説明する" data-columnname="familyHistory"></textarea>
                             </td>
                         </tr>
                         <tr>
                             <th id="genetic-form">遺伝形式</th>
                             <td class="genetic_list">
                                 <label for="sporadic">
-                                    <input id="sporadic" type="radio" name="genetic_list" value="Sporadic"
-                                        data-columnname="遺伝形式">Sporadic
+                                    <input id="sporadic" type="radio" name="geneticList" value="Sporadic"
+                                        data-columnname="geneticList">Sporadic
                                 </label>
                                 <details>
                                     <summary>
                                         <label for="autosomal_dominant_inheritance">
-                                            <input id="autosomal_dominant_inheritance" type="radio" name="genetic_list"
-                                                value="Autosomal dominant inheritance" data-columnname="遺伝形式">Autosomal
+                                            <input id="autosomal_dominant_inheritance" type="radio" name="geneticList"
+                                                value="Autosomal dominant inheritance" data-columnname="geneticList">Autosomal
                                             dominant
                                             inheritance
                                         </label>
                                     </summary>
                                     <label for="sex_limited_autosomal_dominant">
-                                        <input id="sex_limited_autosomal_dominant" type="radio" name="genetic_list"
-                                            value="Sex-limited autosomal dominant" data-columnname="遺伝形式">Sex-limited
+                                        <input id="sex_limited_autosomal_dominant" type="radio" name="geneticList"
+                                            value="Sex-limited autosomal dominant" data-columnname="geneticList">Sex-limited
                                         autosomal dominant
                                     </label>
                                     <label for="autosomal_dominant_somatic_cell_mutation">
                                         <input id="autosomal_dominant_somatic_cell_mutation" type="radio"
-                                            name="genetic_list" value="Autosomal dominant somatic cell mutation"
-                                            data-columnname="遺伝形式">
+                                            name="geneticList" value="Autosomal dominant somatic cell mutation"
+                                            data-columnname="geneticList">
                                         Autosomal
                                         dominant somatic cell mutation
                                     </label>
                                     <label for="autosomal_dominant_contiguous_gene_syndrome">
                                         <input id="autosomal_dominant_contiguous_gene_syndrome" type="radio"
-                                            name="genetic_list" value="Autosomal dominant contiguous gene syndrome"
-                                            data-columnname="遺伝形式">
+                                            name="geneticList" value="Autosomal dominant contiguous gene syndrome"
+                                            data-columnname="geneticList">
                                         Autosomal
                                         dominant contiguous gene syndrome
                                     </label>
                                 </details>
                                 <label for="autosomal_recessive_inheritance">
-                                    <input id="autosomal_recessive_inheritance" type="radio" name="genetic_list"
-                                        value="Autosomal recessive inheritance" data-columnname="遺伝形式">
+                                    <input id="autosomal_recessive_inheritance" type="radio" name="geneticList"
+                                        value="Autosomal recessive inheritance" data-columnname="geneticList">
                                     Autosomal
                                     recessive inheritance
                                 </label>
                                 <details>
                                     <summary>
                                         <label for="gonosomal_inheritance">
-                                            <input id="gonosomal_inheritance" type="radio" name="genetic_list"
-                                                value="Gonosomal inheritance" data-columnname="遺伝形式">Gonosomal
+                                            <input id="gonosomal_inheritance" type="radio" name="geneticList"
+                                                value="Gonosomal inheritance" data-columnname="geneticList">Gonosomal
                                             inheritance
                                         </label>
                                     </summary>
                                     <label for="x_linked_inheritance">
-                                        <input id="x_linked_inheritance" type="radio" name="genetic_list"
-                                            value="X-linked inheritance" data-columnname="遺伝形式">X-linked
+                                        <input id="x_linked_inheritance" type="radio" name="geneticList"
+                                            value="X-linked inheritance" data-columnname="geneticList">X-linked
                                         inheritance
                                     </label>
                                     <label for="x_linked_dominant_inheritance">
-                                        <input id="x_linked_dominant_inheritance" type="radio" name="genetic_list"
-                                            value="X-linked dominant inheritance" data-columnname="遺伝形式">X-linked
+                                        <input id="x_linked_dominant_inheritance" type="radio" name="geneticList"
+                                            value="X-linked dominant inheritance" data-columnname="geneticList">X-linked
                                         dominant inheritance
                                     </label>
                                     <label for="x_linked_recessive_inheritance">
-                                        <input id="x_linked_recessive_inheritance" type="radio" name="genetic_list"
-                                            value="X-linked recessive inheritance" data-columnname="遺伝形式">X-linked
+                                        <input id="x_linked_recessive_inheritance" type="radio" name="geneticList"
+                                            value="X-linked recessive inheritance" data-columnname="geneticList">X-linked
                                         recessive inheritance
                                     </label>
                                     <label for="y_linked_inheritance">
-                                        <input id="y_linked_inheritance" type="radio" name="genetic_list"
-                                            value="Y-linked inheritance" data-columnname="遺伝形式">Y-linked
+                                        <input id="y_linked_inheritance" type="radio" name="geneticList"
+                                            value="Y-linked inheritance" data-columnname="geneticList">Y-linked
                                         inheritance
                                     </label>
                                 </details>
                                 <details>
                                     <summary>
                                         <label for="multifactorial_inheritance">
-                                            <input id="multifactorial_inheritance" type="radio" name="genetic_list"
-                                                value="Multifactorial inheritance" data-columnname="遺伝形式">Multifactorial
+                                            <input id="multifactorial_inheritance" type="radio" name="geneticList"
+                                                value="Multifactorial inheritance" data-columnname="geneticList">Multifactorial
                                             inheritance
                                         </label>
                                     </summary>
                                     <label for="digenic_inheritance">
-                                        <input id="digenic_inheritance" type="radio" name="genetic_list"
-                                            value="Digenic inheritance" data-columnname="遺伝形式">Digenic
+                                        <input id="digenic_inheritance" type="radio" name="geneticList"
+                                            value="Digenic inheritance" data-columnname="geneticList">Digenic
                                         inheritance
                                     </label>
                                     <label for="oligogenic_inheritance">
-                                        <input id="oligogenic_inheritance" type="radio" name="genetic_list"
-                                            value="Oligogenic inheritance" data-columnname="遺伝形式">Oligogenic
+                                        <input id="oligogenic_inheritance" type="radio" name="geneticList"
+                                            value="Oligogenic inheritance" data-columnname="geneticList">Oligogenic
                                         inheritance
                                     </label>
                                     <label for="polygenic_inheritance">
-                                        <input id="polygenic_inheritance" type="radio" name="genetic_list"
-                                            value="Polygenic inheritance" data-columnname="遺伝形式">Polygenic
+                                        <input id="polygenic_inheritance" type="radio" name="geneticList"
+                                            value="Polygenic inheritance" data-columnname="geneticList">Polygenic
                                         inheritance
                                     </label>
                                 </details>
                                 <label for="mitochondrialx_inheritance">
-                                    <input id="mitochondrialx_inheritance" type="radio" name="genetic_list"
-                                        value="Mitochondrial inheritance" data-columnname="遺伝形式">Mitochondrial
+                                    <input id="mitochondrialx_inheritance" type="radio" name="geneticList"
+                                        value="Mitochondrial inheritance" data-columnname="geneticList">Mitochondrial
                                     inheritance
                                 </label>
                             </td>
@@ -778,18 +778,18 @@
                                 その他の罹患近親者</th>
                             <td>
                                 <label for="unknown-other-families">
-                                    <input id="unknown-other-families" type="radio" name="other-families" value="不明"
-                                        data-columnname="その他の罹患近親者">
+                                    <input id="unknown-other-families" type="radio" name="otherAffectedRelatives" value="uknown"
+                                        data-columnname="otherAffectedRelatives">
                                     不明
                                 </label>
                                 <label for="yes-other-families">
-                                    <input id="yes-other-families" type="radio" name="other-families" value="有"
-                                        data-columnname="その他の罹患近親者">
+                                    <input id="yes-other-families" type="radio" name="otherAffectedRelatives" value="yes"
+                                        data-columnname="otherAffectedRelatives">
                                     有
                                 </label>
                                 <label for="no-other-families">
-                                    <input id="no-other-families" type="radio" name="other-families" value="無"
-                                        data-columnname="その他の罹患近親者">
+                                    <input id="no-other-families" type="radio" name="otherAffectedRelatives" value="no"
+                                        data-columnname="otherAffectedRelatives">
                                     無
                                 </label>
                             </td>
@@ -799,18 +799,18 @@
                                 近親婚</th>
                             <td>
                                 <label for="unknown-consanguine-marriage">
-                                    <input id="unknown-consanguine-marriage" type="radio" name="consanguine-marriage"
-                                        value="不明" data-columnname="近親婚">
+                                    <input id="unknown-consanguine-marriage" type="radio" name="consanguineMarriage"
+                                        value="unknown" data-columnname="consanguineMarriage">
                                     不明
                                 </label>
                                 <label for="yes-consanguine-marriage">
-                                    <input id="yes-consanguine-marriage" type="radio" name="consanguine-marriage"
-                                        value="有" data-columnname="近親婚">
+                                    <input id="yes-consanguine-marriage" type="radio" name="consanguineMarriage"
+                                        value="yes" data-columnname="consanguineMarriage">
                                     有
                                 </label>
                                 <label for="no-consanguine-marriage">
-                                    <input id="no-consanguine-marriage" type="radio" name="consanguine-marriage"
-                                        value="無" data-columnname="近親婚">
+                                    <input id="no-consanguine-marriage" type="radio" name="consanguineMarriage"
+                                        value="no" data-columnname="consanguineMarriage">
                                     無
                                 </label>
                             </td>
@@ -820,31 +820,31 @@
                                 流産が3回以上ある両親</th>
                             <td>
                                 <label for="unknown-abortion">
-                                    <input id="unknown-abortion" type="radio" name="abortion" value="不明"
-                                        data-columnname="流産が3回以上ある両親">
+                                    <input id="unknown-abortion" type="radio" name="miscarriage" value="unknown"
+                                        data-columnname="miscarriage">
                                     不明
                                 </label>
                                 <label for="yes-abortion">
-                                    <input id="yes-abortion" type="radio" name="abortion" value="有"
-                                        data-columnname="流産が3回以上ある両親">
+                                    <input id="yes-abortion" type="radio" name="miscarriage" value="yes"
+                                        data-columnname="miscarriage">
                                     有
                                 </label>
                                 <label for="no-abortion">
-                                    <input id="no-abortion" type="radio" name="abortion" value="無"
-                                        data-columnname="流産が3回以上ある両親">
+                                    <input id="no-abortion" type="radio" name="miscarriage" value="no"
+                                        data-columnname="miscarriage">
                                     無
                                 </label>
                             </td>
                         </tr>
                         <tr>
                             <th id="gene-father">父方の民族</th>
-                            <td><input type="text" name="gene-father" value="" placeholder="ex)父方の民族"
-                                    data-columnname="父方の民族">
+                            <td><input type="text" name="paternalEthnicity" value="" placeholder="ex)父方の民族"
+                                    data-columnname="paternalEthnicity">
                         </tr>
                         <tr>
                             <th id="gene-mother">母性の民族</th>
-                            <td><input type="text" name="gene-mother" value="" placeholder="ex)母性の民族"
-                                    data-columnname="母性の民族">
+                            <td><input type="text" name="maternalEthnicity" value="" placeholder="ex)母性の民族"
+                                    data-columnname="maternalEthnicity">
                         </tr>
                     </tbody>
                 </table>
