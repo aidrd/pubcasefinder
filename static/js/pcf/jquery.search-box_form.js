@@ -679,6 +679,8 @@
 							   'prependTo': div_search_box_form.id
 							  });
 
+		 $("#tokeninput_hpo").tokenInput("setInputBoxFocus");
+
 	};
 
 
