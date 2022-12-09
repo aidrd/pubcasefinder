@@ -279,6 +279,10 @@
 			this.data("tokenInputObject").setTagSize(uisetting_tag_size);
 			return this;
 		},
+		setInputBoxFocus: function(){
+            this.data("tokenInputObject").setInputBoxFocus();
+            return this;
+        },
 		setOptions: function(options){
 			$(this).data("settings", $.extend({}, $(this).data("settings"), options || {}));
 			return this;
@@ -692,6 +696,13 @@
 
 	  this.toggleDisabled = function(disable) {
 		  toggleDisabled(disable);
+	  };
+
+	  this.setInputBoxFocus = function(){
+          setTimeout(function() {
+                input_box.focus();
+          },300);
+		  
 	  };
 
 	  this.setTagSize = function(uisetting_tag_size){

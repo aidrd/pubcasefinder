@@ -4659,6 +4659,5 @@ label {
 
 .modal-open {
   overflow:hidden;
-  /*overflow-y:hidden;*/
-  padding-right: 0 !important;
+  overflow-y:hidden;
 }
