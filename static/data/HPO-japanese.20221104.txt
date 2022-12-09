@@ -112,6 +112,7 @@ HP:0000080	Abnormality of reproductive system physiology	性的生理異常	expe
 HP:0000081	Duplicated collecting system	集合管重複	expert	label
 HP:0000083	Renal insufficiency	腎不全	expert	label
 HP:0000083	Renal insufficiency	腎機能不全	LSD	synonym
+HP:0000083	Renal insufficiency	腎機能低下	Fujiwara	synonym
 HP:0000085	Horseshoe kidney	馬蹄腎	expert	label
 HP:0000085	Horseshoe kidney	融合腎	LSD	synonym
 HP:0000085	Horseshoe kidney	馬蹄鉄腎	LSD	synonym
@@ -408,7 +409,6 @@ HP:0000348	High forehead	高い額	expert	label
 HP:0000349	Widow's peak	富士額	expert	label
 HP:0000350	Small forehead	小さい額	expert	label
 HP:0000356	Abnormality of the outer ear	外耳の異常	expert	label
-HP:0000356	Abnormality of the outer ear	外耳奇形	LSD	synonym
 HP:0000357	Abnormal location of ears	異常な耳の位置	expert	label
 HP:0000358	Posteriorly rotated ears	耳介後方回転	expert	label
 HP:0000359	Abnormality of the inner ear	内耳の異常	expert	label
@@ -516,6 +516,7 @@ HP:0000476	Cystic hygroma	水滑性嚢胞	LSD	synonym
 HP:0000478	Abnormality of the eye	眼の異常	expert	label
 HP:0000478	Abnormality of the eye	眼疾患	LSD	synonym
 HP:0000479	Abnormal retinal morphology	網膜の異常	expert	label
+HP:0000479	Abnormal retinal morphology	網膜異常	Fujiwara	synonym
 HP:0000479	Abnormal retinal morphology	網膜症	LSD	synonym
 HP:0000480	Retinal coloboma	網膜コロボーマ	expert	label
 HP:0000480	Retinal coloboma	網膜欠損	LSD	synonym
@@ -536,6 +537,9 @@ HP:0000495	Recurrent corneal erosions	反復性角膜びらん	expert	label
 HP:0000495	Recurrent corneal erosions	再発性角膜びらん	LSD	synonym
 HP:0000496	Abnormality of eye movement	眼運動の異常	expert	label
 HP:0000496	Abnormality of eye movement	異常眼球運動	LSD	synonym
+HP:0000496	Abnormality of eye movement	眼球運動の異常	Fujiwara	synonym
+HP:0000496	Abnormality of eye movement	眼球運動異常	Fujiwara	synonym
+HP:0000496	Abnormality of eye movement	眼運動異常	Fujiwara	synonym
 HP:0000497	Globe retraction and deviation on abduction	外転による眼球後退と偏位	expert	label
 HP:0000498	Blepharitis	眼瞼炎	expert	label
 HP:0000499	Abnormal eyelash morphology	睫毛の異常	expert	label
@@ -543,6 +547,7 @@ HP:0000501	Glaucoma	緑内障	expert	label
 HP:0000502	Abnormal conjunctiva morphology	結膜の異常	expert	label
 HP:0000503	Tortuosity of conjunctival vessels	結膜血管蛇行	expert	label
 HP:0000504	Abnormality of vision	視覚の異常	expert	label
+HP:0000504	Abnormality of vision	視覚異常	Fujiwara	synonym
 HP:0000505	Visual impairment	視力障害	expert	label
 HP:0000506	Telecanthus	内眼角外方偏位	expert	label
 HP:0000508	Ptosis	眼瞼下垂	expert	label
@@ -578,12 +583,14 @@ HP:0000529	Progressive visual loss	進行性視力喪失	expert	label
 HP:0000531	Corneal crystals	角膜結晶	expert	label
 HP:0000531	Corneal crystals	角膜沈着物	LSD	synonym
 HP:0000532	Abnormal chorioretinal morphology	脈絡膜網膜異常	expert	label
+HP:0000532	Abnormal chorioretinal morphology	網脈絡膜症	Fujiwara	synonym
 HP:0000533	Chorioretinal atrophy	脈絡膜網膜萎縮	expert	label
 HP:0000533	Chorioretinal atrophy	網脈絡膜萎縮	LSD	synonym
 HP:0000533	Chorioretinal atrophy	網脈絡膜萎縮症	LSD	synonym
 HP:0000533	Chorioretinal atrophy	脈絡網膜萎縮症	LSD	synonym
 HP:0000534	Abnormal eyebrow morphology	眉毛の異常	expert	label
 HP:0000535	Sparse and thin eyebrow	疎な眉毛	expert	label
+HP:0000535	Sparse and thin eyebrow	薄い眉毛	Fujiwara	synonym
 HP:0000537	Epicanthus inversus	逆内眼角贅皮	expert	label
 HP:0000538	Pseudopapilledema	偽乳頭浮腫	expert	label
 HP:0000539	Abnormality of refraction	屈折率の異常	expert	label
@@ -647,11 +654,11 @@ HP:0000588	Optic disc coloboma	視神経コロボーマ	expert	label
 HP:0000588	Optic disc coloboma	視神経乳頭欠損	LSD	synonym
 HP:0000589	Coloboma	コロボーマ	expert	label
 HP:0000589	Coloboma	眼欠損症	LSD	synonym
+HP:0000589	Coloboma	網膜の部分欠損	Fujiwara	synonym
 HP:0000590	Progressive external ophthalmoplegia	進行性外眼筋麻痺	expert	label
 HP:0000590	Progressive external ophthalmoplegia	進行性外眼筋麻痺症候群	LSD	synonym
 HP:0000591	Abnormal sclera morphology	胸膜の異常	expert	label
 HP:0000592	Blue sclerae	青色強膜	expert	label
-HP:0000592	Blue sclerae	青色胸膜 sclerae	expert	label
 HP:0000593	Abnormal anterior chamber morphology	前房の異常	expert	label
 HP:0000594	Shallow anterior chamber	浅い前房	expert	label
 HP:0000597	Ophthalmoparesis	眼筋不全麻痺	expert	label
@@ -674,8 +681,8 @@ HP:0000609	Optic nerve hypoplasia	視神経低形成	expert	label
 HP:0000609	Optic nerve hypoplasia	視神経形成不全	LSD	synonym
 HP:0000610	Abnormal choroid morphology	脈絡膜の異常	expert	label
 HP:0000610	Abnormal choroid morphology	脈絡膜疾患	LSD	synonym
-HP:0000612	Iris coloboma	コロボーマ	expert	label
-HP:0000612	Iris coloboma	虹彩欠損	LSD	synonym
+HP:0000612	Iris coloboma	虹彩欠損	expert	label
+HP:0000612	Iris coloboma	虹彩コロボーマ	Fujiwara	synonym
 HP:0000613	Photophobia	羞明	expert	label
 HP:0000614	Abnormal nasolacrimal system morphology	鼻涙管の異常	expert	label
 HP:0000615	Abnormal pupil morphology	瞳孔の異常	expert	label
@@ -756,11 +763,9 @@ HP:0000678	Dental crowding	歯混雑	expert	label
 HP:0000678	Dental crowding	叢生歯	LSD	synonym
 HP:0000679	Taurodontia	牛歯	expert	label
 HP:0000680	Delayed eruption of primary teeth	乳歯萌出遅延	expert	label
-HP:0000680	Delayed eruption of primary teeth	乳歯萠出遅延	expert	label
 HP:0000682	Abnormal dental enamel morphology	歯エナメル質異常	expert	label
 HP:0000683	Grayish enamel	灰色のエナメル質	expert	label
 HP:0000684	Delayed eruption of teeth	歯萌出遅延	expert	label
-HP:0000684	Delayed eruption of teeth	歯萠出遅延	expert	label
 HP:0000684	Delayed eruption of teeth	萌出遅延	LSD	synonym
 HP:0000685	Hypoplasia of teeth	歯低形成	expert	label
 HP:0000687	Widely spaced teeth	歯間隔離	expert	label
@@ -773,7 +778,6 @@ HP:0000694	Odontodysplasia	貝形歯　	expert	label
 HP:0000694	Odontodysplasia	歯牙異形成症	LSD	synonym
 HP:0000695	Natal tooth	出産歯	expert	label
 HP:0000696	Delayed eruption of permanent teeth	永久歯萌出遅延	expert	label
-HP:0000696	Delayed eruption of permanent teeth	永久歯萠出遅延	expert	label
 HP:0000698	Conical tooth	円錐型切歯	expert	label
 HP:0000699	Diastema	歯の正中離解	expert	label
 HP:0000699	Diastema	正中離開	LSD	synonym
@@ -788,16 +792,17 @@ HP:0000704	Periodontitis	歯周病	LSD	synonym
 HP:0000705	Amelogenesis imperfecta	エナメル質形成不全	expert	label
 HP:0000705	Amelogenesis imperfecta	遺伝性エナメル質形成不全症	LSD	synonym
 HP:0000706	Eruption failure	歯未萌出	expert	label
-HP:0000706	Eruption failure	歯未萠出	expert	label
 HP:0000706	Eruption failure	未萌出歯	LSD	synonym
 HP:0000707	Abnormality of the nervous system	神経系の異常	expert	label
 HP:0000708	Behavioral abnormality	行動異常	expert	label
+HP:0000708	Behavioral abnormality	独特の行動	Fujiwara	synonym
 HP:0000708	Behavioral abnormality	精神疾患	LSD	synonym
 HP:0000708	Behavioral abnormality	精神障害	LSD	synonym
 HP:0000708	Behavioral abnormality	行動変化	LSD	synonym
 HP:0000708	Behavioral abnormality	行動症状	LSD	synonym
 HP:0000708	Behavioral abnormality	行動障害	LSD	synonym
 HP:0000709	Psychosis	精神病	expert	label
+HP:0000709	Psychosis	精神症状	Fujiwara	synonym
 HP:0000709	Psychosis	精神障害	LSD	synonym
 HP:0000710	Hyperorality	口愛過度	expert	label
 HP:0000710	Hyperorality	口唇傾向	LSD	synonym
@@ -837,7 +842,6 @@ HP:0000722	Obsessive-compulsive behavior	強迫性障害	LSD	synonym
 HP:0000723	Restrictive behavior	拘束性行動r	expert	label
 HP:0000725	Psychotic episodes	精神病エピソード	expert	label
 HP:0000725	Psychotic episodes	精神病的挿間	LSD	synonym
-HP:0000726	Dementia	Dementia	expert	label
 HP:0000726	Dementia	認知症	expert	label
 HP:0000727	Frontal lobe dementia	前頭葉認知症	expert	label
 HP:0000728	Impaired ability to form peer relationships	同僚関係構築能障害	expert	label
@@ -862,7 +866,10 @@ HP:0000738	Hallucinations	幻覚	expert	label
 HP:0000739	Anxiety	不安	expert	label
 HP:0000740	Episodic paroxysmal anxiety	不安 (褐色細胞腫を伴う)	expert	label
 HP:0000741	Apathy	"無関心, 感情鈍磨"	expert	label
+HP:0000741	Apathy	アパシー	Fujiwara	synonym
+HP:0000741	Apathy	感情鈍磨	Fujiwara	synonym
 HP:0000741	Apathy	感情鈍麻	LSD	synonym
+HP:0000741	Apathy	無関心	Fujiwara	synonym
 HP:0000742	Self-mutilation	自己切断	expert	label
 HP:0000742	Self-mutilation	自傷	LSD	synonym
 HP:0000742	Self-mutilation	計画的自傷行為	LSD	synonym
@@ -873,6 +880,7 @@ HP:0000745	Diminished motivation	無気力	LSD	synonym
 HP:0000746	Delusions	妄想	expert	label
 HP:0000748	Inappropriate laughter	不適切な笑い	expert	label
 HP:0000749	Paroxysmal bursts of laughter	発作性の笑いの爆発	expert	label
+HP:0000749	Paroxysmal bursts of laughter	容易に引き起こされる笑い	Fujiwara	synonym
 HP:0000750	Delayed speech and language development	発語および言語発達遅延	expert	label
 HP:0000750	Delayed speech and language development	言葉の遅れ	LSD	synonym
 HP:0000750	Delayed speech and language development	言語発達遅滞	LSD	synonym
@@ -880,7 +888,6 @@ HP:0000750	Delayed speech and language development	言語遅延	LSD	synonym
 HP:0000751	Personality changes	性格変化	expert	label
 HP:0000751	Personality changes	人格変化	LSD	synonym
 HP:0000752	Hyperactivity	多動	expert	label
-HP:0000752	Hyperactivity	機能亢進	LSD	synonym
 HP:0000752	Hyperactivity	活動亢進	LSD	synonym
 HP:0000752	Hyperactivity	運動亢進	LSD	synonym
 HP:0000753	Autism with high cognitive abilities	高い認知能をもつ自閉症	expert	label
@@ -898,6 +905,7 @@ HP:0000763	Sensory neuropathy	末梢性感覚ニューロパシー	LSD	synonym
 HP:0000763	Sensory neuropathy	末梢性感覚ニューロパチー	LSD	synonym
 HP:0000764	Peripheral axonal degeneration	末梢神経軸索変性	expert	label
 HP:0000765	Abnormal thorax morphology	胸郭の異常	expert	label
+HP:0000765	Abnormal thorax morphology	胸郭異常	Fujiwara	synonym
 HP:0000766	Abnormal sternum morphology	胸骨の異常	expert	label
 HP:0000767	Pectus excavatum	漏斗胸	expert	label
 HP:0000767	Pectus excavatum	先天性漏斗胸	LSD	synonym
@@ -941,7 +949,6 @@ HP:0000799	Renal steatosis	腎脂肪症	expert	label
 HP:0000800	Cystic renal dysplasia	嚢胞性腎異形成	expert	label
 HP:0000802	Impotence	インポテンス	expert	label
 HP:0000802	Impotence	インポテンツ	LSD	synonym
-HP:0000802	Impotence	不能	LSD	synonym
 HP:0000802	Impotence	性交不能	LSD	synonym
 HP:0000802	Impotence	性交不能症	LSD	synonym
 HP:0000802	Impotence	陰萎	LSD	synonym
@@ -1000,6 +1007,7 @@ HP:0000842	Hyperinsulinemia	高インシュリン血症	LSD	synonym
 HP:0000843	Hyperparathyroidism	副甲状腺機能亢進症	expert	label
 HP:0000843	Hyperparathyroidism	副甲状腺機能亢進	LSD	synonym
 HP:0000845	Elevated circulating growth hormone concentration	成長ホルモン過剰症	expert	label
+HP:0000845	Elevated circulating growth hormone concentration	先端肥大症	Fujiwara	synonym
 HP:0000846	Adrenal insufficiency	副腎不全	expert	label
 HP:0000846	Adrenal insufficiency	副腎機能低下症	LSD	synonym
 HP:0000847	Abnormality of renin-angiotensin system	レニン-アンギオテンシン系異常	expert	label
@@ -1076,6 +1084,7 @@ HP:0000921	Missing ribs	肋骨欠損	expert	label
 HP:0000922	Posterior rib cupping	後部肋骨カッピング	expert	label
 HP:0000923	Beaded ribs	数珠状肋骨	expert	label
 HP:0000924	Abnormality of the skeletal system	骨格の異常	expert	label
+HP:0000924	Abnormality of the skeletal system	骨格異常	Fujiwara	synonym
 HP:0000925	Abnormality of the vertebral column	脊柱の異常	expert	label
 HP:0000926	Platyspondyly	扁平脊椎	expert	label
 HP:0000927	Abnormality of skeletal maturation	骨成熟の異常	expert	label
@@ -1119,6 +1128,7 @@ HP:0000960	Sacral dimple	仙骨部陥凹	expert	label
 HP:0000961	Cyanosis	チアノーゼ	expert	label
 HP:0000962	Hyperkeratosis	過角化症	expert	label
 HP:0000962	Hyperkeratosis	角化亢進	LSD	synonym
+HP:0000962	Hyperkeratosis	角化異常	Fujiwara	synonym
 HP:0000962	Hyperkeratosis	角化病変	LSD	synonym
 HP:0000962	Hyperkeratosis	角化症	LSD	synonym
 HP:0000962	Hyperkeratosis	角質増殖	LSD	synonym
@@ -1258,8 +1268,6 @@ HP:0001047	Atopic dermatitis	アトピー性皮膚炎	expert	label
 HP:0001048	Cavernous hemangioma	海綿状血管腫	expert	label
 HP:0001049	Absent dorsal skin creases over affected joints	患部関節上の背部皮膚屈曲線欠損	expert	label
 HP:0001050	Plethora	多血症	expert	label
-HP:0001050	Plethora	過剰	LSD	synonym
-HP:0001050	Plethora	過多	LSD	synonym
 HP:0001051	Seborrheic dermatitis	脂漏性皮膚炎	expert	label
 HP:0001051	Seborrheic dermatitis	脂漏	LSD	synonym
 HP:0001051	Seborrheic dermatitis	脂漏性湿疹	LSD	synonym
@@ -1275,7 +1283,6 @@ HP:0001057	Aplasia cutis congenita	先天性皮膚無形成	expert	label
 HP:0001058	Poor wound healing	傷治癒不全	expert	label
 HP:0001059	Pterygium	翼状片	expert	label
 HP:0001060	Axillary pterygium	腋窩翼状片	expert	label
-HP:0001061	Acne	?瘡	expert	label
 HP:0001061	Acne	痤瘡	expert	label
 HP:0001061	Acne	ざ瘡	LSD	synonym
 HP:0001061	Acne	にきび	LSD	synonym
@@ -1288,7 +1295,7 @@ HP:0001062	Atypical nevus	異型母斑	LSD	synonym
 HP:0001062	Atypical nevus	異形成母斑	LSD	synonym
 HP:0001063	Acrocyanosis	肢端チアノーゼ	expert	label
 HP:0001063	Acrocyanosis	先端チアノーゼ	LSD	synonym
-HP:0001065	Striae distensae	伸展線	expert	label
+HP:0001065	Striae distensae	伸展線条	expert	label
 HP:0001065	Striae distensae	皮膚伸展線条	LSD	synonym
 HP:0001065	Striae distensae	皮膚線条	LSD	synonym
 HP:0001065	Striae distensae	線条	LSD	synonym
@@ -1301,6 +1308,7 @@ HP:0001069	Episodic hyperhidrosis	多汗エピソード	expert	label
 HP:0001070	Mottled pigmentation	斑状色素沈着	expert	label
 HP:0001071	Angiokeratoma corporis diffusum	びまん性体部被角血管腫	expert	label
 HP:0001072	Thickened skin	分厚い皮膚	expert	label
+HP:0001072	Thickened skin	皮膚肥厚	Fujiwara	synonym
 HP:0001073	Cigarette-paper scars	タバコ巻紙瘢痕	expert	label
 HP:0001074	Atypical nevi in non-sun exposed areas	太陽にさらされていない領域の非典型的母斑	expert	label
 HP:0001075	Atrophic scars	萎縮性瘢痕	expert	label
@@ -1342,6 +1350,7 @@ HP:0001097	Keratoconjunctivitis sicca	眼乾燥	LSD	synonym
 HP:0001097	Keratoconjunctivitis sicca	眼乾燥症状	LSD	synonym
 HP:0001097	Keratoconjunctivitis sicca	眼球乾燥症	LSD	synonym
 HP:0001098	Abnormal fundus morphology	眼底の異常	expert	label
+HP:0001098	Abnormal fundus morphology	眼底異常	Fujiwara	synonym
 HP:0001099	Fundus atrophy	眼底萎縮	expert	label
 HP:0001100	Heterochromia iridis	虹彩異色症	expert	label
 HP:0001101	Iritis	虹彩炎	expert	label
@@ -1460,6 +1469,7 @@ HP:0001248	Short tubular bones of the hand	短い長管骨 (手)	expert	label
 HP:0001249	Intellectual disability	知的障害	expert	label
 HP:0001249	Intellectual disability	知能低下	LSD	synonym
 HP:0001249	Intellectual disability	知能障害	LSD	synonym
+HP:0001249	Intellectual disability	精神発達の遅れ	Fujiwara	synonym
 HP:0001249	Intellectual disability	精神発達遅延	LSD	synonym
 HP:0001249	Intellectual disability	精神発達遅滞	LSD	synonym
 HP:0001249	Intellectual disability	精神薄弱	LSD	synonym
@@ -1471,6 +1481,7 @@ HP:0001250	Seizure	てんかん性発作	LSD	synonym
 HP:0001250	Seizure	てんかん様発作	LSD	synonym
 HP:0001250	Seizure	てんかん発作	LSD	synonym
 HP:0001251	Ataxia	運動失調	expert	label
+HP:0001251	Ataxia	失調性運動障害	Fujiwara	synonym
 HP:0001251	Ataxia	小脳失調	LSD	synonym
 HP:0001252	Hypotonia	筋緊張低下	expert	label
 HP:0001252	Hypotonia	低圧	LSD	synonym
@@ -1481,6 +1492,7 @@ HP:0001256	Intellectual disability, mild	軽度知的障害	LSD	synonym
 HP:0001256	Intellectual disability, mild	軽度精神発達遅滞	LSD	synonym
 HP:0001256	Intellectual disability, mild	軽度精神遅滞	LSD	synonym
 HP:0001257	Spasticity	痙性	expert	label
+HP:0001257	Spasticity	けいれん	Fujiwara	synonym
 HP:0001257	Spasticity	拘縮	LSD	synonym
 HP:0001257	Spasticity	痙攣	LSD	synonym
 HP:0001257	Spasticity	痙直	LSD	synonym
@@ -1506,7 +1518,9 @@ HP:0001266	Choreoathetosis	舞踏アテトーゼ運動	LSD	synonym
 HP:0001268	Mental deterioration	知能悪化	expert	label
 HP:0001268	Mental deterioration	精神機能低下	LSD	synonym
 HP:0001268	Mental deterioration	認知低下	LSD	synonym
+HP:0001268	Mental deterioration	認知機能の低下	Fujiwara	synonym
 HP:0001268	Mental deterioration	認知機能低下	LSD	synonym
+HP:0001268	Mental deterioration	進行性認知機能低下	Fujiwara	synonym
 HP:0001269	Hemiparesis	片側不全麻痺	expert	label
 HP:0001269	Hemiparesis	不全片麻痺	LSD	synonym
 HP:0001269	Hemiparesis	半身麻痺	LSD	synonym
@@ -1519,7 +1533,6 @@ HP:0001272	Cerebellar atrophy	小脳萎縮	expert	label
 HP:0001272	Cerebellar atrophy	小脳萎縮症	LSD	synonym
 HP:0001273	Abnormal corpus callosum morphology	脳梁の異常	expert	label
 HP:0001274	Agenesis of corpus callosum	脳梁無発生	expert	label
-HP:0001274	Agenesis of corpus callosum	脳梁無発生 of 	expert	label
 HP:0001274	Agenesis of corpus callosum	脳梁欠損症	LSD	synonym
 HP:0001274	Agenesis of corpus callosum	脳梁無形成	LSD	synonym
 HP:0001274	Agenesis of corpus callosum	脳梁無発育	LSD	synonym
@@ -1531,7 +1544,6 @@ HP:0001276	Hypertonia	高浸透圧性	LSD	synonym
 HP:0001278	Orthostatic hypotension	起立性低血圧	expert	label
 HP:0001278	Orthostatic hypotension	体位性低血圧	LSD	synonym
 HP:0001278	Orthostatic hypotension	体位性低血圧症	LSD	synonym
-HP:0001279	Syncope	失心	expert	label
 HP:0001279	Syncope	失神	expert	label
 HP:0001281	Tetany	テタニー	expert	label
 HP:0001283	Bulbar palsy	球麻痺	expert	label
@@ -1632,7 +1644,6 @@ HP:0001360	Holoprosencephaly	全前脳胞症	expert	label
 HP:0001360	Holoprosencephaly	全前脳症	LSD	synonym
 HP:0001361	Nystagmus-induced head nodding	眼振誘発性うなずき運動	expert	label
 HP:0001362	Calvarial skull defect	頭蓋冠の頭蓋骨の欠損	expert	label
-HP:0001362	Calvarial skull defect	頭蓋骨欠損t	expert	label
 HP:0001363	Craniosynostosis	頭蓋縫合早期癒合症	LSD	label
 HP:0001363	Craniosynostosis	狭頭症	LSD	synonym
 HP:0001363	Craniosynostosis	頭蓋縫合部早期閉鎖	LSD	synonym
@@ -1739,6 +1750,8 @@ HP:0001504	Metacarpal osteolysis	中手骨骨融解	expert	label
 HP:0001507	Growth abnormality	成長異常	expert	label
 HP:0001508	Failure to thrive	成長障害 (成長不全)	expert	label
 HP:0001508	Failure to thrive	体重増加不良	LSD	synonym
+HP:0001508	Failure to thrive	成長不全	Fujiwara	synonym
+HP:0001508	Failure to thrive	成長障害	Fujiwara	synonym
 HP:0001508	Failure to thrive	高度虚弱	LSD	synonym
 HP:0001510	Growth delay	成長遅滞	expert	label
 HP:0001510	Growth delay	成長遅延	LSD	synonym
@@ -1759,10 +1772,14 @@ HP:0001520	Large for gestational age	巨人症	LSD	synonym
 HP:0001520	Large for gestational age	巨大児	LSD	synonym
 HP:0001520	Large for gestational age	胎児性巨大児	LSD	synonym
 HP:0001525	Severe failure to thrive	重度の成長障害 (成長不全)	expert	label
+HP:0001525	Severe failure to thrive	重度の成長不全	Fujiwara	synonym
+HP:0001525	Severe failure to thrive	重度の成長障害	Fujiwara	synonym
 HP:0001528	Hemihypertrophy	片側肥大	expert	label
 HP:0001528	Hemihypertrophy	片側肥大症	LSD	synonym
 HP:0001530	Mild postnatal growth retardation	軽度の生後の成長遅滞	expert	label
 HP:0001531	Failure to thrive in infancy	乳児期の成長障害 (成長不全)	expert	label
+HP:0001531	Failure to thrive in infancy	乳児期の成長不全	Fujiwara	synonym
+HP:0001531	Failure to thrive in infancy	乳児期の成長障害	Fujiwara	synonym
 HP:0001533	Slender build	細い体型	expert	label
 HP:0001537	Umbilical hernia	臍ヘルニア	expert	label
 HP:0001538	Protuberant abdomen	腹部突出	expert	label
@@ -1797,6 +1814,7 @@ HP:0001579	Primary hypercortisolism	原発性副腎皮質機能亢進症	expert	
 HP:0001580	Pigmented micronodular adrenocortical disease	色素性小結節性副腎皮質疾患	expert	label
 HP:0001581	Recurrent skin infections	反復性皮膚感染症	expert	label
 HP:0001582	Redundant skin	過剰な皮膚	expert	label
+HP:0001582	Redundant skin	余剰皮膚	Fujiwara	synonym
 HP:0001583	Rotary nystagmus	回転性眼振	expert	label
 HP:0001583	Rotary nystagmus	回旋性眼振	LSD	synonym
 HP:0001583	Rotary nystagmus	回転眼振	LSD	synonym
@@ -1806,8 +1824,10 @@ HP:0001591	Bell-shaped thorax	ベル型胸	expert	label
 HP:0001592	Selective tooth agenesis	選択的歯無発生	expert	label
 HP:0001593	Maxillary lateral incisor microdontia	上顎側切歯小歯	expert	label
 HP:0001595	Abnormal hair morphology	毛髪の異常	expert	label
+HP:0001595	Abnormal hair morphology	毛髪異常	Fujiwara	synonym
 HP:0001596	Alopecia	禿頭	expert	label
 HP:0001596	Alopecia	毛髪脱落	LSD	synonym
+HP:0001596	Alopecia	脱毛	Fujiwara	synonym
 HP:0001596	Alopecia	脱毛症	LSD	synonym
 HP:0001597	Abnormality of the nail	爪の異常	expert	label
 HP:0001597	Abnormality of the nail	爪疾患	LSD	synonym
@@ -2017,7 +2037,6 @@ HP:0001738	Exocrine pancreatic insufficiency	膵機能不全	LSD	synonym
 HP:0001738	Exocrine pancreatic insufficiency	膵機能不全症	LSD	synonym
 HP:0001739	Abnormal nasopharynx morphology	鼻咽頭の異常	expert	label
 HP:0001741	Phimosis	包茎	expert	label
-HP:0001741	Phimosis	方形	expert	label
 HP:0001742	Nasal congestion	鼻閉	expert	label
 HP:0001742	Nasal congestion	鼻づまり	LSD	synonym
 HP:0001742	Nasal congestion	鼻閉感	LSD	synonym
@@ -2135,6 +2154,7 @@ HP:0001872	Abnormality of thrombocytes	血小板の異常	expert	label
 HP:0001872	Abnormality of thrombocytes	血小板無力症	LSD	synonym
 HP:0001872	Abnormality of thrombocytes	血小板異常	LSD	synonym
 HP:0001873	Thrombocytopenia	血小板減少	expert	label
+HP:0001873	Thrombocytopenia	血小板数減少	Fujiwara	synonym
 HP:0001873	Thrombocytopenia	血小板減少症	LSD	synonym
 HP:0001874	Abnormality of neutrophils	好中球の異常	expert	label
 HP:0001875	Neutropenia	好中球減少症	expert	label
@@ -2166,7 +2186,6 @@ HP:0001894	Thrombocytosis	血小板増多症	expert	label
 HP:0001894	Thrombocytosis	血小板増加症	LSD	synonym
 HP:0001894	Thrombocytosis	血小板数増加	LSD	synonym
 HP:0001894	Thrombocytosis	血小板血症	LSD	synonym
-HP:0001895	Normochromic anemia	性色素性貧血	expert	label
 HP:0001895	Normochromic anemia	正色素性貧血	expert	label
 HP:0001896	Reticulocytopenia	網状赤血球減少症	expert	label
 HP:0001896	Reticulocytopenia	網状赤血球減少	LSD	synonym
@@ -2315,6 +2334,13 @@ HP:0001997	Gout	痛風性関節炎	LSD	synonym
 HP:0001998	Neonatal hypoglycemia	新生児低血糖	expert	label
 HP:0001998	Neonatal hypoglycemia	新生児低血糖症	LSD	synonym
 HP:0001999	Abnormal facial shape	異常な顔の形	expert	label
+HP:0001999	Abnormal facial shape	特徴的な顔貌	Fujiwara	synonym
+HP:0001999	Abnormal facial shape	特徴的顔貌	Fujiwara	synonym
+HP:0001999	Abnormal facial shape	特異顔貌	Fujiwara	synonym
+HP:0001999	Abnormal facial shape	特長的な顔貌	Fujiwara	synonym
+HP:0001999	Abnormal facial shape	特長的顔貌	Fujiwara	synonym
+HP:0001999	Abnormal facial shape	異常な顔貌	Fujiwara	synonym
+HP:0001999	Abnormal facial shape	顔の形態異常	Fujiwara	synonym
 HP:0001999	Abnormal facial shape	顔異形	LSD	synonym
 HP:0002000	Short columella	短い鼻小柱	expert	label
 HP:0002002	Deep philtrum	深い人中	expert	label
@@ -2325,6 +2351,7 @@ HP:0002009	Potter facies	Potter 顔貌	expert	label
 HP:0002010	Narrow maxilla	狭い上顎	expert	label
 HP:0002011	Morphological central nervous system abnormality	中枢神経の形態異常	expert	label
 HP:0002011	Morphological central nervous system abnormality	中枢神経系疾患	LSD	synonym
+HP:0002011	Morphological central nervous system abnormality	中枢神経障害	Fujiwara	synonym
 HP:0002012	Abnormality of the abdominal organs	腹部臓器の異常	expert	label
 HP:0002013	Vomiting	嘔吐	expert	label
 HP:0002013	Vomiting	催吐	LSD	synonym
@@ -2365,6 +2392,9 @@ HP:0002028	Chronic diarrhea	慢性下痢症	LSD	synonym
 HP:0002031	Abnormal esophagus morphology	食道の異常	expert	label
 HP:0002032	Esophageal atresia	食道閉鎖	expert	label
 HP:0002033	Poor suck	吸啜不全	expert	label
+HP:0002033	Poor suck	哺乳不良	Fujiwara	synonym
+HP:0002033	Poor suck	哺乳力の低下	Fujiwara	synonym
+HP:0002033	Poor suck	哺乳力低下	Fujiwara	synonym
 HP:0002034	Abnormal rectum morphology	直腸の異常	expert	label
 HP:0002035	Rectal prolapse	直腸逸脱	expert	label
 HP:0002035	Rectal prolapse	直腸脱	LSD	synonym
@@ -2419,9 +2449,11 @@ HP:0002067	Bradykinesia	運動緩慢	LSD	synonym
 HP:0002068	Neuromuscular dysphagia	神経筋性嚥下障害	expert	label
 HP:0002069	Bilateral tonic-clonic seizure	全身性間代性強直性発作	expert	label
 HP:0002069	Bilateral tonic-clonic seizure	全身けいれん	LSD	synonym
+HP:0002069	Bilateral tonic-clonic seizure	全身強直間代発作	Fujiwara	synonym
 HP:0002069	Bilateral tonic-clonic seizure	全身性けいれん	LSD	synonym
 HP:0002069	Bilateral tonic-clonic seizure	全身性痙攣	LSD	synonym
 HP:0002069	Bilateral tonic-clonic seizure	全身痙攣	LSD	synonym
+HP:0002069	Bilateral tonic-clonic seizure	全身間代強直発作	Fujiwara	synonym
 HP:0002069	Bilateral tonic-clonic seizure	大発作	LSD	synonym
 HP:0002069	Bilateral tonic-clonic seizure	強直間代けいれん	LSD	synonym
 HP:0002069	Bilateral tonic-clonic seizure	強直間代性けいれん	LSD	synonym
@@ -2434,6 +2466,7 @@ HP:0002071	Abnormality of extrapyramidal motor function	錐体外路症候群	LS
 HP:0002071	Abnormality of extrapyramidal motor function	錐体外路症状	LSD	synonym
 HP:0002072	Chorea	舞踏病	expert	label
 HP:0002072	Chorea	舞踏病様運動	LSD	synonym
+HP:0002072	Chorea	舞踏運動	Fujiwara	synonym
 HP:0002073	Progressive cerebellar ataxia	進行性小脳失調	expert	label
 HP:0002074	Increased neuronal autofluorescent lipopigment	神経び自己蛍光脂肪色素の増加	expert	label
 HP:0002075	Dysdiadochokinesis	拮抗運動反復不全	expert	label
@@ -2470,6 +2503,7 @@ HP:0002093	Respiratory insufficiency	呼吸不全	expert	label
 HP:0002093	Respiratory insufficiency	呼吸機能障害	LSD	synonym
 HP:0002094	Dyspnea	呼吸困難	expert	label
 HP:0002094	Dyspnea	あえぎ呼吸	LSD	synonym
+HP:0002094	Dyspnea	呼吸障害	Fujiwara	synonym
 HP:0002094	Dyspnea	息切れ	LSD	synonym
 HP:0002094	Dyspnea	浅速呼吸	LSD	synonym
 HP:0002094	Dyspnea	異常呼吸	LSD	synonym
@@ -2511,7 +2545,6 @@ HP:0002121	Generalized non-motor (absence) seizure	小発作性	LSD	synonym
 HP:0002123	Generalized myoclonic seizure	全身性ミオクローヌス発作	expert	label
 HP:0002126	Polymicrogyria	多小脳回	expert	label
 HP:0002127	Abnormal upper motor neuron morphology	上位運動ニューロンの異常	expert	label
-HP:0002127	Abnormal upper motor neuron morphology	上運動ニューロン異常	expert	label
 HP:0002131	Episodic ataxia	運動失調エピソード	expert	label
 HP:0002131	Episodic ataxia	発作性運動失調症	LSD	synonym
 HP:0002132	Porencephalic cyst	孔脳症	expert	label
@@ -2569,6 +2602,7 @@ HP:0002172	Postural instability	姿勢不安定	expert	label
 HP:0002172	Postural instability	アンバランス	LSD	synonym
 HP:0002172	Postural instability	インバランス	LSD	synonym
 HP:0002172	Postural instability	不均衡	LSD	synonym
+HP:0002172	Postural instability	姿勢保持障害	Fujiwara	synonym
 HP:0002172	Postural instability	平衡障害	LSD	synonym
 HP:0002173	Hypoglycemic seizures	低血糖性発作	expert	label
 HP:0002174	Postural tremor	姿勢性振戦	expert	label
@@ -2623,6 +2657,8 @@ HP:0002208	Coarse hair	粗い毛髪	expert	label
 HP:0002209	Sparse scalp hair	疎な頭髪	expert	label
 HP:0002211	White forelock	前頭部白髪	expert	label
 HP:0002212	Curly hair	カール毛	expert	label
+HP:0002212	Curly hair	カールした毛	Fujiwara	synonym
+HP:0002212	Curly hair	カールした毛髪	Fujiwara	synonym
 HP:0002213	Fine hair	細い毛髪	expert	label
 HP:0002215	Sparse axillary hair	疎な腋毛	expert	label
 HP:0002216	Premature graying of hair	早発性毛髪白髪	expert	label
@@ -2645,7 +2681,6 @@ HP:0002235	Pili canaliculi	管状毛髪	expert	label
 HP:0002236	Frontal upsweep of hair	前頭部のなで上げた毛髪	expert	label
 HP:0002239	Gastrointestinal hemorrhage	胃腸出血	expert	label
 HP:0002239	Gastrointestinal hemorrhage	消化管出血	LSD	synonym
-HP:0002240	Hepatomegaly	肝腫	expert	label
 HP:0002240	Hepatomegaly	肝腫大	expert	label
 HP:0002240	Hepatomegaly	肝肥大	LSD	synonym
 HP:0002242	Abnormal intestine morphology	腸の異常	expert	label
@@ -2678,6 +2713,10 @@ HP:0002257	Chronic rhinitis	慢性鼻炎	expert	label
 HP:0002263	Exaggerated cupid's bow	誇張されたキューピッドの弓	expert	label
 HP:0002265	Large fleshy ears	大きな肉厚の耳	expert	label
 HP:0002266	Focal clonic seizure	焦点性間代性発作	expert	label
+HP:0002266	Focal clonic seizure	半身性間代発作	Fujiwara	synonym
+HP:0002266	Focal clonic seizure	半身間代発作	Fujiwara	synonym
+HP:0002266	Focal clonic seizure	焦点性間代発作	Fujiwara	synonym
+HP:0002266	Focal clonic seizure	焦点間代発作	Fujiwara	synonym
 HP:0002267	Exaggerated startle response	誇張された驚愕反応	expert	label
 HP:0002267	Exaggerated startle response	過剰驚愕反応	LSD	synonym
 HP:0002267	Exaggerated startle response	過剰驚愕症	LSD	synonym
@@ -2712,6 +2751,8 @@ HP:0002296	Progressive hypotrichosis	進行性寡毛症	expert	label
 HP:0002297	Red hair	赤毛	expert	label
 HP:0002298	Absent hair	毛髪欠損	expert	label
 HP:0002299	Brittle hair	脆い毛髪	expert	label
+HP:0002299	Brittle hair	脆弱な毛	Fujiwara	synonym
+HP:0002299	Brittle hair	脆弱な毛髪	Fujiwara	synonym
 HP:0002300	Mutism	無言症	expert	label
 HP:0002301	Hemiplegia	片麻痺	expert	label
 HP:0002304	Akinesia	無動症	expert	label
@@ -2766,7 +2807,6 @@ HP:0002339	Abnormal caudate nucleus morphology	尾状核の異常	expert	label
 HP:0002340	Caudate atrophy	尾状核萎縮	expert	label
 HP:0002341	Cervical cord compression	頚髄圧迫	expert	label
 HP:0002341	Cervical cord compression	頸髄圧迫	LSD	synonym
-HP:0002342	Intellectual disability, moderate	"知的障害, 中道動脈瘤"	expert	label
 HP:0002342	Intellectual disability, moderate	知的障害, 中等度	expert	label
 HP:0002342	Intellectual disability, moderate	中等度知的障害	LSD	synonym
 HP:0002342	Intellectual disability, moderate	中等度精神発達遅滞	LSD	synonym
@@ -2789,6 +2829,7 @@ HP:0002354	Memory impairment	もの忘れ	LSD	synonym
 HP:0002354	Memory impairment	失念	LSD	synonym
 HP:0002354	Memory impairment	記憶喪失	LSD	synonym
 HP:0002354	Memory impairment	記憶消失	LSD	synonym
+HP:0002354	Memory impairment	記銘力障害	Fujiwara	synonym
 HP:0002355	Difficulty walking	歩行困難	expert	label
 HP:0002355	Difficulty walking	歩行障がい者	LSD	synonym
 HP:0002355	Difficulty walking	歩行障害	LSD	synonym
@@ -2857,6 +2898,8 @@ HP:0002414	Spina bifida	二分脊椎症	LSD	synonym
 HP:0002414	Spina bifida	脊椎披裂	LSD	synonym
 HP:0002415	Leukodystrophy	ロイコジストロフィー	expert	label
 HP:0002415	Leukodystrophy	白質ジストロフィー	LSD	synonym
+HP:0002415	Leukodystrophy	白質消失	Fujiwara	synonym
+HP:0002415	Leukodystrophy	白質消失病	Fujiwara	synonym
 HP:0002415	Leukodystrophy	白質萎縮症	LSD	synonym
 HP:0002416	Subependymal cysts	上衣下嚢胞	expert	label
 HP:0002418	Abnormal midbrain morphology	中脳形態の異常	expert	label
@@ -2930,9 +2973,14 @@ HP:0002491	Spasticity of facial muscles	顔面筋痙性	expert	label
 HP:0002492	Morphological abnormality of the corticospinal tract	皮質脊髄路の異常	expert	label
 HP:0002493	Upper motor neuron dysfunction	皮質脊髄路機能障害	expert	label
 HP:0002494	Abnormal rapid eye movement sleep	異常な急速眼球運動 (REM) 睡眠	expert	label
+HP:0002494	Abnormal rapid eye movement sleep	レム睡眠の欠如	Fujiwara	synonym
+HP:0002494	Abnormal rapid eye movement sleep	レム睡眠の減少	Fujiwara	synonym
+HP:0002494	Abnormal rapid eye movement sleep	レム睡眠の異常	Fujiwara	synonym
 HP:0002495	Impaired vibratory sensation	振動覚障害	expert	label
 HP:0002497	Spastic ataxia	痙性失調	expert	label
 HP:0002500	Abnormal cerebral white matter morphology	大脳白質の異常	expert	label
+HP:0002500	Abnormal cerebral white matter morphology	大脳白質異常	Fujiwara	synonym
+HP:0002500	Abnormal cerebral white matter morphology	大脳白質障害	Fujiwara	synonym
 HP:0002500	Abnormal cerebral white matter morphology	白質希薄化	LSD	synonym
 HP:0002501	Spasticity of pharyngeal muscles	咽頭筋の痙性	expert	label
 HP:0002503	Spinocerebellar tract degeneration	脊髄小脳路変性	expert	label
@@ -2971,6 +3019,7 @@ HP:0002528	Granulovacuolar degeneration	顆粒空胞変性	expert	label
 HP:0002529	Neuronal loss in central nervous system	中枢神経のニューロン喪失	expert	label
 HP:0002530	Axial dystonia	軸性ジストニア	expert	label
 HP:0002533	Abnormal posturing	異常な姿勢	expert	label
+HP:0002533	Abnormal posturing	姿勢異常	Fujiwara	synonym
 HP:0002536	Abnormal cortical gyration	異常な皮質脳回形成	expert	label
 HP:0002538	Abnormal cerebral cortex morphology	大脳皮質の異常	expert	label
 HP:0002539	Cortical dysplasia	皮質異形成	expert	label
@@ -3047,6 +3096,7 @@ HP:0002593	Intestinal lymphangiectasia	腸管リンパ管拡張症	LSD	synonym
 HP:0002594	Pancreatic hypoplasia	膵低形成	expert	label
 HP:0002595	Ileus	イレウス	expert	label
 HP:0002597	Abnormality of the vasculature	血管の異常	expert	label
+HP:0002597	Abnormality of the vasculature	血管異常	Fujiwara	synonym
 HP:0002599	Head titubation	手揺動	expert	label
 HP:0002600	Hyporeflexia of lower limbs	下肢反射低下	expert	label
 HP:0002601	Paresis of extensor muscles of the big toe	母趾外転筋不全麻痺	expert	label
@@ -3057,7 +3107,6 @@ HP:0002607	Bowel incontinence	遺糞症	expert	label
 HP:0002607	Bowel incontinence	便失禁	LSD	synonym
 HP:0002607	Bowel incontinence	腸失禁	LSD	synonym
 HP:0002608	Celiac disease	セリアック病	expert	label
-HP:0002608	Celiac disease	セリアック秒	expert	label
 HP:0002608	Celiac disease	グルテン性腸症	LSD	synonym
 HP:0002608	Celiac disease	セリアックスプルー	LSD	synonym
 HP:0002611	Cholestatic liver disease	胆汁うっ滞性肝疾患	expert	label
@@ -3086,7 +3135,6 @@ HP:0002626	Venous varicosities of celiac and mesenteric vessels	腹腔および�
 HP:0002627	Right aortic arch with mirror image branching	鏡像分枝を伴う右大動脈弓	expert	label
 HP:0002629	Gastrointestinal arteriovenous malformation	胃腸動静脈奇形	expert	label
 HP:0002630	Fat malabsorption	脂肪吸収不全	expert	label
-HP:0002632	Low-to-normal blood pressure	低?正常血圧	expert	label
 HP:0002632	Low-to-normal blood pressure	低~正常血圧	expert	label
 HP:0002633	Vasculitis	血管炎	expert	label
 HP:0002633	Vasculitis	脈管炎	LSD	synonym
@@ -3109,6 +3157,7 @@ HP:0002645	Wormian bones	ウォルム氏骨	expert	label
 HP:0002647	Aortic dissection	大動脈解離	expert	label
 HP:0002648	Abnormality of calvarial morphology	頭蓋冠形態異常	expert	label
 HP:0002650	Scoliosis	側弯	expert	label
+HP:0002650	Scoliosis	側彎	Fujiwara	synonym
 HP:0002650	Scoliosis	脊柱側弯症	LSD	synonym
 HP:0002651	Spondyloepimetaphyseal dysplasia	脊椎骨端骨幹端異形成	expert	label
 HP:0002652	Skeletal dysplasia	骨格異形成	expert	label
@@ -3194,6 +3243,8 @@ HP:0002720	Decreased circulating IgA level	IgA欠乏症	expert	label
 HP:0002721	Immunodeficiency	免疫不全	expert	label
 HP:0002721	Immunodeficiency	免疫不全状態	LSD	synonym
 HP:0002721	Immunodeficiency	免疫不全症	LSD	synonym
+HP:0002721	Immunodeficiency	免疫低下	Fujiwara	synonym
+HP:0002721	Immunodeficiency	免疫機能の低下	Fujiwara	synonym
 HP:0002721	Immunodeficiency	免疫欠損	LSD	synonym
 HP:0002722	Recurrent abscess formation	反復性膿瘍形成	expert	label
 HP:0002723	Absence of bactericidal oxidative respiratory burst in phagocytes	貪食細胞での殺菌的酸化 '呼吸バースト' の欠損	expert	label
@@ -3398,7 +3449,6 @@ HP:0002900	Hypokalemia	低カリウム血症	expert	label
 HP:0002901	Hypocalcemia	低カルシウム血症	expert	label
 HP:0002902	Hyponatremia	低ナトリウム血症	expert	label
 HP:0002904	Hyperbilirubinemia	高ビリルビン血症	expert	label
-HP:0002905	Hyperphosphatemia	高リン血漿	expert	label
 HP:0002905	Hyperphosphatemia	高リン血症	expert	label
 HP:0002907	Microscopic hematuria	顕微血尿	expert	label
 HP:0002907	Microscopic hematuria	顕微鏡的血尿	LSD	synonym
@@ -3471,7 +3521,6 @@ HP:0002974	Radioulnar synostosis	橈尺骨癒合	expert	label
 HP:0002977	Aplasia/Hypoplasia involving the central nervous system	中枢神経を含む無形成/低形成	expert	label
 HP:0002979	Bowing of the legs	下肢湾曲	expert	label
 HP:0002980	Femoral bowing	大腿骨弯曲	expert	label
-HP:0002980	Femoral bowing	大腿骨湾曲	expert	label
 HP:0002981	Abnormality of the calf	腓腹の異常	expert	label
 HP:0002982	Tibial bowing	脛骨湾曲	expert	label
 HP:0002983	Micromelia	小肢症	expert	label
@@ -3541,7 +3590,6 @@ HP:0003070	Elbow ankylosis	肘強直	expert	label
 HP:0003071	Flattened epiphysis	平坦な骨端	expert	label
 HP:0003072	Hypercalcemia	高カルシウム血症	expert	label
 HP:0003073	Hypoalbuminemia	低アルブミン血症	expert	label
-HP:0003073	Hypoalbuminemia	高アルブミン血症	expert	label
 HP:0003074	Hyperglycemia	高血糖	expert	label
 HP:0003075	Hypoproteinemia	低タンパク血症	expert	label
 HP:0003075	Hypoproteinemia	低蛋白血症	LSD	synonym
@@ -3642,7 +3690,6 @@ HP:0003163	Elevated urinary delta-aminolevulinic acid	尿中δ-アミノレブ�
 HP:0003164	Hypothalamic gonadotropin-releasing hormone deficiency	視床下部ゴナドトロピン遊離ホルモン (GNRH)欠乏症	expert	label
 HP:0003165	Elevated circulating parathyroid hormone level	循環性副甲状腺ホルモン(PTH) 値上昇	expert	label
 HP:0003166	Increased urinary taurine	尿中タウリン増加	expert	label
-HP:0003166	Increased urinary taurine	尿中多雨林増加	expert	label
 HP:0003167	Carnosinuria	カルノシン尿	expert	label
 HP:0003167	Carnosinuria	カルノシン尿症	LSD	synonym
 HP:0003168	Dibasicaminoaciduria	 二塩基性アミノ酸尿症	expert	label
@@ -3799,6 +3846,7 @@ HP:0003309	Ovoid thoracolumbar vertebrae	卵形胸腰椎	expert	label
 HP:0003310	Abnormality of the odontoid process	歯状突起の異常	expert	label
 HP:0003311	Hypoplasia of the odontoid process	歯状突起低形成	expert	label
 HP:0003312	Abnormal form of the vertebral bodies	椎体骨形態異常	expert	label
+HP:0003312	Abnormal form of the vertebral bodies	椎体異常	Fujiwara	synonym
 HP:0003316	Butterfly vertebrae	蝶形脊椎骨	expert	label
 HP:0003318	Cervical spine hypermobility	頚椎過動	expert	label
 HP:0003319	Abnormality of the cervical spine	頚椎の異常	expert	label
@@ -4080,7 +4128,6 @@ HP:0003737	Mitochondrial myopathy	ミトコンドリアミオパチー	expert	la
 HP:0003737	Mitochondrial myopathy	ミトコンドリア筋症	LSD	synonym
 HP:0003738	Exercise-induced myalgia	運動誘発性筋痛	expert	label
 HP:0003739	Myoclonic spasms	ミオクローヌス性スパスム	expert	label
-HP:0003740	Myotonia with warm-up phenomenon	ウォームアップ減少を伴うミオトニア	expert	label
 HP:0003740	Myotonia with warm-up phenomenon	ウォームアップ現象を伴うミオトニア	expert	label
 HP:0003741	Congenital muscular dystrophy	先天性筋ジストロフィー	expert	label
 HP:0003749	Pelvic girdle muscle weakness	骨盤帯筋筋虚弱	expert	label
@@ -4249,7 +4296,6 @@ HP:0003945	Irregular articular surfaces of the elbow joints	肘関節の不規�
 HP:0003946	Abnormality of the epiphyses of the elbow	肘骨端の異常	expert	label
 HP:0003947	Delayed elbow epiphyseal ossification	肘骨端骨化遅延	expert	label
 HP:0003948	Irregular epiphyses of the elbow	不規則な骨端	expert	label
-HP:0003948	Irregular epiphyses of the elbow	不規則な骨端 of the elbow	expert	label
 HP:0003949	Abnormality of the elbow metaphyses	肘の骨幹端異常	expert	label
 HP:0003950	Flared elbow metaphyses	骨幹端フレア (肘)	expert	label
 HP:0003951	Distal humeral metaphyseal irregularity	不規則な骨幹端 (肘)	expert	label
@@ -4520,6 +4566,7 @@ HP:0004370	Abnormality of temperature regulation	体温調節の異常	expert	la
 HP:0004370	Abnormality of temperature regulation	体温変化	LSD	synonym
 HP:0004371	Abnormality of glycosaminoglycan metabolism	グリコサミノグリカン代謝の異常	expert	label
 HP:0004372	Reduced consciousness/confusion	意識減少/混乱	expert	label
+HP:0004372	Reduced consciousness/confusion	意識障害	Fujiwara	synonym
 HP:0004373	Focal dystonia	焦点性ジストニア	expert	label
 HP:0004373	Focal dystonia	局所性ジストニア	LSD	synonym
 HP:0004373	Focal dystonia	限局性ジストニア	LSD	synonym
@@ -4531,6 +4578,7 @@ HP:0004377	Hematological neoplasm	血液学的新生物	expert	label
 HP:0004377	Hematological neoplasm	血液腫瘍	LSD	synonym
 HP:0004377	Hematological neoplasm	血腫	LSD	synonym
 HP:0004378	Abnormality of the anus	肛門の異常	expert	label
+HP:0004378	Abnormality of the anus	肛門奇形	Fujiwara	synonym
 HP:0004379	Abnormality of alkaline phosphatase level	アルカリホスファターゼ活性の異常	expert	label
 HP:0004380	Aortic valve calcification	大動脈弁石灰化	expert	label
 HP:0004381	Supravalvular aortic stenosis	弁上性大動脈狭窄	expert	label
@@ -4590,6 +4638,7 @@ HP:0004423	Cranium bifidum occultum	潜在的二分頭蓋骨	expert	label
 HP:0004425	Flat forehead	平坦な額	expert	label
 HP:0004426	Abnormality of the cheek	頬部の異常	expert	label
 HP:0004428	Elfin facies	妖精顔貌	expert	label
+HP:0004428	Elfin facies	妖精様顔貌	Fujiwara	synonym
 HP:0004429	Recurrent viral infections	反復性ウイルス感染症	expert	label
 HP:0004430	Severe combined immunodeficiency	重症複合型免疫不全	expert	label
 HP:0004430	Severe combined immunodeficiency	重症複合免疫不全症	LSD	synonym
@@ -4954,6 +5003,7 @@ HP:0004964	Pulmonary arterial medial hypertrophy	肺動脈内膜肥大	expert	la
 HP:0004966	Medial calcification of large arteries	大きな動脈の中膜石灰化	expert	label
 HP:0004968	Recurrent cerebral hemorrhage	反復性大脳出血	expert	label
 HP:0004969	Peripheral pulmonary artery stenosis	末梢肺動脈狭窄	expert	label
+HP:0004969	Peripheral pulmonary artery stenosis	末梢性肺動脈狭窄	Fujiwara	synonym
 HP:0004970	Ascending tubular aorta aneurysm	上行大動脈拡張	expert	label
 HP:0004971	Pulmonary artery hypoplasia	肺動脈低形成	expert	label
 HP:0004972	Elevated mean arterial pressure	平均動脈圧上昇	expert	label
@@ -5031,7 +5081,6 @@ HP:0005113	Aortic arch aneurysm	大動脈弓拡張	expert	label
 HP:0005113	Aortic arch aneurysm	弓部大動脈瘤	LSD	synonym
 HP:0005115	Supraventricular arrhythmia	上室性不整脈	expert	label
 HP:0005116	Arterial tortuosity	動脈蛇行	expert	label
-HP:0005116	Arterial tortuosity	動脈蛇行y	expert	label
 HP:0005117	Elevated diastolic blood pressure	拡張期血圧上昇	expert	label
 HP:0005120	Abnormal cardiac atrium morphology	心房の異常	expert	label
 HP:0005121	Posterior scalloping of vertebral bodies	波形の脊椎骨後部 (スカロッピング)	expert	label
@@ -5222,6 +5271,7 @@ HP:0005325	Extension of hair growth on temples to lateral eyebrow	こめかみ�
 HP:0005326	Hypoplastic philtrum	人中低形成	expert	label
 HP:0005327	Loss of facial expression	顔面表情喪失	expert	label
 HP:0005328	Progeroid facial appearance	プロゲリア様顔貌	expert	label
+HP:0005328	Progeroid facial appearance	老人様顔貌	Fujiwara	synonym
 HP:0005329	Fixed facial expression	顔面表情固定	expert	label
 HP:0005332	Recurrent mandibular subluxations	反復性下顎亜脱臼	expert	label
 HP:0005335	Sleepy facial expression	眠い顔面表情	expert	label
@@ -5350,7 +5400,6 @@ HP:0005528	Bone marrow hypocellularity	骨髄低形成	LSD	synonym
 HP:0005528	Bone marrow hypocellularity	骨髄機能不全	LSD	synonym
 HP:0005531	Biphenotypic acute leukemia	二表現型生急性白血病	expert	label
 HP:0005532	Macrocytic dyserythropoietic anemia	大球性異常造血性貧血	expert	label
-HP:0005534	Transient myeloproliferative syndrome	一過性骨髄proliferative syndrome	expert	label
 HP:0005534	Transient myeloproliferative syndrome	一過性骨髄増殖性疾患	expert	label
 HP:0005535	Exercise-induced hemolysis	運動誘発性溶血	expert	label
 HP:0005537	Decreased mean platelet volume	平均血小板容量の減少	expert	label
@@ -5413,6 +5462,7 @@ HP:0005609	Gallbladder dysfunction	胆のう機能障害	LSD	synonym
 HP:0005612	Arthrogryposis-like hand anomaly	関節拘縮様手奇形	expert	label
 HP:0005613	Aplasia/hypoplasia of the femur	大腿骨無形成/低形成	expert	label
 HP:0005616	Accelerated skeletal maturation	骨成熟促進	expert	label
+HP:0005616	Accelerated skeletal maturation	骨年齢促進	Fujiwara	synonym
 HP:0005617	Bilateral camptodactyly	両側性屈指	expert	label
 HP:0005619	Thoracolumbar kyphosis	胸腰椎後弯	expert	label
 HP:0005620	Hypermobility of interphalangeal joints	指間(IP)関節過動	expert	label
@@ -5454,6 +5504,8 @@ HP:0005687	Deformed humeral heads	変形した上腕骨頭	expert	label
 HP:0005688	Dysplastic distal thumb phalanges with a central hole	中心に穴のあいた母指末節骨異形成	expert	label
 HP:0005689	Dermatoglyphic ridges abnormal	皮膚紋理隆線異常	expert	label
 HP:0005692	Joint hyperflexibility	関節過伸展	expert	label
+HP:0005692	Joint hyperflexibility	関節の過伸展	Fujiwara	synonym
+HP:0005692	Joint hyperflexibility	関節伸展	Fujiwara	synonym
 HP:0005694	Partial fusion of proximal row of carpal bones	手根骨近位列の部分重複	expert	label
 HP:0005696	Postaxial polydactyly type A	軸後性多指A型	expert	label
 HP:0005700	Increased bone density with cystic changes	嚢胞変化を伴う骨濃度の増加	expert	label
@@ -5715,7 +5767,6 @@ HP:0006205	Irregular phalanges	不規則な指趾骨	expert	label
 HP:0006206	Hypersegmentation of proximal phalanx of second finger	第2指基節骨過剰分節	expert	label
 HP:0006207	Partial fusion of carpals	手根骨の部分重複	expert	label
 HP:0006208	Metaphyseal cupping of proximal phalanges	基節骨の骨幹端カッピング	expert	label
-HP:0006209	Partial-complete absence of 5th phalanges	第5指趾骨の部分?完全欠損	expert	label
 HP:0006209	Partial-complete absence of 5th phalanges	第5指趾骨の部分~完全欠損	expert	label
 HP:0006210	Postaxial oligodactyly	軸後性乏指趾症	expert	label
 HP:0006213	Thin proximal phalanges with broad epiphyses of the hand	幅広い骨端を伴った細い基節骨	expert	label
@@ -5759,17 +5810,13 @@ HP:0006279	Beta-cell dysfunction	β細胞機能障害	expert	label
 HP:0006280	Chronic pancreatitis	慢性膵炎	expert	label
 HP:0006282	Generalized hypoplasia of dental enamel	歯エナメル質全般性低形成	expert	label
 HP:0006283	Multiple unerupted teeth	多発性歯未萌出	expert	label
-HP:0006283	Multiple unerupted teeth	多発性歯未萠出	expert	label
 HP:0006285	Enamel hypomineralization	エナメル質低ミネラル化	expert	label
 HP:0006286	Yellow-brown discoloration of the teeth	黄褐色の歯	expert	label
 HP:0006288	Advanced eruption of teeth	歯萌出促進	expert	label
-HP:0006288	Advanced eruption of teeth	歯萠出促進	expert	label
 HP:0006289	Agenesis of central incisor	門歯無発生	expert	label
 HP:0006290	Discolored lateral incisors	変色した側切歯	expert	label
 HP:0006291	Marked delay in eruption of permanent teeth	永久歯萌出の目立つ遅延	expert	label
-HP:0006291	Marked delay in eruption of permanent teeth	永久歯萠出の目立つ遅延	expert	label
 HP:0006292	Abnormality of dental eruption	歯萌出異常	expert	label
-HP:0006292	Abnormality of dental eruption	歯萠出異常	expert	label
 HP:0006293	Agenesis of maxillary central incisor	上顎門歯無発生	expert	label
 HP:0006297	Enamel hypoplasia	歯エナメル質低形成	expert	label
 HP:0006297	Enamel hypoplasia	エナメル質形成不全	LSD	synonym
@@ -5784,7 +5831,6 @@ HP:0006313	Widely spaced primary teeth	乳歯間隔離	expert	label
 HP:0006315	Solitary median maxillary central incisor	単一正中上顎切歯	expert	label
 HP:0006316	Irregularly spaced teeth	不規則な歯間	expert	label
 HP:0006321	Multiple non-erupting secondary teeth	多発性永久歯非萌出	expert	label
-HP:0006321	Multiple non-erupting secondary teeth	多発性永久歯非萠出	expert	label
 HP:0006323	Premature loss of primary teeth	早発性乳歯喪失	expert	label
 HP:0006326	Buried teeth encased in mucopolysaccharide	ムコ多糖体に包まれた埋没歯	expert	label
 HP:0006329	Alveolar process hypoplasia	歯槽突起低形成	expert	label
@@ -5795,7 +5841,6 @@ HP:0006334	Hypoplasia of the primary teeth	乳歯低形成	expert	label
 HP:0006335	Persistence of primary teeth	乳歯遺残	expert	label
 HP:0006336	Short dental root	短い歯根	expert	label
 HP:0006337	Premature eruption of permanent teeth	早発性永久歯萌出	expert	label
-HP:0006337	Premature eruption of permanent teeth	早発性永久歯萠出	expert	label
 HP:0006338	Malformation of mandibular premolar	下顎小臼歯奇形	expert	label
 HP:0006339	Conical mandibular incisor	円錐型下顎切歯	expert	label
 HP:0006342	Peg-shaped maxillary lateral incisors	杭状上顎側切歯	expert	label
@@ -5805,7 +5850,6 @@ HP:0006347	Microdontia of primary teeth	乳歯の小歯	expert	label
 HP:0006349	Agenesis of permanent teeth	永久歯無発生	expert	label
 HP:0006350	Pulp obliteration	歯髄腔閉塞	expert	label
 HP:0006352	Failure of eruption of permanent teeth	永久歯萌出不全	expert	label
-HP:0006352	Failure of eruption of permanent teeth	永久歯萠出不全	expert	label
 HP:0006353	Hypoplasia of the tooth germ	歯胚低形成	expert	label
 HP:0006355	Agenesis of mandibular central incisor	下顎門歯無発生	expert	label
 HP:0006357	Premature loss of permanent teeth	早発性永久歯喪失	expert	label
@@ -5854,6 +5898,7 @@ HP:0006429	Broad femoral neck	幅広い大腿骨頸部	expert	label
 HP:0006431	Proximal femoral metaphyseal abnormality	遠位および近位大腿骨の骨幹端異常	expert	label
 HP:0006432	Trapezoidal distal femoral condyles	台形の遠位大腿骨顆	expert	label
 HP:0006433	Radial dysplasia	橈骨異形成	expert	label
+HP:0006433	Radial dysplasia	橈骨奇形	Fujiwara	synonym
 HP:0006434	Hypoplasia of proximal radius	近位橈骨低形成	expert	label
 HP:0006437	Disproportionate prominence of the femoral medial condyle	不均衡な大腿骨内側顆隆起	expert	label
 HP:0006438	Enlargement of the distal femoral epiphysis	遠位大腿骨骨端の拡大	expert	label
@@ -5874,6 +5919,7 @@ HP:0006461	Proximal femoral epiphysiolysis	近位大腿骨骨端融解	expert	la
 HP:0006462	Generalized bone demineralization	全身性骨脱ミネラル化	expert	label
 HP:0006463	Rickets of the lower limbs	くる病 (下肢)	expert	label
 HP:0006465	Periosteal thickening of long tubular bones	長管骨の骨膜肥厚	expert	label
+HP:0006465	Periosteal thickening of long tubular bones	骨膜性骨肥厚	Fujiwara	synonym
 HP:0006466	Ankle flexion contracture	足関節拘縮	expert	label
 HP:0006467	Limited shoulder movement	肩運動制限	expert	label
 HP:0006470	Thin long bone diaphyses	薄い長管骨骨幹	expert	label
@@ -6155,6 +6201,7 @@ HP:0006808	Cerebral hypomyelination	大脳髄鞘低形成	expert	label
 HP:0006812	White mater abnormalities in the posterior periventricular region	後部脳室周囲領域の白質異常	expert	label
 HP:0006813	Focal hemiclonic seizure	片側間代性発作	expert	label
 HP:0006817	Aplasia/Hypoplasia of the cerebellar vermis	小脳虫部無形成/低形成  	expert	label
+HP:0006817	Aplasia/Hypoplasia of the cerebellar vermis	小脳虫部欠損	Fujiwara	synonym
 HP:0006818	4-layered lissencephaly	I型滑脳症	expert	label
 HP:0006821	Frontal polymicrogyria	"多小脳回, 前部から後部への傾斜"	expert	label
 HP:0006824	Cranial nerve paralysis	脳神経麻痺	expert	label
@@ -6375,7 +6422,7 @@ HP:0007229	Intracerebral periventricular calcifications	大脳内脳室周囲石
 HP:0007230	Decreased distal sensory nerve action potential	遠位知覚神経活動電位の振幅減少	expert	label
 HP:0007232	Spinocerebellar tract disease in lower limbs	下肢の脊髄小脳路疾患	expert	label
 HP:0007233	Clusters of axonal regeneration	軸索再生のクラスター	expert	label
-HP:0007236	Recurrent subcortical infarcts	反復性皮質下 infarcts	expert	label
+HP:0007236	Recurrent subcortical infarcts	反復性皮質下梗塞	expert	label
 HP:0007238	Nonarteriosclerotic cerebral calcification	非動脈硬化性大脳石灰化	expert	label
 HP:0007239	Congenital encephalopathy	先天性脳症	expert	label
 HP:0007240	Progressive gait ataxia	進行性歩行失調	expert	label
@@ -6407,6 +6454,8 @@ HP:0007274	Recurrent bacterial meningitis	反復性細菌性髄膜炎	expert	lab
 HP:0007277	Paucity of anterior horn motor neurons	前角運動ニューロンの停止	expert	label
 HP:0007280	Acute infantile spinal muscular atrophy	急性乳児脊髄性筋萎縮	expert	label
 HP:0007281	Developmental stagnation	発達停滞	expert	label
+HP:0007281	Developmental stagnation	発達の遅れ	Fujiwara	synonym
+HP:0007281	Developmental stagnation	発達障害	Fujiwara	synonym
 HP:0007285	Facial palsy secondary to cranial hyperostosis	頭蓋骨過骨症に二次的な顔面麻痺	expert	label
 HP:0007286	Horizontal jerk nystagmus	水平性律動性眼振	expert	label
 HP:0007289	Limb fasciculations	四肢線維束性収縮	expert	label
@@ -6909,6 +6958,7 @@ HP:0008061	Aplasia/Hypoplasia of the retina	網膜無形成/低形成	expert	lab
 HP:0008062	Aplasia/Hypoplasia affecting the anterior segment of the eye	眼前節の無形成/低形成	expert	label
 HP:0008063	Aplasia/Hypoplasia of the lens	水晶体無形成/低形成	expert	label
 HP:0008064	Ichthyosis	魚鱗癬	expert	label
+HP:0008064	Ichthyosis	魚麟癬	Fujiwara	synonym
 HP:0008065	Aplasia/Hypoplasia of the skin	皮膚無形成/低形成	expert	label
 HP:0008066	Abnormal blistering of the skin	異常な皮膚水泡	expert	label
 HP:0008066	Abnormal blistering of the skin	疱疹	LSD	synonym
@@ -6917,6 +6967,7 @@ HP:0008069	Neoplasm of the skin	皮膚新生物	expert	label
 HP:0008069	Neoplasm of the skin	皮膚癌	LSD	synonym
 HP:0008069	Neoplasm of the skin	皮膚腫瘍	LSD	synonym
 HP:0008070	Sparse hair	疎な毛髪	expert	label
+HP:0008070	Sparse hair	粗な毛髪	Fujiwara	synonym
 HP:0008070	Sparse hair	貧毛症	LSD	synonym
 HP:0008071	Maternal hypertension	母体高血圧	expert	label
 HP:0008072	Maternal virilization in pregnancy	母体妊娠中男性化	expert	label
@@ -7075,7 +7126,6 @@ HP:0008282	Unconjugated hyperbilirubinemia	不抱合型高ビリルビン血症	
 HP:0008283	Fasting hyperinsulinemia	空腹時高インスリン血症	expert	label
 HP:0008285	Transient hypophosphatemia	一過性低リン血漿	expert	label
 HP:0008288	Nonketotic hyperglycinemia	非ケトン性高グリシン血症	expert	label
-HP:0008288	Nonketotic hyperglycinemia	非ケトン性高血糖	expert	label
 HP:0008288	Nonketotic hyperglycinemia	非ケトーシス型高グリシン血症	LSD	synonym
 HP:0008290	Partial complement factor H deficiency	部分的補体 factor H欠乏症	expert	label
 HP:0008291	Pituitary corticotropic cell adenoma	下垂体副腎皮質刺激ホルモン分泌細胞腺腫	expert	label
@@ -7255,6 +7305,7 @@ HP:0008568	Vestibular areflexia	前庭性運動失調	LSD	synonym
 HP:0008568	Vestibular areflexia	前庭性運動失調症	LSD	synonym
 HP:0008569	Microtia, second degree	"小耳, 2度"	expert	label
 HP:0008572	External ear malformation	外耳奇形	expert	label
+HP:0008572	External ear malformation	耳奇形	Fujiwara	synonym
 HP:0008573	Low-frequency sensorineural hearing impairment	低音感音難聴	expert	label
 HP:0008577	Underfolded helix	巻き込み不足の耳輪	expert	label
 HP:0008583	Underfolded superior helices	巻き込み不足の上部耳輪	expert	label
@@ -7549,8 +7600,9 @@ HP:0009110	Diaphragmatic eventration	横隔膜挙上	expert	label
 HP:0009110	Diaphragmatic eventration	横隔膜挙上症	LSD	synonym
 HP:0009112	Aplasia of the left hemidiaphragm	左半横隔膜欠損	expert	label
 HP:0009113	Diaphragmatic weakness	横隔膜虚弱	expert	label
-HP:0009115	Aplasia/hypoplasia involving the skeleton	骨格	expert	label
 HP:0009115	Aplasia/hypoplasia involving the skeleton	骨格の無形成/低形成	expert	label
+HP:0009115	Aplasia/hypoplasia involving the skeleton	骨格の低形成	Fujiwara	synonym
+HP:0009115	Aplasia/hypoplasia involving the skeleton	骨格の無形性	Fujiwara	synonym
 HP:0009116	Aplasia/Hypoplasia involving bones of the skull	頭蓋骨の無形成/低形成	expert	label
 HP:0009117	Aplasia/Hypoplasia of the maxilla	上顎の無形成/低形成	expert	label
 HP:0009118	Aplasia/Hypoplasia of the mandible	下顎の無形成/低形成	expert	label
@@ -7705,7 +7757,6 @@ HP:0009277	Contracture of the metacarpophalangeal joint of the 4th finger	第4�
 HP:0009278	Ulnar deviation of the 4th finger	第4指の尺側偏位	expert	label
 HP:0009279	Radial deviation of the 4th finger	第4指橈側偏位	expert	label
 HP:0009280	Short 4th finger	短い第4指	expert	label
-HP:0009280	Short 4th finger	短い第4指r	expert	label
 HP:0009281	Aplasia of the 4th finger	第4指無形成	expert	label
 HP:0009282	Abnormality of the distal phalanx of the 4th finger	第4指末節骨の異常	expert	label
 HP:0009283	Abnormality of the middle phalanx of the 4th finger	第4指中節骨の異常	expert	label
@@ -8705,6 +8756,7 @@ HP:0010297	Bifid tongue	二分した舌	expert	label
 HP:0010298	Smooth tongue	平坦な舌	expert	label
 HP:0010299	Abnormal dentin morphology	象牙質異常	expert	label
 HP:0010300	Abnormally low-pitched voice	異常に低音の声	expert	label
+HP:0010300	Abnormally low-pitched voice	低い泣き声	Fujiwara	synonym
 HP:0010301	Spinal dysraphism	脊椎破裂	expert	label
 HP:0010301	Spinal dysraphism	脊椎癒合不全	LSD	synonym
 HP:0010302	Spinal cord tumor	脊髄腫瘍	expert	label
@@ -9289,7 +9341,8 @@ HP:0010815	Nevus sebaceous	皮脂母斑	expert	label
 HP:0010815	Nevus sebaceous	脂腺母斑	LSD	synonym
 HP:0010816	Epidermal nevus	表皮母斑	expert	label
 HP:0010817	Linear nevus sebaceous	線状皮脂腺母斑	expert	label
-HP:0010818	Generalized tonic seizure	全身性間代性発作	expert	label
+HP:0010818	Generalized tonic seizure	全般性強直発作	expert	label
+HP:0010818	Generalized tonic seizure	全般強直発作	Fujiwara	synonym
 HP:0010819	Atonic seizure	脱力発作	expert	label
 HP:0010819	Atonic seizure	弛緩性発作	LSD	synonym
 HP:0010819	Atonic seizure	無緊張発作	LSD	synonym
@@ -9360,6 +9413,7 @@ HP:0010871	Sensory ataxia	脊髄性運動失調症	LSD	synonym
 HP:0010872	T-wave inversion	心電図: T-波逆転	expert	label
 HP:0010873	Cervical spinal cord atrophy	頚髄萎縮	expert	label
 HP:0010874	Tendon xanthomatosis	腱黄色腫症	expert	label
+HP:0010874	Tendon xanthomatosis	腱黄色腫	Fujiwara	synonym
 HP:0010875	Chaddock reflex	Chaddock 反射	expert	label
 HP:0010876	Abnormal circulating protein concentration	循環性タンパク値の異常	expert	label
 HP:0010877	Monocular strabismus	片側性斜視	expert	label
@@ -9640,7 +9694,6 @@ HP:0011128	Acute esophageal necrosis	急性食道壊死	expert	label
 HP:0011129	Bilateral fetal pyelectasis	両側性胎児性腎盂拡張症	expert	label
 HP:0011130	Abnormal renal calyx morphology	腎杯形態異常	expert	label
 HP:0011131	Perianal dermatitis	肛門周囲発心	expert	label
-HP:0011132	Chronic furunculosis	慢性?	expert	label
 HP:0011132	Chronic furunculosis	慢性癤症	expert	label
 HP:0011133	Increased sensitivity to ionizing radiation	電離放射線への感受性の増加	expert	label
 HP:0011134	Low-grade fever	微熱	expert	label
@@ -9674,7 +9727,11 @@ HP:0011161	Focal sensory seizure with olfactory features	嗅覚前兆	expert	lab
 HP:0011163	Focal sensory seizure with somatosensory features	身体感覚性前兆	expert	label
 HP:0011165	Focal sensory seizure with visual features	視覚的前兆	expert	label
 HP:0011166	Focal myoclonic seizure	焦点性ミオクロニー発作	expert	label
-HP:0011167	Focal tonic seizure	焦点性間代性発作	expert	label
+HP:0011167	Focal tonic seizure	局所性強直発作	expert	label
+HP:0011167	Focal tonic seizure	局所強直発作	Fujiwara	synonym
+HP:0011167	Focal tonic seizure	局所性強直発作	Fujiwara	synonym
+HP:0011167	Focal tonic seizure	焦点強直発作	Fujiwara	synonym
+HP:0011167	Focal tonic seizure	焦点性強直発作	Fujiwara	synonym
 HP:0011168	Focal seizure with eyelid myoclonia	眼瞼ミオクローヌス	expert	label
 HP:0011169	Generalized clonic seizure	全身性間代性発作	expert	label
 HP:0011170	Generalized myoclonic-atonic seizure	ミオクローヌス性無緊張性発作	expert	label
@@ -9844,7 +9901,6 @@ HP:0011327	Posterior plagiocephaly	後部斜頭	expert	label
 HP:0011328	Abnormality of fontanelles	泉門異常	expert	label
 HP:0011329	Abnormality of cranial sutures	頭蓋骨縫合異常	expert	label
 HP:0011330	Metopic synostosis	三角頭蓋	expert	label
-HP:0011330	Metopic synostosis	人字縫合早期癒合	expert	label
 HP:0011331	Hemifacial atrophy	片側顔面萎縮	expert	label
 HP:0011331	Hemifacial atrophy	顔面片側萎縮	LSD	synonym
 HP:0011332	Hemifacial hypoplasia	片側顔面低形成	expert	label
@@ -10569,6 +10625,7 @@ HP:0011967	Decreased circulating copper concentration	銅欠乏症	LSD	synonym
 HP:0011968	Feeding difficulties	食餌摂取障害	expert	label
 HP:0011969	Elevated circulating luteinizing hormone level	黄体形成ホルモン上昇	expert	label
 HP:0011970	Cerebral amyloid angiopathy	大脳アミロイド血管症	expert	label
+HP:0011970	Cerebral amyloid angiopathy	アミロイド血管症	Fujiwara	synonym
 HP:0011970	Cerebral amyloid angiopathy	脳アミロイド血管症	LSD	synonym
 HP:0011971	Dermatographic urticaria	描画症性蕁麻疹	expert	label
 HP:0011971	Dermatographic urticaria	皮膚描記症	LSD	synonym
@@ -10694,6 +10751,7 @@ HP:0012063	Aneurysmal bone cyst	動脈瘤様骨嚢胞	LSD	synonym
 HP:0012064	Unicameral bone cyst	単房性骨嚢胞	expert	label
 HP:0012064	Unicameral bone cyst	単発性骨嚢腫	LSD	synonym
 HP:0012065	Multiple bony cystic lesions	多発性骨嚢胞病変	expert	label
+HP:0012065	Multiple bony cystic lesions	多発性骨嚢胞	Fujiwara	synonym
 HP:0012066	Increased urinary disaccharide excretion	尿中二糖類排泄増加	expert	label
 HP:0012067	Glycopeptiduria	糖ペプチド尿	expert	label
 HP:0012068	Aspartylglucosaminuria	アスパルチルグルコサミン尿	expert	label
@@ -10708,6 +10766,7 @@ HP:0012074	Tonic pupil	瞳孔強直	expert	label
 HP:0012074	Tonic pupil	瞳孔緊張症	LSD	synonym
 HP:0012075	Personality disorder	性格異常	expert	label
 HP:0012075	Personality disorder	パーソナリティ障害	LSD	synonym
+HP:0012075	Personality disorder	人格障害	Fujiwara	synonym
 HP:0012076	Borderline personality disorder	ボーダーライン性格異常	expert	label
 HP:0012076	Borderline personality disorder	境界型人格障害	LSD	synonym
 HP:0012076	Borderline personality disorder	境界性人格障害	LSD	synonym
@@ -10788,10 +10847,8 @@ HP:0012132	Erythroid hyperplasia	赤血球過形成	LSD	synonym
 HP:0012133	Erythroid hypoplasia	赤芽球系低形成	expert	label
 HP:0012133	Erythroid hypoplasia	赤芽球減少症	LSD	synonym
 HP:0012134	Dysplastic erythropoesis	異形成性赤血球系造血	expert	label
-HP:0012134	Dysplastic erythropoesis	異形成生赤血球系造血	expert	label
 HP:0012135	Abnormal granulocytopoietic cell morphology	顆粒球系細胞の異常	expert	label
 HP:0012136	Dysplastic granulopoesis	異形成性顆粒球系造血	expert	label
-HP:0012136	Dysplastic granulopoesis	異形成生顆粒球系造血	expert	label
 HP:0012137	Abnormal number of granulocyte precursors	顆粒球前駆細胞数の異常	expert	label
 HP:0012138	Granulocytic hyperplasia	顆粒球過形成	expert	label
 HP:0012139	Granulocytic hypoplasia	顆粒球低形成	expert	label
@@ -11115,7 +11172,6 @@ HP:0012376	Microphakia	小水晶体	expert	label
 HP:0012377	Hemianopia	半盲	expert	label
 HP:0012378	Fatigue	疲労	expert	label
 HP:0012379	Abnormal enzyme/coenzyme activity	酵素／補酵素の活性異常	expert	label
-HP:0012379	Abnormal enzyme/coenzyme activity	高度/補酵素活性異常	expert	label
 HP:0012380	Reduced carnitine O-palmitoyltransferase level	carnitine O-palmitoyltransferase 活性減少	expert	label
 HP:0012381	Delayed self-feeding during toddler years	幼児中の自力摂食の遅延	expert	label
 HP:0012382	Left-to-right shunt	左-右シャントunt	expert	label
@@ -11173,7 +11229,6 @@ HP:0012416	Hypercapnia	高炭酸血症	LSD	synonym
 HP:0012417	Hypocapnia	低二酸化炭素症	expert	label
 HP:0012417	Hypocapnia	低炭酸症	LSD	synonym
 HP:0012418	Hypoxemia	低酸素血症	expert	label
-HP:0012418	Hypoxemia	低酸素血症への感受性の減少	expert	label
 HP:0012418	Hypoxemia	ハイポキシア	LSD	synonym
 HP:0012418	Hypoxemia	低酸素	LSD	synonym
 HP:0012418	Hypoxemia	低酸素症	LSD	synonym
@@ -11209,6 +11264,8 @@ HP:0012441	Sphincter of Oddi dyskinesia	Oddi 括約筋ジスキネジア	expert	
 HP:0012441	Sphincter of Oddi dyskinesia	オッディ括約筋機能不全	LSD	synonym
 HP:0012442	Gallbladder dyskinesia	胆嚢ジスキネジア	expert	label
 HP:0012443	Abnormality of brain morphology	脳形態の異常	expert	label
+HP:0012443	Abnormality of brain morphology	脳形成の異常	Fujiwara	synonym
+HP:0012443	Abnormality of brain morphology	脳形成異常	Fujiwara	synonym
 HP:0012444	Brain atrophy	脳萎縮	expert	label
 HP:0012446	Decreased CSF 5-methyltetrahydrofolate concentration	髄液 5-methyltetrahydrofolate低値	expert	label
 HP:0012447	Abnormal myelination	異常な髄鞘形成	expert	label
@@ -11561,7 +11618,6 @@ HP:0012732	Anorectal anomaly	肛門直腸奇形	expert	label
 HP:0012733	Macule	斑	expert	label
 HP:0012734	Ketotic hypoglycemia	ケトン性低血糖	expert	label
 HP:0012735	Cough	咳嗽	expert	label
-HP:0012735	Cough	外層	expert	label
 HP:0012735	Cough	咳	LSD	synonym
 HP:0012735	Cough	咳そう	LSD	synonym
 HP:0012736	Profound global developmental delay	最重度の全般性発達遅滞	expert	label
@@ -11652,6 +11708,7 @@ HP:0012812	Fullness of paranasal tissue	大きな副鼻腔組織	expert	label
 HP:0012813	Unilateral breast hypoplasia	片側性乳房低形成	expert	label
 HP:0012814	Bilateral breast hypoplasia	両側性乳房低形成	expert	label
 HP:0012815	Hypoplastic female external genitalia	女性外性器低形成	expert	label
+HP:0012815	Hypoplastic female external genitalia	外陰部低形成	Fujiwara	synonym
 HP:0012816	Right ventricular noncompaction cardiomyopathy	右室緻密化障害性心筋症	expert	label
 HP:0012817	Noncompaction cardiomyopathy	緻密化障害性心筋症	expert	label
 HP:0012818	Biventricular noncompaction cardiomyopathy	両室性緻密化障害性心筋症	expert	label
@@ -11742,12 +11799,7 @@ HP:0020074	Crystalluria	結晶尿	LSD	synonym
 HP:0020082	Heinz bodies	ハインツ小体	LSD	label
 HP:0020083	Furuncle	癰	LSD	label
 HP:0020083	Furuncle	おでき	LSD	synonym
-HP:0020083	Furuncle	せつ	LSD	synonym
 HP:0020083	Furuncle	フルンケル	LSD	synonym
-HP:0020083	Furuncle	ボイル	LSD	synonym
-HP:0020083	Furuncle	根太	LSD	synonym
-HP:0020083	Furuncle	沸騰	LSD	synonym
-HP:0020083	Furuncle	煮沸	LSD	synonym
 HP:0020084	Carbuncle	癰	LSD	label
 HP:0020101	Invasive fungal infection	侵襲性真菌症	LSD	label
 HP:0020102	Pneumocystis jirovecii pneumonia	ニューモシスティスジロベシ肺炎	LSD	label
@@ -11778,7 +11830,6 @@ HP:0025017	Capillary fragility	毛細血管脆弱	LSD	label
 HP:0025019	Arterial rupture	動脈破裂	LSD	label
 HP:0025023	Rectal atresia	直腸閉鎖	LSD	label
 HP:0025024	Megarectum	巨大直腸	LSD	label
-HP:0025031	Abnormality of the digestive system	消化器系の異常	expert	label
 HP:0025038	Intratesticular abscess	精巣膿瘍	LSD	label
 HP:0025044	Lung abscess	肺膿瘍	LSD	label
 HP:0025059	Splenic abscess	脾臓膿瘍	LSD	label
@@ -11814,7 +11865,6 @@ HP:0025127	Actinic keratosis	日光角化症	LSD	label
 HP:0025130	Decreased small intestinal mucosa lactase level	ラクターゼ欠損症	LSD	label
 HP:0025130	Decreased small intestinal mucosa lactase level	ラクターゼ欠乏症	LSD	synonym
 HP:0025130	Decreased small intestinal mucosa lactase level	乳糖分解酵素欠損症	LSD	synonym
-HP:0025142	Constitutional symptom	全身症状	expert	label
 HP:0025143	Chills	悪寒	LSD	label
 HP:0025143	Chills	冷やす	LSD	synonym
 HP:0025143	Chills	冷却	LSD	synonym
@@ -11824,6 +11874,7 @@ HP:0025145	Rigors	厳密さ	LSD	synonym
 HP:0025145	Rigors	悪寒	LSD	synonym
 HP:0025145	Rigors	苦しさ	LSD	synonym
 HP:0025150	Hypoganglionosis	神経節細胞減少症	LSD	label
+HP:0025160	Abnormal temper tantrums	不機嫌	Fujiwara	synonym
 HP:0025175	Honeycomb lung	蜂巣肺	LSD	label
 HP:0025175	Honeycomb lung	蜂巣	LSD	synonym
 HP:0025175	Honeycomb lung	蜂巣状	LSD	synonym
@@ -11848,7 +11899,7 @@ HP:0025246	Trichilemmal cyst	外毛根鞘のう腫	LSD	synonym
 HP:0025246	Trichilemmal cyst	毛髪嚢腫	LSD	synonym
 HP:0025246	Trichilemmal cyst	皮脂嚢胞	LSD	synonym
 HP:0025246	Trichilemmal cyst	皮脂嚢腫	LSD	synonym
-HP:0025247	Dermoid cyst	類皮嚢胞	expert	label
+HP:0025247	Dermoid cyst	類皮嚢胞	LSD	label
 HP:0025249	Comedo	面皰	LSD	label
 HP:0025249	Comedo	面疱	LSD	synonym
 HP:0025250	Closed comedo	稗粒腫	LSD	label
@@ -11897,7 +11948,6 @@ HP:0025342	Central retinal artery occlusion	網膜中心動脈閉塞症	LSD	labe
 HP:0025342	Central retinal artery occlusion	網膜中心動脈閉塞	LSD	synonym
 HP:0025343	Lupus anticoagulant	ループス抗凝固因子	LSD	label
 HP:0025343	Lupus anticoagulant	ループスアンチコアグラント	LSD	synonym
-HP:0025354	Abnormal cellular phenotype	異常な細胞表現型	expert	label
 HP:0025355	Retinal arterial macroaneurysms	網膜細動脈瘤	LSD	label
 HP:0025356	Psychomotor retardation	精神運動発達遅滞	LSD	label
 HP:0025356	Psychomotor retardation	精神運動制止遅滞	LSD	synonym
@@ -11919,7 +11969,7 @@ HP:0025407	Rectourethral fistula	直腸尿道瘻	LSD	label
 HP:0025407	Rectourethral fistula	尿道直腸瘻	LSD	synonym
 HP:0025408	Abnormal spleen morphology	脾臓病変	LSD	label
 HP:0025418	Renal cortical necrosis	腎皮質壊死	LSD	label
-HP:0025421	Pneumomediastinum	縦隔気腫	expert	label
+HP:0025421	Pneumomediastinum	縦隔気腫	LSD	label
 HP:0025421	Pneumomediastinum	気縦隔	LSD	synonym
 HP:0025421	Pneumomediastinum	気縦隔症	LSD	synonym
 HP:0025425	Laryngospasm	喉頭痙攣	LSD	label
@@ -11930,8 +11980,7 @@ HP:0025428	Bronchospasm	気管支れん縮	LSD	synonym
 HP:0025428	Bronchospasm	気管支攣縮	LSD	synonym
 HP:0025432	Acanthoma	棘細胞腫	LSD	label
 HP:0025439	Pharyngitis	咽頭炎	LSD	label
-HP:0025452	Pyoderma gangrenosum	壊疽性膿皮症	expert	label
-HP:0025452	Pyoderma gangrenosum	壊疸性膿皮症	LSD	synonym
+HP:0025452	Pyoderma gangrenosum	壊疸性膿皮症	LSD	label
 HP:0025464	Increased reactive oxygen species production	酸化ストレス	LSD	label
 HP:0025470	Telogen effluvium	休止期脱毛	LSD	label
 HP:0025470	Telogen effluvium	休止期性脱毛	LSD	synonym
@@ -11961,11 +12010,11 @@ HP:0025592	Superior oblique muscle weakness	上斜筋麻痺	LSD	label
 HP:0025605	Lid lag on downgaze	閉眼遅延	LSD	label
 HP:0025610	Posterior blepharitis	マイボーム腺機能不全	LSD	label
 HP:0025612	Corneal astigmatism	角膜乱視	LSD	label
-HP:0025615	Abscess	膿瘍	expert	label
+HP:0025615	Abscess	膿瘍	LSD	label
 HP:0025630	Argininosuccinic aciduria	アルギニノコハク酸尿症	LSD	label
 HP:0025635	Ureteral polyp	尿管ポリープ	LSD	label
 HP:0025636	Endometritis	子宮内膜炎	LSD	label
-HP:0025637	Vasospasm	血管攣縮	expert	label
+HP:0025637	Vasospasm	血管攣縮	LSD	label
 HP:0025637	Vasospasm	血管けいれん	LSD	synonym
 HP:0025637	Vasospasm	血管れん縮	LSD	synonym
 HP:0025637	Vasospasm	血管痙攣	LSD	synonym
@@ -11994,11 +12043,11 @@ HP:0030037	Bifid ureter	重複尿管	LSD	label
 HP:0030037	Bifid ureter	二分尿管	LSD	synonym
 HP:0030038	Enchondroma	内軟骨腫	LSD	label
 HP:0030048	Colpocephaly	脳梁欠損	LSD	label
-HP:0030049	Brain abscess	脳膿瘍	expert	label
+HP:0030049	Brain abscess	脳膿瘍	LSD	label
 HP:0030050	Narcolepsy	ナルコレプシー	LSD	label
 HP:0030061	Neuroectodermal neoplasm	神経外胚葉腫瘍	LSD	label
 HP:0030061	Neuroectodermal neoplasm	神経外胚葉新生物	LSD	synonym
-HP:0030062	Craniopharyngioma	頭蓋咽頭腫	expert	label
+HP:0030062	Craniopharyngioma	頭蓋咽頭腫	LSD	label
 HP:0030063	Neuroepithelial neoplasm	神経上皮腫瘍	LSD	label
 HP:0030063	Neuroepithelial neoplasm	神経上皮新生物	LSD	synonym
 HP:0030064	Neurocytoma	神経細胞腫	LSD	label
@@ -12014,7 +12063,7 @@ HP:0030075	Ductal carcinoma in situ	乳管内上皮内癌	LSD	label
 HP:0030076	Lobular carcinoma in situ	非浸潤性小葉癌	LSD	label
 HP:0030076	Lobular carcinoma in situ	非浸潤性小葉がん	LSD	synonym
 HP:0030077	Bronchial neoplasm	気管支腫瘍	LSD	label
-HP:0030078	Lung adenocarcinoma	肺腺癌	expert	label
+HP:0030078	Lung adenocarcinoma	肺腺癌	LSD	label
 HP:0030079	Cervix cancer	子宮頸癌	LSD	label
 HP:0030079	Cervix cancer	子宮頚癌	LSD	synonym
 HP:0030079	Cervix cancer	子宮頚部癌	LSD	synonym
@@ -12022,14 +12071,14 @@ HP:0030079	Cervix cancer	子宮頸部癌	LSD	synonym
 HP:0030080	Burkitt lymphoma	バーキットリンパ腫	LSD	label
 HP:0030084	Clinodactyly	斜趾症	LSD	label
 HP:0030084	Clinodactyly	斜指症	LSD	synonym
-HP:0030127	Endometriosis	子宮内膜症	expert	label
+HP:0030127	Endometriosis	子宮内膜症	LSD	label
 HP:0030143	Hyperactive bowel sounds	腹鳴	LSD	label
 HP:0030143	Hyperactive bowel sounds	グル音	LSD	synonym
 HP:0030148	Heart murmur	心雑音	LSD	label
-HP:0030149	Cardiogenic shock	心原性ショック	expert	label
+HP:0030149	Cardiogenic shock	心原性ショック	LSD	label
 HP:0030150	Plasmacytosis	形質細胞増加症	LSD	label
-HP:0030151	Cholangitis	胆管炎	expert	label
-HP:0030153	Cholangiocarcinoma	胆管細胞癌	expert	label
+HP:0030151	Cholangitis	胆管炎	LSD	label
+HP:0030153	Cholangiocarcinoma	胆管細胞癌	LSD	label
 HP:0030153	Cholangiocarcinoma	胆管癌	LSD	synonym
 HP:0030154	Gallbladder perforation	胆嚢穿孔	LSD	label
 HP:0030154	Gallbladder perforation	胆のう穿孔	LSD	synonym
@@ -12039,7 +12088,7 @@ HP:0030155	Scrotal pain	陰嚢部痛	LSD	synonym
 HP:0030156	Bence Jones Proteinuria	ベンス・ジョーンズ蛋白尿	LSD	label
 HP:0030156	Bence Jones Proteinuria	Bence Jones蛋白尿	LSD	synonym
 HP:0030156	Bence Jones Proteinuria	ベンス・ジョーンズ蛋白尿症	LSD	synonym
-HP:0030157	Flank pain	側腹部痛	expert	label
+HP:0030157	Flank pain	側腹部痛	LSD	label
 HP:0030159	Cervical polyp	頸部腫瘍	LSD	label
 HP:0030159	Cervical polyp	頚部腫瘍	LSD	synonym
 HP:0030160	Cervicitis	子宮頸管炎	LSD	label
@@ -12099,12 +12148,12 @@ HP:0030423	Splenic cyst	脾嚢胞	LSD	label
 HP:0030423	Splenic cyst	脾のう胞	LSD	synonym
 HP:0030426	Ossifying fibroma	骨形成性線維腫	LSD	label
 HP:0030430	Neuroma	神経腫	LSD	label
-HP:0030431	Osteochondroma	骨軟骨腫	expert	label
+HP:0030431	Osteochondroma	骨軟骨腫	LSD	label
 HP:0030432	Chondroblastoma	軟骨芽細胞腫	LSD	label
-HP:0030433	Osteoid osteoma	類骨腫	expert	label
+HP:0030433	Osteoid osteoma	類骨腫	LSD	label
 HP:0030434	Pilomatrixoma	石灰化上皮腫	LSD	label
 HP:0030447	Merkel cell skin cancer	皮膚神経内分泌癌	LSD	label
-HP:0030448	Soft tissue sarcoma	軟部肉腫	expert	label
+HP:0030448	Soft tissue sarcoma	軟部肉腫	LSD	label
 HP:0030448	Soft tissue sarcoma	軟部組織肉腫	LSD	synonym
 HP:0030449	Therapeutic abortion	治療的流産	LSD	label
 HP:0030451	Mesenteric cyst	腸間膜嚢胞	LSD	label
@@ -12186,7 +12235,7 @@ HP:0030830	Crackles	轢音	LSD	synonym
 HP:0030831	Rhonchi	ラ音	LSD	label
 HP:0030831	Rhonchi	低音性連続性ラ音	LSD	synonym
 HP:0030831	Rhonchi	水泡音	LSD	synonym
-HP:0030833	Neck pain	頸部痛	expert	label
+HP:0030833	Neck pain	頸部痛	LSD	label
 HP:0030834	Shoulder pain	肩関節痛	LSD	label
 HP:0030836	Wrist pain	手首痛	LSD	label
 HP:0030839	Knee pain	膝関節痛	LSD	label
@@ -12291,7 +12340,7 @@ HP:0031249	Parageusia	味覚錯誤	LSD	synonym
 HP:0031249	Parageusia	異味覚	LSD	synonym
 HP:0031249	Parageusia	金気	LSD	synonym
 HP:0031249	Parageusia	錯味症	LSD	synonym
-HP:0031258	Delirium	せん妄	expert	label
+HP:0031258	Delirium	せん妄	LSD	label
 HP:0031259	Oophoritis	卵巣炎	LSD	label
 HP:0031273	Shock	ショック	LSD	label
 HP:0031274	Hypovolemic shock	血液量減少性ショック	LSD	label
@@ -12319,7 +12368,7 @@ HP:0031417	Rhinorrhea	鼻汁	LSD	synonym
 HP:0031420	Small yellow foveal lesion with surrounding gray zone	日光網膜症	LSD	label
 HP:0031420	Small yellow foveal lesion with surrounding gray zone	太陽性網膜症	LSD	synonym
 HP:0031433	Alexithymia	失感情症	LSD	label
-HP:0031456	Ectopic pregnancy	子宮外妊娠	expert	label
+HP:0031456	Ectopic pregnancy	子宮外妊娠	LSD	label
 HP:0031457	Pulmonary opacity	肺野陰影	LSD	label
 HP:0031457	Pulmonary opacity	肺部異常陰影	LSD	synonym
 HP:0031457	Pulmonary opacity	肺野異常陰影	LSD	synonym
@@ -12330,9 +12379,9 @@ HP:0031475	Status epilepticus without prominent motor symptoms	非痙攣性て�
 HP:0031492	Epithelial neoplasm	上皮性腫瘍	LSD	label
 HP:0031492	Epithelial neoplasm	上皮性新生物	LSD	synonym
 HP:0031495	Mucinous neoplasm	粘液性腫瘍	LSD	label
-HP:0031500	Abdominal mass	腹部腫瘤	expert	label
+HP:0031500	Abdominal mass	腹部腫瘤	LSD	label
 HP:0031500	Abdominal mass	腹腔内腫瘤	LSD	synonym
-HP:0031501	Pelvic mass	骨盤腔内腫瘤	expert	label
+HP:0031501	Pelvic mass	骨盤腔内腫瘤	LSD	label
 HP:0031502	Trophoblastic tumor	絨毛性腫瘍	LSD	label
 HP:0031520	Groin pain	鼠径部痛	LSD	label
 HP:0031520	Groin pain	鼡径部痛	LSD	synonym
@@ -12350,7 +12399,7 @@ HP:0031609	Geographic atrophy	地図状萎縮	LSD	label
 HP:0031615	Hypopyon	前房蓄膿	LSD	label
 HP:0031623	Brow ptosis	眉毛下垂	LSD	label
 HP:0031624	Moderate myopia	中等度近視	LSD	label
-HP:0031625	Pseudoaneurysm	偽動脈瘤	expert	label
+HP:0031625	Pseudoaneurysm	偽動脈瘤	LSD	label
 HP:0031625	Pseudoaneurysm	偽性心室瘤	LSD	synonym
 HP:0031628	Aborted sudden cardiac death	心突然死	LSD	label
 HP:0031649	Aortic rupture	大動脈破裂	LSD	label
@@ -12368,7 +12417,7 @@ HP:0031678	Atherosclerotic lesion	動脈硬化性病変	LSD	synonym
 HP:0031678	Atherosclerotic lesion	動脈硬化病巣	LSD	synonym
 HP:0031678	Atherosclerotic lesion	粥状動脈硬化病変	LSD	synonym
 HP:0031684	Renal artery atherosclerosis	腎動脈アテローム硬化症	LSD	label
-HP:0031690	Opportunistic infection	日和見感染	expert	label
+HP:0031690	Opportunistic infection	日和見感染	LSD	label
 HP:0031727	Excyclotropia	外旋斜視	LSD	label
 HP:0031730	Axial myopia	軸性近視	LSD	label
 HP:0031737	Cicatricial entropion	瘢痕性眼瞼内反症	LSD	label
@@ -12397,8 +12446,8 @@ HP:0031843	Bradyphrenia	精神緩慢	LSD	label
 HP:0031843	Bradyphrenia	ブラディフレニア	LSD	synonym
 HP:0031844	Euphoria	多幸感	LSD	label
 HP:0031846	Femur fracture	大腿骨骨折	LSD	label
-HP:0031853	Isomerism	異性	LSD	label
-HP:0031864	Bacteremia	菌血症	expert	label
+HP:0031853	Isomerism	異性化	LSD	label
+HP:0031864	Bacteremia	菌血症	LSD	label
 HP:0031882	Agyria	無脳回症	LSD	label
 HP:0031882	Agyria	脳回欠損	LSD	synonym
 HP:0031882	Agyria	脳回欠損症	LSD	synonym
@@ -12454,7 +12503,7 @@ HP:0032071	Eosinophilic pneumonia	肺好酸球増多症	LSD	synonym
 HP:0032072	Popliteal synovial cyst	ベーカー嚢胞	LSD	label
 HP:0032072	Popliteal synovial cyst	ベーカー嚢腫	LSD	synonym
 HP:0032077	Male urethral meatus stenosis	外尿道口狭窄	LSD	label
-HP:0032118	Retinitis	網膜炎	expert	label
+HP:0032118	Retinitis	網膜炎	LSD	label
 HP:0032131	Cervical dysplasia	子宮頸部異形成	LSD	label
 HP:0032131	Cervical dysplasia	子宮頚部上皮異形成	LSD	synonym
 HP:0032131	Cervical dysplasia	子宮頚部異形成	LSD	synonym
@@ -12507,15 +12556,14 @@ HP:0032241	Cervical neoplasm	頸部新生物	LSD	synonym
 HP:0032242	Cervical intraepithelial neoplasia	子宮頸部上皮内腫瘍	LSD	label
 HP:0032249	Coccidioidomycosis	コクシジオイデス症	LSD	label
 HP:0032250	Acinetobacter infection	アシネトバクター感染症	LSD	label
-HP:0032252	Granuloma	肉芽腫	expert	label
+HP:0032252	Granuloma	肉芽腫	LSD	label
 HP:0032253	Eosinophilic granuloma	好酸球性肉芽腫	LSD	label
 HP:0032256	Histoplasmosis	ヒストプラズマ症	LSD	label
 HP:0032257	Disseminated histoplasmosis	播種性ヒストプラスマ症	LSD	label
-HP:0032262	Pulmonary tuberculosis	肺結核	expert	label
+HP:0032262	Pulmonary tuberculosis	肺結核	LSD	label
 HP:0032263	Increased blood pressure	血圧上昇	LSD	label
 HP:0032271	Extrapulmonary tuberculosis	肺外結核	LSD	label
-HP:0032282	Contact dermatitis	接触性皮膚炎	expert	label
-HP:0032282	Contact dermatitis	接触皮膚炎	LSD	synonym
+HP:0032282	Contact dermatitis	接触皮膚炎	LSD	label
 HP:0032301	Genital warts	性器疣贅	LSD	label
 HP:0032301	Genital warts	陰部疣贅	LSD	synonym
 HP:0032310	Granulocytosis	顆粒球増加症	LSD	label
@@ -12768,8 +12816,7 @@ HP:0034205	Iniencephaly	後頭孔脳脱出症	LSD	label
 HP:0034239	Renal vein thrombosis	腎静脈血栓症	LSD	label
 HP:0040012	Chromosome breakage	染色体切断	LSD	label
 HP:0040049	Macular edema	黄斑浮腫	LSD	label
-HP:0040064	Abnormality of limbs	四肢の異常	expert	label
-HP:0040075	Hypopituitarism	下垂体機能低下症	expert	label
+HP:0040075	Hypopituitarism	下垂体機能低下症	LSD	label
 HP:0040078	Axonal degeneration	軸索変性	LSD	label
 HP:0040088	Abnormal lymphocyte count	リンパ球異常	LSD	label
 HP:0040113	Old-aged sensorineural hearing impairment	老人性難聴	LSD	label
@@ -12786,6 +12833,7 @@ HP:0040188	Osteochondrosis	骨軟骨症	LSD	label
 HP:0040189	Scaling skin	剥離	LSD	label
 HP:0040189	Scaling skin	落屑	LSD	synonym
 HP:0040192	APUdoma	アプドーマ	LSD	label
+HP:0040194	Increased head circumference	頭囲拡大	Fujiwara	synonym
 HP:0040197	Encephalomalacia	脳軟化症	LSD	label
 HP:0040212	Risus sardonicus	痙笑	LSD	label
 HP:0040213	Hypopnea	低呼吸	LSD	label
@@ -12830,7 +12878,6 @@ HP:0041248	Fractured carpal bone	手首骨折	LSD	synonym
 HP:0041249	Fractured nose	鼻骨骨折	LSD	label
 HP:0045005	Neural tube defect	神経管閉鎖不全	LSD	label
 HP:0045014	Hypolipidemia	低脂血症	LSD	label
-HP:0045027	Abnormality of the thoracic cavity	胸腔の異常	expert	label
 HP:0045029	Eosinophilic fasciitis	好酸球性筋膜炎	LSD	label
 HP:0045038	Gastric lymphoma	胃リンパ腫	LSD	label
 HP:0045050	Increased DLCO	Increased	LSD	label
@@ -12898,6 +12945,7 @@ HP:0100035	Phonic tics	音声チック障害	LSD	synonym
 HP:0100035	Phonic tics	音声性チック障害	LSD	synonym
 HP:0100036	Pseudo-fractures	偽骨折	expert	label
 HP:0100037	Abnormality of the scalp hair	頭髪の異常	expert	label
+HP:0100037	Abnormality of the scalp hair	頭髪異常	Fujiwara	synonym
 HP:0100038	Slow-growing scalp hair	成長の遅い頭髪	expert	label
 HP:0100039	Thickened cortex of bones	骨皮質肥厚	expert	label
 HP:0100040	Broad 2nd toe	幅広い第2趾	expert	label
@@ -13395,7 +13443,6 @@ HP:0100512	Low levels of vitamin D	ビタミンD欠乏症	expert	label
 HP:0100513	Low levels of vitamin E	ビタミンE欠乏症	expert	label
 HP:0100514	Abnormality of vitamin E metabolism	ビタミンE代謝の異常	expert	label
 HP:0100515	Pollakisuria	頻尿	expert	label
-HP:0100515	Pollakisuria	頻用	expert	label
 HP:0100515	Pollakisuria	頻尿症	LSD	synonym
 HP:0100516	Neoplasm of the ureter	尿管新生物	expert	label
 HP:0100517	Neoplasm of the urethra	尿道新生物	expert	label
@@ -13466,6 +13513,7 @@ HP:0100565	Hydromyelia	水脊髄症	expert	label
 HP:0100565	Hydromyelia	水髄症	LSD	synonym
 HP:0100566	Amyelia	無脊髄症	expert	label
 HP:0100568	Neoplasm of the endocrine system	内分泌系新生物	expert	label
+HP:0100568	Neoplasm of the endocrine system	内分泌腺腫瘍	Fujiwara	synonym
 HP:0100569	Abnormally ossified vertebrae	脊椎骨骨化異常	expert	label
 HP:0100570	Carcinoid tumor	カルチノイド	expert	label
 HP:0100570	Carcinoid tumor	カルチノイド腫瘍	LSD	synonym
@@ -13702,7 +13750,6 @@ HP:0100745	Abnormality of the humeroulnar joint	上腕骨尺骨関節の異常	e
 HP:0100746	Macrodactyly of finger	巨指	expert	label
 HP:0100747	Macrodactyly of toe	巨趾	expert	label
 HP:0100748	Muscular edema	筋浮腫	expert	label
-HP:0100749	Chest pain	共通	expert	label
 HP:0100749	Chest pain	胸痛	expert	label
 HP:0100749	Chest pain	胸内不快感	LSD	synonym
 HP:0100749	Chest pain	胸内苦悶	LSD	synonym
@@ -13731,7 +13778,6 @@ HP:0100763	Abnormality of the lymphatic system	リンパ管疾患	LSD	synonym
 HP:0100764	Lymphangioma	リンパ管腫	expert	label
 HP:0100765	Abnormality of the tonsils	扁桃の異常	expert	label
 HP:0100766	Abnormal lymphatic vessel morphology	リンパ管の異常	expert	label
-HP:0100766	Abnormal lymphatic vessel morphology	リンパ管野以上	expert	label
 HP:0100767	Abnormal placenta morphology	胎盤の異常	expert	label
 HP:0100768	Choriocarcinoma	絨毛癌	expert	label
 HP:0100769	Synovitis	滑膜炎	expert	label
@@ -14071,9 +14117,8 @@ HP:0400007	Polymenorrhea	頻発月経	LSD	label
 HP:0400008	Menometrorrhagia	機能性子宮出血	LSD	label
 HP:0410005	Cleft hard palate	硬口蓋裂	LSD	label
 HP:0410017	Otitis externa	外耳炎	LSD	label
-HP:0410019	Epigastric pain	心窩部痛	expert	label
-HP:0410030	Cleft lip	唇裂	expert	label
-HP:0410030	Cleft lip	口唇裂	LSD	synonym
+HP:0410019	Epigastric pain	心窩部痛	LSD	label
+HP:0410030	Cleft lip	口唇裂	LSD	label
 HP:0410134	Physical urticaria	物理的蕁麻疹	LSD	label
 HP:0410134	Physical urticaria	物理性じんま疹	LSD	synonym
 HP:0410134	Physical urticaria	物理性じん麻疹	LSD	synonym

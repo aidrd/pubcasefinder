@@ -1,3 +1,72 @@
 
+# HPOシノニムをDBに挿入
+perl insert_hpo_synonymja_data_into_db.pl HPO-japanese.20221104.txt
+
+
+# 診療録からHPOを自動抽出するための辞書作成
+perl createDataset-20221104.pl HPO-japanese.20221104.txt hp.obo HPO-japanese.20221104. yes
+
+
+
+
+####
+HPO日本語訳更新手順 JavaScript用
+
+1. 最新のデータ作成ツール(static/data/createDataset-20221104.pl)にmysql db access parametersを設定。以下の部分をサーバー環境にあわせる
+
+our $DB_NAME = "";
+our $DB_USER = "";
+our $DB_PASS = "";
+our $DB_HOST = "";
+our $DB_PORT = "";
+
+2. 以下のようにデータを作成する
+
+perl createDataset-20221104.pl  HPO-japanese.20221104.txt hp.obo HPO-japanese.20221104. yes
+
+パラメータの説明：
+(1) HPO-japanese.20221104.txt
+ 入力データを指定します
+
+(2) hp.obo
+ hpo.jax.orgからDLしたファイルを指定します。HPOのdefinitionを補完するためのデータ。
+
+(3) HPO-japanese.20221104.
+ 出力のPrefixを指定します。
+ 「HPO-japanese.20221104.」の場合、出力は
+ HPO-japanese.20221104.text2hpo.txt
+ と
+ HPO-japanese.20221104.textinput.txt
+ になります。
+
+(4) yes
+ 統計値を出力するかどうかのフラグ。
+ 入力ファイル(HPO-japanese.20221104.txt)とDBテーブル(OntoTermHPInformation,IndexFormHP)を比較します。
+ ファイルにあり、DBにないHPOの数 と DBにあり、ファイルにないHPOの数を出力します。
+ ツールの最終出力データには、DBにあるHPOだけ出力します。ファイルにあり、DBにないHPOは含めません。
+
+3. javascriptファイルの修正
+static/js/pcf/jquery.textinput_hpo.jsで、以下のように出力ファイルを指定。
+const HPO_DIC="/static/data/HPO-japanese.20221104.textinput.txt",
+
+static/js/text2hpo.v3.jsで、以下のように出力ファイルを指定。
+const HPO_DIC = "/static/data/HPO-japanese.20221104.text2hpo.txt";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#### 以下，必要ないと思うので，BITSさんに確認後に削除する ####
 # 日本語シノニム抽出
 perl ./extract_HPO_synonym.pl ./HPO-japanese.20220414.txt > ./HPO-japanese.20220414.txt.synonym
