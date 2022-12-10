@@ -1,284 +1,308 @@
 let categories = [
     {
         dataKey: 'patientInfo',
+        iconClass: 'bxt icon material-icons-outlined',
+        iconName: 'person',
         displayName: {
             en: 'Patient Information',
             ja: '患者基本情報',
-            ko: ''
+            ko: '환자 기본 정보'
         },
         columns: [
             {
                 columnID: 'p001',
                 dataKey: 'patientId',
+                inputType: 'text',
                 phenoKey: '',
                 type: 'text',
                 table: true,
                 displayName: {
                     en: 'Patient ID',
                     ja: '患者ID',
-                    ko: ''
+                    ko: '환자 ID'
                 }
             },
             {
                 columnID: 'p002',
                 dataKey: 'familyId',
+                inputType: 'input-select',
                 phenoKey: '',
                 type: 'text',
                 table: true,
                 displayName: {
                     en: 'Family ID',
                     ja: '家族ID',
-                    ko: ''
+                    ko: '가족 ID'
                 }
             },
             {
                 columnID: 'p003',
                 dataKey: 'relationship',
+                inputType: 'select',
                 phenoKey: '',
                 type: 'dropdown',
                 table: true,
                 displayName: {
                     en: 'Relationship',
                     ja: '続柄',
-                    ko: ''
+                    ko: '관계'
                 },
                 options: {
-                    dataValue: ['proband', 'father', 'mother', 'sibling', 'other'],
-                    en: ['Proband', 'Father', 'Mother', 'Sibling', 'Other'],
-                    ja: ['発端者', '父親', '母親', '兄弟姉妹', 'その他'],
-                    ko: []
+                    dataValue: ['proband', 'father', 'mother', 'sibling', 'child', 'grandfather', 'grandmother', 'other'],
+                    en: ['Proband', 'Father', 'Mother', 'Sibling', 'Child', 'Grandfather', 'Grandmother', 'Other'],
+                    ja: ['発端者', '父親', '母親', '兄弟姉妹', '子供', '祖父', '祖母', 'その他'],
+                    ko: ['본인', '부', '모', '형제자매', '아이', '조부', '할머니', '기타']
                 }
             },
             {
                 columnID: 'p004',
                 dataKey: 'group',
+                inputType: 'input-select',
                 phenoKey: '',
                 type: 'text',
                 table: true,
                 displayName: {
                     en: 'Group',
                     ja: 'グループ名',
-                    ko: ''
+                    ko: '그룹 이름'
                 }
             },
             {
                 columnID: 'p005',
                 dataKey: 'lifeStatus',
+                inputType: 'radio',
                 phenoKey: '',
                 type: 'dropdown',
                 table: true,
                 displayName: {
                     en: 'Life Status',
                     ja: '状態',
-                    ko: ''
+                    ko: '상태'
                 },
                 options: {
                     dataValue: ['alive', 'deceased'],
                     en: ['Alive', 'Deceased'],
                     ja: ['生存', '故人'],
-                    ko: []
+                    ko: ['생', '사']
                 }
             },
             {
                 columnID: 'p006',
                 dataKey: 'birth',
+                inputType: 'select-date',
                 phenoKey: '',
                 type: 'date',
                 table: true,
                 displayName: {
                     en: 'Birth',
                     ja: '生年月',
-                    ko: ''
+                    ko: '생년월'
                 }
             },
             {
                 columnID: 'p007',
                 dataKey: 'age',
+                inputType: 'text',
                 phenoKey: '',
                 type: 'text',
                 table: true,
                 displayName: {
                     en: 'Age',
                     ja: '年齢',
-                    ko: ''
+                    ko: '연령'
                 }
             },
             {
                 columnID: 'p008',
                 dataKey: 'death',
+                inputType: 'select-date',
                 phenoKey: '',
                 type: 'text',
                 table: true,
                 displayName: {
                     en: 'Death',
                     ja: '没年月',
-                    ko: ''
+                    ko: '사망일'
                 }
             },
             {
                 columnID: 'p009',
                 dataKey: 'sex',
+                inputType: 'select',
                 phenoKey: '',
                 type: 'dropdown',
                 table: true,
                 displayName: {
                     en: 'Sex',
                     ja: '性別',
-                    ko: ''
+                    ko: '성별'
                 },
                 options: {
                     dataValue: ['male', 'female', 'other', 'unknown'],
                     en: ['Male', 'Female', 'Other', 'Unknown'],
                     ja: ['男性', '女性', 'その他', '不明'],
-                    ko: []
+                    ko: ['남성', '여성', '기타', '불명']
                 }
             },
             {
                 columnID: 'p010',
                 dataKey: 'note',
+                inputType: 'textarea',
                 phenoKey: '',
                 type: 'text',
                 table: true,
                 displayName: {
                     en: 'Note',
                     ja: '概要',
-                    ko: ''
+                    ko: '비고'
                 }
             },
         ]
     },
     {
         dataKey: 'medicalInfo',
+        iconClass: 'material-symbols-outlined',
+        iconName: 'medical_information',
         displayName: {
             en: 'Medical Information',
             ja: '診療情報',
-            ko: ''
+            ko: '찰 정보'
         },
         columns: [
             {
                 columnID: 'm001',
                 dataKey: 'clinicalDiagnosis',
+                inputType: 'text',
                 phenoKey: '',
                 type: 'text',
                 table: true,
                 displayName: {
                     en: 'Clinical Diagnosis',
                     ja: '臨床診断',
-                    ko: ''
+                    ko: '임상진단'
                 }
             },
             {
                 columnID: 'm002',
                 dataKey: 'finalDiagnosis',
+                inputType: 'text',
                 phenoKey: '',
                 type: 'text',
                 table: true,
                 displayName: {
                     en: 'Final Diagnosis',
                     ja: '確定診断',
-                    ko: ''
+                    ko: '최종진단'
                 }
             },
             {
                 columnID: 'm003',
                 dataKey: 'chiefComplaint',
+                inputType: 'text',
                 phenoKey: '',
                 type: 'text',
                 table: true,
                 displayName: {
                     en: 'Chief Complaint',
                     ja: '主訴',
-                    ko: ''
+                    ko: '주요호소증상'
                 }
             },
             {
                 columnID: 'm004',
                 dataKey: 'caseSolved',
+                inputType: 'select',
                 phenoKey: '',
                 type: 'dropdown',
                 table: true,
                 displayName: {
                     en: 'Case Solved',
                     ja: '診断状況',
-                    ko: ''
+                    ko: '진단상황'
                 },
                 options: {
                     dataValue: ['solved', 'candidate', 'VUS', 'unresolved'],
                     en: ['Solved', 'Candidate', 'VUS', 'Unresolved'],
                     ja: ['解決', '新規候補', 'VUS', '未解決'],
-                    ko: []
+                    ko: ['해결', '후보자', 'VUS', '미해결']
                 }
             },
             {
                 columnID: 'm005',
                 dataKey: 'currentMedicalHistory',
+                inputType: 'textarea',
                 phenoKey: '',
                 type: 'text',
                 table: true,
                 displayName: {
                     en: 'Current Medical History',
                     ja: '現病歴',
-                    ko: ''
+                    ko: '현재 병력'
                 }
             },
             {
                 columnID: 'm006',
                 dataKey: 'previousMedicalHistory',
+                inputType: 'textarea',
                 phenoKey: '',
                 type: 'date',
                 table: true,
                 displayName: {
                     en: 'Previous Medical History',
                     ja: '既往歴',
-                    ko: ''
+                    ko: '과거 병력'
                 }
             },
             {
                 columnID: 'm007',
                 dataKey: 'prenatalPerinatalHistory',
+                inputType: 'textarea',
                 phenoKey: '',
                 type: 'text',
                 table: true,
                 displayName: {
                     en: 'Prenatal Perinatal History',
                     ja: '出生前および周産期の病歴',
-                    ko: ''
+                    ko: '출산 및 주산기 병력'
                 }
             },
             {
                 columnID: 'm008',
                 dataKey: 'earlyDevelopmentalAndSchoolingHistory',
+                inputType: 'textarea',
                 phenoKey: '',
                 type: 'text',
                 table: true,
                 displayName: {
                     en: 'Early Developmental and Schooling History',
                     ja: '生育歴および教育歴',
-                    ko: ''
+                    ko: '초기 발달사와 학교 생활사'
                 }
             },
             {
                 columnID: 'm009',
                 dataKey: 'process',
+                inputType: 'textarea',
                 phenoKey: '',
                 type: 'text',
                 table: true,
                 displayName: {
                     en: 'Process',
                     ja: '経過',
-                    ko: ''
+                    ko: '경과'
                 }
             },
             {
                 columnID: 'm010',
                 dataKey: 'ageOnset',
+                inputType: 'select',
                 phenoKey: '',
                 type: 'dropdown',
                 table: true,
                 displayName: {
                     en: 'Age of Onset',
                     ja: '発症年齢',
-                    ko: ''
+                    ko: '발병연령'
                 },
                 options: {
                     dataValue: ['unknown', 'congenitalOnset', 'antenatalOnsetEmbryonal', 'antenatalOnsetFetal', 'neonatalOnset', 'infantileOnset', 'childhoodOnset', 'juvenileOnset', 'adultOnsetYoungAdult', 'AaultOnsetMiddleAge', 'adultOnsetLate'],
@@ -290,143 +314,184 @@ let categories = [
             {
                 columnID: 'm011',
                 dataKey: 'examinationFinding',
+                inputType: 'text',
                 phenoKey: '',
                 type: 'text',
                 table: true,
                 displayName: {
                     en: 'Examination Finding',
                     ja: '検査所見',
-                    ko: ''
+                    ko: '검사 소견'
                 }
             },
             {
                 columnID: 'm012',
                 dataKey: 'allergies',
+                inputType: 'radio-input',
                 phenoKey: '',
                 type: 'text',
                 table: true,
                 displayName: {
                     en: 'Allergies',
                     ja: 'アレルギー',
-                    ko: ''
+                    ko: '알레르기'
+                },
+                options: {
+                    dataValue: ['yes', 'no'],
+                    en: ['Yes', 'No'],
+                    ja: ['有', '無'],
+                    ko: []
                 }
             },
             {
                 columnID: 'm013',
                 dataKey: 'bodyWeight',
+                inputType: 'hot',
                 phenoKey: '',
                 type: 'text',
                 table: true,
                 displayName: {
                     en: 'Body Weight',
                     ja: '体重',
-                    ko: ''
+                    ko: '체중'
                 }
             },
             {
                 columnID: 'm014',
                 dataKey: 'bodyHeight',
+                inputType: 'hot',
                 phenoKey: '',
                 type: 'text',
                 table: true,
                 displayName: {
                     en: 'Body Height',
                     ja: '身長',
-                    ko: ''
+                    ko: '신장'
                 }
             },
             {
                 columnID: 'm015',
                 dataKey: 'headCircumference',
+                inputType: 'hot',
                 phenoKey: '',
                 type: 'text',
                 table: true,
                 displayName: {
                     en: 'Head Circumference',
                     ja: '頭囲',
-                    ko: ''
+                    ko: '머리둘레'
                 }
             },
             {
                 columnID: 'm016',
                 dataKey: 'socialHistory',
+                inputType: 'textarea',
                 phenoKey: '',
                 type: 'text',
                 table: true,
                 displayName: {
                     en: 'Social History',
                     ja: '社会歴',
-                    ko: ''
+                    ko: '사회생활력'
                 }
             },
             {
                 columnID: 'm017',
                 dataKey: 'drinking',
+                inputType: 'radio-input',
                 phenoKey: '',
                 type: 'text',
                 table: true,
                 displayName: {
                     en: 'Drinking',
                     ja: '飲酒量',
-                    ko: ''
+                    ko: '음주량'
+                },
+                options: {
+                    dataValue: ['yes', 'no'],
+                    en: ['Yes', 'No'],
+                    ja: ['有', '無'],
+                    ko: []
                 }
             },
             {
                 columnID: 'm018',
                 dataKey: 'smoking',
+                inputType: 'radio-input',
                 phenoKey: '',
                 type: 'text',
                 table: true,
                 displayName: {
                     en: 'Smoking',
                     ja: '喫煙',
-                    ko: ''
+                    ko: '흡연'
+                },
+                options: {
+                    dataValue: ['yes', 'no'],
+                    en: ['Yes', 'No'],
+                    ja: ['有', '無'],
+                    ko: []
                 }
             },
             {
                 columnID: 'm019',
                 dataKey: 'medications',
+                inputType: 'text',
                 phenoKey: '',
                 type: 'text',
                 table: true,
                 displayName: {
                     en: 'Medications',
                     ja: '内服薬',
-                    ko: ''
+                    ko: '상용약'
                 }
             },
             {
                 columnID: 'm020',
                 dataKey: 'travelHistory',
+                inputType: 'textarea',
                 phenoKey: '',
                 type: 'text',
                 table: true,
                 displayName: {
                     en: 'Travel History',
                     ja: '渡航歴',
-                    ko: ''
+                    ko: '여행 이력'
                 }
             },
             {
                 columnID: 'm021',
                 dataKey: 'vaccinationHistory',
+                inputType: 'textarea',
                 phenoKey: '',
                 type: 'text',
                 table: true,
                 displayName: {
                     en: 'Vaccination History',
                     ja: '予防接種歴',
-                    ko: ''
+                    ko: '예방 접종 이력'
                 }
             }
         ]
     },
     {
+        dataKey: 'phenotypicInfo',
+        iconClass: 'material-symbols-outlined',
+        iconName: 'dns',
+        displayName: {
+            en: 'Phenotypic Information',
+            ja: '表現型情報',
+            ko: '표현형 정보'
+        }
+    },
+    {
         dataKey: 'geneInfo',
+        iconClass: 'icon-omim2',
+        iconName: '',
         displayName: {
             en: 'Genotype Information',
             ja: '遺伝子型情報',
-            ko: ''
+            ko: '유전자형 정보'
         },
         columns: [
             {
@@ -649,15 +714,18 @@ let categories = [
     },
     {
         dataKey: 'familyInfo',
+        iconClass: 'material-symbols-outlined',
+        iconName: 'diversity_3',
         displayName: {
             en: 'Family Information',
-            ja: '家族歴',
-            ko: ''
+            ja: '家系情報',
+            ko: '가계 정보'
         },
         columns: [
             {
                 columnID: 'f001',
                 dataKey: 'familyHistory',
+                inputType: 'textarea',
                 phenoKey: '',
                 type: 'text',
                 table: true,
@@ -670,6 +738,7 @@ let categories = [
             {
                 columnID: 'f002',
                 dataKey: 'geneticList',
+                inputType: 'multiple-radio',
                 phenoKey: '',
                 type: 'dropdown',
                 table: true,
@@ -688,6 +757,7 @@ let categories = [
             {
                 columnID: 'f003',
                 dataKey: 'otherAffectedRelatives',
+                inputType: 'radio',
                 phenoKey: '',
                 type: 'dropdown',
                 table: true,
@@ -706,6 +776,7 @@ let categories = [
             {
                 columnID: 'f004',
                 dataKey: 'consanguineMarriage',
+                inputType: 'radio',
                 phenoKey: '',
                 type: 'dropdown',
                 table: true,
@@ -724,6 +795,7 @@ let categories = [
             {
                 columnID: 'f005',
                 dataKey: 'miscarriage',
+                inputType: 'radio',
                 phenoKey: '',
                 type: 'dropdown',
                 table: true,
@@ -742,6 +814,7 @@ let categories = [
             {
                 columnID: 'f006',
                 dataKey: 'paternalEthnicity',
+                inputType: 'text',
                 phenoKey: '',
                 type: 'text',
                 table: true,
@@ -754,6 +827,7 @@ let categories = [
             {
                 columnID: 'f007',
                 dataKey: 'maternalEthnicity',
+                inputType: 'text',
                 phenoKey: '',
                 type: 'text',
                 table: true,

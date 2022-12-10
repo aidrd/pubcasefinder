@@ -1,7 +1,11 @@
 let hot, exportPlugin
 
 // let lang = 'ja'
-let lang = 'en'
+let lang = localStorage.lang || 'en'
+// let lang = 'ko'
+
+setInitialLanguage()
+
 let count
 
 // let defaultColumns = ['診断状況', '主訴', '確定診断', '臨床診断', '年齢', '性別', 'グループ名', '続柄', '家族ID', '患者ID']
@@ -106,17 +110,24 @@ function createColumns() {
         let colSequence = 2
 
         categories.forEach(category => {
-            console.log(category)
+            // console.log(category)
+            if (category.dataKey === 'phenotypicInfo') return
 
             category.columns.forEach(c => {
                 let key = c.dataKey
+                let displayName = c['displayName'][lang] || c['displayName']['en']
 
-                let colHeader = `<i class="material-icons-outlined sort_icon"></i>${c['displayName'][lang]}`
+                let options
+                if (c.options) {
+                    options = c['options'][lang].length > 0 ? c['options'][lang] : c['options']['en']
+                }
+
+                let colHeader = `<i class="material-icons-outlined sort_icon"></i>${displayName}`
 
                 let column = {
                     data: c.dataKey,
                     type: c.type,
-                    source: c.options,
+                    source: options,
                     strict: true,
                     allowInvalid: false,
                     readOnly: false
@@ -216,9 +227,12 @@ function addColumn() {
     container.innerHTML = ''
 
     categories.forEach(category => {
+        if (category.dataKey === 'phenotypicInfo') return
+
         createColumn(category['displayName'][lang], 'title', category['dataKey'])
         category.columns.forEach(c => {
-            if (c.table) createColumn(c['displayName'][lang], c.type, c['dataKey'])
+            let displayName = c['displayName'][lang] || c['displayName']['en']
+            if (c.table) createColumn(displayName, c.type, c['dataKey'])
         })
     })
 
@@ -258,7 +272,7 @@ function addColumn() {
                 <div>
                     <input  type="checkbox"
                             class="modal_add_columns"
-                            id="${colName}"
+                            id="${key}"
                             data-type="${type}"
                             data-key="${key}"
                             onchange="showHideColumn(this)"
@@ -618,4 +632,199 @@ function beforeLoad() {
 
 function pageReload() {
     window.location.reload()
+}
+
+function changeLanguage(e) {
+    localStorage.lang = e.options[e.selectedIndex].value
+    pageReload()
+}
+
+function setInitialLanguage() {
+    document.getElementById('select-lang').value = lang
+    document.getElementById('search_input').placeholder = translate('search_input')
+    document.getElementById('add-column').innerText = translate('add-column')
+    document.getElementById('add-row').innerText = translate('add-row')
+
+    translateModal()
+
+    function translateModal() {
+        let container = document.getElementById('modal-tab-wrap')
+        container.innerHTML = ''
+
+        let ul = document.createElement('ul')
+        container.appendChild(ul)
+
+        categories.forEach((category, i) => {
+            let liClass = ['tab-btn']
+            if (i === 0) liClass.push('show', 'tab-btn-first')
+            if (i === categories.length - 1) liClass.push('tab-btn-last')
+
+            let li = document.createElement('li')
+            li.classList.add(...liClass)
+            li.innerHTML += `
+                        <i class="${category.iconClass}">${category.iconName}</i>
+                        <span>${category['displayName'][lang] || category['displayName']['en']}</span>
+                    `
+            ul.appendChild(li)
+
+            let divClass = ['tab-contents']
+            if (i === 0) divClass.push('show')
+
+            let div = document.createElement('div')
+            div.classList.add(...divClass)
+            container.appendChild(div)
+
+            if (i === 2) {
+                div.innerHTML = `
+                    <p>ここに表現型情報が検索できます。</p>
+                    <div style="width:100%;margin: 20px auto 0px auto;">
+                        <div class="search-box_wrapper" style="width:100%;">
+                            <div id="search_box_form"></div>
+                        </div>
+                        <div class="search-ex">
+                            <a href="#" id="ex_phenotypes">ex) {{ _('index_Sample') }}</a>
+                        </div>
+                    </div>
+                `
+                return
+            } else if (i === 3) {
+                div.innerHTML = `
+                    <p>
+                        <span id="genemodal_add" onclick="addGeneRow()">
+                            <i class="material-icons-outlined">add_circle_outline
+                            </i>
+                            追加
+                        </span>
+                        <div id="geneModal"></div>
+                    </p>
+                `
+                return
+            }
+
+            let table = document.createElement('table')
+            table.classList.add('form-table')
+            if (i === 1) table.classList.add('treatment-table')
+            if (i === 4) table.classList.add('family-table')
+            table.innerHTML = `<tbody id="tbody_${category.dataKey}">`
+            div.appendChild(table)
+
+            if (i === 0) {
+                createRow(`tbody_${category.dataKey}`,
+                    {
+                        columnID: 'PCFNo',
+                        dataKey: 'PCFNo',
+                        phenoKey: '',
+                        type: 'display',
+                        table: true,
+                        displayName: {
+                            en: 'PCF No.',
+                            ja: 'PCF No.',
+                            ko: 'PCF No.'
+                        }
+                    },
+                )
+            }
+
+            category.columns.forEach(c => {
+                createRow(`tbody_${category.dataKey}`, c)
+            })
+        })
+
+        function createRow(parentId, c) {
+            let parent = document.getElementById(parentId)
+
+            let tr = document.createElement('tr')
+            parent.appendChild(tr)
+
+            let th = document.createElement('th')
+            th.id = c.dataKey
+            th.innerText = c['displayName'][lang]
+            tr.appendChild(th)
+
+            let td = document.createElement('td')
+            if (c.type === 'display') td.innerText = 'P20220600001'
+            tr.appendChild(td)
+
+            if (c.inputType === 'text' || c.inputType === 'input-select') {
+                let input = document.createElement('input')
+                input.type = 'text'
+                input.name = c.dataKey
+                input.dataset.columnname = c.dataKey
+                // input.placeholder = c['placeholder'][lang] || ''
+                td.appendChild(input)
+
+                if (c.inputType === 'input-select') {
+                    let select = document.createElement('select')
+                    select.id = c.dataKey === 'familyId' ? 'family_options' : 'group_options'
+                    td.appendChild(select)
+
+                    td.id = 'group_wrap'
+                }
+            } else if (c.inputType === 'select') {
+                let select = document.createElement('select')
+                select.name = c.dataKey
+                select.dataset.columnname = c.dataKey
+                td.appendChild(select)
+
+                let options = c.options.dataValue
+                options.forEach((o, i) => {
+                    let option = document.createElement('option')
+                    option.value = o
+                    option.innerText = c['options'][lang][i]
+                    select.add(option)
+                })
+            } else if (c.inputType === 'select-date') {
+                let selectYear = document.createElement('select')
+                selectYear.classList.add(`${c.dataKey}_year`)
+                selectYear.id = `${c.dataKey}_year`
+                selectYear.name = `${c.dataKey}_year`
+                selectYear.dataset.columnname = c.dataKey
+                td.appendChild(selectYear)
+
+                let selectMonth = document.createElement('select')
+                selectMonth.name = `${c.dataKey}_month`
+                selectMonth.id = `${c.dataKey}_month`
+                selectMonth.dataset.columnname = c.dataKey
+                td.appendChild(selectMonth)
+            } else if (c.inputType === 'radio' || c.inputType === 'radio-input') {
+                let options = c.options.dataValue
+                options.forEach((o, i) => {
+                    td.innerHTML += `
+                        <label for="${o}">
+                            <input id="${o}" type="radio" name="${c.dataKey}" value="${o}" checked="checked"
+                                data-columnname="${c.dataKey}">
+                            ${c['options'][lang][i]}
+                        </label>
+                    `
+                })
+
+                if (c.inputType === 'radio-input') {
+                    let input = document.createElement('input')
+                    input.classList.add('input-top')
+                    input.type = 'text'
+                    input.name = `${c.dataKey}-list`
+                    // input.placeholder = c['placeholder'][lang] || ''
+                    td.appendChild(input)
+                }
+            } else if (c.inputType === 'textarea') {
+                let textarea = document.createElement('textarea')
+                textarea.cols = 30
+                textarea.rows = 5
+                textarea.name = c.dataKey
+                textarea.dataset.columnname = c.dataKey
+                // textarea.placeholder = c['placeholder'][lang] || ''
+                td.appendChild(textarea)
+            }
+        }
+    }
+
+    function translate(word) {
+        if (!elementTranslation[word]) return null
+
+        if (elementTranslation[word][lang]) {
+            return elementTranslation[word][lang]
+        } else {
+            return elementTranslation[word]['en']
+        }
+    }
 }

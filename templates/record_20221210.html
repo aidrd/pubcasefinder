@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--json test-->
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PubcaseFinder</title>
+    <!--css-->
+    <!-- start bits-->
+    <link rel="stylesheet" href="https://unpkg.com/destyle.css@1.0.5/destyle.css">
+    <link rel="stylesheet" href="/static/css/pcf/bootstrap.css">
+    <link rel="stylesheet" href="/static/css/pcf/tippy.css">
+    <link rel="stylesheet" href="/static/css/pcf/search-box-form.css">
+    <link rel="stylesheet" href="/static/css/pcf/text-input.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/pcf/magnific-popup.css">
+    <link rel="stylesheet" href="/static/css/pcf/token-input-facebook.css" type="text/css" />
+    <link rel="stylesheet" href="/static/css/pcf/popup-hierarchy-hpo.css">
+    <link rel="stylesheet" href="https://unpkg.com/tippy.js@6/animations/scale.css" />
+    <link rel="stylesheet" href="https://unpkg.com/tippy.js@6/animations/scale-extreme.css" />
+    <!-- end bits-->
+    <link rel="stylesheet" href="https://unpkg.com/destyle.css@1.0.5/destyle.css">
+    <link rel='stylesheet' href="/static/css/pcf/branc.css">
+    <link rel='stylesheet' href="/static/css/pcf/branc-ie7.css">
+    <link rel='stylesheet' href="/static/css/pcf/branc-ie7-codes.css">
+    <link rel='stylesheet' href="/static/css/pcf/branc-embedded.css">
+    <link rel='stylesheet' href="/static/record/css/branc.css">
+    <link rel='stylesheet' href="/static/record/css/branc-ie7.css">
+    <link rel='stylesheet' href="/static/record/css/branc-ie7-codes.css">
+    <link rel='stylesheet' href="/static/record/css/branc-embedded.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.1/css/swiper.min.css">
+    <link href="/static/css/pcf/remodal.css" rel="stylesheet">
+    <link href="/static/css/pcf/remodal-default-theme.css" rel="stylesheet">
+    <link rel="apple-touch-icon" sizes="180x180" href="/static/images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/static/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/static/images/favicon-16x16.png">
+    <link rel="manifest" href="/static/images/site.webmanifest">
+    <link rel="mask-icon" href="/static/images/safari-pinned-tab.svg" color="#2a3356">
+    <script src="https://cdn.jsdelivr.net/npm/handsontable@12.1/dist/handsontable.full.min.js"></script>
+    <link type="text/css" rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/handsontable@12.1/dist/handsontable.full.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/yamljs@0.3.0/dist/yaml.min.js"></script>
+    <meta name="msapplication-TileColor" content="#2a3356">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="stylesheet" href="/static/css/pcf/style-togo.css">
+    <link rel="stylesheet" href="/static/record/css/record.css">
+    <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Noto+Sans+JP:wght@100;300;400;500;700;900&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+</head>
+
+<!-- <body onbeforeunload="return beforeLoad()"> -->
+
+    <body>
+    <header class="search-header search-header-karte">
+        <div class="wrapper search-header_wrapper">
+            <div class="search-header_top">
+                <div class="brand">
+                    <a href="https://pubcasefinder.dbcls.jp/" class="brand"><img src="/static/images/logo_color.svg"
+                            alt=""></a>
+                </div>
+                <div class="search-header_left">
+                    <nav class="nav-pc">
+                        <ul class="menu-pc">
+                            <li><a href="/guides.html"><i class="icon-question-circle-o"></i>Guides</a></li>
+                            <li><a href="/api.html"><i class="icon-wrench"></i>API</a></li>
+                            <li><a href="/history.html"><i class="icon-history"></i>History</a></li>
+                            <li><a href="/termsofservice.html"><i class="icon-doc-text-inv"></i>Terms</a>
+                            </li>
+                            <li><a href="/sources.html"><i class="icon-database"></i>Sources</a></li>
+                            <li><a target="_blank" href="https://integbio.jp/rdf/dataset/pubcasefinder"><i
+                                        class="icon-share"></i>RDF</a></li>
+                            <li><a title="Comments &amp; suggestions are welcome!"
+                                    href="mailto:support@dbcls.rois.ac.jp,pubcasefinder@dbcls.rois.ac.jp"><i
+                                        class="icon-mail-alt"></i>Contact</a></li>
+                        </ul>
+                    </nav>
+                    <nav class="nav-sp">
+                        <ul>
+                            <li class="menu-item-has-children">
+                                <a href="#"><span class="material-icons">
+                                        menu
+                                    </span></a>
+                                <ul class="sub-menu">
+                                    <li><a href="/guides.html">Guides</a></li>
+                                    <li><a href="/api.html">API</a></li>
+                                    <li><a href="/history.html">History</a></li>
+                                    <li><a href="/termsofservice.html">Terms</a></li>
+                                    <li><a href="/sources.html">Sources</a></li>
+                                    <li><a target="_blank" href="https://integbio.jp/rdf/dataset/pubcasefinder">RDF</a>
+                                    </li>
+                                    <li><a title="Comments &amp; suggestions are welcome!"
+                                            href="mailto:support@dbcls.rois.ac.jp,pubcasefinder@dbcls.rois.ac.jp">Contact</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </nav>
+                    <div class="language">
+                        <select id="select-lang" class="select-text" onchange="changeLanguage(this)">
+                            <option value="en">English</option>
+                            <option value="ja">日本語</option>
+                            <option value="ko">한국어</option>
+                        </select>
+                        <span class="select-highlight"></span>
+                        <span class="select-bar"></span>
+                        <label class="select-label">
+                            <i class="material-symbols-outlined">
+                                language
+                            </i>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <nav id="menu-tab">
+            <ul class="menu-links">
+                <li class="nav-link">
+                    <a href="#" id="content-patients">
+                        <i class="bxt icon material-icons-outlined person_icon">
+                            person
+                        </i>
+                        <span class="text nav-text link_name">MY PATIENTS :</span>
+                        <h1 id="row_count">0</h1>
+                    </a>
+                </li>
+            </ul>
+            <div class="side-content">
+                <div class="first-users-wrap">
+                    <a href="#" class="panel-btn">
+                        <i class="material-symbols-outlined">
+                            help
+                        </i>
+                        Guide
+                    </a>
+                    <div class="panel panel_first">
+                        <div class="export-panel first-users-panel">
+                            <img class="users01" src="/static/images/users01.png">
+                            <h6>ようこそ</br>
+                                さまざまな症例情報をローカルに保存できます</h6>
+                            <span>形式 : Json / tsv / Phenopackets（.yaml）</span>
+                            <p>簡易記入は(1)を、詳細情報記入の場合は(2)を押してください。</p>
+                            <img src="/static/images/users02.png">
+                        </div>
+                    </div>
+                </div>
+                <li class="">
+                    <a href="#" onclick="document.getElementById('import_btn').click()">
+                        <i class="icon material-symbols-outlined">
+                            folder_open
+                        </i>
+                        <span class="text nav-text link_name">Open</span>
+                        <input type="file" id="import_btn" onchange="importFile(event)">
+                    </a>
+                </li>
+
+                <li class="panel-wrap">
+                    <a href="#" class="panel-btn">
+                        <i class="icon material-symbols-outlined">
+                            save
+                        </i>
+                        <span class="text nav-text link_name">Save</span>
+                    </a>
+                    <div class="panel">
+                        <div class="export-panel">
+                            <h6>Export</h6>
+                            <p>Format :
+                                <select name="file" id="dl-select">
+                                    <option value="json">json</option>
+                                    <option value="tsv">tsv</option>
+                                </select>
+                            </p>
+                            <button id="dl_table_button" onclick="getExportData(false)">Download</button>
+                        </div>
+                    </div>
+                </li>
+            </div>
+            </div>
+        </nav>
+    </header>
+    <section id="nav-left">
+        <!--<nav class="sidebar global-nav">
+            <div class="menu-bar">
+                <div class="menu">
+                    <ul class="menu-links">
+                        <li class="nav-link">
+                            <a href="#" id="content-patients">
+                                <i class="bxt icon material-icons-outlined">
+                                    person
+                                </i>
+                                <span class="text nav-text link_name">My patients</span>
+                            </a>
+                            <div class="modal_open karte-btn karte-add" data-target="modal-karte"
+                                rel="noopener noreferrer">
+                                <i class="material-symbols-outlined">
+                                    edit_square
+                                </i>
+                            </div>
+                        </li>
+
+
+
+        </ul>
+        </div>
+
+        <div class="bottom-content">
+            <li class="">
+                <a href="#" onclick="document.getElementById('import_btn').click()">
+                    <i class="icon material-symbols-outlined">
+                        folder_open
+                    </i>
+                    <span class="text nav-text link_name">Open</span>
+                    <input type="file" id="import_btn" onchange="importFile(event)">
+                </a>
+            </li>
+
+            <li class="save-color panel-wrap">
+                <a href="#" class="panel-btn">
+                    <i class="icon material-symbols-outlined">
+                        save
+                    </i>
+                    <span class="text nav-text link_name">Save</span>
+                </a>
+                <div class="panel">
+                    <h5>Export</h5>
+                    <p>Format:
+                        <select name="file" id="dl-select">
+                            <option value="json">json</option>
+                            <option value="tsv">tsv</option>
+                        </select>
+                    </p>
+                    <button id="dl_table_button" onclick="getExportData(false)">Download</button>
+                </div>
+            </li>
+        </div>
+        </div>
+        </nav>-->
+        <section class="home">
+            <main id="content-patients">
+                <div id="home-menu">
+                    <input type="search" placeholder="キーワード検索" id="search_input">
+                    <span id="reset" onclick="pageReload()"><i class="material-symbols-outlined">
+                            Refresh
+                        </i>
+                    </span>
+                    <!--
+                    <span onclick="downloadSample('json')">サンプルJSON</span>
+                    <span onclick="downloadSample('excel')">サンプルTSV</span>
+                    -->
+                    <div id="table_menu">
+                        <span onclick="addColumn()" id="add-column"><i class="material-symbols-outlined">
+                                playlist_add_check
+                            </i>列追加</span>
+                        <span onclick="addRow()" id="add-row"><i class="material-symbols-outlined">
+                                group_add
+                            </i>行追加</span>
+                        <li class="modal_open karte-btn karte-add" data-target="modal-karte" rel="noopener noreferrer">
+                            <i class="material-symbols-outlined">
+                                edit_square
+                            </i>
+                        </li>
+                    </div>
+                </div>
+                <div id="fixed-menu">
+                    <div class="modal">
+                        <div class="modal_content">
+                            <div class="button_wrap">
+                                <input id="add_column_input" type="text" placeholder="新規項目">
+                                <div class="add"><i class="material-symbols-outlined">
+                                        playlist_add
+                                    </i>作成</div>
+                                <!-- <div class="close_modal">X</div> -->
+                            </div>
+                            <div class="modal_container" id="modal_container">
+                            </div>
+                        </div>
+                    </div>
+                    <!--<div id="fixed-menu-contents">
+                            <button>Phenopackets</button>
+                            <div class="panel-wrap">
+                                <a href="#" class="panel-btn"><span class="material-icons">save_alt</span></a>
+                                <div class="panel">
+                                    <h5>ダウンロード</h5>
+                                    <p>Format:
+                                        <select name="file" id="dl-table-select">
+                                            <option value="json">json</option>
+                                            <option value="tsv">excel</option>
+                                        </select>
+                                    </p>
+                                    <button id="dl_table_button" onclick="getExportData(false)">Download</button>
+                                </div>
+                            </div>
+                        </div>-->
+                </div>
+                </div>
+                <div id="myGrid" ondragover="onDragOver(event)" ondrop="onDrop(event)"></div>
+            </main>
+        </section>
+    </section>
+    <div id="modal-karte" class="modal_box modal-karte">
+        <div id="modal-karte-button">
+            <button class="modal-close"><span class="material-symbols-outlined">
+                    close
+                </span></button>
+        </div>
+        <div id="modal-karte-button-sub">
+            <button class="modal-phenopackets"><img src="/static/images/PhenoPackets_Logo.png">
+                <p>Phenopackets
+                    download</p>
+                <i class="material-symbols-outlined">
+                    downloading
+                </i>
+            </button>
+            <button class="modal-copy"><i class="material-symbols-outlined">
+                    file_copy
+                </i>
+                <p>Data copy</p>
+            </button>
+        </div>
+        <div class="tab-wrap">
+            <ul>
+                <li class="tab-btn show tab-btn-first">
+                    <i class="bxt icon material-icons-outlined">
+                        person
+                    </i>
+                    <span>患者基本情報</span>
+                </li>
+                <li class="tab-btn">
+                    <i class="material-symbols-outlined">
+                        medical_information
+                    </i>
+                    <span>診療情報</span>
+                </li>
+                <li class="tab-btn">
+                    <i class="material-symbols-outlined">
+                        dns
+                    </i>
+                    <span>表現型情報</span>
+                </li>
+                <li class="tab-btn">
+                    <i class="icon-omim2"></i>
+                    <span>遺伝子型情報</span>
+                </li>
+                <li class="tab-btn tab-btn-last">
+                    <i class="material-symbols-outlined">
+                        diversity_3
+                    </i>
+                    <span>家系情報</span>
+                </li>
+            </ul>
+            <div class="tab-contents show">
+                <table class="form-table">
+                    <tbody>
+                        <tr>
+                            <th id="PCFNo">PCF No.</th>
+                            <td>P20220600001</td>
+                        </tr>
+                        <tr>
+                            <th id="patientID">患者ID</th>
+                            <td><input type="text" name="patientId" value="" placeholder="P00000001"
+                                    data-columnname="patientId">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th id="familyID">家族ID</th>
+                            <td id="group_wrap">
+                                <input type="text" name="familyId" value="" placeholder="F00000001"
+                                    data-columnname="familyId">
+                                <select id="family_options"></select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th id="relationship">続柄</th>
+                            <td id="relationship_td">
+                                <!--<select name="RelatedTo" id="related_to" data-columnname="RelatedTo">
+                                </select>-->
+                                <select name="relationship" data-columnname="relationship">
+                                    <option value="" hidden>- 選択 -</option>
+                                    <option value="proband">発端者</option>
+                                    <option value="father">父親</option>
+                                    <option value="mother">母親</option>
+                                    <option value="sibling">兄弟姉妹</option>
+                                    <option value="other">その他</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th id="groupID">グループ名</th>
+                            <td id="group_wrap">
+                                <input type="text" name="group" list="group_options" placeholder="X病院、Y診療科など"
+                                    data-columnname="group">
+                                <select id="group_options"></select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th id="birth">生年月</th>
+                            <td>
+                                <select name="birth_year" id="birth_year" value="birth_year" placeholder="2000"
+                                    class="birth_year" data-columnname="birth">
+                                </select>
+                                <select name="birth_month" id="birth_month" value="birth_month"
+                                    data-columnname="birth"></select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th id="age">年齢</th>
+                            <td id="age">
+                                <input type="text" name="age" list="age" placeholder="患者の年齢" data-columnname="age">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th id="lifestatus">状態</th>
+                            <td>
+                                <label for="alive">
+                                    <input id="alive" type="radio" name="lifeStatus" value="alive" checked="checked"
+                                        data-columnname="lifeStatus">
+                                    生存
+                                </label>
+                                <label for="deceased">
+                                    <input id="deceased" type="radio" name="lifeStatus" value="deceased" data-columnname="lifeStatus">
+                                    故人
+                                </label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th id="death">没年月</th>
+                            <td>
+                                <select name="death_year" id="death_year" value="death_year" placeholder="2000"
+                                    class="death_year" data-columnname="death">
+                                </select>
+                                <select name="death_month" id="death_month" value="death_year" data-columnname="death">
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th id="sex">性別</th>
+                            <td>
+                                <select name="sex" data-columnname="sex">
+                                    <option value="" hidden>- 選択 -</option>
+                                    <option value="male">男性</option>
+                                    <option value="female">女性</option>
+                                    <option value="other">その他</option>
+                                    <option value="uknown">不明</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th id="Note">備考</th>
+                            <td>
+                                <textarea name="note" cols="30" rows="5" data-columnname="note"
+                                    placeholder="自由記載"></textarea>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="tab-contents">
+                <table class="form-table treatment-table">
+                    <tbody>
+                        <tr>
+                            <th id="clinical-diagnosis">臨床診断</th>
+                            <td><input type="text" name="clinicalDiagnosis" value="" placeholder="ex)痙性椎麻痺"
+                                    data-columnname="clinicalDiagnosis">
+                        </tr>
+                        <tr>
+                            <th id="final-diagnosis">確定診断</th>
+                            <td><input type="text" name="finalDiagnosis" value="" placeholder="ex)Krabbe病"
+                                    data-columnname="finalDiagnosis">
+                        </tr>
+                        <tr>
+                            <th id="chief-complaint">主訴</th>
+                            <td><input type="text" name="chiefComplaint" value="" placeholder="ex)歩行障害"
+                                    data-columnname="chiefComplaint">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th id="case-solved">診断状況</th>
+                            <td>
+                                <select name="caseSolved" data-columnname="caseSolved">
+                                    <option value="" hidden>- 選択 -</option>
+                                    <option value="solved">解決</option>
+                                    <option value="candidate">新規候補</option>
+                                    <option value="VUS">VUS</option>
+                                    <option value="unresolved">未解決</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th id="current-medical-history">現病歴</th>
+                            <td><textarea type="text" name="currentMedicalHistory" value="" placeholder="ex)現病歴"
+                                    data-columnname="currentMedicalHistory" rows="3"></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th id="previous-medical-history">既往歴</th>
+                            <td><textarea type="text" name="previousMedicalHistory" value="" placeholder="ex)既往歴"
+                                    data-columnname="previousMedicalHistory" rows="3"></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th id="prenatal-perinatal-history">
+                                出生前/周産期の病歴</th>
+                            <td><textarea type="text" name="prenatalPerinatalHistory" value=""
+                                    placeholder="ex)出生前および周産期の病歴" data-columnname="prenatalPerinatalHistory" rows="3"></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th id="early-developmental-and-schooling-history">
+                                生育歴/教育歴</th>
+                            <td><textarea type="text" name="earlyDevelopmentalAndSchoolingHistory" value=""
+                                    placeholder="ex)生育歴および教育歴" data-columnname="earlyDevelopmentalAndSchoolingHistory" rows="3">
+                                </textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th id="process">
+                                経過
+                            </th>
+                            <td><textarea type="text" name="process" size="60" value="" placeholder="ex)検査・治療計画"
+                                    data-columnname="process" rows="3"></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th id="age-onset">発症年齢</th>
+                            <td>
+                                <select name="ageOnset" data-columnname="ageOnset">
+                                    <option value="" hidden>- 選択 -</option>
+                                    <option value="unknown">不明</option>
+                                    <option value="congenitalOnset">先天性の発症</option>
+                                    <option value="antenatalOnset">出生前発症</option>
+                                    <option value="antenatalOnsetEmbryonal">-胎生期発症</option>
+                                    <option value="antenatalOnsetFetal">-胎児期発症</option>
+                                    <option value="neonatalOnset">新生児期発症</option>
+                                    <option value="infantileOnset">幼児期発症</option>
+                                    <option value="childhoodOnset">小児期発症</option>
+                                    <option value="juvenileOnset">若年性発症（思春期発症）</option>
+                                    <option value="adultOnset">成人発症</option>
+                                    <option value="adultOnsetYoungAdult">-前期発症（青年期発症）</option>
+                                    <option value="adultOnsetMiddleAge">-中年期発症（壮年期発症）</option>
+                                    <option value="adultOnsetLate">-後期発症</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th id="examination-finding">検査所見</th>
+                            <td><input type="text" name="examinationFinding" value="" placeholder="ex)検査所見"
+                                    data-columnname="examinationFinding">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th id="allergies">アレルギー</th>
+                            <td>
+                                <label for="allergies">
+                                    <input id="no-allergies" type="radio" name="allergies" value="no" checked="checked">
+                                    無
+                                </label>
+                                <label for="allergies">
+                                    <input id="yes-allergies" type="radio" name="allergies" value="yes">
+                                    有
+                                </label>
+                                <input class="input-top" type="text" name="allergies-list" value=""
+                                    placeholder="ex)アレルギー">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th id="body-data">身体情報</th>
+                            <td>
+                                <span id="bodyModal_add" onclick="addBodyRow()">
+                                    <i class="material-icons-outlined">add_circle_outline</i>追加</span>
+                                <div id="bodyModal"></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th id="social-history">社会歴</th>
+                            <td>
+                                <textarea type="text" name="socialHistory" value="" placeholder="ex)社会歴"
+                                    data-columnname="socialHistory" rows="3"></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th id="drinking">飲酒量</th>
+                            <td>
+                                <label for="drinking">
+                                    <input id="no-drinking" type="radio" name="drinking" value="no" checked="checked">
+                                    無
+                                </label>
+                                <label for="drinking">
+                                    <input id="yes-drinking" type="radio" name="drinking" value="yes">
+                                    有
+                                </label>
+                                <input class="input-top" type="text" name="drinking-list" value="" placeholder="ex)飲酒量">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th id="smoking">喫煙</th>
+                            <td>
+                                <label for="smoking">
+                                    <input id="no-smoking" type="radio" name="smoking" value="no" checked="checked">
+                                    無
+                                </label>
+                                <label for="smoking">
+                                    <input id="yes-smoking" type="radio" name="smoking" value="yes">
+                                    有
+                                </label>
+                                <input class="input-top" type="text" name="smoking-list" value="" placeholder="ex)喫煙">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th id="medications">内服薬</th>
+                            <td><input type="text" name="medications" size="60" value="" placeholder="ex)内服薬"
+                                    data-columnname="medications">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th id="travel-history">渡航歴</th>
+                            <td><textarea type="text" name="travelHistory" size="60" value="" placeholder="ex)渡航歴"
+                                    data-columnname="travelHistory" rows="3"></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th id="vaccination-history">予防接種歴</th>
+                            <td><textarea type="text" name="vaccinationHistory" size="60" value=""
+                                    placeholder="ex)予防接種歴" data-columnname="vaccinationHistory" rows="3"></textarea>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="tab-contents">
+                <p>ここに表現型情報が検索できます。</p>
+                <div style="width:100%;margin: 20px auto 0px auto;">
+                    <div class="search-box_wrapper" style="width:100%;">
+                        <div id="search_box_form"></div>
+                    </div>
+                    <div class="search-ex">
+                        <a href="#" id="ex_phenotypes">ex) {{ _('index_Sample') }}</a>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-contents">
+                <p>
+                    <span id="genemodal_add" onclick="addGeneRow()">
+                        <i class="material-icons-outlined">add_circle_outline
+                        </i>
+                        追加
+                    </span>
+                <div id="geneModal"></div>
+                </p>
+            </div>
+            <div class="tab-contents">
+                <table class="form-table family-table">
+                    <tbody>
+                        <tr>
+                            <th id="family-info">家族歴</th>
+                            <td>
+                                <textarea name="familyHistory" cols="30" rows="5"
+                                    placeholder="家族で見つかった健康状態を一覧表示する/発端者との関係を説明する" data-columnname="familyHistory"></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th id="genetic-form">遺伝形式</th>
+                            <td class="genetic_list">
+                                <label for="sporadic">
+                                    <input id="sporadic" type="radio" name="geneticList" value="Sporadic"
+                                        data-columnname="geneticList">Sporadic
+                                </label>
+                                <details>
+                                    <summary>
+                                        <label for="autosomal_dominant_inheritance">
+                                            <input id="autosomal_dominant_inheritance" type="radio" name="geneticList"
+                                                value="Autosomal dominant inheritance" data-columnname="geneticList">Autosomal
+                                            dominant
+                                            inheritance
+                                        </label>
+                                    </summary>
+                                    <label for="sex_limited_autosomal_dominant">
+                                        <input id="sex_limited_autosomal_dominant" type="radio" name="geneticList"
+                                            value="Sex-limited autosomal dominant" data-columnname="geneticList">Sex-limited
+                                        autosomal dominant
+                                    </label>
+                                    <label for="autosomal_dominant_somatic_cell_mutation">
+                                        <input id="autosomal_dominant_somatic_cell_mutation" type="radio"
+                                            name="geneticList" value="Autosomal dominant somatic cell mutation"
+                                            data-columnname="geneticList">
+                                        Autosomal
+                                        dominant somatic cell mutation
+                                    </label>
+                                    <label for="autosomal_dominant_contiguous_gene_syndrome">
+                                        <input id="autosomal_dominant_contiguous_gene_syndrome" type="radio"
+                                            name="geneticList" value="Autosomal dominant contiguous gene syndrome"
+                                            data-columnname="geneticList">
+                                        Autosomal
+                                        dominant contiguous gene syndrome
+                                    </label>
+                                </details>
+                                <label for="autosomal_recessive_inheritance">
+                                    <input id="autosomal_recessive_inheritance" type="radio" name="geneticList"
+                                        value="Autosomal recessive inheritance" data-columnname="geneticList">
+                                    Autosomal
+                                    recessive inheritance
+                                </label>
+                                <details>
+                                    <summary>
+                                        <label for="gonosomal_inheritance">
+                                            <input id="gonosomal_inheritance" type="radio" name="geneticList"
+                                                value="Gonosomal inheritance" data-columnname="geneticList">Gonosomal
+                                            inheritance
+                                        </label>
+                                    </summary>
+                                    <label for="x_linked_inheritance">
+                                        <input id="x_linked_inheritance" type="radio" name="geneticList"
+                                            value="X-linked inheritance" data-columnname="geneticList">X-linked
+                                        inheritance
+                                    </label>
+                                    <label for="x_linked_dominant_inheritance">
+                                        <input id="x_linked_dominant_inheritance" type="radio" name="geneticList"
+                                            value="X-linked dominant inheritance" data-columnname="geneticList">X-linked
+                                        dominant inheritance
+                                    </label>
+                                    <label for="x_linked_recessive_inheritance">
+                                        <input id="x_linked_recessive_inheritance" type="radio" name="geneticList"
+                                            value="X-linked recessive inheritance" data-columnname="geneticList">X-linked
+                                        recessive inheritance
+                                    </label>
+                                    <label for="y_linked_inheritance">
+                                        <input id="y_linked_inheritance" type="radio" name="geneticList"
+                                            value="Y-linked inheritance" data-columnname="geneticList">Y-linked
+                                        inheritance
+                                    </label>
+                                </details>
+                                <details>
+                                    <summary>
+                                        <label for="multifactorial_inheritance">
+                                            <input id="multifactorial_inheritance" type="radio" name="geneticList"
+                                                value="Multifactorial inheritance" data-columnname="geneticList">Multifactorial
+                                            inheritance
+                                        </label>
+                                    </summary>
+                                    <label for="digenic_inheritance">
+                                        <input id="digenic_inheritance" type="radio" name="geneticList"
+                                            value="Digenic inheritance" data-columnname="geneticList">Digenic
+                                        inheritance
+                                    </label>
+                                    <label for="oligogenic_inheritance">
+                                        <input id="oligogenic_inheritance" type="radio" name="geneticList"
+                                            value="Oligogenic inheritance" data-columnname="geneticList">Oligogenic
+                                        inheritance
+                                    </label>
+                                    <label for="polygenic_inheritance">
+                                        <input id="polygenic_inheritance" type="radio" name="geneticList"
+                                            value="Polygenic inheritance" data-columnname="geneticList">Polygenic
+                                        inheritance
+                                    </label>
+                                </details>
+                                <label for="mitochondrialx_inheritance">
+                                    <input id="mitochondrialx_inheritance" type="radio" name="geneticList"
+                                        value="Mitochondrial inheritance" data-columnname="geneticList">Mitochondrial
+                                    inheritance
+                                </label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th id="other-families">
+                                その他の罹患近親者</th>
+                            <td>
+                                <label for="unknown-other-families">
+                                    <input id="unknown-other-families" type="radio" name="otherAffectedRelatives" value="uknown"
+                                        data-columnname="otherAffectedRelatives">
+                                    不明
+                                </label>
+                                <label for="yes-other-families">
+                                    <input id="yes-other-families" type="radio" name="otherAffectedRelatives" value="yes"
+                                        data-columnname="otherAffectedRelatives">
+                                    有
+                                </label>
+                                <label for="no-other-families">
+                                    <input id="no-other-families" type="radio" name="otherAffectedRelatives" value="no"
+                                        data-columnname="otherAffectedRelatives">
+                                    無
+                                </label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th id="consanguine-marriage">
+                                近親婚</th>
+                            <td>
+                                <label for="unknown-consanguine-marriage">
+                                    <input id="unknown-consanguine-marriage" type="radio" name="consanguineMarriage"
+                                        value="unknown" data-columnname="consanguineMarriage">
+                                    不明
+                                </label>
+                                <label for="yes-consanguine-marriage">
+                                    <input id="yes-consanguine-marriage" type="radio" name="consanguineMarriage"
+                                        value="yes" data-columnname="consanguineMarriage">
+                                    有
+                                </label>
+                                <label for="no-consanguine-marriage">
+                                    <input id="no-consanguine-marriage" type="radio" name="consanguineMarriage"
+                                        value="no" data-columnname="consanguineMarriage">
+                                    無
+                                </label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th id="abortion">
+                                流産が3回以上ある両親</th>
+                            <td>
+                                <label for="unknown-abortion">
+                                    <input id="unknown-abortion" type="radio" name="miscarriage" value="unknown"
+                                        data-columnname="miscarriage">
+                                    不明
+                                </label>
+                                <label for="yes-abortion">
+                                    <input id="yes-abortion" type="radio" name="miscarriage" value="yes"
+                                        data-columnname="miscarriage">
+                                    有
+                                </label>
+                                <label for="no-abortion">
+                                    <input id="no-abortion" type="radio" name="miscarriage" value="no"
+                                        data-columnname="miscarriage">
+                                    無
+                                </label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th id="gene-father">父方の民族</th>
+                            <td><input type="text" name="paternalEthnicity" value="" placeholder="ex)父方の民族"
+                                    data-columnname="paternalEthnicity">
+                        </tr>
+                        <tr>
+                            <th id="gene-mother">母性の民族</th>
+                            <td><input type="text" name="maternalEthnicity" value="" placeholder="ex)母性の民族"
+                                    data-columnname="maternalEthnicity">
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+
+<!-- start bits-->
+<!--  <script src="/static/js/pcf/jquery.min.js"></script>  -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="/static/js/jquery.easing.1.3.js"></script>
+<script src="/static/js/pcf/bootstrap-4.6.0.bundle.js"></script>
+<script src="https://unpkg.com/@popperjs/core@2"></script>
+<script src="https://unpkg.com/tippy.js@6"></script>
+<script src="/static/js/jquery.waypoints.min.js"></script>
+<script src="/static/js/jquery.countTo.js"></script>
+<script src="/static/js/pcf/jquery.magnific_popup.min.js"></script>
+<script src="/static/js/pcf/magnific-popup-options.js"></script>
+<script src="/static/js/jquery.stellar.min.js"></script>
+<script src="/static/js/pcf/rater.js"></script>
+<script src="/static/js/pcf/jquery.tokeninput.js"></script>
+<script src="/static/js/d3/3.5.17/d3.min.js"></script>
+<script src="/static/js/three.js-r84/build/three.min.js"></script>
+<script src="/static/js/three.js-r84/examples/js/Detector.js"></script>
+<script src="/static/js/three-bits/OBJLoader.js"></script>
+<script src="/static/js/three-bits/three-bits.js"></script>
+<script src="/static/js/three-bits/three-bits-renderer.js"></script>
+<script src="/static/js/three-bits/defaults.js"></script>
+<script type="text/javascript" src="/static/js/pcf/popup-hierarchy-hpo.js"></script>
+<script src="/static/js/button-ripple-effect.js"></script>
+<script src="/static/js/jaconv/jaconv.min.js"></script>
+<script type="text/javascript" src="/static/js/pcf/jquery.search-box_form.js"></script>
+<script type="text/javascript" src="/static/js/pcf/jquery.textinput_hpo.js"></script>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $("#search_box_form").search_box_form({
+            'url_tokeninput_hpo': '/tokeninput_hpo',
+            'url_tokeninput_hpo_second': '/pcf_get_hpo_by_text',
+            'url_popup_hierarchy_hpo': '/popup_hierarchy_hpo',
+            'url_load_hpo_data': '/get_hpo_data_by_hpo_id',
+            {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
+            'lang': "ja",
+        {% else %}
+        'lang': "en",
+        {% endif %}
+        'form_para_target': "omim",
+        'form_para_filter': "",
+        'form_para_filter_vgp': "",
+        'form_para_size': "",
+        'form_para_display_format': "full",
+        'is_hierarchy_fullscreen': false,
+        'schema': 'schema-2022',
+        'text_input_schema': 'auto'
+          });
+
+    $("#ex_phenotypes").click(function () {
+        $("#search_box_form").search_box_form('add_token', { id: "{{ _('index_Sample_1_id') }}", name: "{{ _('index_Sample_1_name') }}" });
+        $("#search_box_form").search_box_form('add_token', { id: "{{ _('index_Sample_2_id') }}", name: "{{ _('index_Sample_2_name') }}" });
+        $("#search_box_form").search_box_form('add_token', { id: "{{ _('index_Sample_3_id') }}", name: "{{ _('index_Sample_3_name') }}" });
+        $("#search_box_form").search_box_form('add_token', { id: "{{ _('index_Sample_4_id') }}", name: "{{ _('index_Sample_4_name') }}" });
+        $("#search_box_form").search_box_form('add_token', { id: "{{ _('index_Sample_5_id') }}", name: "{{ _('index_Sample_5_name') }}" });
+
+        return false;
+    });
+
+    $('[data-toggle="tooltip"]').tooltip({ 'trigger': 'hover' });
+    });
+
+</script>
+<!-- end bits-->
+<script type="text/javascript"
+    src="https://dbcls.rois.ac.jp/DBCLS-common-header-footer/v2/script/common-header-and-footer.js"
+    style="display: block" id="common-header-and-footer__script" data-width="976" data-color="mono"></script>
+<!--  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>  -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.1/js/swiper.min.js"></script>
+<script src="/static/record/js/remodal.min.js"></script>
+<script src="/static/record/renderer.js"></script>
+<script src="/static/record/variables/columns.js"></script>
+<script src="/static/record/variables/emptyData.js"></script>
+<script src="/static/record/variables/translation.js"></script>
+<script src="/static/record/record.js" async defer></script>
+<script src="/static/record/modal.js" async defer></script>
+<script src="/static/record/modal_table.js" async defer></script>
+
+<!--追加-->
+<link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
+<script>
+    $(function () {
+        $('span').on('click', function (event) {
+            let getId = $(this).parent().attr('.search-button');
+            event.preventDefault();
+            $(this).toggleClass('active');
+        });
+    });
+    $('.tab-content>div').hide();
+    $('.tab-content>div').first().slideDown();
+    $('.tab-buttons span').click(function () {
+        var thisclass = $(this).attr('class');
+        $('.tab-content>div').each(function () {
+            if ($(this).hasClass(thisclass)) {
+                $(this).fadeIn(800);
+            }
+            else {
+                $(this).hide();
+            }
+        });
+    });
+
+    $('.modal_open').click(function () {
+        openModal(false)
+    });
+
+    $(function () {
+        $('.tab-btn').on('click', function () {
+            var tabWrap = $(this).parents('.tab-wrap');
+            var tabBtn = tabWrap.find(".tab-btn");
+            var tabContents = tabWrap.find('.tab-contents');
+            tabBtn.removeClass('show');
+            $(this).addClass('show');
+            var elmIndex = tabBtn.index(this);
+            tabContents.removeClass('show');
+            tabContents.eq(elmIndex).addClass('show');
+
+            if ($(tabContents.eq(elmIndex)).children('#geneModal')[0]) {
+                geneTable()
+            } else if ($(tabContents.eq(elmIndex)).find('#bodyModal')[0]) {
+                bodyTable()
+            }
+        });
+    });
+
+    $(function () {
+        $(".panel-btn").click(function () {
+            var clickPanel = $("+.panel", this);
+            clickPanel.toggle();
+            $(".panel").not(clickPanel).slideUp(0);
+            $('.panel').on('click', (e) => {
+                if (!e.target.closest('.export-panel')) $('.panel').hide()
+            })
+            return false;
+        });
+    });
+</script>
+
+<!-- <script>
+    (function () {
+        'use strict';
+        var optionLoop, this_month, this_year, today;
+        today = new Date();
+        this_year = today.getFullYear();
+        this_month = today.getMonth() + 1;
+        optionLoop = function (start, end, id) {
+            var i, opt;
+
+            opt = null;
+            for (i = start; i <= end; i++) {
+                if (i === this_month) {
+                    opt += "<option value='" + i + "' selected>" + i + "</option>";
+                } else {
+                    opt += "<option value='" + i + "'>" + i + "</option>";
+                }
+            }
+            return document.getElementById(id).innerHTML = opt;
+        };
+        optionLoop(1950, this_year, 'id_year', this_year);
+        optionLoop(1, 12, 'id_month', this_month);
+    })();
+</script> -->
+
+</html>
