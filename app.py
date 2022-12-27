@@ -132,7 +132,7 @@ db_pw   = app.config['DBPW']
 # display case
 # /
 @app.route('/test_case')
-def record():
+def case():
     return render_template('record.html')
 
 
