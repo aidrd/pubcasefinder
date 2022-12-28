@@ -99,13 +99,14 @@
                 <span class="tooltip">Analytics</span>
             </li>
             <li>
-                <a href="#">
-                    <i class="material-symbols-outlined">
+            <li class="">
+                <a href="#" onclick="document.getElementById('import_btn').click()">
+                    <i class="icon material-symbols-outlined">
                         folder_open
                     </i>
-                    <span class="links_name">File open</span>
+                    <span class="text nav-text links_name">File open</span>
+                    <input type="file" id="import_btn" onchange="importFile(event)">
                 </a>
-                <span class="tooltip">File open</span>
             </li>
             <li>
                 <a href="#">
@@ -140,6 +141,7 @@
         <div class="nav-container">
             <ul class="nav-items">
                 <!-- Dropdown menu -->
+
                 <li class="nav-item nav-item-dropdown">
                     <a class="dropdown-trigger" href="#">
                         <i class="material-symbols-outlined">
@@ -263,6 +265,26 @@
                         </i>
                     </span>
                     <div id="table_menu">
+                        <li class="panel-wrap">
+                            <a href="#" class="panel-btn">
+                                <i class="icon material-symbols-outlined">
+                                    save
+                                </i>
+                                <span class="link_name">Save</span>
+                            </a>
+                            <div class="panel">
+                                <div class="export-panel">
+                                    <h6>Export</h6>
+                                    <p>Format :
+                                        <select name="file" id="dl-select">
+                                            <option value="json">json</option>
+                                            <option value="tsv">tsv</option>
+                                        </select>
+                                    </p>
+                                    <button id="dl_table_button" onclick="getExportData(false)">Download</button>
+                                </div>
+                            </div>
+                        </li>
                         <span onclick="addColumn()" id="add-column"><i class="material-symbols-outlined">
                                 view_week
                             </i><span>列追加</span></span>
