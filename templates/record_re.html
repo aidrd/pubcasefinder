@@ -117,10 +117,16 @@
                     <span class="links_name">Export</span>
                     <i class='bx bxs-chevron-down arrow'></i>
                 </a>
-                <ul class="sub-menu">
-                    <li><a href="#">HTML & CSS</a></li>
-                    <li><a href="#">JavaScript</a></li>
-                </ul>
+                <div class="export-panel sub-menu">
+                    <h6>Export</h6>
+                    <p>Format :
+                        <select name="file" id="dl-select">
+                            <option value="json">json</option>
+                            <option value="tsv">tsv</option>
+                        </select>
+                    </p>
+                    <button id="dl_table_button" onclick="getExportData(false)">Download</button>
+                </div>
                 <!--<div class="export-panel">
                     <h6>Export</h6>
                     <p>Format :
