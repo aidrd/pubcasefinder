@@ -974,28 +974,37 @@ body {
   left: 100%;
   top: -10px;
   margin-top: 0;
-  padding: 10px 20px;
+  padding: 1.5em;
   border-radius: 5px;
   opacity: 0;
   display: block;
   pointer-events: none;
   transition: 0s;
   color: #fff;
-    a{
-      color: #fff;
+  width: 10em;
+  p{
+    margin-bottom: 0.5em;
+  }
+  select{
+    margin-bottom: 1em;
+    border: 1px #fff solid;
+    padding: 0.5em 1em;
+    position: relative;
+    border-radius: 0.5em;
+    width: 100%;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  button{
+      background: #fff;
+      color: #000;
       font-size: 15px;
-      padding: 5px 0;
+      padding: 0.5em 0.7em;
+      border-radius: 1em;
       white-space: nowrap;
-      opacity: 0.6;
+      opacity: 0.8;
       transition: all 0.3s ease;
-      &:hover{
-        opacity: 1;
-      }
   }
 }
 }
 
-.export-arrow{
-  text-align: right;
-  margin: 0 0 0 auto;
-}

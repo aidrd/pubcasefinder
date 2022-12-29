@@ -114,18 +114,20 @@
                     <i class="material-symbols-outlined">
                         save
                     </i>
-                    <span class="links_name">Export</span>
-                    <i class="material-symbols-outlined export-arrow">
-                        arrow_forward_ios
-                    </i>
+                    <span class="links_name"><span>Export</span>
+                        <i class="material-symbols-outlined export-arrow">
+                            arrow_forward_ios
+                        </i>
+                    </span>
                 </a>
                 <div class="export-panel">
-                    <p>Format :
+                    <p>Format :</p>
+                    <div class="select-wrap">
                         <select name="file" id="dl-select">
                             <option value="json">json</option>
                             <option value="tsv">tsv</option>
                         </select>
-                    </p>
+                    </div>
                     <button id="dl_table_button" onclick="getExportData(false)">Download</button>
                 </div>
                 <!--<div class="export-panel">
