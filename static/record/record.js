@@ -640,7 +640,7 @@ function changeLanguage(e) {
 }
 
 function setInitialLanguage() {
-    document.getElementById('select-lang').value = lang
+    // document.getElementById('select-lang').value = lang
     document.getElementById('search_input').placeholder = translate('search_input')
     document.getElementById('add-column').innerText = translate('add-column')
     document.getElementById('add-row').innerText = translate('add-row')
@@ -648,7 +648,7 @@ function setInitialLanguage() {
     translateModal()
 
     function translateModal() {
-        let container = document.getElementById('modal-tab-wrap')
+        let container = document.getElementById('tab-wrap')
         container.innerHTML = ''
 
         let ul = document.createElement('ul')
