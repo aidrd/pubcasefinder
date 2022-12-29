@@ -871,3 +871,70 @@ body {
     padding: 0 0 1em 0;
   }
 }
+
+#menu_export:active .export-panel {
+  display: block;
+  height: fit-content;
+  background: #fff;
+  color: #000;
+  border-radius: 5px;
+  position: absolute;
+  top: 0px;
+  right: -150px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+  padding: 1em 1.5em;
+}
+
+#menu_export:hover .export-panel {
+  display: block;
+  height: fit-content;
+  background: #fff;
+  color: #000;
+  border-radius: 5px;
+  position: absolute;
+  top: 0px;
+  right: -130px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+  padding: 1em 1.5em;
+}
+
+#menu_export .export-panel {
+  display: none;
+}
+
+#menu_export:hover .sub-menu {
+  top: 0;
+  opacity: 1;
+  pointer-events: auto;
+  transition: all 0.4s ease;
+}
+
+#menu_export .sub-menu {
+  padding: 6px 6px 14px 80px;
+  margin-top: -10px;
+  background: #1d1b31;
+  display: none;
+  position: absolute;
+  left: 100%;
+  top: -10px;
+  margin-top: 0;
+  padding: 10px 20px;
+  border-radius: 0 6px 6px 0;
+  opacity: 0;
+  display: block;
+  pointer-events: none;
+  transition: 0s;
+}
+
+#menu_export .sub-menu li a {
+  color: #fff;
+  font-size: 15px;
+  padding: 5px 0;
+  white-space: nowrap;
+  opacity: 0.6;
+  transition: all 0.3s ease;
+}
+
+#menu_export .sub-menu li a:hover {
+  opacity: 1;
+}
