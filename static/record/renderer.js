@@ -41,27 +41,27 @@ function multipleRenderer(instance, td, row, col, prop, value, cellProperties) {
         if (typeof value === 'string') {
             value = value.split(',')
         }
-        // displayValue = value.join(',<br>')
+
         displayValue = value.join('<br>')
     }
-    // td.innerHTML = value ? value.join('<br>') : value
-    if (prop !== '主訴') td.classList.add('htDimmed')
+
+    if (prop !== 'chiefComplaint') td.classList.add('htDimmed')
     td.innerHTML = displayValue
 }
 
 function heightRenderer(instance, td, row, col, prop, value, cellProperties) {
     Handsontable.renderers.BaseRenderer.apply(this, arguments)
-    td.innerHTML = getLatest('身長', value)
+    td.innerHTML = getLatest('bodyHeight', value)
 }
 
 function weightRenderer(instance, td, row, col, prop, value, cellProperties) {
     Handsontable.renderers.BaseRenderer.apply(this, arguments)
-    td.innerHTML = getLatest('体重', value)
+    td.innerHTML = getLatest('bodyWeight', value)
 }
 
 function headRenderer(instance, td, row, col, prop, value, cellProperties) {
     Handsontable.renderers.BaseRenderer.apply(this, arguments)
-    td.innerHTML = getLatest('頭囲', value)
+    td.innerHTML = getLatest('headCircumference', value)
 }
 
 function getLatest(type, value) {

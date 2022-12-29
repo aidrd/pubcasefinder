@@ -1,8 +1,6 @@
 let hot, exportPlugin
 
-// let lang = 'ja'
 let lang = localStorage.lang || 'en'
-// let lang = 'ko'
 
 setInitialLanguage()
 
@@ -371,7 +369,6 @@ function removeCustomColumn(e) {
 }
 
 function addRow(data) {
-    // let temp = structuredClone(newData)
     let temp = JSON.parse(JSON.stringify(newData))
 
     let d = new Date()
@@ -533,6 +530,87 @@ function fileReader(file, fileType) {
     reader.readAsText(file)
 }
 
+function getExportData() {
+    let type = document.getElementById('dl-select').value
+    let isAll = type === 'json'
+
+    if (!isAll) {
+        alert('Only the data in the table will be downloaded.')
+    }
+
+    let exportedString = exportPlugin.exportAsString('csv', {
+        bom: false,
+        columnDelimiter: '\t',
+        columnHeaders: true,
+        exportHiddenColumns: isAll,
+        exportHiddenRows: isAll,
+        rowHeaders: false,
+        fileExtension: 'tsv'
+    })
+
+    let dlData = convertCSVToJSON(exportedString, true)
+
+    if (isAll) dlData = contentData
+
+    // if (type === 'json') exportedString = { 'PATIENTS': dlData }
+    if (type === 'json') exportedString = getJSONDownload(dlData)
+    if (type === 'csv') exportedString = Papa.unparse(dlData.PATIENTS)
+    if (type === 'tsv') exportedString = Papa.unparse(dlData.PATIENTS, { delimiter: '\t' })
+
+    exportFile(type, exportedString)
+
+    function getJSONDownload(dlData) {
+        let jsonResult = { 'PATIENTS': dlData }
+        let headers = []
+
+        colHeaders.forEach(c => {
+            let header = c.replace('<i class="material-icons-outlined sort_icon"></i>', '')
+            if (header !== '') headers.push(header)
+        })
+
+        jsonResult['visibleColumns'] = headers
+
+        return jsonResult
+    }
+}
+
+function downloadSample(type) {
+    let sampleData
+    let temp = JSON.parse(JSON.stringify(newData))
+
+    let d = new Date()
+    let pcfNo = `P${d.getFullYear()}${d.getMonth() + 1}${d.getDate()}${d.getHours()}${d.getMinutes()}${d.getSeconds()}${d.getMilliseconds()}`
+
+    temp.PCFNo = pcfNo
+
+    let num = hot.countRows() + 1
+    temp['患者ID'] = `P${num.toString().padStart(7, 0)}`
+
+    if (type === 'json') sampleData = { 'PATIENTS': [temp] }
+    if (type === 'excel') sampleData = Papa.unparse([temp], { delimiter: '\t' })
+
+    exportFile(type === 'json' ? type : 'tsv', sampleData)
+}
+
+function exportFile(type, file) {
+    let a = document.createElement('a')
+    a.download = `patients_${Date.now()}.${type}`
+    a.style.visibility = 'hidden'
+
+    let data = `text/json;charset=utf-8,` +
+        `${encodeURIComponent(JSON.stringify(file, null, 4))}`
+    a.href = `data:${data}`
+
+    if (type === 'csv' || type === 'tsv') {
+        let data = new Blob(['\ufeff' + file], { type: 'text/csv;charset=utf-8;' })
+        a.href = URL.createObjectURL(data)
+    }
+
+    document.body.appendChild(a)
+    a.click()
+    a.remove()
+}
+
 function editTable(isSave) {
     toReset = true
     if (!isSave) {
@@ -571,6 +649,13 @@ function editTable(isSave) {
             })
         }
 
+        if (currentBodyData.length > 0) {
+            newPatient['growthChart'] = []
+            currentBodyData.forEach(bd => {
+                newPatient['growthChart'].push(bd)
+            })
+        }
+
         delete newPatient['undefined']
         addRow(newPatient)
         return
@@ -581,7 +666,6 @@ function editTable(isSave) {
 
     for (let [k, v] of Object.entries(changedData)) {
         patientData[k] = v
-        // if (k === 'RelatedTo') patientData['relationship'] = v === 'なし' ? patientData['続柄'] : `${patientData['続柄']}<br>(${patientData['RelatedTo']})`
     }
 
     if (geneData.length > 0) {
@@ -694,9 +778,13 @@ function setInitialLanguage() {
                             </i>
                             追加
                         </span>
-                        <div id="geneModal"></div>
                     </p>
                 `
+
+                geneContainer = document.createElement('div')
+                geneContainer.id = 'geneModal'
+                div.appendChild(geneContainer)
+                
                 return
             }
 
@@ -720,7 +808,7 @@ function setInitialLanguage() {
                             ja: 'PCF No.',
                             ko: 'PCF No.'
                         }
-                    },
+                    }
                 )
             }
 
@@ -823,6 +911,110 @@ function setInitialLanguage() {
                 textarea.dataset.columnname = c.dataKey
                 // textarea.placeholder = c['placeholder'][lang] || ''
                 td.appendChild(textarea)
+            } else if (c.inputType === 'multiple-radio') {
+                td.innerHTML = `
+                    <label for="sporadic">
+                        <input id="sporadic" type="radio" name="geneticList" value="Sporadic"
+                            data-columnname="geneticList">Sporadic
+                    </label>
+                    <details>
+                        <summary>
+                            <label for="autosomal_dominant_inheritance">
+                                <input id="autosomal_dominant_inheritance" type="radio" name="geneticList"
+                                    value="Autosomal dominant inheritance"
+                                    data-columnname="geneticList">Autosomal
+                                dominant
+                                inheritance
+                            </label>
+                        </summary>
+                        <label for="sex_limited_autosomal_dominant">
+                            <input id="sex_limited_autosomal_dominant" type="radio" name="geneticList"
+                                value="Sex-limited autosomal dominant"
+                                data-columnname="geneticList">Sex-limited
+                            autosomal dominant
+                        </label>
+                        <label for="autosomal_dominant_somatic_cell_mutation">
+                            <input id="autosomal_dominant_somatic_cell_mutation" type="radio"
+                                name="geneticList" value="Autosomal dominant somatic cell mutation"
+                                data-columnname="geneticList">
+                            Autosomal
+                            dominant somatic cell mutation
+                        </label>
+                        <label for="autosomal_dominant_contiguous_gene_syndrome">
+                            <input id="autosomal_dominant_contiguous_gene_syndrome" type="radio"
+                                name="geneticList" value="Autosomal dominant contiguous gene syndrome"
+                                data-columnname="geneticList">
+                            Autosomal
+                            dominant contiguous gene syndrome
+                        </label>
+                    </details>
+                    <label for="autosomal_recessive_inheritance">
+                        <input id="autosomal_recessive_inheritance" type="radio" name="geneticList"
+                            value="Autosomal recessive inheritance" data-columnname="geneticList">
+                        Autosomal
+                        recessive inheritance
+                    </label>
+                    <details>
+                        <summary>
+                            <label for="gonosomal_inheritance">
+                                <input id="gonosomal_inheritance" type="radio" name="geneticList"
+                                    value="Gonosomal inheritance" data-columnname="geneticList">Gonosomal
+                                inheritance
+                            </label>
+                        </summary>
+                        <label for="x_linked_inheritance">
+                            <input id="x_linked_inheritance" type="radio" name="geneticList"
+                                value="X-linked inheritance" data-columnname="geneticList">X-linked
+                            inheritance
+                        </label>
+                        <label for="x_linked_dominant_inheritance">
+                            <input id="x_linked_dominant_inheritance" type="radio" name="geneticList"
+                                value="X-linked dominant inheritance" data-columnname="geneticList">X-linked
+                            dominant inheritance
+                        </label>
+                        <label for="x_linked_recessive_inheritance">
+                            <input id="x_linked_recessive_inheritance" type="radio" name="geneticList"
+                                value="X-linked recessive inheritance"
+                                data-columnname="geneticList">X-linked
+                            recessive inheritance
+                        </label>
+                        <label for="y_linked_inheritance">
+                            <input id="y_linked_inheritance" type="radio" name="geneticList"
+                                value="Y-linked inheritance" data-columnname="geneticList">Y-linked
+                            inheritance
+                        </label>
+                    </details>
+                    <details>
+                        <summary>
+                            <label for="multifactorial_inheritance">
+                                <input id="multifactorial_inheritance" type="radio" name="geneticList"
+                                    value="Multifactorial inheritance"
+                                    data-columnname="geneticList">Multifactorial
+                                inheritance
+                            </label>
+                        </summary>
+                        <label for="digenic_inheritance">
+                            <input id="digenic_inheritance" type="radio" name="geneticList"
+                                value="Digenic inheritance" data-columnname="geneticList">Digenic
+                            inheritance
+                        </label>
+                        <label for="oligogenic_inheritance">
+                            <input id="oligogenic_inheritance" type="radio" name="geneticList"
+                                value="Oligogenic inheritance" data-columnname="geneticList">Oligogenic
+                            inheritance
+                        </label>
+                        <label for="polygenic_inheritance">
+                            <input id="polygenic_inheritance" type="radio" name="geneticList"
+                                value="Polygenic inheritance" data-columnname="geneticList">Polygenic
+                            inheritance
+                        </label>
+                    </details>
+                    <label for="mitochondrialx_inheritance">
+                        <input id="mitochondrialx_inheritance" type="radio" name="geneticList"
+                            value="Mitochondrial inheritance" data-columnname="geneticList">Mitochondrial
+                        inheritance
+                    </label>
+                `
             }
         }
 
@@ -843,8 +1035,11 @@ function setInitialLanguage() {
             td.innerHTML = `
                 <span id="bodyModal_add" onclick="addBodyRow()">
                     <i class="material-icons-outlined">add_circle_outline</i>追加</span>
-                <div id="bodyModal"></div>
             `
+            bodyContainer = document.createElement('div')
+            bodyContainer.id = 'bodyModal'
+            td.appendChild(bodyContainer)
+            
             tr.appendChild(td)
         }
     }

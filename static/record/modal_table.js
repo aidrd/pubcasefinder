@@ -10,17 +10,17 @@ let modalTableSettings = {
     licenseKey: '17bfa-714c9-a7430-c4321-87c56'
 }
 
-let geneHot
+let geneHot, geneContainer
 let geneSettings = JSON.parse(JSON.stringify(modalTableSettings))
 let geneHeaders = [], geneColumns = []
 let geneSchema = {}, geneData = [], currentGeneData = []
-let geneContainer = document.getElementById('geneModal')
+// let geneContainer = document.getElementById('geneModal')
 
-let bodyHot
+let bodyHot, bodyContainer
 let bodySettings = JSON.parse(JSON.stringify(modalTableSettings))
 let bodyHeaders = [], bodyColumns = []
 let bodySchema = {}, bodyData = [], currentBodyData = []
-let bodyContainer = document.getElementById('bodyModal')
+// let bodyContainer = document.getElementById('bodyModal')
 
 async function geneTable() {
     if (!toReset) return
@@ -96,7 +96,7 @@ async function bodyTable() {
 
     if (currentPatient) {
         let patientData = contentData.filter(d => { return d.PCFNo == currentPatient })[0]
-        if (!patientData['growthChart']) patientData['growthChart'] = []
+        if (!patientData['growthChart']) patientData['growthChartgrowthChart'] = []
         bodyData = patientData['growthChart']
         currentBodyData = bodyData
     }
