@@ -634,16 +634,23 @@ function pageReload() {
     window.location.reload()
 }
 
-function changeLanguage(e) {
-    localStorage.lang = e.options[e.selectedIndex].value
-    pageReload()
+function changeLanguage() {
+    $('ul#dropdown-language li').click((e) => {
+        let newLang = e.target.dataset.lang
+        if (newLang === lang) return
+
+        localStorage.lang = newLang
+        pageReload()
+    })
 }
 
 function setInitialLanguage() {
-    // document.getElementById('select-lang').value = lang
+    $(`.dropdown-menu-item[data-lang='${lang}']`).addClass('dropdpwn-selected')
     document.getElementById('search_input').placeholder = translate('search_input')
     document.getElementById('add-column').innerText = translate('add-column')
     document.getElementById('add-row').innerText = translate('add-row')
+
+    changeLanguage()
 
     translateModal()
 

@@ -357,6 +357,10 @@ body {
   background-color: #e4e5eb;
 }
 
+.nav-item-dropdown .dropdown-menu .dropdown-menu-item.dropdpwn-selected {
+  background-color: #e4e5eb;
+}
+
 .nav-item-dropdown .dropdown-menu .dropdown-menu-item a i {
   padding-right: 0.7em;
 }
