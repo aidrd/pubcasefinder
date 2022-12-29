@@ -7,6 +7,7 @@ let lang = localStorage.lang || 'en'
 setInitialLanguage()
 
 let count
+let toReset = true
 
 // let defaultColumns = ['診断状況', '主訴', '確定診断', '臨床診断', '年齢', '性別', 'グループ名', '続柄', '家族ID', '患者ID']
 let defaultColumns = ['caseSolved', 'chiefComplaint', 'finalDiagnosis', 'clinicalDiagnosis', 'age', 'sex', 'group', 'relationship', 'familyId', 'patientId']
@@ -535,7 +536,6 @@ function fileReader(file, fileType) {
 function editTable(isSave) {
     toReset = true
     if (!isSave) {
-        // if (!confirm('保存しますか？'))
         return resetData()
     }
 
@@ -599,18 +599,10 @@ function editTable(isSave) {
 
     hot.render()
     resetData()
-    // resetGeneData()
 
     function resetData() {
         currentPatient = ''
         changedData = {}
-    }
-
-    function resetGeneData() {
-        let geneTypeInfo = columns['遺伝子型情報']
-        geneTypeInfo.forEach(g => {
-            patientData[g.columnName] = []
-        })
     }
 }
 
@@ -645,7 +637,7 @@ function changeLanguage() {
 }
 
 function setInitialLanguage() {
-    $(`.dropdown-menu-item[data-lang='${lang}']`).addClass('dropdpwn-selected')
+    $(`.dropdown-menu-item[data-lang='${lang}']`).addClass('dropdown-selected')
     document.getElementById('search_input').placeholder = translate('search_input')
     document.querySelector('#add-column span').innerText = translate('add-column')
     document.querySelector('#add-row span').innerText = translate('add-row')
@@ -734,7 +726,7 @@ function setInitialLanguage() {
 
             category.columns.forEach(c => {
                 if (c.dataKey === 'bodyWeight' || c.dataKey === 'bodyHeight' || c.dataKey === 'headCircumference') {
-                    createTable(`tbody_${category.dataKey}`, 'bodyInformation')
+                    createTable(`tbody_${category.dataKey}`, 'growthChart')
                 } else {
                     createRow(`tbody_${category.dataKey}`, c)
                 }
@@ -776,6 +768,12 @@ function setInitialLanguage() {
                 select.name = c.dataKey
                 select.dataset.columnname = c.dataKey
                 td.appendChild(select)
+
+                let option = document.createElement('option')
+                option.value = ''
+                option.innerText = translate('select')
+                option.hidden = true
+                select.add(option)
 
                 let options = c.options.dataValue
                 options.forEach((o, i) => {
@@ -837,8 +835,8 @@ function setInitialLanguage() {
             parent.appendChild(tr)
 
             let th = document.createElement('th')
-            th.id = 'bodyInformation'
-            th.innerText = translate('bodyInformation')
+            th.id = 'growthChart'
+            th.innerText = translate('growthChart')
             tr.appendChild(th)
 
             let td = document.createElement('td')
@@ -850,14 +848,14 @@ function setInitialLanguage() {
             tr.appendChild(td)
         }
     }
+}
 
-    function translate(word) {
-        if (!elementTranslation[word]) return null
+function translate(word) {
+    if (!elementTranslation[word]) return null
 
-        if (elementTranslation[word][lang]) {
-            return elementTranslation[word][lang]
-        } else {
-            return elementTranslation[word]['en']
-        }
+    if (elementTranslation[word][lang]) {
+        return elementTranslation[word][lang]
+    } else {
+        return elementTranslation[word]['en']
     }
 }

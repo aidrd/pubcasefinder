@@ -27,7 +27,7 @@ function openModal(patientId) {
             $('.modal_bg').remove();
         });
 
-        bodyData = {}
+        bodyData = []
         bodyTable()
     });
 
@@ -69,7 +69,7 @@ function openModal(patientId) {
         this_month = today.getMonth() + 1
 
         optionLoop = function (start, end, id) {
-            let opt = `<option value="0" hidden>- ${end === 12 ? '月' : '年'}を選択 -</option>`
+            let opt = `<option value="0" hidden>${end === 12 ? translate('select-month') : translate('select-year') }</option>`
  
             if (end === 12) {
                 for (let i = start; i <= end; i++) {
@@ -107,8 +107,7 @@ function openModal(patientId) {
         parent.innerHTML = ''
         let data = element === 'group_options' ? JSON.parse(JSON.stringify(groupOptions)) : JSON.parse(JSON.stringify(familyOptions))
 
-        let firstOption = element === 'group_options' ? '- 登録済みグループ名 -' : '- 登録済み家族ID -'
-        // data.unshift('- 登録済みグループ名 -')
+        let firstOption = element === 'group_options' ? translate('select-group') : translate('select-family')
         data.unshift(firstOption)
 
         data.forEach(d => {
