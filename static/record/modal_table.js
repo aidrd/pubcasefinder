@@ -91,31 +91,44 @@ function addGeneRow() {
 async function bodyTable() {
     resetData('body')
 
-    bodySchema = {
-        "日付": "",
-        "体重": "",
-        "身長": "",
-        "頭囲": ""
-    }
+    let medicalInfo = categories.filter(c => { return c.dataKey === 'medicalInfo' })
+    let bodyColumns = medicalInfo[0].columns.filter(c => { return c.dataKey === 'bodyWeight' || c.dataKey === 'bodyHeight' || c.dataKey === 'headCircumference'})
+
+    bodySchema.date = ''
+    bodyHeaders.push(translate['date'])
+
+    bodyColumns.forEach(c => {
+        bodySchema[c.dataKey] = ''
+
+        let displayName = c['displayName'][lang] || c['displayName']['en']
+        bodyHeaders.push(displayName)
+    })
+console.log(bodyHeaders)
+    // bodySchema = {
+    //     "日付": "",
+    //     "体重": "",
+    //     "身長": "",
+    //     "頭囲": ""
+    // }
 
     if (currentPatient) {
         let patientData = contentData.filter(d => { return d.PCFNo == currentPatient })[0]
-        if (!patientData['身体情報']) patientData['身体情報'] = []
-        bodyData = patientData['身体情報']
+        if (!patientData['bodyInformation']) patientData['bodyInformation'] = []
+        bodyData = patientData['bodyInformation']
         currentBodyData = bodyData
         // currentBodyData = JSON.parse(JSON.stringify(modalTableSettings))
     }
 
-    bodyHeaders = Object.keys(bodySchema)
+    // bodyHeaders = Object.keys(bodySchema)
     bodyColumns = []
 
     bodyHeaders.forEach((h, i) => {
         let column = {
             data: h,
-            type: h === '日付' ? 'date' : 'text',
+            type: h === 'date' ? 'date' : 'text',
         }
 
-        if (h === '日付') {
+        if (h === 'date') {
             column.dateFormat = 'YYYY/MM/DD'
             column.correctFormat = true
         }

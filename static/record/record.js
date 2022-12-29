@@ -277,7 +277,7 @@ function addColumn() {
                             data-key="${key}"
                             onchange="showHideColumn(this)"
                             ${existingColumns.includes(key) ? 'checked' : ''}>
-                    <label for="${colName}">${colName}</label>
+                    <label for="${key}">${colName}</label>
                     ${type === 'custom' ? `<i class="material-icons-outlined" onclick="removeCustomColumn(${colName})">delete</i>` : ''}
                 </div>
             `
@@ -683,7 +683,7 @@ function setInitialLanguage() {
 
             if (i === 2) {
                 div.innerHTML = `
-                    <p>ここに表現型情報が検索できます。</p>
+                    <p>${translate('phenotypic-info-search')}</p>
                     <div style="width:100%;margin: 20px auto 0px auto;">
                         <div class="search-box_wrapper" style="width:100%;">
                             <div id="search_box_form"></div>
@@ -734,9 +734,10 @@ function setInitialLanguage() {
 
             category.columns.forEach(c => {
                 if (c.dataKey === 'bodyWeight' || c.dataKey === 'bodyHeight' || c.dataKey === 'headCircumference') {
+                    createTable(`tbody_${category.dataKey}`, 'bodyInformation')
+                } else {
                     createRow(`tbody_${category.dataKey}`, c)
                 }
-                createRow(`tbody_${category.dataKey}`, c)
             })
         })
 
@@ -825,6 +826,28 @@ function setInitialLanguage() {
                 // textarea.placeholder = c['placeholder'][lang] || ''
                 td.appendChild(textarea)
             }
+        }
+
+        function createTable(parentId) {
+            if (document.getElementById('bodyModal')) return
+
+            let parent = document.getElementById(parentId)
+
+            let tr = document.createElement('tr')
+            parent.appendChild(tr)
+
+            let th = document.createElement('th')
+            th.id = 'bodyInformation'
+            th.innerText = translate('bodyInformation')
+            tr.appendChild(th)
+
+            let td = document.createElement('td')
+            td.innerHTML = `
+                <span id="bodyModal_add" onclick="addBodyRow()">
+                    <i class="material-icons-outlined">add_circle_outline</i>追加</span>
+                <div id="bodyModal"></div>
+            `
+            tr.appendChild(td)
         }
     }
 
