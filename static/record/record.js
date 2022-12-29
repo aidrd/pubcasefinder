@@ -647,8 +647,8 @@ function changeLanguage() {
 function setInitialLanguage() {
     $(`.dropdown-menu-item[data-lang='${lang}']`).addClass('dropdpwn-selected')
     document.getElementById('search_input').placeholder = translate('search_input')
-    document.getElementById('add-column').innerText = translate('add-column')
-    document.getElementById('add-row').innerText = translate('add-row')
+    document.querySelector('#add-column span').innerText = translate('add-column')
+    document.querySelector('#add-row span').innerText = translate('add-row')
 
     changeLanguage()
 
@@ -733,6 +733,9 @@ function setInitialLanguage() {
             }
 
             category.columns.forEach(c => {
+                if (c.dataKey === 'bodyWeight' || c.dataKey === 'bodyHeight' || c.dataKey === 'headCircumference') {
+                    createRow(`tbody_${category.dataKey}`, c)
+                }
                 createRow(`tbody_${category.dataKey}`, c)
             })
         })
