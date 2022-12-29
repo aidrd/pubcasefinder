@@ -902,7 +902,7 @@ body {
 }
 
 #menu_export .export-panel select {
-  margin-bottom: 1em;
+  margin-bottom: 0.5em;
   border: 1px #fff solid;
   padding: 0.5em 1em;
   position: relative;
