@@ -995,16 +995,20 @@ body {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-  button{
-      background: #fff;
-      color: #000;
-      font-size: 15px;
-      padding: 0.5em 0.7em;
-      border-radius: 1em;
-      white-space: nowrap;
-      opacity: 0.8;
-      transition: all 0.3s ease;
+}
+button{
+  background: #fff;
+  color: #000;
+  font-size: 15px;
+  padding: 0.5em 0.7em;
+  border-radius: 1em;
+  white-space: nowrap;
+  opacity: 0.9;
+  transition: all 0.3s ease;
+  &:hover{
+    opacity: 0.6;
   }
+}
 }
 }
 
