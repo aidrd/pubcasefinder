@@ -27,6 +27,8 @@ from utils.check_input import process_input_phenotype
 # API for PhenoTouch
 from utils.api_get_hpo_by_text import search_hpo_by_text
 from utils.api_get_hpo_by_text import search_hpo_by_text_with_dict
+from utils.api_get_mondo_by_text import search_mondo_by_text
+from utils.api_get_mondo_by_text import search_mondo_by_text_with_dict
 
 # API: get rank OMIM
 from utils.api_pcf_get_ranking_by_hpo_id import pcf_get_ranking_by_hpo_id
@@ -309,6 +311,24 @@ def api_pcf_get_hpo_by_text():
         return "none"
 
     dict_result = search_hpo_by_text_with_dict(r_text)
+    return jsonify(dict_result)
+
+
+#####
+# API: provide candidate MONDO IDs using text as query
+# GET method
+# /pcf_get_mondo_by_text?text=[TEXT]
+@app.route('/pcf_get_mondo_by_text', methods=['GET'])
+def api_pcf_get_mondo_by_text():
+    r_text = ""
+    if request.args.get('text') is not None:
+        r_text = request.args.get('text')
+        if r_text == "":
+            return "none"
+    else:
+        return "none"
+
+    dict_result = search_mondo_by_text_with_dict(r_text)
     return jsonify(dict_result)
 
 
