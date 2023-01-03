@@ -279,6 +279,7 @@ HP:0000214	Lip telangiectasia	口唇毛細血管拡張	expert	label
 HP:0000215	Thick upper lip vermilion	分厚い上口唇唇紅部	expert	label
 HP:0000216	Broad secondary alveolar ridge	幅広二次性歯槽隆起	expert	label
 HP:0000217	Xerostomia	口内乾燥症	expert	label
+HP:0000217	Xerostomia	口の乾燥	Fujiwara	synonym
 HP:0000217	Xerostomia	口内乾燥	LSD	synonym
 HP:0000217	Xerostomia	口渇	LSD	synonym
 HP:0000217	Xerostomia	口渇症	LSD	synonym
@@ -379,6 +380,7 @@ HP:0000311	Round face	丸い顔	expert	label
 HP:0000315	Abnormality of the orbital region	眼窩領域の異常	expert	label
 HP:0000316	Hypertelorism	両眼隔離	expert	label
 HP:0000316	Hypertelorism	両眼隔離症	LSD	synonym
+HP:0000316	Hypertelorism	眼間開離	Fujiwara	synonym
 HP:0000317	Facial myokymia	顔面筋波動症 (ミオキミア)	expert	label
 HP:0000317	Facial myokymia	顔面けいれん	LSD	synonym
 HP:0000317	Facial myokymia	顔面ミオキミア	LSD	synonym
@@ -417,6 +419,7 @@ HP:0000360	Tinnitus	耳鳴	expert	label
 HP:0000362	Otosclerosis	耳硬化症	expert	label
 HP:0000363	Abnormal earlobe morphology	耳朶の異常	expert	label
 HP:0000364	Hearing abnormality	聴覚異常	expert	label
+HP:0000364	Hearing abnormality	聴力障害	Fujiwara	synonym
 HP:0000365	Hearing impairment	難聴	expert	label
 HP:0000365	Hearing impairment	聴力低下	LSD	synonym
 HP:0000365	Hearing impairment	聴覚消失	LSD	synonym
@@ -516,6 +519,7 @@ HP:0000476	Cystic hygroma	嚢腫	LSD	synonym
 HP:0000476	Cystic hygroma	水滑性嚢胞	LSD	synonym
 HP:0000478	Abnormality of the eye	眼の異常	expert	label
 HP:0000478	Abnormality of the eye	眼疾患	LSD	synonym
+HP:0000478	Abnormality of the eye	眼病変	Fujiwara	synonym
 HP:0000478	Abnormality of the eye	眼症状	Fujiwara	synonym
 HP:0000479	Abnormal retinal morphology	網膜の異常	expert	label
 HP:0000479	Abnormal retinal morphology	網膜異常	Fujiwara	synonym
@@ -554,11 +558,7 @@ HP:0000505	Visual impairment	視力障害	expert	label
 HP:0000505	Visual impairment	視覚障害	Fujiwara	synonym
 HP:0000506	Telecanthus	内眼角外方偏位	expert	label
 HP:0000508	Ptosis	眼瞼下垂	expert	label
-HP:0000508	Ptosis	下垂	LSD	synonym
 HP:0000508	Ptosis	下垂症	LSD	synonym
-HP:0000508	Ptosis	点眼	LSD	synonym
-HP:0000508	Ptosis	点眼剤	LSD	synonym
-HP:0000508	Ptosis	点眼薬	LSD	synonym
 HP:0000509	Conjunctivitis	結膜炎	expert	label
 HP:0000510	Rod-cone dystrophy	色素性網膜炎	expert	label
 HP:0000510	Rod-cone dystrophy	杆体錐体ジストロフィー	LSD	synonym
@@ -1015,6 +1015,7 @@ HP:0000842	Hyperinsulinemia	高インシュリン血症	LSD	synonym
 HP:0000843	Hyperparathyroidism	副甲状腺機能亢進症	expert	label
 HP:0000843	Hyperparathyroidism	副甲状腺機能亢進	LSD	synonym
 HP:0000845	Elevated circulating growth hormone concentration	成長ホルモン過剰症	expert	label
+HP:0000845	Elevated circulating growth hormone concentration	先端巨大症	Fujiwara	synonym
 HP:0000845	Elevated circulating growth hormone concentration	先端肥大症	Fujiwara	synonym
 HP:0000846	Adrenal insufficiency	副腎不全	expert	label
 HP:0000846	Adrenal insufficiency	副腎機能低下症	LSD	synonym
@@ -1072,6 +1073,7 @@ HP:0000896	Rib exostoses	肋骨外骨症	expert	label
 HP:0000897	Rachitic rosary	くる病性念珠	expert	label
 HP:0000900	Thickened ribs	肋骨肥厚	expert	label
 HP:0000902	Rib fusion	肋骨癒合	expert	label
+HP:0000902	Rib fusion	癒合肋骨	Fujiwara	synonym
 HP:0000902	Rib fusion	肋骨融合	LSD	synonym
 HP:0000904	Flaring of rib cage	肋骨胸郭のフレア	expert	label
 HP:0000905	Progressive clavicular acroosteolysis	進行性鎖骨先端骨融解	expert	label
@@ -1097,6 +1099,7 @@ HP:0000925	Abnormality of the vertebral column	脊柱の異常	expert	label
 HP:0000926	Platyspondyly	扁平脊椎	expert	label
 HP:0000927	Abnormality of skeletal maturation	骨成熟の異常	expert	label
 HP:0000929	Abnormal skull morphology	頭蓋骨の異常	expert	label
+HP:0000929	Abnormal skull morphology	頭蓋骨の変形	Fujiwara	synonym
 HP:0000930	Elevated imprint of the transverse sinuses	横静脈洞の上昇した印影	expert	label
 HP:0000931	Thinning and bulging of the posterior fossa bones	後頭窩骨の菲薄化と突出	expert	label
 HP:0000932	Abnormal posterior cranial fossa morphology	後頭蓋窩の異常	expert	label
@@ -1125,6 +1128,7 @@ HP:0000956	Acanthosis nigricans	黒色表皮腫	expert	label
 HP:0000957	Cafe-au-lait spot	カフェオーレ斑	expert	label
 HP:0000957	Cafe-au-lait spot	あざ	LSD	synonym
 HP:0000957	Cafe-au-lait spot	カフェオレ斑	LSD	synonym
+HP:0000957	Cafe-au-lait spot	カフェ・オ・レ斑	Fujiwara	synonym
 HP:0000957	Cafe-au-lait spot	痣	LSD	synonym
 HP:0000958	Dry skin	乾いた皮膚	expert	label
 HP:0000958	Dry skin	ドライスキン	LSD	synonym
@@ -1185,11 +1189,9 @@ HP:0000982	Palmoplantar keratoderma	掌蹠角皮症	expert	label
 HP:0000982	Palmoplantar keratoderma	掌蹠角化症	LSD	synonym
 HP:0000987	Atypical scarring of skin	非典型的皮膚瘢痕	expert	label
 HP:0000988	Skin rash	皮膚発疹	expert	label
-HP:0000988	Skin rash	気早い	LSD	synonym
 HP:0000988	Skin rash	発疹	LSD	synonym
 HP:0000988	Skin rash	発疹症	LSD	synonym
 HP:0000988	Skin rash	皮疹	LSD	synonym
-HP:0000988	Skin rash	突発	LSD	synonym
 HP:0000989	Pruritus	掻痒	expert	label
 HP:0000989	Pruritus	かゆいこと	LSD	synonym
 HP:0000989	Pruritus	かゆみ	LSD	synonym
@@ -1281,6 +1283,7 @@ HP:0001051	Seborrheic dermatitis	脂漏	LSD	synonym
 HP:0001051	Seborrheic dermatitis	脂漏性湿疹	LSD	synonym
 HP:0001051	Seborrheic dermatitis	脂漏症	LSD	synonym
 HP:0001052	Nevus flammeus	火炎状母斑	expert	label
+HP:0001052	Nevus flammeus	ポートワイン斑	Fujiwara	synonym
 HP:0001052	Nevus flammeus	ポートワイン母斑	LSD	synonym
 HP:0001052	Nevus flammeus	焔状母斑	LSD	synonym
 HP:0001053	Hypopigmented skin patches	低色素性皮膚斑	expert	label
@@ -1349,7 +1352,7 @@ HP:0001093	Optic nerve dysplasia	視神経異形成	expert	label
 HP:0001094	Iridocyclitis	虹彩毛様体炎	expert	label
 HP:0001095	Hypertensive retinopathy	高血圧性網膜症	expert	label
 HP:0001096	Keratoconjunctivitis	角結膜炎	expert	label
-HP:0001097	Keratoconjunctivitis sicca	乾燥性	expert	label
+HP:0001097	Keratoconjunctivitis sicca	眼の乾燥	expert	label
 HP:0001097	Keratoconjunctivitis sicca	ドライアイ	LSD	synonym
 HP:0001097	Keratoconjunctivitis sicca	ドライアイ症候群	LSD	synonym
 HP:0001097	Keratoconjunctivitis sicca	乾性角結膜炎	LSD	synonym
@@ -1664,8 +1667,10 @@ HP:0001371	Flexion contracture	屈曲拘縮	expert	label
 HP:0001371	Flexion contracture	拘縮	LSD	synonym
 HP:0001371	Flexion contracture	関節拘縮	LSD	synonym
 HP:0001373	Joint dislocation	関節脱臼	expert	label
+HP:0001373	Joint dislocation	脱臼	Fujiwara	synonym
 HP:0001374	Congenital hip dislocation	先天性股関節脱臼	expert	label
 HP:0001376	Limitation of joint mobility	関節運動制限	expert	label
+HP:0001376	Limitation of joint mobility	関節の可動域低下	Fujiwara	synonym
 HP:0001377	Limited elbow extension	肘伸展制限	expert	label
 HP:0001382	Joint hypermobility	関節過動	expert	label
 HP:0001382	Joint hypermobility	関節過度可動性	LSD	synonym
@@ -1755,6 +1760,8 @@ HP:0001493	Falciform retinal fold	鎌型網膜ヒダ	expert	label
 HP:0001495	Carpal osteolysis	手根骨融解	expert	label
 HP:0001498	Carpal bone hypoplasia	手根骨低形成	expert	label
 HP:0001500	Broad finger	幅広い指	expert	label
+HP:0001500	Broad finger	へら状の指	Fujiwara	synonym
+HP:0001500	Broad finger	へら状指	Fujiwara	synonym
 HP:0001501	6 metacarpals	6 本の中足骨	expert	label
 HP:0001504	Metacarpal osteolysis	中手骨骨融解	expert	label
 HP:0001507	Growth abnormality	成長異常	expert	label
@@ -1872,6 +1879,7 @@ HP:0001626	Abnormality of the cardiovascular system	心血管系の異常	expert
 HP:0001626	Abnormality of the cardiovascular system	循環器疾患	LSD	synonym
 HP:0001626	Abnormality of the cardiovascular system	循環障害	LSD	synonym
 HP:0001626	Abnormality of the cardiovascular system	心血管患疾	Fujiwara	synonym
+HP:0001626	Abnormality of the cardiovascular system	心血管病変	Fujiwara	synonym
 HP:0001626	Abnormality of the cardiovascular system	心血管系疾患	Fujiwara	synonym
 HP:0001627	Abnormal heart morphology	心形態の異常	expert	label
 HP:0001627	Abnormal heart morphology	先天性心疾患	LSD	synonym
@@ -1892,6 +1900,7 @@ HP:0001637	Abnormal myocardium morphology	心筋の異常	expert	label
 HP:0001638	Cardiomyopathy	心筋症	expert	label
 HP:0001639	Hypertrophic cardiomyopathy	肥大型心筋症	expert	label
 HP:0001640	Cardiomegaly	心拡大	expert	label
+HP:0001640	Cardiomegaly	心肥大	Fujiwara	synonym
 HP:0001640	Cardiomegaly	肥大心	LSD	synonym
 HP:0001641	Abnormal pulmonary valve morphology	肺動脈弁の異常	expert	label
 HP:0001642	Pulmonic stenosis	肺動脈狭窄	expert	label
@@ -2192,9 +2201,11 @@ HP:0001890	Autoimmune hemolytic anemia	自己免疫性溶血性貧血	expert	lab
 HP:0001891	Iron deficiency anemia	鉄欠乏症貧血	expert	label
 HP:0001891	Iron deficiency anemia	鉄欠乏性貧血	LSD	synonym
 HP:0001892	Abnormal bleeding	異常な出血	expert	label
+HP:0001892	Abnormal bleeding	出血	Fujiwara	synonym
 HP:0001892	Abnormal bleeding	出血傾向	LSD	synonym
 HP:0001892	Abnormal bleeding	出血性素因	LSD	synonym
 HP:0001892	Abnormal bleeding	出血素因	LSD	synonym
+HP:0001892	Abnormal bleeding	反復する出血	Fujiwara	synonym
 HP:0001894	Thrombocytosis	血小板増多症	expert	label
 HP:0001894	Thrombocytosis	血小板増加症	LSD	synonym
 HP:0001894	Thrombocytosis	血小板数増加	LSD	synonym
@@ -2244,6 +2255,7 @@ HP:0001927	Acanthocytosis	有棘赤血球増加	expert	label
 HP:0001927	Acanthocytosis	有棘赤血球	LSD	synonym
 HP:0001927	Acanthocytosis	有棘赤血球増加症	LSD	synonym
 HP:0001928	Abnormality of coagulation	凝固の異常	expert	label
+HP:0001928	Abnormality of coagulation	凝固異常	Fujiwara	synonym
 HP:0001928	Abnormality of coagulation	血液凝固異常	LSD	synonym
 HP:0001929	Reduced factor XI activity	第 XI 因子活性の減少	expert	label
 HP:0001929	Reduced factor XI activity	第XI因子欠乏症	LSD	synonym
@@ -2270,6 +2282,8 @@ HP:0001945	Fever	高熱	LSD	synonym
 HP:0001945	Fever	高熱症	LSD	synonym
 HP:0001946	Ketosis	ケトン症	expert	label
 HP:0001947	Renal tubular acidosis	腎尿細管アシドーシス	expert	label
+HP:0001947	Renal tubular acidosis	尿細管アシドーシス	Fujiwara	synonym
+HP:0001947	Renal tubular acidosis	尿細管性アシドーシス	Fujiwara	synonym
 HP:0001947	Renal tubular acidosis	腎尿細管性アシドーシス	LSD	synonym
 HP:0001948	Alkalosis	アルカローシス	expert	label
 HP:0001949	Hypokalemic alkalosis	低カリウム血症性アルカロージス	expert	label
@@ -3043,7 +3057,9 @@ HP:0002528	Granulovacuolar degeneration	顆粒空胞変性	expert	label
 HP:0002529	Neuronal loss in central nervous system	中枢神経のニューロン喪失	expert	label
 HP:0002530	Axial dystonia	軸性ジストニア	expert	label
 HP:0002533	Abnormal posturing	異常な姿勢	expert	label
+HP:0002533	Abnormal posturing	姿勢の異常	Fujiwara	synonym
 HP:0002533	Abnormal posturing	姿勢異常	Fujiwara	synonym
+HP:0002533	Abnormal posturing	異常姿勢	Fujiwara	synonym
 HP:0002536	Abnormal cortical gyration	異常な皮質脳回形成	expert	label
 HP:0002538	Abnormal cerebral cortex morphology	大脳皮質の異常	expert	label
 HP:0002539	Cortical dysplasia	皮質異形成	expert	label
@@ -3194,6 +3210,9 @@ HP:0002655	Spondyloepiphyseal dysplasia	脊椎骨端異形成症	LSD	synonym
 HP:0002656	Epiphyseal dysplasia	骨端異形成	expert	label
 HP:0002657	Spondylometaphyseal dysplasia	脊椎骨幹端異形成	expert	label
 HP:0002659	Increased susceptibility to fractures	易骨折性の増加	expert	label
+HP:0002659	Increased susceptibility to fractures	易骨折性	Fujiwara	synonym
+HP:0002659	Increased susceptibility to fractures	骨がもろい	Fujiwara	synonym
+HP:0002659	Increased susceptibility to fractures	骨折しやすい	Fujiwara	synonym
 HP:0002661	Painless fractures due to injury	外傷による無痛性骨折	expert	label
 HP:0002663	Delayed epiphyseal ossification	骨端骨化遅延	expert	label
 HP:0002664	Neoplasm	新生物	expert	label
@@ -3321,6 +3340,7 @@ HP:0002758	Osteoarthritis	変性関節疾患	LSD	synonym
 HP:0002761	Generalized joint laxity	全身性関節弛緩	expert	label
 HP:0002762	Multiple exostoses	多発性外骨症	expert	label
 HP:0002763	Abnormal cartilage morphology	軟骨形態異常	expert	label
+HP:0002763	Abnormal cartilage morphology	軟骨異常	Fujiwara	synonym
 HP:0002764	Stippled chondral calcification	軟骨の点状石灰化	expert	label
 HP:0002766	Relatively short spine	比較的短い脊椎	expert	label
 HP:0002777	Tracheal stenosis	気管狭窄	expert	label
@@ -3549,6 +3569,7 @@ HP:0002980	Femoral bowing	大腿骨弯曲	expert	label
 HP:0002981	Abnormality of the calf	腓腹の異常	expert	label
 HP:0002982	Tibial bowing	脛骨湾曲	expert	label
 HP:0002983	Micromelia	小肢症	expert	label
+HP:0002983	Micromelia	四肢短縮	Fujiwara	synonym
 HP:0002984	Hypoplasia of the radius	橈骨低形成	expert	label
 HP:0002986	Radial bowing	橈側湾曲	expert	label
 HP:0002987	Elbow flexion contracture	肘屈曲拘縮	expert	label
@@ -3604,6 +3625,7 @@ HP:0003049	Ulnar deviation of the wrist	手関節の尺側偏位	expert	label
 HP:0003051	Enlarged metaphyses	骨幹端の拡大	expert	label
 HP:0003053	Epiphyseal deformities of tubular bones	管状骨骨端の変形	expert	label
 HP:0003057	Tetraamelia	4肢無肢症	expert	label
+HP:0003057	Tetraamelia	四肢欠損	Fujiwara	synonym
 HP:0003059	Abnormality of the radioulnar joints	橈尺骨関節の異常	expert	label
 HP:0003063	Abnormality of the humerus	上腕骨の異常	expert	label
 HP:0003065	Patellar hypoplasia	膝蓋骨低形成	expert	label
@@ -4003,6 +4025,7 @@ HP:0003467	Atlantoaxial instability	環軸椎不安定	expert	label
 HP:0003468	Abnormal vertebral morphology	脊椎の異常	expert	label
 HP:0003469	Peripheral dysmyelination	末梢神経髄鞘異形成	expert	label
 HP:0003470	Paralysis	麻痺	expert	label
+HP:0003470	Paralysis	運動麻痺	Fujiwara	synonym
 HP:0003472	Hypocalcemic tetany	低カルシウム血症性テタニー	expert	label
 HP:0003473	Fatigable weakness	疲労性虚弱	expert	label
 HP:0003473	Fatigable weakness	筋無力症	LSD	synonym
@@ -4346,7 +4369,7 @@ HP:0003970	Undermodelled forearm bones	前腕骨モデリング不全	expert	lab
 HP:0003971	Broad forearm bones	幅広い前腕骨	expert	label
 HP:0003973	Wide radioulnar joints	幅広い橈尺骨関節	expert	label
 HP:0003974	Absent radius	橈骨欠損	expert	label
-HP:0003976	Constricted radius	橈骨狭窄s	expert	label
+HP:0003976	Constricted radius	橈骨狭窄	expert	label
 HP:0003977	Deformed radius	変形した橈骨	expert	label
 HP:0003978	Fractured radius	橈骨骨折	expert	label
 HP:0003979	Lytic defects of the radius	橈骨の融解病変	expert	label
@@ -4427,7 +4450,11 @@ HP:0004058	Hand monodactyly	単指	expert	label
 HP:0004059	Radial club hand	橈側内反手	expert	label
 HP:0004059	Radial club hand	内反手	LSD	synonym
 HP:0004060	Trident hand	鉾状の手	expert	label
+HP:0004060	Trident hand	三尖手	Fujiwara	synonym
 HP:0004095	Curved fingers	湾曲した指	expert	label
+HP:0004095	Curved fingers	弯曲した指	Fujiwara	synonym
+HP:0004095	Curved fingers	指の弯曲	Fujiwara	synonym
+HP:0004095	Curved fingers	指の湾曲	Fujiwara	synonym
 HP:0004097	Deviation of finger	指偏位	expert	label
 HP:0004099	Macrodactyly	巨指趾	expert	label
 HP:0004099	Macrodactyly	巨指症	LSD	synonym
@@ -4445,6 +4472,10 @@ HP:0004207	Abnormal 5th finger morphology	第5指の異常	expert	label
 HP:0004209	Clinodactyly of the 5th finger	第5指弯指	expert	label
 HP:0004213	Abnormal 5th finger phalanx morphology	第5指指骨の異常	expert	label
 HP:0004214	Curved phalanges of the 5th finger	湾曲した第5指指骨	expert	label
+HP:0004214	Curved phalanges of the 5th finger	小指の弯曲	Fujiwara	synonym
+HP:0004214	Curved phalanges of the 5th finger	小指の湾曲	Fujiwara	synonym
+HP:0004214	Curved phalanges of the 5th finger	弯曲した小指	Fujiwara	synonym
+HP:0004214	Curved phalanges of the 5th finger	湾曲した小指	Fujiwara	synonym
 HP:0004216	Osteolytic defects of the phalanges of the 5th finger	第5指指骨の骨融解病変	expert	label
 HP:0004218	Symphalangism of the 5th finger	第5指の指関節癒合症	expert	label
 HP:0004219	Abnormality of the middle phalanx of the 5th finger	第5指中節骨の異常	expert	label
@@ -4826,6 +4857,8 @@ HP:0004719	Hyperechogenic kidneys	高輝度(エコー)腎	expert	label
 HP:0004722	Thickened glomerular basement membrane	糸球体基底膜肥厚	expert	label
 HP:0004724	Calcium nephrolithiasis	カルシウム腎結石	expert	label
 HP:0004727	Impaired renal concentrating ability	腎濃縮能障害	expert	label
+HP:0004727	Impaired renal concentrating ability	尿の濃縮障害	Fujiwara	synonym
+HP:0004727	Impaired renal concentrating ability	尿濃縮障害	Fujiwara	synonym
 HP:0004729	Acute tubulointerstitial nephritis	急性尿細管間質性腎炎	expert	label
 HP:0004732	Impaired renal uric acid clearance	腎尿酸クリアランス障害	expert	label
 HP:0004734	Renal cortical microcysts	腎皮質微小嚢胞	expert	label
@@ -5124,8 +5157,8 @@ HP:0005136	Mitral annular calcification	早発性僧帽弁輪部石灰化	expert
 HP:0005136	Mitral annular calcification	僧帽弁輪石灰化	LSD	synonym
 HP:0005143	Anomalous origin of right pulmonary artery from ascending aorta	右肺動脈の上行大動脈からの起始異常	expert	label
 HP:0005144	Ventricular septal hypertrophy	左室中隔肥大	expert	label
-HP:0005145	Coronary artery stenosis	冠動脈 狭窄	expert	label
-HP:0005145	Coronary artery stenosis	冠動脈狭窄	LSD	synonym
+HP:0005145	Coronary artery stenosis	冠動脈狭窄	expert	label
+HP:0005145	Coronary artery stenosis	冠動脈の狭窄	Fujiwara	synonym
 HP:0005145	Coronary artery stenosis	冠動脈狭窄症	LSD	synonym
 HP:0005145	Coronary artery stenosis	冠状動脈狭窄	LSD	synonym
 HP:0005145	Coronary artery stenosis	冠状動脈狭窄症	LSD	synonym
@@ -5384,6 +5417,8 @@ HP:0005461	Craniofacial disproportion	頭蓋顔面不均衡	expert	label
 HP:0005462	Calcification of falx cerebri	大脳鎌石灰化	expert	label
 HP:0005463	Elongated sella turcica	トルコ鞍拡大	expert	label
 HP:0005464	Craniofacial osteosclerosis	頭蓋顔面骨硬化症	expert	label
+HP:0005464	Craniofacial osteosclerosis	頭蓋硬化症	Fujiwara	synonym
+HP:0005464	Craniofacial osteosclerosis	頭蓋骨の硬化	Fujiwara	synonym
 HP:0005465	Facial hyperostosis	顔面過骨症	expert	label
 HP:0005466	Hypoplasia of the frontal bone	前頭骨低形成	expert	label
 HP:0005469	Flat occiput	平坦な後頭	expert	label
@@ -5864,6 +5899,10 @@ HP:0006315	Solitary median maxillary central incisor	単一正中上顎切歯	ex
 HP:0006316	Irregularly spaced teeth	不規則な歯間	expert	label
 HP:0006321	Multiple non-erupting secondary teeth	多発性永久歯非萌出	expert	label
 HP:0006323	Premature loss of primary teeth	早発性乳歯喪失	expert	label
+HP:0006323	Premature loss of primary teeth	乳歯の早期喪失	Fujiwara	synonym
+HP:0006323	Premature loss of primary teeth	乳歯の早期脱落	Fujiwara	synonym
+HP:0006323	Premature loss of primary teeth	乳歯早期喪失	Fujiwara	synonym
+HP:0006323	Premature loss of primary teeth	乳歯早期脱落	Fujiwara	synonym
 HP:0006326	Buried teeth encased in mucopolysaccharide	ムコ多糖体に包まれた埋没歯	expert	label
 HP:0006329	Alveolar process hypoplasia	歯槽突起低形成	expert	label
 HP:0006330	Rotated maxillary central incisors	回転した上顎門歯	expert	label
@@ -6997,6 +7036,8 @@ HP:0008066	Abnormal blistering of the skin	異常な皮膚水泡	expert	label
 HP:0008066	Abnormal blistering of the skin	疱疹	LSD	synonym
 HP:0008067	Abnormally lax or hyperextensible skin	弛緩性または過伸展性皮膚	expert	label
 HP:0008069	Neoplasm of the skin	皮膚新生物	expert	label
+HP:0008069	Neoplasm of the skin	皮腫	Fujiwara	synonym
+HP:0008069	Neoplasm of the skin	皮膚がん	Fujiwara	synonym
 HP:0008069	Neoplasm of the skin	皮膚癌	LSD	synonym
 HP:0008069	Neoplasm of the skin	皮膚腫瘍	LSD	synonym
 HP:0008070	Sparse hair	疎な毛髪	expert	label
@@ -7315,7 +7356,7 @@ HP:0008507	Static ophthalmoparesis	停止性眼筋不全麻痺	expert	label
 HP:0008509	Aged leonine appearance	老いたライオン様外観	expert	label
 HP:0008511	Central posterior corneal opacity	中心後部角膜混濁	expert	label
 HP:0008513	Bilateral conductive hearing impairment	両側性伝音難聴	expert	label
-HP:0008515	Aplasia/Hypoplasia of the vertebrae	脊椎	expert	label
+HP:0008515	Aplasia/Hypoplasia of the vertebrae	脊椎の無形成/低形成	expert	label
 HP:0008516	Abnormality of the vertebral spinous processes	脊椎棘突起の異常	expert	label
 HP:0008517	Aplasia/Hypoplasia of the sacrum	仙骨無形成/低形成	expert	label
 HP:0008518	Aplasia/Hypoplasia involving the vertebral column	脊柱の無形成/低形成	expert	label
@@ -7577,6 +7618,7 @@ HP:0009019	Progressive loss of facial adipose tissue	進行性顔面脂肪組織
 HP:0009020	Exercise-induced muscle fatigue	運動誘発性筋疲労	expert	label
 HP:0009023	Abdominal wall muscle weakness	腹筋虚弱	expert	label
 HP:0009025	Increased connective tissue	結合織増加	expert	label
+HP:0009025	Increased connective tissue	結合織増生	Fujiwara	synonym
 HP:0009026	Hypoplasia of latissimus dorsi muscle	広背筋低形成	expert	label
 HP:0009027	Foot dorsiflexor weakness	足背屈筋虚弱	expert	label
 HP:0009027	Foot dorsiflexor weakness	下垂足	LSD	synonym
@@ -7747,6 +7789,7 @@ HP:0009233	Triangular shaped proximal phalanx of the 5th finger	三角形の第5
 HP:0009234	Symphalangism of the proximal phalanx of the 5th finger with the 5th metacarpal	第5指基節骨と第5中手骨の指関節癒合症	expert	label
 HP:0009236	Rhomboid or triangular shaped 5th finger proximal phalanx	菱形または三角形の第5指基節骨	expert	label
 HP:0009237	Short 5th finger	短い第5指	expert	label
+HP:0009237	Short 5th finger	短い小指	Fujiwara	synonym
 HP:0009238	Aplasia of the 5th finger	第5指無形成	expert	label
 HP:0009239	Aplasia/Hypoplasia of the distal phalanx of the 5th finger	第5指末節骨無形成/低形成	expert	label
 HP:0009240	Broad distal phalanx of the 5th finger	幅広い第5指末節骨	expert	label
@@ -7790,11 +7833,16 @@ HP:0009277	Contracture of the metacarpophalangeal joint of the 4th finger	第4�
 HP:0009278	Ulnar deviation of the 4th finger	第4指の尺側偏位	expert	label
 HP:0009279	Radial deviation of the 4th finger	第4指橈側偏位	expert	label
 HP:0009280	Short 4th finger	短い第4指	expert	label
+HP:0009280	Short 4th finger	短い薬指	Fujiwara	synonym
 HP:0009281	Aplasia of the 4th finger	第4指無形成	expert	label
 HP:0009282	Abnormality of the distal phalanx of the 4th finger	第4指末節骨の異常	expert	label
 HP:0009283	Abnormality of the middle phalanx of the 4th finger	第4指中節骨の異常	expert	label
 HP:0009284	Abnormality of the proximal phalanx of the 4th finger	第4指基節骨の異常	expert	label
 HP:0009285	Curved phalanges of the 4th finger	湾曲した第4指指骨	expert	label
+HP:0009285	Curved phalanges of the 4th finger	弯曲した薬指	Fujiwara	synonym
+HP:0009285	Curved phalanges of the 4th finger	湾曲した薬指	Fujiwara	synonym
+HP:0009285	Curved phalanges of the 4th finger	薬指の弯曲	Fujiwara	synonym
+HP:0009285	Curved phalanges of the 4th finger	薬指の湾曲	Fujiwara	synonym
 HP:0009286	Curved distal phalanx of the 4th finger	湾曲した第4指末節骨	expert	label
 HP:0009287	Curved middle phalanx of the 4th finger	湾曲した第4指中節骨	expert	label
 HP:0009288	Curved proximal phalanx of the 4th finger	湾曲した第4指基節骨	expert	label
@@ -7940,6 +7988,10 @@ HP:0009439	Short middle phalanx of the 3rd finger	短い第3指中節骨	expert	
 HP:0009440	Broad phalanges of the 3rd finger	幅広い第3指指骨	expert	label
 HP:0009441	Bullet-shaped phalanges of the 3rd finger	弾丸型第3指指骨	expert	label
 HP:0009442	Curved phalanges of the 3rd finger	湾曲した第3指指骨	expert	label
+HP:0009442	Curved phalanges of the 3rd finger	中指の弯曲	Fujiwara	synonym
+HP:0009442	Curved phalanges of the 3rd finger	中指の湾曲	Fujiwara	synonym
+HP:0009442	Curved phalanges of the 3rd finger	弯曲した中指	Fujiwara	synonym
+HP:0009442	Curved phalanges of the 3rd finger	湾曲した中指	Fujiwara	synonym
 HP:0009443	Osteolytic defects of the phalanges of the 3rd finger	第3指指骨の骨融解病変	expert	label
 HP:0009444	Patchy sclerosis of 3rd finger phalanx	斑状硬化症 (第3指指骨）	expert	label
 HP:0009445	Symphalangism of the 3rd finger	第3指の指関節癒合症	expert	label
@@ -7957,6 +8009,7 @@ HP:0009458	Aplasia of the proximal phalanx of the 3rd finger	第3指基節骨無
 HP:0009459	Short proximal phalanx of the 3rd finger	短い第3指基節骨	expert	label
 HP:0009460	Aplasia of the 3rd finger	第3指無形成	expert	label
 HP:0009461	Short 3rd finger	短い第3指	expert	label
+HP:0009461	Short 3rd finger	短い中指	Fujiwara	synonym
 HP:0009462	Radial deviation of the 3rd finger	第3指橈側偏位	expert	label
 HP:0009463	Ulnar deviation of the 3rd finger	第3指の尺側偏位	expert	label
 HP:0009464	Ulnar deviation of the 2nd finger	第2指の尺側偏位	expert	label
@@ -8025,6 +8078,7 @@ HP:0009533	Stippling of the epiphysis of the proximal phalanx of the 2nd finger	
 HP:0009534	Triangular epiphysis of the proximal phalanx of the 2nd finger	第2指基節骨の三角形骨端	expert	label
 HP:0009535	Aplasia of the 2nd finger	第2指無形成	expert	label
 HP:0009536	Short 2nd finger	短い第2指	expert	label
+HP:0009536	Short 2nd finger	短い人差し指	Fujiwara	synonym
 HP:0009537	Flexion contracture of the 2nd finger	第2指屈曲拘縮	expert	label
 HP:0009538	Contracture of the distal interphalangeal joint of the 2nd finger	第2指遠位指間(DIP)関節拘縮	expert	label
 HP:0009539	Contracture of the metacarpophalangeal joint of the 2nd finger	第2指中手骨指骨(MP)関節拘縮	expert	label
@@ -8038,6 +8092,10 @@ HP:0009546	Triangular shaped phalanges of the 2nd finger	三角形の第2指指�
 HP:0009547	Broad phalanges of the 2nd finger	幅広い第2指指骨	expert	label
 HP:0009548	Bullet-shaped phalanges of the 2nd finger	弾丸型第2指指骨	expert	label
 HP:0009549	Curved phalanges of the 2nd finger	湾曲した第2指指骨	expert	label
+HP:0009549	Curved phalanges of the 2nd finger	人差し指の弯曲	Fujiwara	synonym
+HP:0009549	Curved phalanges of the 2nd finger	人差し指の湾曲	Fujiwara	synonym
+HP:0009549	Curved phalanges of the 2nd finger	弯曲した人差し指	Fujiwara	synonym
+HP:0009549	Curved phalanges of the 2nd finger	湾曲した人差し指	Fujiwara	synonym
 HP:0009550	Osteolytic defects of the phalanges of the 2nd finger	第2指指骨の骨融解病変	expert	label
 HP:0009551	Patchy sclerosis of 2nd finger phalanx	斑状硬化症 (第2指指骨)	expert	label
 HP:0009552	Aplasia/Hypoplasia of the phalanges of the 2nd finger	第2指指骨低形成/無形成	expert	label
@@ -8132,6 +8190,10 @@ HP:0009649	Aplasia of the distal phalanx of the thumb	母指末節骨無形成	e
 HP:0009650	Short distal phalanx of the thumb	短い母指末節骨	expert	label
 HP:0009652	Bullet-shaped thumb phalanx	弾丸型母指指骨	expert	label
 HP:0009653	Curved thumb phalanx	湾曲した母指指骨	expert	label
+HP:0009653	Curved thumb phalanx	弯曲した親指	Fujiwara	synonym
+HP:0009653	Curved thumb phalanx	湾曲した親指	Fujiwara	synonym
+HP:0009653	Curved thumb phalanx	親指の弯曲	Fujiwara	synonym
+HP:0009653	Curved thumb phalanx	親指の湾曲	Fujiwara	synonym
 HP:0009654	Osteolytic defect of thumb phalanx	母指指骨の骨融解病変	expert	label
 HP:0009655	Patchy sclerosis of thumb phalanx	斑状硬化症 (母指指骨)	expert	label
 HP:0009656	Symphalangism of the thumb	母指の指関節癒合症	expert	label
@@ -8189,6 +8251,7 @@ HP:0009709	Increased CSF interferon alpha	髄液インターフェロンα増加
 HP:0009710	Chilblains	凍瘡病変	expert	label
 HP:0009710	Chilblains	凍瘡	LSD	synonym
 HP:0009711	Retinal capillary hemangioma	網膜血管芽腫	expert	label
+HP:0009711	Retinal capillary hemangioma	網膜血管腫	Fujiwara	synonym
 HP:0009713	Spinal hemangioblastoma	脊椎血管芽腫	expert	label
 HP:0009713	Spinal hemangioblastoma	脊髄血管芽腫	LSD	synonym
 HP:0009714	Abnormality of the epididymis	精巣上体異常	expert	label
@@ -8271,6 +8334,8 @@ HP:0009776	Adactyly	無指症	LSD	synonym
 HP:0009776	Adactyly	無趾症	LSD	synonym
 HP:0009777	Absent thumb	母指欠損	expert	label
 HP:0009778	Short thumb	短い母指	expert	label
+HP:0009778	Short thumb	母指の低形成	Fujiwara	synonym
+HP:0009778	Short thumb	短い親指	Fujiwara	synonym
 HP:0009779	3-4 toe syndactyly	第3-4 合趾症	expert	label
 HP:0009780	Iliac horns	腸骨角	expert	label
 HP:0009781	Lester's sign	Lester サイン	expert	label
@@ -8813,7 +8878,11 @@ HP:0010310	Chylothorax	乳び胸	LSD	synonym
 HP:0010311	Aplasia/Hypoplasia of the breasts	乳房無形成/低形成 	expert	label
 HP:0010312	Asymmetry of the breasts	乳房非対称	expert	label
 HP:0010313	Breast hypertrophy	乳房肥大	expert	label
+HP:0010313	Breast hypertrophy	乳房の肥大	Fujiwara	synonym
+HP:0010313	Breast hypertrophy	乳房肥大症	Fujiwara	synonym
 HP:0010313	Breast hypertrophy	乳房腫大	LSD	synonym
+HP:0010313	Breast hypertrophy	巨乳症	Fujiwara	synonym
+HP:0010313	Breast hypertrophy	巨大乳房	Fujiwara	synonym
 HP:0010314	Premature thelarche	乳房発育早発	expert	label
 HP:0010314	Premature thelarche	早発乳房	LSD	synonym
 HP:0010314	Premature thelarche	早発乳房症	LSD	synonym
@@ -9919,6 +9988,7 @@ HP:0011311	Sydney crease	Sydney 線	expert	label
 HP:0011312	Fused nails	爪癒合	expert	label
 HP:0011313	Narrow nail	狭い爪	expert	label
 HP:0011314	Abnormality of long bone morphology	長管骨形態の異常	expert	label
+HP:0011314	Abnormality of long bone morphology	長管骨の変形	Fujiwara	synonym
 HP:0011315	Unicoronal synostosis	単一冠状縫合早期癒合	expert	label
 HP:0011316	Left unicoronal synostosis	左単一冠状縫合早期癒合	expert	label
 HP:0011317	Right unicoronal synostosis	右単一冠状縫合早期癒合	expert	label
@@ -10463,6 +10533,13 @@ HP:0011797	Papillary renal cell carcinoma type 1	乳頭状腎細胞癌1型	exper
 HP:0011798	Renal oncocytoma	腎膨大細胞腫	expert	label
 HP:0011799	Abnormality of facial soft tissue	顔面軟部組織異常	expert	label
 HP:0011800	Midface retrusion	顔面中部後退	expert	label
+HP:0011800	Midface retrusion	中顔面の低形成	Fujiwara	synonym
+HP:0011800	Midface retrusion	中顔面の低発達	Fujiwara	synonym
+HP:0011800	Midface retrusion	中顔面突起の減少	Fujiwara	synonym
+HP:0011800	Midface retrusion	平坦な中顔面	Fujiwara	synonym
+HP:0011800	Midface retrusion	顔面中央部の低形成	Fujiwara	synonym
+HP:0011800	Midface retrusion	顔面中部の低形成	Fujiwara	synonym
+HP:0011800	Midface retrusion	顔面正中部の低形成	Fujiwara	synonym
 HP:0011801	Enlargement of parotid gland	耳下腺拡大	expert	label
 HP:0011802	Hamartoma of tongue	舌過誤腫	expert	label
 HP:0011803	Bifid nose	二分した鼻	expert	label
@@ -12969,6 +13046,9 @@ HP:0100019	Cortical cataract	皮質白内障	expert	label
 HP:0100020	Posterior capsular cataract	後部水晶嚢白内障	expert	label
 HP:0100021	Cerebral palsy	脳性麻痺	expert	label
 HP:0100022	Abnormality of movement	運動の異常	expert	label
+HP:0100022	Abnormality of movement	異常な運動	Fujiwara	synonym
+HP:0100022	Abnormality of movement	異常運動	Fujiwara	synonym
+HP:0100022	Abnormality of movement	運動異常	Fujiwara	synonym
 HP:0100022	Abnormality of movement	運動障害	LSD	synonym
 HP:0100023	Recurrent hand flapping	反復性の手	expert	label
 HP:0100024	Conspicuously happy disposition	著しい幸せな性質	expert	label
@@ -13615,8 +13695,10 @@ HP:0100606	Neoplasm of the respiratory system	呼吸器新生物	expert	label
 HP:0100607	Dysmenorrhea	月経困難	expert	label
 HP:0100607	Dysmenorrhea	月経困難症	LSD	synonym
 HP:0100608	Metrorrhagia	不正子宮出血	expert	label
+HP:0100608	Metrorrhagia	不正性器出血	Fujiwara	synonym
 HP:0100608	Metrorrhagia	中間出血	LSD	synonym
 HP:0100608	Metrorrhagia	中間期出血	LSD	synonym
+HP:0100608	Metrorrhagia	子宮の異常出血	Fujiwara	synonym
 HP:0100608	Metrorrhagia	月経中間期出血	LSD	synonym
 HP:0100610	Maternal hyperphenylalaninemia	母体高フェニールアラニン結晶	expert	label
 HP:0100611	Multiple glomerular cysts	多発性糸球体嚢胞	expert	label
