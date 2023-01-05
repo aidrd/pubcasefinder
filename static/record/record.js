@@ -1,6 +1,6 @@
 let hot, exportPlugin
 
-let lang = localStorage.lang || 'en'
+let lang = localStorage.lang === 'undefined' ? 'en' : localStorage.lang
 
 setInitialLanguage()
 
@@ -534,23 +534,25 @@ function getExportData() {
     let type = document.getElementById('dl-select').value
     let isAll = type === 'json'
 
-    if (!isAll) {
+    let dlData
+
+    if (isAll) {
+        dlData = contentData
+    } else {
         alert('Only the data in the table will be downloaded.')
+
+        let exportedString = exportPlugin.exportAsString('csv', {
+            bom: false,
+            columnDelimiter: '\t',
+            columnHeaders: true,
+            exportHiddenColumns: isAll,
+            exportHiddenRows: isAll,
+            rowHeaders: false,
+            fileExtension: 'tsv'
+        })
+    
+        dlData = convertCSVToJSON(exportedString, true)
     }
-
-    let exportedString = exportPlugin.exportAsString('csv', {
-        bom: false,
-        columnDelimiter: '\t',
-        columnHeaders: true,
-        exportHiddenColumns: isAll,
-        exportHiddenRows: isAll,
-        rowHeaders: false,
-        fileExtension: 'tsv'
-    })
-
-    let dlData = convertCSVToJSON(exportedString, true)
-
-    if (isAll) dlData = contentData
 
     // if (type === 'json') exportedString = { 'PATIENTS': dlData }
     if (type === 'json') exportedString = getJSONDownload(dlData)
@@ -560,15 +562,49 @@ function getExportData() {
     exportFile(type, exportedString)
 
     function getJSONDownload(dlData) {
-        let jsonResult = { 'PATIENTS': dlData }
-        let headers = []
+        let jsonResult = {}
+        // let jsonResult = { 'PATIENTS': dlData }
+        let patientsData = [], visibleColumns = [], keyName = {}
 
-        colHeaders.forEach(c => {
-            let header = c.replace('<i class="material-icons-outlined sort_icon"></i>', '')
-            if (header !== '') headers.push(header)
+        console.log(dlData)
+
+        dlData.forEach((d, idx) => {
+            let i = 1
+            let pData = {}
+            for (let [k, v] of Object.entries(d)) {
+                if (idx === 0) {
+                    let header = dataColumns[k]
+                    if (header) header = header.colHeader.replace('<i class="material-icons-outlined sort_icon"></i>', '')
+
+                    keyName[i] = header || k
+                }
+
+                pData[i] = v
+
+                // let exists = Object.values(keyName).includes(k)
+
+                // if (exists > 0) {
+                //     console.log(exists)
+                // } else {
+                //     keyName[i] = k
+                //     i++
+                // }
+                i++
+            }
+
+            patientsData.push(pData)
         })
 
-        jsonResult['visibleColumns'] = headers
+        existingColumns.forEach(c => {
+            visibleColumns.push(c)
+        })
+
+        jsonResult = {
+            PATIENTS: patientsData,
+            visibleColumns: visibleColumns,
+            keyName: keyName
+        }
+        // jsonResult['visibleColumns'] = visibleColumns
 
         return jsonResult
     }
