@@ -509,18 +509,44 @@ function fileReader(file, fileType) {
             object = convertCSVToJSON(data)
         } else {
             object = JSON.parse(data)
+
+            let patientsData = []
+            let dataKey = {}
+
+            for (let [k, v] of Object.entries(object.keyName)) {
+                let columnKey
+                categories.forEach(category => {
+                    let col = category.columns?.filter(c => { return c.displayName[object.lang] == v })
+                    if (col && col.length > 0) return columnKey = col[0].dataKey
+                })
+
+                dataKey[k] = columnKey || v
+            }
+
+            object.PATIENTS.forEach(p => {
+                let pData = {}
+                for (let [k, v] of Object.entries(p)) {
+                    let keyName = dataKey[k] || k
+                    pData[keyName] = v
+                }
+
+                patientsData.push(pData)
+            })
+
+            object = patientsData
         }
 
-        updateTable(object.PATIENTS, fileType)
+        // updateTable(object.PATIENTS, fileType)
+        updateTable(object, fileType)
 
         if (object.visibleColumns) {
             colHeaders.length = 2
-            headers.length = 2
+            columns.length = 2
             existingColumns = []
 
             object.visibleColumns.forEach(vc => {
                 colHeaders.push(dataColumns[vc]['colHeader'])
-                headers.push(dataColumns[vc]['column'])
+                columns.push(dataColumns[vc]['column'])
                 existingColumns.push(vc)
             })
 
@@ -566,29 +592,23 @@ function getExportData() {
         // let jsonResult = { 'PATIENTS': dlData }
         let patientsData = [], visibleColumns = [], keyName = {}
 
-        console.log(dlData)
-
         dlData.forEach((d, idx) => {
             let i = 1
             let pData = {}
             for (let [k, v] of Object.entries(d)) {
                 if (idx === 0) {
                     let header = dataColumns[k]
-                    if (header) header = header.colHeader.replace('<i class="material-icons-outlined sort_icon"></i>', '')
+                    if (header) {
+                        header = header.colHeader.replace('<i class="material-icons-outlined sort_icon"></i>', '')
+                    } else {
+                        if (k === 'growthChart') header = translate(k)
+                    }
 
                     keyName[i] = header || k
                 }
 
                 pData[i] = v
 
-                // let exists = Object.values(keyName).includes(k)
-
-                // if (exists > 0) {
-                //     console.log(exists)
-                // } else {
-                //     keyName[i] = k
-                //     i++
-                // }
                 i++
             }
 
@@ -602,7 +622,8 @@ function getExportData() {
         jsonResult = {
             PATIENTS: patientsData,
             visibleColumns: visibleColumns,
-            keyName: keyName
+            keyName: keyName,
+            lang: lang
         }
         // jsonResult['visibleColumns'] = visibleColumns
 
