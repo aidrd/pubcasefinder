@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="../static/bootstrap-4.6.2-dist/css/bootstrap.css">
+    <link rel="stylesheet" href="../static/css/vgp/vgp.css">
+    <link rel="stylesheet" href="/static/css/vgp/tippy.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <title>Visual Gene Panel</title>
+  </head>
+  <body>
+    <header class="navbar navbar-expand flex-column flex-md-row justify-content-between vgp-navbar">
+      <div class="vgp-navbar-sub">
+        <span class="vgp-navbar-brand">PubCaseFinder</span>
+        <span class="vgp-navbar-subbrand">Knowledge Search</span>
+      </div>
+      <div class="vgp-navbar-sub">
+        <span class="material-symbols-outlined">info</span>
+        <span class="material-symbols-outlined">grid_view</span>
+        <span class="material-symbols-outlined">language</span>
+      </div>
+    </header>
+    <main class="container-fluid vgp-main">
+      <div class="d-flex flex-row justify-content-between vgp-title">
+        <div class="vgp-title-sub">
+          <span class="vgp-title-sub-left-count">20,000</span>
+          <span class="vgp-title-sub-left-unit">panels</span>
+        </div>
+        <div class="d-flex flex-row align-items-end vgp-title-sub">
+          <span class="vgp-title-sub-right-date">Updated Dec 9,2022</span>
+          <button id="vgp-download-all-btn" class="vgp-download-btn" data-toggle="tooltip" data-placement="top" title="" data-original-title="Download all Panels">
+            <span class="material-icons">save_alt</span>
+          </button>
+        </div>
+      </div>
+      
+      <div class="d-md-flex flex-md-row row vgp-search">
+        <div class="col row vgp-search-sub">
+            <select id="vgp-target" class="vgp-select vgp-select-target"  onchange="change_target(this.value);">
+              <option value="all">ALL</option>
+              <option value="panel">Panel</option>
+              <option value="gene">Gene</option>
+            </select>
+            <div class="vgp-searchicon-wrapper">
+              <span class="material-symbols-outlined vgp-searchicon">search</span>
+            </div>
+            <div class="col vgp-filter-wrapper">
+              <input id="vgp-filter" type="text" autocomplete="off" autocapitalize="off" placeholder="Filter"></input>
+            </div>
+        </div>
+        <div id="vgp-searched-panels-num" class="row align-items-center vgp-search-sub vgp-subcount">
+          17,000 panels
+        </div>
+        <select id="vgp-size" class="col vgp-search-sub vgp-select vgp-select-size" onchange="change_pagenum(this.value);">
+          <option value=50 >Per Page 50</option>
+          <option value=100>Per Page 100</option>
+          <option value=200>Per Page 200</option>
+          <option value=-1>ALL</option>
+        </select>
+      </div>
+      <div id="vgp-list-root-panel"></div>
+    </main>
+  </body>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+  <script src="../static/bootstrap-4.6.2-dist/js/bootstrap.bundle.js"></script>
+  <script src="https://unpkg.com/@popperjs/core@2"></script>
+  <script src="/static/js/vgp/tippyjs/tippy-bundle.umd.js"></script>
+  <script type="text/javascript" src="../static/js/vgp/jquery.vgp.js"></script>
+  <script type="text/javascript" src="../static/js/vgp/jquery.vgp_collapse_panel.js"></script>
+  <script>
+      function change_pagenum(num){
+          let v = parseInt(num,10);
+          $("#vgp-list-root-panel").visual_gene_panel_list('search_panels',{'vgp-size':v,'vgp-size-limit':v});
+      }
+
+      function change_target(target){
+          $("#vgp-list-root-panel").visual_gene_panel_list('search_panels',{'vgp-target':target});
+      }
+      
+      $(document).ready(function() {
+           $("#vgp-list-root-panel").visual_gene_panel_list({
+               'language':'ja',
+               'after_search_idlist':function(num){
+                   let total_num_str = num.toLocaleString("en-US");
+                   $('#vgp-searched-panels-num').text(total_num_str + ' panels');
+               }
+           });
+
+           setTimeout(function() {
+               $("#vgp-list-root-panel").visual_gene_panel_list('search_panels',{'vgp-target':'all','vgp-filter':''});
+           }, 100);
+
+           $('#vgp-download-all-btn').click(function(){
+               $(this).tooltip('hide');
+               $("#vgp-list-root-panel").visual_gene_panel_list('download_all_panels');
+           }).tooltip();
+           
+           $('#vgp-filter').change(function(){
+               let v = $(this).val();
+               //console.log( v );
+               $("#vgp-list-root-panel").visual_gene_panel_list('search_panels',{'vgp-filter':encodeURIComponent(v)});
+           });
+           
+           setTimeout(function() {
+               $("#vgp-filter").focus();
+           }, 300);
+
+           
+       });
+  </script>
+</html>
