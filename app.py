@@ -1776,7 +1776,7 @@ def pcf_panel_get_mondo_id_match_panel_name_synonym():
                               u"  GROUP BY " \
                               u"    OntoID " \
                               u") AS OntoTermMONDODbxref ON OntoTermMONDODbxref.OntoVersion=OntoTermMONDOInformation.OntoVersion AND OntoTermMONDODbxref.OntoID=OntoTermMONDOInformation.OntoID " \
-                              u") AS A WHERE " \
+                              u") AS A WHERE uid != 'MONDO:0000001' AND " \
                               u"{0}"
         sql_IndexFormSearch = sql_IndexFormSearch.format(' AND '.join(map(lambda x: "uid_value like %s", tokeninputs)))
         #app.logger.info(sql_IndexFormSearch)

@@ -292,7 +292,7 @@ select.vgp-select option:hover {
 	font-size: 25px;
 	display:inline-flex;
 }
-
+/*
 .vgp-panel-row .vgp-col-panel .vgp-name-wrapper .vgp-synonym {
   background: white;
   margin-left: 10px;
@@ -311,6 +311,7 @@ select.vgp-select option:hover {
 	background: #00714E;
 	color: white;
 }
+*/
 
 .vgp-panel-row .vgp-col-panel .vgp-def-wrapper p {
   margin:0;
@@ -586,5 +587,37 @@ select.vgp-select option:hover {
 .list-tag[aria-expanded="true"] {
   color: #fff;
   background-color: #067ABC;
+  transition: 0.5s;
+}
+
+
+.list-tag-vgp-synonym {
+  background: white;
+  margin-left: 10px;
+  margin-top: 10px;  height: 20px;
+  color: #00714E;
+  font-size: 11px;  font-weight: 500;
+  border:1.5px solid #00714E;
+  border-radius: 10px;
+  padding: 0px 10px 0px 10px;
+  white-space: nowrap;
+  cursor: pointer;
+  -webkit-transition: background 0.2s,color 0.1s;
+  transition: background 0.2s,color 0.1s;
+}
+
+.list-tag-vgp-synonym[aria-expanded="false"] {
+  color: #00714E;
+}
+
+.list-tag-vgp-synonym:hover {
+  color: #fff;
+  background-color: #00714E;
+  transition: 0.5s;
+}
+
+.list-tag-vgp-synonym[aria-expanded="true"] {
+  color: #fff;
+  background-color: #00714E;
   transition: 0.5s;
 }

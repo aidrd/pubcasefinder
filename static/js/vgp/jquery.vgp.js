@@ -312,39 +312,41 @@
 				let $div_vgp_name_wrapper = $('<div>').addClass('d-flex flex-row vgp-name-wrapper').appendTo($vgp_panel);
 
 				let vgp_name = _capitalizeFirstLetter(panel_data.name_en);
-				if(settings[SETTINGS_KEY_LANG] === LANGUAGE_JA && 'name_ja' in panel_data){
-					vgp_name = panel_data.name_ja;
-				}
+				//if(settings[SETTINGS_KEY_LANG] === LANGUAGE_JA && 'name_ja' in panel_data){
+				//	vgp_name = panel_data.name_ja;
+				//}
 
 				$('<div>').addClass('vgp-name').text(vgp_name).appendTo($div_vgp_name_wrapper);
 				
 				if('synonym' in panel_data && !_isEmpty(panel_data.synonym)){
-					 //let $div_synonym_wrapper = $('<div>').addClass('vgp-synonym-wrapper').appendTo($div_vgp_name);
-					//let $div_synonym_wrapper = $('<div>').addClass('vgp-synonym-wrapper').appendTo($p_vgp_name);
-					//let $btn = $('<button>').addClass('vgp-synonym').text('Also known as').appendTo($div_synonym_wrapper);
+					/*
 					let $btn = $('<button>').addClass('vgp-synonym').text('Also known as').appendTo($div_vgp_name_wrapper);
 					$btn.popover({
 						trigger: 'focus',
 						content: panel_data.synonym,
+					}).click(function(){
 						
 					});
-					/*
-					let vgp_synonym = panel_data.synonym.split('|');
-					let $div_synonym_wrapper = $('<div>').addClass('dropdown').addClass('vgp-synonym-wrapper').appendTo($div_vgp_name);
-					let $btn = $('<button>').addClass('dropdown-toggle').addClass('vgp-synonym').text('Also known as')
-								.attr({
-									'data-toggle': "dropdown",
-									'aria-expanded': "false"
-								})
-								.appendTo($div_synonym_wrapper);
-					let $div_dropdown_menu = $('<div>').addClass('dropdown-menu').appendTo($div_synonym_wrapper);
-					for(let n=0; n<vgp_synonym.length;n++){
-						$('<label>').addClass('dropdown-item').text(vgp_synonym[n].replace(/^s+|s+$/g,'')).appendTo($div_dropdown_menu);
-					}
-					$btn.dropdown();
 					*/
-				}
+					let button = document.createElement('button');
+					button.textContent = 'Also known as';
+					button.classList.add("list-tag-vgp-synonym");
 				
+					tippy(button, {
+						// default
+						content: panel_data.synonym,
+						placement: 'right',
+						theme:        'pcf-popup',
+						trigger: 'click',
+					});
+					$(button).appendTo($div_vgp_name_wrapper);
+				}
+			
+				if(settings[SETTINGS_KEY_LANG] === LANGUAGE_JA && 'name_ja' in panel_data){
+                	vgp_name = panel_data.name_ja;
+					let $div_vgp_name_wrapper2 = $('<div>').addClass('vgp-name-wrapper').appendTo($vgp_panel);
+					$('<div>').addClass('vgp-name').text(vgp_name).appendTo($div_vgp_name_wrapper2);
+                }	
 				if('definition' in panel_data && !_isEmpty(panel_data.definition)){
 					let $div_vgp_def = $('<div>').addClass('vgp-def-wrapper').appendTo($vgp_panel);
 					let $p = $('<p>').text(panel_data.definition).appendTo($div_vgp_def);
