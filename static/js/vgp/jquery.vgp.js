@@ -334,10 +334,13 @@
 				
 					tippy(button, {
 						// default
-						content: panel_data.synonym,
-						placement: 'right',
-						theme:        'pcf-popup',
-						trigger: 'click',
+						allowHTML:     	true,
+						appendTo:      	document.body,
+						content: 		panel_data.synonym,
+						placement: 		'right',
+						theme:        	'pcf-popup',
+						trigger: 		'click',
+						interactive:  true,
 					});
 					$(button).appendTo($div_vgp_name_wrapper);
 				}
