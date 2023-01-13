@@ -2,29 +2,25 @@ let modalTableSettings = {
     rowHeaders: true,
     width: '100%',
     height: 'auto',
-    // colWidths: 130,
     autoColumnSize: {
     	useHeaders: true
     },
     contextMenu: true,
-    allowRemoveColumn: true,
-    licenseKey: '17bfa-714c9-a7430-c4321-87c56' // for non-commercial use only
+    allowRemoveColumn: false,
+    licenseKey: '17bfa-714c9-a7430-c4321-87c56'
 }
 
-let geneHot
-// let geneSettings = structuredClone(modalTableSettings)
+let geneHot, geneContainer
 let geneSettings = JSON.parse(JSON.stringify(modalTableSettings))
 let geneHeaders = [], geneColumns = []
 let geneSchema = {}, geneData = [], currentGeneData = []
-let geneContainer = document.getElementById('geneModal')
+// let geneContainer = document.getElementById('geneModal')
 
-let bodyHot
-// let bodySettings = structuredClone(modalTableSettings)
+let bodyHot, bodyContainer
 let bodySettings = JSON.parse(JSON.stringify(modalTableSettings))
 let bodyHeaders = [], bodyColumns = []
-let bodySchema = {}, bodyData = {}, currentBodyData = {}
-let bodyContainer = document.getElementById('bodyModal')
-
+let bodySchema = {}, bodyData = [], currentBodyData = []
+// let bodyContainer = document.getElementById('bodyModal')
 
 async function geneTable() {
     if (!toReset) return
@@ -32,15 +28,22 @@ async function geneTable() {
     let tempData = {}
 
     resetData('gene')
-
-    let geneTypeInfo = columns['遺伝子型情報']
+    let geneInfo = categories.filter(c => { return c.dataKey === 'geneInfo' })
+    let geneTypeInfo = geneInfo[0].columns
+    
     geneTypeInfo.forEach(g => {
-        geneSchema[g.columnName] = null
-        geneHeaders.push(g.columnName)
+        let displayName = g['displayName'][lang] || g['displayName']['en']
+        let options
+        if (g.options) {
+            options = g['options'][lang].length > 0 ? g['options'][lang] : g['options']['en']
+        }
+
+        geneSchema[g.dataKey] = null
+        geneHeaders.push(displayName)
         geneColumns.push({
-            data: g.columnName,
+            data: g.dataKey,
             type: g.type,
-            source: g.options,
+            source: options,
             strict: true,
             allowInvalid: false
         })
@@ -91,40 +94,37 @@ function addGeneRow() {
 async function bodyTable() {
     resetData('body')
 
-    bodySchema = {
-        "日付": "",
-        "体重": "",
-        "身長": "",
-        "頭囲": ""
-    }
-
     if (currentPatient) {
         let patientData = contentData.filter(d => { return d.PCFNo == currentPatient })[0]
-        if (!patientData['身体情報']) patientData['身体情報'] = []
-        bodyData = patientData['身体情報']
+        if (!patientData['growthChart']) patientData['growthChartgrowthChart'] = []
+        bodyData = patientData['growthChart']
         currentBodyData = bodyData
-        // currentBodyData = JSON.parse(JSON.stringify(modalTableSettings))
     }
 
-    bodyHeaders = Object.keys(bodySchema)
-    bodyColumns = []
+    let medicalInfo = categories.filter(c => { return c.dataKey === 'medicalInfo' })
+    let bodyInfo = medicalInfo[0].columns.filter(c => { return c.dataKey === 'bodyWeight' || c.dataKey === 'bodyHeight' || c.dataKey === 'headCircumference'})
+    
+    bodySchema.date = null
+    bodyHeaders.push(translate('date'))
+    bodyColumns.push({
+        data: 'date',
+        type: 'date',
+        dateFormat: 'YYYY/MM/DD',
+        correctFormat: true
+    })
 
-    bodyHeaders.forEach((h, i) => {
-        let column = {
-            data: h,
-            type: h === '日付' ? 'date' : 'text',
-        }
+    bodyInfo.forEach(c => {
+        let displayName = c['displayName'][lang] || c['displayName']['en']
 
-        if (h === '日付') {
-            column.dateFormat = 'YYYY/MM/DD'
-            column.correctFormat = true
-        }
-
-        bodyColumns.push(column)
+        bodySchema[c.dataKey] = null
+        bodyHeaders.push(displayName)
+        bodyColumns.push({
+            data: c.dataKey,
+            type: 'text'
+        })
     })
 
     Object.assign(bodySettings, {
-        // width: 500,
         dataSchema: bodySchema,
         data: currentBodyData,
         colHeaders: bodyHeaders,
@@ -133,6 +133,7 @@ async function bodyTable() {
 
     if (!bodyHot) {
         bodyHot = new Handsontable(bodyContainer, bodySettings)
+        bodyHot.render()
     } else {
         bodyHot.updateSettings(bodySettings)
         bodyHot.render()
@@ -144,21 +145,26 @@ function addBodyRow() {
 }
 
 function resetData(type) {
-    if (type === 'gene' && geneHot) {
+    if (type === 'gene') {
         geneHeaders = []
         geneColumns = []
         geneSchema = {}
         geneData = []
-        geneHot.updateSettings(bodySettings)
-        geneHot.render()
-    }
-
-    if (type === 'body' && bodyHot) {
+        
+        if (geneHot) {
+            geneHot.updateSettings(bodySettings)
+            geneHot.render()
+        }
+    } else if (type === 'body') {
         bodyHeaders = []
         bodyColumns = []
         bodySchema = {}
-        bodyData = {}
-        bodyHot.updateSettings(bodySettings)
-        bodyHot.render()
+        bodyData = []
+
+        if (bodyHot) {
+            bodyHot.updateSettings(bodySettings)
+            bodyHot.render()
+        }
+        
     }
 }

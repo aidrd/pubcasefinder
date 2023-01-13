@@ -1,373 +1,842 @@
-
-let columns = {
-    "患者基本情報": [
-        {
-            "columnName": "患者ID",
-            "dataKey": "patientID",
-            "type": "text",
-            "options": [],
-            "table": true
+let categories = [
+    {
+        dataKey: 'patientInfo',
+        iconClass: 'bxt icon material-icons-outlined',
+        iconName: 'person',
+        displayName: {
+            en: 'Patient Information',
+            ja: '患者基本情報',
+            ko: '환자 기본 정보'
         },
-        {
-            "columnName": "家族ID",
-            "dataKey": "FamilyID",
-            "type": "text",
-            "options": [],
-            "table": true
+        columns: [
+            {
+                columnID: 'p001',
+                dataKey: 'patientId',
+                inputType: 'text',
+                phenoKey: '',
+                type: 'text',
+                table: true,
+                displayName: {
+                    en: 'Patient ID',
+                    ja: '患者ID',
+                    ko: '환자 ID'
+                }
+            },
+            {
+                columnID: 'p002',
+                dataKey: 'familyId',
+                inputType: 'input-select',
+                phenoKey: '',
+                type: 'text',
+                table: true,
+                displayName: {
+                    en: 'Family ID',
+                    ja: '家族ID',
+                    ko: '가족 ID'
+                }
+            },
+            {
+                columnID: 'p003',
+                dataKey: 'relationship',
+                inputType: 'select',
+                phenoKey: '',
+                type: 'dropdown',
+                table: true,
+                displayName: {
+                    en: 'Relationship',
+                    ja: '続柄',
+                    ko: '관계'
+                },
+                options: {
+                    dataValue: ['proband', 'father', 'mother', 'sibling', 'child', 'grandfather', 'grandmother', 'other'],
+                    en: ['Proband', 'Father', 'Mother', 'Sibling', 'Child', 'Grandfather', 'Grandmother', 'Other'],
+                    ja: ['発端者', '父親', '母親', '兄弟姉妹', '子供', '祖父', '祖母', 'その他'],
+                    ko: ['본인', '부', '모', '형제자매', '아이', '조부', '할머니', '기타']
+                }
+            },
+            {
+                columnID: 'p004',
+                dataKey: 'group',
+                inputType: 'input-select',
+                phenoKey: '',
+                type: 'text',
+                table: true,
+                displayName: {
+                    en: 'Group',
+                    ja: 'グループ名',
+                    ko: '그룹 이름'
+                }
+            },
+            {
+                columnID: 'p005',
+                dataKey: 'lifeStatus',
+                inputType: 'radio',
+                phenoKey: '',
+                type: 'dropdown',
+                table: true,
+                displayName: {
+                    en: 'Life Status',
+                    ja: '状態',
+                    ko: '상태'
+                },
+                options: {
+                    dataValue: ['alive', 'deceased'],
+                    en: ['Alive', 'Deceased'],
+                    ja: ['生存', '故人'],
+                    ko: ['생', '사']
+                }
+            },
+            {
+                columnID: 'p006',
+                dataKey: 'birth',
+                inputType: 'select-date',
+                phenoKey: '',
+                type: 'date',
+                table: true,
+                displayName: {
+                    en: 'Birth',
+                    ja: '生年月',
+                    ko: '생년월'
+                }
+            },
+            {
+                columnID: 'p007',
+                dataKey: 'age',
+                inputType: 'text',
+                phenoKey: '',
+                type: 'text',
+                table: true,
+                displayName: {
+                    en: 'Age',
+                    ja: '年齢',
+                    ko: '연령'
+                }
+            },
+            {
+                columnID: 'p008',
+                dataKey: 'death',
+                inputType: 'select-date',
+                phenoKey: '',
+                type: 'text',
+                table: true,
+                displayName: {
+                    en: 'Death',
+                    ja: '没年月',
+                    ko: '사망일'
+                }
+            },
+            {
+                columnID: 'p009',
+                dataKey: 'sex',
+                inputType: 'select',
+                phenoKey: '',
+                type: 'dropdown',
+                table: true,
+                displayName: {
+                    en: 'Sex',
+                    ja: '性別',
+                    ko: '성별'
+                },
+                options: {
+                    dataValue: ['male', 'female', 'other', 'unknown'],
+                    en: ['Male', 'Female', 'Other', 'Unknown'],
+                    ja: ['男性', '女性', 'その他', '不明'],
+                    ko: ['남성', '여성', '기타', '불명']
+                }
+            },
+            {
+                columnID: 'p010',
+                dataKey: 'note',
+                inputType: 'textarea',
+                phenoKey: '',
+                type: 'text',
+                table: true,
+                displayName: {
+                    en: 'Note',
+                    ja: '概要',
+                    ko: '비고'
+                }
+            },
+        ]
+    },
+    {
+        dataKey: 'medicalInfo',
+        iconClass: 'material-symbols-outlined',
+        iconName: 'medical_information',
+        displayName: {
+            en: 'Medical Information',
+            ja: '診療情報',
+            ko: '찰 정보'
         },
-        {
-            "columnName": "続柄",
-            "dataKey": "relationship",
-            "type": "dropdown",
-            "options": ["発端者", "父親", "母親", "兄弟姉妹", "その他"],
-            "table": true
-        },
-        {
-            "columnName": "グループ名",
-            "dataKey": "groupID",
-            "type": "text",
-            "options": [],
-            "table": true
-        },
-        {
-            "columnName": "状態",
-            "dataKey": "lifestatus",
-            "type": "dropdown",
-            "options": ["生存", "故人"],
-            "table": true
-        },
-        {
-            "columnName": "生年月",
-            "dataKey": "birth",
-            "type": "date",
-            "options": [],
-            "table": true
-        },
-        {
-            "columnName": "年齢",
-            "dataKey": "age",
-            "type": "text",
-            "options": [],
-            "table": true
-        },
-        {
-            "columnName": "没年月",
-            "dataKey": "death",
-            "type": "date",
-            "options": [],
-            "table": true
-        },
-        {
-            "columnName": "性別",
-            "dataKey": "sex",
-            "type": "dropdown",
-            "options": ["男性", "女性", "その他", "不明"],
-            "table": true
-        },
-        {
-            "columnName": "概要",
-            "dataKey": "Note",
-            "type": "text",
-            "options": [],
-            "table": true
+        columns: [
+            {
+                columnID: 'm001',
+                dataKey: 'clinicalDiagnosis',
+                inputType: 'text',
+                phenoKey: '',
+                type: 'text',
+                table: true,
+                displayName: {
+                    en: 'Clinical Diagnosis',
+                    ja: '臨床診断',
+                    ko: '임상진단'
+                }
+            },
+            {
+                columnID: 'm002',
+                dataKey: 'finalDiagnosis',
+                inputType: 'text',
+                phenoKey: '',
+                type: 'text',
+                table: true,
+                displayName: {
+                    en: 'Final Diagnosis',
+                    ja: '確定診断',
+                    ko: '최종진단'
+                }
+            },
+            {
+                columnID: 'm003',
+                dataKey: 'chiefComplaint',
+                inputType: 'text',
+                phenoKey: '',
+                type: 'text',
+                table: true,
+                displayName: {
+                    en: 'Chief Complaint',
+                    ja: '主訴',
+                    ko: '주요호소증상'
+                }
+            },
+            {
+                columnID: 'm004',
+                dataKey: 'caseSolved',
+                inputType: 'select',
+                phenoKey: '',
+                type: 'dropdown',
+                table: true,
+                displayName: {
+                    en: 'Case Solved',
+                    ja: '診断状況',
+                    ko: '진단상황'
+                },
+                options: {
+                    dataValue: ['solved', 'candidate', 'VUS', 'unresolved'],
+                    en: ['Solved', 'Candidate', 'VUS', 'Unresolved'],
+                    ja: ['解決', '新規候補', 'VUS', '未解決'],
+                    ko: ['해결', '후보자', 'VUS', '미해결']
+                }
+            },
+            {
+                columnID: 'm005',
+                dataKey: 'currentMedicalHistory',
+                inputType: 'textarea',
+                phenoKey: '',
+                type: 'text',
+                table: true,
+                displayName: {
+                    en: 'Current Medical History',
+                    ja: '現病歴',
+                    ko: '현재 병력'
+                }
+            },
+            {
+                columnID: 'm006',
+                dataKey: 'previousMedicalHistory',
+                inputType: 'textarea',
+                phenoKey: '',
+                type: 'date',
+                table: true,
+                displayName: {
+                    en: 'Previous Medical History',
+                    ja: '既往歴',
+                    ko: '과거 병력'
+                }
+            },
+            {
+                columnID: 'm007',
+                dataKey: 'prenatalPerinatalHistory',
+                inputType: 'textarea',
+                phenoKey: '',
+                type: 'text',
+                table: true,
+                displayName: {
+                    en: 'Prenatal Perinatal History',
+                    ja: '出生前および周産期の病歴',
+                    ko: '출산 및 주산기 병력'
+                }
+            },
+            {
+                columnID: 'm008',
+                dataKey: 'earlyDevelopmentalAndSchoolingHistory',
+                inputType: 'textarea',
+                phenoKey: '',
+                type: 'text',
+                table: true,
+                displayName: {
+                    en: 'Early Developmental and Schooling History',
+                    ja: '生育歴および教育歴',
+                    ko: '초기 발달사와 학교 생활사'
+                }
+            },
+            {
+                columnID: 'm009',
+                dataKey: 'process',
+                inputType: 'textarea',
+                phenoKey: '',
+                type: 'text',
+                table: true,
+                displayName: {
+                    en: 'Process',
+                    ja: '経過',
+                    ko: '경과'
+                }
+            },
+            {
+                columnID: 'm010',
+                dataKey: 'ageOnset',
+                inputType: 'select',
+                phenoKey: '',
+                type: 'dropdown',
+                table: true,
+                displayName: {
+                    en: 'Age of Onset',
+                    ja: '発症年齢',
+                    ko: '발병연령'
+                },
+                options: {
+                    dataValue: ['unknown', 'congenitalOnset', 'antenatalOnsetEmbryonal', 'antenatalOnsetFetal', 'neonatalOnset', 'infantileOnset', 'childhoodOnset', 'juvenileOnset', 'adultOnsetYoungAdult', 'AaultOnsetMiddleAge', 'adultOnsetLate'],
+                    en: ['Unknown', 'Congenital Onset', 'Antenatal Onset - Embryonal', 'Antenatal Onset - Fetal', 'Neonatal Onset', 'Infantile Onset', 'Childhood Onset', 'Juvenile Onset', 'Adult Onset - Young Adult', 'Adult Onset - Middle Age', 'Adult Onset - Late'],
+                    ja: ['不明', '先天性の発症', '出生前発症 - 胎生期発症', '出生前発症- 胎児期発症', '新生児期発症', '幼児期発症', '小児期発症', '若年性発症（思春期発症）', '成人発症', '成人発症- 前期発症（青年期発症）', '成人発症- 中年期発症（壮年期発症）', '成人発症- 後期発症'],
+                    ko: []
+                }
+            },
+            {
+                columnID: 'm011',
+                dataKey: 'examinationFinding',
+                inputType: 'text',
+                phenoKey: '',
+                type: 'text',
+                table: true,
+                displayName: {
+                    en: 'Examination Finding',
+                    ja: '検査所見',
+                    ko: '검사 소견'
+                }
+            },
+            {
+                columnID: 'm012',
+                dataKey: 'allergies',
+                inputType: 'radio-input',
+                phenoKey: '',
+                type: 'text',
+                table: true,
+                displayName: {
+                    en: 'Allergies',
+                    ja: 'アレルギー',
+                    ko: '알레르기'
+                },
+                options: {
+                    dataValue: ['yes', 'no'],
+                    en: ['Yes', 'No'],
+                    ja: ['有', '無'],
+                    ko: []
+                }
+            },
+            {
+                columnID: 'm013',
+                dataKey: 'bodyWeight',
+                inputType: 'hot',
+                phenoKey: '',
+                type: 'text',
+                table: true,
+                displayName: {
+                    en: 'Body Weight',
+                    ja: '体重',
+                    ko: '체중'
+                }
+            },
+            {
+                columnID: 'm014',
+                dataKey: 'bodyHeight',
+                inputType: 'hot',
+                phenoKey: '',
+                type: 'text',
+                table: true,
+                displayName: {
+                    en: 'Body Height',
+                    ja: '身長',
+                    ko: '신장'
+                }
+            },
+            {
+                columnID: 'm015',
+                dataKey: 'headCircumference',
+                inputType: 'hot',
+                phenoKey: '',
+                type: 'text',
+                table: true,
+                displayName: {
+                    en: 'Head Circumference',
+                    ja: '頭囲',
+                    ko: '머리둘레'
+                }
+            },
+            {
+                columnID: 'm016',
+                dataKey: 'socialHistory',
+                inputType: 'textarea',
+                phenoKey: '',
+                type: 'text',
+                table: true,
+                displayName: {
+                    en: 'Social History',
+                    ja: '社会歴',
+                    ko: '사회생활력'
+                }
+            },
+            {
+                columnID: 'm017',
+                dataKey: 'drinking',
+                inputType: 'radio-input',
+                phenoKey: '',
+                type: 'text',
+                table: true,
+                displayName: {
+                    en: 'Drinking',
+                    ja: '飲酒量',
+                    ko: '음주량'
+                },
+                options: {
+                    dataValue: ['yes', 'no'],
+                    en: ['Yes', 'No'],
+                    ja: ['有', '無'],
+                    ko: []
+                }
+            },
+            {
+                columnID: 'm018',
+                dataKey: 'smoking',
+                inputType: 'radio-input',
+                phenoKey: '',
+                type: 'text',
+                table: true,
+                displayName: {
+                    en: 'Smoking',
+                    ja: '喫煙',
+                    ko: '흡연'
+                },
+                options: {
+                    dataValue: ['yes', 'no'],
+                    en: ['Yes', 'No'],
+                    ja: ['有', '無'],
+                    ko: []
+                }
+            },
+            {
+                columnID: 'm019',
+                dataKey: 'medications',
+                inputType: 'text',
+                phenoKey: '',
+                type: 'text',
+                table: true,
+                displayName: {
+                    en: 'Medications',
+                    ja: '内服薬',
+                    ko: '상용약'
+                }
+            },
+            {
+                columnID: 'm020',
+                dataKey: 'travelHistory',
+                inputType: 'textarea',
+                phenoKey: '',
+                type: 'text',
+                table: true,
+                displayName: {
+                    en: 'Travel History',
+                    ja: '渡航歴',
+                    ko: '여행 이력'
+                }
+            },
+            {
+                columnID: 'm021',
+                dataKey: 'vaccinationHistory',
+                inputType: 'textarea',
+                phenoKey: '',
+                type: 'text',
+                table: true,
+                displayName: {
+                    en: 'Vaccination History',
+                    ja: '予防接種歴',
+                    ko: '예방 접종 이력'
+                }
+            }
+        ]
+    },
+    {
+        dataKey: 'phenotypicInfo',
+        iconClass: 'material-symbols-outlined',
+        iconName: 'dns',
+        displayName: {
+            en: 'Phenotypic Information',
+            ja: '表現型情報',
+            ko: '표현형 정보'
         }
-    ],
-    "診療情報": [
-        {
-            "columnName": "臨床診断",
-            "dataKey": "clinical-diagnosis",
-            "type": "text",
-            "options": [],
-            "table": true
+    },
+    {
+        dataKey: 'geneInfo',
+        iconClass: 'icon-omim2',
+        iconName: '',
+        displayName: {
+            en: 'Genotype Information',
+            ja: '遺伝子型情報',
+            ko: '유전자형 정보'
         },
-        {
-            "columnName": "確定診断",
-            "dataKey": "final-diagnosis",
-            "type": "text",
-            "options": [],
-            "table": true
+        columns: [
+            {
+                columnID: 'g001',
+                dataKey: 'gene',
+                phenoKey: '',
+                type: 'text',
+                table: true,
+                displayName: {
+                    en: 'Gene',
+                    ja: 'Gene',
+                    ko: ''
+                }
+            },
+            {
+                columnID: 'g002',
+                dataKey: 'status',
+                phenoKey: '',
+                type: 'dropdown',
+                table: true,
+                displayName: {
+                    en: 'Status',
+                    ja: 'Status',
+                    ko: ''
+                },
+                options: {
+                    dataValue: ['Rejected Candidate', 'Confirmed causa', 'Carrier', 'Tested Negative'],
+                    en: ['Rejected Candidate', 'Confirmed causa', 'Carrier', 'Tested Negative'],
+                    ja: ['Rejected Candidate', 'Confirmed causa', 'Carrier', 'Tested Negative'],
+                    ko: []
+                }
+            },
+            {
+                columnID: 'g003',
+                dataKey: 'strategy',
+                phenoKey: '',
+                type: 'dropdown',
+                table: true,
+                displayName: {
+                    en: 'Strategy',
+                    ja: 'Strategy',
+                    ko: ''
+                },
+                options: {
+                    dataValue: ['Sequencing', 'Deletion/duplication', 'Familial mutation', 'Common mutations'],
+                    en: ['Sequencing', 'Deletion/duplication', 'Familial mutation', 'Common mutations'],
+                    ja: ['Sequencing', 'Deletion/duplication', 'Familial mutation', 'Common mutations'],
+                    ko: []
+                }
+            },
+            {
+                columnID: 'g004',
+                dataKey: 'reference',
+                phenoKey: '',
+                type: 'dropdown',
+                table: true,
+                displayName: {
+                    en: 'Reference',
+                    ja: 'Reference',
+                    ko: ''
+                },
+                options: {
+                    dataValue: ['GRCh37 (hg19)', 'GRCh38 (hg38)', 'GRCh36 (hg18)'],
+                    en: ['GRCh37 (hg19)', 'GRCh38 (hg38)', 'GRCh36 (hg18)'],
+                    ja: ['GRCh37 (hg19)', 'GRCh38 (hg38)', 'GRCh36 (hg18)'],
+                    ko: []
+                }
+            },
+            {
+                columnID: 'g005',
+                dataKey: 'chrPosition',
+                phenoKey: '',
+                type: 'text',
+                table: true,
+                displayName: {
+                    en: 'Chr:Position',
+                    ja: 'Chr:Position',
+                    ko: ''
+                }
+            },
+            {
+                columnID: 'g006',
+                dataKey: 'cDNAChange',
+                phenoKey: '',
+                type: 'text',
+                table: true,
+                displayName: {
+                    en: 'cDNA Change',
+                    ja: 'cDNA Change',
+                    ko: ''
+                }
+            },
+            {
+                columnID: 'g007',
+                dataKey: 'pathogenicity',
+                phenoKey: '',
+                type: 'dropdown',
+                table: true,
+                displayName: {
+                    en: 'Pathogenicity',
+                    ja: 'Pathogenicity',
+                    ko: ''
+                },
+                options: {
+                    dataValue: ['Pathogenic', 'Likely Pathogenic', 'Varitant of Unknown Significance', 'Likely Benign', 'Benign', 'Investigation Needed'],
+                    en: ['Pathogenic', 'Likely Pathogenic', 'Varitant of Unknown Significance', 'Likely Benign', 'Benign', 'Investigation Needed'],
+                    ja:['Pathogenic', 'Likely Pathogenic', 'Varitant of Unknown Significance', 'Likely Benign', 'Benign', 'Investigation Needed'],
+                    ko: []
+                }
+            },
+            {
+                columnID: 'g008',
+                dataKey: 'genotype',
+                phenoKey: '',
+                type: 'dropdown',
+                table: true,
+                displayName: {
+                    en: 'Genotype',
+                    ja: 'Genotype',
+                    ko: ''
+                },
+                options: {
+                    dataValue: ['heterozygous', 'homozygous', 'hemizygous'],
+                    en: ['heterozygous', 'homozygous', 'hemizygous'],
+                    ja: ['heterozygous', 'homozygous', 'hemizygous'],
+                    ko: []
+                }
+            },
+            {
+                columnID: 'g009',
+                dataKey: 'transcript',
+                phenoKey: '',
+                type: 'text',
+                table: true,
+                displayName: {
+                    en: 'Transcript',
+                    ja: 'Transcript',
+                    ko: ''
+                }
+            },
+            {
+                columnID: 'g010',
+                dataKey: 'proteinCharge',
+                phenoKey: '',
+                type: 'text',
+                table: true,
+                displayName: {
+                    en: 'Protein Charge',
+                    ja: 'Protein Charge',
+                    ko: ''
+                }
+            },
+            {
+                columnID: 'g011',
+                dataKey: 'annotations',
+                phenoKey: '',
+                type: 'dropdown',
+                table: true,
+                displayName: {
+                    en: 'Annotations',
+                    ja: 'Annotations',
+                    ko: ''
+                },
+                options: {
+                    dataValue: ['missense', 'nonsense', 'insertion - in frame', 'insertion - frameshift', 'deletion - in frame', 'deletion - frameshift', 'indel - in frame', 'indel - frameshift', 'duplication', 'repeat expansion', 'synonymous', 'other'],
+                    en: ['missense', 'nonsense', 'insertion - in frame', 'insertion - frameshift', 'deletion - in frame', 'deletion - frameshift', 'indel - in frame', 'indel - frameshift', 'duplication', 'repeat expansion', 'synonymous', 'other'],
+                    ja: ['missense', 'nonsense', 'insertion - in frame', 'insertion - frameshift', 'deletion - in frame', 'deletion - frameshift', 'indel - in frame', 'indel - frameshift', 'duplication', 'repeat expansion', 'synonymous', 'other'],
+                    ko: []
+                }
+            },
+            {
+                columnID: 'g012',
+                dataKey: 'inheritance',
+                phenoKey: '',
+                type: 'dropdown',
+                table: true,
+                displayName: {
+                    en: 'Inheritance',
+                    ja: 'Inheritance',
+                    ko: ''
+                },
+                options: {
+                    dataValue: ['de novo germline', 'de novo somatic mosaicism', 'maternal', 'paternal', 'unknown'],
+                    en: ['de novo germline', 'de novo somatic mosaicism', 'maternal', 'paternal', 'unknown'],
+                    ja: ['de novo germline', 'de novo somatic mosaicism', 'maternal', 'paternal', 'unknown'],
+                    ko: []
+                }
+            },
+            {
+                columnID: 'g013',
+                dataKey: 'evidence',
+                phenoKey: '',
+                type: 'dropdown',
+                table: true,
+                displayName: {
+                    en: 'Evidence',
+                    ja: 'Evidence',
+                    ko: ''
+                },
+                options: {
+                    dataValue: ['Rare (MAF less than 0.01)', 'Predicted damaging by in silico models', 'Reported in other affected individuals'],
+                    en: ['Rare (MAF less than 0.01)', 'Predicted damaging by in silico models', 'Reported in other affected individuals'],
+                    ja: ['Rare (MAF less than 0.01)', 'Predicted damaging by in silico models', 'Reported in other affected individuals'],
+                    ko: []
+                }
+            },
+            {
+                columnID: 'g014',
+                dataKey: 'comments',
+                phenoKey: '',
+                type: 'text',
+                table: true,
+                displayName: {
+                    en: 'Comments',
+                    ja: 'Comments',
+                    ko: ''
+                }
+            }
+        ]
+    },
+    {
+        dataKey: 'familyInfo',
+        iconClass: 'material-symbols-outlined',
+        iconName: 'diversity_3',
+        displayName: {
+            en: 'Family Information',
+            ja: '家系情報',
+            ko: '가계 정보'
         },
-        {
-            "columnName": "主訴",
-            "dataKey": "chief-complaint",
-            "type": "text",
-            "options": [],
-            "table": true
-        },
-        {
-            "columnName": "診断状況",
-            "dataKey": "case-solved",
-            "type": "dropdown",
-            "options": ["解決", "新規候補", "VUS", "未解決"],
-            "table": true
-        },
-        {
-            "columnName": "現病歴",
-            "dataKey": "current-medical-history",
-            "type": "text",
-            "options": [],
-            "table": true
-        },
-        {
-            "columnName": "既往歴",
-            "dataKey": "previous-medical-history",
-            "type": "text",
-            "options": [],
-            "table": true
-        },
-        {
-            "columnName": "出生前および周産期の病歴",
-            "dataKey": "prenatal-perinatal-history",
-            "type": "text",
-            "options": [],
-            "table": true
-        },
-        {
-            "columnName": "生育歴および教育歴",
-            "dataKey": "early-developmental-and-schooling-history",
-            "type": "text",
-            "options": [],
-            "table": true
-        },
-        {
-            "columnName": "経過",
-            "dataKey": "process",
-            "type": "text",
-            "options": [],
-            "table": true
-        },
-        {
-            "columnName": "発症年齢",
-            "dataKey": "age-onset",
-            "type": "dropdown",
-            "options": ["不明", "先天性の発症", "出生前発症 - 胎生期発症", "出生前発症- 胎児期発症", "新生児期発症", "幼児期発症", "小児期発症", "若年性発症（思春期発症）", "成人発症", "成人発症- 前期発症（青年期発症）", "成人発症- 中年期発症（壮年期発症）", "成人発症- 後期発症"],
-            "table": true
-        },
-        {
-            "columnName": "検査所見",
-            "dataKey": "examination-finding",
-            "type": "text",
-            "options": [],
-            "table": true
-        },
-        {
-            "columnName": "アレルギー",
-            "dataKey": "allergies",
-            "type": "text",
-            "options": [],
-            "table": true
-        },
-        {
-            "columnName": "体重",
-            "dataKey": "body-weight",
-            "type": "text",
-            "options": [],
-            "table": true
-        },
-        {
-            "columnName": "身長",
-            "dataKey": "body-height",
-            "type": "text",
-            "options": [],
-            "table": true
-        },{
-            "columnName": "頭囲",
-            "dataKey": "head-circumference",
-            "type": "text",
-            "options": [],
-            "table": true
-        },
-        {
-            "columnName": "社会歴",
-            "dataKey": "social-history",
-            "type": "text",
-            "options": [],
-            "table": true
-        },
-        {
-            "columnName": "飲酒量",
-            "dataKey": "drinking",
-            "type": "text",
-            "options": [],
-            "table": true
-        },
-        {
-            "columnName": "喫煙",
-            "dataKey": "smoking",
-            "type": "text",
-            "options": [],
-            "table": true
-        },
-        {
-            "columnName": "内服薬",
-            "dataKey": "medications",
-            "type": "text",
-            "options": [],
-            "table": true
-        },
-        {
-            "columnName": "渡航歴",
-            "dataKey": "travel-history",
-            "type": "text",
-            "options": [],
-            "table": true
-        },
-        {
-            "columnName": "予防接種歴",
-            "dataKey": "vaccination-history",
-            "type": "text",
-            "options": [],
-            "table": true
-        }
-    ],
-    "遺伝子型情報": [
-        {
-            "columnName": "Gene",
-            "dataKey": "Gene",
-            "type": "text",
-            "options": [],
-            "table": true
-        },
-        {
-            "columnName": "Status",
-            "dataKey": "Status",
-            "type": "dropdown",
-            "options": ['Rejected Candidate', 'Confirmed causa', 'Carrier', 'Tested Negative'],
-            "table": true
-        },
-        {
-            "columnName": "Strategy",
-            "dataKey": "Strategy",
-            "type": "dropdown",
-            "options": ['Sequencing', 'Deletion/duplication', 'Familial mutation', 'Common mutations'],
-            "table": true
-        },
-        {
-            "columnName": "Reference",
-            "dataKey": "Reference",
-            "type": "dropdown",
-            "options": ["GRCh37 (hg19)", "GRCh38 (hg38)", "GRCh36 (hg18)"],
-            "table": true
-        },
-        {
-            "columnName": "Chr:Position",
-            "dataKey": "Chr-Position",
-            "type": "text",
-            "options": [],
-            "table": true
-        },        {
-            "columnName": "cDNA Change",
-            "dataKey": "cDNA Change",
-            "type": "text",
-            "options": [],
-            "table": true
-        },
-        {
-            "columnName": "Pathogenicity",
-            "dataKey": "Pathogenicity",
-            "type": "dropdown",
-            "options": ["Pathogenic", "Likely Pathogenic", "Varitant of Unknown Significance", "Likely Benign", "Benign", "Investigation Needed"],
-            "table": true
-        },
-        {
-            "columnName": "Genotype",
-            "dataKey": "Genotype",
-            "type": "dropdown",
-            "options": ['heterozygous', 'homozygous', 'hemizygous'],
-            "table": true
-        },
-        {
-            "columnName": "Transcript",
-            "dataKey": "Transcript",
-            "type": "text",
-            "options": [],
-            "table": true
-        },
-        {
-            "columnName": "Protein Charge",
-            "dataKey": "ProteinCharge",
-            "type": "text",
-            "options": [],
-            "table": true
-        },
-        {
-            "columnName": "Annotations",
-            "dataKey": "Annotations",
-            "type": "dropdown",
-            "options": ['missense', 'nonsense', 'insertion - in frame', 'insertion - frameshift', 'deletion - in frame', 'deletion - frameshift', 'indel - in frame', 'indel - frameshift', 'duplication', 'repeat expansion', 'synonymous', 'other'],
-            "table": true
-        },
-        {
-            "columnName": "Inheritance",
-            "dataKey": "Inheritance",
-            "type": "dropdown",
-            "options": ['de novo germline', 'de novo somatic mosaicism', 'maternal', 'paternal', 'unknown'],
-            "table": true
-        },
-        {
-            "columnName": "Evidence",
-            "dataKey": "Evidence",
-            "type": "dropdown",
-            "options": ['Rare (MAF less than 0.01)', 'Predicted damaging by in silico models', 'Reported in other affected individuals'],
-            "table": true
-        },
-        {
-            "columnName": "Comments",
-            "dataKey": "Comments",
-            "type": "text",
-            "options": [],
-            "table": true
-        }
-    ],
-    "家系情報": [
-        {
-            "columnName": "家族歴",
-            "dataKey": "family-info",
-            "type": "text",
-            "options": [],
-            "table": true
-        },
-        {
-            "columnName": "遺伝形式",
-            "dataKey": "genetic_list",
-            "type": "dropdown",
-            "options": ["Sporadic", "Autosomal dominant inheritance", "Sex-limited autosomal dominant", "Autosomal dominant somatic cell mutation", "Autosomal dominant contiguous gene syndrome", "Autosomal recessive inheritance", "Gonosomal inheritance", "X-linked inheritance", "X-linked dominant inheritance", "X-linked recessive inheritance", "Y-linked inheritance", "Multifactorial inheritance", "Digenic inheritance", "Oligogenic inheritance", "Polygenic inheritance", "Mitochondrial inheritance"],
-            "table": true
-        },
-        {
-            "columnName": "その他の罹患近親者",
-            "dataKey": "other-families",
-            "type": "dropdown",
-            "options": ["不明", "はい", "いいえ"],
-            "table": true
-        },
-        {
-            "columnName": "近親婚",
-            "dataKey": "consanguine-marriage",
-            "type": "dropdown",
-            "options": ["不明", "はい", "いいえ"],
-            "table": true
-        },
-        {
-            "columnName": "流産が3回以上ある両親",
-            "dataKey": "abortion",
-            "type": "dropdown",
-            "options": ["不明", "はい", "いいえ"],
-            "table": true
-        },
-        {
-            "columnName": "父方の民族",
-            "dataKey": "gene-father",
-            "type": "text",
-            "options": [],
-            "table": true
-        },
-        {
-            "columnName": "母性の民族",
-            "dataKey": "gene-mother",
-            "type": "text",
-            "options": [],
-            "table": true
-        }
-    ]
-}
+        columns: [
+            {
+                columnID: 'f001',
+                dataKey: 'familyHistory',
+                inputType: 'textarea',
+                phenoKey: '',
+                type: 'text',
+                table: true,
+                displayName: {
+                    en: 'Family History',
+                    ja: '家族歴',
+                    ko: ''
+                }
+            },
+            {
+                columnID: 'f002',
+                dataKey: 'geneticList',
+                inputType: 'multiple-radio',
+                phenoKey: '',
+                type: 'dropdown',
+                table: true,
+                displayName: {
+                    en: 'Genetic List',
+                    ja: '遺伝形式',
+                    ko: ''
+                },
+                options: {
+                    dataValue: ['Sporadic', 'Autosomal dominant inheritance', 'Sex-limited autosomal dominant', 'Autosomal dominant somatic cell mutation', 'Autosomal dominant contiguous gene syndrome', 'Autosomal recessive inheritance', 'Gonosomal inheritance', 'X-linked inheritance', 'X-linked dominant inheritance', 'X-linked recessive inheritance', 'Y-linked inheritance', 'Multifactorial inheritance', 'Digenic inheritance', 'Oligogenic inheritance', 'Polygenic inheritance', 'Mitochondrial inheritance'],
+                    en: ['Sporadic', 'Autosomal dominant inheritance', 'Sex-limited autosomal dominant', 'Autosomal dominant somatic cell mutation', 'Autosomal dominant contiguous gene syndrome', 'Autosomal recessive inheritance', 'Gonosomal inheritance', 'X-linked inheritance', 'X-linked dominant inheritance', 'X-linked recessive inheritance', 'Y-linked inheritance', 'Multifactorial inheritance', 'Digenic inheritance', 'Oligogenic inheritance', 'Polygenic inheritance', 'Mitochondrial inheritance'],
+                    ja: ['Sporadic', 'Autosomal dominant inheritance', 'Sex-limited autosomal dominant', 'Autosomal dominant somatic cell mutation', 'Autosomal dominant contiguous gene syndrome', 'Autosomal recessive inheritance', 'Gonosomal inheritance', 'X-linked inheritance', 'X-linked dominant inheritance', 'X-linked recessive inheritance', 'Y-linked inheritance', 'Multifactorial inheritance', 'Digenic inheritance', 'Oligogenic inheritance', 'Polygenic inheritance', 'Mitochondrial inheritance'],
+                    ko: []
+                }
+            },
+            {
+                columnID: 'f003',
+                dataKey: 'otherAffectedRelatives',
+                inputType: 'radio',
+                phenoKey: '',
+                type: 'dropdown',
+                table: true,
+                displayName: {
+                    en: 'Other Affected Relatives',
+                    ja: 'その他の罹患近親者',
+                    ko: ''
+                },
+                options: {
+                    dataValue: ['unknown', 'yes', 'no'],
+                    en: ['Unknown', 'Yes', 'No'],
+                    ja: ['不明', 'はい', 'いいえ'],
+                    ko: []
+                }
+            },
+            {
+                columnID: 'f004',
+                dataKey: 'consanguineMarriage',
+                inputType: 'radio',
+                phenoKey: '',
+                type: 'dropdown',
+                table: true,
+                displayName: {
+                    en: 'Consanguine Marriage',
+                    ja: '近親婚',
+                    ko: ''
+                },
+                options: {
+                    dataValue: ['unknown', 'yes', 'no'],
+                    en: ['Unknown', 'Yes', 'No'],
+                    ja: ['不明', 'はい', 'いいえ'],
+                    ko: []
+                }
+            },
+            {
+                columnID: 'f005',
+                dataKey: 'miscarriage',
+                inputType: 'radio',
+                phenoKey: '',
+                type: 'dropdown',
+                table: true,
+                displayName: {
+                    en: '3 or more miscarriage',
+                    ja: '流産が3回以上ある両親',
+                    ko: ''
+                },
+                options: {
+                    dataValue: ['unknown', 'yes', 'no'],
+                    en: ['Unknown', 'Yes', 'No'],
+                    ja: ['不明', 'はい', 'いいえ'],
+                    ko: []
+                }
+            },
+            {
+                columnID: 'f006',
+                dataKey: 'paternalEthnicity',
+                inputType: 'text',
+                phenoKey: '',
+                type: 'text',
+                table: true,
+                displayName: {
+                    en: 'Paternal Ethnicity',
+                    ja: '父方の民族',
+                    ko: ''
+                }
+            },
+            {
+                columnID: 'f007',
+                dataKey: 'maternalEthnicity',
+                inputType: 'text',
+                phenoKey: '',
+                type: 'text',
+                table: true,
+                displayName: {
+                    en: 'Maternal Ethnicity',
+                    ja: '母性の民族',
+                    ko: ''
+                }
+            }
+        ]
+    }
+]

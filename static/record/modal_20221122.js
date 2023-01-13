@@ -9,14 +9,16 @@ function openModal(patientId) {
     populateOptions('group_options')
     populateOptions('family_options')
 
-    document.querySelector(`.tab-wrap *[name="group"]`).onclick = function () {
+    document.querySelector(`.tab-wrap *[name="groupID"]`).onclick = function () {
         document.getElementById('group_options').style.display = 'block'
     }
 
+    // populateOptions('related_to')
     inputValues()
 
     $(modal).fadeIn();
 
+    // $('.modal_bg, .modal-close, .modal-save').off().click(function (e) {
     $('.modal-close, .modal-copy').off().click(function (e) {
         editTable($(this).hasClass('modal-close'))
 
@@ -27,7 +29,7 @@ function openModal(patientId) {
             $('.modal_bg').remove();
         });
 
-        bodyData = []
+        bodyData = {}
         bodyTable()
     });
 
@@ -69,7 +71,7 @@ function openModal(patientId) {
         this_month = today.getMonth() + 1
 
         optionLoop = function (start, end, id) {
-            let opt = `<option value="0" hidden>${end === 12 ? translate('select-month') : translate('select-year') }</option>`
+            let opt = `<option value="0" hidden>- ${end === 12 ? '月' : '年'}を選択 -</option>`
  
             if (end === 12) {
                 for (let i = start; i <= end; i++) {
@@ -105,9 +107,12 @@ function openModal(patientId) {
         if (!parent) return
 
         parent.innerHTML = ''
+
+        // let data = element === 'group_options' ? structuredClone(groupOptions) : structuredClone(patientOptions)
         let data = element === 'group_options' ? JSON.parse(JSON.stringify(groupOptions)) : JSON.parse(JSON.stringify(familyOptions))
 
-        let firstOption = element === 'group_options' ? translate('select-group') : translate('select-family')
+        let firstOption = element === 'group_options' ? '- 登録済みグループ名 -' : '- 登録済み家族ID -'
+        // data.unshift('- 登録済みグループ名 -')
         data.unshift(firstOption)
 
         data.forEach(d => {
@@ -116,6 +121,16 @@ function openModal(patientId) {
             option.innerText = d
             parent.appendChild(option)
         })
+
+        // parent.onchange = function() {
+        //     console.log('changed')
+        //     if (element === 'group_options') {
+        //         document.querySelector(`.tab-wrap *[name="groupID"]`).value = parent.options[parent.selectedIndex].value
+        //     } else {
+        //         document.querySelector(`.tab-wrap *[name="FamilyID"]`).value = parent.options[parent.selectedIndex].value
+        //     }
+        //     parent.style.display = 'none'
+        // }
     }
 
     function inputValues() {
@@ -130,35 +145,31 @@ function openModal(patientId) {
             PCFNo = `P${d.getFullYear()}${d.getMonth()+1}${d.getDate()}${d.getHours()}${d.getMinutes()}${d.getSeconds()}${d.getMilliseconds()}`
             let num = hot.countRows() + 1
             if (count) {
-                document.querySelector(`.tab-wrap *[name="patientId"]`).value = `P${count.toString().padStart(7, 0)}`
+                document.querySelector(`.tab-wrap *[name="patientID"]`).value = `P${count.toString().padStart(7, 0)}`
             } else {
-                document.querySelector(`.tab-wrap *[name="patientId"]`).value = `P${num.toString().padStart(7, 0)}`
+                document.querySelector(`.tab-wrap *[name="patientID"]`).value = `P${num.toString().padStart(7, 0)}`
                 count = num
             }        
+            // document.querySelector(`.tab-wrap *[name="patientID"]`).value = `P${num.toString().padStart(7, 0)}`        
         }
 
         document.getElementById('PCFNo').nextElementSibling.innerHTML = PCFNo
 
-        categories.forEach(category => {
-            if (category.dataKey === 'phenotypicInfo') return
-
-            category.columns.forEach(c => {
+        for (let [key, value] of Object.entries(columns)) {
+            value.forEach(v => {
                 let dataKey, value
-                switch (c.dataKey) {
+                switch (v.dataKey) {
                     case 'birth':
                         dataKey = 'birth_year'
-                        value = patientData['birth']
+                        value = patientData['生年月']
                         break
                     case 'death':
                         dataKey = 'death_year'
-                        value = patientData['death']
+                        value = patientData['没年月']
                         break
                     default:
-                        dataKey = c.dataKey
-                        value = patientData[c.dataKey]
-                        if (c.options) {
-                            value = getDataDisplayOption(c.options, value, 'dataValue')
-                        }
+                        dataKey = v.dataKey
+                        value = patientData[v.columnName]
                         break
                 }
 
@@ -166,15 +177,23 @@ function openModal(patientId) {
                 if (!element) return
 
                 let radioInput = $(`.tab-wrap input[name="${dataKey}"]`)
- 
-                if (dataKey === 'lifeStatus') {
+
+                if (dataKey === 'lifestatus') {
                     let parent = $('#death').parent()
-                    showHideDeathDate(parent, value)
+                    if (value === '故人') {
+                        parent.show()
+                    } else {
+                        parent.hide()
+                    }
 
                     radioInput.on('click change', () => {
                         let radioValue = radioInput.filter(':checked').val()
-                        showHideDeathDate(parent, radioValue)
-                        if (radioValue === 'alive') onchange('death', '')
+                        if (radioValue === '故人') {
+                            parent.show()
+                        } else {
+                            parent.hide()
+                            onchange('没年月', '')
+                        }
                     })
                 } else if (dataKey === 'birth_year' || dataKey === 'death_year') {
                     let monthKey = dataKey === 'birth_year' ? 'birth_month' : 'death_month'
@@ -182,12 +201,12 @@ function openModal(patientId) {
                     let yearValue = date[0]
                     if (yearValue) element.value = yearValue
                     element.onchange = function () {
-                        onchange(dataKey === 'birth_year' ? 'birth' : 'death')
+                        onchange(dataKey === 'birth_year' ? '生年月' : '没年月')
 
                         if (dataKey === 'birth_year') {
                             let age = getAge()
                             document.querySelector(`.tab-wrap *[name="age"]`).value = age
-                            onchange('age', age)
+                            onchange('年齢', age)
                         }
                     }
 
@@ -195,12 +214,12 @@ function openModal(patientId) {
                     let monthValue = date[1]
                     if (monthValue) monthElement.value = monthValue
                     monthElement.onchange = function () {
-                        onchange(dataKey === 'birth_year' ? 'birth' : 'death')
+                        onchange(dataKey === 'birth_year' ? '生年月' : '没年月')
 
                         if (dataKey === 'birth_year') {
                             let age = getAge()
                             document.querySelector(`.tab-wrap *[name="age"]`).value = age
-                            onchange('age', age)
+                            onchange('年齢', age)
                         }
                     }
 
@@ -224,18 +243,18 @@ function openModal(patientId) {
                     }
 
                     return
-                } else if (dataKey === 'group') {
+                } else if (dataKey === 'groupID') {
                     document.getElementById('group_options').onchange = function(e) {
-                        onchange('group', e.target.value)
+                        onchange('グループ名', e.target.value)
                     }
-                } else if (dataKey === 'familyId') {
+                } else if (dataKey === 'FamilyID') {
                     document.getElementById('family_options').onchange = function(e) {
-                        onchange('familyId', e.target.value)
+                        onchange('家族ID', e.target.value)
                     }
                 }
 
                 if (['allergies', 'drinking', 'smoking'].includes(dataKey)) {
-                    $(`.tab-wrap input[name="${dataKey}"][value="${value ? 'yes' : 'no'}"]`).prop('checked', true)
+                    $(`.tab-wrap input[name="${dataKey}"][value="${value ? '有' : '無'}"]`).prop('checked', true)
 
                     let textInput = $(`.tab-wrap input[name="${dataKey}-list"]`)
 
@@ -246,13 +265,13 @@ function openModal(patientId) {
 
                     radioInput.on('click change', () => {
                         let radioValue = radioInput.filter(':checked').val()
-                        if (radioValue === 'no') {
+                        if (radioValue === '無') {
                             textInput.hide()
-                            onchange(dataKey, '')
+                            onchange(v.columnName, '')
                         } else {
                             textInput.show()
                             textInput.on('change', () => {
-                                onchange(dataKey, textInput.val())
+                                onchange(v.columnName, textInput.val())
                             })
                         }
                     })
@@ -261,19 +280,13 @@ function openModal(patientId) {
                 }
 
                 element.onchange = function (e) {
-                    let targetValue = e.target.value
-                    if (e.target.type === 'select-one') {
-                        targetValue = getDataDisplayOption(c.options, targetValue, 'displayValue')
-                    }
-                    onchange(dataKey, targetValue)
+                    onchange(v.columnName, e.target.value)
                 }
 
                 let type = element.type
                 if (type === 'radio') {
                     $(`.tab-wrap input[name="${dataKey}"]`).on('click change', (e) => {
-                        let targetValue = $(`.tab-wrap input[name="${dataKey}"]:checked`).val()
-                        targetValue = getDataDisplayOption(c.options, targetValue, 'displayValue')
-                        onchange(dataKey, targetValue)
+                        onchange(v.columnName, $(`.tab-wrap input[name="${dataKey}"]:checked`).val())
                     })
                 }
 
@@ -285,13 +298,13 @@ function openModal(patientId) {
                     element.value = value
                 }
             })
-        })
+        }
 
-        let dateKey = ['birth', 'death']
+        let dateKey = ['生年月', '没年月']
 
         function onchange (key, value, element) {
             if (dateKey.includes(key)) {
-                let pre = key
+                let pre = key === '生年月' ? 'birth' : 'death'
                 if (value === '') {
                     value = ''
                 } else {
@@ -300,30 +313,40 @@ function openModal(patientId) {
             }
             changedData[key] = value
         }
+    }
+}
 
-        function showHideDeathDate(parent, value) {
-            if (value === 'deceased') {
-                parent.show()
-            } else {
-                parent.hide()
-            }
-        }
+function populateGroups() {
+    let gCount = document.getElementById('group-count')
+    gCount.innerHTML = `${groupOptions.length} Groups`
 
-        function getDataDisplayOption(columnOptions, value, type) {
-            let returnVal = value
+    let table = document.getElementById('content-groups-table')
+    table.innerHTML = ''
+    
+    const groups = contentData.reduce((groups, item) => {
+        const group = (groups[item['グループID']] || [])
+        group.push(item)
+        groups[item['グループID']] = group
+        return groups
+    }, {})
 
-            let options = columnOptions['dataValue']
-            if (type === 'dataValue') {
-                options = columnOptions[lang].length > 0 ? columnOptions[lang] : columnOptions['en']
-            }
+    for (let [key, value] of Object.entries(groups)) {
+        let tr = document.createElement('tr')
+        table.appendChild(tr)
 
-            let index = options.indexOf(value)
-            if (index > -1) {
-                returnVal = type === 'dataValue' ? columnOptions['dataValue'][index] : columnOptions[lang][index]
-            }
+        let th = document.createElement('th')
+        th.innerHTML = `<h5>${key}<span>[${value.length}]</span></h5>`
+        tr.appendChild(th)
 
-            return returnVal
-        }
+        value.forEach(v => {
+            let td = document.createElement('td')
+            td.id = v.PCFNo
+            td.innerHTML =
+                `<i class="material-icons-outlined">drive_file_rename_outline</i>
+                <i class="material-icons-outlined">delete</i>
+                <span>${v['患者ID']}</span>`
+            tr.appendChild(td)
+        })
     }
 }
 
@@ -332,22 +355,22 @@ function generatePhenopackets() {
     if (!patientData) return
 
     let vitalStatus = {
-        status: translate(patientData['lifeStatus'])
+        status: translate(patientData['状態'])
     }
 
-    if (patientData['lifeStatus'] === 'deceased') {
+    if (patientData['状態'] === '故人') {
         vitalStatus.timeOfDeath = {
-            timestamp: patientData['death']
+            timestamp: patientData['没年月']
         }
     }
 
     let phenopacket = {
         phenopacket: {
-            id: patientData['group'] || '',
+            id: patientData['グループ名'] || '',
             subject: {
                 id: currentPatient,
-                sex: translate(patientData['sex']),
-                dateOfBirth: patientData['birth'],
+                sex: translate(patientData['性別']),
+                dateOfBirth: patientData['生年月'],
                 vitalStatus: vitalStatus
             }
         }

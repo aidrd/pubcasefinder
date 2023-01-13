@@ -420,6 +420,7 @@ body {
   padding: 1em 0;
   text-align: center;
   list-style: none;
+  cursor: pointer;
 }
 
 #modal-karte .tab-wrap ul .tab-btn i {

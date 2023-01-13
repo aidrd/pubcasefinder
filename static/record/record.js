@@ -1,23 +1,30 @@
-let hot, exportPlugin, movePlugin, autoRowSizePlugin
-let isAllChecked = true
-let toSave = false
-let toReset = true
+let hot, exportPlugin
+
+let lang = localStorage.lang === 'undefined' ? 'en' : localStorage.lang
+
+setInitialLanguage()
+
 let count
+let toReset = true
 
-let defaultColumns = ['診断状況', '主訴', '確定診断', '臨床診断', '年齢', '性別', 'グループ名', '続柄', '家族ID', '患者ID']
-// let defaultColumns = ['主訴', '年齢', '性別', 'グループ名', '続柄', '家族ID', '患者ID']
+// let defaultColumns = ['診断状況', '主訴', '確定診断', '臨床診断', '年齢', '性別', 'グループ名', '続柄', '家族ID', '患者ID']
+let defaultColumns = ['caseSolved', 'chiefComplaint', 'finalDiagnosis', 'clinicalDiagnosis', 'age', 'sex', 'group', 'relationship', 'familyId', 'patientId']
 let actions = ['REMOVE', 'EDIT']
-// let actions = ['REMOVE', 'EDIT', 'CHECKBOX']
 
-let headers = [], colHeaders = [], existingHeaders = [], hiddenColumns = [], customColumns = []
+// columns = HOT columns (settings - type, options, renderer, etc) HEADERS
+// colHeaders = HOT headers
+let colHeaders = [], columns = []
+let existingColumns = [], hiddenColumns = [], customColumns = []
+
+// dataSchema = HOT dataSchema
+// dataColumn = columns + colHeaders
 let dataSchema = {}, dataColumns = {}
-let groupOptions = [], patientOptions = [], familyOptions = []
 
+// contentData = HOT data
 let contentData = []
-// let storage = localStorage.getItem('contentData')
-// if (storage) contentData = JSON.parse(storage)
+let groupOptions = [], familyOptions = []
 
-let hotContainer = document.getElementById('myGrid')
+const hotContainer = document.getElementById('myGrid')
 
 let updateSettings = {
     width: '100%',
@@ -26,42 +33,10 @@ let updateSettings = {
     rowHeights: 30,
     defaultRowHeight: 30,
     autoRowSize: true,
-    // autoColumnSize: {
-    //     useHeaders: true
-    // },
     hiddenColumns: true,
     fixedColumnsLeft: 2,
     search: true,
-    data: contentData,
     manualColumnMove: true,
-    // afterColumnMove: (movedColumns, finalIndex, dropIndex, movePossible, orderChanged) => {
-    //     if (!orderChanged) return
-
-    //     // e.preventDefault()
-    //     console.log('hi')
-    //     console.log(movedColumns, finalIndex)
-
-    //     let count = 0
-
-    //     // headers = columns (settings - type, options, renderer, etc)
-    //     // colHeaders = headers
-    //     movedColumns.forEach(c => {
-    //         // colHeaders.splice(col.sequence, 0, col.colHeader)
-    //         // headers.splice(col.sequence, 0, col.column)
-    //         // this.splice(to, 0, this.splice(from, 1)[0])
-    //         let tempColHeader = colHeaders[c]
-    //         let tempHeaders = headers[c]
-    //         // colHeaders.splice(c, 1)
-    //         // headers.splice(c, 1)
-    //         // console.log('before', colHeaders)
-    //         // colHeaders.splice(finalIndex + count, 0, tempColHeader)
-    //         // headers.splice(finalIndex + count, 0, tempHeaders)
-    //         // console.log('after', colHeaders)
-    //         count++
-    //     })
-
-    //     // rerenderTable()
-    // },
     manualColumnResize: true,
     manualRowMove: true,
     contextMenu: true,
@@ -73,28 +48,22 @@ let updateSettings = {
     filters: true,
     dropdownMenu: true,
     outsideClickDeselects: false,
-    // selectionMode: 'multiple',
     licenseKey: '17bfa-714c9-a7430-c4321-87c56'
 }
 
-initiateTable()
-
-async function initiateTable() {
+window.onload = async () => {
     await createColumns()
 
-
     Object.assign(updateSettings, {
-        data: [],
+        data: contentData,
         dataSchema: dataSchema,
         colHeaders: colHeaders,
-        columns: headers,
+        columns: columns,
         hiddenColumns: { columns: hiddenColumns }
     })
 
     hot = new Handsontable(hotContainer, updateSettings)
     exportPlugin = hot.getPlugin('exportFile')
-    movePlugin = hot.getPlugin('manualRowMove')
-    autoRowSizePlugin = hot.getPlugin('AutoRowSize')
 
     Handsontable.dom.addEvent(document.getElementById('search_input'), 'keyup', (event) => {
         const search = hot.getPlugin('search')
@@ -103,40 +72,21 @@ async function initiateTable() {
         const totalIndexes = Array.from(Array(hot.countRows()).keys())
         let matching = queryResult.map(obj => obj.row)
 
-        hot.updateSettings({
-            hiddenRows: {
-                rows: totalIndexes
-            }    	
-        })
-        
-        if(event.target.value === ''){
-            hot.updateSettings({
-                hiddenRows: {
-                rows: []
-                }    	
-            })
-        }
+        hot.updateSettings({ hiddenRows: { rows: totalIndexes } })
+
+        if (event.target.value === '') hot.updateSettings({ hiddenRows: { rows: [] }})
         
         hot.getPlugin('HiddenRows').showRows(matching)
         hot.render()
     })
 
     document.getElementById('search_input').addEventListener('search', function(event) {
-        if(event.target.value === ''){
-            hot.updateSettings({
-                hiddenRows: {
-                rows: []
-                }    	
-            })
-        }
-
+        if (event.target.value === '') hot.updateSettings({ hiddenRows: { rows: [] }})
         hot.render()
-      })
+    })
 
     Handsontable.dom.addEvent(hotContainer, 'mousedown', function (event) {
-        if (event.target.nodeName == 'INPUT' && event.target.classList.contains('header-checkbox')) {
-            event.stopPropagation()
-        }
+        if (event.target.nodeName == 'INPUT' && event.target.classList.contains('header-checkbox')) event.stopPropagation()
     })
 
     Handsontable.dom.addEvent(hotContainer, 'mouseup', event => {
@@ -149,9 +99,388 @@ async function initiateTable() {
         }
     })
 
-    updateTable([])
+    updateTable(contentData)
 
     document.getElementById('row_count').innerHTML = `${hot.countRows()}`
+}
+
+function createColumns() {
+    return new Promise((resolve, reject) => {
+        let colSequence = 2
+
+        categories.forEach(category => {
+            // console.log(category)
+            if (category.dataKey === 'phenotypicInfo') return
+
+            category.columns.forEach(c => {
+                let key = c.dataKey
+                let displayName = c['displayName'][lang] || c['displayName']['en']
+
+                let options
+                if (c.options) {
+                    options = c['options'][lang].length > 0 ? c['options'][lang] : c['options']['en']
+                }
+
+                let colHeader = `<i class="material-icons-outlined sort_icon"></i>${displayName}`
+
+                let column = {
+                    data: c.dataKey,
+                    type: c.type,
+                    source: options,
+                    strict: true,
+                    allowInvalid: false,
+                    readOnly: false
+                }
+
+                if (c.type === 'date') {
+                    column.dateFormat = 'YYYY/MM',
+                    column.correctFormat = true
+                    column.datePickerConfig = {
+                        firstDay: 0,
+                        numberOfMonths: 1,
+                        licenseKey: 'non-commercial-and-evaluation',
+                    }
+                }
+
+                if (key === 'group' || key === 'familyId') {
+                    column.allowInvalid = true
+                    column.strict = false
+                    column.source = groupOptions
+                    if (key === 'familyId') column.source = familyOptions
+                } else if (category['dataKey'] === 'geneInfo' || key === 'chiefComplaints') {
+                    column.renderer = multipleRenderer
+                    if (category['dataKey'] === 'geneInfo') column.editor = false
+                } else if (key === 'bodyHeight' || key === 'bodyWeight' || key === 'headCircumference') {
+                    column.editor = false
+                    column.data = `growthChart`
+                    switch (key) {
+                        case 'bodyHeight':
+                            column.renderer = heightRenderer
+                            break
+                        case 'bodyWeight':
+                            column.renderer = weightRenderer
+                            break
+                        case 'headCircumference':
+                            column.renderer = headRenderer
+                            break
+                    }
+                }
+
+                if (defaultColumns.includes(key)) {
+                    colHeaders.push(colHeader)
+                    columns.push(column)
+                    existingColumns.push(key)
+                }
+
+                dataColumns[key] = {
+                    colHeader: colHeader,
+                    column: column,
+                    sequence: colSequence
+                }
+
+                colSequence++
+
+                let colName = key === 'bodyHeight' || key === 'bodyWeight' || key === 'headCircumference' ? 'growthChart' : key
+
+                dataSchema[colName] = null
+            })
+        })
+
+        actions.forEach(a => {
+            let colHeader = ''
+            let column = {
+                data: 'PCFNo',
+                renderer: a === 'EDIT' ? editRenderer : removeRenderer
+            }
+
+            if (a === 'CHECKBOX') {
+                colHeader = `<input type="checkbox" class="header-checkbox" ${isAllChecked ? 'checked="checked"' : ''}>`
+                column.renderer = checkBoxRenderer
+            }
+
+            columns.unshift(column)
+            colHeaders.unshift(colHeader)
+        })
+
+        for (let i = actions.length + defaultColumns.length; i < columns.length; i++) {
+            hiddenColumns.push(i)
+        }
+
+        resolve()
+    })
+}
+
+function addColumn() {
+    let modal = document.querySelector('.modal')
+
+    modal.style.display = 'block'
+
+    modal.onclick = (e) => {
+        if (!e.target.closest('.modal_content')) closeAddColumnModal()
+    }
+
+    let add = document.getElementById('add_column_input')
+    add.value = ''
+
+    let container = document.querySelector('#modal_container')
+    container.innerHTML = ''
+
+    categories.forEach(category => {
+        if (category.dataKey === 'phenotypicInfo') return
+
+        createColumn(category['displayName'][lang], 'title', category['dataKey'])
+        category.columns.forEach(c => {
+            let displayName = c['displayName'][lang] || c['displayName']['en']
+            if (c.table) createColumn(displayName, c.type, c['dataKey'])
+        })
+    })
+
+    if (customColumns.length > 0) createColumn('カスタム', 'title', 'カスタム')
+
+    customColumns.forEach(c => {
+        createColumn(c, 'custom', c)
+    })
+
+    function createColumn(colName, type, key) {
+        if (type === 'title') {
+            let icon
+
+            switch (key) {
+                case 'patientInfo':
+                    icon = '<i class="bxt icon material-icons-outlined"> person</i>'
+                    break
+                case 'medicalInfo':
+                    icon = '<i class="material-symbols-outlined">medical_information</i>'
+                    break
+                case 'phenoTypicInfo':
+                    icon = '<i class="material-symbols-outlined">dns</i>'
+                    break
+                case 'geneInfo':
+                    icon = '<i class="icon-omim2"></i>'
+                    break
+                case 'familyInfo':
+                    icon = '<i class="material-symbols-outlined">diversity_3</i>'
+                    break
+                case 'カスタム':
+                    icon = '<i class="material-symbols-outlined">category</i>'
+                    break
+            }
+            container.innerHTML += `<div class="add_column_title">${icon}${colName}</div>`
+        } else {
+            container.innerHTML += `
+                <div>
+                    <input  type="checkbox"
+                            class="modal_add_columns"
+                            id="${key}"
+                            data-type="${type}"
+                            data-key="${key}"
+                            onchange="showHideColumn(this)"
+                            ${existingColumns.includes(key) ? 'checked' : ''}>
+                    <label for="${key}">${colName}</label>
+                    ${type === 'custom' ? `<i class="material-icons-outlined" onclick="removeCustomColumn(${colName})">delete</i>` : ''}
+                </div>
+            `
+        }
+    }
+
+    document.querySelector('.add').onclick = () => {
+        if (add.value === '') return
+
+        let colHeader = `<i class="material-icons-outlined sort_icon"></i>${add.value}`
+
+        let column = {
+            data: add.value,
+            type: 'text'
+        }
+
+        dataSchema[add.value] = null
+        dataColumns[add.value] = {
+            colHeader: colHeader,
+            column: column
+        }
+        colHeaders.push(colHeader)
+        columns.push(column)
+        existingColumns.push(add.value)
+        customColumns.push(add.value)
+        createColumn(add.value, 'custom')
+
+        contentData.map(c => c[add.value] = null)
+
+        rerenderTable()
+
+        modal.style.display = 'none'
+        hot.scrollViewportTo('', existingColumns.length - 1)
+    }
+
+    function closeAddColumnModal() {
+        modal.style.display = 'none'
+    }
+}
+
+function showHideColumn(e) {
+    let key = e.dataset.key
+
+    if (e.checked) {
+        let col = dataColumns[key]
+
+        existingColumns.push(e.id)
+        colHeaders.push(col.colHeader)
+        columns.push(col.column)
+    } else {
+        colHeaders.splice(colHeaders.indexOf(`<i class="material-icons-outlined sort_icon"></i>${e.id}`), 1)
+
+        if (['bodyWeight', 'bodyHeight', 'headCircumference'].includes(key)) {
+            let renderer
+            switch (key) {
+                case 'bodyWeight':
+                    renderer = 'weightRenderer'
+                    break
+                case 'bodyHeight':
+                    renderer = 'heightRenderer'
+                    break
+                case 'headCircumference':
+                    renderer = 'headRenderer'
+                    break
+            }
+
+            columns.forEach((h, i) => {
+                if (h.data !== 'growthChart') return
+                if (h.renderer.name === renderer) headers.splice(i, 1)
+            })
+        } else {
+            columns = columns.filter(h => { return h.data !== key })
+        }
+        existingColumns.splice(existingColumns.indexOf(key), 1)
+    }
+
+    rerenderTable()
+}
+
+function removeCustomColumn(e) {
+    delete dataSchema[e.id]
+    delete dataColumns[e.id]
+
+    customColumns.splice(customColumns.indexOf(e.id), 1)
+
+    e.checked = false
+    showHideColumn(e)
+
+    e.parentElement.remove()
+}
+
+function addRow(data) {
+    let temp = JSON.parse(JSON.stringify(newData))
+
+    let d = new Date()
+    let pcfNo = `P${d.getFullYear()}${d.getMonth() + 1}${d.getDate()}${d.getHours()}${d.getMinutes()}${d.getSeconds()}${d.getMilliseconds()}`
+
+    temp.PCFNo = pcfNo
+
+    let num = hot.countRows() + 1
+
+    if (count) {
+        temp['patientId'] = `P${count.toString().padStart(7, 0)}`
+    } else {
+        temp['patientId'] = `P${num.toString().padStart(7, 0)}`
+        count = num
+    }
+
+    count++
+
+    if (data) {
+        for (let [k, v] of Object.entries(data)) {
+            temp[k] = v
+        }
+    }
+
+    updateTable([temp])
+    hot.scrollViewportTo(hot.countRows() - 1, 1)
+}
+
+async function updateTable(data, changeHeaders) {
+    data.map(d => {
+        contentData.push(d)
+    })
+
+    if (contentData.length > 0) {
+        let newHeaders = Object.keys(data[0])
+
+        if (changeHeaders  === 'text/csv' || changeHeaders === 'text/tab-separated-values') {
+            columns.splice(2, columns.length)
+            colHeaders.splice(2, colHeaders.length)
+            existingColumns = []
+            customColumns = []
+    
+            newHeaders.forEach(h => {
+                if (h === 'PCFNo') return
+    
+                if (h === 'growthChart') {
+                    createColumn('体重')
+                    createColumn('身長')
+                    createColumn('頭囲')
+                } else {
+                    createColumn(h)
+                }
+            })
+        } else {
+            newHeaders.forEach(h => {
+                if (h === 'PCFNo' || h === 'growthChart') return
+                if (!(Object.keys(dataColumns).includes(h))) createColumn(h, true)
+            })
+        }
+    }
+
+    function getColumnName(h) {
+
+    }
+
+    function createColumn(h, key, isHidden) {
+        let headerTitle = `<i class=\"material-icons-outlined sort_icon\"></i>${h}`
+        let headerData = {
+            data: h,
+            type: 'text',
+            readOnly: false
+        }
+
+        let colData = dataColumns[h]
+        if (colData) {
+            headerTitle = colData['colHeader']
+            headerData = colData['column']
+        } else {
+            customColumns.push(h)
+            dataColumns[h] = {
+                colHeader: headerTitle,
+                column: headerData
+            }
+        }
+
+        if (isHidden) return
+ 
+        colHeaders.push(headerTitle)
+        columns.push(headerData)
+        existingColumns.push(h)
+    }
+
+    Object.assign(updateSettings, {
+        data: contentData,
+        colHeaders: colHeaders,
+        columns: columns
+    })
+
+    contentData.map(d => {
+        let groupId = d['group']
+        if (groupId && !(groupOptions.includes(groupId))) groupOptions.push(groupId)
+
+        let familyId = d['familyId']
+        if (familyId && !(familyOptions.includes(familyId))) familyOptions.push(familyId)
+    })
+
+    hot.updateSettings(updateSettings)
+    hot.render()
+
+    document.getElementById('row_count').innerHTML = `${hot.countRows()}`
+
+    // populateGroups()
 }
 
 function importFile(event) {
@@ -159,28 +488,97 @@ function importFile(event) {
     fileReader(file, file.type)
 }
 
+function onDragOver(event) {
+    event.preventDefault()
+    if (event.dataTransfer.length) event.dataTransfer.dropEffect = 'move'
+}
+
+function onDrop(event) {
+    event.preventDefault()
+    let file = event.dataTransfer.items[0].getAsFile()
+    fileReader(file, file.type)
+}
+
+function fileReader(file, fileType) {
+    let reader = new FileReader()
+    reader.onload = (event => {
+        let data = event.target.result
+        let object
+
+        if (fileType === 'text/csv' || fileType === 'text/tab-separated-values') {
+            object = convertCSVToJSON(data)
+        } else {
+            object = JSON.parse(data)
+
+            let patientsData = []
+            let dataKey = {}
+
+            for (let [k, v] of Object.entries(object.keyName)) {
+                let columnKey
+                categories.forEach(category => {
+                    let col = category.columns?.filter(c => { return c.displayName[object.lang] == v })
+                    if (col && col.length > 0) return columnKey = col[0].dataKey
+                })
+
+                dataKey[k] = columnKey || v
+            }
+
+            object.PATIENTS.forEach(p => {
+                let pData = {}
+                for (let [k, v] of Object.entries(p)) {
+                    let keyName = dataKey[k] || k
+                    pData[keyName] = v
+                }
+
+                patientsData.push(pData)
+            })
+
+            object = patientsData
+        }
+
+        // updateTable(object.PATIENTS, fileType)
+        updateTable(object, fileType)
+
+        if (object.visibleColumns) {
+            colHeaders.length = 2
+            columns.length = 2
+            existingColumns = []
+
+            object.visibleColumns.forEach(vc => {
+                colHeaders.push(dataColumns[vc]['colHeader'])
+                columns.push(dataColumns[vc]['column'])
+                existingColumns.push(vc)
+            })
+
+            rerenderTable()
+        }
+    })
+    reader.readAsText(file)
+}
+
 function getExportData() {
     let type = document.getElementById('dl-select').value
     let isAll = type === 'json'
 
-    if (!isAll) {
+    let dlData
+
+    if (isAll) {
+        dlData = contentData
+    } else {
         alert('Only the data in the table will be downloaded.')
-    }
 
-    let exportedString = exportPlugin.exportAsString('csv', {
-        bom: false,
-        columnDelimiter: '\t',
-        columnHeaders: true,
-        exportHiddenColumns: isAll,
-        exportHiddenRows: isAll,
-        rowHeaders: false,
-        fileExtension: 'tsv'
-    })
-
-    let dlData = convertCSVToJSON(exportedString, true)
-
-    if (isAll) dlData = contentData
+        let exportedString = exportPlugin.exportAsString('csv', {
+            bom: false,
+            columnDelimiter: '\t',
+            columnHeaders: true,
+            exportHiddenColumns: isAll,
+            exportHiddenRows: isAll,
+            rowHeaders: false,
+            fileExtension: 'tsv'
+        })
     
+        dlData = convertCSVToJSON(exportedString, true)
+    }
 
     // if (type === 'json') exportedString = { 'PATIENTS': dlData }
     if (type === 'json') exportedString = getJSONDownload(dlData)
@@ -190,15 +588,44 @@ function getExportData() {
     exportFile(type, exportedString)
 
     function getJSONDownload(dlData) {
-        let jsonResult = { 'PATIENTS': dlData }
-        let headers = []
+        let jsonResult = {}
+        // let jsonResult = { 'PATIENTS': dlData }
+        let patientsData = [], visibleColumns = [], keyName = {}
 
-        colHeaders.forEach(c => {
-            let header = c.replace('<i class="material-icons-outlined sort_icon"></i>', '')
-            if (header !== '') headers.push(header)
+        dlData.forEach((d, idx) => {
+            let i = 1
+            let pData = {}
+            for (let [k, v] of Object.entries(d)) {
+                if (idx === 0) {
+                    let header = dataColumns[k]
+                    if (header) {
+                        header = header.colHeader.replace('<i class="material-icons-outlined sort_icon"></i>', '')
+                    } else {
+                        if (k === 'growthChart') header = translate(k)
+                    }
+
+                    keyName[i] = header || k
+                }
+
+                pData[i] = v
+
+                i++
+            }
+
+            patientsData.push(pData)
         })
 
-        jsonResult['visibleColumns'] = headers
+        existingColumns.forEach(c => {
+            visibleColumns.push(c)
+        })
+
+        jsonResult = {
+            PATIENTS: patientsData,
+            visibleColumns: visibleColumns,
+            keyName: keyName,
+            lang: lang
+        }
+        // jsonResult['visibleColumns'] = visibleColumns
 
         return jsonResult
     }
@@ -241,528 +668,9 @@ function exportFile(type, file) {
     a.remove()
 }
 
-function onDragOver(event) {
-    event.preventDefault()
-    let dragSupported = event.dataTransfer.length
-    if (dragSupported) {
-        event.dataTransfer.dropEffect = 'move'
-    }
-}
-
-function onDrop(event) {
-    event.preventDefault()
-    let file = event.dataTransfer.items[0].getAsFile()
-    fileReader(file, file.type)
-}
-
-function fileReader(file, fileType) {
-    let reader = new FileReader()
-    reader.onload = (event => {
-        let data = event.target.result
-        let object
-
-        if (fileType === 'text/csv' || fileType === 'text/tab-separated-values') {
-            object = convertCSVToJSON(data)
-        } else {
-            object = JSON.parse(data)
-        }
-
-        updateTable(object.PATIENTS, fileType)
-
-        if (object.visibleColumns) {
-            colHeaders.length = 2
-            headers.length = 2
-            existingHeaders = []
-
-            object.visibleColumns.forEach(vc => {
-                colHeaders.push(dataColumns[vc]['colHeader'])
-                headers.push(dataColumns[vc]['column'])
-                existingHeaders.push(vc)
-            })
-
-            rerenderTable()
-        }
-    })
-    reader.readAsText(file)
-}
-
-function convertObjectToArray(object) {
-    if (object.length <= 0) return
-
-    let data = []
-    let headers = Object.keys(object[0])
-    data.push(headers)
-
-    object.forEach(o => {
-        let pData = []
-        headers.forEach(h => {
-            pData.push(o[h])
-        })
-
-        data.push(pData)
-    })
-
-    createTable(data)
-}
-
-function convertCSVToJSON(csv, isExport) {
-    let json = Papa.parse(csv, {
-        headers: true,
-        delimiter: ''
-    })
-
-    let patientsData = []
-    let data = json.data
-    let notIncluded = [0, 1]
-    let headers = data[0]
-
-    data.forEach((d, idx) => {
-        let data = {}
-
-        if (idx > 0) data['PCFNo'] = d[0]
-
-        for (let i = 0; i < d.length; i++) {
-            if (isExport) {
-                if (notIncluded.includes(i)) continue
-            }
-
-            if (idx === 0) continue
-
-            let headerText = isExport ? headers[i].replace('<i class="material-icons-outlined sort_icon"></i>', '') : headers[i]
-
-            let value = d[i]
-
-            if (['体重', '身長', '頭囲'].includes(headerText)) {
-                if (contentData.length > 0) {
-                    let bodyInfo = contentData[idx - 1]['身体情報']
-                    if (bodyInfo) {
-                        value = bodyInfo[bodyInfo.length - 1][headerText]
-                    } else {
-                        value = ''
-                    }
-                }
-            }
-
-            data[headerText] = value
-        }
-
-        if (Object.keys(data).length > 0) patientsData.push(data)
-    })
-
-    return { PATIENTS: patientsData }
-}
-
-function createColumns() {
-    // headers = columns (settings - type, options, renderer, etc)
-    // colHeaders = headers
-    return new Promise((resolve, reject) => {
-        let colSequence = 2
-        for (let [key, value] of Object.entries(columns)) {
-            console.log(key, value)
-            value.forEach(v => {
-                let colHeader = `<i class="material-icons-outlined sort_icon"></i>${v.columnName}`
-
-                let column = {
-                    data: v.columnName,
-                    type: v.type,
-                    source: v.options,
-                    strict: true,
-                    allowInvalid: false,
-                    readOnly: false
-                }
-
-                if (v.type === 'date') {
-                    column.dateFormat = 'YYYY/MM',
-                        column.correctFormat = true
-                    column.datePickerConfig = {
-                        firstDay: 0,
-                        numberOfMonths: 1,
-                        licenseKey: 'non-commercial-and-evaluation',
-                    }
-                }
-
-                if (v.columnName === 'グループ名' || v.columnName === '家族ID') {
-                    column.source = groupOptions
-                    if (v.columnName === '家族ID') column.source = familyOptions
-                    column.allowInvalid = true
-                    column.strict = false
-                } else if (v.columnName === '続柄') {
-                    column.data = '続柄'
-                    column.renderer = 'dropdown'
-                } else if (key === '遺伝子型情報' || v.columnName === '主訴') {
-                    column.renderer = multipleRenderer
-                    if (key === '遺伝子型情報') column.editor = false
-                } else if (v.columnName === '身長') {
-                    column.editor = false
-                    column.data = `身体情報`
-                    column.renderer = heightRenderer
-                } else if (v.columnName === '体重') {
-                    column.editor = false
-                    column.data = `身体情報`
-                    column.renderer = weightRenderer
-                } else if (v.columnName === '頭囲') {
-                    column.editor = false
-                    column.data = `身体情報`
-                    column.renderer = headRenderer
-                }
-
-                if (defaultColumns.includes(v.columnName)) {
-                    colHeaders.push(colHeader)
-                    headers.push(column)
-                    existingHeaders.push(v.columnName)
-                }
-
-                dataColumns[v.columnName] = {
-                    colHeader: colHeader,
-                    column: column,
-                    sequence: colSequence
-                }
-
-                colSequence++
-
-                let colName = v.columnName === '身長' || v.columnName === '体重' || v.columnName === '頭囲' ? '身体情報' : v.columnName
-
-                dataSchema[colName] = null
-            })
-        }
-
-        actions.forEach(a => {
-            let colHeaderText = ''
-            let headerText = {
-                data: 'PCFNo',
-                renderer: a === 'EDIT' ? editRenderer : removeRenderer
-            }
-
-            if (a === 'CHECKBOX') {
-                colHeaderText = `<input type="checkbox" class="header-checkbox" ${isAllChecked ? 'checked="checked"' : ''}>`
-                headerText.renderer = checkBoxRenderer
-            }
-
-            headers.unshift(headerText)
-            colHeaders.unshift(colHeaderText)
-        })
-
-        // defaultColumns.forEach()
-
-        for (let i = actions.length + defaultColumns.length; i < headers.length; i++) {
-            hiddenColumns.push(i)
-        }
-
-        resolve()
-    })
-}
-
-async function updateTable(data, changeHeaders) {
-    // headers = columns (settings - type, options, renderer, etc)
-    // colHeaders = headers
-    data.map(d => {
-        contentData.push(d)
-    })
-
-    if (contentData.length > 0) {
-        let newHeaders = Object.keys(data[0])
-
-        if (changeHeaders  === 'text/csv' || changeHeaders === 'text/tab-separated-values') {
-            headers.splice(2, headers.length)
-            colHeaders.splice(2, colHeaders.length)
-            existingHeaders = []
-            customColumns = []
-    
-            newHeaders.forEach(h => {
-                if (h === 'PCFNo') return
-    
-                if (h === '身体情報') {
-                    createColumn('体重')
-                    createColumn('身長')
-                    createColumn('頭囲')
-                } else {
-                    createColumn(h)
-                }
-            })
-        } else {
-            newHeaders.forEach(h => {
-                if (h === 'PCFNo' || h === '身体情報') return
-                if (!(Object.keys(dataColumns).includes(h))) createColumn(h, true)
-            })
-        }
-    }
-
-    function createColumn(h, isHidden) {
-        let headerTitle = `<i class=\"material-icons-outlined sort_icon\"></i>${h}`
-        let headerData = {
-            data: h,
-            type: 'text',
-            readOnly: false
-        }
-
-        let colData = dataColumns[h]
-        if (colData) {
-            headerTitle = colData['colHeader']
-            headerData = colData['column']
-        } else {
-            customColumns.push(h)
-            dataColumns[h] = {
-                colHeader: headerTitle,
-                column: headerData
-            }
-        }
-
-        if (isHidden) return
- 
-        colHeaders.push(headerTitle)
-        headers.push(headerData)
-        existingHeaders.push(h)
-    }
-
-    Object.assign(updateSettings, {
-        data: contentData,
-        colHeaders: colHeaders,
-        columns: headers
-    })
-
-    contentData.map(d => {
-        let groupId = d['グループ名']
-        if (groupId && !(groupOptions.includes(groupId))) groupOptions.push(groupId)
-
-        let patientId = d['患者ID']
-        if (patientId && !(patientOptions.includes(patientId))) patientOptions.push(patientId)
-
-        let familyId = d['家族ID']
-        if (familyId && !(familyOptions.includes(familyId))) familyOptions.push(familyId)
-    })
-
-    hot.updateSettings(updateSettings)
-    hot.render()
-
-    document.getElementById('row_count').innerHTML = `${hot.countRows()}`
-
-    // populateGroups()
-}
-
-function addRow(data) {
-    // let temp = structuredClone(newData)
-    let temp = JSON.parse(JSON.stringify(newData))
-
-    let d = new Date()
-    let pcfNo = `P${d.getFullYear()}${d.getMonth() + 1}${d.getDate()}${d.getHours()}${d.getMinutes()}${d.getSeconds()}${d.getMilliseconds()}`
-
-    temp.PCFNo = pcfNo
-
-    let num = hot.countRows() + 1
-
-    if (count) {
-        temp['患者ID'] = `P${count.toString().padStart(7, 0)}`
-    } else {
-        temp['患者ID'] = `P${num.toString().padStart(7, 0)}`
-        count = num
-    }
-
-    count++
-
-    if (data) {
-        for (let [k, v] of Object.entries(data)) {
-            temp[k] = v
-        }
-    }
-
-    updateTable([temp])
-    hot.scrollViewportTo(hot.countRows() - 1, 1)
-}
-
-function addColumn() {
-    let modal = document.querySelector('.modal')
-
-    modal.style.display = 'block'
-
-    modal.onclick = (e) => {
-        if (!e.target.closest('.modal_content')) closeAddColumnModal()
-    }
-
-    let add = document.getElementById('add_column_input')
-    add.value = ''
-
-    let container = document.querySelector('#modal_container')
-    container.innerHTML = ''
-
-    for (let [key, value] of Object.entries(columns)) {
-        createColumn(key, 'title')
-        value.forEach(v => {
-            if (!v.table) return
-            createColumn(v.columnName, v.type)
-        })
-    }
-
-    if (customColumns.length > 0) createColumn('カスタム', 'title')
-
-    customColumns.forEach(c => {
-        createColumn(c, 'custom')
-    })
-
-    function createColumn(colName, type) {
-        if (type === 'title') {
-            let icon
-
-            switch (colName) {
-                case '患者基本情報':
-                    icon = '<i class="bxt icon material-icons-outlined"> person</i>'
-                    break
-                case '診療情報':
-                    icon = '<i class="material-symbols-outlined">medical_information</i>'
-                    break
-                case '表現型情報':
-                    icon = '<i class="material-symbols-outlined">dns</i>'
-                    break
-                case '遺伝子型情報':
-                    icon = '<i class="icon-omim2"></i>'
-                    break
-                case '家系情報':
-                    icon = '<i class="material-symbols-outlined">diversity_3</i>'
-                    break
-                case 'カスタム':
-                    icon = '<i class="material-symbols-outlined">category</i>'
-                    break
-            }
-            container.innerHTML += `<div class="add_column_title">${icon}${colName}</div>`
-        } else {
-            container.innerHTML += `
-                <div>
-                    <input  type="checkbox"
-                            class="modal_add_columns"
-                            id="${colName}"
-                            data-type="${type}"
-                            onchange="showHideColumn(this)"
-                            ${existingHeaders.includes(colName) ? 'checked' : ''}>
-                    <label for="${colName}">${colName}</label>
-                    ${type === 'custom' ? `<i class="material-icons-outlined" onclick="removeCustomColumn(${colName})">delete</i>` : ''}
-                </div>
-            `
-        }
-    }
-
-    document.querySelector('.add').onclick = () => {
-        // headers = columns (settings - type, options, renderer, etc)
-        // colHeaders = headers
-        if (add.value === '') return
-
-        let colHeader = `<i class="material-icons-outlined sort_icon"></i>${add.value}`
-
-        let column = {
-            data: add.value,
-            type: 'text'
-        }
-
-        dataSchema[add.value] = null
-        dataColumns[add.value] = {
-            colHeader: colHeader,
-            column: column
-        }
-        colHeaders.push(colHeader)
-
-        headers.push(column)
-        existingHeaders.push(add.value)
-        customColumns.push(add.value)
-        createColumn(add.value, 'custom')
-
-        contentData.map(c => c[add.value] = null)
-
-        rerenderTable()
-
-        modal.style.display = 'none'
-        hot.scrollViewportTo('', existingHeaders.length - 1)
-    }
-
-    function closeAddColumnModal() {
-        modal.style.display = 'none'
-    }
-}
-
-function showHideColumn(e) {
-    if (e.checked) {
-        let col = dataColumns[e.id]
-
-        // headers.length = 2
-        // // hot.getColHeader().splice(col.sequence, 0, col.colHeader)
-        // // console.log(hot.getColHeader())
-
-        // colHeaders = [...hot.getColHeader()]
-        // // console.log('before', colHeaders)
-        // colHeaders.splice(col.sequence, 0, col.colHeader)
-        // // console.log('after', colHeaders)
-
-        // for (let i = 2; i < colHeaders.length; i++) {
-        //     let header = colHeaders[i].replace('<i class="material-icons-outlined sort_icon"></i>', '')
-        //     console.log(header)
-        //     headers.push(dataColumns[header]['column'])
-        // }
-        // console.log(colHeaders)
-        // console.log(headers)
-
-        //original
-        existingHeaders.push(e.id)
-        colHeaders.push(col.colHeader)
-        headers.push(col.column)
-        //end original
-        // colHeaders.splice(col.sequence, 0, col.colHeader)
-        // headers.splice(col.sequence, 0, col.column)
-    } else {
-        colHeaders.splice(colHeaders.indexOf(`<i class="material-icons-outlined sort_icon"></i>${e.id}`), 1)
-
-        if (['体重', '身長', '頭囲'].includes(e.id)) {
-            let renderer
-            switch (e.id) {
-                case '体重':
-                    renderer = 'weightRenderer'
-                    break
-                case '身長':
-                    renderer = 'heightRenderer'
-                    break
-                case '頭囲':
-                    renderer = 'headRenderer'
-                    break
-            }
-
-            headers.forEach((h, i) => {
-                if (h.data !== '身体情報') return
-                if (h.renderer.name === renderer) headers.splice(i, 1)
-            })
-
-        } else {
-            headers = headers.filter(h => { return h.data !== e.id })
-        }
-        existingHeaders.splice(existingHeaders.indexOf(e.id), 1)
-    }
-
-    rerenderTable()
-}
-
-function removeCustomColumn(e) {
-    // let element = document.getElementById(e)
-
-    // delete dataSchema[e]
-    // delete dataColumns[e]
-
-    // customColumns.splice(customColumns.indexOf(e), 1)
-
-    // element.checked = false
-    // showHideColumn(element)
-
-    // element.parentElement.remove()
-    console.log('e', e)
-    delete dataSchema[e.id]
-    delete dataColumns[e.id]
-
-    customColumns.splice(customColumns.indexOf(e.id), 1)
-
-    e.checked = false
-    showHideColumn(e)
-
-    e.parentElement.remove()
-}
-
 function editTable(isSave) {
     toReset = true
     if (!isSave) {
-        // if (!confirm('保存しますか？'))
         return resetData()
     }
 
@@ -776,8 +684,8 @@ function editTable(isSave) {
                 newPatient[e.dataset.columnname] = $(`input[name="${e.name}"]:checked`).val() || null
             } else {
                 let value = e.value
-                if (e.dataset.columnname === '生年月' || e.dataset.columnname === '没年月') {
-                    let pre = e.dataset.columnname === '生年月' ? 'birth' : 'death'
+                if (e.dataset.columnname === 'birth' || e.dataset.columnname === 'death') {
+                    let pre = e.dataset.columnname
                     value = `${document.querySelector(`.tab-wrap *[name="${pre}_year"]`).value}/${document.querySelector(`.tab-wrap *[name="${pre}_month"]`).value}`
                 }
 
@@ -798,6 +706,13 @@ function editTable(isSave) {
             })
         }
 
+        if (currentBodyData.length > 0) {
+            newPatient['growthChart'] = []
+            currentBodyData.forEach(bd => {
+                newPatient['growthChart'].push(bd)
+            })
+        }
+
         delete newPatient['undefined']
         addRow(newPatient)
         return
@@ -808,7 +723,6 @@ function editTable(isSave) {
 
     for (let [k, v] of Object.entries(changedData)) {
         patientData[k] = v
-        // if (k === 'RelatedTo') patientData['relationship'] = v === 'なし' ? patientData['続柄'] : `${patientData['続柄']}<br>(${patientData['RelatedTo']})`
     }
 
     if (geneData.length > 0) {
@@ -826,18 +740,10 @@ function editTable(isSave) {
 
     hot.render()
     resetData()
-    // resetGeneData()
 
     function resetData() {
         currentPatient = ''
         changedData = {}
-    }
-
-    function resetGeneData() {
-        let geneTypeInfo = columns['遺伝子型情報']
-        geneTypeInfo.forEach(g => {
-            patientData[g.columnName] = []
-        })
     }
 }
 
@@ -845,7 +751,7 @@ function rerenderTable() {
     Object.assign(updateSettings, {
         dataSchema: dataSchema,
         colHeaders: colHeaders,
-        columns: headers
+        columns: columns
     })
 
     hot.updateSettings(updateSettings)
@@ -859,4 +765,349 @@ function beforeLoad() {
 
 function pageReload() {
     window.location.reload()
+}
+
+function changeLanguage() {
+    $('ul#dropdown-language li').click((e) => {
+        let newLang = e.target.dataset.lang
+        if (newLang === lang) return
+
+        localStorage.lang = newLang
+        pageReload()
+    })
+}
+
+function setInitialLanguage() {
+    $(`.dropdown-menu-item[data-lang='${lang}']`).addClass('dropdown-selected')
+    document.getElementById('search_input').placeholder = translate('search_input')
+    document.querySelector('#add-column span').innerText = translate('add-column')
+    document.querySelector('#add-row span').innerText = translate('add-row')
+
+    changeLanguage()
+
+    translateModal()
+
+    function translateModal() {
+        let container = document.getElementById('tab-wrap')
+        container.innerHTML = ''
+
+        let ul = document.createElement('ul')
+        container.appendChild(ul)
+
+        categories.forEach((category, i) => {
+            let liClass = ['tab-btn']
+            if (i === 0) liClass.push('show', 'tab-btn-first')
+            if (i === categories.length - 1) liClass.push('tab-btn-last')
+
+            let li = document.createElement('li')
+            li.classList.add(...liClass)
+            li.innerHTML += `
+                        <i class="${category.iconClass}">${category.iconName}</i>
+                        <span>${category['displayName'][lang] || category['displayName']['en']}</span>
+                    `
+            ul.appendChild(li)
+
+            let divClass = ['tab-contents']
+            if (i === 0) divClass.push('show')
+
+            let div = document.createElement('div')
+            div.classList.add(...divClass)
+            container.appendChild(div)
+
+            if (i === 2) {
+                div.innerHTML = `
+                    <p>${translate('phenotypic-info-search')}</p>
+                    <div style="width:100%;margin: 20px auto 0px auto;">
+                        <div class="search-box_wrapper" style="width:100%;">
+                            <div id="search_box_form"></div>
+                        </div>
+                        <div class="search-ex">
+                            <a href="#" id="ex_phenotypes">ex) {{ _('index_Sample') }}</a>
+                        </div>
+                    </div>
+                `
+                return
+            } else if (i === 3) {
+                div.innerHTML = `
+                    <p>
+                        <span id="genemodal_add" onclick="addGeneRow()">
+                            <i class="material-icons-outlined">add_circle_outline
+                            </i>
+                            追加
+                        </span>
+                    </p>
+                `
+
+                geneContainer = document.createElement('div')
+                geneContainer.id = 'geneModal'
+                div.appendChild(geneContainer)
+                
+                return
+            }
+
+            let table = document.createElement('table')
+            table.classList.add('form-table')
+            if (i === 1) table.classList.add('treatment-table')
+            if (i === 4) table.classList.add('family-table')
+            table.innerHTML = `<tbody id="tbody_${category.dataKey}">`
+            div.appendChild(table)
+
+            if (i === 0) {
+                createRow(`tbody_${category.dataKey}`,
+                    {
+                        columnID: 'PCFNo',
+                        dataKey: 'PCFNo',
+                        phenoKey: '',
+                        type: 'display',
+                        table: true,
+                        displayName: {
+                            en: 'PCF No.',
+                            ja: 'PCF No.',
+                            ko: 'PCF No.'
+                        }
+                    }
+                )
+            }
+
+            category.columns.forEach(c => {
+                if (c.dataKey === 'bodyWeight' || c.dataKey === 'bodyHeight' || c.dataKey === 'headCircumference') {
+                    createTable(`tbody_${category.dataKey}`, 'growthChart')
+                } else {
+                    createRow(`tbody_${category.dataKey}`, c)
+                }
+            })
+        })
+
+        function createRow(parentId, c) {
+            let parent = document.getElementById(parentId)
+
+            let tr = document.createElement('tr')
+            parent.appendChild(tr)
+
+            let th = document.createElement('th')
+            th.id = c.dataKey
+            th.innerText = c['displayName'][lang]
+            tr.appendChild(th)
+
+            let td = document.createElement('td')
+            if (c.type === 'display') td.innerText = 'P20220600001'
+            tr.appendChild(td)
+
+            if (c.inputType === 'text' || c.inputType === 'input-select') {
+                let input = document.createElement('input')
+                input.type = 'text'
+                input.name = c.dataKey
+                input.dataset.columnname = c.dataKey
+                // input.placeholder = c['placeholder'][lang] || ''
+                td.appendChild(input)
+
+                if (c.inputType === 'input-select') {
+                    let select = document.createElement('select')
+                    select.id = c.dataKey === 'familyId' ? 'family_options' : 'group_options'
+                    td.appendChild(select)
+
+                    td.id = 'group_wrap'
+                }
+            } else if (c.inputType === 'select') {
+                let select = document.createElement('select')
+                select.name = c.dataKey
+                select.dataset.columnname = c.dataKey
+                td.appendChild(select)
+
+                let option = document.createElement('option')
+                option.value = ''
+                option.innerText = translate('select')
+                option.hidden = true
+                select.add(option)
+
+                let options = c.options.dataValue
+                options.forEach((o, i) => {
+                    let option = document.createElement('option')
+                    option.value = o
+                    option.innerText = c['options'][lang][i]
+                    select.add(option)
+                })
+            } else if (c.inputType === 'select-date') {
+                let selectYear = document.createElement('select')
+                selectYear.classList.add(`${c.dataKey}_year`)
+                selectYear.id = `${c.dataKey}_year`
+                selectYear.name = `${c.dataKey}_year`
+                selectYear.dataset.columnname = c.dataKey
+                td.appendChild(selectYear)
+
+                let selectMonth = document.createElement('select')
+                selectMonth.name = `${c.dataKey}_month`
+                selectMonth.id = `${c.dataKey}_month`
+                selectMonth.dataset.columnname = c.dataKey
+                td.appendChild(selectMonth)
+            } else if (c.inputType === 'radio' || c.inputType === 'radio-input') {
+                let options = c.options.dataValue
+                options.forEach((o, i) => {
+                    td.innerHTML += `
+                        <label for="${o}">
+                            <input id="${o}" type="radio" name="${c.dataKey}" value="${o}" checked="checked"
+                                data-columnname="${c.dataKey}">
+                            ${c['options'][lang][i]}
+                        </label>
+                    `
+                })
+
+                if (c.inputType === 'radio-input') {
+                    let input = document.createElement('input')
+                    input.classList.add('input-top')
+                    input.type = 'text'
+                    input.name = `${c.dataKey}-list`
+                    // input.placeholder = c['placeholder'][lang] || ''
+                    td.appendChild(input)
+                }
+            } else if (c.inputType === 'textarea') {
+                let textarea = document.createElement('textarea')
+                textarea.cols = 30
+                textarea.rows = 5
+                textarea.name = c.dataKey
+                textarea.dataset.columnname = c.dataKey
+                // textarea.placeholder = c['placeholder'][lang] || ''
+                td.appendChild(textarea)
+            } else if (c.inputType === 'multiple-radio') {
+                td.innerHTML = `
+                    <label for="sporadic">
+                        <input id="sporadic" type="radio" name="geneticList" value="Sporadic"
+                            data-columnname="geneticList">Sporadic
+                    </label>
+                    <details>
+                        <summary>
+                            <label for="autosomal_dominant_inheritance">
+                                <input id="autosomal_dominant_inheritance" type="radio" name="geneticList"
+                                    value="Autosomal dominant inheritance"
+                                    data-columnname="geneticList">Autosomal
+                                dominant
+                                inheritance
+                            </label>
+                        </summary>
+                        <label for="sex_limited_autosomal_dominant">
+                            <input id="sex_limited_autosomal_dominant" type="radio" name="geneticList"
+                                value="Sex-limited autosomal dominant"
+                                data-columnname="geneticList">Sex-limited
+                            autosomal dominant
+                        </label>
+                        <label for="autosomal_dominant_somatic_cell_mutation">
+                            <input id="autosomal_dominant_somatic_cell_mutation" type="radio"
+                                name="geneticList" value="Autosomal dominant somatic cell mutation"
+                                data-columnname="geneticList">
+                            Autosomal
+                            dominant somatic cell mutation
+                        </label>
+                        <label for="autosomal_dominant_contiguous_gene_syndrome">
+                            <input id="autosomal_dominant_contiguous_gene_syndrome" type="radio"
+                                name="geneticList" value="Autosomal dominant contiguous gene syndrome"
+                                data-columnname="geneticList">
+                            Autosomal
+                            dominant contiguous gene syndrome
+                        </label>
+                    </details>
+                    <label for="autosomal_recessive_inheritance">
+                        <input id="autosomal_recessive_inheritance" type="radio" name="geneticList"
+                            value="Autosomal recessive inheritance" data-columnname="geneticList">
+                        Autosomal
+                        recessive inheritance
+                    </label>
+                    <details>
+                        <summary>
+                            <label for="gonosomal_inheritance">
+                                <input id="gonosomal_inheritance" type="radio" name="geneticList"
+                                    value="Gonosomal inheritance" data-columnname="geneticList">Gonosomal
+                                inheritance
+                            </label>
+                        </summary>
+                        <label for="x_linked_inheritance">
+                            <input id="x_linked_inheritance" type="radio" name="geneticList"
+                                value="X-linked inheritance" data-columnname="geneticList">X-linked
+                            inheritance
+                        </label>
+                        <label for="x_linked_dominant_inheritance">
+                            <input id="x_linked_dominant_inheritance" type="radio" name="geneticList"
+                                value="X-linked dominant inheritance" data-columnname="geneticList">X-linked
+                            dominant inheritance
+                        </label>
+                        <label for="x_linked_recessive_inheritance">
+                            <input id="x_linked_recessive_inheritance" type="radio" name="geneticList"
+                                value="X-linked recessive inheritance"
+                                data-columnname="geneticList">X-linked
+                            recessive inheritance
+                        </label>
+                        <label for="y_linked_inheritance">
+                            <input id="y_linked_inheritance" type="radio" name="geneticList"
+                                value="Y-linked inheritance" data-columnname="geneticList">Y-linked
+                            inheritance
+                        </label>
+                    </details>
+                    <details>
+                        <summary>
+                            <label for="multifactorial_inheritance">
+                                <input id="multifactorial_inheritance" type="radio" name="geneticList"
+                                    value="Multifactorial inheritance"
+                                    data-columnname="geneticList">Multifactorial
+                                inheritance
+                            </label>
+                        </summary>
+                        <label for="digenic_inheritance">
+                            <input id="digenic_inheritance" type="radio" name="geneticList"
+                                value="Digenic inheritance" data-columnname="geneticList">Digenic
+                            inheritance
+                        </label>
+                        <label for="oligogenic_inheritance">
+                            <input id="oligogenic_inheritance" type="radio" name="geneticList"
+                                value="Oligogenic inheritance" data-columnname="geneticList">Oligogenic
+                            inheritance
+                        </label>
+                        <label for="polygenic_inheritance">
+                            <input id="polygenic_inheritance" type="radio" name="geneticList"
+                                value="Polygenic inheritance" data-columnname="geneticList">Polygenic
+                            inheritance
+                        </label>
+                    </details>
+                    <label for="mitochondrialx_inheritance">
+                        <input id="mitochondrialx_inheritance" type="radio" name="geneticList"
+                            value="Mitochondrial inheritance" data-columnname="geneticList">Mitochondrial
+                        inheritance
+                    </label>
+                `
+            }
+        }
+
+        function createTable(parentId) {
+            if (document.getElementById('bodyModal')) return
+
+            let parent = document.getElementById(parentId)
+
+            let tr = document.createElement('tr')
+            parent.appendChild(tr)
+
+            let th = document.createElement('th')
+            th.id = 'growthChart'
+            th.innerText = translate('growthChart')
+            tr.appendChild(th)
+
+            let td = document.createElement('td')
+            td.innerHTML = `
+                <span id="bodyModal_add" onclick="addBodyRow()">
+                    <i class="material-icons-outlined">add_circle_outline</i>追加</span>
+            `
+            bodyContainer = document.createElement('div')
+            bodyContainer.id = 'bodyModal'
+            td.appendChild(bodyContainer)
+            
+            tr.appendChild(td)
+        }
+    }
+}
+
+function translate(word) {
+    if (!elementTranslation[word]) return null
+
+    if (elementTranslation[word][lang]) {
+        return elementTranslation[word][lang]
+    } else {
+        return elementTranslation[word]['en']
+    }
 }
