@@ -12,13 +12,13 @@ let modalTableSettings = {
 
 let geneHot, geneContainer
 let geneSettings = JSON.parse(JSON.stringify(modalTableSettings))
-let geneHeaders = [], geneColumns = []
+let geneHeaders = [], geneColumns = [], geneDataKey = []
 let geneSchema = {}, geneData = [], currentGeneData = []
 // let geneContainer = document.getElementById('geneModal')
 
 let bodyHot, bodyContainer
 let bodySettings = JSON.parse(JSON.stringify(modalTableSettings))
-let bodyHeaders = [], bodyColumns = []
+let bodyHeaders = [], bodyColumns = [], bodyDataKey = []
 let bodySchema = {}, bodyData = [], currentBodyData = []
 // let bodyContainer = document.getElementById('bodyModal')
 
@@ -47,12 +47,13 @@ async function geneTable() {
             strict: true,
             allowInvalid: false
         })
+        geneDataKey.push(g.dataKey)
     })
 
     if (currentPatient) {
         let patientData = contentData.filter(d => { return d.PCFNo == currentPatient })[0]
         for (let [k, v] of Object.entries(patientData)) {
-            if (geneHeaders.includes(k)) {
+            if (geneDataKey.includes(k)) {
                 tempData[k] = v
             }
         }
@@ -148,6 +149,7 @@ function resetData(type) {
     if (type === 'gene') {
         geneHeaders = []
         geneColumns = []
+        geneDataKey = []
         geneSchema = {}
         geneData = []
         
@@ -158,6 +160,7 @@ function resetData(type) {
     } else if (type === 'body') {
         bodyHeaders = []
         bodyColumns = []
+        bodyDataKey = []
         bodySchema = {}
         bodyData = []
 

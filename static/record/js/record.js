@@ -7,8 +7,8 @@ setInitialLanguage()
 let count
 let toReset = true
 
-// let defaultColumns = ['診断状況', '主訴', '確定診断', '臨床診断', '年齢', '性別', 'グループ名', '続柄', '家族ID', '患者ID']
 let defaultColumns = ['caseSolved', 'chiefComplaint', 'finalDiagnosis', 'clinicalDiagnosis', 'age', 'sex', 'group', 'relationship', 'familyId', 'patientId']
+// let defaultColumns = ['growthChart','status','gene', 'relationship', 'familyId', 'patientId']
 let actions = ['REMOVE', 'EDIT']
 
 // columns = HOT columns (settings - type, options, renderer, etc) HEADERS
@@ -109,7 +109,6 @@ function createColumns() {
         let colSequence = 2
 
         categories.forEach(category => {
-            // console.log(category)
             if (category.dataKey === 'phenotypicInfo') return
 
             category.columns.forEach(c => {
@@ -514,19 +513,30 @@ function fileReader(file, fileType) {
             let dataKey = {}
 
             for (let [k, v] of Object.entries(object.keyName)) {
-                let columnKey
-                categories.forEach(category => {
-                    let col = category.columns?.filter(c => { return c.displayName[object.lang] == v })
-                    if (col && col.length > 0) return columnKey = col[0].dataKey
-                })
-
-                dataKey[k] = columnKey || v
+                dataKey[k] = getHeaderName(v, object.lang)
             }
 
             object.PATIENTS.forEach(p => {
                 let pData = {}
                 for (let [k, v] of Object.entries(p)) {
                     let keyName = dataKey[k] || k
+                    let tempV = []
+
+                    if (keyName === 'growthChart') {
+                        v.forEach(gc => {
+                            let gcData = {}
+
+                            for (let [gcK, gcV] of Object.entries(gc)) {
+                                let tempHeaderName = getHeaderName(dataKey[gcK])
+                                gcData[tempHeaderName] = gcV 
+                            }
+
+                            tempV.push(gcData)
+                        })
+
+                        v = tempV
+                    }
+
                     pData[keyName] = v
                 }
 
@@ -536,7 +546,6 @@ function fileReader(file, fileType) {
             object = patientsData
         }
 
-        // updateTable(object.PATIENTS, fileType)
         updateTable(object, fileType)
 
         if (object.visibleColumns) {
@@ -554,6 +563,22 @@ function fileReader(file, fileType) {
         }
     })
     reader.readAsText(file)
+
+    function getHeaderName(v, lang) {
+        let columnKey
+        categories.forEach(category => {
+            let col = category.columns?.filter(c => { return c.displayName[lang] == v })
+            if (col && col.length > 0) return columnKey = col[0].dataKey
+        })
+
+        if (!columnKey) columnKey = getKeyFromTranslation(elementTranslation, v)
+
+        return columnKey || v
+    }
+
+    function getKeyFromTranslation(obj, val) {
+        return Object.keys(obj).find(key => !(typeof obj[key] === 'object') ? obj[key] === val : getKeyFromTranslation(obj[key], val))
+    }
 }
 
 function getExportData() {
@@ -580,7 +605,6 @@ function getExportData() {
         dlData = convertCSVToJSON(exportedString, true)
     }
 
-    // if (type === 'json') exportedString = { 'PATIENTS': dlData }
     if (type === 'json') exportedString = getJSONDownload(dlData)
     if (type === 'csv') exportedString = Papa.unparse(dlData.PATIENTS)
     if (type === 'tsv') exportedString = Papa.unparse(dlData.PATIENTS, { delimiter: '\t' })
@@ -589,22 +613,30 @@ function getExportData() {
 
     function getJSONDownload(dlData) {
         let jsonResult = {}
-        // let jsonResult = { 'PATIENTS': dlData }
         let patientsData = [], visibleColumns = [], keyName = {}
 
         dlData.forEach((d, idx) => {
             let i = 1
             let pData = {}
             for (let [k, v] of Object.entries(d)) {
-                if (idx === 0) {
-                    let header = dataColumns[k]
-                    if (header) {
-                        header = header.colHeader.replace('<i class="material-icons-outlined sort_icon"></i>', '')
-                    } else {
-                        if (k === 'growthChart') header = translate(k)
-                    }
+                if (idx === 0) keyName[i] = getHeaderName(k)
 
-                    keyName[i] = header || k
+                if (k === 'growthChart') {
+                    let tempV = []
+
+                    v.forEach((gc, gcIdx) => {
+                        let gcI = 1
+                        let gcData = {}
+                        for (let [gcK, gcV] of Object.entries(gc)) {
+                            if (gcIdx === 0) keyName[`${i}_${gcI}`] = getHeaderName(gcK)
+                            gcData[`${i}_${gcI}`] = gcV
+                            gcI++
+                        }
+
+                        tempV.push(gcData)
+                    })
+
+                    v = tempV
                 }
 
                 pData[i] = v
@@ -626,8 +658,18 @@ function getExportData() {
             lang: lang
         }
 
-        console.log(jsonResult)
         return jsonResult
+    }
+
+    function getHeaderName(k) {
+        let header = dataColumns[k]
+        if (header) {
+            header = header.colHeader.replace('<i class="material-icons-outlined sort_icon"></i>', '')
+        } else {
+            if (k === 'growthChart' || k === 'date') header = translate(k)
+        }
+
+        return header || k
     }
 }
 
@@ -784,7 +826,6 @@ function setInitialLanguage() {
     document.querySelector('#add-row span').innerText = translate('add-row')
 
     changeLanguage()
-
     translateModal()
 
     function translateModal() {

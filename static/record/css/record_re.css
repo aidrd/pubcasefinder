@@ -413,11 +413,20 @@ body {
 }
 
 /**/
+#charts-patients,
 #content-patients {
   background-color: #fff;
   border-radius: 10px;
   padding: 1em 1.5em;
   margin: 1em;
+}
+
+#charts-patients {
+  display: block;
+}
+
+.chart-container {
+  width: 250px;
 }
 
 #content-patients #home-menu {
@@ -546,10 +555,6 @@ body {
 .modal_content {
   top: 170px;
   right: 274px;
-}
-
-.home-section #content-patients {
-  /*モーダル*/
 }
 
 .home-section #content-patients #modal-karte {
