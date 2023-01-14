@@ -625,8 +625,8 @@ function getExportData() {
             keyName: keyName,
             lang: lang
         }
-        // jsonResult['visibleColumns'] = visibleColumns
 
+        console.log(jsonResult)
         return jsonResult
     }
 }
