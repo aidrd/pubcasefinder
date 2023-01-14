@@ -478,8 +478,6 @@ async function updateTable(data, changeHeaders) {
     hot.render()
 
     document.getElementById('row_count').innerHTML = `${hot.countRows()}`
-
-    // populateGroups()
 }
 
 function importFile(event) {
@@ -505,7 +503,7 @@ function fileReader(file, fileType) {
         let object
 
         if (fileType === 'text/csv' || fileType === 'text/tab-separated-values') {
-            object = convertCSVToJSON(data)
+            object = convertCSVToJSON(data).PATIENTS
         } else {
             object = JSON.parse(data)
 
@@ -513,7 +511,7 @@ function fileReader(file, fileType) {
             let dataKey = {}
 
             for (let [k, v] of Object.entries(object.keyName)) {
-                dataKey[k] = getHeaderName(v, object.lang)
+                dataKey[k] = getColumnKey(v, object.lang)
             }
 
             object.PATIENTS.forEach(p => {
@@ -527,7 +525,7 @@ function fileReader(file, fileType) {
                             let gcData = {}
 
                             for (let [gcK, gcV] of Object.entries(gc)) {
-                                let tempHeaderName = getHeaderName(dataKey[gcK])
+                                let tempHeaderName = getColumnKey(dataKey[gcK])
                                 gcData[tempHeaderName] = gcV 
                             }
 
@@ -564,21 +562,85 @@ function fileReader(file, fileType) {
     })
     reader.readAsText(file)
 
-    function getHeaderName(v, lang) {
-        let columnKey
-        categories.forEach(category => {
-            let col = category.columns?.filter(c => { return c.displayName[lang] == v })
-            if (col && col.length > 0) return columnKey = col[0].dataKey
-        })
+    // function getColumnKey(v, lang) {
+    //     let columnKey
+    //     categories.forEach(category => {
+    //         let col = category.columns?.filter(c => { return c.displayName[lang] == v })
+    //         if (col && col.length > 0) return columnKey = col[0].dataKey
+    //     })
 
-        if (!columnKey) columnKey = getKeyFromTranslation(elementTranslation, v)
+    //     if (!columnKey) columnKey = getKeyFromTranslation(elementTranslation, v)
 
-        return columnKey || v
-    }
+    //     return columnKey || v
+    // }
 
-    function getKeyFromTranslation(obj, val) {
-        return Object.keys(obj).find(key => !(typeof obj[key] === 'object') ? obj[key] === val : getKeyFromTranslation(obj[key], val))
-    }
+    // function getKeyFromTranslation(obj, val) {
+    //     return Object.keys(obj).find(key => !(typeof obj[key] === 'object') ? obj[key] === val : getKeyFromTranslation(obj[key], val))
+    // }
+}
+
+function convertCSVToJSON(csv, isExport) {
+    let json = Papa.parse(csv, {
+        headers: true,
+        delimiter: ''
+    })
+
+    let patientsData = []
+    let data = json.data
+    let notIncluded = [0, 1]
+    let colHeadears = data[0]
+
+    data.forEach((d, idx) => {
+        let data = {}
+
+        if (idx > 0) data['PCFNo'] = d[0]
+
+        for (let i = 0; i < d.length; i++) {
+            if (isExport) {
+                if (notIncluded.includes(i)) continue
+            }
+
+            if (idx === 0) continue
+
+            let headerText = isExport ? colHeadears[i].replace('<i class="material-icons-outlined sort_icon"></i>', '') : colHeadears[i]
+            // let keyName = getColumnKey(headerText)
+            // console.log(headerText, keyName)
+            let value = d[i]
+
+            if (['体重', '身長', '頭囲'].includes(headerText)) {
+                if (contentData.length > 0) {
+                    let bodyInfo = contentData[idx - 1]['身体情報']
+                    if (bodyInfo) {
+                        value = bodyInfo[bodyInfo.length - 1][headerText]
+                    } else {
+                        value = ''
+                    }
+                }
+            }
+
+            data[headerText] = value
+        }
+
+        if (Object.keys(data).length > 0) patientsData.push(data)
+    })
+
+    return { PATIENTS: patientsData }
+}
+
+function getColumnKey(v, lang) {
+    let columnKey
+    categories.forEach(category => {
+        let col = category.columns?.filter(c => { return c.displayName[lang] == v })
+        if (col && col.length > 0) return columnKey = col[0].dataKey
+    })
+
+    if (!columnKey) columnKey = getKeyFromTranslation(elementTranslation, v)
+
+    return columnKey || v
+}
+
+function getKeyFromTranslation(obj, val) {
+    return Object.keys(obj).find(key => !(typeof obj[key] === 'object') ? obj[key] === val : getKeyFromTranslation(obj[key], val))
 }
 
 function getExportData() {
