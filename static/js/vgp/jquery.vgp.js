@@ -340,7 +340,7 @@
 						placement: 		'right',
 						theme:        	'pcf-popup',
 						trigger: 		'click',
-						interactive:  true,
+						interactive:	true,
 					});
 					$(button).appendTo($div_vgp_name_wrapper);
 				}

@@ -42,27 +42,37 @@
       
       <div class="d-md-flex flex-md-row row vgp-search">
         <div class="col row vgp-search-sub">
-            <select id="vgp-target" class="vgp-select vgp-select-target"  onchange="change_target(this.value);">
-              <option value="all">ALL</option>
-              <option value="panel">Panel</option>
-              <option value="gene">Gene</option>
-            </select>
-            <div class="vgp-searchicon-wrapper">
-              <span class="material-symbols-outlined vgp-searchicon">search</span>
+          <div class="dropdown vgp-target-wrapper">
+            <button id="btn-vgp-target" class="btn btn-vgp-target dropdown-toggle" type="button" data-vgp-target="all" data-toggle="dropdown" aria-expanded="false">
+              All</font>
+            </button>
+            <div class="dropdown-menu">
+              <button class="dropdown-item" type="button" onclick="change_target('all', 'All');">All</button>
+              <button class="dropdown-item" type="button" onclick="change_target('panel','Panel');">Panel</button>
+              <button class="dropdown-item" type="button" onclick="change_target('gene', 'Gene');">Gene</button>
             </div>
-            <div class="col vgp-filter-wrapper">
-              <input id="vgp-filter" type="text" autocomplete="off" autocapitalize="off" placeholder="Filter"></input>
-            </div>
+          </div>
+          <div class="vgp-searchicon-wrapper">
+            <span class="material-symbols-outlined vgp-searchicon">search</span>
+          </div>
+          <div class="col vgp-filter-wrapper">
+            <input id="vgp-filter" type="text" autocomplete="off" autocapitalize="off" placeholder="Filter"></input>
+          </div>
         </div>
         <div id="vgp-searched-panels-num" class="row align-items-center vgp-search-sub vgp-subcount">
           17,000 panels
         </div>
-        <select id="vgp-size" class="col vgp-search-sub vgp-select vgp-select-size" onchange="change_pagenum(this.value);">
-          <option value=50 >Per Page 50</option>
-          <option value=100>Per Page 100</option>
-          <option value=200>Per Page 200</option>
-          <option value=-1>ALL</option>
-        </select>
+        <div class="dropdown vgp-search-sub vgp-size-wrapper">
+          <button id="btn-vgp-size" class="btn btn-vgp-size dropdown-toggle" type="button" data-num_per_page=50 data-toggle="dropdown" aria-expanded="false">
+            Per Page <font class="num_per_page">50</font>
+          </button>
+          <div class="dropdown-menu">
+            <button class="dropdown-item" type="button" onclick="change_pagenum(-1);">All</button>
+            <button class="dropdown-item" type="button" onclick="change_pagenum(50);">50</button>
+            <button class="dropdown-item" type="button" onclick="change_pagenum(100);">100</button>
+            <button class="dropdown-item" type="button" onclick="change_pagenum(200);">200</button>
+          </div>
+        </div>
       </div>
       <div id="vgp-list-root-panel"></div>
     </main>
@@ -75,12 +85,28 @@
   <script type="text/javascript" src="../static/js/vgp/jquery.vgp_collapse_panel.js"></script>
   <script>
       function change_pagenum(num){
-          let v = parseInt(num,10);
-          $("#vgp-list-root-panel").visual_gene_panel_list('search_panels',{'vgp-size':v,'vgp-size-limit':v});
+          let num_old = $("#btn-vgp-size").data('num_per_page');
+          
+          if(num_old === num) return;
+          
+          if(num === -1){
+              $("#btn-vgp-size").html('All');
+              $("#btn-vgp-size").data('num_per_page', -1);
+          }else{
+              $("#btn-vgp-size").html('Per Page <font class=\"num_per_page\">'+num+'</font>');
+              $("#btn-vgp-size").data('num_per_page', num);
+          }
+          
+          $("#vgp-list-root-panel").visual_gene_panel_list('search_panels',{'vgp-size':num,'vgp-size-limit':num});
+
       }
 
-      function change_target(target){
-          $("#vgp-list-root-panel").visual_gene_panel_list('search_panels',{'vgp-target':target});
+      function change_target(target,title){
+        let target_old = $("#btn-vgp-target").data('vgp-target');
+        if(target_old === target) return;
+        $("#btn-vgp-target").html(title);
+        $("#btn-vgp-target").data('vgp-target',target);
+        $("#vgp-list-root-panel").visual_gene_panel_list('search_panels',{'vgp-target':target});
       }
       
       $(document).ready(function() {
