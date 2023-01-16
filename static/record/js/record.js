@@ -561,22 +561,6 @@ function fileReader(file, fileType) {
         }
     })
     reader.readAsText(file)
-
-    // function getColumnKey(v, lang) {
-    //     let columnKey
-    //     categories.forEach(category => {
-    //         let col = category.columns?.filter(c => { return c.displayName[lang] == v })
-    //         if (col && col.length > 0) return columnKey = col[0].dataKey
-    //     })
-
-    //     if (!columnKey) columnKey = getKeyFromTranslation(elementTranslation, v)
-
-    //     return columnKey || v
-    // }
-
-    // function getKeyFromTranslation(obj, val) {
-    //     return Object.keys(obj).find(key => !(typeof obj[key] === 'object') ? obj[key] === val : getKeyFromTranslation(obj[key], val))
-    // }
 }
 
 function convertCSVToJSON(csv, isExport) {
@@ -873,7 +857,9 @@ function pageReload() {
 
 function changeLanguage() {
     $('ul#dropdown-language li').click((e) => {
+        console.log('clicked')
         let newLang = e.target.dataset.lang
+        console.log(newLang)
         if (newLang === lang) return
 
         localStorage.lang = newLang
@@ -989,7 +975,7 @@ function setInitialLanguage() {
 
             let th = document.createElement('th')
             th.id = c.dataKey
-            th.innerText = c['displayName'][lang]
+            th.innerText = c['displayName'][lang] || c['displayName']['en']
             tr.appendChild(th)
 
             let td = document.createElement('td')
@@ -1024,10 +1010,11 @@ function setInitialLanguage() {
                 select.add(option)
 
                 let options = c.options.dataValue
+                let optionLang = c['options'][lang].length > 0 ? c['options'][lang] : c['options']['en']
                 options.forEach((o, i) => {
                     let option = document.createElement('option')
                     option.value = o
-                    option.innerText = c['options'][lang][i]
+                    option.innerText = optionLang[i] 
                     select.add(option)
                 })
             } else if (c.inputType === 'select-date') {
@@ -1045,12 +1032,13 @@ function setInitialLanguage() {
                 td.appendChild(selectMonth)
             } else if (c.inputType === 'radio' || c.inputType === 'radio-input') {
                 let options = c.options.dataValue
+                let optionLang = c['options'][lang].length > 0 ? c['options'][lang] : c['options']['en']
                 options.forEach((o, i) => {
                     td.innerHTML += `
                         <label for="${o}">
                             <input id="${o}" type="radio" name="${c.dataKey}" value="${o}" checked="checked"
                                 data-columnname="${c.dataKey}">
-                            ${c['options'][lang][i]}
+                            ${optionLang[i]}
                         </label>
                     `
                 })
