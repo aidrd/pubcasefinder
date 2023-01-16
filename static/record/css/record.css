@@ -311,17 +311,17 @@ body {
   padding: 0;
   border-radius: 20px;
   max-width: 100%;
+  width: 95%;
 }
 
 #modal-karte #modal-karte-button {
   position: absolute;
-  top: -60px;
+  top: -40px;
   right: 0;
 }
 
 #modal-karte #modal-karte-button button {
   color: #000;
-  padding: 0.7em;
   margin-left: 2px;
   display: inline-flex;
   border-radius: 5em;
@@ -329,10 +329,12 @@ body {
 
 #modal-karte #modal-karte-button button span {
   width: 25px;
+  color: rgb(103, 103, 103);
 }
 
 #modal-karte #modal-karte-button .modal-close {
   background: #fff;
+  padding: 0.3em;
 }
 
 #modal-karte #modal-karte-button .modal-close:hover {
@@ -402,7 +404,7 @@ body {
 
 #modal-karte .tab-wrap ul {
   display: flex;
-  background: #F4F4F4;
+  background: #dbdee2;
   color: #000;
   border-radius: 11px 11px 0 0;
 }
@@ -417,7 +419,8 @@ body {
 
 #modal-karte .tab-wrap ul .tab-btn {
   width: 50%;
-  padding: 1em 0;
+  padding: 0.7em 0;
+  font-size: 0.9em;
   text-align: center;
   list-style: none;
   cursor: pointer;
@@ -429,20 +432,19 @@ body {
 }
 
 #modal-karte .tab-wrap ul .show {
-  background: #000;
-  border-top: 2px solid #000;
-  color: #fff;
+  background: #fff;
+  color: #000;
 }
 
 #modal-karte .tab-wrap .tab-contents {
   display: none;
-  max-height: calc(100vh - 350px);
+  max-height: calc(100vh - 200px);
   overflow-y: scroll;
 }
 
 #modal-karte .tab-wrap .show {
   display: block;
-  padding: 1em 2em;
+  padding: 1em 1.5em;
 }
 
 #modal-karte .tab-wrap .show .form-table {
@@ -470,9 +472,9 @@ body {
   font-weight: normal;
   color: #79839a;
   text-align: right;
-  border-bottom: 1px solid #EDEDED;
   width: 7em;
-  padding-right: 1em;
+  padding-right: 0.7em;
+  font-size: 0.9em;
 }
 
 #modal-karte .tab-wrap .show .form-table tbody tr th span {
@@ -483,7 +485,6 @@ body {
   padding: 0.7em 0 0.7em 0;
   display: table-cell;
   vertical-align: middle;
-  border-bottom: 1px solid #EDEDED;
 }
 
 #modal-karte .tab-wrap .show .form-table tbody tr td span {

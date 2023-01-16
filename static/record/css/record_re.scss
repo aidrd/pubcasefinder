@@ -367,21 +367,80 @@ body {
         }
       }
     }
-
+  }
+  .common-menu{
+    min-width: 15.7rem;
+    padding: 1em;
+    .common-menu-item{
+      cursor: pointer;
+      padding: 0.7em 0;
+      text-align: center;
+      display: table-cell;
+      float: left;
+      width: 33%;
+      &:hover {
+        background-color: #e4e5eb;
+        border-radius: 0.5em;
+      }
+      a {
+        i {
+          font-size: 1.7em;
+          padding-right: 0;
+        }
+        span{
+          font-size: 0.8em;
+          display: block;
+          width: fit-content;
+          margin: 0 auto;
+          text-align: center;
+        }
+      }
+    }
+    .dropdown-service{
+      display: inline-block;
+      margin-top: 0.5em;
+      .dropdown-menu-item{
+        display: flex;
+        border-top: 1px solid #f4f4f4;
+        padding: 0.5em;
+        i{
+          background: #f4f4f4;
+          padding: 0.5em;
+          height: fit-content;
+          border-radius: 1em;
+          margin-right: 0.3em;
+        }
+      span{
+        display: block;
+        p{
+          font-size: 0.4em;
+        }
+      }
+      &:hover {
+        background-color: #e4e5eb;
+        border-top: 1px solid #ffffff;
+          i{
+            background: #fff;
+          }
+      }
+    }
+  }
   }
 
   .dropdown-explanation {
     box-shadow: none;
-    background-color: #cdd3e8;
+    background-color: #fff;
     right: 0;
     left: -440px;
     width: 30em;
     position: absolute;
     min-width: 100%;
     margin: 0;
+    box-shadow: 0 2px 15px 1px rgba(163, 163, 163, 0.2);
 
     .dropdown-menu-item {
       display: inline-flex;
+      border-top: 1px solid #f4f4f4;
 
       i {
         color: #11101d;
@@ -389,7 +448,7 @@ body {
         border-radius: 40px;
         margin-right: 1em;
         margin: auto 0;
-        background-color: #fff;
+        background-color: #f4f4f4;
       }
 
       span {
@@ -401,10 +460,12 @@ body {
           font-size: 14px;
         }
       }
-    }
-
-    &:hover {
-      background-color: #b5bcd6;
+      &:hover {
+        background-color: #fff;
+      }
+      &:first-child{
+        border-top: 1px solid #fff;
+      }
     }
   }
 }
@@ -1011,4 +1072,5 @@ button{
 }
 }
 }
+
 
