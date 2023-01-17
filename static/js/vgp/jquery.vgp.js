@@ -5,8 +5,8 @@
 		  URL_GET_PANEL_ID_BY_GENE       = 'https://pubcasefinder.dbcls.jp/api/pcf_panel_get_mondo_id_match_gene_symbol_synonym_ncbiid',
 		  URL_GET_PANEL_DATA_BY_PANEL_ID = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_get_panel_data_by_mondo_id',
 		  URL_GET_HPO_DATA_BY_PANEL_ID   = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_get_hpo_data_by_mondo_id',
-		  //URL_GET_GENE_DATA_BY_PANEL_ID  = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_get_gene_data_by_mondo_id',
-		  URL_GET_GENE_DATA_BY_PANEL_ID  = 'https://pubcasefinder.dbcls.jp/pcf_get_case_report_by_mondo_id',
+		  URL_GET_GENE_DATA_BY_PANEL_ID  = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_get_gene_by_mondo_id',
+		  //URL_GET_GENE_DATA_BY_PANEL_ID  = 'https://pubcasefinder.dbcls.jp/pcf_get_case_report_by_mondo_id',
 		  URL_GET_HPO_TOOLTIP_DATA_BY_HPO_ID = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_get_hpo_tooltip_data_by_hpo_id',
 		  URL_DOWNLOAD_ALL_PANEL         = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_download_all_panel',
 		  URL_DOWNLOAD_PANEL             = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_download_panel_by_mondo_id';
@@ -384,11 +384,14 @@
 				let omim_url  = 'omim_url' in panel_data ? panel_data.omim_url : '';
 				let orpha_id  = 'orpha_id'  in panel_data ? 'Orphanet:' + panel_data.orpha_id : '';
 				let orpha_url = 'orpha_url' in panel_data ? panel_data.orpha_url : '';
-				let icd_id    = 'icd10_id'  in panel_data ? panel_data.icd10_id.replace(/ICD10/,'ICD-10') : '';
+				let icd_id    = 'icd10_id'  in panel_data ? panel_data.icd10_id.replace(/ICD10/g,'ICD-10') : '';
 				let icd_url   = 'icd10_url' in panel_data ? panel_data.icd10_url : '';
-				
+				let count_phenotype = 'count_hpo_id' in panel_data ? panel_data.count_hpo_id : '';
+				count_phenotype = _isEmpty(count_phenotype) ? 0 : parseInt(count_phenotype);
+				let count_gene = 'count_gene_id' in panel_data ? panel_data.count_gene_id : '';
+				count_gene = _isEmpty(count_gene) ? 0 : parseInt(count_gene);
 				let url_phenotype   = URL_GET_HPO_DATA_BY_PANEL_ID + '?mondo_id='+mondo_id.replace(/MONDO:/,'');
-				let url_gene        = URL_GET_GENE_DATA_BY_PANEL_ID + '?mondo_id='+mondo_id+'&lang='+language;
+				let url_gene        = URL_GET_GENE_DATA_BY_PANEL_ID + '?mondo_id='+mondo_id.replace(/MONDO:/,'')+'&lang='+language;
 				let url_hpo_tooltip = URL_GET_HPO_TOOLTIP_DATA_BY_HPO_ID + '?hpo_id=';
 				
 				$div_lower.vgp_collapse_panel({
@@ -403,8 +406,8 @@
 					orpha_url       : orpha_url,
 					icd_id          : icd_id,
 					icd_url         : icd_url,
-					count_phenotype : 6000,
-					count_gene      : 400,
+					count_phenotype : count_phenotype,
+					count_gene      : count_gene,
 					language        : language
 				});
 				

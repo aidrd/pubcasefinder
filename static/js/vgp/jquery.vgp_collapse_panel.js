@@ -351,12 +351,10 @@
   					"padding=\"0px\" " +
   					"page-size-option=\"10,20,50,100\" " +
   					"page-slider=\"true\" " +
-					"columns=\"[{&quot;id&quot;:&quot;pyear&quot;,&quot;label&quot;:&quot;Year&quot;},"+
-						   "{&quot;id&quot;:&quot;title&quot;,&quot;label&quot;:&quot;Title&quot;},"+
-						   "{&quot;id&quot;:&quot;journal&quot;,&quot;label&quot;:&quot;Journal&quot;},"+
-						   "{&quot;id&quot;:&quot;url_img_jstage&quot;,&quot;escape&quot;:false,&quot;label&quot;:&quot;Go to J-STAGE&quot;},"+
-						   "{&quot;id&quot;: &quot;url_img_jglobal&quot;,&quot;escape&quot;: false,&quot;label&quot;: &quot;Go to J-GLOBAL&quot;}]\">" +
-				  "</togostanza-pagination-table>";
+					"columns=\"[{&quot;id&quot;:&quot;hgnc_gene_symbol&quot;,&quot;label&quot;:&quot;Gene symbol&quot;},"+
+							"{&quot;id&quot;:&quot;disease_info&quot;,&quot;label&quot;:&quot;Disease name&quot;},"+
+							"{&quot;id&quot;:&quot;source_name&quot;,&quot;label&quot;:&quot;Source&quot;}]\">" +
+				  			"</togostanza-pagination-table>";
 		return str;
 	}
 	
@@ -388,8 +386,8 @@
 
 			// init elements
 			let $container = this;
-			let $list_show_button_panel = $("<div>").addClass("list-show").addClass('d-flex flex-row').appendTo($container);
-			
+			//let $list_show_button_panel = $("<div>").addClass("list-show").addClass('d-flex flex-row').appendTo($container);
+			let $list_show_button_panel = $("<div>").addClass("list-show").addClass('d-flex flex-wrap').appendTo($container);
 			for(let i=0; i<TARGET_LIST.length; i++){
 
 				let target          = TARGET_LIST[i],
@@ -466,10 +464,21 @@
 				let id_key  = LINK_KEY_HASH[i].id;
 				let url_key = LINK_KEY_HASH[i].url;
 				if(!_isEmpty(setting[id_key]) && !_isEmpty(setting[url_key])){
-					$("<a>").text(setting[id_key])
+					if(setting[url_key].indexOf('|')){
+						let url_lst = setting[url_key].split('|');
+						let id_lst  = setting[id_key].split('|');
+						for(let n=0;n<url_lst.length;n++){
+							$("<a>").text(id_lst[n])
+								.addClass('vgp-link')
+								.attr( 'href', url_lst[n]).attr('target', '_blank')
+								.appendTo($list_show_button_panel);
+						}
+					}else{
+						$("<a>").text(setting[id_key])
 							.addClass('vgp-link')
 							.attr( 'href', setting[url_key]).attr('target', '_blank')
 							.appendTo($list_show_button_panel);
+					}
 				}
 			}
 			

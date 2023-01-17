@@ -340,6 +340,7 @@ body {
   line-height: 1.15;
   color: inherit;
   font-size: 16px;
+  white-space: nowrap;
 }
 
 .vgp-panel-row .list-show_wrapper .list-show a.v_line_left {
