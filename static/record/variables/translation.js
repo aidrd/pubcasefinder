@@ -44,12 +44,12 @@ let elementTranslation = {
         ja: '- 月を選択 -',
         ko: ''
     },
-    'growthChart': {
+    'm013': {
         en: 'Growth Chart',
         ja: '身体情報',
         ko: ''
     },
-    'date': {
+    'm013_1': {
         en: 'Date',
         ja: '日付',
         ko: ''

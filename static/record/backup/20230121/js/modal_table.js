@@ -38,16 +38,16 @@ async function geneTable() {
             options = g['options'][lang].length > 0 ? g['options'][lang] : g['options']['en']
         }
 
-        geneSchema[g.columnId] = null
+        geneSchema[g.dataKey] = null
         geneHeaders.push(displayName)
         geneColumns.push({
-            data: g.columnId,
+            data: g.dataKey,
             type: g.type,
             source: options,
             strict: true,
             allowInvalid: false
         })
-        geneDataKey.push(g.columnId)
+        geneDataKey.push(g.dataKey)
     })
 
     if (currentPatient) {
@@ -97,8 +97,8 @@ async function bodyTable() {
 
     if (currentPatient) {
         let patientData = contentData.filter(d => { return d.PCFNo == currentPatient })[0]
-        if (!patientData['m013']) patientData['m013'] = []
-        bodyData = patientData['m013']
+        if (!patientData['growthChart']) patientData['growthChartgrowthChart'] = []
+        bodyData = patientData['growthChart']
         currentBodyData = bodyData
     }
 
@@ -108,7 +108,7 @@ async function bodyTable() {
     bodySchema.date = null
     bodyHeaders.push(translate('date'))
     bodyColumns.push({
-        data: 'm013_1',
+        data: 'date',
         type: 'date',
         dateFormat: 'YYYY/MM/DD',
         correctFormat: true
@@ -117,10 +117,10 @@ async function bodyTable() {
     bodyInfo.forEach(c => {
         let displayName = c['displayName'][lang] || c['displayName']['en']
 
-        bodySchema[c.columnId] = null
+        bodySchema[c.dataKey] = null
         bodyHeaders.push(displayName)
         bodyColumns.push({
-            data: c.columnId,
+            data: c.dataKey,
             type: 'text'
         })
     })

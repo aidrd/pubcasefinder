@@ -45,23 +45,23 @@ function multipleRenderer(instance, td, row, col, prop, value, cellProperties) {
         displayValue = value.join('<br>')
     }
 
-    if (prop !== 'm003') td.classList.add('htDimmed')
+    if (prop !== 'chiefComplaint') td.classList.add('htDimmed')
     td.innerHTML = displayValue
-}
-
-function weightRenderer(instance, td, row, col, prop, value, cellProperties) {
-    Handsontable.renderers.BaseRenderer.apply(this, arguments)
-    td.innerHTML = getLatest('m013_2', value)
 }
 
 function heightRenderer(instance, td, row, col, prop, value, cellProperties) {
     Handsontable.renderers.BaseRenderer.apply(this, arguments)
-    td.innerHTML = getLatest('m013_3', value)
+    td.innerHTML = getLatest('bodyHeight', value)
+}
+
+function weightRenderer(instance, td, row, col, prop, value, cellProperties) {
+    Handsontable.renderers.BaseRenderer.apply(this, arguments)
+    td.innerHTML = getLatest('bodyWeight', value)
 }
 
 function headRenderer(instance, td, row, col, prop, value, cellProperties) {
     Handsontable.renderers.BaseRenderer.apply(this, arguments)
-    td.innerHTML = getLatest('m013_4', value)
+    td.innerHTML = getLatest('headCircumference', value)
 }
 
 function getLatest(type, value) {
