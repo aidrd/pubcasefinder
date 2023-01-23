@@ -1,8 +1,11 @@
 ;(function ($) {
 
 	const URL_GET_ALL_PANEL_ID           = '/pcf_get_all_mondo_id',
-		  URL_GET_PANEL_ID_BY_PANEL      = '/pcf_panel_get_mondo_id_match_panel_name_synonym',
-		  URL_GET_PANEL_ID_BY_GENE       = 'https://pubcasefinder.dbcls.jp/api/pcf_panel_get_mondo_id_match_gene_symbol_synonym_ncbiid',
+		  //URL_GET_PANEL_ID_BY_PANEL      = '/pcf_panel_get_mondo_id_match_panel_name_synonym',
+		  URL_GET_PANEL_ID_BY_PANEL      = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_panel_get_mondo_id_match_panel_name_synonym',
+		  //URL_GET_PANEL_ID_BY_GENE       = 'https://pubcasefinder.dbcls.jp/api/pcf_panel_get_mondo_id_match_gene_symbol_synonym_ncbiid',
+		  URL_GET_PANEL_ID_BY_GENE       = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_panel_get_mondo_id_match_gene_symbol_synonym_ncbiid',
+
 		  URL_GET_PANEL_DATA_BY_PANEL_ID = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_get_panel_data_by_mondo_id',
 		  URL_GET_HPO_DATA_BY_PANEL_ID   = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_get_hpo_data_by_mondo_id',
 		  URL_GET_GENE_DATA_BY_PANEL_ID  = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_get_gene_by_mondo_id',
@@ -498,7 +501,7 @@
 		
 			let ajax_item_list = [];
 			[TARGET_GENE,TARGET_PANEL].forEach(function(target,idx){
-				let url = URL_HASH_SEARCH[target] + '?query=' + settings[SETTINGS_KEY_FILTER];
+				let url = URL_HASH_SEARCH[target] + '?input_text=' + settings[SETTINGS_KEY_FILTER]+'&lang=' + settings[SETTINGS_KEY_LANG];
 				ajax_item_list.push({
 					[SETTING_KEY_URLSTR]:  url,
 					[SETTINGS_KEY_TARGET]: target,
@@ -508,9 +511,10 @@
 			
 			var callback_success = function(data,item){
 				let json_data = _parseJson(data);
+				let k = Object.keys(json_data)[0];
 				let target = item[SETTINGS_KEY_TARGET];
 				let filter = item[SETTINGS_KEY_FILTER];
-				_store_idlist_to_cache(target, filter, json_data);
+				_store_idlist_to_cache(target, filter, json_data[k]);
 			};
 
 			var callback_fail = function() {
