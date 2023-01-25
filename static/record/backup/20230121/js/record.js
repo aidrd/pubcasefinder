@@ -113,7 +113,6 @@ function createColumns() {
 
             category.columns.forEach(c => {
                 let key = c.dataKey
-                let colId = c.columnId
                 let displayName = c['displayName'][lang] || c['displayName']['en']
 
                 let options
@@ -124,7 +123,7 @@ function createColumns() {
                 let colHeader = `<i class="material-icons-outlined sort_icon"></i>${displayName}`
 
                 let column = {
-                    data: colId,
+                    data: c.dataKey,
                     type: c.type,
                     source: options,
                     strict: true,
@@ -150,17 +149,17 @@ function createColumns() {
                 } else if (category['dataKey'] === 'geneInfo' || key === 'chiefComplaints') {
                     column.renderer = multipleRenderer
                     if (category['dataKey'] === 'geneInfo') column.editor = false
-                } else if (colId === 'm013_2' || colId === 'm013_3' || colId === 'm013_4') {
+                } else if (key === 'bodyHeight' || key === 'bodyWeight' || key === 'headCircumference') {
                     column.editor = false
-                    column.data = 'm013'
-                    switch (colId) {
-                        case 'm013_2':
-                            column.renderer = weightRenderer
-                            break
-                        case 'm013_3':
+                    column.data = `growthChart`
+                    switch (key) {
+                        case 'bodyHeight':
                             column.renderer = heightRenderer
                             break
-                        case 'm013_4':
+                        case 'bodyWeight':
+                            column.renderer = weightRenderer
+                            break
+                        case 'headCircumference':
                             column.renderer = headRenderer
                             break
                     }
@@ -169,10 +168,10 @@ function createColumns() {
                 if (defaultColumns.includes(key)) {
                     colHeaders.push(colHeader)
                     columns.push(column)
-                    existingColumns.push(colId)
+                    existingColumns.push(key)
                 }
 
-                dataColumns[colId] = {
+                dataColumns[key] = {
                     colHeader: colHeader,
                     column: column,
                     sequence: colSequence
@@ -180,9 +179,9 @@ function createColumns() {
 
                 colSequence++
 
-                let dsColId = key === 'bodyHeight' || key === 'bodyWeight' || key === 'headCircumference' ? 'm013' : colId
+                let colName = key === 'bodyHeight' || key === 'bodyWeight' || key === 'headCircumference' ? 'growthChart' : key
 
-                dataSchema[dsColId] = null
+                dataSchema[colName] = null
             })
         })
 
@@ -231,7 +230,7 @@ function addColumn() {
         createColumn(category['displayName'][lang], 'title', category['dataKey'])
         category.columns.forEach(c => {
             let displayName = c['displayName'][lang] || c['displayName']['en']
-            if (c.table) createColumn(displayName, c.type, c['columnId'])
+            if (c.table) createColumn(displayName, c.type, c['dataKey'])
         })
     })
 
@@ -273,7 +272,7 @@ function addColumn() {
                             class="modal_add_columns"
                             id="${key}"
                             data-type="${type}"
-                            data-colname="${colName}"
+                            data-key="${key}"
                             onchange="showHideColumn(this)"
                             ${existingColumns.includes(key) ? 'checked' : ''}>
                     <label for="${key}">${colName}</label>
@@ -288,25 +287,23 @@ function addColumn() {
 
         let colHeader = `<i class="material-icons-outlined sort_icon"></i>${add.value}`
 
-        let colId = `c${customColumns.length + 1}`
-
         let column = {
             data: add.value,
             type: 'text'
         }
 
-        dataSchema[colId] = null
-        dataColumns[colId] = {
+        dataSchema[add.value] = null
+        dataColumns[add.value] = {
             colHeader: colHeader,
             column: column
         }
         colHeaders.push(colHeader)
         columns.push(column)
-        existingColumns.push(colId)
+        existingColumns.push(add.value)
         customColumns.push(add.value)
         createColumn(add.value, 'custom')
 
-        contentData.map(c => c[colId] = null)
+        contentData.map(c => c[add.value] = null)
 
         rerenderTable()
 
@@ -320,39 +317,39 @@ function addColumn() {
 }
 
 function showHideColumn(e) {
-    let colId = e.id
+    let key = e.dataset.key
 
     if (e.checked) {
-        let col = dataColumns[colId]
+        let col = dataColumns[key]
 
-        existingColumns.push(colId)
+        existingColumns.push(e.id)
         colHeaders.push(col.colHeader)
         columns.push(col.column)
     } else {
-        colHeaders.splice(colHeaders.indexOf(`<i class="material-icons-outlined sort_icon"></i>${e.dataset.colname}`), 1)
+        colHeaders.splice(colHeaders.indexOf(`<i class="material-icons-outlined sort_icon"></i>${e.id}`), 1)
 
-        if (['m013_2', 'm013_3', 'm013_4'].includes(colId)) {
+        if (['bodyWeight', 'bodyHeight', 'headCircumference'].includes(key)) {
             let renderer
-            switch (colId) {
-                case 'm013_2':
+            switch (key) {
+                case 'bodyWeight':
                     renderer = 'weightRenderer'
                     break
-                case 'm013_3':
+                case 'bodyHeight':
                     renderer = 'heightRenderer'
                     break
-                case 'm013_4':
+                case 'headCircumference':
                     renderer = 'headRenderer'
                     break
             }
 
             columns.forEach((h, i) => {
-                if (h.data !== 'm013') return
+                if (h.data !== 'growthChart') return
                 if (h.renderer.name === renderer) headers.splice(i, 1)
             })
         } else {
-            columns = columns.filter(h => { return h.data !== colId })
+            columns = columns.filter(h => { return h.data !== key })
         }
-        existingColumns.splice(existingColumns.indexOf(colId), 1)
+        existingColumns.splice(existingColumns.indexOf(key), 1)
     }
 
     rerenderTable()
@@ -381,9 +378,9 @@ function addRow(data) {
     let num = hot.countRows() + 1
 
     if (count) {
-        temp['p001'] = `P${count.toString().padStart(7, 0)}`
+        temp['patientId'] = `P${count.toString().padStart(7, 0)}`
     } else {
-        temp['p001'] = `P${num.toString().padStart(7, 0)}`
+        temp['patientId'] = `P${num.toString().padStart(7, 0)}`
         count = num
     }
 
@@ -407,7 +404,6 @@ async function updateTable(data, changeHeaders) {
     if (contentData.length > 0) {
         let newHeaders = Object.keys(data[0])
 
-        // TODO!!
         if (changeHeaders  === 'text/csv' || changeHeaders === 'text/tab-separated-values') {
             columns.splice(2, columns.length)
             colHeaders.splice(2, colHeaders.length)
@@ -427,13 +423,12 @@ async function updateTable(data, changeHeaders) {
             })
         } else {
             newHeaders.forEach(h => {
-                if (h === 'PCFNo' || h === 'm013') return
+                if (h === 'PCFNo' || h === 'growthChart') return
                 if (!(Object.keys(dataColumns).includes(h))) createColumn(h, true)
             })
         }
     }
 
-    // TODO!! 確認 upload (with custom column)??
     function createColumn(h, key, isHidden) {
         let headerTitle = `<i class=\"material-icons-outlined sort_icon\"></i>${h}`
         let headerData = {
@@ -468,10 +463,10 @@ async function updateTable(data, changeHeaders) {
     })
 
     contentData.map(d => {
-        let groupId = d['p004']
+        let groupId = d['group']
         if (groupId && !(groupOptions.includes(groupId))) groupOptions.push(groupId)
 
-        let familyId = d['p002']
+        let familyId = d['familyId']
         if (familyId && !(familyOptions.includes(familyId))) familyOptions.push(familyId)
     })
 
@@ -504,12 +499,48 @@ function fileReader(file, fileType) {
         let object
 
         if (fileType === 'text/csv' || fileType === 'text/tab-separated-values') {
-            object = convertCSVToJSON(data)
+            object = convertCSVToJSON(data).PATIENTS
         } else {
             object = JSON.parse(data)
+
+            let patientsData = []
+            let dataKey = {}
+
+            for (let [k, v] of Object.entries(object.keyName)) {
+                dataKey[k] = getColumnKey(v, object.lang)
+            }
+
+            object.PATIENTS.forEach(p => {
+                let pData = {}
+                for (let [k, v] of Object.entries(p)) {
+                    let keyName = dataKey[k] || k
+                    let tempV = []
+
+                    if (keyName === 'growthChart') {
+                        v.forEach(gc => {
+                            let gcData = {}
+
+                            for (let [gcK, gcV] of Object.entries(gc)) {
+                                let tempHeaderName = getColumnKey(dataKey[gcK])
+                                gcData[tempHeaderName] = gcV 
+                            }
+
+                            tempV.push(gcData)
+                        })
+
+                        v = tempV
+                    }
+
+                    pData[keyName] = v
+                }
+
+                patientsData.push(pData)
+            })
+
+            object = patientsData
         }
 
-        updateTable(object.PATIENTS, fileType)
+        updateTable(object, fileType)
 
         if (object.visibleColumns) {
             colHeaders.length = 2
@@ -552,7 +583,8 @@ function convertCSVToJSON(csv, isExport) {
             if (idx === 0) continue
 
             let headerText = isExport ? colHeadears[i].replace('<i class="material-icons-outlined sort_icon"></i>', '') : colHeadears[i]
-
+            // let keyName = getColumnKey(headerText)
+            // console.log(headerText, keyName)
             let value = d[i]
 
             if (['体重', '身長', '頭囲'].includes(headerText)) {
@@ -625,25 +657,22 @@ function getExportData() {
         let jsonResult = {}
         let patientsData = [], visibleColumns = [], keyName = {}
 
-        console.log(dlData)
         dlData.forEach((d, idx) => {
+            let i = 1
             let pData = {}
             for (let [k, v] of Object.entries(d)) {
-                // if (idx === 0) keyName[k] = getHeaderName(k)
-                if (idx === 0) {
-                    console.log(k, getHeaderName(k))
-                    keyName[k] = getHeaderName(k)
-                }
-                
+                if (idx === 0) keyName[i] = getHeaderName(k)
 
-                if (k === 'm013') {
+                if (k === 'growthChart') {
                     let tempV = []
 
                     v.forEach((gc, gcIdx) => {
+                        let gcI = 1
                         let gcData = {}
                         for (let [gcK, gcV] of Object.entries(gc)) {
-                            if (gcIdx === 0) keyName[gcK] = getHeaderName(gcK)
-                            gcData[gcK] = gcV
+                            if (gcIdx === 0) keyName[`${i}_${gcI}`] = getHeaderName(gcK)
+                            gcData[`${i}_${gcI}`] = gcV
+                            gcI++
                         }
 
                         tempV.push(gcData)
@@ -652,7 +681,9 @@ function getExportData() {
                     v = tempV
                 }
 
-                pData[k] = v
+                pData[i] = v
+
+                i++
             }
 
             patientsData.push(pData)
@@ -664,9 +695,9 @@ function getExportData() {
 
         jsonResult = {
             PATIENTS: patientsData,
-            visibleColumns,
-            keyName,
-            lang
+            visibleColumns: visibleColumns,
+            keyName: keyName,
+            lang: lang
         }
 
         return jsonResult
@@ -677,7 +708,7 @@ function getExportData() {
         if (header) {
             header = header.colHeader.replace('<i class="material-icons-outlined sort_icon"></i>', '')
         } else {
-            if (k === 'm013' || k === 'm013_1') header = translate(k)
+            if (k === 'growthChart' || k === 'date') header = translate(k)
         }
 
         return header || k
@@ -760,9 +791,9 @@ function editTable(isSave) {
         }
 
         if (currentBodyData.length > 0) {
-            newPatient['m013'] = []
+            newPatient['growthChart'] = []
             currentBodyData.forEach(bd => {
-                newPatient['m013'].push(bd)
+                newPatient['growthChart'].push(bd)
             })
         }
 
@@ -907,7 +938,7 @@ function setInitialLanguage() {
             if (i === 0) {
                 createRow(`tbody_${category.dataKey}`,
                     {
-                        columnId: 'PCFNo',
+                        columnID: 'PCFNo',
                         dataKey: 'PCFNo',
                         phenoKey: '',
                         type: 'display',
@@ -923,7 +954,7 @@ function setInitialLanguage() {
 
             category.columns.forEach(c => {
                 if (c.dataKey === 'bodyWeight' || c.dataKey === 'bodyHeight' || c.dataKey === 'headCircumference') {
-                    createTable(`tbody_${category.dataKey}`, 'm013')
+                    createTable(`tbody_${category.dataKey}`, 'growthChart')
                 } else {
                     createRow(`tbody_${category.dataKey}`, c)
                 }
@@ -937,7 +968,7 @@ function setInitialLanguage() {
             parent.appendChild(tr)
 
             let th = document.createElement('th')
-            th.id = c.columnId
+            th.id = c.dataKey
             th.innerText = c['displayName'][lang] || c['displayName']['en']
             tr.appendChild(th)
 
@@ -948,8 +979,8 @@ function setInitialLanguage() {
             if (c.inputType === 'text' || c.inputType === 'input-select') {
                 let input = document.createElement('input')
                 input.type = 'text'
-                input.name = c.columnId
-                input.dataset.columnname = c.columnId
+                input.name = c.dataKey
+                input.dataset.columnname = c.dataKey
                 // input.placeholder = c['placeholder'][lang] || ''
                 td.appendChild(input)
 
@@ -962,8 +993,8 @@ function setInitialLanguage() {
                 }
             } else if (c.inputType === 'select') {
                 let select = document.createElement('select')
-                select.name = c.columnId
-                select.dataset.columnname = c.columnId
+                select.name = c.dataKey
+                select.dataset.columnname = c.dataKey
                 td.appendChild(select)
 
                 let option = document.createElement('option')
@@ -982,16 +1013,16 @@ function setInitialLanguage() {
                 })
             } else if (c.inputType === 'select-date') {
                 let selectYear = document.createElement('select')
-                selectYear.classList.add(`${c.columnId}_year`)
-                selectYear.id = `${c.columnId}_year`
-                selectYear.name = `${c.columnId}_year`
-                selectYear.dataset.columnname = c.columnId
+                selectYear.classList.add(`${c.dataKey}_year`)
+                selectYear.id = `${c.dataKey}_year`
+                selectYear.name = `${c.dataKey}_year`
+                selectYear.dataset.columnname = c.dataKey
                 td.appendChild(selectYear)
 
                 let selectMonth = document.createElement('select')
-                selectMonth.name = `${c.columnId}_month`
-                selectMonth.id = `${c.columnId}_month`
-                selectMonth.dataset.columnname = c.columnId
+                selectMonth.name = `${c.dataKey}_month`
+                selectMonth.id = `${c.dataKey}_month`
+                selectMonth.dataset.columnname = c.dataKey
                 td.appendChild(selectMonth)
             } else if (c.inputType === 'radio' || c.inputType === 'radio-input') {
                 let options = c.options.dataValue
@@ -999,8 +1030,8 @@ function setInitialLanguage() {
                 options.forEach((o, i) => {
                     td.innerHTML += `
                         <label for="${o}">
-                            <input id="${o}" type="radio" name="${c.columnId}" value="${o}" checked="checked"
-                                data-columnname="${c.columnId}">
+                            <input id="${o}" type="radio" name="${c.dataKey}" value="${o}" checked="checked"
+                                data-columnname="${c.dataKey}">
                             ${optionLang[i]}
                         </label>
                     `
@@ -1010,7 +1041,7 @@ function setInitialLanguage() {
                     let input = document.createElement('input')
                     input.classList.add('input-top')
                     input.type = 'text'
-                    input.name = `${c.columnId}-list`
+                    input.name = `${c.dataKey}-list`
                     // input.placeholder = c['placeholder'][lang] || ''
                     td.appendChild(input)
                 }
@@ -1018,8 +1049,8 @@ function setInitialLanguage() {
                 let textarea = document.createElement('textarea')
                 textarea.cols = 30
                 textarea.rows = 5
-                textarea.name = c.columnId
-                textarea.dataset.columnname = c.columnId
+                textarea.name = c.dataKey
+                textarea.dataset.columnname = c.dataKey
                 // textarea.placeholder = c['placeholder'][lang] || ''
                 td.appendChild(textarea)
             } else if (c.inputType === 'multiple-radio') {
@@ -1138,8 +1169,8 @@ function setInitialLanguage() {
             parent.appendChild(tr)
 
             let th = document.createElement('th')
-            th.id = 'm013'
-            th.innerText = translate('m013')
+            th.id = 'growthChart'
+            th.innerText = translate('growthChart')
             tr.appendChild(th)
 
             let td = document.createElement('td')

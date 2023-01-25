@@ -1,6 +1,6 @@
 let categories = [
     {
-        categoryId: 'p000',
+        categoryID: 'p000',
         dataKey: 'patientInfo',
         iconClass: 'bxt icon material-icons-outlined',
         iconName: 'person',
@@ -13,7 +13,7 @@ let categories = [
         },
         columns: [
             {
-                columnId: 'p001',
+                columnID: 'p001',
                 dataKey: 'patientId',
                 inputType: 'text',
                 phenoKey: '',
@@ -28,7 +28,7 @@ let categories = [
                 }
             },
             {
-                columnId: 'p002',
+                columnID: 'p002',
                 dataKey: 'familyId',
                 inputType: 'input-select',
                 phenoKey: '',
@@ -43,7 +43,7 @@ let categories = [
                 }
             },
             {
-                columnId: 'p003',
+                columnID: 'p003',
                 dataKey: 'relationship',
                 inputType: 'select',
                 phenoKey: '',
@@ -66,7 +66,7 @@ let categories = [
                 }
             },
             {
-                columnId: 'p004',
+                columnID: 'p004',
                 dataKey: 'group',
                 inputType: 'input-select',
                 phenoKey: '',
@@ -81,7 +81,7 @@ let categories = [
                 }
             },
             {
-                columnId: 'p005',
+                columnID: 'p005',
                 dataKey: 'lifeStatus',
                 inputType: 'radio',
                 phenoKey: '',
@@ -104,7 +104,7 @@ let categories = [
                 }
             },
             {
-                columnId: 'p006',
+                columnID: 'p006',
                 dataKey: 'birth',
                 inputType: 'select-date',
                 phenoKey: '',
@@ -119,7 +119,7 @@ let categories = [
                 }
             },
             {
-                columnId: 'p007',
+                columnID: 'p007',
                 dataKey: 'age',
                 inputType: 'text',
                 phenoKey: '',
@@ -134,7 +134,7 @@ let categories = [
                 }
             },
             {
-                columnId: 'p008',
+                columnID: 'p008',
                 dataKey: 'death',
                 inputType: 'select-date',
                 phenoKey: '',
@@ -149,7 +149,7 @@ let categories = [
                 }
             },
             {
-                columnId: 'p009',
+                columnID: 'p009',
                 dataKey: 'sex',
                 inputType: 'select',
                 phenoKey: '',
@@ -172,7 +172,7 @@ let categories = [
                 }
             },
             {
-                columnId: 'p010',
+                columnID: 'p010',
                 dataKey: 'note',
                 inputType: 'textarea',
                 phenoKey: '',
@@ -189,7 +189,7 @@ let categories = [
         ]
     },
     {
-        categoryId: 'm000',
+        categoryID: 'm000',
         dataKey: 'medicalInfo',
         iconClass: 'material-symbols-outlined',
         iconName: 'medical_information',
@@ -202,7 +202,7 @@ let categories = [
         },
         columns: [
             {
-                columnId: 'm001',
+                columnID: 'm001',
                 dataKey: 'clinicalDiagnosis',
                 inputType: 'text',
                 phenoKey: '',
@@ -217,7 +217,7 @@ let categories = [
                 }
             },
             {
-                columnId: 'm002',
+                columnID: 'm002',
                 dataKey: 'finalDiagnosis',
                 inputType: 'text',
                 phenoKey: '',
@@ -232,7 +232,7 @@ let categories = [
                 }
             },
             {
-                columnId: 'm003',
+                columnID: 'm003',
                 dataKey: 'chiefComplaint',
                 inputType: 'text',
                 phenoKey: '',
@@ -247,7 +247,7 @@ let categories = [
                 }
             },
             {
-                columnId: 'm004',
+                columnID: 'm004',
                 dataKey: 'caseSolved',
                 inputType: 'select',
                 phenoKey: '',
@@ -270,7 +270,7 @@ let categories = [
                 }
             },
             {
-                columnId: 'm005',
+                columnID: 'm005',
                 dataKey: 'currentMedicalHistory',
                 inputType: 'textarea',
                 phenoKey: '',
@@ -285,7 +285,7 @@ let categories = [
                 }
             },
             {
-                columnId: 'm006',
+                columnID: 'm006',
                 dataKey: 'previousMedicalHistory',
                 inputType: 'textarea',
                 phenoKey: '',
@@ -300,7 +300,7 @@ let categories = [
                 }
             },
             {
-                columnId: 'm007',
+                columnID: 'm007',
                 dataKey: 'prenatalPerinatalHistory',
                 inputType: 'textarea',
                 phenoKey: '',
@@ -315,7 +315,7 @@ let categories = [
                 }
             },
             {
-                columnId: 'm008',
+                columnID: 'm008',
                 dataKey: 'earlyDevelopmentalAndSchoolingHistory',
                 inputType: 'textarea',
                 phenoKey: '',
@@ -330,7 +330,7 @@ let categories = [
                 }
             },
             {
-                columnId: 'm009',
+                columnID: 'm009',
                 dataKey: 'process',
                 inputType: 'textarea',
                 phenoKey: '',
@@ -345,7 +345,7 @@ let categories = [
                 }
             },
             {
-                columnId: 'm010',
+                columnID: 'm010',
                 dataKey: 'ageOnset',
                 inputType: 'select',
                 phenoKey: '',
@@ -368,7 +368,7 @@ let categories = [
                 }
             },
             {
-                columnId: 'm011',
+                columnID: 'm011',
                 dataKey: 'examinationFinding',
                 inputType: 'text',
                 phenoKey: '',
@@ -383,7 +383,7 @@ let categories = [
                 }
             },
             {
-                columnId: 'm012',
+                columnID: 'm012',
                 dataKey: 'allergies',
                 inputType: 'radio-input',
                 phenoKey: '',
@@ -406,7 +406,7 @@ let categories = [
                 }
             },
             {
-                columnId: 'm013_2',
+                columnID: 'm013',
                 dataKey: 'bodyWeight',
                 inputType: 'hot',
                 phenoKey: '',
@@ -421,7 +421,7 @@ let categories = [
                 }
             },
             {
-                columnId: 'm013_3',
+                columnID: 'm014',
                 dataKey: 'bodyHeight',
                 inputType: 'hot',
                 phenoKey: '',
@@ -436,7 +436,7 @@ let categories = [
                 }
             },
             {
-                columnId: 'm013_4',
+                columnID: 'm015',
                 dataKey: 'headCircumference',
                 inputType: 'hot',
                 phenoKey: '',
@@ -451,7 +451,7 @@ let categories = [
                 }
             },
             {
-                columnId: 'm014',
+                columnID: 'm016',
                 dataKey: 'socialHistory',
                 inputType: 'textarea',
                 phenoKey: '',
@@ -466,7 +466,7 @@ let categories = [
                 }
             },
             {
-                columnId: 'm015',
+                columnID: 'm017',
                 dataKey: 'drinking',
                 inputType: 'radio-input',
                 phenoKey: '',
@@ -489,7 +489,7 @@ let categories = [
                 }
             },
             {
-                columnId: 'm016',
+                columnID: 'm018',
                 dataKey: 'smoking',
                 inputType: 'radio-input',
                 phenoKey: '',
@@ -512,7 +512,7 @@ let categories = [
                 }
             },
             {
-                columnId: 'm017',
+                columnID: 'm019',
                 dataKey: 'medications',
                 inputType: 'text',
                 phenoKey: '',
@@ -527,7 +527,7 @@ let categories = [
                 }
             },
             {
-                columnId: 'm018',
+                columnID: 'm020',
                 dataKey: 'travelHistory',
                 inputType: 'textarea',
                 phenoKey: '',
@@ -542,7 +542,7 @@ let categories = [
                 }
             },
             {
-                columnId: 'm019',
+                columnID: 'm021',
                 dataKey: 'vaccinationHistory',
                 inputType: 'textarea',
                 phenoKey: '',
@@ -559,7 +559,7 @@ let categories = [
         ]
     },
     {
-        categoryId: 'pi000',
+        categoryID: 'pi000',
         dataKey: 'phenotypicInfo',
         iconClass: 'material-symbols-outlined',
         iconName: 'dns',
@@ -572,7 +572,7 @@ let categories = [
         }
     },
     {
-        categoryId: 'g000',
+        categoryID: 'g000',
         dataKey: 'geneInfo',
         iconClass: 'icon-omim2',
         iconName: '',
@@ -585,7 +585,7 @@ let categories = [
         },
         columns: [
             {
-                columnId: 'g001',
+                columnID: 'g001',
                 dataKey: 'gene',
                 phenoKey: '',
                 type: 'text',
@@ -599,7 +599,7 @@ let categories = [
                 }
             },
             {
-                columnId: 'g002',
+                columnID: 'g002',
                 dataKey: 'status',
                 phenoKey: '',
                 type: 'dropdown',
@@ -621,7 +621,7 @@ let categories = [
                 }
             },
             {
-                columnId: 'g003',
+                columnID: 'g003',
                 dataKey: 'strategy',
                 phenoKey: '',
                 type: 'dropdown',
@@ -643,7 +643,7 @@ let categories = [
                 }
             },
             {
-                columnId: 'g004',
+                columnID: 'g004',
                 dataKey: 'reference',
                 phenoKey: '',
                 type: 'dropdown',
@@ -665,7 +665,7 @@ let categories = [
                 }
             },
             {
-                columnId: 'g005',
+                columnID: 'g005',
                 dataKey: 'chrPosition',
                 phenoKey: '',
                 type: 'text',
@@ -679,7 +679,7 @@ let categories = [
                 }
             },
             {
-                columnId: 'g006',
+                columnID: 'g006',
                 dataKey: 'cDNAChange',
                 phenoKey: '',
                 type: 'text',
@@ -693,7 +693,7 @@ let categories = [
                 }
             },
             {
-                columnId: 'g007',
+                columnID: 'g007',
                 dataKey: 'pathogenicity',
                 phenoKey: '',
                 type: 'dropdown',
@@ -715,7 +715,7 @@ let categories = [
                 }
             },
             {
-                columnId: 'g008',
+                columnID: 'g008',
                 dataKey: 'genotype',
                 phenoKey: '',
                 type: 'dropdown',
@@ -737,7 +737,7 @@ let categories = [
                 }
             },
             {
-                columnId: 'g009',
+                columnID: 'g009',
                 dataKey: 'transcript',
                 phenoKey: '',
                 type: 'text',
@@ -751,7 +751,7 @@ let categories = [
                 }
             },
             {
-                columnId: 'g010',
+                columnID: 'g010',
                 dataKey: 'proteinCharge',
                 phenoKey: '',
                 type: 'text',
@@ -765,7 +765,7 @@ let categories = [
                 }
             },
             {
-                columnId: 'g011',
+                columnID: 'g011',
                 dataKey: 'annotations',
                 phenoKey: '',
                 type: 'dropdown',
@@ -787,7 +787,7 @@ let categories = [
                 }
             },
             {
-                columnId: 'g012',
+                columnID: 'g012',
                 dataKey: 'inheritance',
                 phenoKey: '',
                 type: 'dropdown',
@@ -809,7 +809,7 @@ let categories = [
                 }
             },
             {
-                columnId: 'g013',
+                columnID: 'g013',
                 dataKey: 'evidence',
                 phenoKey: '',
                 type: 'dropdown',
@@ -831,7 +831,7 @@ let categories = [
                 }
             },
             {
-                columnId: 'g014',
+                columnID: 'g014',
                 dataKey: 'comments',
                 phenoKey: '',
                 type: 'text',
@@ -847,7 +847,7 @@ let categories = [
         ]
     },
     {
-        categoryId: 'f000',
+        categoryID: 'f000',
         dataKey: 'familyInfo',
         iconClass: 'material-symbols-outlined',
         iconName: 'diversity_3',
@@ -860,7 +860,7 @@ let categories = [
         },
         columns: [
             {
-                columnId: 'f001',
+                columnID: 'f001',
                 dataKey: 'familyHistory',
                 inputType: 'textarea',
                 phenoKey: '',
@@ -875,7 +875,7 @@ let categories = [
                 }
             },
             {
-                columnId: 'f002',
+                columnID: 'f002',
                 dataKey: 'geneticList',
                 inputType: 'multiple-radio',
                 phenoKey: '',
@@ -898,7 +898,7 @@ let categories = [
                 }
             },
             {
-                columnId: 'f003',
+                columnID: 'f003',
                 dataKey: 'otherAffectedRelatives',
                 inputType: 'radio',
                 phenoKey: '',
@@ -921,7 +921,7 @@ let categories = [
                 }
             },
             {
-                columnId: 'f004',
+                columnID: 'f004',
                 dataKey: 'consanguineMarriage',
                 inputType: 'radio',
                 phenoKey: '',
@@ -944,7 +944,7 @@ let categories = [
                 }
             },
             {
-                columnId: 'f005',
+                columnID: 'f005',
                 dataKey: 'miscarriage',
                 inputType: 'radio',
                 phenoKey: '',
@@ -967,7 +967,7 @@ let categories = [
                 }
             },
             {
-                columnId: 'f006',
+                columnID: 'f006',
                 dataKey: 'paternalEthnicity',
                 inputType: 'text',
                 phenoKey: '',
@@ -982,7 +982,7 @@ let categories = [
                 }
             },
             {
-                columnId: 'f007',
+                columnID: 'f007',
                 dataKey: 'maternalEthnicity',
                 inputType: 'text',
                 phenoKey: '',

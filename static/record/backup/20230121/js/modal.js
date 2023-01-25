@@ -32,9 +32,9 @@ function openModal(patientId) {
     populateOptions('group_options')
     populateOptions('family_options')
 
-    // document.querySelector(`.tab-wrap *[name="p004"]`).onclick = function () {
-    //     document.getElementById('group_options').style.display = 'block'
-    // }
+    document.querySelector(`.tab-wrap *[name="group"]`).onclick = function () {
+        document.getElementById('group_options').style.display = 'block'
+    }
 
     inputValues()
 
@@ -76,13 +76,13 @@ function openModal(patientId) {
     function modalReset() {
         $(`.tab-wrap input[type="text"], .tab-wrap textarea, .tab-wrap select`).val('')
         $('.tab-wrap input:radio').prop('checked', false)
-        $('#p008').parent().hide()
-        $('input[name="m012-list"]').hide() // allergies
-        $('input[name="m015-list"]').hide() // drinking
-        $('input[name="m016-list"]').hide() // smoking
+        $('#death').parent().hide()
+        $('input[name="allergies-list"]').hide()
+        $('input[name="drinking-list"]').hide()
+        $('input[name="smoking-list"]').hide()
         document.querySelector('.tab-btn').click()
-        dateOptions('p006') // birth
-        dateOptions('p008') // death
+        dateOptions('birth')
+        dateOptions('death')
     }
 
     function dateOptions(type) {
@@ -146,9 +146,9 @@ function openModal(patientId) {
             PCFNo = `P${d.getFullYear()}${d.getMonth()+1}${d.getDate()}${d.getHours()}${d.getMinutes()}${d.getSeconds()}${d.getMilliseconds()}`
             let num = hot.countRows() + 1
             if (count) {
-                document.querySelector(`.tab-wrap *[name="p001"]`).value = `P${count.toString().padStart(7, 0)}`
+                document.querySelector(`.tab-wrap *[name="patientId"]`).value = `P${count.toString().padStart(7, 0)}`
             } else {
-                document.querySelector(`.tab-wrap *[name="p001"]`).value = `P${num.toString().padStart(7, 0)}`
+                document.querySelector(`.tab-wrap *[name="patientId"]`).value = `P${num.toString().padStart(7, 0)}`
                 count = num
             }        
         }
@@ -159,71 +159,72 @@ function openModal(patientId) {
             if (category.dataKey === 'phenotypicInfo') return
 
             category.columns.forEach(c => {
-                let value, colId = c.columnId
+                let dataKey, value
                 switch (c.dataKey) {
                     case 'birth':
-                        colId = `${colId}_year`
-                        value = patientData[colId]
+                        dataKey = 'birth_year'
+                        value = patientData['birth']
                         break
                     case 'death':
-                        colId = `${c.columnId}_year`
-                        value = patientData[colId]
+                        dataKey = 'death_year'
+                        value = patientData['death']
                         break
                     default:
-                        value = patientData[colId]
+                        dataKey = c.dataKey
+                        value = patientData[c.dataKey]
                         if (c.options) {
                             value = getDataDisplayOption(c.options, value, 'dataValue')
                         }
                         break
                 }
 
-                let element = document.querySelector(`.tab-wrap *[name="${colId}"]`)
+                let element = document.querySelector(`.tab-wrap *[name="${dataKey}"]`)
                 if (!element) return
 
-                let radioInput = $(`.tab-wrap input[name="${colId}"]`)
+                let radioInput = $(`.tab-wrap input[name="${dataKey}"]`)
  
-                if (colId === 'p005') {
-                    let parent = $('#p008').parent()
+                if (dataKey === 'lifeStatus') {
+                    let parent = $('#death').parent()
                     showHideDeathDate(parent, value)
 
                     radioInput.on('click change', () => {
                         let radioValue = radioInput.filter(':checked').val()
                         showHideDeathDate(parent, radioValue)
-                        if (radioValue === 'alive') onchange('p008', '')
+                        if (radioValue === 'alive') onchange('death', '')
                     })
-                } else if (colId === 'p006_year' || colId === 'p008_year') {
-                    let monthId = colId === 'p006_year' ? 'p006_month' : 'p008_month'
+                } else if (dataKey === 'birth_year' || dataKey === 'death_year') {
+                    let monthKey = dataKey === 'birth_year' ? 'birth_month' : 'death_month'
                     let date = value ? value.split('/') : ['']
                     let yearValue = date[0]
                     if (yearValue) element.value = yearValue
                     element.onchange = function () {
-                        onchange(colId === 'p006_year' ? 'p006' : 'p008')
+                        onchange(dataKey === 'birth_year' ? 'birth' : 'death')
 
-                        if (colId === 'p006_year') {
+                        if (dataKey === 'birth_year') {
                             let age = getAge()
-                            document.querySelector(`.tab-wrap *[name="p007"]`).value = age
-                            onchange('p007', age)
+                            document.querySelector(`.tab-wrap *[name="age"]`).value = age
+                            onchange('age', age)
                         }
                     }
 
-                    let monthElement = document.querySelector(`.tab-wrap *[name="${monthId}"]`)
+                    let monthElement = document.querySelector(`.tab-wrap *[name="${monthKey}"]`)
                     let monthValue = date[1]
                     if (monthValue) monthElement.value = monthValue
                     monthElement.onchange = function () {
-                        onchange(colId === 'p006_year' ? 'p006' : 'p008')
+                        onchange(dataKey === 'birth_year' ? 'birth' : 'death')
 
-                        if (colId === 'p006_year') {
+                        if (dataKey === 'birth_year') {
                             let age = getAge()
-                            document.querySelector(`.tab-wrap *[name="p007"]`).value = age
-                            onchange('p007', age)
+                            document.querySelector(`.tab-wrap *[name="age"]`).value = age
+                            onchange('age', age)
                         }
                     }
 
                     function getAge() {
                         let d = new Date()
                         let age
-                        let year = document.querySelector(`.tab-wrap *[name="p006_year"]`).value
-                        let month = document.querySelector(`.tab-wrap *[name="p006_month"]`).value
+                        let year = document.querySelector(`.tab-wrap *[name="birth_year"]`).value
+                        let month = document.querySelector(`.tab-wrap *[name="birth_month"]`).value
 
                         if (!month) {
                             age = d.getFullYear() - year
@@ -239,20 +240,20 @@ function openModal(patientId) {
                     }
 
                     return
-                } else if (colId === 'p004') {
+                } else if (dataKey === 'group') {
                     document.getElementById('group_options').onchange = function(e) {
-                        onchange('p004', e.target.value)
+                        onchange('group', e.target.value)
                     }
-                } else if (colId === 'p002') {
+                } else if (dataKey === 'familyId') {
                     document.getElementById('family_options').onchange = function(e) {
-                        onchange('p002', e.target.value)
+                        onchange('familyId', e.target.value)
                     }
                 }
 
-                if (['m012', 'm015', 'm016'].includes(colId)) {
-                    $(`.tab-wrap input[name="${colId}"][value="${value ? 'yes' : 'no'}"]`).prop('checked', true)
+                if (['allergies', 'drinking', 'smoking'].includes(dataKey)) {
+                    $(`.tab-wrap input[name="${dataKey}"][value="${value ? 'yes' : 'no'}"]`).prop('checked', true)
 
-                    let textInput = $(`.tab-wrap input[name="${colId}-list"]`)
+                    let textInput = $(`.tab-wrap input[name="${dataKey}-list"]`)
 
                     if (value) {
                         textInput.show()
@@ -263,11 +264,11 @@ function openModal(patientId) {
                         let radioValue = radioInput.filter(':checked').val()
                         if (radioValue === 'no') {
                             textInput.hide()
-                            onchange(colId, '')
+                            onchange(dataKey, '')
                         } else {
                             textInput.show()
                             textInput.on('change', () => {
-                                onchange(colId, textInput.val())
+                                onchange(dataKey, textInput.val())
                             })
                         }
                     })
@@ -280,29 +281,29 @@ function openModal(patientId) {
                     if (e.target.type === 'select-one') {
                         targetValue = getDataDisplayOption(c.options, targetValue, 'displayValue')
                     }
-                    onchange(colId, targetValue)
+                    onchange(dataKey, targetValue)
                 }
 
                 let type = element.type
                 if (type === 'radio') {
-                    $(`.tab-wrap input[name="${colId}"]`).on('click change', (e) => {
-                        let targetValue = $(`.tab-wrap input[name="${colId}"]:checked`).val()
+                    $(`.tab-wrap input[name="${dataKey}"]`).on('click change', (e) => {
+                        let targetValue = $(`.tab-wrap input[name="${dataKey}"]:checked`).val()
                         targetValue = getDataDisplayOption(c.options, targetValue, 'displayValue')
-                        onchange(colId, targetValue)
+                        onchange(dataKey, targetValue)
                     })
                 }
 
                 if (!value) return
 
                 if (type === 'radio') {
-                    $(`.tab-wrap input[name="${colId}"][value="${value}"]`).prop('checked', true)
+                    $(`.tab-wrap input[name="${dataKey}"][value="${value}"]`).prop('checked', true)
                 } else {
                     element.value = value
                 }
             })
         })
 
-        let dateKey = ['p006', 'p008']
+        let dateKey = ['birth', 'death']
 
         function onchange (key, value, element) {
             if (dateKey.includes(key)) {
@@ -342,7 +343,6 @@ function openModal(patientId) {
     }
 }
 
-// TODO!! update
 function generatePhenopackets() {
     let patientData = contentData.filter(d => { return d.PCFNo == currentPatient })[0]    
     if (!patientData) return
