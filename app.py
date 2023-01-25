@@ -137,6 +137,14 @@ def record():
 
 
 #####
+# display case
+# /
+@app.route('/case_re')
+def record_re():
+    return render_template('record_re.html')
+
+
+#####
 # display top page
 # /
 @app.route('/')
