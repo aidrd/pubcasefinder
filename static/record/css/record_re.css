@@ -401,6 +401,7 @@ body {
 
 .nav-item-dropdown .common-menu .dropdown-service .dropdown-menu-item {
   display: flex;
+  align-items: center;
   border-top: 1px solid #f4f4f4;
   padding: 0.5em;
 }
@@ -415,6 +416,10 @@ body {
 
 .nav-item-dropdown .common-menu .dropdown-service .dropdown-menu-item span {
   display: block;
+}
+
+.nav-item-dropdown .common-menu .dropdown-service .dropdown-menu-item h4 {
+  line-height: 1.2em;
 }
 
 .nav-item-dropdown .common-menu .dropdown-service .dropdown-menu-item span p {
