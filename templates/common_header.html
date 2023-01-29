@@ -69,238 +69,89 @@
 <!-- <body onbeforeunload="return beforeLoad()"> -->
 
 <body>
-    <div class="sidebar">
-        <div class="logo-details">
-            <div class="logo_name">PubCaseFinder</div>
-            <i class='bx bx-menu' id="btn"></i>
-        </div>
-        <ul class="nav-list">
-            <li>
-                <a class="sidebar-patients sidebar-selected" href="#" onclick="toggleTableChart('table')">
+    <div class="common-nav-container">
+        <ul class="nav-items">
+            <!-- Dropdown menu -->
+            <li class="nav-item nav-item-dropdown" id="nav-info">
+                <a class="dropdown-trigger" href="#">
                     <i class="material-symbols-outlined">
-                        recent_actors
+                        info
                     </i>
-                    <span class="links_name">Patients</span>
                 </a>
-                <span class="tooltip">Patients</span>
             </li>
-            <li>
-                <a class="sidebar-analytics" href="#" onclick="toggleTableChart('chart')">
-                    <i class="material-symbols-outlined">
-                        pie_chart
-                    </i>
-                    <span class="links_name">Analytics</span>
-                </a>
-                <span class="tooltip">Analytics</span>
-            </li>
-            <li>
-            <li class="">
-                <a href="#" onclick="document.getElementById('import_btn').click()">
-                    <i class="icon material-symbols-outlined">
-                        folder_open
-                    </i>
-                    <span class="text nav-text links_name">File open</span>
-                    <input type="file" id="import_btn" onchange="importFile(event)">
-                </a>
-                <span class="tooltip">File open</span>
-            </li>
-            <li id="menu_export">
-                <a href="#">
-                    <i class="material-symbols-outlined">
-                        save
-                    </i>
-                    <span class="links_name">Export
-                        <i class="material-symbols-outlined export-arrow">
-                            arrow_forward_ios
-                        </i>
-                    </span>
-                </a>
-                <div class="export-panel">
-                    <p>Format :</p>
-                    <select name="file" id="dl-select">
-                        <option value="json">json</option>
-                        <option value="tsv">tsv</option>
-                    </select>
-                    <button id="dl_table_button" onclick="getExportData(false)">Download</button>
-                </div>
-            </li>
-            <li class="contact">
-                <a href="#">
-                    <i class="material-symbols-outlined">
-                        mail
-                    </i>
-                    <span class="links_name">Contact</span>
-                </a>
-                <span class="tooltip">Contact</span>
-            </li>
-        </ul>
-    </div>
-    <section class="home-section">
-        <div class="common-nav-container" id="nav-case">
-            <ul class="nav-items">
-                <!-- Dropdown menu -->
-                <li class="nav-item nav-item-dropdown" id="nav-info">
-                    <a class="dropdown-trigger" href="#">
-                        <i class="material-symbols-outlined">
-                            info
-                        </i>
-                    </a>
-                </li>
-                <li class="nav-item nav-item-dropdown">
-                    <a class="dropdown-trigger" href="#"><i class="material-symbols-outlined">
-                            widgets
-                        </i></a>
-                    <ul class="dropdown-menu common-menu">
-                        <li class="dropdown-menu-item common-menu-item">
-                            <a href="/guides">
-                                <i class="icon-question-circle-o"></i>
-                                <span>Guides</span></a>
-                        </li>
-                        <li class="dropdown-menu-item common-menu-item">
-                            <a href="/api"><i class="icon-wrench"></i><span>API</span></a>
-                        </li>
-                        <li class="dropdown-menu-item common-menu-item">
-                            <a href="/history"><i class="icon-history"></i><span>History</span></a>
-                        </li>
-                        <li class="dropdown-menu-item common-menu-item">
-                            <a href="/termsofservice"><i class="icon-doc-text-inv"></i><span>Terms</span></a>
-                        </li>
-                        <li class="dropdown-menu-item common-menu-item">
-                            <a href="/sources"><i class="icon-database"></i><span>Sources</span></a>
-                        </li>
-                        <!--<li class="dropdown-menu-item common-menu-item">
+            <li class="nav-item nav-item-dropdown">
+                <a class="dropdown-trigger" href="#"><i class="material-symbols-outlined">
+                        widgets
+                    </i></a>
+                <ul class="dropdown-menu common-menu">
+                    <li class="dropdown-menu-item common-menu-item">
+                        <a href="/guides">
+                            <i class="icon-question-circle-o"></i>
+                            <span>Guides</span></a>
+                    </li>
+                    <li class="dropdown-menu-item common-menu-item">
+                        <a href="/api"><i class="icon-wrench"></i><span>API</span></a>
+                    </li>
+                    <li class="dropdown-menu-item common-menu-item">
+                        <a href="/history"><i class="icon-history"></i><span>History</span></a>
+                    </li>
+                    <li class="dropdown-menu-item common-menu-item">
+                        <a href="/termsofservice"><i class="icon-doc-text-inv"></i><span>Terms</span></a>
+                    </li>
+                    <li class="dropdown-menu-item common-menu-item">
+                        <a href="/sources"><i class="icon-database"></i><span>Sources</span></a>
+                    </li>
+                    <!--<li class="dropdown-menu-item common-menu-item">
                             <a target="_blank" href="https://integbio.jp/rdf/dataset/pubcasefinder"><i
                                     class="icon-share"></i><span>RDF</span></a>
                         </li>-->
-                        <li class="dropdown-menu-item common-menu-item">
-                            <a title="Comments &amp; suggestions are welcome!"
-                                href="mailto:support@dbcls.rois.ac.jp,pubcasefinder@dbcls.rois.ac.jp"><i
-                                    class="icon-mail-alt"></i><span>Contact</span></a>
-                        </li>
-                        <ul class="dropdown-service">
-                            <li class="dropdown-menu-item">
-                                <i class="material-symbols-outlined">
-                                    receipt_long
-                                </i>
-                                <span>
-                                    <h4>Disease Search</h4>
-                                </span>
-                            </li>
-                            <li class="dropdown-menu-item">
-                                <i class="material-symbols-outlined">
-                                    receipt_long
-                                </i>
-                                <span>
-                                    <h4>Case Sharing</h4>
-                                </span>
-                            </li>
-                            <li class="dropdown-menu-item">
-                                <i class="material-symbols-outlined">
-                                    receipt_long
-                                </i>
-                                <span>
-                                    <h4>Panel Search</h4>
-                                </span>
-                            </li>
-                        </ul>
-                    </ul>
-                </li>
-                <li class="nav-item nav-item-dropdown">
-                    <a class="dropdown-trigger" href="#"><i class="material-symbols-outlined">
-                            language
-                        </i></a>
-                    <ul class="dropdown-menu" id="dropdown-language">
-                        <li class="dropdown-menu-item" data-lang="ja">日本語</li>
-                        <li class="dropdown-menu-item" data-lang="en">English</li>
-                        <li class="dropdown-menu-item" data-lang="ko">한국어</li>
-                        <li class="dropdown-menu-item" data-lang="zh">中文(简体)</li>
-                        <li class="dropdown-menu-item" data-lang="zhcht">中文(繁体)</li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-        <main id="content-patients">
-            <div id="home-menu">
-                <div class="title">
-                    <i class="bxt icon material-icons-outlined person_icon">
-                        person
-                    </i>
-                    <span class="text nav-text link_name">MY PATIENTS :</span>
-                    <h1 id="row_count">0</h1>
-                </div>
-                <div class="right-menu">
-                    <input type="search" placeholder="一覧表を検索" id="search_input">
-                    <span id="reset" onclick="pageReload()"><i class="material-symbols-outlined">
-                            Refresh
-                        </i>
-                    </span>
-                    <div id="table_menu">
-                        <span onclick="addColumn()" id="add-column">
+                    <li class="dropdown-menu-item common-menu-item">
+                        <a title="Comments &amp; suggestions are welcome!"
+                            href="mailto:support@dbcls.rois.ac.jp,pubcasefinder@dbcls.rois.ac.jp"><i
+                                class="icon-mail-alt"></i><span>Contact</span></a>
+                    </li>
+                    <ul class="dropdown-service">
+                        <li class="dropdown-menu-item">
                             <i class="material-symbols-outlined">
-                                view_week</i>
-                            <span>列追加</span></span>
-                        <span onclick="addRow()" id="add-row"><i class="material-symbols-outlined">
-                                table_rows
-                            </i><span>行追加</span></span>
-                        <li class="modal_open karte-btn karte-add" data-target="modal-karte" rel="noopener noreferrer">
-                            <i class="material-symbols-outlined">
-                                edit_square
-                            </i><span>New</span>
+                                receipt_long
+                            </i>
+                            <span>
+                                <h4>Disease Search</h4>
+                            </span>
                         </li>
-                    </div>
-                </div>
-            </div>
-            <div id="fixed-menu">
-                <div class="modal">
-                    <div class="modal_content">
-                        <div class="button_wrap">
-                            <input id="add_column_input" type="text" placeholder="新規項目">
-                            <div class="add"><i class="material-symbols-outlined">
-                                    playlist_add
-                                </i>作成</div>
-                        </div>
-                        <div class="modal_container" id="modal_container">
-                        </div>
-                    </div>
-                </div>
-            </div>
-            </div>
-            <div id="myGrid" ondragover="onDragOver(event)" ondrop="onDrop(event)"></div>
-        </main>
-
-        <main id="charts-patients">
-            <h1>サンプルチャート</h1>
-            <div class="chart-container">
-                <canvas class="chart pie-chart" id="pie-chart-sex"></canvas>
-            </div>
-            <div class="chart-container">
-                <canvas class="chart bar-chart" id="bar-chart-group"></canvas>
-            </div>
-        </main>
-    </section>
-    <div id="modal-karte" class="modal_box modal-karte">
-        <div id="modal-karte-button">
-            <button class="modal-close"><span class="material-symbols-outlined">
-                    close
-                </span></button>
-        </div>
-        <div id="modal-karte-button-sub">
-            <button class="modal-phenopackets"><img src="/static/images/PhenoPackets_Logo.png">
-                <p>Phenopackets
-                    download</p>
-                <i class="material-symbols-outlined">
-                    downloading
-                </i>
-            </button>
-            <button class="modal-copy"><i class="material-symbols-outlined">
-                    file_copy
-                </i>
-                <p>Data copy</p>
-            </button>
-        </div>
-        <div class="tab-wrap" id="tab-wrap"></div>
+                        <li class="dropdown-menu-item">
+                            <i class="material-symbols-outlined">
+                                receipt_long
+                            </i>
+                            <span>
+                                <h4>Case Sharing</h4>
+                            </span>
+                        </li>
+                        <li class="dropdown-menu-item">
+                            <i class="material-symbols-outlined">
+                                receipt_long
+                            </i>
+                            <span>
+                                <h4>Panel Search</h4>
+                            </span>
+                        </li>
+                    </ul>
+                </ul>
+            </li>
+            <li class="nav-item nav-item-dropdown">
+                <a class="dropdown-trigger" href="#"><i class="material-symbols-outlined">
+                        language
+                    </i></a>
+                <ul class="dropdown-menu" id="dropdown-language">
+                    <li class="dropdown-menu-item" data-lang="ja">日本語</li>
+                    <li class="dropdown-menu-item" data-lang="en">English</li>
+                    <li class="dropdown-menu-item" data-lang="ko">한국어</li>
+                    <li class="dropdown-menu-item" data-lang="zh">中文(简体)</li>
+                    <li class="dropdown-menu-item" data-lang="zhcht">中文(繁体)</li>
+                </ul>
+            </li>
+        </ul>
     </div>
-
     <div id="modal-info" class="modal_box modal-karte">
         <div class="modal-karte-button-sub">
             <ul>
@@ -354,7 +205,6 @@
             <button class="info-modal-close"><span>Let's start!</span></button>
         </div>
     </div>
-
     <script>
         let sidebar = document.querySelector(".sidebar");
         let closeBtn = document.querySelector("#btn");

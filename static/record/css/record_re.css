@@ -297,11 +297,17 @@ body {
 
 /*nav*/
 .common-nav-container {
-  background-color: #cdd3e8;
+  background-color: #f0f0f0;
+  border-bottom: solid 1px #ddd;
   padding: 1em;
   display: block;
   margin: 0 auto;
   text-align: right;
+}
+
+#nav-case{
+  background-color: #cdd3e8;
+  border-bottom: none;
 }
 
 .common-nav-container ul,
