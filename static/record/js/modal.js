@@ -2,6 +2,10 @@ $('.modal_open').click(function () {
     openModal(false)
 })
 
+$('#nav-info').click(function () {
+    openInfo()
+})
+
 $(function () {
     $('.tab-btn').on('click', function () {
         var tabWrap = $(this).parents('.tab-wrap')
@@ -413,4 +417,38 @@ function copyPatient() {
     delete temp.PCFNo
 
     addRow(temp)
+}
+
+function openInfo() {
+    $('body').append('<div class="modal_bg"></div>')
+    $('.modal_bg').fadeIn()
+
+    let modal = '#modal-info'
+    $(modal).fadeIn()
+
+    modalResize()
+
+
+    $(window).on('resize', function () {
+        modalResize()
+    })
+    
+    function modalResize() {
+        var w = $(window).width()
+        var h = $(window).height()
+    
+        var x = (w - $(modal).outerWidth(true)) / 2
+        var y = (h - $(modal).outerHeight(true)) / 2
+    
+        $(modal).css({ 'left': x + 'px', 'top': y + 'px' })
+    }
+
+    // console.log('closwe', $('.info-modal-close-'))
+    $('.info-modal-close').off().click(function (e) {
+        console.log('closed click')
+        $('.modal_box').fadeOut()
+        $('.modal_bg').fadeOut('slow', function () {
+            $('.modal_bg').remove()
+        })
+    })
 }

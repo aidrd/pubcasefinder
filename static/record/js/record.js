@@ -625,13 +625,10 @@ function getExportData() {
         let jsonResult = {}
         let patientsData = [], visibleColumns = [], keyName = {}
 
-        console.log(dlData)
         dlData.forEach((d, idx) => {
             let pData = {}
             for (let [k, v] of Object.entries(d)) {
-                // if (idx === 0) keyName[k] = getHeaderName(k)
                 if (idx === 0) {
-                    console.log(k, getHeaderName(k))
                     keyName[k] = getHeaderName(k)
                 }
                 

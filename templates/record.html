@@ -139,53 +139,12 @@
         <div class="common-nav-container">
             <ul class="nav-items">
                 <!-- Dropdown menu -->
-                <li class="nav-item nav-item-dropdown">
+                <li class="nav-item nav-item-dropdown" id="nav-info">
                     <a class="dropdown-trigger" href="#">
                         <i class="material-symbols-outlined">
                             info
-                        </i></a>
-                    <ul class="dropdown-menu dropdown-explanation">
-                        <li class="dropdown-menu-item">
-                            <i class="material-symbols-outlined">
-                                receipt_long
-                            </i>
-                            <span>
-                                <h4>How to use</h4>
-                                <p>Here is a brief description of how to use the service. This is a dummy text.
-                                </p>
-                            </span>
-                        </li>
-                        <li class="dropdown-menu-item">
-                            <i class="material-symbols-outlined">
-                                subscriptions
-                            </i>
-                            <span>
-                                <h4>How to use</h4>
-                                <p>Here is a brief description of how to use the service. This is a dummy text.
-                                </p>
-                            </span>
-                        </li>
-                        <li class="dropdown-menu-item">
-                            <i class="material-symbols-outlined">
-                                format_list_numbered
-                            </i>
-                            <span>
-                                <h4>How to use</h4>
-                                <p>Here is a brief description of how to use the service. This is a dummy text.
-                                </p>
-                            </span>
-                        </li>
-                        <li class="dropdown-menu-item">
-                            <i class="material-symbols-outlined">
-                                sign_language
-                            </i>
-                            <span>
-                                <h4>How to use</h4>
-                                <p>Here is a brief description of how to use the service. This is a dummy text.
-                                </p>
-                            </span>
-                        </li>
-                    </ul>
+                        </i>
+                    </a>
                 </li>
                 <li class="nav-item nav-item-dropdown">
                     <a class="dropdown-trigger" href="#"><i class="material-symbols-outlined">
@@ -341,6 +300,59 @@
         </div>
         <div class="tab-wrap" id="tab-wrap"></div>
     </div>
+
+    <div id="modal-info" class="modal_box modal-karte">
+        <div id="modal-info-button">
+            <button class="info-modal-close"><span class="material-symbols-outlined">
+                    close
+                </span></button>
+        </div>
+        <div class="modal-karte-button-sub">
+            <ul>
+                <li>
+                    <i class="material-symbols-outlined">
+                        receipt_long
+                    </i>
+                    <span>
+                        <h4>How to use</h4>
+                        <p>Here is a brief description of how to use the service. This is a dummy text.
+                        </p>
+                    </span>
+                </li>
+                <li>
+                    <i class="material-symbols-outlined">
+                        subscriptions
+                    </i>
+                    <span>
+                        <h4>How to use</h4>
+                        <p>Here is a brief description of how to use the service. This is a dummy text.
+                        </p>
+                    </span>
+                </li>
+                <li>
+                    <i class="material-symbols-outlined">
+                        format_list_numbered
+                    </i>
+                    <span>
+                        <h4>How to use</h4>
+                        <p>Here is a brief description of how to use the service. This is a dummy text.
+                        </p>
+                    </span>
+                </li>
+                <li>
+                    <i class="material-symbols-outlined">
+                        sign_language
+                    </i>
+                    <span>
+                        <h4>How to use</h4>
+                        <p>Here is a brief description of how to use the service. This is a dummy text.
+                        </p>
+                    </span>
+                </li>
+            </ul>
+        </div>
+    </div>
+
     <script>
         let sidebar = document.querySelector(".sidebar");
         let closeBtn = document.querySelector("#btn");
