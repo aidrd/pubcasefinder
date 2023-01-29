@@ -293,7 +293,7 @@ body {
 }
 
 /*nav*/
-.nav-container {
+.common-nav-container {
   background-color: #cdd3e8;
   padding: 1em;
   display: block;
@@ -301,13 +301,13 @@ body {
   text-align: right;
 }
 
-.nav-container ul,
-.nav-container li {
+.common-nav-container ul,
+.common-nav-container li {
   list-style: none;
   -webkit-padding-start: 0;
 }
 
-.nav-container a {
+.common-nav-container a {
   text-decoration: none;
 }
 
