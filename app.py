@@ -1715,89 +1715,13 @@ def get_hpo_data_by_hpo_id():
 # /knowledge-search/panel
 @app.route('/knowledge-search/panel')
 def vgp():
-    return render_template('vgp.html')
 
+    r_lang = "en"
+    if request.args.get('lang') is not None:
+        r_lang = request.args.get('lang')
 
-@app.route('/pcf_get_all_mondo_id', methods=['GET', 'POST'])
-def pcf_get_all_mondo_id():
+    r_schema = "auto"
+    if request.args.get('schema') is not None:
+        r_schema = request.args.get('schema')
 
-    dic_json = []
-
-    # MySQLへ接続
-    OBJ_MYSQL = MySQLdb.connect(unix_socket=db_sock, host="localhost", db=db_name, user=db_user, passwd=db_pw, charset="utf8")
-
-    sql_informations_fmt = u"select distinct OntoID from OntoTermMONDOInformation WHERE OntoID != 'MONDO:0000001'"
-    cursor_informations_fmt = OBJ_MYSQL.cursor()
-    cursor_informations_fmt.execute(sql_informations_fmt)
-    values_informations_fmt = cursor_informations_fmt.fetchall()
-    cursor_informations_fmt.close()
-    OBJ_MYSQL.close()
-
-    for value_informations_fmt in values_informations_fmt:
-        dic_json.append(value_informations_fmt[0])
-
-    return jsonify(dic_json)
-
-
-@app.route('/pcf_panel_get_mondo_id_match_panel_name_synonym', methods=['GET', 'POST'])
-def pcf_panel_get_mondo_id_match_panel_name_synonym():
-
-    list_json = []
-
-    # GETメソッドの値を取得
-    if request.method == 'GET':
-        # requestから値を取得
-        tokeninputs = request.args.get("query").replace(u'　', u' ').lower().split()
-        sql_params = []
-        in_tokeninputs = []
-        for v in tokeninputs:
-            #sql_params.append("%"+v+"%")
-            in_tokeninputs.append(mojimoji.zen_to_han(v, kana=False).lower())
-        for v in tokeninputs:
-            sql_params.append("%"+v+"%")
-
-        # DiseaseGeneテーブルからSymbol及びSynonymを検索
-        ## SQLのLIKEを使うときのTips
-        ### http://d.hatena.ne.jp/heavenshell/20111027/1319712031
-        OBJ_MYSQL = MySQLdb.connect(unix_socket=db_sock, host="localhost", db=db_name, user=db_user, passwd=db_pw, charset="utf8")
-        # IndexFormSearchOrphanetOMIMテーブルからクエリにマッチするレコードを取得
-        sql_IndexFormSearch = \
-                              u"SELECT uid FROM (SELECT " \
-                              u"  OntoTermMONDOInformation.OntoID AS uid " \
-                              u" ,OntoName AS Symbol " \
-                              u" ,OntoSynonym AS Synonyms " \
-                              u" ,OntoNameJa AS name_ja " \
-                              u" ,OntoDbxrefName AS EntrezID " \
-                              u" ,LOWER(TRIM(CONCAT(OntoTermMONDOInformation.OntoID,' | ',OntoName,' | ',IFNULL(OntoNameJa,''),' | ',IFNULL(OntoSynonym,''),' | ',IFNULL(OntoDbxrefName,'')))) AS uid_value " \
-                              u" ,'MONDO' AS source " \
-                              u"FROM " \
-                              u"  OntoTermMONDOInformation " \
-                              u"LEFT JOIN ( " \
-                              u"  SELECT " \
-                              u"    OntoVersion " \
-                              u"   ,OntoID " \
-                              u"   ,GROUP_CONCAT(DISTINCT OntoDbxrefName SEPARATOR ' | ') AS OntoDbxrefName " \
-                              u"  FROM " \
-                              u"    OntoTermMONDODbxref " \
-                              u"  WHERE " \
-                              u"    OntoDbxrefDb='ENT' " \
-                              u"  GROUP BY " \
-                              u"    OntoID " \
-                              u") AS OntoTermMONDODbxref ON OntoTermMONDODbxref.OntoVersion=OntoTermMONDOInformation.OntoVersion AND OntoTermMONDODbxref.OntoID=OntoTermMONDOInformation.OntoID " \
-                              u") AS A WHERE uid != 'MONDO:0000001' AND " \
-                              u"{0}"
-        sql_IndexFormSearch = sql_IndexFormSearch.format(' AND '.join(map(lambda x: "uid_value like %s", tokeninputs)))
-        #app.logger.info(sql_IndexFormSearch)
-        #app.logger.info(tuple(sql_params))
-
-        cursor_IndexFormSearch = OBJ_MYSQL.cursor()
-        cursor_IndexFormSearch.execute(sql_IndexFormSearch, tuple(sql_params))
-        values = cursor_IndexFormSearch.fetchall()
-        cursor_IndexFormSearch.close()
-        OBJ_MYSQL.close()
-
-        for value in values:
-            list_json.append(value[0])
-
-    return jsonify(list_json)
-
+    return render_template('vgp.html', r_schema=r_schema, r_lang=r_lang)

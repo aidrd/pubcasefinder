@@ -1,7 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap');
+/*@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap');*/
 
 body {
   font-family: 'Noto Sans JP', sans-serif;
+  overflow-y: scroll;
 }
 
 .row {
@@ -243,7 +244,7 @@ body {
   background: url(../../images/vgp/vgp-loader.gif) center no-repeat #fff;
 }
 
-#vgp-loader .vgp-loader-content .vgp-loader-text {width:100px;}
+#vgp-loader .vgp-loader-content .vgp-loader-text {width:100px;white-space: nowrap;}
 
 #vgp-loader .vgp-loader-content .vgp-loader-text:empty::before {
   font-size: 22px;

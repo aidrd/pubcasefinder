@@ -1,17 +1,15 @@
 ;(function ($) {
 
-	const URL_GET_ALL_PANEL_ID           = '/pcf_get_all_mondo_id',
-		  //URL_GET_PANEL_ID_BY_PANEL      = '/pcf_panel_get_mondo_id_match_panel_name_synonym',
+	const URL_GET_ALL_PANEL_ID           = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_get_all_panel',
+		  //URL_GET_ALL_PANEL_ID           = '/static/data/panel/all_panel_id.json';
 		  URL_GET_PANEL_ID_BY_PANEL      = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_panel_get_mondo_id_match_panel_name_synonym',
-		  //URL_GET_PANEL_ID_BY_GENE       = 'https://pubcasefinder.dbcls.jp/api/pcf_panel_get_mondo_id_match_gene_symbol_synonym_ncbiid',
 		  URL_GET_PANEL_ID_BY_GENE       = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_panel_get_mondo_id_match_gene_symbol_synonym_ncbiid',
-
 		  URL_GET_PANEL_DATA_BY_PANEL_ID = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_get_panel_data_by_mondo_id',
 		  URL_GET_HPO_DATA_BY_PANEL_ID   = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_get_hpo_data_by_mondo_id',
 		  URL_GET_GENE_DATA_BY_PANEL_ID  = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_get_gene_by_mondo_id',
-		  //URL_GET_GENE_DATA_BY_PANEL_ID  = 'https://pubcasefinder.dbcls.jp/pcf_get_case_report_by_mondo_id',
 		  URL_GET_HPO_TOOLTIP_DATA_BY_HPO_ID = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_get_hpo_tooltip_data_by_hpo_id',
-		  URL_DOWNLOAD_ALL_PANEL         = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_download_all_panel',
+		  //URL_DOWNLOAD_ALL_PANEL         = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_download_all_panel',
+		  URL_DOWNLOAD_ALL_PANEL         = '/static/data/panel/all_panel.tsv',
 		  URL_DOWNLOAD_PANEL             = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_download_panel_by_mondo_id';
 
 	const SETTINGS_KEY        = 'VGPSettings',
@@ -24,6 +22,7 @@
 		  SETTINGS_KEY_FILTER = 'vgp-filter',
 		  SETTINGS_KEY_SIZE_M = 'vgp-size-limit',
 		  SETTINGS_KEY_FUNC_AFTER_SEARCH_IDLIST = 'after_search_idlist',
+		  SETTINGS_KEY_FUNC_CHECK_CONSISTENCE   = 'check_consistence',
 		  CLASS_STATUS_INIT   = 'vgp-status-init',
 		  CLASS_STATUS_LOADED = 'vgp-status-loaded',
 		  CLASS_PANEL_ROW     = 'vgp-panel-row',
@@ -52,8 +51,9 @@
 		[SETTINGS_KEY_SIZE_M]: 50, // maximum panel data 
 		[SETTINGS_KEY_TARGET]: TARGET_ALL, // TARGET_ALL or TARGET_PANEL or TARGET_GENE
 		[SETTINGS_KEY_FILTER]: '', // filter string
-		[SETTINGS_KEY_LANG]:   LANGUAGE_EN
-		
+		[SETTINGS_KEY_LANG]:   LANGUAGE_EN,
+		[SETTINGS_KEY_FUNC_AFTER_SEARCH_IDLIST]: null,
+		[SETTINGS_KEY_FUNC_CHECK_CONSISTENCE]: null
 	};
 	
 	var _isFunction = function(value) {	return $.isFunction(value);	},
@@ -143,12 +143,18 @@
 				
 				let ret = [];
 				
-				if(filter in search_idlist_cache[TARGET_PANEL]){
-					ret = ret.concat(search_idlist_cache[TARGET_PANEL][filter]);
-				}
+				//if(filter in search_idlist_cache[TARGET_PANEL]){
+				//	ret = ret.concat(search_idlist_cache[TARGET_PANEL][filter]);
+				//}
 				
-				if(filter in search_idlist_cache[TARGET_GENE]){
-					ret = ret.concat(search_idlist_cache[TARGET_GENE][filter]);
+				//if(filter in search_idlist_cache[TARGET_GENE]){
+				//	ret = ret.concat(search_idlist_cache[TARGET_GENE][filter]);
+				//}
+				if(filter in search_idlist_cache[TARGET_PANEL] && (search_idlist_cache[TARGET_PANEL][filter]).length > 0 &&
+				   filter in search_idlist_cache[TARGET_GENE]  && (search_idlist_cache[TARGET_GENE][filter]).length > 0){
+					ret = search_idlist_cache[TARGET_PANEL][filter].filter(function(panel_id_target_panel){
+						return search_idlist_cache[TARGET_GENE][filter].includes(panel_id_target_panel);
+					});
 				}
 				
 				return _removeDuplicates(ret);
@@ -294,10 +300,10 @@
 			for(; i<num_maximum; i++){
 				let panel_id = idlist[i];
 				let panel_data = _get_panel_data_from_cache(panel_id);
-				if(_isEmpty(panel_data)) {
-					console.log('info: ' + panel_id + ' not found!');
-					continue;
-				}
+				//if(_isEmpty(panel_data)) {
+				//	console.log('info: data of (' + panel_id + ') not found by (pcf_get_panel_data_by_mondo_id)!');
+				//	continue;
+				//}
 				let $tr = $('<div>').addClass(CLASS_PANEL_ROW);
 				if($last_row === null){
 					//when initialize tab panel
@@ -306,6 +312,15 @@
 					$tr.insertAfter($last_row);
 				}
 				$last_row = $tr;
+				if(_isEmpty(panel_data)) {
+
+					$('<label>').css({'margin-left':'15px'}).text('No data for '+panel_id).appendTo($tr);
+					//console.log('info: data of (' + panel_id + ') not found by (pcf_get_panel_data_by_mondo_id)!');
+					continue;                
+				}
+
+
+
 
 				// create row
 				let $div_upper = $('<div>').addClass('d-flex flex-row flex-nowrap').appendTo($tr);
@@ -425,6 +440,8 @@
 					let button_str = "<button id=\"show_more_button\"><span><i class=\"material-icons\">add</i></span><p>Show More</p></button>";
 					$(button_str)
 					.click(function(){
+						_hide_content();
+						_show_loader();
 						var settings = $root_panel.data(SETTINGS_KEY);
 						let num_per_page = settings[SETTINGS_KEY_SIZE];
 						let num_maximum  = settings[SETTINGS_KEY_SIZE_M];
@@ -450,8 +467,8 @@
 		}
 		
 		function _search_panel_data(settings){
-			_hide_content();
-			_show_loader();
+			//_hide_content();
+			//_show_loader();
 
 			let idlist = _get_idlist_from_cache(settings[SETTINGS_KEY_TARGET], settings[SETTINGS_KEY_FILTER]);
 			
@@ -468,13 +485,24 @@
 			
 			let uncached_idlist = _get_uncached_panel_list(selected_idlist);
 			if(_isEmpty(uncached_idlist)){
+                if(_isFunction(settings[SETTINGS_KEY_FUNC_CHECK_CONSISTENCE])){
+                    if(!settings[SETTINGS_KEY_FUNC_CHECK_CONSISTENCE](settings[SETTINGS_KEY_FILTER])){
+                        console.log('filter changed!');
+                        return;
+                    }
+                } 
+				console.log('show result for filter (' + settings[SETTINGS_KEY_FILTER] +')');
+				if(_isFunction(settings[SETTINGS_KEY_FUNC_AFTER_SEARCH_IDLIST])){
+					settings[SETTINGS_KEY_FUNC_AFTER_SEARCH_IDLIST](idlist.length);
+				}
 				_hide_loader();
 				_show_content();
 				_show_result(settings);
 				return;
 			}
 			
-			let url_str = URL_GET_PANEL_DATA_BY_PANEL_ID + '?mondo_id=' + encodeURIComponent(uncached_idlist.join(',').replace(/MONDO:/g, ''));
+			//let url_str = URL_GET_PANEL_DATA_BY_PANEL_ID + '?mondo_id=' + encodeURIComponent(uncached_idlist.join(',').replace(/MONDO:/g, ''));
+			let url_str = URL_GET_PANEL_DATA_BY_PANEL_ID + '?mondo_id=' + (uncached_idlist.join('%2C+').replace(/MONDO:/g, ''));
 			_run_ajax(url_str,'GET', null, 'text', true, 
 				function(data){
 					let obj = _parseJson(data);
@@ -484,6 +512,19 @@
 						hash[panel_id] = obj[j];
 					}
 					_store_panel_data_to_cache(hash);
+
+					if(_isFunction(settings[SETTINGS_KEY_FUNC_CHECK_CONSISTENCE])){
+						if(!settings[SETTINGS_KEY_FUNC_CHECK_CONSISTENCE](settings[SETTINGS_KEY_FILTER])){
+							console.log('filter changed!');
+							return;
+						}
+					} 
+					
+					console.log('show result for filter (' + settings[SETTINGS_KEY_FILTER] +')');
+    	            if(_isFunction(settings[SETTINGS_KEY_FUNC_AFTER_SEARCH_IDLIST])){
+        	            settings[SETTINGS_KEY_FUNC_AFTER_SEARCH_IDLIST](idlist.length);
+	                }
+
 					_hide_loader();
 					_show_content();
 					_show_result(settings);
@@ -496,7 +537,13 @@
 				}
 			);
 		}
-		
+
+		function _get_panel_list_from_search_result(json_data){
+			let json_data1 = _parseJson(json_data);
+			let k = Object.keys(json_data1)[0];
+			return json_data1[k];
+		}	
+	
 		function _search_idlist_sequential(settings){
 		
 			let ajax_item_list = [];
@@ -510,11 +557,7 @@
 			});
 			
 			var callback_success = function(data,item){
-				let json_data = _parseJson(data);
-				let k = Object.keys(json_data)[0];
-				let target = item[SETTINGS_KEY_TARGET];
-				let filter = item[SETTINGS_KEY_FILTER];
-				_store_idlist_to_cache(target, filter, json_data[k]);
+				_store_idlist_to_cache(item[SETTINGS_KEY_TARGET], item[SETTINGS_KEY_FILTER], _get_panel_list_from_search_result(data));
 			};
 
 			var callback_fail = function() {
@@ -522,16 +565,13 @@
 			};
 
 			var callback_after_all_call = function(){
+                if(_isFunction(settings[SETTINGS_KEY_FUNC_CHECK_CONSISTENCE])){
+                    if(!settings[SETTINGS_KEY_FUNC_CHECK_CONSISTENCE](settings[SETTINGS_KEY_FILTER])){
+                        console.log('filter changed!');
+                        return;
+                    }
+                }
 				_search_panel_data(settings);
-				
-				let idlist = _get_idlist_from_cache(settings[SETTINGS_KEY_TARGET], settings[SETTINGS_KEY_FILTER]);
-
-				let num = idlist.length;
-
-				if(_isFunction(settings[SETTINGS_KEY_FUNC_AFTER_SEARCH_IDLIST])){
-					settings[SETTINGS_KEY_FUNC_AFTER_SEARCH_IDLIST](num);
-				}
-				
 			};
 			
 			var callback_fail_after_all_call = function(){
@@ -600,10 +640,6 @@
 			// search panel data
 			if(is_loaded){
 				_search_panel_data(settings);
-				let idlist = _get_idlist_from_cache(settings[SETTINGS_KEY_TARGET], settings[SETTINGS_KEY_FILTER]);
-				if(_isFunction(settings[SETTINGS_KEY_FUNC_AFTER_SEARCH_IDLIST])){
-					settings[SETTINGS_KEY_FUNC_AFTER_SEARCH_IDLIST](idlist.length);
-				}
 				return;
 			}
 
@@ -611,12 +647,13 @@
 				let url_str = URL_HASH_SEARCH[TARGET_ALL];
 				_run_ajax(url_str,'GET', null, 'text', true, 
 					function(data){
-						let json_data = _parseJson(data);
-						let num = json_data.length;
+						////let json_data = data.split("\n");
+						////if(json_data.length > 0 && json_data[0] === 'mondo_id') json_data = json_data.slice(1);
+						//let json_data = _parseJson(data);
+						//_store_idlist_to_cache(settings[SETTINGS_KEY_TARGET], settings[SETTINGS_KEY_FILTER], json_data);
+						let hash_data = _parseJson(data);
+						let json_data = hash_data.map(function(d) { return d['mondo_id']; });;
 						_store_idlist_to_cache(settings[SETTINGS_KEY_TARGET], settings[SETTINGS_KEY_FILTER], json_data);
-						if(_isFunction(settings[SETTINGS_KEY_FUNC_AFTER_SEARCH_IDLIST])){
-							settings[SETTINGS_KEY_FUNC_AFTER_SEARCH_IDLIST](num);
-						}
 						_search_panel_data(settings);
 						return;
 					},
@@ -630,15 +667,17 @@
 				_search_idlist_sequential(settings);
 				return;
 			}else{
-				let url_str = URL_HASH_SEARCH[settings[SETTINGS_KEY_TARGET]] + '?query=' + settings[SETTINGS_KEY_FILTER];
+				let url_str = URL_HASH_SEARCH[settings[SETTINGS_KEY_TARGET]] + '?input_text=' + settings[SETTINGS_KEY_FILTER] +'&lang=' + settings[SETTINGS_KEY_LANG];
 				_run_ajax(url_str,'GET', null, 'text', true, 
 					function(data){
-						let json_data = _parseJson(data);
-						let num = json_data.length;
-						_store_idlist_to_cache(settings[SETTINGS_KEY_TARGET], settings[SETTINGS_KEY_FILTER], json_data);
-						if(_isFunction(settings[SETTINGS_KEY_FUNC_AFTER_SEARCH_IDLIST])){
-							settings[SETTINGS_KEY_FUNC_AFTER_SEARCH_IDLIST](num);
-						}
+						_store_idlist_to_cache(settings[SETTINGS_KEY_TARGET], settings[SETTINGS_KEY_FILTER], _get_panel_list_from_search_result(data));
+
+						if(_isFunction(settings[SETTINGS_KEY_FUNC_CHECK_CONSISTENCE])){
+							if(!settings[SETTINGS_KEY_FUNC_CHECK_CONSISTENCE](settings[SETTINGS_KEY_FILTER])){
+                        		console.log('filter changed!');
+                        		return;
+                    		}
+                		}
 						_search_panel_data(settings);
 						return;
 					},
@@ -697,7 +736,7 @@
 				function(data){
 					_hide_loader();
 					_show_content();
-					_create_download_file(data, 'panel-all.txt');
+					_create_download_file(data, 'all_panel.tsv');
 					return;
 				},
 				function(){

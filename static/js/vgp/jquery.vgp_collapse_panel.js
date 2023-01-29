@@ -340,21 +340,24 @@
 	}
 
 	function _construct_data_panel_gene(url_str){
-		let str = "<script type=\"module\" src=\"https:\/\/togostanza.github.io/metastanza/pagination-table.js\" async=\"\"><\/script>" +
+		let str = "<script type=\"module\" src=\"https:\/\/togostanza.github.io\/metastanza\/pagination-table.js\" async><\/script>" +
 				  "<style>"+
 					"togostanza-pagination-table {--togostanza-tbody-font-size: 12px;--togostanza-background-color: #ffffff;}" +
 				  "<\/style>"+
 				  "<togostanza-pagination-table " +
 			  		"data-url=\""+url_str+"\" " +
   					"data-type=\"json\" " +
+					"custom-css-url=\"\" " +
+					"width=\"\" " +
   					"fixed-columns=\"1\" " +
   					"padding=\"0px\" " +
   					"page-size-option=\"10,20,50,100\" " +
   					"page-slider=\"true\" " +
 					"columns=\"[{&quot;id&quot;:&quot;hgnc_gene_symbol&quot;,&quot;label&quot;:&quot;Gene symbol&quot;},"+
+							"{&quot;id&quot;:&quot;gene_id&quot;,&quot;label&quot;:&quot;Gene ID&quot;},"+
 							"{&quot;id&quot;:&quot;disease_info&quot;,&quot;label&quot;:&quot;Disease name&quot;},"+
 							"{&quot;id&quot;:&quot;source_name&quot;,&quot;label&quot;:&quot;Source&quot;}]\">" +
-				  			"</togostanza-pagination-table>";
+				  			"<\/togostanza-pagination-table>";
 		return str;
 	}
 	

@@ -1,5 +1,9 @@
 <!doctype html>
+{% if r_lang == "ja" %}
+<html lang="ja">
+{% else %}
 <html lang="en">
+{% endif %}
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -7,23 +11,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="../static/bootstrap-4.6.2-dist/css/bootstrap.css">
-    <link rel="stylesheet" href="../static/css/vgp/vgp.css">
+    <link rel="stylesheet" href="/static/bootstrap-4.6.2-dist/css/bootstrap.css">
+    <link rel="stylesheet" href="/static/css/vgp/notosansjp.css">
+    <link rel="stylesheet" href="/static/css/vgp/vgp.css">
     <link rel="stylesheet" href="/static/css/vgp/tippy.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
-    <title>Knowledge Search</title>
+    <title>Panel Search</title>
   </head>
   <body>
     <header class="navbar navbar-expand flex-column flex-md-row justify-content-between vgp-navbar">
       <div class="vgp-navbar-sub">
         <span class="vgp-navbar-brand">PubCaseFinder</span>
-        <span class="vgp-navbar-subbrand">Knowledge Search</span>
+        <span class="vgp-navbar-subbrand">Panel Search</span>
       </div>
       <div class="vgp-navbar-sub">
         <span class="material-symbols-outlined">info</span>
-        <span class="material-symbols-outlined">grid_view</span>
-        <span class="material-symbols-outlined">language</span>
+        <span class="material-symbols-outlined">widgets</span>
+        <!-- <div class="material-symbols-outlined">language</div> -->
+        <div class="dropdown" style="display:inline-block;">
+          <button class="material-symbols-outlined dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">language</button>
+          <div class="dropdown-menu  dropdown-menu-right">
+            <a class="dropdown-item" href="{{ request.path }}?lang=en">English</a>
+            <a class="dropdown-item" href="{{ request.path }}?lang=ja">Japanese</a>
+          </div>
+        </div>
       </div>
     </header>
     <main class="container-fluid vgp-main">
@@ -60,7 +72,7 @@
           </div>
         </div>
         <div id="vgp-searched-panels-num" class="row align-items-center vgp-search-sub vgp-subcount">
-          17,000 panels
+          10,001 panels
         </div>
         <div class="dropdown vgp-search-sub vgp-size-wrapper">
           <button id="btn-vgp-size" class="btn btn-vgp-size dropdown-toggle" type="button" data-num_per_page=50 data-toggle="dropdown" aria-expanded="false">
@@ -106,16 +118,126 @@
         if(target_old === target) return;
         $("#btn-vgp-target").html(title);
         $("#btn-vgp-target").data('vgp-target',target);
-        $("#vgp-list-root-panel").visual_gene_panel_list('search_panels',{'vgp-target':target});
+
+        let num = $("#btn-vgp-size").data('num_per_page');
+        $("#vgp-list-root-panel").visual_gene_panel_list('search_panels',{'vgp-target':target,'vgp-size':num,'vgp-size-limit':num});
+      }
+
+      function format_filter_str(v){
+          //encodeURIComponent
+          return v.replace(/ /g,',');
+      }	
+
+      var timeout;
+      function do_search() {
+        var v = $('#vgp-filter').val();
+        console.log('remove search event ' + timeout);
+        clearTimeout(timeout);
+        timeout = setTimeout(function(){
+            let num = $("#btn-vgp-size").data('num_per_page');
+            $("#vgp-list-root-panel").visual_gene_panel_list('search_panels',{'vgp-filter':format_filter_str(v),'vgp-size':num,'vgp-size-limit':num});
+        }, 100);
+        console.log('regist search event ' + timeout);
+      }
+
+  var KEY = {
+    BACKSPACE    : 8,
+    TAB          : 9,
+    ENTER        : 13,
+    ESCAPE       : 27,
+    SPACE        : 32,
+    PAGE_UP      : 33,
+    PAGE_DOWN    : 34,
+    END          : 35,
+    HOME         : 36,
+    LEFT         : 37,
+    UP           : 38,
+    RIGHT        : 39,
+    DOWN         : 40,
+	DELETE       : 46,
+    NUMPAD_ENTER : 108,
+	SEMICOLON    : 186,
+    COMMA        : 188
+  };
+
+      function attach_auto_search(){
+        $('#vgp-filter')
+          .bind("input", function (event) {
+              console.log('input triggered');
+              if (String.fromCharCode(event.which)) {
+                setTimeout(function(){ do_search(); }, 50);
+              }
+          })
+          .keydown(function (event) {
+
+              switch(event.keyCode) {
+                  case KEY.LEFT:
+                  case KEY.RIGHT:
+                  case KEY.UP:
+                  case KEY.DOWN:
+				  case KEY.HOME:
+				  case KEY.END:
+                    break;
+				  case KEY.DELETE:
+					//console.log('delete', this.value, (new Blob([this.value])).size);
+					setTimeout(function(){ do_search(); }, 50);	
+					break;
+                  case KEY.BACKSPACE:
+                    //console.log('backspace', this.value, (new Blob([this.value])).size);
+                    setTimeout(function(){ do_search(); }, 50);
+                    break;
+                  case KEY.TAB:
+                  case KEY.ENTER:
+                  case KEY.NUMPAD_ENTER:
+                  //case KEY.COMMAA:
+				  case KEY.SEMICOLON:
+				  //case KEY.SPACE:
+                    //console.log('tab enter comma', this.value, (new Blob([this.value])).size);
+					setTimeout(function(){ do_search(); }, 50);
+                    event.stopPropagation();
+                    event.preventDefault();
+                    return false;
+                    break;
+                  case KEY.ESCAPE:
+                    return true;
+                  default:
+                    if (String.fromCharCode(event.which)) {
+                      //console.log('trigger code', event.which);
+                      setTimeout(function(){ do_search(); }, 50);
+                    }
+                    break;
+              }
+          });
+
+      }
+
+
+      function attach_manual_search(){
+        $('#vgp-filter').change(function(){
+          let v = $(this).val();
+          //console.log( v );
+          $("#vgp-list-root-panel").visual_gene_panel_list('search_panels',{'vgp-filter':format_filter_str(v)});
+        });
       }
       
       $(document).ready(function() {
            $("#vgp-list-root-panel").visual_gene_panel_list({
+{% if r_lang == "ja" %}
                'language':'ja',
+{% else %}
+               'language':'en',
+{% endif %}
                'after_search_idlist':function(num){
                    let total_num_str = num.toLocaleString("en-US");
                    $('#vgp-searched-panels-num').text(total_num_str + ' panels');
+               },
+{% if r_schema == "auto" %}
+               'check_consistence':function(filter_str){
+                   let v = format_filter_str($('#vgp-filter').val());
+                   console.log('filer consistence: old: ('+filter_str+') new:('+v+')');
+                   return v === filter_str;
                }
+{% endif %}
            });
 
            setTimeout(function() {
@@ -126,18 +248,14 @@
                $(this).tooltip('hide');
                $("#vgp-list-root-panel").visual_gene_panel_list('download_all_panels');
            }).tooltip();
-           
-           $('#vgp-filter').change(function(){
-               let v = $(this).val();
-               //console.log( v );
-               $("#vgp-list-root-panel").visual_gene_panel_list('search_panels',{'vgp-filter':encodeURIComponent(v)});
-           });
-           
-           setTimeout(function() {
-               $("#vgp-filter").focus();
-           }, 300);
 
-           
+{% if r_schema == "auto" %}
+           attach_auto_search();
+{% else %} 
+           attach_manual_search();
+{% endif %} 
+
+           setTimeout(function() {$("#vgp-filter").focus();}, 300);
        });
   </script>
 </html>
