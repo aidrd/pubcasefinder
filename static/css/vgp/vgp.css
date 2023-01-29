@@ -575,7 +575,7 @@ body {
   border-radius: 5px;
   padding: 3px;
   margin-right: 0.3em;
-  margin-bottom: 0.3em;
+  /*margin-bottom: 0.3em;*/
   cursor: pointer;
   -webkit-transition: background 0.2s,color 0.1s;
   transition: background 0.2s,color 0.1s;
