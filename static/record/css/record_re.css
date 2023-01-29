@@ -334,6 +334,7 @@ body {
   text-align: right;
   position: absolute;
   right: -10px;
+  top: 35px;
   display: none;
   opacity: 0;
   transition: opacity 0.5s ease;
@@ -1013,4 +1014,47 @@ body {
 
 .chart-container {
   min-width: 60%;
+}
+
+
+#modal-info{
+  background: #fff;
+  border: none;
+  border-radius: 12px;
+  padding: 2em 4em 3em;
+}
+
+#modal-info .modal-karte-button-sub ul li{
+  display: flex;
+  align-items: center;
+  padding: 1em 0;
+}
+
+#modal-info .modal-karte-button-sub ul li i{
+  background: #f4f4f4;
+  padding: 0.5em;
+  height: fit-content;
+  border-radius: 1em;
+  margin-right: 0.5em;
+}
+
+#modal-info .modal-karte-button-sub ul li span{
+  display: block;
+}
+
+#modal-info .modal-karte-button-sub ul li span h4{
+  text-align: left;
+    font-size: 1.1em;
+}
+
+
+#modal-info #modal-info-button{
+margin-top: 2em;
+}
+
+#modal-info #modal-info-button span{
+  background: #11101D;
+  color: #fff;
+  padding: 0.7em 3em;
+  border-radius: 3em;
 }
