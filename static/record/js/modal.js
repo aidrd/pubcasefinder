@@ -443,9 +443,7 @@ function openInfo() {
         $(modal).css({ 'left': x + 'px', 'top': y + 'px' })
     }
 
-    // console.log('closwe', $('.info-modal-close-'))
     $('.info-modal-close').off().click(function (e) {
-        console.log('closed click')
         $('.modal_box').fadeOut()
         $('.modal_bg').fadeOut('slow', function () {
             $('.modal_bg').remove()

@@ -1,13 +1,16 @@
 let charts = []
 
 function toggleTableChart(type) {
+    $('.sidebar-selected').removeClass('sidebar-selected')
     if (type === 'table') {
         document.getElementById('content-patients').style.display = 'block'
         document.getElementById('charts-patients').style.display = 'none'
         document.getElementById('myGrid').click()
+        $('.sidebar-patients').addClass('sidebar-selected')
     } else if (type === 'chart') {
         document.getElementById('content-patients').style.display = 'none'
         document.getElementById('charts-patients').style.display = 'block'
+        $('.sidebar-analytics').addClass('sidebar-selected')
         createChart()
     }
 }
