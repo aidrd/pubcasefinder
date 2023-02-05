@@ -695,8 +695,13 @@ opacity: 0.6;
 }
 
 .modal_content {
-  top: 170px;
-  right: 274px;
+  top: 135px;
+  right: 80px;
+  width: fit-content;
+}
+
+.modal_content .modal_container{
+  height: 70vh;
 }
 
 .home-section #content-patients {
