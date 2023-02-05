@@ -19,7 +19,7 @@ body {
   height: 100%;
   width: 78px;
   background: #11101D;
-  padding: 6px 14px;
+  padding: 6px 10px;
   z-index: 99;
   transition: all 0.5s ease;
 }
@@ -65,6 +65,8 @@ body {
   text-align: center;
   cursor: pointer;
   transition: all 0.5s ease;
+  min-width: 60px;
+  min-height: 50px;
 }
 
 .sidebar.open .logo-details #btn {
@@ -73,7 +75,7 @@ body {
 
 .sidebar i {
   color: #fff;
-  height: 60px;
+  height: 50px;
   min-width: 50px;
   font-size: 28px;
   text-align: center;
@@ -160,7 +162,8 @@ body {
 }
 
 .sidebar li a {
-  display: flex;
+  /*display: flex;*/
+  display: block;
   height: 100%;
   width: 100%;
   border-radius: 12px;
@@ -168,6 +171,8 @@ body {
   text-decoration: none;
   transition: all 0.4s ease;
   background: #11101D;
+  margin: 0 auto;
+  display: inline-grid;
 }
 
 .sidebar .sidebar-selected,
@@ -180,14 +185,31 @@ body {
   font-size: 15px;
   font-weight: 400;
   white-space: nowrap;
-  opacity: 0;
+  /*opacity: 0;*/
   pointer-events: none;
   transition: 0.4s;
+  font-size: 0.7em;
+    font-weight: 500;
+    margin: 0 auto;
+    display: table;
+    padding-bottom: 1em;
+    margin-top: -8px;
+}
+
+.sidebar.open li a{
+  margin: 0;
+  display: inline-block;
 }
 
 .sidebar.open li a .links_name {
   opacity: 1;
   pointer-events: auto;
+  font-size: 16px;
+  margin: 0;
+  display: inline-block;
+  font-weight: normal;
+  vertical-align: 6px;
+  padding-bottom: auto;
 }
 
 .sidebar .sidebar-selected i,
@@ -199,9 +221,7 @@ body {
 }
 
 .sidebar li i {
-  height: 50px;
-  line-height: 50px;
-  font-size: 18px;
+  font-size: 22px;
   border-radius: 12px;
 }
 
@@ -498,7 +518,6 @@ body {
 
 .dropdown-trigger i {
   font-size: 23px;
-  margin-left: 0.2em;
   vertical-align: -6px;
   /*border: solid 1px #ddd;
   padding: 0.5em;
