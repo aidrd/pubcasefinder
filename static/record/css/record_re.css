@@ -267,7 +267,7 @@ body {
 
 .home-section {
   position: relative;
-  background: #E4E9F7;
+  background: #fff;
   min-height: 100vh;
   top: 0;
   left: 78px;
@@ -299,15 +299,15 @@ body {
 .common-nav-container {
   background-color: #f0f0f0;
   border-bottom: solid 1px #ddd;
-  padding: 1em;
+  padding: 0.5em 2em;
   display: block;
   margin: 0 auto;
   text-align: right;
 }
 
 #nav-case{
-  background-color: #cdd3e8;
-  border-bottom: none;
+  background-color: #f6f6f6;
+  /*border-bottom: none;*/
 }
 
 .common-nav-container ul,
@@ -321,7 +321,6 @@ body {
 }
 
 .nav-item {
-  padding: 1em;
   display: inline;
 }
 
@@ -329,7 +328,7 @@ body {
   position: relative;
 }
 
-.nav-item-dropdown:hover > .dropdown-menu {
+.nav-item-dropdown:checked > .dropdown-menu {
   display: block;
   opacity: 1;
 }
@@ -339,7 +338,7 @@ body {
   display: inline-block;
   text-align: right;
   position: absolute;
-  right: -10px;
+  right: -100px;
   top: 35px;
   display: none;
   opacity: 0;
@@ -407,6 +406,7 @@ body {
 .nav-item-dropdown .common-menu .dropdown-service {
   display: inline-block;
   margin-top: 0.5em;
+  width: 100%;
 }
 
 .nav-item-dropdown .common-menu .dropdown-service .dropdown-menu-item {
@@ -493,7 +493,10 @@ body {
 
 .dropdown-trigger i {
   font-size: 23px;
-  margin-left: 0.5em;
+  margin-left: 0.2em;
+  border: solid 1px #ddd;
+  padding: 0.5em;
+  border-radius: 2em;
 }
 
 .dropdown-trigger:focus + .dropdown-menu {
@@ -505,8 +508,7 @@ body {
 #content-patients {
   background-color: #fff;
   border-radius: 10px;
-  padding: 1em 1.5em;
-  margin: 1em;
+  padding: 1em 2em;
 }
 
 #content-patients #home-menu {
@@ -628,7 +630,6 @@ body {
 }
 
 #myGrid {
-  background: #f5f5f5;
   min-height: 76vh;
 }
 

@@ -109,10 +109,7 @@
                     <i class="material-symbols-outlined">
                         save
                     </i>
-                    <span class="links_name">Export
-                        <i class="material-symbols-outlined export-arrow">
-                            arrow_forward_ios
-                        </i>
+                    <span class="links_name">File save
                     </span>
                 </a>
                 <div class="export-panel">
@@ -121,10 +118,10 @@
                         <option value="json">json</option>
                         <option value="tsv">tsv</option>
                     </select>
-                    <button id="dl_table_button" onclick="getExportData(false)">Download</button>
+                    <button id="dl_table_button" onclick="getExportData(false)">Save</button>
                 </div>
             </li>
-            <li class="contact">
+            <!--<li class="contact">
                 <a href="#">
                     <i class="material-symbols-outlined">
                         mail
@@ -132,7 +129,7 @@
                     <span class="links_name">Contact</span>
                 </a>
                 <span class="tooltip">Contact</span>
-            </li>
+            </li>-->
         </ul>
     </div>
     <section class="home-section">
@@ -148,7 +145,7 @@
                 </li>
                 <li class="nav-item nav-item-dropdown">
                     <a class="dropdown-trigger" href="#"><i class="material-symbols-outlined">
-                            widgets
+                            apps
                         </i></a>
                     <ul class="dropdown-menu common-menu">
                         <li class="dropdown-menu-item common-menu-item">
@@ -206,9 +203,11 @@
                     </ul>
                 </li>
                 <li class="nav-item nav-item-dropdown">
-                    <a class="dropdown-trigger" href="#"><i class="material-symbols-outlined">
-                            language
-                        </i></a>
+                    <a class="dropdown-trigger" href="#">
+                        <i class="material-symbols-outlined">
+                            public
+                        </i>
+                        <span>English</span></a>
                     <ul class="dropdown-menu" id="dropdown-language">
                         <li class="dropdown-menu-item" data-lang="ja">日本語</li>
                         <li class="dropdown-menu-item" data-lang="en">English</li>
