@@ -548,7 +548,7 @@ body {
   align-items: center;
 }
 
-#content-patients #home-menu .title i {
+#content-patients #home-menu .title .person_icon {
   color: #fff;
   background-color: #11101d;
   padding: 0.5em;
@@ -561,6 +561,7 @@ body {
   margin: 0 0 0 0.5em;
   white-space: nowrap;
 }
+
 
 #content-patients #home-menu .title h1 {
   font-size: 17px;
@@ -589,14 +590,20 @@ body {
 
 #content-patients #home-menu .right-menu #reset {
   transition: 0.2s ;
+  display: block;
+  margin-right: 1em;
+  margin-top: 7px;
 }
 
-#content-patients #home-menu .right-menu #reset:hover {
+#content-patients #home-menu .right-menu #reset:hover{
   opacity: 0.5;
 }
 
+
+
 #content-patients #home-menu .right-menu #table_menu {
   margin-left: 1em;
+  white-space: nowrap;
 }
 
 #content-patients #home-menu .right-menu #table_menu span {
