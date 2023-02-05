@@ -534,6 +534,7 @@ body {
 #content-patients {
   background-color: #fff;
   border-radius: 10px;
+  height: 80vh;
   padding: 0.5em 0 0 2em;
 }
 
