@@ -757,7 +757,7 @@ h5 {
 }
 
 .ht_master > .wtHolder {
-  max-height: 70vh !important;
+  max-height: 100vh !important;
 }
 
 #modalGrid {
