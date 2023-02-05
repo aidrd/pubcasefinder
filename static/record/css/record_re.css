@@ -989,14 +989,14 @@ body {
   }
 }
 
-#menu_export:hover .export-panel {
+#menu-save:hover .save-panel {
   top: 0;
   opacity: 1;
   pointer-events: auto;
   transition: all 0.4s ease;
 }
 
-#menu_export .export-panel {
+#menu-save .save-panel {
   margin-top: -10px;
   background: #1d1b31;
   display: none;
@@ -1011,37 +1011,45 @@ body {
   pointer-events: none;
   transition: 0s;
   color: #fff;
-  width: 10em;
 }
 
-#menu_export .export-panel p {
-  margin-bottom: 0.5em;
+#menu-save .save-panel .save-format {
+    display: flex;
+    align-items: center;
 }
 
-#menu_export .export-panel select {
-  margin-bottom: 0.5em;
+#menu-save .save-panel .save-format p {
+  white-space: nowrap;
+    margin-right: 0.5em;
+    display: block;
+}
+
+
+#menu-save .save-panel .save-format select {
   border: 1px #fff solid;
-  padding: 0.5em 1em;
+  padding: 0.4em 1em;
   position: relative;
   border-radius: 0.5em;
-  width: 100%;
+  color: #fff;
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
 }
 
-#menu_export .export-panel button {
+#menu-save .save-panel button {
   background: #fff;
   color: #000;
   font-size: 15px;
   padding: 0.5em 0.7em;
-  border-radius: 1em;
+  border-radius: 20px;
   white-space: nowrap;
   opacity: 0.9;
   transition: all 0.3s ease;
+  width: 100%;
+  margin-top: 1em;
 }
 
-#menu_export .export-panel button:hover {
+#menu-save .save-panel button:hover {
   opacity: 0.6;
 }
 

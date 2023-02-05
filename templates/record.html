@@ -104,7 +104,7 @@
                 </a>
                 <span class="tooltip">File open</span>
             </li>
-            <li id="menu_export">
+            <li id="menu-save">
                 <a href="#">
                     <i class="material-symbols-outlined">
                         save
@@ -112,12 +112,14 @@
                     <span class="links_name">File save
                     </span>
                 </a>
-                <div class="export-panel">
-                    <p>Format :</p>
-                    <select name="file" id="dl-select">
-                        <option value="json">json</option>
-                        <option value="tsv">tsv</option>
-                    </select>
+                <div class="save-panel">
+                    <div class="save-format">
+                        <p>Format :</p>
+                        <select name="file" id="dl-select">
+                            <option value="json">json</option>
+                            <option value="tsv">tsv</option>
+                        </select>
+                    </div>
                     <button id="dl_table_button" onclick="getExportData(false)">Save</button>
                 </div>
             </li>
