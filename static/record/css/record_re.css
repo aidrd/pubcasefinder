@@ -12,6 +12,7 @@ body {
   margin: 0;
 }
 
+
 .sidebar {
   position: fixed;
   left: 0;
@@ -583,6 +584,15 @@ body {
 
 #content-patients #home-menu .right-menu span {
   padding: 0.5em;
+  cursor:pointer;
+}
+
+#content-patients #home-menu .right-menu #reset {
+  transition: 0.2s ;
+}
+
+#content-patients #home-menu .right-menu #reset:hover {
+  opacity: 0.5;
 }
 
 #content-patients #home-menu .right-menu #table_menu {
@@ -599,6 +609,11 @@ body {
   border: #c6c6c6 1px solid;
   border-radius: 20px;
   margin-left: 0.2em;
+  cursor:pointer;
+  transition: 0.2s ;
+}
+#content-patients #home-menu .right-menu #table_menu #add-column:hover {
+  opacity: 0.6;
 }
 
 #content-patients #home-menu .right-menu #table_menu #add-column i {
@@ -610,6 +625,12 @@ body {
   border: #c6c6c6 1px solid;
   border-radius: 20px;
   margin-left: 0.2em;
+  cursor:pointer;
+  transition: 0.2s ;
+}
+
+#content-patients #home-menu .right-menu #table_menu #add-row:hover {
+opacity: 0.6;
 }
 
 #content-patients #home-menu .right-menu #table_menu #add-row i {
@@ -624,6 +645,13 @@ body {
   padding: 0.1em 1em;
   border-radius: 20px;
   margin-left: 0.2em;
+  cursor:pointer;
+  transition: 0.2s ;
+}
+#content-patients #home-menu .right-menu #table_menu li:hover{
+  background-color: #ff7000;
+  /*transform:scale(1);
+  transition:1s all;*/
 }
 
 #content-patients #home-menu .right-menu #table_menu li i {
@@ -699,7 +727,7 @@ body {
 
 .home-section #content-patients #modal-karte #modal-karte-button .modal-close:hover {
   text-decoration: none;
-  opacity: 0.6;
+  /*opacity: 0.6;*/
 }
 
 .home-section #content-patients #modal-karte #modal-karte-button-sub {
