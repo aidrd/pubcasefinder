@@ -1164,3 +1164,7 @@ h5 {
   margin-top: 1em;
   margin-bottom: -1em;
 }
+
+#charts-patients {
+  display: none;
+}

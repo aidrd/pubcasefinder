@@ -45,6 +45,11 @@ let updateSettings = {
         indicator: true,
         sortEmptyCells: false
     },
+    beforeColumnSort: (currentSortConfig, destinationSortConfigs) => {
+        if (destinationSortConfigs.length > 0) {
+            if (destinationSortConfigs[0].column < 2) return false
+        }
+    },
     filters: true,
     dropdownMenu: true,
     outsideClickDeselects: false,
@@ -328,6 +333,11 @@ function showHideColumn(e) {
         existingColumns.push(colId)
         colHeaders.push(col.colHeader)
         columns.push(col.column)
+        // let test = hot.scrollViewportTo(1, hot.countCols() - 1)
+        // let test = hot.scrollViewportTo(1, 11)
+        // console.log(test, hot.countCols(), hot.countRows())
+        // hot.scrollViewportTo(hot.countRows() - 1, 1)
+
     } else {
         colHeaders.splice(colHeaders.indexOf(`<i class="material-icons-outlined sort_icon"></i>${e.dataset.colname}`), 1)
 
@@ -407,9 +417,7 @@ async function updateTable(data, changeHeaders) {
     if (contentData.length > 0) {
         let newHeaders = Object.keys(data[0])
 
-        // TODO!!
         if (changeHeaders  === 'text/csv' || changeHeaders === 'text/tab-separated-values') {
-            console.log('here', newHeaders)
             columns.splice(2, columns.length)
             colHeaders.splice(2, colHeaders.length)
             existingColumns = []
@@ -418,10 +426,13 @@ async function updateTable(data, changeHeaders) {
             newHeaders.forEach(h => {
                 if (h === 'PCFNo') return
     
-                if (h === 'growthChart') {
-                    createColumn('体重')
-                    createColumn('身長')
-                    createColumn('頭囲')
+                if (h === 'm013') {
+                    let subIds = contentData[0]['m013']
+                    if (subIds) {
+                        Object.keys(subIds[0]).forEach(k => {
+                            if (k !== 'm013_1') createColumn(k)
+                        })
+                    }
                 } else {
                     createColumn(h)
                 }
@@ -435,7 +446,7 @@ async function updateTable(data, changeHeaders) {
     }
 
     // TODO!! 確認 upload (with custom column)??
-    function createColumn(h, key, isHidden) {
+    function createColumn(h, isHidden) {
         let headerTitle = `<i class=\"material-icons-outlined sort_icon\"></i>${h}`
         let headerData = {
             data: h,
@@ -542,6 +553,7 @@ function convertCSVToJSON(csv, isExport) {
 
     data.forEach((d, idx) => {
         let data = {}
+        let growthChartData = {}
 
         if (idx > 0) data['PCFNo'] = d[0]
 
@@ -553,26 +565,37 @@ function convertCSVToJSON(csv, isExport) {
             if (idx === 0) continue
 
             let headerText = isExport ? colHeadears[i].replace('<i class="material-icons-outlined sort_icon"></i>', '') : colHeadears[i]
-            // let headerText = getKeyFromTranslation(colHeadears[i], lang)
             let columnId = getColumnId(headerText)
 
             let value = d[i]
 
             if (['m013_2', 'm013_3', 'm013_4'].includes(columnId)) {
-                if (contentData.length > 0) {
-                    let bodyInfo = contentData[idx - 1]['m013']
-                    if (bodyInfo) {
-                        value = bodyInfo[bodyInfo.length - 1][headerText]
-                    } else {
-                        value = ''
+                if (isExport) {
+                    if (contentData.length > 0) {
+                        if (contentData.length > 0) {
+                            let bodyInfo = contentData[idx - 1]['m013']
+                            if (bodyInfo) {
+                                value = bodyInfo[bodyInfo.length - 1][columnId]
+                            } else {
+                                value = ''
+                            }
+                        }     
                     }
+                } else {
+                    let subColumnId = columnId
+                    columnId = 'm013'
+                    growthChartData[subColumnId] = value
+                    value = [growthChartData]
                 }
             }
 
-            data[headerText] = value
+            data[isExport ? headerText : columnId] = value
+
         }
 
-        if (Object.keys(data).length > 0) patientsData.push(data)
+        if (Object.keys(data).length > 0) {
+            patientsData.push(data)
+        }
     })
 
     return { PATIENTS: patientsData }
@@ -580,7 +603,6 @@ function convertCSVToJSON(csv, isExport) {
 
 function getColumnId(columnHeader) {
     let colId
-    console.log('columnHeader', columnHeader)
     categories.forEach(category => {
         let col = category.columns?.filter(c => { return c.displayName[lang] == columnHeader })
         if (col && col.length > 0) return colId = col[0].columnId
@@ -679,7 +701,7 @@ function getExportData() {
         jsonResult = {
             PATIENTS: patientsData,
             visibleColumns,
-            keyName,
+            // keyName,
             lang
         }
 
@@ -839,16 +861,22 @@ function changeLanguage() {
         let newLang = e.target.dataset.lang
         if (newLang === lang) return
 
+        document.getElementById('selected-language-display').innerText = e.target.innerText
         localStorage.lang = newLang
+
         pageReload()
     })
 }
 
 function setInitialLanguage() {
     $(`.dropdown-menu-item[data-lang='${lang}']`).addClass('dropdown-selected')
+    document.getElementById('selected-language-display').innerText = $('.dropdown-selected').text()
+
     document.getElementById('search_input').placeholder = translate('search_input')
-    document.querySelector('#add-column span').innerText = translate('add-column')
     document.querySelector('#add-row span').innerText = translate('add-row')
+    document.querySelector('#add-column span').innerText = translate('add-column')
+    document.querySelector('#add_column_input').placeholder = translate('add-column-input')
+    document.querySelector('.add').innerText = translate('add-column-button')
 
     changeLanguage()
     translateModal()
@@ -899,7 +927,7 @@ function setInitialLanguage() {
                         <span id="genemodal_add" onclick="addGeneRow()">
                             <i class="material-icons-outlined">add_circle_outline
                             </i>
-                            追加
+                            ${translate('add')}
                         </span>
                     </p>
                 `
@@ -1159,7 +1187,7 @@ function setInitialLanguage() {
             let td = document.createElement('td')
             td.innerHTML = `
                 <span id="bodyModal_add" onclick="addBodyRow()">
-                    <i class="material-icons-outlined">add_circle_outline</i>追加</span>
+                    <i class="material-icons-outlined">add_circle_outline</i>${translate('add')}</span>
             `
             bodyContainer = document.createElement('div')
             bodyContainer.id = 'bodyModal'

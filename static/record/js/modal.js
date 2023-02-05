@@ -6,6 +6,14 @@ $('#nav-info').click(function () {
     openInfo()
 })
 
+$('#nav-menu, #nav-language').click(function () {
+    $(this).children('.dropdown-menu').css({
+        display: 'block',
+        opacity: 1
+    })
+})
+
+
 $(function () {
     $('.tab-btn').on('click', function () {
         var tabWrap = $(this).parents('.tab-wrap')

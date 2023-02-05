@@ -328,9 +328,9 @@ body {
   position: relative;
 }
 
-.nav-item-dropdown:checked > .dropdown-menu {
-  display: block;
-  opacity: 1;
+.nav-item-dropdown:hover > .dropdown-menu {
+  /* display: block;
+  opacity: 1; */
 }
 
 .nav-item-dropdown .dropdown-menu {

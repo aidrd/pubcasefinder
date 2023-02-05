@@ -9,6 +9,11 @@ let elementTranslation = {
         ja: 'キーワード検索',
         ko: ''
     },
+    'add': {
+        en: 'Add',
+        ja: '追加',
+        ko: ''
+    },
     'add-column': {
         en: 'Add column',
         ja: '列追加',
@@ -66,6 +71,16 @@ let elementTranslation = {
     'phenotypic-info-search': {
         en: 'Search Phenotypic Information',
         ja: 'ここに表現型情報が検索できます。',
+        ko: ''
+    },
+    'add-column-input': {
+        en: 'New custom column',
+        ja: '新規項目',
+        ko: ''
+    },
+    'add-column-button': {
+        en: 'Create',
+        ja: '作成',
         ko: ''
     }
 }

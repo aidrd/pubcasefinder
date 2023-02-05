@@ -70,6 +70,10 @@ async function geneTable() {
         }
     }
 
+    if (geneData.length === 0) {
+        geneData.push(geneSchema)
+    }
+
     Object.assign(geneSettings, {
         data: geneData,
         dataSchema: geneSchema,
@@ -124,6 +128,10 @@ async function bodyTable() {
             type: 'text'
         })
     })
+
+    if (currentBodyData.length === 0) {
+        currentBodyData.push(bodySchema)
+    }
 
     Object.assign(bodySettings, {
         dataSchema: bodySchema,
