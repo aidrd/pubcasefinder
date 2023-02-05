@@ -338,7 +338,7 @@ body {
   display: inline-block;
   text-align: right;
   position: absolute;
-  right: -100px;
+  right: -10px;
   top: 35px;
   display: none;
   opacity: 0;
@@ -489,14 +489,20 @@ body {
 
 .dropdown-trigger {
   position: relative;
+  border: solid 1px #ddd;
+  padding: 0.5em 1em;
+  border-radius: 2em;
+  /* margin: 2em 0em; */
+  display: inline-block;
 }
 
 .dropdown-trigger i {
   font-size: 23px;
   margin-left: 0.2em;
-  border: solid 1px #ddd;
+  vertical-align: -6px;
+  /*border: solid 1px #ddd;
   padding: 0.5em;
-  border-radius: 2em;
+  border-radius: 2em;*/
 }
 
 .dropdown-trigger:focus + .dropdown-menu {
