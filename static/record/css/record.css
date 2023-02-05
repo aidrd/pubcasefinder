@@ -811,6 +811,7 @@ h5 {
   color: #fff;
   width: fit-content;
   margin: 0 0 0 auto;
+  white-space: nowrap;
 }
 
 .modal_content .button_wrap .add i {

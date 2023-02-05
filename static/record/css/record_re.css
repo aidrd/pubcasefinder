@@ -622,7 +622,9 @@ body {
   transition: 0.2s ;
 }
 #content-patients #home-menu .right-menu #table_menu #add-column:hover {
-  opacity: 0.6;
+  opacity: 0.8;
+  border: #ebebeb 1px solid;
+  background: #ebebeb;
 }
 
 #content-patients #home-menu .right-menu #table_menu #add-column i {
@@ -639,8 +641,15 @@ body {
 }
 
 #content-patients #home-menu .right-menu #table_menu #add-row:hover {
-opacity: 0.6;
+  opacity: 0.8;
+  border: #ebebeb 1px solid;
+  background: #ebebeb;
 }
+
+#content-patients #home-menu .right-menu #table_menu #add-row:focus {
+  outline: none;
+}
+
 
 #content-patients #home-menu .right-menu #table_menu #add-row i {
   font-size: 20px;
@@ -657,6 +666,7 @@ opacity: 0.6;
   cursor:pointer;
   transition: 0.2s ;
 }
+
 #content-patients #home-menu .right-menu #table_menu li:hover{
   background-color: #ff7000;
   /*transform:scale(1);
