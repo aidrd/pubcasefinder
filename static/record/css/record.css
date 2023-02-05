@@ -806,11 +806,12 @@ h5 {
 
 .modal_content .button_wrap .add {
   padding: 5px 10px;
-  background: #000;
+  background: #ff8c00;
   border-radius: 25px;
   color: #fff;
   width: fit-content;
   margin: 0 0 0 auto;
+  white-space: nowrap;
 }
 
 .modal_content .button_wrap .add i {

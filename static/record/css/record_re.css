@@ -292,10 +292,11 @@ i {
 }
 
 .home-section {
-  position: relative;
+  /*position: relative;*/
+  position: fixed;
   background: #fff;
   min-height: 100vh;
-  top: 0;
+  top: 24px;
   left: 78px;
   width: calc(100% - 78px);
   transition: all 0.5s ease;
@@ -539,6 +540,7 @@ i {
 #content-patients {
   background-color: #fff;
   border-radius: 10px;
+  height: 80vh;
   padding: 0.5em 0 0 2em;
 }
 
@@ -623,7 +625,9 @@ i {
   transition: 0.2s ;
 }
 #content-patients #home-menu .right-menu #table_menu #add-column:hover {
-  opacity: 0.6;
+  opacity: 0.8;
+  border: #ebebeb 1px solid;
+  background: #ebebeb;
 }
 
 #content-patients #home-menu .right-menu #table_menu #add-column i {
@@ -640,8 +644,15 @@ i {
 }
 
 #content-patients #home-menu .right-menu #table_menu #add-row:hover {
-opacity: 0.6;
+  opacity: 0.8;
+  border: #ebebeb 1px solid;
+  background: #ebebeb;
 }
+
+#content-patients #home-menu .right-menu #table_menu #add-row:focus {
+  outline: none;
+}
+
 
 #content-patients #home-menu .right-menu #table_menu #add-row i {
   font-size: 20px;
@@ -658,6 +669,7 @@ opacity: 0.6;
   cursor:pointer;
   transition: 0.2s ;
 }
+
 #content-patients #home-menu .right-menu #table_menu li:hover{
   background-color: #ff7000;
   /*transform:scale(1);
