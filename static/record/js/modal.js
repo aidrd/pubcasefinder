@@ -1,23 +1,27 @@
-$('.modal_open').click(function () {
+$('.modal_open').click(() => {
     openModal(false)
 })
 
-$('#nav-info').click(function () {
+$('#nav-info').click(() => {
     openInfo()
 })
 
-$('#nav-menu, #nav-language').click(function () {
-    $(this).children('.dropdown-menu').css({
-        display: 'block',
-        opacity: 1
-    })
+$('#nav-menu').click(() => {
+    $('.common-menu').toggleClass('dropdown-menu-open')
 })
 
+$('#nav-language').click(() => {
+    $('#dropdown-language').toggleClass('dropdown-menu-open')
+})
+
+$('#menu-save').click((e) => {
+    $('.save-panel').toggleClass('save-panel-open')
+})
 
 $(function () {
     $('.tab-btn').on('click', function () {
         var tabWrap = $(this).parents('.tab-wrap')
-        var tabBtn = tabWrap.find(".tab-btn")
+        var tabBtn = tabWrap.find('.tab-btn')
         var tabContents = tabWrap.find('.tab-contents')
         tabBtn.removeClass('show')
         $(this).addClass('show')
@@ -436,7 +440,6 @@ function openInfo() {
 
     modalResize()
 
-
     $(window).on('resize', function () {
         modalResize()
     })
@@ -451,7 +454,7 @@ function openInfo() {
         $(modal).css({ 'left': x + 'px', 'top': y + 'px' })
     }
 
-    $('.info-modal-close').off().click(function (e) {
+    $('.info-modal-close, .modal_bg').off().click(function (e) {
         $('.modal_box').fadeOut()
         $('.modal_bg').fadeOut('slow', function () {
             $('.modal_bg').remove()

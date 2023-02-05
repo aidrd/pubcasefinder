@@ -1,16 +1,14 @@
 let hot, exportPlugin
 
-console.log('ls', localStorage.lang)
-let lang = localStorage.lang || 'en'
-lang = lang === 'undefined' ? 'en' : lang
+let lang = localStorage.lang === 'undefined' ? 'en' : localStorage.lang
 
 setInitialLanguage()
 
 let count
 let toReset = true
 
-let defaultColumns = ['caseSolved', 'chiefComplaint', 'finalDiagnosis', 'clinicalDiagnosis', 'age', 'sex', 'group', 'relationship', 'familyId', 'patientId']
-// let defaultColumns = ['status', 'relationship', 'familyId', 'patientId']
+// let defaultColumns = ['caseSolved', 'chiefComplaint', 'finalDiagnosis', 'clinicalDiagnosis', 'age', 'sex', 'group', 'relationship', 'familyId', 'patientId']
+let defaultColumns = ['status', 'relationship', 'familyId', 'patientId']
 let actions = ['REMOVE', 'EDIT']
 
 // columns = HOT columns (settings - type, options, renderer, etc) HEADERS
@@ -107,6 +105,8 @@ window.onload = async () => {
     })
 
     addRow()
+    // updateTable(contentData)
+    // document.getElementById('row_count').innerHTML = `${hot.countRows()}`
 }
 
 function createColumns() {
@@ -247,6 +247,7 @@ function addColumn() {
     })
 
     function createColumn(colName, type, key) {
+        if (type === 'custom') console.log(colName, `${existingColumns.includes(key)}`)
         if (type === 'title') {
             let icon
 
@@ -270,17 +271,8 @@ function addColumn() {
                     icon = '<i class="material-symbols-outlined">category</i>'
                     break
             }
-            container.innerHTML += 
-            `<div class="add_column_title">${icon}${colName}
-                <input type="checkbox" class="add-column-checkbox">
-            </div>`
+            container.innerHTML += `<div class="add_column_title">${icon}${colName}</div>`
         } else {
-            let dataCol = dataColumns[key]
-
-            if (type === 'custom' && dataCol) {
-                colName = dataCol.colHeader.replace('<i class="material-icons-outlined sort_icon"></i>', '')
-            }
-
             container.innerHTML += `
                 <div>
                     <input  type="checkbox"
@@ -342,8 +334,7 @@ function showHideColumn(e) {
         existingColumns.push(colId)
         colHeaders.push(col.colHeader)
         columns.push(col.column)
-        rerenderTable()
-        hot.scrollViewportTo('', existingColumns.length - 1)
+        hot.scrollViewportTo('', existingColumns.length)
     } else {
         colHeaders.splice(colHeaders.indexOf(`<i class="material-icons-outlined sort_icon"></i>${e.dataset.colname}`), 1)
 
@@ -369,9 +360,9 @@ function showHideColumn(e) {
             columns = columns.filter(h => { return h.data !== colId })
         }
         existingColumns.splice(existingColumns.indexOf(colId), 1)
-
-        rerenderTable()
     }
+
+    rerenderTable()
 }
 
 function removeCustomColumn(e) {
@@ -415,7 +406,7 @@ function addRow(data) {
     hot.scrollViewportTo(hot.countRows() - 1, 1)
 }
 
-async function updateTable(data, changeHeaders) {
+async function updateTable(data, changeHeaders, customColumnsKey = null) {
     data.map(d => {
         contentData.push(d)
     })
@@ -446,13 +437,14 @@ async function updateTable(data, changeHeaders) {
         } else {
             newHeaders.forEach(h => {
                 if (h === 'PCFNo' || h === 'm013') return
-                if (!(Object.keys(dataColumns).includes(h))) createColumn(h, true)
+                if (!(Object.keys(dataColumns).includes(h))) createColumn(h, true, customColumnsKey[h])
             })
         }
     }
 
-    function createColumn(h, isHidden) {
-        let headerTitle = `<i class=\"material-icons-outlined sort_icon\"></i>${h}`
+    function createColumn(h, isHidden, colName = '') {
+        console.log(h)
+        let headerTitle = `<i class=\"material-icons-outlined sort_icon\"></i>${colName}`
         let headerData = {
             data: h,
             type: 'text',
@@ -464,7 +456,7 @@ async function updateTable(data, changeHeaders) {
             headerTitle = colData['colHeader']
             headerData = colData['column']
         } else {
-            customColumns.push(h)
+            customColumns.push(colName)
             dataColumns[h] = {
                 colHeader: headerTitle,
                 column: headerData
@@ -478,20 +470,10 @@ async function updateTable(data, changeHeaders) {
         existingColumns.push(h)
     }
 
-    let autoColumnSize = hot.getPlugin('autoColumnSize')
-
     Object.assign(updateSettings, {
         data: contentData,
         colHeaders: colHeaders,
-        columns: columns,
-        colWidths: function(index){
-            if (index < 2){
-                return 40
-            } else {
-                autoColumnSize.calculateColumnsWidth(index, 0, true)
-                return autoColumnSize.getColumnWidth(index)
-            }
-          }
+        columns: columns
     })
 
     contentData.map(d => {
@@ -534,22 +516,9 @@ function fileReader(file, fileType) {
             object = convertCSVToJSON(data)
         } else {
             object = JSON.parse(data)
-
-            for (let [k, v] of Object.entries(object.keyName)) {
-                dataSchema[k] = null
-                dataColumns[k] = {
-                    colHeader: `<i class="material-icons-outlined sort_icon"></i>${v}`,
-                    column: {
-                        data: k,
-                        type: 'text'
-                    }
-                }
-    
-                customColumns.push(k)
-            }
         }
 
-        updateTable(object.PATIENTS, fileType)
+        updateTable(object.PATIENTS, fileType, object.keyName)
 
         if (object.visibleColumns) {
             colHeaders.length = 2
@@ -642,6 +611,18 @@ function getColumnId(columnHeader) {
 
 }
 
+// function getColumnKey(v, lang) {
+//     let columnKey
+//     categories.forEach(category => {
+//         let col = category.columns?.filter(c => { return c.displayName[lang] == v })
+//         if (col && col.length > 0) return columnKey = col[0].columnId
+//     })
+
+//     if (!columnKey) columnKey = getKeyFromTranslation(elementTranslation, v)
+
+//     return columnKey || v
+// }
+
 function getKeyFromTranslation(obj, val) {
     return Object.keys(obj).find(key => !(typeof obj[key] === 'object') ? obj[key] === val : getKeyFromTranslation(obj[key], val))
 }
@@ -683,6 +664,7 @@ function getExportData() {
         dlData.forEach((d, idx) => {
             let pData = {}
             for (let [k, v] of Object.entries(d)) {
+                console.log(k.charAt(0))
                 if (idx === 0 && k.charAt(0) === 'c') {
                     keyName[k] = getHeaderName(k)
                 }
@@ -693,6 +675,7 @@ function getExportData() {
                     v.forEach((gc, gcIdx) => {
                         let gcData = {}
                         for (let [gcK, gcV] of Object.entries(gc)) {
+                            // if (gcIdx === 0) keyName[gcK] = getHeaderName(gcK)
                             gcData[gcK] = gcV
                         }
 
@@ -847,7 +830,7 @@ function editTable(isSave) {
     function resetData() {
         currentPatient = ''
         changedData = {}
-    }
+    }f
 }
 
 function rerenderTable() {
@@ -880,6 +863,7 @@ function changeLanguage() {
 
         document.getElementById('selected-language-display').innerText = e.target.innerText
         localStorage.lang = newLang
+
 
         pageReload()
     })
@@ -1009,6 +993,7 @@ function setInitialLanguage() {
                 input.type = 'text'
                 input.name = c.columnId
                 input.dataset.columnname = c.columnId
+                // input.placeholder = c['placeholder'][lang] || ''
                 td.appendChild(input)
 
                 if (c.inputType === 'input-select') {
@@ -1069,6 +1054,7 @@ function setInitialLanguage() {
                     input.classList.add('input-top')
                     input.type = 'text'
                     input.name = `${c.columnId}-list`
+                    // input.placeholder = c['placeholder'][lang] || ''
                     td.appendChild(input)
                 }
             } else if (c.inputType === 'textarea') {
@@ -1077,6 +1063,7 @@ function setInitialLanguage() {
                 textarea.rows = 5
                 textarea.name = c.columnId
                 textarea.dataset.columnname = c.columnId
+                // textarea.placeholder = c['placeholder'][lang] || ''
                 td.appendChild(textarea)
             } else if (c.inputType === 'multiple-radio') {
                 td.innerHTML = `

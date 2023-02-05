@@ -8,8 +8,8 @@ let categories = [
             en: 'Patient Information',
             ja: '患者基本情報',
             ko: '환자 기본 정보',
-            zh: '',
-            zhcht: ''
+            zh: '患者基本信息',
+            zhcht: '患者基本信息'
         },
         columns: [
             {
@@ -197,8 +197,8 @@ let categories = [
             en: 'Medical Information',
             ja: '診療情報',
             ko: '찰 정보',
-            zh: '',
-            zhcht: ''
+            zh: '诊察信息',
+            zhcht: '診察信息'
         },
         columns: [
             {
@@ -567,8 +567,8 @@ let categories = [
             en: 'Phenotype Information',
             ja: '表現型情報',
             ko: '표현형 정보',
-            zh: '',
-            zhcht: ''
+            zh: '表型信息',
+            zhcht: '表型信息'
         }
     },
     {
@@ -580,8 +580,8 @@ let categories = [
             en: 'Genotype Information',
             ja: '遺伝子型情報',
             ko: '유전자형 정보',
-            zh: '',
-            zhcht: ''
+            zh: '基因型信息',
+            zhcht: '基因型信息'
         },
         columns: [
             {
@@ -855,8 +855,8 @@ let categories = [
             en: 'Family Information',
             ja: '家系情報',
             ko: '가계 정보',
-            zh: '',
-            zhcht: ''
+            zh: '家庭信息',
+            zhcht: '家庭信息'
         },
         columns: [
             {

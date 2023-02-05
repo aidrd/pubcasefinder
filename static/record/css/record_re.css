@@ -12,6 +12,11 @@ body {
   margin: 0;
 }
 
+i {
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
 
 .sidebar {
   position: fixed;
@@ -349,11 +354,6 @@ body {
   position: relative;
 }
 
-.nav-item-dropdown:hover > .dropdown-menu {
-  /* display: block;
-  opacity: 1; */
-}
-
 .nav-item-dropdown .dropdown-menu {
   background-color: #fff;
   display: inline-block;
@@ -369,6 +369,11 @@ body {
   left: auto;
   text-align: left;
   box-shadow: 0 2px 15px 1px rgba(163, 163, 163, 0.2);
+}
+
+.nav-item-dropdown .dropdown-menu-open {
+  display: block;
+  opacity: 1;
 }
 
 .nav-item-dropdown .dropdown-menu a {
@@ -525,10 +530,10 @@ body {
   border-radius: 2em;*/
 }
 
-.dropdown-trigger:focus + .dropdown-menu {
+/* .dropdown-trigger:focus + .dropdown-menu {
   display: block;
   opacity: 1;
-}
+} */
 
 /**/
 #content-patients {
@@ -598,8 +603,6 @@ body {
 #content-patients #home-menu .right-menu #reset:hover{
   opacity: 0.5;
 }
-
-
 
 #content-patients #home-menu .right-menu #table_menu {
   margin-left: 1em;
@@ -1029,13 +1032,6 @@ opacity: 0.6;
   }
 }
 
-#menu-save:hover .save-panel {
-  top: 0;
-  opacity: 1;
-  pointer-events: auto;
-  transition: all 0.4s ease;
-}
-
 #menu-save .save-panel {
   margin-top: -10px;
   background: #1d1b31;
@@ -1053,17 +1049,23 @@ opacity: 0.6;
   color: #fff;
 }
 
+#menu-save .save-panel-open {
+  top: 0;
+  opacity: 1;
+  pointer-events: auto;
+  transition: all 0.4s ease;
+}
+
 #menu-save .save-panel .save-format {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 #menu-save .save-panel .save-format p {
   white-space: nowrap;
-    margin-right: 0.5em;
-    display: block;
+  margin-right: 0.5em;
+  display: block;
 }
-
 
 #menu-save .save-panel .save-format select {
   border: 1px #fff solid;
@@ -1097,8 +1099,7 @@ opacity: 0.6;
   min-width: 60%;
 }
 
-
-#modal-info{
+#modal-info {
   background: #fff;
   border: none;
   border-radius: 12px;
@@ -1125,12 +1126,11 @@ opacity: 0.6;
 
 #modal-info .modal-karte-button-sub ul li span h4{
   text-align: left;
-    font-size: 1.1em;
+  font-size: 1.1em;
 }
 
-
 #modal-info #modal-info-button{
-margin-top: 2em;
+  margin-top: 2em;
 }
 
 #modal-info #modal-info-button span{
