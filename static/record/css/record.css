@@ -758,6 +758,13 @@ h5 {
   border-right: none;
 }
 
+#myGrid th {
+  max-width: 30em !important;
+  border-left: none;
+  border-right: none;
+}
+
+
 .ht_master > .wtHolder {
   max-height: 100vh !important;
 }
