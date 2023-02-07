@@ -1,7 +1,7 @@
 ;(function ($) {
 
-	const URL_GET_ALL_PANEL_ID           = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_get_all_panel',
-		  //URL_GET_ALL_PANEL_ID           = '/static/data/panel/all_panel_id.json';
+	const //URL_GET_ALL_PANEL_ID           = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_get_all_panel',
+		  URL_GET_ALL_PANEL_ID           = '/static/data/panel/all_panel_id.json';
 		  URL_GET_PANEL_ID_BY_PANEL      = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_panel_get_mondo_id_match_panel_name_synonym',
 		  URL_GET_PANEL_ID_BY_GENE       = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_panel_get_mondo_id_match_gene_symbol_synonym_ncbiid',
 		  URL_GET_PANEL_DATA_BY_PANEL_ID = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_get_panel_data_by_mondo_id',
@@ -49,7 +49,7 @@
 	var DEFAULT_SETTINGS = {
 		[SETTINGS_KEY_SIZE]:   50, // panel data per page
 		[SETTINGS_KEY_SIZE_M]: 50, // maximum panel data 
-		[SETTINGS_KEY_TARGET]: TARGET_ALL, // TARGET_ALL or TARGET_PANEL or TARGET_GENE
+		[SETTINGS_KEY_TARGET]: TARGET_PANEL, // TARGET_ALL or TARGET_PANEL or TARGET_GENE
 		[SETTINGS_KEY_FILTER]: '', // filter string
 		[SETTINGS_KEY_LANG]:   LANGUAGE_EN,
 		[SETTINGS_KEY_FUNC_AFTER_SEARCH_IDLIST]: null,
@@ -116,8 +116,6 @@
 		
 		var $root_panel = $(root_panel);
 		
-		//var current_settings = $root_panel.data(SETTINGS_KEY);
-		
 		var search_idlist_cache = {
 			[TARGET_ALL]:   null,
 			[TARGET_PANEL]: {},
@@ -143,13 +141,6 @@
 				
 				let ret = [];
 				
-				//if(filter in search_idlist_cache[TARGET_PANEL]){
-				//	ret = ret.concat(search_idlist_cache[TARGET_PANEL][filter]);
-				//}
-				
-				//if(filter in search_idlist_cache[TARGET_GENE]){
-				//	ret = ret.concat(search_idlist_cache[TARGET_GENE][filter]);
-				//}
 				if(filter in search_idlist_cache[TARGET_PANEL] && (search_idlist_cache[TARGET_PANEL][filter]).length > 0 &&
 				   filter in search_idlist_cache[TARGET_GENE]  && (search_idlist_cache[TARGET_GENE][filter]).length > 0){
 					ret = search_idlist_cache[TARGET_PANEL][filter].filter(function(panel_id_target_panel){
@@ -202,6 +193,7 @@
 		// construct UI
 		//
 		// UI:loader
+
 		var $div_loader = $('<div>').attr('id', ID_LOADER).appendTo($root_panel);
 		var $div_loader_wrapper = $('<div>').addClass("d-flex flex-row vgp-loader-content").appendTo($div_loader);
 		$('<span>').addClass("vgp-loader-gif").appendTo($div_loader_wrapper);
@@ -213,8 +205,8 @@
 			if($('#'+ID_LOADER).is(":visible")) $("#"+ID_LOADER).hide();
 		};
 
-		// UI: content wrapper
-		var $div_content = $('<div>').attr('id', ID_CONTENT).addClass('').appendTo($root_panel);
+        // UI: content wrapper
+        var $div_content = $('<div>').attr('id', ID_CONTENT).addClass('').appendTo($root_panel);
 		function _show_content(){
 			if($('#'+ ID_CONTENT).is(":visible") === false) $('#'+ID_CONTENT).show();
 		};
@@ -239,15 +231,18 @@
 			return $div_content_list.hasClass(CLASS_STATUS_LOADED);
 		}
 
-		
 		// UI: content title 
-		var $div_content_title = $('<div>').attr('id',ID_CONTENT_TITLE).addClass('row').appendTo($div_content);
-		$('<div>').addClass('col row align-items-center vgp-col-panel').text('Panel').appendTo($div_content_title);
-		$('<div>').addClass('vgp-col-download vgp-col-download-title').text('Download').appendTo($div_content_title);
+		let $div_content_title = $('<div>').attr('id',ID_CONTENT_TITLE).addClass('row').appendTo($div_content);
+		let $div_content_title_panel = $('<div>').addClass('col row align-items-center vgp-col-panel').appendTo($div_content_title);
+		$('<span>').addClass("material-symbols-outlined").text('view_list').appendTo($div_content_title_panel);
+		$('<span>').addClass("").text('Panel').appendTo($div_content_title_panel);
+		let $div_content_title_gene  = $('<div>').addClass('vgp-col-genenum vgp-col-genenum-title').appendTo($div_content_title);
+		$('<span>').addClass("material-symbols-outlined").text('genetics').appendTo($div_content_title_gene);
+		$('<span>').addClass("").text('Panel genes').appendTo($div_content_title_gene);
+
 		
 		// UI: content data panel 
 		var $div_content_list = $('<div>').attr('id',ID_CONTENT_LIST).appendTo($div_content);
-		
 		$('<div>').attr('id',ID_CONTENT_EMPTY).text('No panels found!').appendTo($div_content);
 		function _show_content_empty(){
 			if($('#'+ ID_CONTENT_EMPTY).is(":visible") === false) $('#'+ID_CONTENT_EMPTY).show();
@@ -300,10 +295,6 @@
 			for(; i<num_maximum; i++){
 				let panel_id = idlist[i];
 				let panel_data = _get_panel_data_from_cache(panel_id);
-				//if(_isEmpty(panel_data)) {
-				//	console.log('info: data of (' + panel_id + ') not found by (pcf_get_panel_data_by_mondo_id)!');
-				//	continue;
-				//}
 				let $tr = $('<div>').addClass(CLASS_PANEL_ROW);
 				if($last_row === null){
 					//when initialize tab panel
@@ -321,37 +312,57 @@
 
 
 
+				$tr.addClass("d-flex flex-row");
 
 				// create row
-				let $div_upper = $('<div>').addClass('d-flex flex-row flex-nowrap').appendTo($tr);
-				
+				let $div_button_panel = $('<div>').addClass('d-flex flex-column vgp-button-panel').appendTo($tr);
+				let $div_btn_wrap1 = $('<div>').addClass('vgp-button-wrap').appendTo($div_button_panel);
+                let $btn_download = $('<button>').addClass('vgp-round-btn')
+                                        .data('panel_id', panel_id)
+                                        .click(function(){
+                                            let id = $(this).data('panel_id');
+                                            _download_panel(id);
+                                        })
+										.appendTo($div_btn_wrap1);
+                $('<span>').addClass('material-symbols-outlined').text('download')
+                        .attr({
+                            'data-toggle':		'tooltip',
+                            'data-placement':	'top',
+                            'title':			'Download this panel'
+                        })
+                        .appendTo($btn_download)
+						.tooltip();
+
+				let $div_btn_wrap2 = $('<div>').addClass('vgp-button-wrap').appendTo($div_button_panel);
+				let $btn_copy = $('<button>').addClass('vgp-round-btn')
+											 .data('panel_id', panel_id)
+											 .click(function(){
+												let id = $(this).data('panel_id');
+											 })
+											 .appendTo($div_btn_wrap2);
+				$('<span>').addClass('material-symbols-outlined').text('file_copy')
+						.attr({
+							'data-toggle':      'tooltip',
+							'data-placement':   'top',
+							'title':            'Copy this panel'
+						})
+						.appendTo($btn_copy)
+						.tooltip();
+
+				let $div_data_panel = $('<div>').addClass('d-flex flex-column flex-grow-1').appendTo($tr);
+				let $div_upper = $('<div>').addClass('d-flex flex-row').appendTo($div_data_panel);
 				let $vgp_panel = $('<div>').addClass('flex-grow-1 vgp-col-panel').appendTo($div_upper);
-				
-				let $div_vgp_name_wrapper = $('<div>').addClass('d-flex flex-row vgp-name-wrapper').appendTo($vgp_panel);
+				let $div_vgp_name_wrapper = $('<div>').addClass('d-flex flex-grow-1 vgp-name-wrapper').appendTo($vgp_panel);
 
 				let vgp_name = _capitalizeFirstLetter(panel_data.name_en);
-				//if(settings[SETTINGS_KEY_LANG] === LANGUAGE_JA && 'name_ja' in panel_data){
-				//	vgp_name = panel_data.name_ja;
-				//}
 
 				$('<div>').addClass('vgp-name').text(vgp_name).appendTo($div_vgp_name_wrapper);
 				
 				if('synonym' in panel_data && !_isEmpty(panel_data.synonym)){
-					/*
-					let $btn = $('<button>').addClass('vgp-synonym').text('Also known as').appendTo($div_vgp_name_wrapper);
-					$btn.popover({
-						trigger: 'focus',
-						content: panel_data.synonym,
-					}).click(function(){
-						
-					});
-					*/
 					let button = document.createElement('button');
 					button.textContent = 'Also known as';
 					button.classList.add("list-tag-vgp-synonym");
-				
 					tippy(button, {
-						// default
 						allowHTML:     	true,
 						appendTo:      	document.body,
 						content: 		panel_data.synonym,
@@ -366,8 +377,9 @@
 				if(settings[SETTINGS_KEY_LANG] === LANGUAGE_JA && 'name_ja' in panel_data){
                 	vgp_name = panel_data.name_ja;
 					let $div_vgp_name_wrapper2 = $('<div>').addClass('vgp-name-wrapper').appendTo($vgp_panel);
-					$('<div>').addClass('vgp-name').text(vgp_name).appendTo($div_vgp_name_wrapper2);
-                }	
+					$('<div>').addClass('vgp-name2').text(vgp_name).appendTo($div_vgp_name_wrapper2);
+                }
+	
 				if('definition' in panel_data && !_isEmpty(panel_data.definition)){
 					let $div_vgp_def = $('<div>').addClass('vgp-def-wrapper').appendTo($vgp_panel);
 					let $p = $('<p>').text(panel_data.definition).appendTo($div_vgp_def);
@@ -377,24 +389,10 @@
 				}
 				
 				
-				let $vgp_download = $('<div>').addClass('vgp-col-download').appendTo($div_upper);
-				let $btn = $('<button>').addClass('vgp-download-btn')
-										.data('panel_id', panel_id)
-										.click(function(){
-											let id = $(this).data('panel_id');
-											_download_panel(id);
-										})
-										.appendTo($vgp_download);
-				let $span = $('<span>').addClass('material-icons').text('save_alt')
-						.attr({
-							'data-toggle':    'tooltip',
-							'data-placement': 'top',
-							'title':          'Download this panel'
-						})
-						.appendTo($btn);
-				$span.tooltip();
+				let $vgp_genenum = $('<div>').addClass('vgp-col-genenum').appendTo($div_upper);
+				$('<span>').text( 'count_gene_id' in panel_data ? panel_data.count_gene_id : '0').appendTo($vgp_genenum);
 				
-				let $div_lower = $('<div>').addClass('list-show_wrapper').appendTo($tr);
+				let $div_lower = $('<div>').addClass('list-show_wrapper').appendTo($div_data_panel);
 				
 				let mondo_id  = panel_data.mondo_id;
 				let mondo_url = panel_data.mondo_url;
@@ -436,7 +434,13 @@
 				if(num_per_page !== SIZE_ALL){
 					// create show more row
 					let $bottom_panel = $('<div>').addClass("list-footer").appendTo($div_content_list);
-					$('<div>').addClass("list-results").text(total_num_str + " results").appendTo($bottom_panel);
+					let list_result_str = "<div class=\"list-results-wrap\">"+
+											 "<span class=\"list-results\">"+total_num_str+"</span>" +
+											 " panels" +
+										   "</div>";
+					$(list_result_str).addClass("list-results-wrap").appendTo($bottom_panel);
+
+
 					let button_str = "<button id=\"show_more_button\"><span><i class=\"material-icons\">add</i></span><p>Show More</p></button>";
 					$(button_str)
 					.click(function(){
@@ -487,11 +491,11 @@
 			if(_isEmpty(uncached_idlist)){
                 if(_isFunction(settings[SETTINGS_KEY_FUNC_CHECK_CONSISTENCE])){
                     if(!settings[SETTINGS_KEY_FUNC_CHECK_CONSISTENCE](settings[SETTINGS_KEY_FILTER])){
-                        console.log('filter changed!');
+                        //console.log('filter changed!');
                         return;
                     }
                 } 
-				console.log('show result for filter (' + settings[SETTINGS_KEY_FILTER] +')');
+				//console.log('show result for filter (' + settings[SETTINGS_KEY_FILTER] +')');
 				if(_isFunction(settings[SETTINGS_KEY_FUNC_AFTER_SEARCH_IDLIST])){
 					settings[SETTINGS_KEY_FUNC_AFTER_SEARCH_IDLIST](idlist.length);
 				}
@@ -515,12 +519,12 @@
 
 					if(_isFunction(settings[SETTINGS_KEY_FUNC_CHECK_CONSISTENCE])){
 						if(!settings[SETTINGS_KEY_FUNC_CHECK_CONSISTENCE](settings[SETTINGS_KEY_FILTER])){
-							console.log('filter changed!');
+							//console.log('filter changed!');
 							return;
 						}
 					} 
 					
-					console.log('show result for filter (' + settings[SETTINGS_KEY_FILTER] +')');
+					//console.log('show result for filter (' + settings[SETTINGS_KEY_FILTER] +')');
     	            if(_isFunction(settings[SETTINGS_KEY_FUNC_AFTER_SEARCH_IDLIST])){
         	            settings[SETTINGS_KEY_FUNC_AFTER_SEARCH_IDLIST](idlist.length);
 	                }
@@ -567,7 +571,7 @@
 			var callback_after_all_call = function(){
                 if(_isFunction(settings[SETTINGS_KEY_FUNC_CHECK_CONSISTENCE])){
                     if(!settings[SETTINGS_KEY_FUNC_CHECK_CONSISTENCE](settings[SETTINGS_KEY_FILTER])){
-                        console.log('filter changed!');
+                        //console.log('filter changed!');
                         return;
                     }
                 }
@@ -674,7 +678,7 @@
 
 						if(_isFunction(settings[SETTINGS_KEY_FUNC_CHECK_CONSISTENCE])){
 							if(!settings[SETTINGS_KEY_FUNC_CHECK_CONSISTENCE](settings[SETTINGS_KEY_FILTER])){
-                        		console.log('filter changed!');
+                        		//console.log('filter changed!');
                         		return;
                     		}
                 		}

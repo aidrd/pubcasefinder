@@ -39,28 +39,21 @@
       </div>
     </header>
     <main class="container-fluid vgp-main">
-      <div class="d-flex flex-row justify-content-between vgp-title">
-        <div class="vgp-title-sub">
-          <span class="vgp-title-sub-left-count">20,000</span>
-          <span class="vgp-title-sub-left-unit">panels</span>
-        </div>
-        <div class="d-flex flex-row align-items-end vgp-title-sub">
+      <div class="vgp-title d-flex justify-content-end">
+        <div class="vgp-title-sub row align-items-center">
           <span class="vgp-title-sub-right-date">Updated Dec 9,2022</span>
-          <button id="vgp-download-all-btn" class="vgp-download-btn" data-toggle="tooltip" data-placement="top" title="" data-original-title="Download all Panels">
-            <span class="material-icons">save_alt</span>
+          <button id="vgp-download-all-btn" data-toggle="tooltip" data-placement="top" title="" data-original-title="Download all Panels">
+            All panels <span class="material-icons">save_alt</span>
           </button>
         </div>
       </div>
-      
       <div class="d-md-flex flex-md-row row vgp-search">
         <div class="col row vgp-search-sub">
           <div class="dropdown vgp-target-wrapper">
             <button id="btn-vgp-target" class="btn btn-vgp-target dropdown-toggle" type="button" data-vgp-target="all" data-toggle="dropdown" aria-expanded="false">
              Panel
-<!--         All</font>  -->
             </button>
             <div class="dropdown-menu">
-            <!--  <button class="dropdown-item" type="button" onclick="change_target('all', 'All');">All</button> -->
               <button class="dropdown-item" type="button" onclick="change_target('panel','Panel');">Panel</button>
               <button class="dropdown-item" type="button" onclick="change_target('gene', 'Gene');">Gene</button>
             </div>
@@ -69,34 +62,84 @@
             <span class="material-symbols-outlined vgp-searchicon">search</span>
           </div>
           <div class="col vgp-filter-wrapper">
-            <input id="vgp-filter" type="text" autocomplete="off" autocapitalize="off" placeholder="Filter"></input>
+            <input id="vgp-filter" type="text" autocomplete="off" autocapitalize="off" placeholder="Filter 10,000 panels"></input>
           </div>
         </div>
-        <div id="vgp-searched-panels-num" class="row align-items-center vgp-search-sub vgp-subcount">
-          10,001 panels
+      </div>
+      <div class="d-flex flex-row justify-content-between vgp-title2" id="vgp-title2">
+        <div class="vgp-title-sub">
+          <span id="vgp-searched-panels-num">10,001</span> panels
         </div>
-        <div class="dropdown vgp-search-sub vgp-size-wrapper">
-          <button id="btn-vgp-size" class="btn btn-vgp-size dropdown-toggle" type="button" data-num_per_page=50 data-toggle="dropdown" aria-expanded="false">
-            Per Page <font class="num_per_page">50</font>
-          </button>
-          <div class="dropdown-menu">
-            <button class="dropdown-item" type="button" onclick="change_pagenum(-1);">All</button>
-            <button class="dropdown-item" type="button" onclick="change_pagenum(50);">50</button>
-            <button class="dropdown-item" type="button" onclick="change_pagenum(100);">100</button>
-            <button class="dropdown-item" type="button" onclick="change_pagenum(200);">200</button>
+        <div class="vgp-title-sub">
+          Per page 
+          <div class="dropdown vgp-size-wrapper">
+            <button id="btn-vgp-size" class="btn btn-vgp-size dropdown-toggle" type="button" data-num_per_page=50 data-toggle="dropdown" aria-expanded="false">50</button>
+            <div class="dropdown-menu">
+              <button class="dropdown-item" type="button" onclick="change_pagenum(-1);">All</button>
+              <button class="dropdown-item" type="button" onclick="change_pagenum(50);">50</button>
+              <button class="dropdown-item" type="button" onclick="change_pagenum(100);">100</button>
+              <button class="dropdown-item" type="button" onclick="change_pagenum(200);">200</button>
+            </div>
           </div>
         </div>
       </div>
       <div id="vgp-list-root-panel"></div>
     </main>
+<div onclick="topFunction()" id="btn_back_to_top" title="Go to top">
+  <img style="height:60px;width:60px;" src="/static/images/vgp/TOP.png"></img>
+</div>
   </body>
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
-  <script src="../static/bootstrap-4.6.2-dist/js/bootstrap.bundle.js"></script>
+  <script src="/static/bootstrap-4.6.2-dist/js/bootstrap.bundle.js"></script>
   <script src="https://unpkg.com/@popperjs/core@2"></script>
   <script src="/static/js/vgp/tippyjs/tippy-bundle.umd.js"></script>
-  <script type="text/javascript" src="../static/js/vgp/jquery.vgp.js"></script>
-  <script type="text/javascript" src="../static/js/vgp/jquery.vgp_collapse_panel.js"></script>
+  <script type="text/javascript" src="/static/js/vgp/jquery.vgp.js"></script>
+  <script type="text/javascript" src="/static/js/vgp/jquery.vgp_collapse_panel.js"></script>
   <script>
+
+    function topFunction() {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+        $('#btn_back_to_top').hide();
+    }
+
+
+    var iev=0;
+    var ieold = (/MSIE (\d+\.\d+);/.test(navigator.userAgent));
+    var trident = !!navigator.userAgent.match(/Trident\/7.0/);
+    var rv=navigator.userAgent.indexOf("rv:11.0");
+
+    if (ieold) iev=new Number(RegExp.$1);
+    if (navigator.appVersion.indexOf("MSIE 10") != -1) iev=10;
+    if (trident&&rv!=-1) iev=11;
+
+    if(typeof InstallTrigger !== 'undefined' || iev == 11) {
+        $(window).on('scroll', function(e){
+
+			tippy.hideAll();
+
+            if (document.body.scrollTop > 110 || document.documentElement.scrollTop > 110) {
+                $('#btn_back_to_top').show();
+            } else {
+                $('#btn_back_to_top').hide();
+            }
+        });
+    } else {
+        $('body').on('mousewheel', function(e){
+
+            tippy.hideAll();
+
+            if (document.body.scrollTop > 110 ||
+                document.documentElement.scrollTop > 110 ||
+                $('html').scrollTop() > 110 ||
+                $('body').scrollTop() > 110) {
+                $('#btn_back_to_top').show();
+            } else {
+                $('#btn_back_to_top').hide();
+            }
+        });
+    }
+
       function change_pagenum(num){
           let num_old = $("#btn-vgp-size").data('num_per_page');
           
@@ -106,7 +149,7 @@
               $("#btn-vgp-size").html('All');
               $("#btn-vgp-size").data('num_per_page', -1);
           }else{
-              $("#btn-vgp-size").html('Per Page <font class=\"num_per_page\">'+num+'</font>');
+              $("#btn-vgp-size").html(num);
               $("#btn-vgp-size").data('num_per_page', num);
           }
           
@@ -132,13 +175,13 @@
       var timeout;
       function do_search() {
         var v = $('#vgp-filter').val();
-        console.log('remove search event ' + timeout);
+        //console.log('remove search event ' + timeout);
         clearTimeout(timeout);
         timeout = setTimeout(function(){
             let num = $("#btn-vgp-size").data('num_per_page');
             $("#vgp-list-root-panel").visual_gene_panel_list('search_panels',{'vgp-filter':format_filter_str(v),'vgp-size':num,'vgp-size-limit':num});
         }, 100);
-        console.log('regist search event ' + timeout);
+        //console.log('regist search event ' + timeout);
       }
 
   var KEY = {
@@ -164,7 +207,7 @@
       function attach_auto_search(){
         $('#vgp-filter')
           .bind("input", function (event) {
-              console.log('input triggered');
+              //console.log('input triggered');
               if (String.fromCharCode(event.which)) {
                 setTimeout(function(){ do_search(); }, 50);
               }
@@ -230,7 +273,7 @@
 {% endif %}
                'after_search_idlist':function(num){
                    let total_num_str = num.toLocaleString("en-US");
-                   $('#vgp-searched-panels-num').text(total_num_str + ' panels');
+                   $('#vgp-searched-panels-num').text(total_num_str);
                },
 {% if r_schema == "auto" %}
                'check_consistence':function(filter_str){
@@ -242,7 +285,7 @@
            });
 
            setTimeout(function() {
-               $("#vgp-list-root-panel").visual_gene_panel_list('search_panels',{'vgp-target':'all','vgp-filter':''});
+               $("#vgp-list-root-panel").visual_gene_panel_list('search_panels',{'vgp-target':'panel','vgp-filter':''});
            }, 100);
 
            $('#vgp-download-all-btn').click(function(){
