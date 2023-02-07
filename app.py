@@ -1712,8 +1712,8 @@ def get_hpo_data_by_hpo_id():
 
 #####
 # display visual gene panel page
-# /knowledge-search/panel
-@app.route('/knowledge-search/panel')
+# /panel/search
+@app.route('/panel/search')
 def vgp():
 
     r_lang = "en"

@@ -56,10 +56,11 @@
         <div class="col row vgp-search-sub">
           <div class="dropdown vgp-target-wrapper">
             <button id="btn-vgp-target" class="btn btn-vgp-target dropdown-toggle" type="button" data-vgp-target="all" data-toggle="dropdown" aria-expanded="false">
-              All</font>
+             Panel
+<!--         All</font>  -->
             </button>
             <div class="dropdown-menu">
-              <button class="dropdown-item" type="button" onclick="change_target('all', 'All');">All</button>
+            <!--  <button class="dropdown-item" type="button" onclick="change_target('all', 'All');">All</button> -->
               <button class="dropdown-item" type="button" onclick="change_target('panel','Panel');">Panel</button>
               <button class="dropdown-item" type="button" onclick="change_target('gene', 'Gene');">Gene</button>
             </div>
@@ -234,7 +235,7 @@
 {% if r_schema == "auto" %}
                'check_consistence':function(filter_str){
                    let v = format_filter_str($('#vgp-filter').val());
-                   console.log('filer consistence: old: ('+filter_str+') new:('+v+')');
+                   //console.log('filer consistence: old: ('+filter_str+') new:('+v+')');
                    return v === filter_str;
                }
 {% endif %}
