@@ -335,19 +335,46 @@
 
 				let $div_btn_wrap2 = $('<div>').addClass('vgp-button-wrap').appendTo($div_button_panel);
 				let $btn_copy = $('<button>').addClass('vgp-round-btn')
-											 .data('panel_id', panel_id)
+											 .data('panel_data', panel_data)
 											 .click(function(){
-												let id = $(this).data('panel_id');
+												let data = $(this).data('panel_data');
+												let text = JSON.stringify(data, null ,4);
+												let $copy_button = $(this);
+												$copy_button.tooltip('show');
+												if (window.clipboardData && window.clipboardData.setData) {
+													// Internet Explorer-specific code path to prevent textarea being shown while dialog is visible.
+													window.clipboardData.setData("Text", text);
+												}
+												else if (document.queryCommandSupported && document.queryCommandSupported("copy")) {
+														let textarea = document.createElement("textarea");
+														textarea.style = "position: absolute; left: -1000px; top: -1000px";
+														textarea.textContent = text;
+														document.body.appendChild(textarea);
+														//textarea.select();
+														try {
+																let selection = document.getSelection();
+																selection.removeAllRanges();
+
+																let range = document.createRange();
+																range.selectNodeContents(textarea);
+																selection.addRange(range);
+
+																document.execCommand('copy');
+																selection.removeAllRanges();
+														}
+														catch (ex) {
+																console.warn("Copy to clipboard failed.", ex);
+														}
+														finally {
+																document.body.removeChild(textarea);
+														}
+												}
+												return false	
 											 })
+											 .tooltip({'title':'Summary successfully copied', 'trigger':'manual', 'placement':'bottom'})
+											 .on('mouseleave', function(){$(this).tooltip('hide');})
 											 .appendTo($div_btn_wrap2);
-				$('<span>').addClass('material-symbols-outlined').text('file_copy')
-						.attr({
-							'data-toggle':      'tooltip',
-							'data-placement':   'top',
-							'title':            'Copy this panel'
-						})
-						.appendTo($btn_copy)
-						.tooltip();
+				$('<span>').addClass('material-symbols-outlined').text('file_copy').appendTo($btn_copy);
 
 				let $div_data_panel = $('<div>').addClass('d-flex flex-column flex-grow-1').appendTo($tr);
 				let $div_upper = $('<div>').addClass('d-flex flex-row').appendTo($div_data_panel);
