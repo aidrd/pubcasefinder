@@ -301,6 +301,11 @@ body {
   font-size: 20px;
 }
 
+.vgp-panel-row .vgp-button-panel .vgp-button-wrap .vgp-round-btn:hover{
+  background-color: #258800;
+  color: #FFF;
+}
+
 .vgp-panel-row .vgp-button-panel .vgp-button-wrap .vgp-round-btn span {
   margin-top: 4px;
 }
