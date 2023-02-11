@@ -92,7 +92,10 @@ body {
   align-items: center;
   font-size: 20px;
 }
-
+#vgp-download-all-btn:hover {
+  color: #fff;
+  background-color: #258800;
+}
 #vgp-download-all-btn span{margin-left: 5px;}
 
 .vgp-main .vgp-search { 
