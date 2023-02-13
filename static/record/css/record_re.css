@@ -1171,3 +1171,18 @@ i {
 ::-webkit-scrollbar-thumb {
   background: #3b5d82;
 }
+
+
+#tbody_familyInfo tr td details{
+display: grid;
+}
+
+#tbody_familyInfo tr td details summary label{
+  margin-left: 0;
+  padding: 0;
+}
+
+#tbody_familyInfo tr td details label{
+  margin-left: 1em;
+  padding: 0;
+}
