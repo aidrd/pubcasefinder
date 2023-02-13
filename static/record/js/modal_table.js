@@ -125,7 +125,7 @@ async function bodyTable() {
         bodyHeaders.push(displayName)
         bodyColumns.push({
             data: c.columnId,
-            type: 'text'
+            type: 'numeric'
         })
     })
 
@@ -171,6 +171,7 @@ function resetData(type) {
         bodyDataKey = []
         bodySchema = {}
         bodyData = []
+        currentBodyData = []
 
         if (bodyHot) {
             bodyHot.updateSettings(bodySettings)

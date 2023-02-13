@@ -1,6 +1,5 @@
 let hot, exportPlugin
 
-console.log('ls', localStorage.lang)
 let lang = localStorage.lang || 'en'
 lang = lang === 'undefined' ? 'en' : lang
 
@@ -50,6 +49,22 @@ let updateSettings = {
     beforeColumnSort: (currentSortConfig, destinationSortConfigs) => {
         if (destinationSortConfigs.length > 0) {
             if (destinationSortConfigs[0].column < 2) return false
+        }
+    },
+    beforeChange: (changes, type) => {
+        if (type === 'edit') {
+            changes.forEach(c => {
+                let col = c[1]
+                let newValue = c[3]
+
+                if (!newValue) return
+
+                if (col === 'p002') {
+                    if (!(familyOptions.includes(newValue))) familyOptions.push(newValue)
+                } else if (col === 'p004') {
+                    if (!(groupOptions.includes(newValue))) groupOptions.push(newValue)
+                }
+            })
         }
     },
     filters: true,
@@ -1056,8 +1071,8 @@ function setInitialLanguage() {
                 let optionLang = c['options'][lang].length > 0 ? c['options'][lang] : c['options']['en']
                 options.forEach((o, i) => {
                     td.innerHTML += `
-                        <label for="${o}">
-                            <input id="${o}" type="radio" name="${c.columnId}" value="${o}" checked="checked"
+                        <label for="${o}_${c.columnId}">
+                            <input id="${o}_${c.columnId}" type="radio" name="${c.columnId}" value="${o}" checked="checked"
                                 data-columnname="${c.columnId}">
                             ${optionLang[i]}
                         </label>
@@ -1081,104 +1096,104 @@ function setInitialLanguage() {
             } else if (c.inputType === 'multiple-radio') {
                 td.innerHTML = `
                     <label for="sporadic">
-                        <input id="sporadic" type="radio" name="geneticList" value="Sporadic"
-                            data-columnname="geneticList">Sporadic
+                        <input id="sporadic" type="radio" name="f002" value="Sporadic"
+                            data-columnname="f002">Sporadic
                     </label>
                     <details>
                         <summary>
                             <label for="autosomal_dominant_inheritance">
-                                <input id="autosomal_dominant_inheritance" type="radio" name="geneticList"
+                                <input id="autosomal_dominant_inheritance" type="radio" name="f002"
                                     value="Autosomal dominant inheritance"
-                                    data-columnname="geneticList">Autosomal
+                                    data-columnname="f002">Autosomal
                                 dominant
                                 inheritance
                             </label>
                         </summary>
                         <label for="sex_limited_autosomal_dominant">
-                            <input id="sex_limited_autosomal_dominant" type="radio" name="geneticList"
+                            <input id="sex_limited_autosomal_dominant" type="radio" name="f002"
                                 value="Sex-limited autosomal dominant"
-                                data-columnname="geneticList">Sex-limited
+                                data-columnname="f002">Sex-limited
                             autosomal dominant
                         </label>
                         <label for="autosomal_dominant_somatic_cell_mutation">
                             <input id="autosomal_dominant_somatic_cell_mutation" type="radio"
-                                name="geneticList" value="Autosomal dominant somatic cell mutation"
-                                data-columnname="geneticList">
+                                name="f002" value="Autosomal dominant somatic cell mutation"
+                                data-columnname="f002">
                             Autosomal
                             dominant somatic cell mutation
                         </label>
                         <label for="autosomal_dominant_contiguous_gene_syndrome">
                             <input id="autosomal_dominant_contiguous_gene_syndrome" type="radio"
-                                name="geneticList" value="Autosomal dominant contiguous gene syndrome"
-                                data-columnname="geneticList">
+                                name="f002" value="Autosomal dominant contiguous gene syndrome"
+                                data-columnname="f002">
                             Autosomal
                             dominant contiguous gene syndrome
                         </label>
                     </details>
                     <label for="autosomal_recessive_inheritance">
-                        <input id="autosomal_recessive_inheritance" type="radio" name="geneticList"
-                            value="Autosomal recessive inheritance" data-columnname="geneticList">
+                        <input id="autosomal_recessive_inheritance" type="radio" name="f002"
+                            value="Autosomal recessive inheritance" data-columnname="f002">
                         Autosomal
                         recessive inheritance
                     </label>
                     <details>
                         <summary>
                             <label for="gonosomal_inheritance">
-                                <input id="gonosomal_inheritance" type="radio" name="geneticList"
-                                    value="Gonosomal inheritance" data-columnname="geneticList">Gonosomal
+                                <input id="gonosomal_inheritance" type="radio" name="f002"
+                                    value="Gonosomal inheritance" data-columnname="f002">Gonosomal
                                 inheritance
                             </label>
                         </summary>
                         <label for="x_linked_inheritance">
-                            <input id="x_linked_inheritance" type="radio" name="geneticList"
-                                value="X-linked inheritance" data-columnname="geneticList">X-linked
+                            <input id="x_linked_inheritance" type="radio" name="f002"
+                                value="X-linked inheritance" data-columnname="f002">X-linked
                             inheritance
                         </label>
                         <label for="x_linked_dominant_inheritance">
-                            <input id="x_linked_dominant_inheritance" type="radio" name="geneticList"
-                                value="X-linked dominant inheritance" data-columnname="geneticList">X-linked
+                            <input id="x_linked_dominant_inheritance" type="radio" name="f002"
+                                value="X-linked dominant inheritance" data-columnname="f002">X-linked
                             dominant inheritance
                         </label>
                         <label for="x_linked_recessive_inheritance">
-                            <input id="x_linked_recessive_inheritance" type="radio" name="geneticList"
+                            <input id="x_linked_recessive_inheritance" type="radio" name="f002"
                                 value="X-linked recessive inheritance"
-                                data-columnname="geneticList">X-linked
+                                data-columnname="f002">X-linked
                             recessive inheritance
                         </label>
                         <label for="y_linked_inheritance">
-                            <input id="y_linked_inheritance" type="radio" name="geneticList"
-                                value="Y-linked inheritance" data-columnname="geneticList">Y-linked
+                            <input id="y_linked_inheritance" type="radio" name="f002"
+                                value="Y-linked inheritance" data-columnname="f002">Y-linked
                             inheritance
                         </label>
                     </details>
                     <details>
                         <summary>
                             <label for="multifactorial_inheritance">
-                                <input id="multifactorial_inheritance" type="radio" name="geneticList"
+                                <input id="multifactorial_inheritance" type="radio" name="f002"
                                     value="Multifactorial inheritance"
-                                    data-columnname="geneticList">Multifactorial
+                                    data-columnname="f002">Multifactorial
                                 inheritance
                             </label>
                         </summary>
                         <label for="digenic_inheritance">
-                            <input id="digenic_inheritance" type="radio" name="geneticList"
-                                value="Digenic inheritance" data-columnname="geneticList">Digenic
+                            <input id="digenic_inheritance" type="radio" name="f002"
+                                value="Digenic inheritance" data-columnname="f002">Digenic
                             inheritance
                         </label>
                         <label for="oligogenic_inheritance">
-                            <input id="oligogenic_inheritance" type="radio" name="geneticList"
-                                value="Oligogenic inheritance" data-columnname="geneticList">Oligogenic
+                            <input id="oligogenic_inheritance" type="radio" name="f002"
+                                value="Oligogenic inheritance" data-columnname="f002">Oligogenic
                             inheritance
                         </label>
                         <label for="polygenic_inheritance">
-                            <input id="polygenic_inheritance" type="radio" name="geneticList"
-                                value="Polygenic inheritance" data-columnname="geneticList">Polygenic
+                            <input id="polygenic_inheritance" type="radio" name="f002"
+                                value="Polygenic inheritance" data-columnname="f002">Polygenic
                             inheritance
                         </label>
                     </details>
                     <label for="mitochondrialx_inheritance">
-                        <input id="mitochondrialx_inheritance" type="radio" name="geneticList"
-                            value="Mitochondrial inheritance" data-columnname="geneticList">Mitochondrial
+                        <input id="mitochondrialx_inheritance" type="radio" name="f002"
+                            value="Mitochondrial inheritance" data-columnname="f002">Mitochondrial
                         inheritance
                     </label>
                 `

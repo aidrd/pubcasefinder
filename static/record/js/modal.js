@@ -176,14 +176,14 @@ function openModal(patientId) {
 
             category.columns.forEach(c => {
                 let value, colId = c.columnId
-                switch (c.dataKey) {
-                    case 'birth':
+                switch (colId) {
+                    case 'p006':
+                        value = patientData[colId]
                         colId = `${colId}_year`
-                        value = patientData[colId]
                         break
-                    case 'death':
-                        colId = `${c.columnId}_year`
+                    case 'p008':
                         value = patientData[colId]
+                        colId = `${colId}_year`
                         break
                     default:
                         value = patientData[colId]
@@ -240,7 +240,7 @@ function openModal(patientId) {
                         let age
                         let year = document.querySelector(`.tab-wrap *[name="p006_year"]`).value
                         let month = document.querySelector(`.tab-wrap *[name="p006_month"]`).value
-
+                        console.log(year, month)
                         if (!month) {
                             age = d.getFullYear() - year
                         } else if (month && year) {
@@ -248,6 +248,7 @@ function openModal(patientId) {
                                 age = d.getFullYear() - year
                             } else {
                                 age = d.getFullYear() - year - 1
+                                if (age < 1) age = '0'
                             }
                         }
 
