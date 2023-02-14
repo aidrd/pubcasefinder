@@ -458,6 +458,7 @@
 			return $('<button>').addClass('round-button material-icons').text('clear')
 						.click(function(){
 							$("#tokeninput_hpo").tokenInput("clear");
+							$("#tokeninput_hpo").popupRelationHPO('triggerChangeState');
 							return false;
 						});
 		}
