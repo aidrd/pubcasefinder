@@ -113,14 +113,17 @@
                     </span>
                 </a>
                 <div class="save-panel">
-                    <div class="save-format">
-                        <p>Format :</p>
-                        <select name="file" id="dl-select">
-                            <option value="json">json</option>
-                            <option value="tsv">tsv</option>
-                        </select>
+                    <div class="save-panel-wrap">
+                        <div class="save-format">
+                            <p>Format :</p>
+                            <select name="file" id="dl-select">
+                                <option value="json">json</option>
+                                <option value="tsv">tsv</option>
+                            </select>
+                        </div>
+                        <button id="dl_table_button" onclick="getExportData(false)">Save</button>
                     </div>
-                    <button id="dl_table_button" onclick="getExportData(false)">Save</button>
+                    <div class="popup-bg-cover"></div>
                 </div>
             </li>
             <!--<li class="contact">
