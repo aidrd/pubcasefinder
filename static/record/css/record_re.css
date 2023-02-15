@@ -402,7 +402,7 @@ i {
 .nav-item-dropdown .common-menu .common-menu-wrap{
   position: relative;
   z-index: 1001;
-  min-width: 15.7rem;
+  min-width: 15rem;
   padding: 1em;
   background-color: #fff;
   border-radius: 0.5em;
@@ -801,35 +801,38 @@ i {
   margin: auto 0;
 }
 
-.home-section #content-patients #modal-karte #modal-karte-button-sub button img {
-  width: 20px;
-  margin-right: 0.5em;
-}
 
-.home-section #content-patients #modal-karte #modal-karte-button-sub .modal-copy {
+.modal-copy {
   background: #fff;
+  padding: 0.3em 1em;
 }
 
-.home-section #content-patients #modal-karte #modal-karte-button-sub .modal-copy i {
+.modal-copy i {
   font-size: 20px;
   margin-right: 0.2em;
 }
 
-.home-section #content-patients #modal-karte #modal-karte-button-sub .modal-copy:hover {
+.modal-copy:hover {
   text-decoration: none;
   opacity: 0.6;
 }
 
-.home-section #content-patients #modal-karte #modal-karte-button-sub .modal-phenopackets {
+.modal-phenopackets {
   background: #fff;
+  padding: 0.3em 1em;
 }
 
-.home-section #content-patients #modal-karte #modal-karte-button-sub .modal-phenopackets i {
+.modal-phenopackets img{
+  width: 20px;
+  margin-right: 0.5em;
+}
+
+.modal-phenopackets i {
   font-size: 20px;
   margin-left: 0.2em;
 }
 
-.home-section #content-patients #modal-karte #modal-karte-button-sub .modal-phenopackets:hover {
+.modal-phenopackets:hover {
   text-decoration: none;
   opacity: 0.6;
 }
@@ -1212,4 +1215,9 @@ display: grid;
 #tbody_familyInfo tr td details label{
   margin-left: 1em;
   padding: 0;
+}
+
+
+.p006_year{
+  margin-right: 0.5em;
 }

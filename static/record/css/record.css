@@ -418,11 +418,12 @@ body {
 
 #modal-karte .tab-wrap ul .tab-btn {
   width: 50%;
-  padding: 0.7em 0;
+  /*padding: 0.7em 0;*/
   font-size: 0.9em;
   text-align: center;
   list-style: none;
   cursor: pointer;
+  margin: auto 0;
 }
 
 #modal-karte .tab-wrap ul .tab-btn i {
@@ -443,7 +444,7 @@ body {
 
 #modal-karte .tab-wrap .show {
   display: block;
-  padding: 1em 1.5em;
+  padding: 0.5em 1.5em;
 }
 
 #modal-karte .tab-wrap .show .form-table {
