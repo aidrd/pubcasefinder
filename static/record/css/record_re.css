@@ -355,7 +355,6 @@ i {
 }
 
 .nav-item-dropdown .dropdown-menu {
-  background-color: #fff;
   display: inline-block;
   text-align: right;
   position: absolute;
@@ -398,9 +397,27 @@ i {
 }
 
 .nav-item-dropdown .common-menu {
+}
+
+.nav-item-dropdown .common-menu .common-menu-wrap{
+  position: relative;
+  z-index: 1001;
   min-width: 15.7rem;
   padding: 1em;
+  background-color: #fff;
+  border-radius: 0.5em;
+  box-shadow: 0 2px 15px 1px rgba(163, 163, 163, 0.2);
 }
+
+.nav-item-dropdown #dropdown-language .dropdown-languag-wrap{
+  position: relative;
+  z-index: 1001;
+  background-color: #fff;
+  border-radius: 0.5em;
+  box-shadow: 0 2px 15px 1px rgba(163, 163, 163, 0.2);
+  overflow: hidden;
+}
+
 
 .nav-item-dropdown .common-menu .common-menu-item {
   cursor: pointer;

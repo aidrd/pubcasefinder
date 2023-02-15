@@ -68,7 +68,7 @@
 
 <body onbeforeunload="return beforeLoad()">
 
-<!-- <body> -->
+    <!-- <body> -->
     <div class="sidebar">
         <div class="logo-details">
             <div class="logo_name">PubCaseFinder</div>
@@ -150,58 +150,61 @@
                             apps
                         </i></a>
                     <ul class="dropdown-menu common-menu">
-                        <li class="dropdown-menu-item common-menu-item">
-                            <a href="/guides">
-                                <i class="icon-question-circle-o"></i>
-                                <span>Guides</span></a>
-                        </li>
-                        <li class="dropdown-menu-item common-menu-item">
-                            <a href="/api"><i class="icon-wrench"></i><span>API</span></a>
-                        </li>
-                        <li class="dropdown-menu-item common-menu-item">
-                            <a href="/history"><i class="icon-history"></i><span>History</span></a>
-                        </li>
-                        <li class="dropdown-menu-item common-menu-item">
-                            <a href="/termsofservice"><i class="icon-doc-text-inv"></i><span>Terms</span></a>
-                        </li>
-                        <li class="dropdown-menu-item common-menu-item">
-                            <a href="/sources"><i class="icon-database"></i><span>Sources</span></a>
-                        </li>
-                        <!--<li class="dropdown-menu-item common-menu-item">
+                        <ul class="common-menu-wrap">
+                            <li class="dropdown-menu-item common-menu-item">
+                                <a href="/guides">
+                                    <i class="icon-question-circle-o"></i>
+                                    <span>Guides</span></a>
+                            </li>
+                            <li class="dropdown-menu-item common-menu-item">
+                                <a href="/api"><i class="icon-wrench"></i><span>API</span></a>
+                            </li>
+                            <li class="dropdown-menu-item common-menu-item">
+                                <a href="/history"><i class="icon-history"></i><span>History</span></a>
+                            </li>
+                            <li class="dropdown-menu-item common-menu-item">
+                                <a href="/termsofservice"><i class="icon-doc-text-inv"></i><span>Terms</span></a>
+                            </li>
+                            <li class="dropdown-menu-item common-menu-item">
+                                <a href="/sources"><i class="icon-database"></i><span>Sources</span></a>
+                            </li>
+                            <!--<li class="dropdown-menu-item common-menu-item">
                             <a target="_blank" href="https://integbio.jp/rdf/dataset/pubcasefinder"><i
                                     class="icon-share"></i><span>RDF</span></a>
                         </li>-->
-                        <li class="dropdown-menu-item common-menu-item">
-                            <a title="Comments &amp; suggestions are welcome!"
-                                href="mailto:support@dbcls.rois.ac.jp,pubcasefinder@dbcls.rois.ac.jp"><i
-                                    class="icon-mail-alt"></i><span>Contact</span></a>
-                        </li>
-                        <ul class="dropdown-service">
-                            <li class="dropdown-menu-item">
-                                <i class="material-symbols-outlined">
-                                    receipt_long
-                                </i>
-                                <span>
-                                    <h4>Disease Search</h4>
-                                </span>
+                            <li class="dropdown-menu-item common-menu-item">
+                                <a title="Comments &amp; suggestions are welcome!"
+                                    href="mailto:support@dbcls.rois.ac.jp,pubcasefinder@dbcls.rois.ac.jp"><i
+                                        class="icon-mail-alt"></i><span>Contact</span></a>
                             </li>
-                            <li class="dropdown-menu-item">
-                                <i class="material-symbols-outlined">
-                                    receipt_long
-                                </i>
-                                <span>
-                                    <h4>Case Sharing</h4>
-                                </span>
-                            </li>
-                            <li class="dropdown-menu-item">
-                                <i class="material-symbols-outlined">
-                                    receipt_long
-                                </i>
-                                <span>
-                                    <h4>Panel Search</h4>
-                                </span>
-                            </li>
+                            <ul class="dropdown-service">
+                                <li class="dropdown-menu-item">
+                                    <i class="material-symbols-outlined">
+                                        receipt_long
+                                    </i>
+                                    <span>
+                                        <h4>Disease Search</h4>
+                                    </span>
+                                </li>
+                                <li class="dropdown-menu-item">
+                                    <i class="material-symbols-outlined">
+                                        receipt_long
+                                    </i>
+                                    <span>
+                                        <h4>Case Sharing</h4>
+                                    </span>
+                                </li>
+                                <li class="dropdown-menu-item">
+                                    <i class="material-symbols-outlined">
+                                        receipt_long
+                                    </i>
+                                    <span>
+                                        <h4>Panel Search</h4>
+                                    </span>
+                                </li>
+                            </ul>
                         </ul>
+                        <li class="popup-bg-cover"></li>
                     </ul>
                 </li>
                 <li class="nav-item nav-item-dropdown" id="nav-language">
@@ -211,11 +214,14 @@
                         </i>
                         <span id="selected-language-display"></span></a>
                     <ul class="dropdown-menu" id="dropdown-language">
-                        <li class="dropdown-menu-item" data-lang="ja">日本語</li>
-                        <li class="dropdown-menu-item" data-lang="en">English</li>
-                        <li class="dropdown-menu-item" data-lang="ko">한국어</li>
-                        <li class="dropdown-menu-item" data-lang="zh">中文(简体)</li>
-                        <li class="dropdown-menu-item" data-lang="zhcht">中文(繁体)</li>
+                        <ul class="dropdown-languag-wrap">
+                            <li class="dropdown-menu-item" data-lang="ja">日本語</li>
+                            <li class="dropdown-menu-item" data-lang="en">English</li>
+                            <li class="dropdown-menu-item" data-lang="ko">한국어</li>
+                            <li class="dropdown-menu-item" data-lang="zh">中文(简体)</li>
+                            <li class="dropdown-menu-item" data-lang="zhcht">中文(繁体)</li>
+                        </ul>
+                        <li class="popup-bg-cover"></li>
                     </ul>
                 </li>
             </ul>
