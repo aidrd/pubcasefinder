@@ -3007,7 +3007,11 @@
 						if($li_node.hasClass(current_settings.cssTokenClass)){
 							tokenInputItems = getTokenInputItems();
 							tokenInputItemNodes = getTokenInputItemNodes();
-							tokenInputItem = getTokenInputItemFromName(click_text);
+                            $li_node.addClass('temporary_label');
+                            let idx = tokenInputItemNodes.findIndex(obj => {return $(obj).hasClass('temporary_label');});
+                            $li_node.removeClass('temporary_label');
+                            tokenInputItem = tokenInputItems[idx];
+							//tokenInputItem = getTokenInputItemFromName(click_text);
 						}
 						else{
 							current_settings = $.extend(true,{}, current_settings, {use_webgl: DEFAULT_SETTINGS.use_webgl});
@@ -3676,10 +3680,12 @@
 			//	max_height= Math.floor($(ATTACH_TO).height()) - Math.ceil(pos);
 			//}
             //$mfp_container.css({'max-height':max_height+'px','overflow':'hidden auto'});
-			if(!ATTACH_TO){
-				let max_height= Math.floor(document.documentElement.clientHeight) - Math.ceil(pos);
-				$mfp_container.css({'max-height':max_height+'px','overflow':'hidden auto'});
-			}
+
+//			if(!ATTACH_TO){
+//				let max_height= Math.floor(document.documentElement.clientHeight) - Math.ceil(pos);
+//				$mfp_container.css({'max-height':max_height+'px','overflow':'hidden auto'});
+//			}
+
 		}
 
 
