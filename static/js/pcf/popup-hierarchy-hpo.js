@@ -3015,7 +3015,12 @@
 
 							tokenInputItems = getOriginalTokenInputItems();
 							tokenInputItemNodes = getOriginalTokenInputItemNodes();
-							tokenInputItem = getOriginalTokenInputItemFromName(click_text);
+
+							$li_node.addClass('temporary_label');
+							let idx = tokenInputItemNodes.findIndex(obj => {return $(obj).hasClass('temporary_label');});
+							$li_node.removeClass('temporary_label');
+							//tokenInputItem = getOriginalTokenInputItemFromName(click_text);
+							tokenInputItem = tokenInputItems[idx];
 						}
 						if(tokenInputItem){
 							options.hasJA = hasJA(tokenInputItem.name);
