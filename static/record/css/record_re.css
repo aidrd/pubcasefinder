@@ -1070,17 +1070,16 @@ i {
 
 #menu-save .save-panel {
   margin-top: -10px;
+  background: #1d1b31;
   display: none;
   position: absolute;
   left: 100%;
   top: -10px;
   margin-top: 0;
   opacity: 0;
+  padding: 1.5em;
+  border-radius: 5px;
   display: block;
-}
-
-
-#menu-save .save-panel .save-panel-wrap{
   pointer-events: none;
 }
 
@@ -1093,24 +1092,18 @@ i {
 }
 
 
-.save-format{
-  color: #fff;
-  padding: 1.5em;
-  border-radius: 5px;
-  background: #1d1b31;
-  z-index: 1001;
-  position: absolute;
-}
-
-#menu-save .save-panel .save-format span{
+#menu-save .save-panel .save-format {
   display: flex;
   align-items: center;
 }
+
+
 
 #menu-save .save-panel .save-format p {
   white-space: nowrap;
   margin-right: 0.5em;
   display: block;
+  color: #fff;
 }
 
 #menu-save .save-panel .save-format select {
