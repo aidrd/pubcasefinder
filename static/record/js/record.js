@@ -149,7 +149,8 @@ function createColumns() {
                     source: options,
                     strict: true,
                     allowInvalid: false,
-                    readOnly: false
+                    readOnly: false,
+                    className: 'htMiddle' 
                 }
 
                 if (c.type === 'date') {
@@ -287,7 +288,7 @@ function addColumn() {
             }
             container.innerHTML += 
             `<div class="add_column_title">${icon}${colName}
-                <input type="checkbox" class="add-column-checkbox">
+                <input type="checkbox" id="cb_${key}" class="add-column-checkbox" onchange="showHideAllColumn(this)">
             </div>`
         } else {
             let dataCol = dataColumns[key]
@@ -303,6 +304,7 @@ function addColumn() {
                             id="${key}"
                             data-type="${type}"
                             data-colname="${colName}"
+                            data-category="${key.charAt(0)}"
                             onchange="showHideColumn(this)"
                             ${existingColumns.includes(key) ? 'checked' : ''}>
                     <label for="${key}">${colName}</label>
@@ -346,6 +348,15 @@ function addColumn() {
     function closeAddColumnModal() {
         modal.style.display = 'none'
     }
+}
+
+function showHideAllColumn(e) {
+    let categoryKey = e.id.split('_')[1]
+    let categoryId = categoryKey.charAt(0)
+
+    $(`input[data-category='${categoryId}']`).each((i, c) => {
+        if (c.checked !== e.checked) c.click()
+    })
 }
 
 function showHideColumn(e) {
@@ -887,9 +898,8 @@ function pageReload() {
 
 function changeLanguage() {
     $('ul#dropdown-language li').click((e) => {
+        if (e.target.classList.contains('popup-bg-cover')) return document.getElementById('dropdown-language').classList.toggle('dropdown-menu-open')
         let newLang = e.target.dataset.lang
-        // document.getElementById('dropdown-language').style.display = 'none'
-        // console.log('clciked', document.getElementById('dropdown-language'))
 
         if (newLang === lang) return
 

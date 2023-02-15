@@ -16,6 +16,11 @@ $('#nav-language').click(() => {
 
 $('#menu-save').click((e) => {
     $('.save-panel').toggleClass('save-panel-open')
+
+    // window.onclick = (e) => {
+    //     console.log(e.target.closest('.save-panel'))
+    //     if (!e.target.closest('.save-panel')) $('.save-panel-open').toggleClass('save-panel-open')
+    // }
 })
 
 $(function () {
