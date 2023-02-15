@@ -1141,10 +1141,25 @@ i {
   opacity: 0.6;
 }
 
-.chart-container {
-  width: 70%;
-  margin: 1em 2em;
+#charts-patients{
+  margin: 2em;
 }
+
+#charts-patients h1{
+  margin-bottom: 1em;
+}
+
+.chart-container {
+  background: #f5f6f7;
+  padding: 2em;
+  height: 250px;
+  margin-bottom: 2em;
+}
+
+.chart-container canvas{
+  margin: 0 auto;
+}
+
 
 #modal-info {
   background: #fff;
@@ -1225,3 +1240,5 @@ display: grid;
 .p008_year{
   margin-right: 0.5em;
 }
+
+
