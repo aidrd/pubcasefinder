@@ -1085,6 +1085,8 @@ width: 35px;
     border-top: none;
     padding: 0 0 1em 0;
   }
+  #modal-karte .tab-wrap .show .form-table tbody tr td #bodyModal table{
+  }
 }
 
 #menu-save .save-panel {
