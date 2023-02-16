@@ -866,8 +866,9 @@ display: block;
 .modal_content .modal_container .add_column_title i {
   font-size: 17px;
   vertical-align: -4px;
-  margin-right: 0.2em;
+  margin-right: 0.1em;
   float: none;
+  margin-left: 0.5em;
 }
 
 /* .modal_content .modal_container .add_column_title .add-column-checkbox{
