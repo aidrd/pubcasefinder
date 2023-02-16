@@ -326,10 +326,24 @@ i {
   background-color: #f0f0f0;
   border-bottom: solid 1px #ddd;
   padding: 0.5em 2em;
-  display: block;
+  display: flex;
   margin: 0 auto;
   text-align: right;
+
 }
+
+.common-brand{
+  display: block;
+    max-width: 200px;
+    min-width: 170px;
+    margin: auto 0;
+}
+
+.nav-items{
+  margin: auto 0 auto auto;
+}
+
+
 
 #nav-case{
   background-color: #f6f6f6;
@@ -463,9 +477,14 @@ i {
   background: #f4f4f4;
   padding: 0.5em;
   height: fit-content;
-  border-radius: 1em;
-  margin-right: 0.3em;
+  border-radius: 50px;
+  margin-right: 0.5em;
 }
+
+.nav-item-dropdown .common-menu .dropdown-service .dropdown-menu-item i img{
+width: 35px;
+}
+
 
 .nav-item-dropdown .common-menu .dropdown-service .dropdown-menu-item span {
   display: block;
