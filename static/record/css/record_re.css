@@ -329,7 +329,7 @@ i {
   display: flex;
   margin: 0 auto;
   text-align: right;
-  white-space: nowrap;
+
 }
 
 .common-brand{
@@ -1086,6 +1086,7 @@ width: 35px;
     padding: 0 0 1em 0;
   }
   #modal-karte .tab-wrap .show .form-table tbody tr td #bodyModal table{
+
   }
 }
 
