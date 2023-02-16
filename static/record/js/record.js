@@ -196,7 +196,8 @@ function createColumns() {
                 dataColumns[colId] = {
                     colHeader: colHeader,
                     column: column,
-                    sequence: colSequence
+                    sequence: colSequence,
+                    category: category.categoryId
                 }
 
                 colSequence++
@@ -287,8 +288,9 @@ function addColumn() {
                     break
             }
             container.innerHTML += 
-            `<div class="add_column_title">${icon}${colName}
+            `<div class="add_column_title">
                 <input type="checkbox" id="cb_${key}" class="add-column-checkbox" onchange="showHideAllColumn(this)">
+                ${icon}${colName}
             </div>`
         } else {
             let dataCol = dataColumns[key]
@@ -334,8 +336,9 @@ function addColumn() {
         colHeaders.push(colHeader)
         columns.push(column)
         existingColumns.push(colId)
-        customColumns.push(add.value)
-        createColumn(add.value, 'custom')
+        // customColumns.push(add.value)
+        customColumns.push(colId)
+        createColumn(add.value, 'custom', colId)
 
         contentData.map(c => c[colId] = null)
 
@@ -352,7 +355,7 @@ function addColumn() {
 
 function showHideAllColumn(e) {
     let categoryKey = e.id.split('_')[1]
-    let categoryId = categoryKey.charAt(0)
+    let categoryId = categoryKey === 'カスタム' ? 'c' : categoryKey.charAt(0)
 
     $(`input[data-category='${categoryId}']`).each((i, c) => {
         if (c.checked !== e.checked) c.click()
@@ -389,7 +392,7 @@ function showHideColumn(e) {
 
             columns.forEach((h, i) => {
                 if (h.data !== 'm013') return
-                if (h.renderer.name === renderer) headers.splice(i, 1)
+                if (h.renderer.name === renderer) columns.splice(i, 1)
             })
         } else {
             columns = columns.filter(h => { return h.data !== colId })
@@ -673,6 +676,8 @@ function getKeyFromTranslation(obj, val) {
 }
 
 function getExportData() {
+    $('.save-panel').toggleClass('save-panel-open')
+
     let type = document.getElementById('dl-select').value
     let isAll = type === 'json'
 

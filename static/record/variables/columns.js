@@ -385,7 +385,7 @@ let categories = [
             {
                 columnId: 'm012',
                 dataKey: 'allergies',
-                inputType: 'radio-input',
+                inputType: 'text',
                 phenoKey: '',
                 type: 'text',
                 table: true,
@@ -396,14 +396,14 @@ let categories = [
                     zh: '过敏症',
                     zhcht: '過敏症'
                 },
-                options: {
-                    dataValue: ['yes', 'no'],
-                    en: ['Yes', 'No'],
-                    ja: ['有', '無'],
-                    ko: [],
-                    zh: [],
-                    zhcht: []
-                }
+                // options: {
+                //     dataValue: ['yes', 'no'],
+                //     en: ['Yes', 'No'],
+                //     ja: ['有', '無'],
+                //     ko: [],
+                //     zh: [],
+                //     zhcht: []
+                // }
             },
             {
                 columnId: 'm013_2',
@@ -468,7 +468,7 @@ let categories = [
             {
                 columnId: 'm015',
                 dataKey: 'drinking',
-                inputType: 'radio-input',
+                inputType: 'text',
                 phenoKey: '',
                 type: 'text',
                 table: true,
@@ -479,19 +479,19 @@ let categories = [
                     zh: '饮酒量',
                     zhcht: '飲酒量'
                 },
-                options: {
-                    dataValue: ['yes', 'no'],
-                    en: ['Yes', 'No'],
-                    ja: ['有', '無'],
-                    ko: [],
-                    zh: [],
-                    zhcht: []
-                }
+                // options: {
+                //     dataValue: ['yes', 'no'],
+                //     en: ['Yes', 'No'],
+                //     ja: ['有', '無'],
+                //     ko: [],
+                //     zh: [],
+                //     zhcht: []
+                // }
             },
             {
                 columnId: 'm016',
                 dataKey: 'smoking',
-                inputType: 'radio-input',
+                inputType: 'text',
                 phenoKey: '',
                 type: 'text',
                 table: true,
@@ -502,14 +502,14 @@ let categories = [
                     zh: '吸烟',
                     zhcht: '吸菸'
                 },
-                options: {
-                    dataValue: ['yes', 'no'],
-                    en: ['Yes', 'No'],
-                    ja: ['有', '無'],
-                    ko: [],
-                    zh: [],
-                    zhcht: []
-                }
+                // options: {
+                //     dataValue: ['yes', 'no'],
+                //     en: ['Yes', 'No'],
+                //     ja: ['有', '無'],
+                //     ko: [],
+                //     zh: [],
+                //     zhcht: []
+                // }
             },
             {
                 columnId: 'm017',

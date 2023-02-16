@@ -15,13 +15,19 @@ $('#nav-language').click(() => {
 })
 
 $('#menu-save').click((e) => {
+    if (e.target.closest('.save-panel')) return
     $('.save-panel').toggleClass('save-panel-open')
-
-    // window.onclick = (e) => {
-    //     console.log(e.target.closest('.save-panel'))
-    //     if (!e.target.closest('.save-panel')) $('.save-panel-open').toggleClass('save-panel-open')
-    // }
 })
+
+// window.onclick = (e) => {
+//     if ($('.save-panel-open')) {
+//         console.log(e.target.closest('.save-panel'))
+//         return
+//     }
+
+//     console.log('not open')
+//     //     if (!e.target.closest('.save-panel')) $('.save-panel-open').toggleClass('save-panel-open')
+// }
 
 $(function () {
     $('.tab-btn').on('click', function () {
@@ -240,17 +246,23 @@ function openModal(patientId) {
                         }
                     }
 
+                    let age = getAge()
+                    document.querySelector(`.tab-wrap *[name="p007"]`).value = age
+                    onchange('p007', age)
+
                     function getAge() {
                         let d = new Date()
                         let age
                         let year = document.querySelector(`.tab-wrap *[name="p006_year"]`).value
                         let month = document.querySelector(`.tab-wrap *[name="p006_month"]`).value
-                        console.log(year, month)
                         if (!month) {
                             age = d.getFullYear() - year
+                        } else if (year === '0' && month === '0') {
+                            age = ''
                         } else if (month && year) {
                             if (d.getMonth() >= month) {
                                 age = d.getFullYear() - year
+                                if (age === 0) age = '0'
                             } else {
                                 age = d.getFullYear() - year - 1
                                 if (age < 1) age = '0'
@@ -309,7 +321,10 @@ function openModal(patientId) {
                 if (type === 'radio') {
                     $(`.tab-wrap input[name="${colId}"]`).on('click change', (e) => {
                         let targetValue = $(`.tab-wrap input[name="${colId}"]:checked`).val()
+                        console.log('tv', targetValue)
                         targetValue = getDataDisplayOption(c.options, targetValue, 'displayValue')
+                        console.log('after', targetValue)
+
                         onchange(colId, targetValue)
                     })
                 }
@@ -324,9 +339,9 @@ function openModal(patientId) {
             })
         })
 
-        let dateKey = ['p006', 'p008']
-
         function onchange (key, value, element) {
+            let dateKey = ['p006', 'p008']
+
             if (dateKey.includes(key)) {
                 let pre = key
                 if (value === '') {
@@ -336,6 +351,7 @@ function openModal(patientId) {
                 }
             }
             changedData[key] = value
+            console.log(changedData)
         }
 
         function showHideDeathDate(parent, value) {
@@ -369,23 +385,54 @@ function generatePhenopackets() {
     let patientData = contentData.filter(d => { return d.PCFNo == currentPatient })[0]    
     if (!patientData) return
 
-    let vitalStatus = {
-        status: translate(patientData['lifeStatus'])
+
+    // let category = categories.filter(c => { return c.categoryId === dataColumns['p005'].category })
+    // let columnDetails = category[0].columns.filter(c => { return c.columnId === 'p005' })
+    // let options = columnDetails[0].options[lang]
+    // let index = options.indexOf(patientData['p005'])
+    // console.log(index, columnDetails[0].options.dataValue[index])
+    // console.log(patientData['p005'])
+
+    let status
+    if (patientData['p005'] === 'alive' || patientData['p005'] === 'Alive' || patientData['p005'] === '生存') {
+        status = 'ALIVE'
+    } else {
+        status = 'DECEASED'
     }
 
-    if (patientData['lifeStatus'] === 'deceased') {
+    let vitalStatus = {
+        status: status
+    }
+
+    if (status === 'DECEASED') {
         vitalStatus.timeOfDeath = {
-            timestamp: patientData['death']
+            timestamp: patientData['p008']
         }
     }
 
+    // category = categories.filter(c => { return c.categoryId === dataColumns['p009'].category })
+    // columnDetails = category[0].columns.filter(c => { return c.columnId === 'p009' })
+    // options = columnDetails[0].options[lang]
+    // index = options.indexOf(patientData['p009'])
+    // console.log(options, index)
+
+    let sex
+    if (patientData['p009'] === '男性' || patientData['p009'] === 'male' || patientData['p009'] === 'Male') {
+        sex = 'MALE'
+    } else if (patientData['p009'] === '女性' || patientData['p009'] === 'female' || patientData['p009'] === 'Female') {
+        sex = 'FEMALE'
+    } else {
+        sex = 'UNKNOWN_STATUS'
+    }
+
+
     let phenopacket = {
         phenopacket: {
-            id: patientData['group'] || '',
+            id: patientData['p004'] || '',
             subject: {
                 id: currentPatient,
-                sex: translate(patientData['sex']),
-                dateOfBirth: patientData['birth'],
+                sex: sex,
+                dateOfBirth: patientData['p006'],
                 vitalStatus: vitalStatus
             }
         }

@@ -870,9 +870,9 @@ display: block;
   float: none;
 }
 
-.modal_content .modal_container .add_column_title .add-column-checkbox{
+/* .modal_content .modal_container .add_column_title .add-column-checkbox{
   margin: 0 0 0 auto;
-}
+} */
 
 .modal_content .modal_container div {
   align-items: center;
