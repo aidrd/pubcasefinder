@@ -1239,9 +1239,26 @@ display: grid;
   padding: 0;
 }
 
+#tbody_familyInfo tr td details summary::marker{
+color: #007bff;
+width: 10px;
+}
+
 #tbody_familyInfo tr td details label{
-  margin-left: 1em;
+  margin-left: 3em;
   padding: 0;
+}
+
+#sporadic{
+  margin-left: 9px;
+}
+
+#autosomal_recessive_inheritance{
+  margin-left: 9px;
+}
+
+#mitochondrialx_inheritance{
+  margin-left: 9px;
 }
 
 
