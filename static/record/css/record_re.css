@@ -587,7 +587,7 @@ width: 35px;
 
 #content-patients #home-menu {
   display: flex;
-  padding: 0.5em 2em;
+  padding: 0.2em 1em;
 }
 
 #content-patients #home-menu .title {
@@ -598,7 +598,7 @@ width: 35px;
 #content-patients #home-menu .title .person_icon {
   color: #fff;
   background-color: #11101d;
-  padding: 0.5em;
+  padding: 0.3em;
   border-radius: 20px;
   font-size: 18px;
 }
@@ -625,13 +625,13 @@ width: 35px;
 
 #content-patients #home-menu .right-menu input {
   background-color: #F2F3F3;
-  padding: 8px 15px;
+  padding: 0.3em 15px;
   border-radius: 20px;
   width: 20em;
 }
 
 #content-patients #home-menu .right-menu span {
-  padding: 0.5em;
+  padding: 0.3em;
   cursor:pointer;
 }
 
@@ -723,21 +723,21 @@ width: 35px;
 
 @media (max-width: 1242px) {
   #content-patients #home-menu .right-menu #table_menu #add-column {
-    padding: 0.8em;
+    padding: 0.65em;
     border-radius: 40px;
   }
   #content-patients #home-menu .right-menu #table_menu #add-column span {
     display: none;
   }
   #content-patients #home-menu .right-menu #table_menu #add-row {
-    padding: 0.8em;
+    padding: 0.65em;
     border-radius: 40px;
   }
   #content-patients #home-menu .right-menu #table_menu #add-row span {
     display: none;
   }
   #content-patients #home-menu .right-menu #table_menu li {
-    padding: 0.8em;
+    padding: 0.65em;
     border-radius: 40px;
   }
   #content-patients #home-menu .right-menu #table_menu li span {
