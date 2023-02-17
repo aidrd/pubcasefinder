@@ -583,12 +583,11 @@ width: 35px;
   background-color: #fff;
   border-radius: 10px;
   height: 80vh;
-  padding: 0.5em 0 2em 2em;
 }
 
 #content-patients #home-menu {
   display: flex;
-  padding: 0 2em 0.5em 0;
+  padding: 0.5em 2em;
 }
 
 #content-patients #home-menu .title {
@@ -747,7 +746,7 @@ width: 35px;
 }
 
 #myGrid {
-  min-height: 76vh;
+  min-height: 84vh;
 }
 
 .modal_content {
