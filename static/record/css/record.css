@@ -826,6 +826,7 @@ display: block;
   width: fit-content;
   margin: 0 0 0 auto;
   white-space: nowrap;
+  cursor:pointer
 }
 
 .modal_content .button_wrap .add i {
