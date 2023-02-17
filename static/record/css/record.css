@@ -204,6 +204,13 @@ body {
   margin: auto 0 auto 0.5em;
 }
 
+.search_wrap {
+  display: flex;
+  background: #F2F3F3;
+  border-radius: 20px;
+  padding-left: 0.5em;
+}
+
 #nav-left .home main #home-menu #reset i {
   color: #abb3c2;
   font-size: 1.6em;
