@@ -325,7 +325,7 @@ i {
 .common-nav-container {
   background-color: #f0f0f0;
   border-bottom: solid 1px #ddd;
-  padding: 0.5em 2em;
+  padding: 0.5em 1em;
   display: flex;
   margin: 0 auto;
   text-align: right;
