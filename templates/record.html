@@ -66,9 +66,9 @@
 
 </head>
 
-<!-- <body onbeforeunload="return beforeLoad()"> -->
+<body onbeforeunload="return beforeLoad()">
 
-    <body>
+    <!-- <body> -->
     <div class="sidebar">
         <div class="logo-details">
             <div class="logo_name">PubCaseFinder</div>
@@ -292,7 +292,13 @@
         <main id="charts-patients">
             <h1>サンプルチャート</h1>
             <div class="chart-container">
+                <canvas class="chart bar-chart" id="bar-chart-family"></canvas>
+            </div>
+            <div class="chart-container">
                 <canvas class="chart pie-chart" id="pie-chart-sex"></canvas>
+            </div>
+            <div class="chart-container">
+                <canvas class="chart pie-chart" id="pie-chart-age"></canvas>
             </div>
             <div class="chart-container">
                 <canvas class="chart bar-chart" id="bar-chart-group"></canvas>

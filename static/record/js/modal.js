@@ -53,6 +53,7 @@ function openModal(patientId) {
     $('.modal_bg').fadeIn()
 
     var modal = '#modal-karte'
+
     modalReset()
 
     modalResize()
@@ -125,7 +126,6 @@ function openModal(patientId) {
     function optionLoop (start, end, id) {
         start = parseInt(start)
         end = parseInt(end)
-        console.log(start, end, id)
         let opt = `<option value="0" hidden>${end === 12 ? translate('select-month') : translate('select-year') }</option>`
 
         if (end === 12) {
@@ -231,43 +231,32 @@ function openModal(patientId) {
                         onchange(colId === 'p006_year' ? 'p006' : 'p008')
 
                         if (colId === 'p006_year') {
-                            let age = getAge()
-                            document.querySelector(`.tab-wrap *[name="p007"]`).value = age
-                            onchange('p007', age)
+                            setAge()
+                            // onchange('p007', age)
                             changeDeathOptions('year')
-                            // optionLoop(element.value, d.getFullYear(), `p008_year`)
                         } else if (colId === 'p008_year') {
                             changeDeathOptions('month')
-
-                            // console.log(element.value, monthElement.value)
-                            // let birthYear = document.querySelector(`.tab-wrap *[name="p006_year"]`).value
-                            // let birthMonth = document.querySelector(`.tab-wrap *[name="p006_month"]`).value
-
-                            // if (element.value === birthYear) {
-                            //     optionLoop(birthMonth, 12, `p008_month`)
-                            // }
-                            
                         }
                     }
 
                     let monthElement = document.querySelector(`.tab-wrap *[name="${monthId}"]`)
                     let monthValue = date[1]
                     if (monthValue) monthElement.value = monthValue
-                    cancelIdleCallback.onchange = function () {
-                    // monthElement.onchange = function () {
+                    // cancelIdleCallback.onchange = function () {
+                    monthElement.onchange = function () {
                         onchange(colId === 'p006_year' ? 'p006' : 'p008')
                         if (colId === 'p006_year') {
-                            let age = getAge()
-                            document.querySelector(`.tab-wrap *[name="p007"]`).value = age
-                            onchange('p007', age)
+                            setAge()
+                            // onchange('p007', age)
+                            changeDeathOptions('month')
                         }
                     }
 
-                    let age = getAge()
-                    document.querySelector(`.tab-wrap *[name="p007"]`).value = age
-                    onchange('p007', age)
+                    setAge()
+                    changeDeathOptions('year')
+                    changeDeathOptions('month')
 
-                    function getAge() {
+                    function setAge() {
                         let d = new Date()
                         let age
                         let year = document.querySelector(`.tab-wrap *[name="p006_year"]`).value
@@ -286,7 +275,8 @@ function openModal(patientId) {
                             }
                         }
 
-                        return age || ''
+                        document.querySelector(`.tab-wrap *[name="p007"]`).value = age || ''
+                        onchange('p007', age)
                     }
 
                     function changeDeathOptions(type) {
@@ -303,7 +293,6 @@ function openModal(patientId) {
                             if (deathYear === birthYear) {
                                 optionLoop(birthMonth, 12, `p008_month`)
                             }
-                            // optionLoop(birthMonth, 12, `p008_month`)
                         }
                     }
 

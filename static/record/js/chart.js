@@ -19,11 +19,17 @@ function createChart() {
     console.log(contentData)
     charts.forEach(c => c.destroy() )
 
-    let sexData = contentData.map(d => d.sex)
+    let familyData = contentData.map(d => d['p002'])
+    createBarChart(document.getElementById('bar-chart-family'), familyData, '家族ID')
+
+    let sexData = contentData.map(d => d['p009'])
     createPieChart(document.getElementById('pie-chart-sex'), sexData, '性別')
 
+    let ageData = contentData.map(d => d['p007'])
+    createPieChart(document.getElementById('pie-chart-age'), ageData, '年齢')
+
     // let ageSexData = contentData.map(({sex, age}) => { return {'sex': sex, 'age': age }})
-    let groupData = contentData.map(d => d.group)
+    let groupData = contentData.map(d => d['p004'])
     createBarChart(document.getElementById('bar-chart-group'), groupData, 'グループ')
 
     function createPieChart(container, data, title) {

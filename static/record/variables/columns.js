@@ -138,7 +138,7 @@ let categories = [
                 dataKey: 'death',
                 inputType: 'select-date',
                 phenoKey: '',
-                type: 'text',
+                type: 'date',
                 table: true,
                 displayName: {
                     en: 'Death',
@@ -289,7 +289,7 @@ let categories = [
                 dataKey: 'previousMedicalHistory',
                 inputType: 'textarea',
                 phenoKey: '',
-                type: 'date',
+                type: 'text',
                 table: true,
                 displayName: {
                     en: 'Previous Medical History',

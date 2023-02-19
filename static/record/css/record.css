@@ -612,6 +612,12 @@ body {
   width: 12em;
 }
 
+.pika-lendar table,
+.pika-next,
+.pika-prev {
+  display: none !important;
+}
+
 /*mobile*/
 @media screen and (max-width: 800px) {
   #modal-karte .tab-wrap ul .tab-btn i {

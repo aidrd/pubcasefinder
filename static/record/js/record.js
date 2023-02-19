@@ -9,7 +9,7 @@ let count
 let toReset = true
 
 let defaultColumns = ['caseSolved', 'chiefComplaint', 'finalDiagnosis', 'clinicalDiagnosis', 'age', 'sex', 'group', 'relationship', 'familyId', 'patientId']
-// let defaultColumns = ['status', 'relationship', 'familyId', 'patientId']
+defaultColumns = ['birth', 'age', 'death', 'familyId', 'patientId']
 let actions = ['REMOVE', 'EDIT']
 
 // columns = HOT columns (settings - type, options, renderer, etc) HEADERS
@@ -179,10 +179,26 @@ function createColumns() {
                         dateFormat: 'mm-yy',
                         firstDay: 0,
                         numberOfMonths: 1,
+                        showMonthAfterYear: true,
                         licenseKey: 'non-commercial-and-evaluation',
-                        changeMonth: true,
-                        changeYear: true,
-                        showButtonPanel: true
+                        keyboardInput: false,
+                        // yearSuffix: '年',
+                        // maxDate: new Date(),
+                        yearRange: [1900, new Date().getFullYear()],
+                        onDraw: function(datepicker) {
+                            let close = document.createElement('span')
+                            close.innerHTML = '×'
+
+                            close.addEventListener('click', () => {
+                                let year = $('.pika-select.pika-select-year').val()
+                                let month = $('.pika-select.pika-select-month').val()
+                                datepicker.el.classList.add('is-hidden')
+                                datepicker.setDate(new Date(year, month, 1))
+                            })
+
+                            var prevButt = document.querySelector('.pika-prev')
+                            prevButt.parentNode.insertBefore(close, prevButt)
+                        }
                     }
                 }
 
@@ -471,7 +487,27 @@ function addRow(data) {
 }
 
 async function updateTable(data, changeHeaders) {
+    let d = new Date()
+    let year = d.getFullYear()
+    let month = d.getMonth()
+
     data.map(d => {
+        if (d['p006']) {
+            let birth = d['p006'].split('/')
+            let bYear = parseInt(birth[0])
+            let bMonth = parseInt(birth[1])
+            console.log(month, bMonth, month >= bMonth)
+            let age
+
+            if (month >= bMonth) {
+                age = year - bYear
+            } else {
+                age = year - bYear - 1
+                if (age < 1) age = 0
+            }
+            
+            d['p007'] = age
+        }
         contentData.push(d)
     })
 
