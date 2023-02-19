@@ -765,6 +765,7 @@ h5 {
   max-width: 30em !important;
   border-left: none;
   border-right: none;
+  line-height: 1em;
 }
 
 #myGrid td i{

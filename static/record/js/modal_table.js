@@ -7,6 +7,7 @@ let modalTableSettings = {
     },
     contextMenu: true,
     allowRemoveColumn: false,
+    trimDropdown: false,
     licenseKey: '17bfa-714c9-a7430-c4321-87c56'
 }
 

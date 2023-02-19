@@ -66,9 +66,9 @@
 
 </head>
 
-<body onbeforeunload="return beforeLoad()">
+<!-- <body onbeforeunload="return beforeLoad()"> -->
 
-    <!-- <body> -->
+    <body>
     <div class="sidebar">
         <div class="logo-details">
             <div class="logo_name">PubCaseFinder</div>
@@ -238,10 +238,10 @@
                     <h1 id="row_count">0</h1>
                 </div>
                 <div class="right-menu">
-                    <span class="material-symbols-outlined">
+                    <span class="material-symbols-outlined" id="hot-undo">
                         undo
                     </span>
-                    <span class="material-symbols-outlined">
+                    <span class="material-symbols-outlined" id="hot-redo">
                         redo
                     </span>
                     <span id="reset" onclick="pageReload()"><i class="material-symbols-outlined">
@@ -253,6 +253,7 @@
                             manage_search
                         </span>
                         <input type="search" placeholder="一覧表を検索" id="search_input">
+                        <span id="search-result-count"></span>
                     </div>
                     <div id="table_menu">
                         <span onclick="addColumn()" id="add-column">

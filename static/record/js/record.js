@@ -70,6 +70,9 @@ let updateSettings = {
     filters: true,
     dropdownMenu: true,
     outsideClickDeselects: false,
+    undo: true,
+    redo: true,
+    trimDropdown: false,
     licenseKey: '17bfa-714c9-a7430-c4321-87c56'
 }
 
@@ -93,18 +96,34 @@ window.onload = async () => {
         const queryResult = search.query(event.target.value)
         const totalIndexes = Array.from(Array(hot.countRows()).keys())
         let matching = queryResult.map(obj => obj.row)
+        let count = matching.length
 
         hot.updateSettings({ hiddenRows: { rows: totalIndexes } })
 
-        if (event.target.value === '') hot.updateSettings({ hiddenRows: { rows: [] }})
-        
+        if (event.target.value === '') {
+            count = ''
+            hot.updateSettings({ hiddenRows: { rows: [] }})
+        }
+
         hot.getPlugin('HiddenRows').showRows(matching)
         hot.render()
+        document.getElementById('search-result-count').innerHTML = count
     })
 
     document.getElementById('search_input').addEventListener('search', function(event) {
-        if (event.target.value === '') hot.updateSettings({ hiddenRows: { rows: [] }})
+        if (event.target.value === '') {
+            document.getElementById('search-result-count').innerHTML = ''
+            hot.updateSettings({ hiddenRows: { rows: [] }})
+        }
         hot.render()
+    })
+
+    document.getElementById('hot-undo').addEventListener('click', () => {
+        hot.undo()
+    })
+
+    document.getElementById('hot-redo').addEventListener('click', () => {
+        hot.redo()
     })
 
     Handsontable.dom.addEvent(hotContainer, 'mousedown', function (event) {
@@ -157,9 +176,13 @@ function createColumns() {
                     column.dateFormat = 'YYYY/MM',
                     column.correctFormat = true
                     column.datePickerConfig = {
+                        dateFormat: 'mm-yy',
                         firstDay: 0,
                         numberOfMonths: 1,
                         licenseKey: 'non-commercial-and-evaluation',
+                        changeMonth: true,
+                        changeYear: true,
+                        showButtonPanel: true
                     }
                 }
 
@@ -212,6 +235,7 @@ function createColumns() {
             let colHeader = ''
             let column = {
                 data: 'PCFNo',
+                className: 'htMiddle htCenter',
                 renderer: a === 'EDIT' ? editRenderer : removeRenderer
             }
 
@@ -425,12 +449,14 @@ function addRow(data) {
 
     let num = hot.countRows() + 1
 
-    if (count) {
-        temp['p001'] = `P${count.toString().padStart(7, 0)}`
-    } else {
-        temp['p001'] = `P${num.toString().padStart(7, 0)}`
-        count = num
-    }
+    temp['p001'] = `P${num.toString().padStart(7, 0)}`
+
+    // if (count) {
+    //     temp['p001'] = `P${count.toString().padStart(7, 0)}`
+    // } else {
+    //     temp['p001'] = `P${num.toString().padStart(7, 0)}`
+    //     count = num
+    // }
 
     count++
 
@@ -560,7 +586,22 @@ function fileReader(file, fileType) {
         let object
 
         if (contentData.length === 1) {
-            console.log(contentData, 1)
+            let toDelete = true
+            for (let [k, v] of Object.entries(contentData[0])) {
+                if (k === 'PCFNo' || k === 'p001') {
+                    // return
+                } else if (k === 'm013') {
+                    for (let [gk, gv] of Object.entries(v[0])) {
+                        if (gv) toDelete = false
+                    }
+                } else if (Array.isArray(v)) {
+                    if (v.length > 0) toDelete = false
+                } else if (v) {
+                    toDelete = false
+                }
+            }
+
+            if (toDelete) hot.alter('remove_row', 1, 1)
         }
 
         if (fileType === 'text/csv' || fileType === 'text/tab-separated-values') {
@@ -1246,6 +1287,7 @@ function setInitialLanguage() {
             tr.appendChild(th)
 
             let td = document.createElement('td')
+            td.id = 'body-table-td'
             td.innerHTML = `
                 <span id="bodyModal_add" onclick="addBodyRow()">
                     <i class="material-icons-outlined">add_circle_outline</i>${translate('add')}</span>

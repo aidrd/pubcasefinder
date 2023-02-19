@@ -16,7 +16,7 @@ function checkBoxRenderer(instance, td) {
 
 function editRenderer(instance, td, row, col, prop, value, cellProperties) {
     Handsontable.renderers.TextRenderer.apply(this, arguments)
-    td.innerHTML = `<i class="material-icons-outlined">drive_file_rename_outline</i>`
+    td.innerHTML = `<i class="material-symbols-outlined">edit_square</i>`
     td.onclick = function() {
         openModal(value)
     }

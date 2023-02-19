@@ -113,34 +113,37 @@ function openModal(patientId) {
     }
 
     function dateOptions(type) {
-        var optionLoop, this_month, this_year, today
+        let this_month, this_year, today
         today = new Date()
         this_year = today.getFullYear()
         this_month = today.getMonth() + 1
 
-        optionLoop = function (start, end, id) {
-            let opt = `<option value="0" hidden>${end === 12 ? translate('select-month') : translate('select-year') }</option>`
- 
-            if (end === 12) {
-                for (let i = start; i <= end; i++) {
-                    let display = i
-                    let temp = i
-    
-                    if (temp % 10 === 0 && end !== 12) display = `${i}s`
-    
-                    opt += `<option value="${i.toString().padStart(2, '0')}">${display}</option>`
-                }
-            } else {
-                for (let i = end; i >= start; i--) {
-                    opt += `<option value="${i.toString().padStart(2, '0')}"}>${i}</option>`
-                }
-            }
-
-            return document.querySelector(`.tab-wrap *[name="${id}"]`).innerHTML = opt
-        }
-
         optionLoop(1900, this_year, `${type}_year`)
         optionLoop(1, 12, `${type}_month`)
+    }
+
+    function optionLoop (start, end, id) {
+        start = parseInt(start)
+        end = parseInt(end)
+        console.log(start, end, id)
+        let opt = `<option value="0" hidden>${end === 12 ? translate('select-month') : translate('select-year') }</option>`
+
+        if (end === 12) {
+            for (let i = start; i <= end; i++) {
+                let display = i
+                let temp = i
+
+                if (temp % 10 === 0 && end !== 12) display = `${i}s`
+
+                opt += `<option value="${i.toString().padStart(2, '0')}">${display}</option>`
+            }
+        } else {
+            for (let i = end; i >= start; i--) {
+                opt += `<option value="${i.toString().padStart(2, '0')}"}>${i}</option>`
+            }
+        }
+
+        return document.querySelector(`.tab-wrap *[name="${id}"]`).innerHTML = opt
     }
 
     function populateOptions(element) {
@@ -172,12 +175,13 @@ function openModal(patientId) {
             let d = new Date()
             PCFNo = `P${d.getFullYear()}${d.getMonth()+1}${d.getDate()}${d.getHours()}${d.getMinutes()}${d.getSeconds()}${d.getMilliseconds()}`
             let num = hot.countRows() + 1
-            if (count) {
-                document.querySelector(`.tab-wrap *[name="p001"]`).value = `P${count.toString().padStart(7, 0)}`
-            } else {
-                document.querySelector(`.tab-wrap *[name="p001"]`).value = `P${num.toString().padStart(7, 0)}`
-                count = num
-            }        
+            document.querySelector(`.tab-wrap *[name="p001"]`).value = `P${num.toString().padStart(7, 0)}`
+            // if (count) {
+            //     document.querySelector(`.tab-wrap *[name="p001"]`).value = `P${count.toString().padStart(7, 0)}`
+            // } else {
+            //     document.querySelector(`.tab-wrap *[name="p001"]`).value = `P${num.toString().padStart(7, 0)}`
+            //     count = num
+            // }        
         }
 
         document.getElementById('PCFNo').nextElementSibling.innerHTML = PCFNo
@@ -230,15 +234,28 @@ function openModal(patientId) {
                             let age = getAge()
                             document.querySelector(`.tab-wrap *[name="p007"]`).value = age
                             onchange('p007', age)
+                            changeDeathOptions('year')
+                            // optionLoop(element.value, d.getFullYear(), `p008_year`)
+                        } else if (colId === 'p008_year') {
+                            changeDeathOptions('month')
+
+                            // console.log(element.value, monthElement.value)
+                            // let birthYear = document.querySelector(`.tab-wrap *[name="p006_year"]`).value
+                            // let birthMonth = document.querySelector(`.tab-wrap *[name="p006_month"]`).value
+
+                            // if (element.value === birthYear) {
+                            //     optionLoop(birthMonth, 12, `p008_month`)
+                            // }
+                            
                         }
                     }
 
                     let monthElement = document.querySelector(`.tab-wrap *[name="${monthId}"]`)
                     let monthValue = date[1]
                     if (monthValue) monthElement.value = monthValue
-                    monthElement.onchange = function () {
+                    cancelIdleCallback.onchange = function () {
+                    // monthElement.onchange = function () {
                         onchange(colId === 'p006_year' ? 'p006' : 'p008')
-
                         if (colId === 'p006_year') {
                             let age = getAge()
                             document.querySelector(`.tab-wrap *[name="p007"]`).value = age
@@ -270,6 +287,24 @@ function openModal(patientId) {
                         }
 
                         return age || ''
+                    }
+
+                    function changeDeathOptions(type) {
+                        let d = new Date()
+
+                        let birthYear = document.querySelector(`.tab-wrap *[name="p006_year"]`).value
+                        let birthMonth = document.querySelector(`.tab-wrap *[name="p006_month"]`).value
+
+                        let deathYear = document.querySelector(`.tab-wrap *[name="p008_year"]`).value
+
+                        if (type === 'year') {
+                            optionLoop(birthYear, d.getFullYear(), `p008_year`)
+                        } else if (type === 'month') {
+                            if (deathYear === birthYear) {
+                                optionLoop(birthMonth, 12, `p008_month`)
+                            }
+                            // optionLoop(birthMonth, 12, `p008_month`)
+                        }
                     }
 
                     return
@@ -351,7 +386,6 @@ function openModal(patientId) {
                 }
             }
             changedData[key] = value
-            console.log(changedData)
         }
 
         function showHideDeathDate(parent, value) {

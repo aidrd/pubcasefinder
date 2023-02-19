@@ -882,7 +882,7 @@ let categories = [
                 type: 'dropdown',
                 table: true,
                 displayName: {
-                    en: 'Genetic List',
+                    en: 'Mode of Inheritance',
                     ja: '遺伝形式',
                     ko: '유전자 목록',
                     zh: '遗传列表',
@@ -928,7 +928,7 @@ let categories = [
                 type: 'dropdown',
                 table: true,
                 displayName: {
-                    en: 'Consanguine Marriage',
+                    en: 'Consanguinity',
                     ja: '近親婚',
                     ko: '근친혼',
                     zh: '近亲婚姻',
@@ -951,7 +951,7 @@ let categories = [
                 type: 'dropdown',
                 table: true,
                 displayName: {
-                    en: '3 or more miscarriage',
+                    en: 'Parents with at least 3 Miscarriages',
                     ja: '流産が3回以上ある両親',
                     ko: '유산이 세 번 이상 있는 양친',
                     zh: '3次或以上流产',
