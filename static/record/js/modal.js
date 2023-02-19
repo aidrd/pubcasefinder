@@ -29,24 +29,24 @@ $('#menu-save').click((e) => {
 //     //     if (!e.target.closest('.save-panel')) $('.save-panel-open').toggleClass('save-panel-open')
 // }
 
-$(function () {
-    $('.tab-btn').on('click', function () {
-        var tabWrap = $(this).parents('.tab-wrap')
-        var tabBtn = tabWrap.find('.tab-btn')
-        var tabContents = tabWrap.find('.tab-contents')
-        tabBtn.removeClass('show')
-        $(this).addClass('show')
-        var elmIndex = tabBtn.index(this)
-        tabContents.removeClass('show')
-        tabContents.eq(elmIndex).addClass('show')
+// $(function () {
+//     $('.tab-btn').on('click', function () {
+//         var tabWrap = $(this).parents('.tab-wrap')
+//         var tabBtn = tabWrap.find('.tab-btn')
+//         var tabContents = tabWrap.find('.tab-contents')
+//         tabBtn.removeClass('show')
+//         $(this).addClass('show')
+//         var elmIndex = tabBtn.index(this)
+//         tabContents.removeClass('show')
+//         tabContents.eq(elmIndex).addClass('show')
 
-        if ($(tabContents.eq(elmIndex)).children('#geneModal')[0]) {
-            geneTable()
-        } else if ($(tabContents.eq(elmIndex)).find('#bodyModal')[0]) {
-            bodyTable()
-        }
-    })
-})
+//         if ($(tabContents.eq(elmIndex)).children('#geneModal')[0]) {
+//             geneTable()
+//         } else if ($(tabContents.eq(elmIndex)).find('#bodyModal')[0]) {
+//             bodyTable()
+//         }
+//     })
+// })
 
 function openModal(patientId) {
     $('body').append('<div class="modal_bg"></div>')

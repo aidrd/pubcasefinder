@@ -559,6 +559,10 @@ function fileReader(file, fileType) {
         let data = event.target.result
         let object
 
+        if (contentData.length === 1) {
+            console.log(contentData, 1)
+        }
+
         if (fileType === 'text/csv' || fileType === 'text/tab-separated-values') {
             object = convertCSVToJSON(data)
         } else {
@@ -953,7 +957,20 @@ function setInitialLanguage() {
 
             let div = document.createElement('div')
             div.classList.add(...divClass)
+            div.id = `tab-content-${category.categoryId}`
             container.appendChild(div)
+
+            li.addEventListener('click', () => {
+                $('.show').removeClass('show')
+                $(li).addClass('show')
+                $(div).addClass('show')
+
+                if (category.categoryId === 'g000') {
+                    geneTable()
+                } else if (category.categoryId === 'm000') {
+                    bodyTable()
+                }
+            })
 
             if (i === 2) {
                 div.innerHTML = `
