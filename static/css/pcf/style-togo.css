@@ -4662,3 +4662,10 @@ label {
   /*overflow-y:hidden;*/
   padding-right: 0 !important;
 }
+
+
+.img_rarediseaseday{
+    text-align: center;
+    margin-top: 1em;
+    max-width: 200px;
+}
