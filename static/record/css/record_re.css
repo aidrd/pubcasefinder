@@ -633,13 +633,29 @@ width: 35px;
 }
 
 #content-patients #home-menu .right-menu #reset {
-  transition: 0.2s ;
+  transition: 0.2s;
   display: block;
   margin-right: 1em;
   margin-top: 7px;
 }
 
+#content-patients #home-menu .right-menu #hot-redo{
+  transition: 0.2s;
+}
+
+#content-patients #home-menu .right-menu #hot-undo{
+  transition: 0.2s;
+}
+
 #content-patients #home-menu .right-menu #reset:hover{
+  opacity: 0.5;
+}
+
+#content-patients #home-menu .right-menu #hot-redo:hover{
+  opacity: 0.5;
+}
+
+#content-patients #home-menu .right-menu #hot-undo:hover{
   opacity: 0.5;
 }
 
@@ -1273,3 +1289,6 @@ width: 10px;
 }
 
 
+.search_wrap span{
+  pointer-events:none;
+}
