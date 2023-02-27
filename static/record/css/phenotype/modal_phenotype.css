@@ -56,8 +56,8 @@
   border-radius: 5px;
   padding-left: 10px;
   padding-right: 10px;
-  color: #394466;
-  border: 1px solid #394466;
+  color: #007BFF;
+  border: 1px solid #007BFF;
   margin-right: 5px;
   display: flex;
   align-items: center;
@@ -65,7 +65,7 @@
 }
 
 #phenotype_doc_input_btn_wrapper button:hover{
-  background-color: #394466;
+  background-color: #007BFF;
   color: #fff;
 }
 
@@ -247,7 +247,7 @@
   width: 18px;
   left: 0;
   top: 5px;
-  background-color: #394466;
+  background-color: #007BFF;
   font-family: "Montserrat";
   border-radius: 2px;
   border: 1px solid rgb(150 150 150 / 30%);
@@ -311,7 +311,7 @@
 }
 
 #phenotype-detail-switch.active::-webkit-slider-runnable-track {
-   background-color: #394466;
+   background-color: #007BFF;
 }
 
 /* slider thumb */

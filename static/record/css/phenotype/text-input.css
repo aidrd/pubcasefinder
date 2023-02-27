@@ -270,20 +270,20 @@
 }
 
 #text-input-container  .text-input-footer .text-input-button-wrapper button.doc {
-  color: #394466;
-  border: 1px solid #394466;
+  color: #007BFF;
+  border: 1px solid #007BFF;
   margin-right: 5px;
   display: flex;
   align-items: center;
 }
 
 #text-input-container  .text-input-footer .text-input-button-wrapper button.doc.selected {
-  background-color: #394466;
+  background-color: #007BFF;
   color: #fff;
 }
 
 #text-input-container  .text-input-footer .text-input-button-wrapper button.doc:hover {
-  background-color: #394466;
+  background-color: #007BFF;
   color: #fff;
 }
 

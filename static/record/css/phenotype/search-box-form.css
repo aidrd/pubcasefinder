@@ -160,7 +160,7 @@
 #hpo-list-input-table tbody tr td input[type="checkbox"] {
   height: 16px;
   width:  16px;
-  accent-color: #394466;
+  accent-color: #007BFF;
   box-sizing: border-box;
   padding: 0;
   background-color: white;
@@ -168,7 +168,7 @@
 
 
 #hpo-list-input-table tbody tr td input[type="checkbox"]:checked {
-  background: #394466;
+  background: #007BFF;
 }
 
 .tooltip .tooltip-inner {
