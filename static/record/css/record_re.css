@@ -1081,8 +1081,14 @@ width: 35px;
     border-top: none;
     padding: 0 0 1em 0;
   }
-  #modal-karte .tab-wrap .show .form-table tbody tr td #bodyModal table{
-
+  #modal-karte .tab-wrap .show .form-table tbody tr #body-table-td table thead tr th{
+    display: revert;
+  }
+  #modal-karte .tab-wrap .show .form-table tbody tr #body-table-td table tbody tr th{
+    display: revert;
+  }
+  #modal-karte .tab-wrap .show .form-table tbody tr #body-table-td table tbody tr td{
+    display: revert;
   }
 }
 
