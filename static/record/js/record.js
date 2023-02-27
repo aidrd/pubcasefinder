@@ -148,7 +148,9 @@ function createColumns() {
         let colSequence = 2
 
         categories.forEach(category => {
-            if (category.dataKey === 'phenotypicInfo') return
+            // modified by hzhang@bits start
+            //if (category.dataKey === 'phenotypicInfo') return
+            // modified by hzhang@bits end
 
             category.columns.forEach(c => {
                 let key = c.dataKey
@@ -210,6 +212,15 @@ function createColumns() {
                 } else if (category['dataKey'] === 'geneInfo' || key === 'chiefComplaints') {
                     column.renderer = multipleRenderer
                     if (category['dataKey'] === 'geneInfo') column.editor = false
+// add by hzhang@bits start
+                 } else if (category['dataKey'] === 'phenotypicInfo') {
+                     if(colId === 'pi002'){
+                         column.renderer = phenotypeInfo_phenotypeNameRenderer
+                     }else{
+                         column.renderer = multipleRenderer
+                     }
+                     column.editor = false
+// add by hzhang@bits end
                 } else if (colId === 'm013_2' || colId === 'm013_3' || colId === 'm013_4') {
                     column.editor = false
                     column.data = 'm013'
@@ -288,7 +299,9 @@ function addColumn() {
     container.innerHTML = ''
 
     categories.forEach(category => {
-        if (category.dataKey === 'phenotypicInfo') return
+        // modified by hzhang@bits start
+        //if (category.dataKey === 'phenotypicInfo') return
+        // modified by hzhang@bits end
 
         createColumn(category['displayName'][lang], 'title', category['dataKey'])
         category.columns.forEach(c => {
@@ -314,7 +327,10 @@ function addColumn() {
                 case 'medicalInfo':
                     icon = '<i class="material-symbols-outlined">medical_information</i>'
                     break
-                case 'phenoTypicInfo':
+//modified by hzhang@bits start
+//                case 'phenoTypicInfo':
+                case 'phenotypicInfo':
+//modified by hzhang@bits end
                     icon = '<i class="material-symbols-outlined">dns</i>'
                     break
                 case 'geneInfo':
@@ -895,6 +911,9 @@ function editTable(isSave) {
 
         let newPatient = {}
         elements.forEach(e => {
+            //add by hzhang@bits start
+            if(!('columnname' in e.dataset)) return;
+            //add by hzhang@bits end
             if (e.type === 'radio') {
                 newPatient[e.dataset.columnname] = $(`input[name="${e.name}"]:checked`).val() || null
             } else {
@@ -928,6 +947,12 @@ function editTable(isSave) {
             })
         }
 
+// add by hzhang@bits start
+        Object.keys(phenotypeData).forEach(cid => {
+            newPatient[cid] = phenotypeData[cid]
+        })
+// add by hzhang@bits end
+
         delete newPatient['undefined']
         addRow(newPatient)
         return
@@ -952,6 +977,12 @@ function editTable(isSave) {
             }
         })
     }
+
+// add by hzhang@bits start
+    Object.keys(phenotypeData).forEach(cid => {
+        patientData[cid] = phenotypeData[cid]
+    })
+// add by hzhang@bits end
 
     hot.render()
     resetData()
@@ -1050,6 +1081,8 @@ function setInitialLanguage() {
             })
 
             if (i === 2) {
+// modified by hzhang@bits start
+/*
                 div.innerHTML = `
                     <p>${translate('phenotypic-info-search')}</p>
                     <div style="width:100%;margin: 20px auto 0px auto;">
@@ -1061,6 +1094,9 @@ function setInitialLanguage() {
                         </div>
                     </div>
                 `
+*/
+                phenotypeInfo_initUI(div)
+// modified by hzhang@bits end
                 return
             } else if (i === 3) {
                 div.innerHTML = `

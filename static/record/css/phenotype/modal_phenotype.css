@@ -1,0 +1,329 @@
+#phenotype_add {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 8px 40px;
+  border-radius: 2em;
+  background: #ff8c00;
+  color: #fff;
+  margin-bottom: 0.5em;
+  margin-top: 0.5em;
+}
+
+#phenotype_add:hover {
+  background-color: #ff7000;
+}
+.ripper_effect {
+  position:relative;
+   -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
+  text-decoration: none;
+  overflow: hidden;
+}
+
+.ripper_effect:after {
+  content: "";
+  background: #E6B476;
+  display: block;
+  position: absolute;
+  padding-top: 300%;
+  padding-left: 350%;
+  margin-left: -40px!important;
+  margin-top: -120%;
+  opacity: 0;
+  transition: all 0.8s
+}
+
+.ripper_effect:active:after {
+  padding: 0;
+  margin: 0;
+  opacity: 1;
+  transition: 0s
+}
+
+.search-box_wrapper{width:100% !important;}
+
+#phenotype_doc_input_btn_wrapper{
+  width: 100%;
+  height: 30px;
+  text-align:left;
+  display: flex;
+  margin-top: 10px;
+}
+
+
+#phenotype_doc_input_btn_wrapper button {
+  border-radius: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  color: #394466;
+  border: 1px solid #394466;
+  margin-right: 5px;
+  display: flex;
+  align-items: center;
+
+}
+
+#phenotype_doc_input_btn_wrapper button:hover{
+  background-color: #394466;
+  color: #fff;
+}
+
+
+
+#phenotype_add i {margin-right: 0.2em;}
+
+.phenotype_add_wrapper{text-align:center;margin-top:10px;}
+
+.phenotype_title_sub{
+  display: flex;
+  align-items: center;
+}
+
+#phenotype_num {
+  margin-left: 10px;
+}
+
+#phenotypic-btn-filter {
+  margin: 0px;
+}
+
+#phenotypic-btn-filter span {
+  margin-top: 2px;
+}
+
+#phenotypic-btn-filter.active,#phenotypic-btn-filter:hover {
+  background: #484545;
+  color: #fff
+}
+
+#phenotype_filter {
+  border-top: solid 1px #AEB0B5;
+  border-radius: 0 !important;
+  margin-top: 10px;
+  padding-top: 10px;
+  width: 100%; 
+  background-color: #fff !important;
+  display: none;
+}
+
+#phenotype_filter.active {
+  display: block !important;
+}
+
+#phenotype_filter .ctl {
+  text-align: left;
+}
+
+#phenotype_filter .ctl button {
+  font-size: 16px;
+  border: solid 1px;
+  border-radius: 5px;
+  padding: 3px 10px;
+  margin-bottom: 10px;
+}
+
+#phenotype_filter table {
+  width: 100%;
+  text-align: left;
+}
+
+#phenotype_filter table tr{
+  border-top: solid 1px #AEB0B5;
+}
+
+#phenotype_filter table tr td {
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+#phenotype_filter table tr td.title {
+  white-space: nowrap;
+  padding-right: 10px;
+  padding-top: 10px;
+}
+
+#phenotype_list {
+  border-top: solid 1px #AEB0B5;
+  border-radius: 0 !important;
+  padding-top: 10px;
+  width: 100%; 
+  background-color: #fff !important;
+  display: block !important;
+}
+
+#phenotype_list .phenotype_list_row {
+  border: solid 1px #AEB0B5;
+  border-radius: 5px;
+  width: 100%;
+  margin-bottom: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+#phenotype_list .phenotype_list_row .phenotype_list_row_header .phenotype_list_row_header_sub{
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+#phenotype_list .phenotype_list_row .phenotype_list_row_header .phenotype_list_row_header_sub .detail_display_switch {
+  cursor: pointer;
+}
+
+#phenotype_list .phenotype_list_row .phenotype_list_row_header .phenotype_list_row_header_sub .detail_display_switch.active{
+  transform: rotateX(180deg);
+}
+
+#phenotype_list .phenotype_list_row .phenotype_list_row_header .phenotype_list_row_header_sub .hpo_id{
+  margin-left: 15px;
+  margin-right: 15px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-radius: 3px;
+  border: solid 1px #ff8c00;
+  color: #ff8c00;
+  font-family: Verdana, sans-serif !important;
+}
+
+#phenotype_list .phenotype_list_row .phenotype_list_row_header .phenotype_list_row_header_sub .hpo_delete {
+  color: #AEB0B5;
+  cursor: pointer;
+}
+#phenotype_list .phenotype_list_row .detail {
+  border-top: solid 1px #AEB0B5;
+  padding-top: 10px;
+  width: 100%;
+  display: none;
+}
+
+#phenotype_list .phenotype_list_row.active .detail {
+  display: block;
+  margin-bottom: 5px;
+}
+
+#phenotype_list .phenotype_list_row .detail table{
+  text-align:left;
+}
+
+#phenotype_list .phenotype_list_row .detail table tr {
+  padding-bottom: 5px;
+}
+
+#phenotype_list .phenotype_list_row .detail table tr td {
+  vertical-align: middle;
+  padding-right: 5px;
+  padding-bottom: 5px;
+}
+#phenotype_list .phenotype_list_row .detail table tr td.phenotype_input {
+  padding-right: 20px;
+}
+
+.phenotype_cbx_wrapper{
+  position: relative;
+  font-size: 18px;
+  font-weight: 400;
+  display: inline-flex;
+  margin-right: 15px;
+}
+
+.phenotype_cbx_wrapper input[type="checkbox"]{
+  height: 18px;
+  width: 18px;
+  padding: 0;
+  box-sizing:border-box;
+  cursor: pointer;
+  position: absolute;
+  margin-top: 0.3rem;
+}
+
+.phenotype_cbx_wrapper input[type="checkbox"]:checked+label::before {
+  content: "";
+  display: block;
+  position: absolute;
+  text-align: center;
+  height: 18px;
+  width: 18px;
+  left: 0;
+  top: 5px;
+  background-color: #394466;
+  font-family: "Montserrat";
+  border-radius: 2px;
+  border: 1px solid rgb(150 150 150 / 30%);
+}
+
+.phenotype_cbx_wrapper input[type="checkbox"]:checked+label::after {
+  content: url('data:image/svg+xml; utf8, <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="white" viewBox="0 0 24 24"><path d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z"/></svg>');
+  display: block;
+  position: absolute;
+  left: 3px;
+  top: 2px;
+}
+
+.phenotype_cbx_wrapper label {
+  font-size: 18px;
+  font-weight: 400;
+  display: inline-block;
+  margin-bottom: 0;
+  line-height:  1.5;
+  text-align:   left;
+  padding-left: 22px;
+  padding-top:  1px;
+}
+
+
+#phenotype_list .phenotype_list_row .detail table tr td select {
+  padding: 0.35em 0.5em;
+  border: 1.5px solid #e3e3e3;
+  border-radius: 0.3em;
+  appearance: button;
+  background: #fff;
+  width: 100%;
+  cursor: pointer;
+}
+#phenotype_list .phenotype_list_row .detail table tr td input[type="text"],
+#phenotype_list .phenotype_list_row .detail table tr td input[type="select"] {
+  width: 100%;
+  padding: 0.35em 0.5em;
+  border: 1.5px solid #e3e3e3;
+  border-radius: 0.3em;
+  background: #fff;
+  cursor: pointer;
+}
+
+#phenotype-detail-switch {
+  width:  32px;
+  height: 24px;
+  margin-right:15px;
+  margin-left: 5px;
+  -webkit-appearance: none;
+  appearance: none;
+  cursor: pointer;
+  
+}
+
+/* slider track */
+#phenotype-detail-switch::-webkit-slider-runnable-track {
+   background-color: #AEB0B5;
+   border-radius: 5px;
+   height: 10px;
+}
+
+#phenotype-detail-switch.active::-webkit-slider-runnable-track {
+   background-color: #394466;
+}
+
+/* slider thumb */
+#phenotype-detail-switch::-webkit-slider-thumb {
+  -webkit-appearance: none; /* Override default look */
+   appearance: none;
+   margin-top: -5px; /* Centers thumb on the track */
+   margin-right: -1px;
+   background-color: #fff;
+   border: solid 1px #AEB0B5;
+   height:18px;
+   width: 18px;
+   border-radius: 50%;
+}
+

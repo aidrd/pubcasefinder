@@ -111,6 +111,9 @@ function openModal(patientId) {
         document.querySelector('.tab-btn').click()
         dateOptions('p006') // birth
         dateOptions('p008') // death
+// add by hzhang@bits start
+        phenotypeInfo_reset()
+// add by hzhang@bits end
     }
 
     function dateOptions(type) {
@@ -187,7 +190,13 @@ function openModal(patientId) {
         document.getElementById('PCFNo').nextElementSibling.innerHTML = PCFNo
 
         categories.forEach(category => {
-            if (category.dataKey === 'phenotypicInfo') return
+            // modified by hzhang@bits start
+            //if (category.dataKey === 'phenotypicInfo') return
+            if (category.dataKey === 'phenotypicInfo'){
+                phenotypeInfo_inputValues(patientData);
+                return;
+            }
+            // modified by hzhang@bits end
 
             category.columns.forEach(c => {
                 let value, colId = c.columnId
@@ -537,3 +546,4 @@ function openInfo() {
         })
     })
 }
+

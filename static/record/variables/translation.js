@@ -68,11 +68,44 @@ let elementTranslation = {
         ja: '日付',
         ko: ''
     },
-    'phenotypic-info-search': {
-        en: 'Search Phenotypic Information',
-        ja: 'ここに表現型情報が検索できます。',
+// modified by hzhang@bits start
+    //'phenotypic-info-search': {
+    //    en: 'Search Phenotypic Information',
+    //    ja: 'ここに表現型情報が検索できます。',
+    //    ko: ''
+    //}
+    'phenotypic-info-add': {
+        en: 'ADD TO LIST',
+        ja: '一覧に追加',
         ko: ''
     },
+    'phenotypic-info-anytext': {
+        en: 'Any Text',
+        ja: '任意のテキスト',
+        ko: ''
+    },
+    'phenotypic-info-list': {
+        en: 'Symptoms list',
+        ja: '症状一覧',
+        ko: ''
+    },
+    'phenotypic-info-detail': {
+        en: 'Show details',
+        ja: '詳細を表示',
+        ko: ''
+    },
+    'phenotypic-info-filter-selectall': {
+        en: 'Select all',
+        ja: 'すべて選択',
+        ko: ''
+    },
+    'phenotypic-info-filter-clearall': {
+        en: 'Clear all',
+        ja: 'すべてクリア',
+        ko: ''
+    },
+
+// modified by hzhang@bits end
     'add-column-input': {
         en: 'New custom column',
         ja: '新規項目',

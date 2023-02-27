@@ -570,6 +570,369 @@ let categories = [
             zh: '表型信息',
             zhcht: '表型信息'
         }
+// modified by hzhang@bits.cc start
+        ,doc_list: [
+            {
+                docId:    'pi003',
+                title:    null,
+                text:     null,
+                hpo_list: [],
+                withUI:   'yes',
+                schema:   'auto',
+                dataSrcColumnId: 'm005'
+            },
+            {
+                docId: 'pi004',
+                title:    null,
+                text:     null,
+                hpo_list: [],
+                withUI: 'yes',
+                schema: 'auto',
+                dataSrcColumnId: 'm006'
+            },
+            {
+                docId: 'pi005',
+                withUI: 'yes',
+                title:    null,
+                text:     null,
+                hpo_list: [],
+                schema: 'auto',
+                dataSrcColumnId: 'm009'
+            },
+            {
+                docId: 'pi006',
+                withUI: 'yes',
+                title:    null,
+                text:     null,
+                hpo_list: [],
+                schema: 'auto',
+                dataSrcColumnId: 'f001'
+            },
+            {
+                docId: 'pi007',
+                withUI: 'yes',
+                title:    null,
+                text:     null,
+                hpo_list: [],
+                schema: 'manual',
+                dataSrcColumnId: null
+            }
+        ],
+        columns: [
+            {
+                columnId: 'pi001',
+                dataKey:  'id',
+                phenoKey: '',
+                type:     'text',
+                table:    true,
+                displayName: {
+                    en: 'HPO ID',
+                    ja: 'HPO ID',
+                    ko: '',
+                    zh: '',
+                    zhcht: ''
+                }
+            },
+            {
+                columnId: 'pi002',
+                dataKey:  'name',
+                phenoKey: '',
+                type:     'text',
+                table:    true,
+                displayName: {
+                    en: 'Symptom',
+                    ja: '症状',
+                    ko: '',
+                    zh: '',
+                    zhcht: ''
+                },
+                languages: ['en','ja','ko','zh','zhcht']
+            },
+            {
+                columnId:  'pi003',
+                dataKey:   'source_medical_history_current',
+                inputType: 'checkbox',
+                phenoKey:  '',
+                type:      'text',
+                table:     true,
+                displayName: {
+                    en: 'Current Medical History',
+                    ja: '現病歴',
+                    ko: '현재 병력',
+                    zh: '现病史',
+                    zhcht: '現病史'
+                },
+                options: {
+                    dataValue: ['no', 'yes'],
+                    en: ['No', 'Yes'],
+                    ja: ['無','有'],
+                    ko: [],
+                    zh: [],
+                    zhcht: []
+                }
+            },
+            {
+                columnId:  'pi004',
+                dataKey:   'source_medical_history_previous',
+                inputType: 'checkbox',
+                phenoKey:  '',
+                type:      'text',
+                table:     true,
+                displayName: {
+                    en: 'Previous Medical History',
+                    ja: '既往歴',
+                    ko: '과거 병력',
+                    zh: '既往病史',
+                    zhcht: '既往病史'
+                },
+                options: {
+                    dataValue: ['no', 'yes'],
+                    en: ['No', 'Yes'],
+                    ja: ['無','有'],
+                    ko: [],
+                    zh: [],
+                    zhcht: []
+                }
+            },
+            {
+                columnId:  'pi005',
+                dataKey:   'source_medical_history_process',
+                inputType: 'checkbox', 
+                phenoKey:  '',
+                type:      'text',
+                table:     true,
+                displayName: {
+                    en: 'Process',
+                    ja: '経過',
+                    ko: '경과',
+                    zh: '进程',
+                    zhcht: '進程'
+                },
+                options: {
+                    dataValue: ['no', 'yes'],
+                    en: ['No', 'Yes'],
+                    ja: ['無','有'],
+                    ko: [],
+                    zh: [],
+                    zhcht: []
+                 }
+            },
+            {
+                columnId:  'pi006',
+                dataKey:   'source_medical_history_family',
+                inputType: 'checkbox',
+                phenoKey:  '',
+                type:      'text',
+                table:     true,
+                displayName: {
+                    en: 'Family History',
+                    ja: '家族歴',
+                    ko: '가족력',
+                    zh: '家族史',
+                    zhcht: '家族史'
+                },
+                options: {
+                    dataValue: ['no', 'yes'],  
+                    en: ['No', 'Yes'],
+                    ja: ['無','有'],
+                      ko: [],                    
+                    zh: [],
+                    zhcht: []
+                 }
+            },
+            {
+                columnId:  'pi007',
+                dataKey:   'source_manual',
+                inputType: 'checkbox',
+                phenoKey:  '', 
+                type:      'text',
+                table:     true,
+                displayName: { 
+                    en: 'Any Text',
+                    ja: '任意のテキスト',
+                    ko: '',
+                    zh: '',
+                    zhcht: ''
+                },
+                options: {
+                    dataValue: ['no', 'yes'],
+                    en: ['No', 'Yes'],
+                    ja: ['無','有'],
+                    ko: [],
+                    zh: [],
+                    zhcht: []
+                }
+            },
+            {
+                columnId:  'pi008',
+                dataKey:   'hpo_excluded',
+                inputType: 'select',
+                phenoKey:  '',
+                type:      'dropdown',
+                table:     true,
+                displayName: {
+                    en: 'Excluded',
+                    ja: '症状の有無',
+                    ko: '증상의 유무',
+                    zh: '有无症状',
+                    zhcht: '有無症狀'
+                },
+                options: {
+                    dataValue: ['yes', 'no'],
+                    en: ['No', 'Yes'],
+                    ja: ['症状あり', '症状なし'],
+                    ko: ['증상 있음', '증상 없음'],
+                    zh: ['有症状','无症状'],
+                    zhcht: ['有症狀','無症狀']
+                }
+            },
+            {
+                columnId:  'pi009',
+                dataKey:   'hpo_clinical_relevance',
+                inputType: 'select',
+                phenoKey:  '',
+                type:      'dropdown',
+                table:     true,
+                displayName: {
+                    en: 'Clinical relevance',
+                    ja: '重要性',
+                    ko: '',
+                    zh: '',
+                    zhcht: ''
+                },
+                options: {
+                    dataValue: ['normal', 'distinctive', 'minor'],
+                    en: ['Normal', 'Distinctive finding', 'Minor finding'],
+                    ja: ['通常', '高い', '低い'],
+                    ko: [],
+                    zh: [],
+                    zhcht: []
+                }
+            },
+            {
+                columnId:  'pi010',
+                dataKey:   'hpo_severity',
+                inputType: 'select',
+                phenoKey:  '',
+                type:      'dropdown',
+                table:     true,
+                displayName: {
+                    en: 'Severity',
+                    ja: '重症度',
+                    ko: '',
+                    zh: '',
+                    zhcht: ''
+                },
+                options: {
+                    dataValue: ['borderline', 'severe', 'profound', 'moderate', 'mild'],
+                    en: ['Borderline', 'Severe', 'Profound', 'Moderate', 'Mild'],
+                    ja: ['境界域', '重度', '最重度','中等度','軽度'],
+                    ko: [],
+                    zh: [],
+                    zhcht: []
+                }
+            },
+            {
+                columnId:  'pi011',
+                dataKey:   'hpo_age_of_onset',
+                inputType: 'select',
+                phenoKey:  '',
+                type:      'dropdown',
+                table:     true,
+                displayName: {
+                    en: 'Age of onset',
+                    ja: '発症年齢',
+                    ko: '',
+                    zh: '',
+                    zhcht: ''
+                },
+                options: {
+                    dataValue: ['unknown', 'adult', 'antenatal', 'pediatric', 'congenital', 'puerperal', 'neonatal'],
+                    en: ['Unknown', 'Adult onset', 'Antenatal onset', 'Pediatric onset', 'Congenital onset', 'Puerperal onset', 'Neonatal onset'],
+                    ja: ['Unknown', 'Adult onset', 'Antenatal onset', 'Pediatric onset', 'Congenital onset', 'Puerperal onset', 'Neonatal onset'],
+                    ko: ['', '', '', '', '', '', ''],
+                    zh: ['', '', '', '', '', '', ''],
+                    zhcht: ['','','','','', '', '']
+                }
+            },
+            {
+                columnId:  'pi012',
+                dataKey:   'hpo_temporal_pattern',
+                inputType: 'select',
+                phenoKey:  '',
+                type:      'dropdown',
+                table:     true,
+                displayName: {
+                    en: 'Temporal pattern',
+                    ja: '発症パターン',
+                    ko: '',
+                    zh: '',
+                    zhcht: ''
+                },
+                options: {
+                    dataValue: ['unknown', 'recurrent', 'subacute', 'fluctuating', 'migratory', 'diurnal', 'stable','insidious','prolonged','nocturnal','chronic','transient'],
+                    en: ['Unknown', 'Recurrent Acute', 'Subacute', 'Fluctuating', 'Migratory', 'Diurnal', 'Stable', 'Insidious onset', 'Prolonged', 'Nocturnal', 'Chronic', 'Transient'],
+                    ja: ['Unknown', 'Recurrent Acute', 'Subacute', 'Fluctuating', 'Migratory', 'Diurnal', 'Stable', 'Insidious onset', 'Prolonged', 'Nocturnal', 'Chronic', 'Transient'],
+                    ko: [],
+                    zh: [],
+                    zhcht: []
+                }
+            },
+            {
+                columnId:  'pi013',
+                dataKey:   'hpo_pace_of_progression',
+                inputType: 'select',
+                phenoKey:  '',
+                type:      'dropdown',
+                table:     true,
+                displayName: {
+                    en: 'Pace of progression',
+                    ja: '進行速度',
+                    ko: '진행 속도',
+                    zh: '进展速度',
+                    zhcht: '進展速度'
+                },
+                options: {
+                    dataValue: ['unknown', 'adult', 'antenatal', 'pediatric', 'congenital', 'puerperal', 'neonatal'],
+                    en: ['Unknown', 'Progressive', 'Variable progression rate', 'Slowly progressive', 'Nonprogressive', 'Rapidly progressive'],
+                    ja: ['Unknown', 'Progressive', 'Variable progression rate', 'Slowly progressive', 'Nonprogressive', 'Rapidly progressive'],
+                    ko: ['', '', '', '', '', ''],
+                    zh: ['', '', '', '', '', ''],
+                    zhcht: ['','','','','', '']
+                }
+            },
+            {
+                columnId:  'pi014',
+                dataKey:   'hpo_resolution',
+                inputType: 'text',
+                phenoKey:  '',
+                type:      'text',
+                table:     true,
+                displayName: {
+                    en: 'Resolution',
+                    ja: '消失',
+                    ko: '',
+                    zh: '',
+                    zhcht: ''
+                },
+            },
+            {
+                columnId: 'pi015',
+                dataKey:  'hpo_comments',
+                inputType: 'text',
+                phenoKey:  '',  
+                type:      'text',
+                table:     true,
+                displayName: {
+                    en: 'Comments',
+                    ja: 'コメント',
+                    ko: '코멘트',
+                    zh: '注释',
+                    zhcht: '註釋'
+                }
+            }
+        ]
+// modified by hzhang@bits.cc end
     },
     {
         categoryId: 'g000',

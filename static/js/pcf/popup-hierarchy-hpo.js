@@ -1321,7 +1321,7 @@
 							document.execCommand('copy');
 							$textarea.hide();
 						})
-						.tooltip();
+						.tooltip({trigger: 'hover', placement:'top', container: 'body', boundary: 'window' });
 
 					if($.isPlainObject( window['tmripple']) && $.isFunction(window['tmripple'].init)){
 						$copy_button.attr({'data-animation':'ripple'});
