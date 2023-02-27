@@ -10,16 +10,17 @@
     <!--css-->
     <!-- start bits-->
     <link rel="stylesheet" href="https://unpkg.com/destyle.css@1.0.5/destyle.css">
-    <link rel="stylesheet" href="/static/css/pcf/bootstrap.css">
-    <link rel="stylesheet" href="/static/css/pcf/tippy.css">
-    <link rel="stylesheet" href="/static/css/pcf/search-box-form.css">
-    <link rel="stylesheet" href="/static/css/pcf/text-input.css">
+    <link rel="stylesheet" href="/static/bootstrap-4.6.2-dist/css/bootstrap.css">
+    <link rel="stylesheet" href="/static/record/css/phenotype/tippy.css">
+    <link rel="stylesheet" href="/static/record/css/phenotype/search-box-form.css">
+    <link rel="stylesheet" href="/static/record/css/phenotype/text-input.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="/static/css/pcf/magnific-popup.css">
-    <link rel="stylesheet" href="/static/css/pcf/token-input-facebook.css" type="text/css" />
-    <link rel="stylesheet" href="/static/css/pcf/popup-hierarchy-hpo.css">
+    <link rel="stylesheet" href="/static/record/css/phenotype/magnific-popup.css">
+    <link rel="stylesheet" href="/static/record/css/phenotype/token-input-facebook.css">
+    <link rel="stylesheet" href="/static/record/css/phenotype/popup-hierarchy-hpo.css">
     <link rel="stylesheet" href="https://unpkg.com/tippy.js@6/animations/scale.css" />
     <link rel="stylesheet" href="https://unpkg.com/tippy.js@6/animations/scale-extreme.css" />
+    <link rel="stylesheet" href="/static/record/css/phenotype/modal_phenotype.css">
     <!-- end bits-->
     <link rel="stylesheet" href="https://unpkg.com/destyle.css@1.0.5/destyle.css">
     <link rel='stylesheet' href="/static/css/pcf/branc.css">
@@ -416,69 +417,21 @@
 </body>
 
 <!-- start bits-->
-<!--  <script src="/static/js/pcf/jquery.min.js"></script>  -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="/static/js/jquery.easing.1.3.js"></script>
-<script src="/static/js/pcf/bootstrap-4.6.0.bundle.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<script src="/static/bootstrap-4.6.2-dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://unpkg.com/@popperjs/core@2"></script>
-<script src="https://unpkg.com/tippy.js@6"></script>
-<script src="/static/js/jquery.waypoints.min.js"></script>
-<script src="/static/js/jquery.countTo.js"></script>
-<script src="/static/js/pcf/jquery.magnific_popup.min.js"></script>
-<script src="/static/js/pcf/magnific-popup-options.js"></script>
-<script src="/static/js/jquery.stellar.min.js"></script>
-<script src="/static/js/pcf/rater.js"></script>
-<script src="/static/js/pcf/jquery.tokeninput.js"></script>
-<script src="/static/js/d3/3.5.17/d3.min.js"></script>
-<script src="/static/js/three.js-r84/build/three.min.js"></script>
-<script src="/static/js/three.js-r84/examples/js/Detector.js"></script>
-<script src="/static/js/three-bits/OBJLoader.js"></script>
-<script src="/static/js/three-bits/three-bits.js"></script>
-<script src="/static/js/three-bits/three-bits-renderer.js"></script>
-<script src="/static/js/three-bits/defaults.js"></script>
-<script type="text/javascript" src="/static/js/pcf/popup-hierarchy-hpo.js"></script>
-<script src="/static/js/button-ripple-effect.js"></script>
-<script src="/static/js/jaconv/jaconv.min.js"></script>
-<script type="text/javascript" src="/static/js/pcf/jquery.search-box_form.js"></script>
-<script type="text/javascript" src="/static/js/pcf/jquery.textinput_hpo.js"></script>
-<script type="text/javascript">
-
-    $(document).ready(function () {
-
-        $("#search_box_form").search_box_form({
-            'url_tokeninput_hpo': '/tokeninput_hpo',
-            'url_tokeninput_hpo_second': '/pcf_get_hpo_by_text',
-            'url_popup_hierarchy_hpo': '/popup_hierarchy_hpo',
-            'url_load_hpo_data': '/get_hpo_data_by_hpo_id',
-            {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
-            'lang': "ja",
-        {% else %}
-        'lang': "en",
-        {% endif %}
-        'form_para_target': "omim",
-        'form_para_filter': "",
-        'form_para_filter_vgp': "",
-        'form_para_size': "",
-        'form_para_display_format': "full",
-        'is_hierarchy_fullscreen': false,
-        'schema': 'schema-2022',
-        'text_input_schema': 'auto'
-          });
-
-    $("#ex_phenotypes").click(function () {
-        $("#search_box_form").search_box_form('add_token', { id: "{{ _('index_Sample_1_id') }}", name: "{{ _('index_Sample_1_name') }}" });
-        $("#search_box_form").search_box_form('add_token', { id: "{{ _('index_Sample_2_id') }}", name: "{{ _('index_Sample_2_name') }}" });
-        $("#search_box_form").search_box_form('add_token', { id: "{{ _('index_Sample_3_id') }}", name: "{{ _('index_Sample_3_name') }}" });
-        $("#search_box_form").search_box_form('add_token', { id: "{{ _('index_Sample_4_id') }}", name: "{{ _('index_Sample_4_name') }}" });
-        $("#search_box_form").search_box_form('add_token', { id: "{{ _('index_Sample_5_id') }}", name: "{{ _('index_Sample_5_name') }}" });
-
-        return false;
-    });
-
-    $('[data-toggle="tooltip"]').tooltip({ 'trigger': 'hover' });
-    });
-
-</script>
+<script type="text/javascript" src="/static/record/js/phenotype/tippyjs/tippy-bundle.umd.js"></script>
+<script type="text/javascript" src="/static/record/js/phenotype/jquery.magnific_popup.min.js"></script>
+<script type="text/javascript" src="/static/record/js/phenotype/magnific-popup-options.js"></script>
+<script type="text/javascript" src="/static/record/js/phenotype/jquery.stellar.min.js"></script>
+<script type="text/javascript" src="/static/record/js/phenotype/rater.js"></script>
+<script type="text/javascript" src="/static/record/js/phenotype/jquery.tokeninput.js"></script>
+<script type="text/javascript" src="/static/record/js/phenotype/popup-hierarchy-hpo.js"></script>
+<script type="text/javascript" src="/static/record/js/phenotype/button-ripple-effect.js"></script>
+<script type="text/javascript" src="/static/record/js/phenotype/jaconv/jaconv.min.js"></script>
+<script type="text/javascript" src="/static/record/js/phenotype/jquery.multitextinput_hpo.js"></script>
+<script type="text/javascript" src="/static/record/js/phenotype/jquery.search-box_form.js"></script>
+<script type="text/javascript" src="/static/record/js/phenotype/modal_phenotype.js"></script>
 <!-- end bits-->
 <script type="text/javascript"
     src="https://dbcls.rois.ac.jp/DBCLS-common-header-footer/v2/script/common-header-and-footer.js"
