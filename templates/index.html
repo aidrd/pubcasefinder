@@ -165,9 +165,8 @@
             <div class="search">
                 <div class="search-box_wrapper">
                     <div class="search-brand">
-                        <!--<a href="/"><img src="/static/images/pcf/top/logo_color.svg" alt=""></a>-->
-                        <a href="https://www.rarediseaseday.org/"><img
-                                src="/static/images/pcf/logo_rarediseaseday2023.svg" alt=""></a>
+                        <a href="/"><img src="/static/images/pcf/top/logo_color.svg" alt=""></a>
+			<!-- <a href="https://www.rarediseaseday.org/" target="_blank"><img src="/static/images/pcf/logo_rarediseaseday2023.svg" alt=""></a> -->
                         {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
                         <p>希少・遺伝性疾患検索システム</p>
                         {% elif get_locale() == "ko" or get_locale() == "ko_KR" %}
@@ -180,10 +179,6 @@
                 </div>
                 <div class="search-ex">
                     <a href="#" id="ex_phenotypes">ex) {{ _('index_Sample') }}</a>
-                </div>
-                <div class="img_rarediseaseday"><a href="https://www.rarediseaseday.org/"><img
-                            src="/static/images/pcf/banner_rarediseaseday2023.png">
-                    </a>
                 </div>
             </div>
 
@@ -756,7 +751,9 @@
                     <div class="movie-text">
                         <div class="text-left">
                             <!--h1>Useful For Finding Diseases And Cases</h1-->
-                            <h1>PubCaseFinder accelerates precision medicine with the phenotype-based resources.</h6>
+                            <!--h1>PubCaseFinder accelerates precision medicine for rare genetic diseases.</h6-->
+                            <h1>Promoting Medical Genetics</h1>
+                            <h6>PubCaseFinder is directed toward medical genetics specialists, genetic counselors, pediatricians, and other clinicians related to rare and genetic diseases.</h6>
                                 <div class="hover_image_wrap">
                                     <button>
                                         <div class="rotate_image modal_open howtobtn" data-target="modal10"
@@ -1005,8 +1002,10 @@
     id="common-footer__script"></script-->
 <script type="text/javascript"
     src="https://dbcls.rois.ac.jp/DBCLS-common-header-footer/v2/script/common-header-and-footer.js"
-    data-show-footer="true" data-show-footer-license="true" data-show-footer-links="true" style="display: block"
-    id="common-header-and-footer__script" data-width="976" data-color="mono"></script>
+    data-show-footer="true"
+    data-show-footer-license="true"
+    data-show-footer-links="true"
+    style="display: block" id="common-header-and-footer__script" data-width="976" data-color="mono"></script>
 <!-- END: Common header and fotter -->
 
 <!-- START: Slider -->
@@ -1282,7 +1281,7 @@
         'is_hierarchy_fullscreen': false,
         'schema': 'schema-2022',
         //'text_input_schema': 'auto',
-        'text_input_schema': 'manual'
+		'text_input_schema': 'manual'
         });
 
     $("#ex_phenotypes").click(function () {
