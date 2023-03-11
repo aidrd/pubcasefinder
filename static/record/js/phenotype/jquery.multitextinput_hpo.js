@@ -188,6 +188,9 @@
                                 $text_input_textarea.add_text(text);
                                 $text_input_textarea.set_focus();
                                 $btn.addClass('selected')
+                                if(text){
+                                    setTimeout(function(){_parse_text();}, 100);
+                                }
                             }else{
                                 alert('func not defined')
                             }
@@ -199,6 +202,12 @@
 
 
         let $div_btn_wraper_r = $('<div>').addClass('text-input-button-wrapper d-flex flex-row').appendTo($footer);
+        let $clear_button = $('<button>').addClass('ctl')
+                                          .text("CLEAR")
+                                          .click(function(){
+                                              _clear();
+                                          })
+                                          .appendTo($div_btn_wraper_r);
         let $close_button = $('<button>').addClass('ctl')
                                           .text("CLOSE")
                                           .attr('id',"text-input-close-button")
@@ -228,6 +237,8 @@
 									})
 	                            }	
 								settings.output_hpo(hpo_list);
+                                _clear();
+                                if(_isFunction(current_settings.trigger_close))current_settings.trigger_close();
                             }else{
                                 alert("HPO output function was not set.");
                             }

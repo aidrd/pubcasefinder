@@ -301,7 +301,11 @@
 		blinkLastTokens: function(num) {
             this.data("tokenInputObject").blinkLastTokens(num);
             return this;
-        }
+        },
+		update_saved_token: function(idx,new_token){
+			this.data("tokenInputObject").update_saved_token(idx,new_token);
+            return this;
+		}
 	};
 
 	// Expose the .tokenInput function to jQuery as a plugin
@@ -738,6 +742,11 @@
 			
 			
 		};
+
+		this.update_saved_token = function(idx,new_token) {
+          saved_tokens[idx] = $.extend(saved_tokens[idx],new_token);
+		};
+
 
 	  // Resize input to maximum width so the placeholder can be seen
       setTimeout(function(){ resize_input(); }, 50);

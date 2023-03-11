@@ -129,8 +129,8 @@
 				clear : 'Clear',
 				close : 'Close',
 
-				exclude : '症状の有無',
-				exclude_hash : { 0: 'あり', 1: 'なし'},
+				is_observed : '症状の有無',
+				is_observed_hash : { yes: 'あり', no: 'なし'},
 				severity : '重要性',
 				severity_hash : {0:'通常', 1:'高い', 2:'低い'},
 				id : 'HPO ID',
@@ -181,8 +181,8 @@
 				clear : 'Clear',
 				close : 'Close',
 
-				exclude : 'Exclude',
-				exclude_hash : { 0: 'Yes', 1: 'No'},
+				is_observed : 'Exclude',
+				is_observed_hash : { yes: 'No', no: 'Yes'},
 				severity : 'Clinical relevance',
 				severity_hash : {0:'Normal', 1:'Distinctive finding', 2:'Minor finding'},
 				id : 'HPO ID',
@@ -244,8 +244,8 @@
 		prependTo: null
 	};
 
-	var TOKENINPUT_SETTINGS_KEY = 'settings';
-	var TOKENINPUT_ITEM_SETTINGS_KEY = 'tokeninput';
+	const TOKENINPUT_SETTINGS_KEY = 'settings';
+	const TOKENINPUT_ITEM_SETTINGS_KEY = 'tokeninput';
 
 	var SKIN = {
 		FMAID : 'FMA7163',
@@ -351,6 +351,53 @@
 		function getOriginalTokenInputItems(){
 			return $.map($(input).tokenInput('get'), function(data){
 				return $.extend(true, {},data);
+			});
+		}
+
+		function getHighlightedOriginalTokenInputItem(){
+			let original_token_node_list = getOriginalTokenInputItemNodes();
+			let idx = original_token_node_list.findIndex(token_node => {
+				return $(token_node).hasClass('selected_at_popup');
+			});
+			if(idx < 0) return null;
+			let original_token_item_list = getOriginalTokenInputItems();
+			return original_token_item_list[idx];
+		}
+
+		function updateHighlightedOriginalTokenInputItem(obj){
+			let $selectedToken = $('li.selected_at_popup');
+			let selectedToken  = $selectedToken.data(TOKENINPUT_ITEM_SETTINGS_KEY);
+			let changedToken   = $.extend(true, {},selectedToken,obj);
+			$selectedToken.data(TOKENINPUT_ITEM_SETTINGS_KEY, changedToken);
+
+			let original_token_node_list = getOriginalTokenInputItemNodes();
+			let idx = original_token_node_list.findIndex(token_node => {
+				return $(token_node).hasClass('selected_at_popup');
+			});
+			$(input).tokenInput('update_saved_token', idx, obj);
+		}
+
+		function getOriginalTokenInputItem_by_id(hpo_id){
+			let original_token_item_list = getOriginalTokenInputItems();
+			let idx = original_token_item_list.findIndex(token_item => {
+				return token_item.id.replace('_ja','') === hpo_id.replace('_ja','');
+			});
+			if(idx < 0) return null;
+			return original_token_item_list[idx];
+		}
+
+		function updateOriginalTokenInputItem_by_id(hpo_id,obj){
+			let original_token_node_list = getOriginalTokenInputItemNodes();
+			let original_token_item_list = getOriginalTokenInputItems();
+			original_token_item_list.forEach(function(token_item,idx){
+				if(token_item.id.replace('_ja','') === hpo_id.replace('_ja','')){
+					let $selectedToken = $(original_token_node_list[idx]);
+					let selectedToken  = $selectedToken.data(TOKENINPUT_ITEM_SETTINGS_KEY);
+					let changedToken   = $.extend(true, {},selectedToken,obj);
+					$selectedToken.data(TOKENINPUT_ITEM_SETTINGS_KEY, changedToken);
+
+					$(input).tokenInput('update_saved_token', idx, obj);
+				}
 			});
 		}
 
@@ -700,11 +747,15 @@
 				new_token['id'] =  new_token['id'].replace(/_[a-z]+/,'') +  '_ja';
 				new_token['name'] = params.self.name_ja;
 			}
+			if('is_observed' in params.self){
+				new_token['is_observed'] = params.self.is_observed;
+			}
 
 			if(params.exec==='add'){
 				if(current_settings.use_webgl || current_settings.is_hierarchy_fullscreen){
 					addTokenInputItem(new_token);
 				}else{
+					/*
 					let id = params.self.id;
 					let name = params.self.name;
 					if(runSearchOptions.hasJA && isString(params.self.name_ja)){
@@ -712,6 +763,8 @@
 						name = params.self.name_ja;
 					}
 					$("#tokeninput_hpo").tokenInput("add", {id: id, name: name});
+					*/
+					$("#tokeninput_hpo").tokenInput("add", new_token);
 				}
 			}
 			else if(params.exec==='replace'){
@@ -949,6 +1002,10 @@
 			}else{
 				return $.magnificPopup.instance.contentContainer ? $.magnificPopup.instance.contentContainer.find(current_settings.nodeName+'.'+current_settings.cssInlineContentBaseClass) : $();
 			}
+		}
+
+		function getIndicatedTokenKeyVal(hpo_id,key){
+			let tokenInputItemNodes = getOriginalTokenInputItemNodes();
 		}
 
 		var pickFMAIDs = {};
@@ -1322,7 +1379,7 @@
 							document.execCommand('copy');
 							$textarea.hide();
 						})
-						.tooltip({'placement': 'top', 'container': 'body'});
+						.tooltip({'placement': 'top', 'container': 'body', boundary: 'window'});
 
 					if($.isPlainObject( window['tmripple']) && $.isFunction(window['tmripple'].init)){
 						$copy_button.attr({'data-animation':'ripple'});
@@ -1374,9 +1431,11 @@
 						}
 
 						
+						let highlighted_Original_TokenInputItem = getHighlightedOriginalTokenInputItem();
+						let original_TokenInputItem_by_id = getOriginalTokenInputItem_by_id(result['id']);
 
 						var copy_values = [];
-						var list = ['exclude','severity','id','name','English','definition','comment','synonym'];
+						var list = ['is_observed','severity','id','name','English','definition','comment','synonym'];
 						$.each(list, function(i,val){
 							var key = val;
 							var value = result[key];
@@ -1393,15 +1452,72 @@
 							var $th = $('<th>').text(label).appendTo($contentTr);
 							var $value_td = $('<td>').css({'text-align':'left','width':'100%','padding-left':'0px','padding-right':'0px'}).appendTo($contentTr);
 							
-							if(key==='exclude' || key==='severity'){
-								//$value_td.addClass('d-flex flex-row');
+							if(key==='is_observed' || key==='severity'){
+								
+								let val_checked = "";
+								if((highlighted_Original_TokenInputItem) &&
+								   (key in highlighted_Original_TokenInputItem) &&
+								   (highlighted_Original_TokenInputItem.id.replace('_ja','') === result.id.replace('_ja',''))){
+									val_checked = highlighted_Original_TokenInputItem[key];
+								}else if((original_TokenInputItem_by_id)&&(key in original_TokenInputItem_by_id)){
+									val_checked = original_TokenInputItem_by_id[key];
+								}
 								var hash = language[key + "_hash" ];
+
 								for(let val in hash){
 									let title_label = hash[val];
-									$('<input type=\"radio\" name=\"'+key+'\" value=\"'+val+'\">').appendTo($value_td);
-									$('<label>').text(title_label).appendTo($value_td);
+                                    let cbx_id = 'popuphpo-cbx' + '-' + key + '-' + val;
+									let $div = $('<div>').addClass('hpo-radio-wrap').appendTo($value_td);
+									$('<input>').prop('type','radio')
+												.prop('name','popuphpo-cbx-' + key)
+												.prop('id',cbx_id)
+												.prop('checked', (val_checked && val_checked===val) ? val_checked : false)
+												.val(val)
+												.data('hpo_id',result.id)
+												.data('hpo_attr_key',key)
+												.click(function(e){
+													// change check status
+											        const elmName = this.getAttribute('name');
+											        const radios = document.querySelectorAll('input[type="radio"][name="' + elmName + '"]');
+												    radios.forEach(elm => {
+											            elm.removeAttribute('checked');
+											        });
+											        this.setAttribute('checked','checked');
+											        e.stopPropagation();
+													
+													let hpo_id = $(this).data('hpo_id');
+													let hpo_attr_key = $(this).data('hpo_attr_key');
+													let hpo_attr_val = $(this).val();
+
+													// modify ADD and Replace Button data obj value
+													$('div.popup-hierarchy-hpo-buttons-schema_2022').find('button').each(function(idx,btn){
+														let $btn = $(btn);
+														var params = $btn.data(OBJECT_KEY) || {};
+														if('self' in params){
+															params.self = $.extend(true,{},params.self,{[hpo_attr_key]:hpo_attr_val});
+															$btn.data(OBJECT_KEY, params);	
+														}
+													});
+													// modify tokeninput entry 
+													let highlighted_Original_TokenInputItem = getHighlightedOriginalTokenInputItem();
+													let original_TokenInputItem_by_id = getOriginalTokenInputItem_by_id(hpo_id);
+
+													if((highlighted_Original_TokenInputItem) &&
+														(highlighted_Original_TokenInputItem.id.replace('_ja','') === hpo_id.replace('_ja',''))){
+														updateHighlightedOriginalTokenInputItem({[hpo_attr_key]:hpo_attr_val});
+													}else if((original_TokenInputItem_by_id)&&(key in original_TokenInputItem_by_id)){
+														updateOriginalTokenInputItem_by_id(hpo_id, {[hpo_attr_key]:hpo_attr_val})
+													}
+												})
+												.appendTo($div);
+									$("<label for=\""+cbx_id+"\">").text(title_label)
+																   .click(function(){
+																	 $(this).prev().trigger('click');
+																   })
+																   .appendTo($div);
 								}
-								if (!(key in result)) $contentTr.hide();
+
+								if (key === 'severity') $contentTr.hide();
 							} else if(key==='name'){
 								var $a = $('<a>')
 								.addClass(current_settings.cssLinkClass)
@@ -1423,7 +1539,7 @@
 								value = value.replace(/\|/g, ' | ');		
 								if(isNeedOverflewHidden(value)){
 									$value_td.addClass('switch');
-									let $div_content = $('<div>').addClass('content').appendTo($value_td);
+									let $div_content = $('<div>').addClass('hpo_content').appendTo($value_td);
 									let $div_control = $('<div>').addClass('control').appendTo($value_td);
 									$("<span>").appendTo($div_control)
 										.click(function(){
@@ -1971,7 +2087,10 @@
 											disp_fma_id = RegExp.$1+':'+RegExp.$2;
 										}
 										var fma_name = isString(fma_ids[fma_id][name_key]) ? fma_ids[fma_id][name_key] : fma_ids[fma_id]['name'];
-										var $tr = $('<tr>').attr({'data-fmaid':fma_id}).data({'disp_fma_id':disp_fma_id,'fma_id':fma_id,'fma_name':fma_name,'pick_objid': fma2pickobj[fma_id]||{} }).data(OBJECT_KEY, fma2obj[fma_id]).appendTo($fmalist_content_table)
+										var $tr = $('<tr>').attr({'data-fmaid':fma_id})
+                                                           .data({'disp_fma_id':disp_fma_id,'fma_id':fma_id,'fma_name':fma_name,'pick_objid': fma2pickobj[fma_id]||{} })
+                                                           .data(OBJECT_KEY, fma2obj[fma_id])
+                                                           .appendTo($fmalist_content_table)
 										.hover(
 											function(){
 												var $this_tr = $(this);
@@ -3655,6 +3774,9 @@
 	    });
 
 		function _set_level_pos(){
+            //let width = $(window).width();
+            //$mfp_wrap_local.css({'width': width+'px'});
+
             let $prependTo = $('#'+ prependTo_id);
             let top = $prependTo.offset().top;
 			if(document.documentElement.scrollTop){
@@ -3665,8 +3787,8 @@
             let pos = Math.ceil(top + $prependTo.height());
             $mfp_bg_local.css({'top': pos+'px'});
             $mfp_wrap_local.css({'top': pos+'px'});
-			let max_height= Math.floor(document.documentElement.clientHeight) - Math.ceil(pos);
-			$mfp_container.css({'max-height':max_height+'px','overflow':'hidden auto'});
+//			let max_height= Math.floor(document.documentElement.clientHeight) - Math.ceil(pos);
+//			$mfp_container.css({'max-height':max_height+'px','overflow':'hidden auto'});
 		}
 
 

@@ -59,11 +59,11 @@
 }
 
 .tippy-box[data-theme~='pcf-popup'] table tr th.pcf-popup-phenotype {
-	color: #067ABC;
+	color: #FF8C00;
 }
 
 .tippy-box[data-theme~='pcf-popup'] table tr th.pcf-popup-phenotype_inlist {
-        color: #256D80;
+    color: #FF8C00;
 }
 
 .tippy-box[data-theme~='pcf-popup'] table tr th.pcf-popup-inheritance {

@@ -383,16 +383,31 @@
 .popup-hierarchy-hpo-content-row-schema_2022 td label{margin-bottom:0px; margin-left: 5px; margin-right: 10px;}
 .popup-hierarchy-hpo-buttons-base-schema_2022 td {white-space: nowrap;}
 
+.popup-hierarchy-hpo-content-row-schema_2022 td .hpo-radio-wrap {
+  display: inline-block;
+  line-height: unset;
+}
+
+.popup-hierarchy-hpo-content-row-schema_2022 td .hpo-radio-wrap input {
+  position: static;
+  cursor: pointer;
+}
+.popup-hierarchy-hpo-content-row-schema_2022 td .hpo-radio-wrap label {
+  margin-left: 0px;
+  font-size: 16px;
+  font-weight: 400;
+}
+
 .popup-hierarchy-hpo-content-row-schema_2022 td.switch {
   display:flex;
 }
-.popup-hierarchy-hpo-content-row-schema_2022 td.switch div.content {
+.popup-hierarchy-hpo-content-row-schema_2022 td.switch div.hpo_content {
   width:99%;
   overflow-x: hidden;
   overflow-y: hidden;
   height: 48px;
 }
-.popup-hierarchy-hpo-content-row-schema_2022 td.switch.on div.content {
+.popup-hierarchy-hpo-content-row-schema_2022 td.switch.on div.hpo_content {
   overflow-y: auto;
   height: unset;
 }

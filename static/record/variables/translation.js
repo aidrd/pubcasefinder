@@ -100,11 +100,15 @@ let elementTranslation = {
         ko: ''
     },
     'phenotypic-info-filter-clearall': {
-        en: 'Clear all',
+        en: 'CLEAR ALL',
         ja: 'すべてクリア',
         ko: ''
     },
-
+    'phenotypic-info-comfirm-delete': {
+        en: 'Are you sure you want to delete this item?',
+        ja: '削除してもよろしいでしょうか。',
+        ko: ''
+    },
 // modified by hzhang@bits end
     'add-column-input': {
         en: 'New custom column',

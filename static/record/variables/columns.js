@@ -765,7 +765,7 @@ let categories = [
             },
             {
                 columnId:  'pi008',
-                dataKey:   'hpo_excluded',
+                dataKey:   'is_observed',
                 inputType: 'select',
                 phenoKey:  '',
                 type:      'dropdown',

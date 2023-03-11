@@ -1,8 +1,8 @@
+const URL_GET_HPO_TOOLTIP_DATA_BY_HPO_ID = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_get_hpo_tooltip_data_by_hpo_id';
 
-let phenotypeData = {};
+var phenotypeData = {};
 
 function phenotypeInfo_initPhenotypData(patientData){
-
     let phenotypeInfo = phenotypeInfo_getPhenotypeInfo();
     phenotypeInfo.columns.forEach(c => {
         phenotypeData[c.columnId] = (patientData && (c.columnId in patientData)) ? patientData[c.columnId] :[];
@@ -43,6 +43,30 @@ function phenotypeInfo_createDocList() {
     })
     return doc_list;
 }
+
+/*
+function phenotypeInfo_createExtraPopupItems() {
+    let phenotypeInfo = phenotypeInfo_getPhenotypeInfo();
+    let extra_popup_items = [];
+    ['pi008','pi009','pi010','pi011','pi012','pi013','pi014','pi015'].forEach(cid => {
+        let col = phenotypeInfo.columns.filter(c => { return c.columnId === cid})[0];
+
+        let dataValue = '';
+        if (col.inputType === 'select') {
+            let options = col.options.dataValue;
+            dataValue = col['options'][lang].length > 0 ? col['options'][lang] : col['options']['en'];
+        }
+
+        let obj = {
+            dataKey:     col.dataKey,
+            displayName: col['displayName'][lang] || col['displayName']['en'],
+            inputType:   col.inputType,
+            dataValue:   dataValue
+        };
+    });
+    return extra_popup_items;
+}
+*/
 
 function phenotypeInfo_updateFilterCNT() {
     let phenotypeInfo = phenotypeInfo_getPhenotypeInfo();
@@ -88,7 +112,6 @@ function phenotypeInfo_createFilterUI(filter_container_id) {
                  })
                  .appendTo($div_ctl);
 
-
     let $tbl  = $('<table>').appendTo($container)
     let $tr1  = $('<tr>').appendTo($tbl);
     let $td_h = $('<td>').attr('colspan',2).appendTo($tr1);
@@ -122,17 +145,19 @@ function phenotypeInfo_createFilterUI(filter_container_id) {
             $('#' + cbx_id).val(v);
         });
     });
-
 }
 
 function phenotypeInfo_onFilterChange(){
 
+/*
     if($('#phenotypic-btn-filter').hasClass('active')===false){
          $('#phenotype_list').find('li').show();
          return;
     }
+*/
 
     let filter_list = [];
+
     $('#phenotype_filter').find("input[type='checkbox']:checked").each(function(){
         let $cbx = $(this);
         let cid = $cbx.data('cid');
@@ -219,30 +244,41 @@ function phenotypeInfo_initUI(phenotypeInfo_container){
               .appendTo($('#phenotype_doc_input_btn_wrapper'));
     });
 
-    
+    /*
     $("#phenotype-detail-switch").on('input',function(event){
         if($(this).hasClass('active')){
             $(this).removeClass('active');
             $('#phenotype_list').find('li').removeClass('active');
-            $('#phenotype_list').find('.detail_display_switch').removeClass('active');
         }else{
             $(this).addClass('active');
             $('#phenotype_list').find('li').removeClass('active');
             $('#phenotype_list').find('li').addClass('active');
-            $('#phenotype_list').find('.detail_display_switch').removeClass('active');
-            $('#phenotype_list').find('.detail_display_switch').addClass('active');
         }
     })
-    
+   */
+    $("#phenotype-detail-switch").on('click',function(event){
+        if($(this).hasClass('active')){
+            $(this).val(0);
+            $(this).removeClass('active');
+            $('#phenotype_list').find('li').removeClass('active');
+        }else{
+            $(this).val(1);
+            $(this).addClass('active');
+            $('#phenotype_list').find('li').removeClass('active');
+            $('#phenotype_list').find('li').addClass('active');
+        }
+    })
+
+ 
     $("#phenotypic-btn-filter").click(function(event){
         if($(this).hasClass('active')){
             $(this).removeClass('active');
             $('#phenotype_filter').removeClass('active');
-            $('#phenotype_list').find('li').show();
+            //$('#phenotype_list').find('li').show();
         }else{
             $(this).addClass('active');
             $('#phenotype_filter').addClass('active');
-            phenotypeInfo_onFilterChange();
+            //phenotypeInfo_onFilterChange();
         }
     });
 
@@ -300,6 +336,91 @@ function phenotypeInfo_createCbx(cbx_id,cid,inputType,checked,displayName,onchan
     return $div_cbx_wrapper;
 }
 
+var _isObject   = function(value) {return $.isPlainObject(value);},
+    _isArray    = function(value) {return $.isArray(value);},
+    _isEmpty    = function(value, allowEmptyString) {
+            return  (value === null) || (value === undefined) ||
+                    (!allowEmptyString ? value === '' : false) ||
+                    (_isArray(value) && value.length === 0)||
+                    (_isObject(value) && Object.keys(value).length === 0);
+        },
+    _isExistVal = function(key, hash){
+        if(_isEmpty(hash))  return false;
+        if (!(key in hash)) return false;
+        return !_isEmpty(hash[key]);
+    };
+
+function _contruct_popup_content_val(key,hash,delimer){
+    if(!_isExistVal(key,hash)) return '';
+    if(_isEmpty(hash[key])) return '';
+    if(_isArray(hash[key])) {
+        if(_isEmpty(delimer)) return hash[key].join(',');
+        return hash[key].join(delimer);
+    }
+    return hash[key];
+}
+
+function _contruct_popup_content(hpo_id,popup_data, lang){
+    let max_text_len  = hpo_id.length;
+    let name_ja = _contruct_popup_content_val('name_ja',popup_data);
+    let name_en = _contruct_popup_content_val('name_en',popup_data);
+    if(_isEmpty(name_ja) && _isEmpty(name_en)){
+        return ['no data found for '+ popup_id, max_text_len];
+    }
+    if(max_text_len < name_ja.length) max_text_len =name_ja.length;
+    if(max_text_len < name_en.length) max_text_len =name_en.length;
+    let hpo_url = _contruct_popup_content_val('hpo_url',popup_data);
+    if(max_text_len < hpo_url.length) max_text_len =hpo_url.length;
+
+    let definition = _contruct_popup_content_val('definition',popup_data);
+    if(max_text_len < definition.length) max_text_len = definition.length;
+
+    let comment = _contruct_popup_content_val('comment',popup_data);
+    if(max_text_len < comment.length) max_text_len = comment.length;
+
+    let synonym = _contruct_popup_content_val('synonym',popup_data,', ');
+    if(max_text_len < synonym.length) max_text_len = synonym.length;
+
+    let content = '<table>' +
+                    '<tr>'+
+                      '<th class=\"pcf-popup-phenotype_inlist\">HPO ID  </th>'+
+                      '<td><a href=\"'+hpo_url+'\" target=\"_blank\">'+hpo_id+'</td>'+
+                    '</tr>';
+    if(lang !== 'ja'){
+        content +=  '<tr>'+
+                      '<th class=\"pcf-popup-phenotype_inlist\">Label</th>'+
+                      '<td>'+name_en+'</td>'+
+                    '</tr>';
+    }else{
+        content +=  '<tr>'+
+                      '<th class=\"pcf-popup-phenotype_inlist\">Label(ja) </th>'+
+                      '<td>'+name_ja+'</td>'+
+                    '</tr>'+
+                    '<tr>'+
+                      '<th class=\"pcf-popup-phenotype_inlist\">Label(en) </th>'+
+                      '<td>'+name_en+'</td>'+
+                    '</tr>';
+    }
+
+    content +=      '<tr>'+
+                      '<th class=\"pcf-popup-phenotype_inlist\">Definition</th>'+
+                      '<td>'+definition+'</td>'+
+                    '</tr>'+
+                    '<tr>'+
+                      '<th class=\"pcf-popup-phenotype_inlist\">Comment   </th>'+
+                      '<td>'+comment+'</td>'+
+                    '</tr>'+
+                    '<tr>'+
+                      '<th class=\"pcf-popup-phenotype_inlist\">Synonym   </th>'+
+                      '<td>'+synonym+'</td>'+
+                    '</tr>'+
+                  '</table>';
+
+    return [content, max_text_len];
+}
+
+
+
 function phenotypeInfo_createRows(){
     
     if(!phenotypeData || !('pi001' in phenotypeData) || !phenotypeData['pi001'].length) return;
@@ -318,23 +439,100 @@ function phenotypeInfo_createRows(){
         let $li=$('<li>').addClass('phenotype_list_row').addClass('shadow-sm').addClass(if_show_detail ? 'active' : '').appendTo($ul);
         
         let $header = $('<div>').addClass('d-flex flex-row phenotype_list_row_header').appendTo($li);
-        let $header_sub_left = $('<div>').addClass('phenotype_list_row_header_sub flex-grow-1').appendTo($header);
+        let $header_sub_left = $('<div>').addClass('phenotype_list_row_header_sub flex-grow-1')
+                                         .click(function(){
+                                             $(this).closest('li').toggleClass('active');
+                                         })
+                                         .appendTo($header);
         // delete button
         $('<span>').addClass('material-symbols-outlined hpo_delete').text('delete')
-                   .click(function(){
-                       let hpo_id = $(this).next().text();
-                       let idx = phenotypeData['pi001'].indexOf(hpo_id);
-                       let phenotypeInfo = phenotypeInfo_getPhenotypeInfo();
-                       phenotypeInfo.columns.forEach(col => {
-                           phenotypeData[col.columnId].splice(idx,1);
-                       })
-                       phenotypeInfo_updateNum();
-                       $(this).closest('li').remove();
+                   .click(function(e){
+                       if( confirm( translate('phenotypic-info-comfirm-delete') )){
+                           let hpo_id = $(this).next().text();
+                           let idx = phenotypeData['pi001'].indexOf(hpo_id);
+                           let phenotypeInfo = phenotypeInfo_getPhenotypeInfo();
+                           phenotypeInfo.columns.forEach(col => {
+                               phenotypeData[col.columnId].splice(idx,1);
+                           })
+                           phenotypeInfo_updateNum();
+                           $(this).closest('li').remove();
+                       }
+                       e.stopPropagation();
                    })
                    .appendTo($header_sub_left);
 
-        // hpo id 
-        $('<span>').addClass('hpo_id').text(phenotypeData['pi001'][i]).appendTo($header_sub_left);
+        // hpo id
+        let button = document.createElement('button');
+        button.textContent = phenotypeData['pi001'][i];
+        button.classList.add("list-tag");
+        button.classList.add("hpo_id");
+        //$('<span>').addClass('hpo_id').text(phenotypeData['pi001'][i]).appendTo($header_sub_left);
+        tippy(button, {
+            arrow:         false,
+            allowHTML:     true,
+            appendTo:      document.body,
+            animation:     'scale',
+            animationFill: true,
+            trigger:      'click',
+            maxWidth:      400,
+            strategy:     'fixed',
+            interactive:  true,
+            theme:        'pcf-popup',
+            placement:    'bottom-start',
+            content:      'Loading...',
+            offset:       [0,0],
+            popup_url:    URL_GET_HPO_TOOLTIP_DATA_BY_HPO_ID+'?hpo_id=' + phenotypeData['pi001'][i],
+            popup_id:     phenotypeData['pi001'][i],
+            popup_lang:   lang==='ja'?'ja':'en',
+            onCreate(instance) {
+                // Setup our own custom state properties
+                instance._isFetching = false;
+                instance._src = null;
+                instance._error = null;
+            },
+            onShow(instance) {
+                if (instance._isFetching || instance._src || instance._error) {
+                    return;
+                }
+
+                instance._isFetching = true;
+
+                let url    = instance.props.popup_url;
+                let hpo_id = instance.props.popup_id;
+                let lang   = instance.props.popup_lang;
+
+                $.ajax({
+                    url:       url,
+                    type:     'GET',
+                    async:     true,
+                    dataType: 'text'
+                }).done(function(data,textStatus,jqXHR) {
+                        let json_data = JSON.parse(data);
+                        let [content, max_text_len] = _contruct_popup_content(hpo_id,json_data, lang);
+                        if(max_text_len<40){
+                            instance.setProps({maxWidth: 500});
+                        }else if(max_text_len<60){
+                            instance.setProps({maxWidth: 600});
+                        }else if(max_text_len<80){
+                            instance.setProps({maxWidth: 700});
+                        }else if(max_text_len<120){
+                            instance.setProps({maxWidth: 800});
+                        }else{
+                            instance.setProps({maxWidth: 850});
+                        }
+                        instance.setContent(content);
+                        instance._src = 'done';
+                }).fail(function(jqXHR, textStatus, errorThrown ) {
+                    // Fallback if the network request failed
+                    instance.setContent(`Request failed from server.`);
+                    instance._src = null;
+                }).always(function(){
+                    instance._isFetching = false;
+                });
+            }
+        });
+
+        $(button).click(function(e){e.stopPropagation();}).appendTo($header_sub_left);
 
         // hpo name
         if(lang === 'ja'){
@@ -360,11 +558,10 @@ function phenotypeInfo_createRows(){
 
         // switch of if display detail 
         $('<span>').addClass("material-symbols-outlined detail_display_switch").text('expand_more')
-                   .click(function(){
-                       $(this).toggleClass('active');
+                   .click(function(e){
                        $(this).closest('li').toggleClass('active');
+                       e.stopPropagation();
                     })
-                   .addClass(if_show_detail ? 'active' : '')
                    .appendTo($header_sub_right);
         
         let $detail = $('<div>').addClass('detail').appendTo($li)
@@ -510,6 +707,7 @@ function phenotypeInfo_addRows(){
     phenotypeInfo_reset_hpo_list();
     phenotypeInfo_createRows();
     phenotypeInfo_updateFilterCNT();
+    phenotypeInfo_onFilterChange();
 }
 
 function phenotypeInfo_reset(){
@@ -535,7 +733,7 @@ function phenotypeInfo_reset(){
 function phenotypeInfo_reset_hpo_filter(){
     $('#phenotypic-btn-filter').removeClass('active')
     $('#phenotype_filter').removeClass('active')
-    $('#phenotype_list').find('li').show();
+    //$('#phenotype_list').find('li').show();
 }
 
 function phenotypeInfo_reset_hpo_list(){
@@ -550,6 +748,7 @@ function phenotypeInfo_inputValues(patientData){
     phenotypeInfo_initPhenotypData(patientData);
     phenotypeInfo_createRows();
     phenotypeInfo_updateFilterCNT();
+    phenotypeInfo_onFilterChange();
 }
 
 function phenotypeInfo_getDocByColId(dataSrcColumnId){

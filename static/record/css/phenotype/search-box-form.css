@@ -166,10 +166,11 @@
   background-color: white;
 }
 
-
+/*
 #hpo-list-input-table tbody tr td input[type="checkbox"]:checked {
   background: #007BFF;
 }
+*/
 
 .tooltip .tooltip-inner {
   background-color: white;
