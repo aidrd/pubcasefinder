@@ -1225,3 +1225,6 @@ display: block;
 	z-index: 1000;
 }
 
+#modal-karte .tab-wrap #tab-content-g000{
+  overflow-y: hidden;
+}
