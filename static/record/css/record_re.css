@@ -10,6 +10,8 @@
 
 body {
   margin: 0;
+  height: 100vh;
+  height: -webkit-fill-available;
 }
 
 i {
@@ -329,7 +331,7 @@ i {
   display: flex;
   margin: 0 auto;
   text-align: right;
-
+  height: 60px;
 }
 
 .common-brand{
@@ -588,6 +590,7 @@ width: 35px;
 #content-patients #home-menu {
   display: flex;
   padding: 0.2em 1em;
+  height: 55px;
 }
 
 #content-patients #home-menu .title {
@@ -758,9 +761,9 @@ width: 35px;
   }
 }
 
-#myGrid {
+/* #myGrid {
   min-height: 81vh;
-}
+} */
 
 .modal_content {
   top: 135px;
