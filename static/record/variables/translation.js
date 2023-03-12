@@ -58,7 +58,7 @@ let elementTranslation = {
         en: 'Date',
         ja: '日付',
         ko: ''
-    },'growthChart': {
+    }, 'growthChart': {
         en: 'Growth Chart',
         ja: '身体情報',
         ko: ''
@@ -68,7 +68,7 @@ let elementTranslation = {
         ja: '日付',
         ko: ''
     },
-// modified by hzhang@bits start
+    // modified by hzhang@bits start
     //'phenotypic-info-search': {
     //    en: 'Search Phenotypic Information',
     //    ja: 'ここに表現型情報が検索できます。',
@@ -109,7 +109,7 @@ let elementTranslation = {
         ja: '削除してもよろしいでしょうか。',
         ko: ''
     },
-// modified by hzhang@bits end
+    // modified by hzhang@bits end
     'add-column-input': {
         en: 'New custom column',
         ja: '新規項目',
@@ -119,5 +119,22 @@ let elementTranslation = {
         en: 'Create',
         ja: '作成',
         ko: ''
+    },
+    /* changes start */
+    'chart-title-age': {
+        en: 'Age',
+        ja: '年齢',
+        ko: ''
+    },
+    'chart-title-sex': {
+        en: 'Sex',
+        ja: '性別',
+        ko: ''
+    },
+    'chart-title-null': {
+        en: 'Null',
+        ja: '未入力',
+        ko: ''
     }
+    /* changes end */
 }

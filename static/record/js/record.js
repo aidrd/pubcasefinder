@@ -102,7 +102,7 @@ window.onload = async () => {
 
         if (event.target.value === '') {
             count = ''
-            hot.updateSettings({ hiddenRows: { rows: [] }})
+            hot.updateSettings({ hiddenRows: { rows: [] } })
         }
 
         hot.getPlugin('HiddenRows').showRows(matching)
@@ -110,24 +110,33 @@ window.onload = async () => {
         document.getElementById('search-result-count').innerHTML = count
     })
 
-    document.getElementById('search_input').addEventListener('search', function(event) {
+    document.getElementById('search_input').addEventListener('search', function (event) {
         if (event.target.value === '') {
             document.getElementById('search-result-count').innerHTML = ''
-            hot.updateSettings({ hiddenRows: { rows: [] }})
+            hot.updateSettings({ hiddenRows: { rows: [] } })
         }
         hot.render()
     })
 
-    document.getElementById('hot-undo').addEventListener('click', () => {
+    /* changes start */
+    document.getElementById('hot-undo').addEventListener('click', (e) => {
         hot.undo()
+
+        enableDisableUndoRedo(e.target, hot.isUndoAvailable())
+        enableDisableUndoRedo(document.getElementById('hot-redo'), hot.isRedoAvailable())
     })
 
-    document.getElementById('hot-redo').addEventListener('click', () => {
+    document.getElementById('hot-redo').addEventListener('click', (e) => {
         hot.redo()
+        enableDisableUndoRedo(e.target, hot.isRedoAvailable())
+        enableDisableUndoRedo(document.getElementById('hot-undo'), hot.isUndoAvailable())
     })
 
     Handsontable.dom.addEvent(hotContainer, 'mousedown', function (event) {
         if (event.target.nodeName == 'INPUT' && event.target.classList.contains('header-checkbox')) event.stopPropagation()
+
+        enableDisableUndoRedo(document.getElementById('hot-undo'), hot.isUndoAvailable())
+        enableDisableUndoRedo(document.getElementById('hot-redo'), hot.isRedoAvailable())
     })
 
     Handsontable.dom.addEvent(hotContainer, 'mouseup', event => {
@@ -139,6 +148,16 @@ window.onload = async () => {
             hot.render()
         }
     })
+
+    function enableDisableUndoRedo(button, isEnabled) {
+        if (isEnabled) {
+            button.style.opacity = 1
+        } else {
+            button.style.opacity = 0.5
+        }
+
+    }
+    /* changes end */
 
     addRow()
 }
@@ -171,12 +190,12 @@ function createColumns() {
                     strict: true,
                     allowInvalid: false,
                     readOnly: false,
-                    className: 'htMiddle' 
+                    className: 'htMiddle'
                 }
 
                 if (c.type === 'date') {
                     column.dateFormat = 'YYYY/MM',
-                    column.correctFormat = true
+                        column.correctFormat = true
                     column.datePickerConfig = {
                         dateFormat: 'mm-yy',
                         firstDay: 0,
@@ -187,7 +206,7 @@ function createColumns() {
                         // yearSuffix: '年',
                         // maxDate: new Date(),
                         yearRange: [1900, new Date().getFullYear()],
-                        onDraw: function(datepicker) {
+                        onDraw: function (datepicker) {
                             let close = document.createElement('span')
                             close.innerHTML = '×'
 
@@ -212,15 +231,15 @@ function createColumns() {
                 } else if (category['dataKey'] === 'geneInfo' || key === 'chiefComplaints') {
                     column.renderer = multipleRenderer
                     if (category['dataKey'] === 'geneInfo') column.editor = false
-// add by hzhang@bits start
-                 } else if (category['dataKey'] === 'phenotypicInfo') {
-                     if(colId === 'pi002'){
-                         column.renderer = phenotypeInfo_phenotypeNameRenderer
-                     }else{
-                         column.renderer = multipleRenderer
-                     }
-                     column.editor = false
-// add by hzhang@bits end
+                    // add by hzhang@bits start
+                } else if (category['dataKey'] === 'phenotypicInfo') {
+                    if (colId === 'pi002') {
+                        column.renderer = phenotypeInfo_phenotypeNameRenderer
+                    } else {
+                        column.renderer = multipleRenderer
+                    }
+                    column.editor = false
+                    // add by hzhang@bits end
                 } else if (colId === 'm013_2' || colId === 'm013_3' || colId === 'm013_4') {
                     column.editor = false
                     column.data = 'm013'
@@ -283,6 +302,7 @@ function createColumns() {
     })
 }
 
+/* changes start 3/7 */
 function addColumn() {
     let modal = document.querySelector('.modal')
 
@@ -303,20 +323,20 @@ function addColumn() {
         //if (category.dataKey === 'phenotypicInfo') return
         // modified by hzhang@bits end
 
-        createColumn(category['displayName'][lang], 'title', category['dataKey'])
+        createColumn(category['displayName'][lang], 'title', category['dataKey'], null)
         category.columns.forEach(c => {
             let displayName = c['displayName'][lang] || c['displayName']['en']
-            if (c.table) createColumn(displayName, c.type, c['columnId'])
+            if (c.table) createColumn(displayName, c.type, c['columnId'], category['dataKey'])
         })
     })
 
-    if (customColumns.length > 0) createColumn('カスタム', 'title', 'カスタム')
+    if (customColumns.length > 0) createColumn('カスタム', 'title', 'カスタム', null)
 
     customColumns.forEach(c => {
-        createColumn(c, 'custom', c)
+        createColumn(c, 'custom', c, 'カスタム')
     })
 
-    function createColumn(colName, type, key) {
+    function createColumn(colName, type, key, parent) {
         if (type === 'title') {
             let icon
 
@@ -327,10 +347,10 @@ function addColumn() {
                 case 'medicalInfo':
                     icon = '<i class="material-symbols-outlined">medical_information</i>'
                     break
-//modified by hzhang@bits start
-//                case 'phenoTypicInfo':
+                //modified by hzhang@bits start
+                //                case 'phenoTypicInfo':
                 case 'phenotypicInfo':
-//modified by hzhang@bits end
+                    //modified by hzhang@bits end
                     icon = '<i class="material-symbols-outlined">dns</i>'
                     break
                 case 'geneInfo':
@@ -343,8 +363,8 @@ function addColumn() {
                     icon = '<i class="material-symbols-outlined">category</i>'
                     break
             }
-            container.innerHTML += 
-            `<div class="add_column_title">
+            container.innerHTML +=
+                `<div class="add_column_title">
                 <input type="checkbox" id="cb_${key}" class="add-column-checkbox" onchange="showHideAllColumn(this)">
                 ${icon}${colName}
             </div>`
@@ -362,7 +382,8 @@ function addColumn() {
                             id="${key}"
                             data-type="${type}"
                             data-colname="${colName}"
-                            data-category="${key.charAt(0)}"
+                            data-category2="${key.charAt(0)}"
+                            data-category="${parent}"
                             onchange="showHideColumn(this)"
                             ${existingColumns.includes(key) ? 'checked' : ''}>
                     <label for="${key}">${colName}</label>
@@ -413,10 +434,11 @@ function showHideAllColumn(e) {
     let categoryKey = e.id.split('_')[1]
     let categoryId = categoryKey === 'カスタム' ? 'c' : categoryKey.charAt(0)
 
-    $(`input[data-category='${categoryId}']`).each((i, c) => {
+    $(`input[data-category='${categoryKey}']`).each((i, c) => {
         if (c.checked !== e.checked) c.click()
     })
 }
+/* changes end 3/7 */
 
 function showHideColumn(e) {
     let colId = e.id
@@ -521,7 +543,7 @@ async function updateTable(data, changeHeaders) {
                 age = year - bYear - 1
                 if (age < 1) age = 0
             }
-            
+
             d['p007'] = age
         }
         contentData.push(d)
@@ -530,15 +552,15 @@ async function updateTable(data, changeHeaders) {
     if (contentData.length > 0) {
         let newHeaders = Object.keys(data[0])
 
-        if (changeHeaders  === 'text/csv' || changeHeaders === 'text/tab-separated-values') {
+        if (changeHeaders === 'text/csv' || changeHeaders === 'text/tab-separated-values') {
             columns.splice(2, columns.length)
             colHeaders.splice(2, colHeaders.length)
             existingColumns = []
             customColumns = []
-    
+
             newHeaders.forEach(h => {
                 if (h === 'PCFNo') return
-    
+
                 if (h === 'm013') {
                     let subIds = contentData[0]['m013']
                     if (subIds) {
@@ -579,7 +601,7 @@ async function updateTable(data, changeHeaders) {
         }
 
         if (isHidden) return
- 
+
         colHeaders.push(headerTitle)
         columns.push(headerData)
         existingColumns.push(h)
@@ -591,14 +613,14 @@ async function updateTable(data, changeHeaders) {
         data: contentData,
         colHeaders: colHeaders,
         columns: columns,
-        colWidths: function(index){
-            if (index < 2){
+        colWidths: function (index) {
+            if (index < 2) {
                 return 40
             } else {
                 autoColumnSize.calculateColumnsWidth(index, 0, true)
                 return autoColumnSize.getColumnWidth(index)
             }
-          }
+        }
     })
 
     contentData.map(d => {
@@ -670,7 +692,7 @@ function fileReader(file, fileType) {
                         type: 'text'
                     }
                 }
-    
+
                 customColumns.push(k)
             }
         }
@@ -733,7 +755,7 @@ function convertCSVToJSON(csv, isExport) {
                             } else {
                                 value = ''
                             }
-                        }     
+                        }
                     }
                 } else {
                     let subColumnId = columnId
@@ -794,7 +816,7 @@ function getExportData() {
             rowHeaders: false,
             fileExtension: 'tsv'
         })
-    
+
         dlData = convertCSVToJSON(exportedString, true)
     }
 
@@ -912,7 +934,7 @@ function editTable(isSave) {
         let newPatient = {}
         elements.forEach(e => {
             //add by hzhang@bits start
-            if(!('columnname' in e.dataset)) return;
+            if (!('columnname' in e.dataset)) return;
             //add by hzhang@bits end
             if (e.type === 'radio') {
                 newPatient[e.dataset.columnname] = $(`input[name="${e.name}"]:checked`).val() || null
@@ -947,11 +969,11 @@ function editTable(isSave) {
             })
         }
 
-// add by hzhang@bits start
+        // add by hzhang@bits start
         Object.keys(phenotypeData).forEach(cid => {
             newPatient[cid] = phenotypeData[cid]
         })
-// add by hzhang@bits end
+        // add by hzhang@bits end
 
         delete newPatient['undefined']
         addRow(newPatient)
@@ -978,11 +1000,11 @@ function editTable(isSave) {
         })
     }
 
-// add by hzhang@bits start
+    // add by hzhang@bits start
     Object.keys(phenotypeData).forEach(cid => {
         patientData[cid] = phenotypeData[cid]
     })
-// add by hzhang@bits end
+    // add by hzhang@bits end
 
     hot.render()
     resetData()
@@ -1081,22 +1103,22 @@ function setInitialLanguage() {
             })
 
             if (i === 2) {
-// modified by hzhang@bits start
-/*
-                div.innerHTML = `
-                    <p>${translate('phenotypic-info-search')}</p>
-                    <div style="width:100%;margin: 20px auto 0px auto;">
-                        <div class="search-box_wrapper" style="width:100%;">
-                            <div id="search_box_form"></div>
-                        </div>
-                        <div class="search-ex">
-                            <a href="#" id="ex_phenotypes">ex) {{ _('index_Sample') }}</a>
-                        </div>
-                    </div>
-                `
-*/
+                // modified by hzhang@bits start
+                /*
+                                div.innerHTML = `
+                                    <p>${translate('phenotypic-info-search')}</p>
+                                    <div style="width:100%;margin: 20px auto 0px auto;">
+                                        <div class="search-box_wrapper" style="width:100%;">
+                                            <div id="search_box_form"></div>
+                                        </div>
+                                        <div class="search-ex">
+                                            <a href="#" id="ex_phenotypes">ex) {{ _('index_Sample') }}</a>
+                                        </div>
+                                    </div>
+                                `
+                */
                 phenotypeInfo_initUI(div)
-// modified by hzhang@bits end
+                // modified by hzhang@bits end
                 return
             } else if (i === 3) {
                 div.innerHTML = `
@@ -1112,7 +1134,7 @@ function setInitialLanguage() {
                 geneContainer = document.createElement('div')
                 geneContainer.id = 'geneModal'
                 div.appendChild(geneContainer)
-                
+
                 return
             }
 
@@ -1195,7 +1217,7 @@ function setInitialLanguage() {
                 options.forEach((o, i) => {
                     let option = document.createElement('option')
                     option.value = o
-                    option.innerText = optionLang[i] 
+                    option.innerText = optionLang[i]
                     select.add(option)
                 })
             } else if (c.inputType === 'select-date') {
@@ -1367,7 +1389,7 @@ function setInitialLanguage() {
             bodyContainer = document.createElement('div')
             bodyContainer.id = 'bodyModal'
             td.appendChild(bodyContainer)
-            
+
             tr.appendChild(td)
         }
     }

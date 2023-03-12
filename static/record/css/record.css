@@ -784,6 +784,12 @@ display: block;
   border-right: none;
 }
 
+/* changes start */
+.handsontable td.htSearchResult {
+  background-color: transparent !important;
+}
+/* changes end */
+
 
 .ht_master > .wtHolder {
   max-height: 100vh !important;

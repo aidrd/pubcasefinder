@@ -15,38 +15,41 @@ function toggleTableChart(type) {
     }
 }
 
+/* changes start */
 function createChart() {
-    console.log(contentData)
-    charts.forEach(c => c.destroy() )
+    // console.log(contentData)
+    charts.forEach(c => c.destroy())
 
-    let familyData = contentData.map(d => d['p002'])
-    createBarChart(document.getElementById('bar-chart-family'), familyData, '家族ID')
+    // let familyData = contentData.map(d => d['p002'])
+    // createBarChart(document.getElementById('bar-chart-family'), familyData, '家族ID')
 
     let sexData = contentData.map(d => d['p009'])
-    createPieChart(document.getElementById('pie-chart-sex'), sexData, '性別')
+    createPieChart(document.getElementById('pie-chart-sex'), sexData, translate('chart-title-sex'))
 
     let ageData = contentData.map(d => d['p007'])
-    createPieChart(document.getElementById('pie-chart-age'), ageData, '年齢')
+    createPieChart(document.getElementById('pie-chart-age'), ageData, translate('chart-title-age'))
 
     // let ageSexData = contentData.map(({sex, age}) => { return {'sex': sex, 'age': age }})
-    let groupData = contentData.map(d => d['p004'])
-    createBarChart(document.getElementById('bar-chart-group'), groupData, 'グループ')
+    // let groupData = contentData.map(d => d['p004'])
+    // createBarChart(document.getElementById('bar-chart-group'), groupData, 'グループ')
 
     function createPieChart(container, data, title) {
         let ctx = container.getContext('2d')
         let dataObject = {}
 
         for (let key of data) {
-            dataObject[key] = dataObject[key] ? dataObject[key] + 1 : 1
+            let displayKey = key || translate('chart-title-null')
+            dataObject[displayKey] = dataObject[displayKey] ? dataObject[displayKey] + 1 : 1
         }
+
 
         let chart = new Chart(ctx, {
             type: 'pie',
             data: {
-              labels: Object.keys(dataObject),
-              datasets: [{
-                data: Object.values(dataObject)
-              }]
+                labels: Object.keys(dataObject),
+                datasets: [{
+                    data: Object.values(dataObject)
+                }]
             },
             options: {
                 responsive: true,
@@ -58,7 +61,7 @@ function createChart() {
                         display: true,
                         text: title
                     }
-                }   
+                }
             }
         })
 
@@ -77,16 +80,16 @@ function createChart() {
         let chart = new Chart(ctx, {
             type: 'bar',
             data: {
-              labels: Object.keys(dataObject),
-              datasets: [{
-                data: Object.values(dataObject)
-              }]
+                labels: Object.keys(dataObject),
+                datasets: [{
+                    data: Object.values(dataObject)
+                }]
             },
             options: {
                 responsive: true,
                 scales: {
                     y: {
-                      beginAtZero: true
+                        beginAtZero: true
                     }
                 },
                 plugins: {
@@ -98,10 +101,11 @@ function createChart() {
                         display: true,
                         text: title
                     }
-                }   
+                }
             }
         })
 
         charts.push(chart)
     }
 }
+/* changes end */
