@@ -763,7 +763,7 @@ h5 {
 #myGrid {
   min-height: 70vh;
   margin: auto;
-  overflow: scroll !important;
+  /*overflow: scroll !important;*/
   background: #fff;
 }
 
