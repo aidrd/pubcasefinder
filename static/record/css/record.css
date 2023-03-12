@@ -761,7 +761,7 @@ h5 {
   margin: auto;
   /*overflow: scroll !important;*/
   background: #fff;
-  height: calc(100vh - 150px);
+  height: calc(100vh - 150px) !important;
 }
 
 #myGrid td {
