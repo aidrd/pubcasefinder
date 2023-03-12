@@ -751,10 +751,7 @@ h5 {
   font-weight: normal;
 }
 
-/*add modal*/
-*::-webkit-scrollbar {
-  display: none;
-}
+
 
 #import_btn {
   display: none;
@@ -793,6 +790,7 @@ display: block;
 
 .ht_master > .wtHolder {
   max-height: 100vh !important;
+  /* overflow-x: hidden; */
 }
 
 #modalGrid {
@@ -1226,3 +1224,4 @@ display: block;
 	left: 0;
 	z-index: 1000;
 }
+
