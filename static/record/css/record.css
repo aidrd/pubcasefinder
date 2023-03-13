@@ -317,8 +317,15 @@ body {
   border: 0;
   padding: 0;
   border-radius: 20px;
-  max-width: 100%;
-  width: 95%;
+  /* changes start */
+  /* max-width: 100%; */
+  /* width: 95%; */
+  max-width: 33%;
+  width: 33%;
+  right: 1% !important;
+  left: unset !important;
+  /* display: block; */
+  /* changes end */
 }
 
 #modal-karte #modal-karte-button {

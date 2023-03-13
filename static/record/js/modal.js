@@ -50,7 +50,12 @@ $('#menu-save').click((e) => {
 
 function openModal(patientId) {
     $('body').append('<div class="modal_bg"></div>')
-    $('.modal_bg').fadeIn()
+    /* changes start 3/12 */
+    $('.modal_bg').animate({
+        width: '35%'
+    }, 500)
+    // $('.modal_bg').fadeIn()
+    /* changes end 3/12 */
 
     var modal = '#modal-karte'
 
@@ -111,9 +116,9 @@ function openModal(patientId) {
         document.querySelector('.tab-btn').click()
         dateOptions('p006') // birth
         dateOptions('p008') // death
-// add by hzhang@bits start
+        // add by hzhang@bits start
         phenotypeInfo_reset()
-// add by hzhang@bits end
+        // add by hzhang@bits end
     }
 
     function dateOptions(type) {
@@ -126,10 +131,10 @@ function openModal(patientId) {
         optionLoop(1, 12, `${type}_month`)
     }
 
-    function optionLoop (start, end, id) {
+    function optionLoop(start, end, id) {
         start = parseInt(start)
         end = parseInt(end)
-        let opt = `<option value="0" hidden>${end === 12 ? translate('select-month') : translate('select-year') }</option>`
+        let opt = `<option value="0" hidden>${end === 12 ? translate('select-month') : translate('select-year')}</option>`
 
         if (end === 12) {
             for (let i = start; i <= end; i++) {
@@ -176,7 +181,7 @@ function openModal(patientId) {
             PCFNo = patientData['PCFNo']
         } else {
             let d = new Date()
-            PCFNo = `P${d.getFullYear()}${d.getMonth()+1}${d.getDate()}${d.getHours()}${d.getMinutes()}${d.getSeconds()}${d.getMilliseconds()}`
+            PCFNo = `P${d.getFullYear()}${d.getMonth() + 1}${d.getDate()}${d.getHours()}${d.getMinutes()}${d.getSeconds()}${d.getMilliseconds()}`
             let num = hot.countRows() + 1
             document.querySelector(`.tab-wrap *[name="p001"]`).value = `P${num.toString().padStart(7, 0)}`
             // if (count) {
@@ -192,7 +197,7 @@ function openModal(patientId) {
         categories.forEach(category => {
             // modified by hzhang@bits start
             //if (category.dataKey === 'phenotypicInfo') return
-            if (category.dataKey === 'phenotypicInfo'){
+            if (category.dataKey === 'phenotypicInfo') {
                 phenotypeInfo_inputValues(patientData);
                 return;
             }
@@ -221,7 +226,7 @@ function openModal(patientId) {
                 if (!element) return
 
                 let radioInput = $(`.tab-wrap input[name="${colId}"]`)
- 
+
                 if (colId === 'p005') {
                     let parent = $('#p008').parent()
                     showHideDeathDate(parent, value)
@@ -307,11 +312,11 @@ function openModal(patientId) {
 
                     return
                 } else if (colId === 'p004') {
-                    document.getElementById('group_options').onchange = function(e) {
+                    document.getElementById('group_options').onchange = function (e) {
                         onchange('p004', e.target.value)
                     }
                 } else if (colId === 'p002') {
-                    document.getElementById('family_options').onchange = function(e) {
+                    document.getElementById('family_options').onchange = function (e) {
                         onchange('p002', e.target.value)
                     }
                 }
@@ -372,7 +377,7 @@ function openModal(patientId) {
             })
         })
 
-        function onchange (key, value, element) {
+        function onchange(key, value, element) {
             let dateKey = ['p006', 'p008']
 
             if (dateKey.includes(key)) {
@@ -414,7 +419,7 @@ function openModal(patientId) {
 
 // TODO!! update
 function generatePhenopackets() {
-    let patientData = contentData.filter(d => { return d.PCFNo == currentPatient })[0]    
+    let patientData = contentData.filter(d => { return d.PCFNo == currentPatient })[0]
     if (!patientData) return
 
 
@@ -481,11 +486,11 @@ function generatePhenopackets() {
         let a = document.createElement('a')
         a.download = `patients_${Date.now()}.${type}`
         a.style.visibility = 'hidden'
-    
+
         let data = `text/yaml;charset=utf-8,` +
             `${encodeURIComponent(YAML.stringify(file, 10))}`
         a.href = `data:${data}`
-    
+
         document.body.appendChild(a)
         a.click()
         a.remove()
@@ -528,14 +533,14 @@ function openInfo() {
     $(window).on('resize', function () {
         modalResize()
     })
-    
+
     function modalResize() {
         var w = $(window).width()
         var h = $(window).height()
-    
+
         var x = (w - $(modal).outerWidth(true)) / 2
         var y = (h - $(modal).outerHeight(true)) / 2
-    
+
         $(modal).css({ 'left': x + 'px', 'top': y + 'px' })
     }
 

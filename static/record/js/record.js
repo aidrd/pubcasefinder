@@ -208,7 +208,7 @@ function createColumns() {
                         yearRange: [1900, new Date().getFullYear()],
                         onDraw: function (datepicker) {
                             let close = document.createElement('span')
-                            close.innerHTML = '×'
+                            close.innerHTML = '✓'
 
                             close.addEventListener('click', () => {
                                 let year = $('.pika-select.pika-select-year').val()
