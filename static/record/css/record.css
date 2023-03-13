@@ -316,38 +316,45 @@ body {
 #modal-karte {
   border: 0;
   padding: 0;
-  border-radius: 20px;
+  /* border-radius: 20px; */
   /* changes start */
   /* max-width: 100%; */
   /* width: 95%; */
-  max-width: 33%;
-  width: 33%;
-  right: 1% !important;
+  max-width: 75%;
+  width: 75%;
+  right: 0 !important;
   left: unset !important;
   /* display: block; */
   /* changes end */
+  box-shadow: 0 2px 15px 1px rgba(163, 163, 163, 0.2);
 }
 
 #modal-karte #modal-karte-button {
   position: absolute;
-  top: -40px;
+  /* bottom: -40px; */
   right: 0;
+  margin-top: 10px;
+  margin-right: 10px;
 }
 
 #modal-karte #modal-karte-button button {
-  color: #000;
+  color: #293255;
+  background: #fff;
+  border: #293255 1px solid;
   margin-left: 2px;
   display: inline-flex;
   border-radius: 5em;
+  box-shadow: 0 2px 10px 1px rgba(163, 163, 163, 0.2);
 }
 
 #modal-karte #modal-karte-button button span {
   width: 25px;
-  color: rgb(103, 103, 103);
+  color: #fff;
 }
 
 #modal-karte #modal-karte-button .modal-close {
-  background: #fff;
+  background: #293255;
+  color: #fff;
   padding: 0.3em;
 }
 
@@ -413,22 +420,22 @@ body {
 
 #modal-karte .tab-wrap {
   background-color: #fff;
-  border-radius: 10px;
+  /* border-radius: 10px; */
 }
 
 #modal-karte .tab-wrap ul {
   display: flex;
   background: #dbdee2;
   color: #000;
-  border-radius: 11px 11px 0 0;
+  /* border-radius: 11px 11px 0 0; */
 }
 
 #modal-karte .tab-wrap ul .tab-btn-first {
-  border-radius: 10px 0 0 0;
+  /* border-radius: 10px 0 0 0; */
 }
 
 #modal-karte .tab-wrap ul .tab-btn-last {
-  border-radius: 0 10px 0 0;
+  /* border-radius: 0 10px 0 0; */
 }
 
 #modal-karte .tab-wrap ul .tab-btn {
@@ -480,8 +487,7 @@ body {
 }
 
 #modal-karte .tab-wrap .show .form-table tbody tr th {
-  /*padding: 0.5em 0 0.5em 0;*/
-  display: table-cell;
+  /* display: table-cell;
   vertical-align: middle;
   position: relative;
   font-weight: normal;
@@ -489,7 +495,16 @@ body {
   text-align: right;
   width: 7em;
   padding-right: 0.7em;
-  font-size: 0.9em;
+  font-size: 0.9em; */
+    display: block;
+    width: 100%;
+    border-bottom: none;
+    border-top: none;
+    padding: 0.5em 0 0.1em;
+    text-align: left;
+    font-weight: normal;
+    color: #79839a;
+    font-size: 0.9em;
 }
 
 #modal-karte .tab-wrap .show .form-table tbody tr th span {
@@ -497,9 +512,14 @@ body {
 }
 
 #modal-karte .tab-wrap .show .form-table tbody tr td {
-  padding: 0.7em 0 0.7em 0;
+  /* padding: 0.7em 0 0.7em 0;
   display: table-cell;
-  vertical-align: middle;
+  vertical-align: middle; */
+  display: block;
+    width: 100%;
+    border-bottom: 1px solid #f1f1f1;
+    border-top: none;
+    padding: 0 0 0.6em 0;
 }
 
 #modal-karte .tab-wrap .show .form-table tbody tr td span {
@@ -550,14 +570,14 @@ body {
   width: 100%;
   height: auto;
   padding: 0.35em 0.5em;
-  border: 1.5px solid #e3e3e3;
+  border: 1px solid #AEB0B5;
   border-radius: 0.3em;
   background: #fff;
 }
 
 #modal-karte .tab-wrap .show .form-table tbody tr td select {
   padding: 0.35em 0.5em;
-  border: 1.5px solid #e3e3e3;
+  border: 1px solid #AEB0B5;
   border-radius: 0.3em;
   appearance: button;
   background: #fff;
@@ -566,7 +586,7 @@ body {
 #modal-karte .tab-wrap .show .form-table tbody tr td input {
   width: 100%;
   padding: 0.35em 0.5em;
-  border: 1.5px solid #e3e3e3;
+  border: 1px solid #AEB0B5;
   border-radius: 0.3em;
   background: #fff;
 }
@@ -611,13 +631,13 @@ body {
   border-bottom: 0;
 }
 
-#modal-karte .tab-wrap .show .treatment-table tbody tr th {
+/* #modal-karte .tab-wrap .show .treatment-table tbody tr th {
   width: 11em;
 }
 
 #modal-karte .tab-wrap .show .family-table tbody tr th {
   width: 12em;
-}
+} */
 
 .pika-lendar table,
 .pika-next,
@@ -632,21 +652,6 @@ body {
   }
   #modal-karte .tab-wrap ul .tab-btn span {
     display: none;
-  }
-  #modal-karte .tab-wrap .show .form-table tbody tr th {
-    display: block;
-    width: 100%;
-    border-bottom: none;
-    border-top: none;
-    padding: 1em 0 0.5em;
-    text-align: left;
-  }
-  #modal-karte .tab-wrap .show .form-table tbody tr td {
-    display: block;
-    width: 100%;
-    border-bottom: 1px solid #f1f1f1;
-    border-top: none;
-    padding: 0 0 1em 0;
   }
 }
 

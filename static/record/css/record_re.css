@@ -1069,16 +1069,16 @@ width: 35px;
   border-bottom: 0;
 }
 
-.home-section #content-patients #modal-karte .tab-wrap .show .treatment-table tbody tr th {
+/* .home-section #content-patients #modal-karte .tab-wrap .show .treatment-table tbody tr th {
   width: 11em;
-}
+} */
 
-.home-section #content-patients #modal-karte .tab-wrap .show .family-table tbody tr th {
+/* .home-section #content-patients #modal-karte .tab-wrap .show .family-table tbody tr th {
   width: 12em;
-}
+} */
 
 /*mobile*/
-@media screen and (max-width: 800px) {
+/* @media screen and (max-width: 800px) {
   #modal-karte .tab-wrap ul .tab-btn i {
     font-size: 1.5em;
   }
@@ -1100,15 +1100,16 @@ width: 35px;
     border-top: none;
     padding: 0 0 1em 0;
   }
-  #modal-karte .tab-wrap .show .form-table tbody tr #body-table-td table thead tr th{
-    display: revert;
-  }
-  #modal-karte .tab-wrap .show .form-table tbody tr #body-table-td table tbody tr th{
-    display: revert;
-  }
-  #modal-karte .tab-wrap .show .form-table tbody tr #body-table-td table tbody tr td{
-    display: revert;
-  }
+} */
+
+#modal-karte .tab-wrap .show .form-table tbody tr #body-table-td table thead tr th{
+  display: revert;
+}
+#modal-karte .tab-wrap .show .form-table tbody tr #body-table-td table tbody tr th{
+  display: revert;
+}
+#modal-karte .tab-wrap .show .form-table tbody tr #body-table-td table tbody tr td{
+  display: revert;
 }
 
 #menu-save .save-panel {
