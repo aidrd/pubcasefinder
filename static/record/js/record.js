@@ -940,7 +940,9 @@ function editTable(isSave) {
                 newPatient[e.dataset.columnname] = $(`input[name="${e.name}"]:checked`).val() || null
             } else {
                 let value = e.value
-                if (e.dataset.columnname === 'birth' || e.dataset.columnname === 'death') {
+                /* changes start 3/13 */
+                if (e.dataset.columnname === 'p006' || e.dataset.columnname === 'p008') {
+                    /* changes end 3/13 */
                     let pre = e.dataset.columnname
                     value = `${document.querySelector(`.tab-wrap *[name="${pre}_year"]`).value}/${document.querySelector(`.tab-wrap *[name="${pre}_month"]`).value}`
                 }

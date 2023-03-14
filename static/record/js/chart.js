@@ -33,9 +33,10 @@ function createChart() {
     // createPieChart(document.getElementById('pie-chart-age'), ageData, translate('chart-title-age'))
     /* changes end 3/12 */
 
-    // let ageSexData = contentData.map(({sex, age}) => { return {'sex': sex, 'age': age }})
-    // let groupData = contentData.map(d => d['p004'])
-    // createBarChart(document.getElementById('bar-chart-group'), groupData, 'グループ')
+    /* changes start 3/13 */
+    let groupData = contentData.map(d => d['p004'])
+    createBarChart(document.getElementById('bar-chart-group'), groupData, 'グループ')
+    /* changes start 3/13 */
 
     function createPieChart(container, data, title) {
         let ctx = container.getContext('2d')

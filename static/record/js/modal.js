@@ -280,7 +280,9 @@ function openModal(patientId) {
                         } else if (year === '0' && month === '0') {
                             age = ''
                         } else if (month && year) {
-                            if (d.getMonth() >= month) {
+                            /* changes start 3/13 */
+                            if (d.getMonth() + 1 >= parseInt(month)) {
+                                /* changes end 3/13 */
                                 age = d.getFullYear() - year
                                 if (age === 0) age = '0'
                             } else {
