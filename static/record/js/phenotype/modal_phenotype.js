@@ -217,7 +217,7 @@ function phenotypeInfo_initUI(phenotypeInfo_container){
     let phenotypeInfo_doc_list = phenotypeInfo_createDocList();
 
     $("#search-box_form").search_box_form({
-        'lang': lang,
+        'lang': lang === 'ja'? 'ja' :'en',
         'doc_list': phenotypeInfo_doc_list,
         'getDocByColId': phenotypeInfo_getDocByColId,
         'onClickTextBtn': function(isActived){
