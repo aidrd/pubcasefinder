@@ -642,7 +642,7 @@ body {
 .pika-lendar table,
 .pika-next,
 .pika-prev {
-  display: none !important;
+  display: none;
 }
 
 /*mobile*/
@@ -792,13 +792,6 @@ display: block;
   border-left: none;
   border-right: none;
 }
-
-/* changes start */
-.handsontable td.htSearchResult {
-  background-color: transparent !important;
-}
-/* changes end */
-
 
 .ht_master > .wtHolder {
   /* max-height: 100vh !important; */

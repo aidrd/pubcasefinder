@@ -11,6 +11,7 @@ let toReset = true
 let defaultColumns = ['caseSolved', 'chiefComplaint', 'finalDiagnosis', 'clinicalDiagnosis', 'age', 'sex', 'group', 'relationship', 'familyId', 'patientId']
 // defaultColumns = ['birth', 'age', 'death', 'familyId', 'patientId']
 let actions = ['REMOVE', 'EDIT']
+actions = ['EDIT', 'REMOVE']
 
 // columns = HOT columns (settings - type, options, renderer, etc) HEADERS
 // colHeaders = HOT headers
@@ -102,6 +103,7 @@ window.onload = async () => {
 
         if (event.target.value === '') {
             count = ''
+            $('.htSearchResult').removeClass('htSearchResult')
             hot.updateSettings({ hiddenRows: { rows: [] } })
         }
 
@@ -112,6 +114,12 @@ window.onload = async () => {
 
     document.getElementById('search_input').addEventListener('search', function (event) {
         if (event.target.value === '') {
+            console.log('here')
+            console.log($('.handsontable td.htSearchResult'))
+            $('.handsontable td.htSearchResult').each((e) => {
+                console.log(e)
+                $(e).removeClass('htSearchResult')
+            })
             document.getElementById('search-result-count').innerHTML = ''
             hot.updateSettings({ hiddenRows: { rows: [] } })
         }
@@ -193,9 +201,9 @@ function createColumns() {
                     className: 'htMiddle'
                 }
 
-                if (c.type === 'date') {
+                if (c.inputType === 'date') {
                     column.dateFormat = 'YYYY/MM',
-                        column.correctFormat = true
+                    column.correctFormat = true
                     column.datePickerConfig = {
                         dateFormat: 'mm-yy',
                         firstDay: 0,
@@ -206,9 +214,19 @@ function createColumns() {
                         // yearSuffix: '年',
                         // maxDate: new Date(),
                         yearRange: [1900, new Date().getFullYear()],
+                        onOpen: function() {
+                            console.log("opeeen", document.querySelector('.pika-lendar table'))
+                            document.querySelector('.pika-lendar table').style.display = 'none'
+                            document.querySelector('.pika-next').style.display = 'none'
+                            document.querySelector('.pika-prev').style.display = 'none'
+                        },
                         onDraw: function (datepicker) {
+                            // console.log(datepicker)
+                            // document.querySelector('.pika-lendar table').style.display = 'none'
+                            // document.querySelector('.pika-next').style.display = 'none'
+                            // document.querySelector('.pika-prev').style.display = 'none'
                             let close = document.createElement('span')
-                            close.innerHTML = '✓'
+                            close.innerHTML = 'OK'
 
                             close.addEventListener('click', () => {
                                 let year = $('.pika-select.pika-select-year').val()

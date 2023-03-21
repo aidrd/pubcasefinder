@@ -26,8 +26,11 @@ function createChart() {
     /* changes start 3/12 */
     // let sexData = contentData.map(d => d['p009'])
     // createPieChart(document.getElementById('pie-chart-sex'), sexData, translate('chart-title-sex'))
-    let sexData = filterData(contentData)
-    createMultipleBarChart(document.getElementById('pie-chart-sex'), sexData, translate('chart-title-sex'))
+    let sexAgeData = filterData(contentData)
+    createMultipleBarChart(document.getElementById('pie-chart-sex-age'), sexAgeData, translate('chart-title-sex'))
+
+    let sexData = contentData.map(d => d['p009'])
+    createPieChart(document.getElementById('pie-chart-sex'), sexData, translate('chart-title-sex'))
 
     // let ageData = contentData.map(d => d['p007'])
     // createPieChart(document.getElementById('pie-chart-age'), ageData, translate('chart-title-age'))
@@ -47,6 +50,8 @@ function createChart() {
             dataObject[displayKey] = dataObject[displayKey] ? dataObject[displayKey] + 1 : 1
         }
 
+        let category = categories.filter(c => c.categoryId === 'p000')
+        let column = category[0].columns.filter(c => c.columnId === 'p009')
 
         let chart = new Chart(ctx, {
             type: 'pie',

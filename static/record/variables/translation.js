@@ -133,7 +133,7 @@ let elementTranslation = {
     },
     'chart-title-null': {
         en: 'Null',
-        ja: '未入力',
+        ja: '未記入',
         ko: ''
     }
     /* changes end */

@@ -351,7 +351,7 @@ function openModal(patientId) {
 
                 element.onchange = function (e) {
                     let targetValue = e.target.value
-                    if (e.target.type === 'select-one') {
+                    if (e.target.type === 'select-one' || colId === 'p005') {
                         targetValue = getDataDisplayOption(c.options, targetValue, 'displayValue')
                     }
                     onchange(colId, targetValue)
@@ -361,10 +361,7 @@ function openModal(patientId) {
                 if (type === 'radio') {
                     $(`.tab-wrap input[name="${colId}"]`).on('click change', (e) => {
                         let targetValue = $(`.tab-wrap input[name="${colId}"]:checked`).val()
-                        console.log('tv', targetValue)
                         targetValue = getDataDisplayOption(c.options, targetValue, 'displayValue')
-                        console.log('after', targetValue)
-
                         onchange(colId, targetValue)
                     })
                 }

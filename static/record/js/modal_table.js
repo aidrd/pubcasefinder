@@ -72,7 +72,7 @@ async function geneTable() {
     }
 
     if (geneData.length === 0) {
-        geneData.push(geneSchema)
+        geneData.push(JSON.parse(JSON.stringify(geneSchema)))
     }
 
     Object.assign(geneSettings, {
@@ -94,7 +94,7 @@ async function geneTable() {
 }
 
 function addGeneRow() {
-    geneHot.alter('insert_row', geneHot.countRows())
+    geneHot.alter('insert_row_below', geneHot.countRows())
 }
 
 async function bodyTable() {
@@ -116,7 +116,18 @@ async function bodyTable() {
         data: 'm013_1',
         type: 'date',
         dateFormat: 'YYYY/MM/DD',
-        correctFormat: true
+        correctFormat: true,
+        datePickerConfig: {
+            onOpen: function (datepicker) {
+                $('.pika-table, .pika-next, .pika-prev').css(
+                    'display', 'block !import'
+                )
+                console.log('open', document.querySelector('.pika-lendar table'))
+                document.querySelector('.pika-lendar table').style.display = 'block'
+                document.querySelector('.pika-next').style.display = 'block'
+                document.querySelector('.pika-prev').style.display = 'block'
+            }
+        }
     })
 
     bodyInfo.forEach(c => {
@@ -131,7 +142,7 @@ async function bodyTable() {
     })
 
     if (currentBodyData.length === 0) {
-        currentBodyData.push(bodySchema)
+        currentBodyData.push(JSON.parse(JSON.stringify(bodySchema)))
     }
 
     Object.assign(bodySettings, {
@@ -151,7 +162,7 @@ async function bodyTable() {
 }
 
 function addBodyRow() {
-    bodyHot.alter('insert_row', bodyHot.countRows())
+    bodyHot.alter('insert_row_below', bodyHot.countRows())
 }
 
 function resetData(type) {
