@@ -49,11 +49,11 @@ $('#menu-save').click((e) => {
 // })
 
 function openModal(patientId) {
-    $('body').append('<div class="modal_bg"></div>')
+    // $('body').append('<div class="modal_bg modal_karte_bg"></div>')
     /* changes start 3/12 */
-    $('.modal_bg').animate({
-        width: '35%'
-    }, 500)
+    // $('.modal_bg').animate({
+    //     width: '35%'
+    // }, 500)
     // $('.modal_bg').fadeIn()
     /* changes end 3/12 */
 
@@ -79,9 +79,9 @@ function openModal(patientId) {
         if ($(this).hasClass('modal-copy')) copyPatient()
 
         $('.modal_box').fadeOut()
-        $('.modal_bg').fadeOut('slow', function () {
-            $('.modal_bg').remove()
-        })
+        // $('.modal_bg').fadeOut(1000, function () {
+        //     $('.modal_bg').remove()
+        // })
 
         bodyData = []
         bodyTable()
@@ -421,7 +421,6 @@ function generatePhenopackets() {
     let patientData = contentData.filter(d => { return d.PCFNo == currentPatient })[0]
     if (!patientData) return
 
-
     // let category = categories.filter(c => { return c.categoryId === dataColumns['p005'].category })
     // let columnDetails = category[0].columns.filter(c => { return c.columnId === 'p005' })
     // let options = columnDetails[0].options[lang]
@@ -521,6 +520,10 @@ function copyPatient() {
 }
 
 function openInfo() {
+    if ($('#modal-karte').css('display') === 'block') {
+        $('#modal-karte').fadeOut()
+    }
+
     $('body').append('<div class="modal_bg"></div>')
     $('.modal_bg').fadeIn()
 

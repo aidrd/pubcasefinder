@@ -642,7 +642,7 @@ body {
 .pika-lendar table,
 .pika-next,
 .pika-prev {
-  display: none;
+  display: none !important;
 }
 
 /*mobile*/

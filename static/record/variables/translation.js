@@ -131,6 +131,11 @@ let elementTranslation = {
         ja: '性別',
         ko: ''
     },
+    'chart-title-group': {
+        en: 'Group',
+        ja: 'グループ名',
+        ko: ''
+    },
     'chart-title-null': {
         en: 'Null',
         ja: '未記入',

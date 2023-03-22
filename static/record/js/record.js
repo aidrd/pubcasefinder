@@ -9,7 +9,7 @@ let count
 let toReset = true
 
 let defaultColumns = ['caseSolved', 'chiefComplaint', 'finalDiagnosis', 'clinicalDiagnosis', 'age', 'sex', 'group', 'relationship', 'familyId', 'patientId']
-// defaultColumns = ['birth', 'age', 'death', 'familyId', 'patientId']
+defaultColumns = ['birth', 'age', 'death', 'familyId', 'patientId']
 let actions = ['REMOVE', 'EDIT']
 actions = ['EDIT', 'REMOVE']
 
@@ -91,42 +91,36 @@ window.onload = async () => {
     hot = new Handsontable(hotContainer, updateSettings)
     exportPlugin = hot.getPlugin('exportFile')
 
-    Handsontable.dom.addEvent(document.getElementById('search_input'), 'keyup', (event) => {
+    function searchFunction (value) {
         const search = hot.getPlugin('search')
 
-        const queryResult = search.query(event.target.value)
+        const queryResult = search.query(value)
         const totalIndexes = Array.from(Array(hot.countRows()).keys())
         let matching = queryResult.map(obj => obj.row)
         let count = matching.length
 
         hot.updateSettings({ hiddenRows: { rows: totalIndexes } })
 
-        if (event.target.value === '') {
+        if (value === '') {
             count = ''
-            $('.htSearchResult').removeClass('htSearchResult')
             hot.updateSettings({ hiddenRows: { rows: [] } })
         }
 
         hot.getPlugin('HiddenRows').showRows(matching)
         hot.render()
         document.getElementById('search-result-count').innerHTML = count
+    }
+
+    Handsontable.dom.addEvent(document.getElementById('search_input'), 'keyup', (event) => {
+        searchFunction(event.target.value)
     })
 
     document.getElementById('search_input').addEventListener('search', function (event) {
         if (event.target.value === '') {
-            console.log('here')
-            console.log($('.handsontable td.htSearchResult'))
-            $('.handsontable td.htSearchResult').each((e) => {
-                console.log(e)
-                $(e).removeClass('htSearchResult')
-            })
-            document.getElementById('search-result-count').innerHTML = ''
-            hot.updateSettings({ hiddenRows: { rows: [] } })
+            searchFunction('')
         }
-        hot.render()
     })
 
-    /* changes start */
     document.getElementById('hot-undo').addEventListener('click', (e) => {
         hot.undo()
 
@@ -165,7 +159,6 @@ window.onload = async () => {
         }
 
     }
-    /* changes end */
 
     addRow()
 }
@@ -201,7 +194,7 @@ function createColumns() {
                     className: 'htMiddle'
                 }
 
-                if (c.inputType === 'date') {
+                if (c.type === 'date') {
                     column.dateFormat = 'YYYY/MM',
                     column.correctFormat = true
                     column.datePickerConfig = {
@@ -214,17 +207,7 @@ function createColumns() {
                         // yearSuffix: '年',
                         // maxDate: new Date(),
                         yearRange: [1900, new Date().getFullYear()],
-                        onOpen: function() {
-                            console.log("opeeen", document.querySelector('.pika-lendar table'))
-                            document.querySelector('.pika-lendar table').style.display = 'none'
-                            document.querySelector('.pika-next').style.display = 'none'
-                            document.querySelector('.pika-prev').style.display = 'none'
-                        },
-                        onDraw: function (datepicker) {
-                            // console.log(datepicker)
-                            // document.querySelector('.pika-lendar table').style.display = 'none'
-                            // document.querySelector('.pika-next').style.display = 'none'
-                            // document.querySelector('.pika-prev').style.display = 'none'
+                        onDraw: function(datepicker) {
                             let close = document.createElement('span')
                             close.innerHTML = 'OK'
 
@@ -320,7 +303,6 @@ function createColumns() {
     })
 }
 
-/* changes start 3/7 */
 function addColumn() {
     let modal = document.querySelector('.modal')
 
@@ -456,7 +438,6 @@ function showHideAllColumn(e) {
         if (c.checked !== e.checked) c.click()
     })
 }
-/* changes end 3/7 */
 
 function showHideColumn(e) {
     let colId = e.id
@@ -552,7 +533,6 @@ async function updateTable(data, changeHeaders) {
             let birth = d['p006'].split('/')
             let bYear = parseInt(birth[0])
             let bMonth = parseInt(birth[1])
-            console.log(month, bMonth, month >= bMonth)
             let age
 
             if (month >= bMonth) {
@@ -958,11 +938,14 @@ function editTable(isSave) {
                 newPatient[e.dataset.columnname] = $(`input[name="${e.name}"]:checked`).val() || null
             } else {
                 let value = e.value
-                /* changes start 3/13 */
                 if (e.dataset.columnname === 'p006' || e.dataset.columnname === 'p008') {
-                    /* changes end 3/13 */
                     let pre = e.dataset.columnname
                     value = `${document.querySelector(`.tab-wrap *[name="${pre}_year"]`).value}/${document.querySelector(`.tab-wrap *[name="${pre}_month"]`).value}`
+                    if (value === '0/0') value = ''
+                } else if (e.dataset.columnname === 'p002') {
+                    if (!(familyOptions.includes(value))) familyOptions.push(value)
+                } else if (e.dataset.columnname === 'p004') {
+                    if (!(groupOptions.includes(value))) groupOptions.push(value)
                 }
 
                 newPatient[e.dataset.columnname] = value
@@ -1005,6 +988,12 @@ function editTable(isSave) {
 
     for (let [k, v] of Object.entries(changedData)) {
         patientData[k] = v
+
+        if (k === 'p002') {
+            if (!(familyOptions.includes(v))) familyOptions.push(v)
+        } else if (k === 'p004') {
+            if (!(groupOptions.includes(v))) groupOptions.push(v)
+        }
     }
 
     if (geneData.length > 0) {

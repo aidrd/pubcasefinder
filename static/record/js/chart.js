@@ -15,15 +15,12 @@ function toggleTableChart(type) {
     }
 }
 
-/* changes start 3/7 */
 function createChart() {
-    // console.log(contentData)
     charts.forEach(c => c.destroy())
 
     // let familyData = contentData.map(d => d['p002'])
     // createBarChart(document.getElementById('bar-chart-family'), familyData, '家族ID')
 
-    /* changes start 3/12 */
     // let sexData = contentData.map(d => d['p009'])
     // createPieChart(document.getElementById('pie-chart-sex'), sexData, translate('chart-title-sex'))
     let sexAgeData = filterData(contentData)
@@ -34,12 +31,9 @@ function createChart() {
 
     // let ageData = contentData.map(d => d['p007'])
     // createPieChart(document.getElementById('pie-chart-age'), ageData, translate('chart-title-age'))
-    /* changes end 3/12 */
 
-    /* changes start 3/13 */
     let groupData = contentData.map(d => d['p004'])
-    createBarChart(document.getElementById('bar-chart-group'), groupData, 'グループ')
-    /* changes start 3/13 */
+    createBarChart(document.getElementById('bar-chart-group'), groupData, translate('chart-title-group'))
 
     function createPieChart(container, data, title) {
         let ctx = container.getContext('2d')
@@ -84,7 +78,8 @@ function createChart() {
         let dataObject = {}
 
         for (let key of data) {
-            dataObject[key] = dataObject[key] ? dataObject[key] + 1 : 1
+            let displayKey = key || translate('chart-title-null')
+            dataObject[displayKey] = dataObject[displayKey] ? dataObject[displayKey] + 1 : 1
         }
 
         let chart = new Chart(ctx, {
@@ -118,7 +113,6 @@ function createChart() {
         charts.push(chart)
     }
 
-    /* changes start 3/12 */
     function createMultipleBarChart(container, data, title) {
         let ctx = container.getContext('2d')
 
@@ -249,6 +243,4 @@ function createChart() {
         return ageGroup
 
     }
-    /* changes end 3/12 */
 }
-/* changes end 3/7 */
