@@ -417,7 +417,7 @@ body {
 }
 
 #modal-karte .tab-wrap ul .tab-btn {
-  /* width: 50%; */
+  width: 50%;
   /*padding: 0.7em 0;*/
   /* padding: 5px 10px; */
   font-size: 0.9em;
@@ -425,6 +425,7 @@ body {
   list-style: none;
   cursor: pointer;
   margin: auto 0;
+  white-space: nowrap;
 }
 
 #modal-karte .tab-wrap ul .tab-btn i {
