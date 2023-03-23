@@ -1187,10 +1187,9 @@ width: 35px;
 }
 
 .chart-container {
-  background: #f5f6f7;
-  padding: 2em;
-  height: 250px;
+  /* padding: 2em; */
   margin-bottom: 2em;
+  display: inline-flex;
 }
 
 .chart-container canvas{
