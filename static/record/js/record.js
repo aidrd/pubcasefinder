@@ -9,7 +9,7 @@ let count
 let toReset = true
 
 let defaultColumns = ['caseSolved', 'chiefComplaint', 'finalDiagnosis', 'clinicalDiagnosis', 'age', 'sex', 'group', 'relationship', 'familyId', 'patientId']
-defaultColumns = ['birth', 'age', 'death', 'familyId', 'patientId']
+// defaultColumns = ['birth', 'age', 'death', 'familyId', 'patientId']
 let actions = ['REMOVE', 'EDIT']
 actions = ['EDIT', 'REMOVE']
 
