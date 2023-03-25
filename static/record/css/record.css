@@ -321,7 +321,7 @@ body {
   border: #293255 1px solid;
   margin-left: 2px;
   display: inline-flex;
-  border-radius: 5em;
+  border-radius: 5px;
   box-shadow: 0 2px 10px 1px rgba(163, 163, 163, 0.2);
 }
 
@@ -331,9 +331,10 @@ body {
 }
 
 #modal-karte #modal-karte-button .modal-close {
-  background: #293255;
+  background: #ff8c00;
+  border: #ff8c00 1px solid;
   color: #fff;
-  padding: 0.3em;
+  padding: 0.3em 1em;
 }
 
 #modal-karte #modal-karte-button .modal-close:hover {
