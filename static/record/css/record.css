@@ -420,6 +420,8 @@ body {
   /* width: 50%; */
   /*padding: 0.7em 0;*/
   /* padding: 5px 10px; */
+  padding-left: 10px;
+  padding-right: 10px;
   font-size: 0.9em;
   text-align: center;
   list-style: none;
