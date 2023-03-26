@@ -1,3 +1,13 @@
+@charset "UTF-8";
+/* Google Font Link */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
 html {
   overscroll-behavior-x: none;
 }
@@ -8,10 +18,9 @@ body {
   transition: var(--tran-05);
 }
 
-::selection {
+/* ::selection {
   background-color: var(--primary-color);
-  color: #fff;
-}
+} */
 
 .search-header-karte {
   z-index: 200;
@@ -411,13 +420,17 @@ body {
   /* border-radius: 10px 0 0 0; */
 }
 
+#modal-karte .tab-wrap ul .tab-btn span{
+  margin-left: 0.3em;
+}
+
 #modal-karte .tab-wrap ul .tab-btn-last {
   /* border-radius: 0 10px 0 0; */
 }
 
 
 #modal-karte .tab-wrap ul .tab-btn {
-  /* width: 50%; */
+  width: 50%; 
   /*padding: 0.7em 0;*/
   /* padding: 5px 10px; */
   padding-left: 10px;
@@ -434,10 +447,11 @@ body {
 .modal-icon {
   font-size: 17px;
   vertical-align: -2px;
-  height: 17px;
+  height: 20px;
   width: 20px;
   background-size: contain;
   background-repeat: no-repeat;
+  margin: auto 0;
 }
 
 .modal-patient {
@@ -663,11 +677,19 @@ body {
   #modal-karte .tab-wrap ul .tab-btn span {
     display: none;
   }
+  #modal-karte .tab-wrap ul .tab-btn .modal-icon {
+    margin:0 auto
+  }
 }
 
 /**/
 #fixed-menu {
   margin: auto 0;
+  /* position: relative;  */
+  /* display: flex;
+  flex-direction: column; */
+  display: flex;
+  flex-direction: column;
 }
 
 #fixed-menu #fixed-menu-contents button {
@@ -676,6 +698,7 @@ body {
   background-color: #000;
   border-radius: 30px;
   margin-left: 0.5em;
+  align-self: center;
 }
 
 a#home {
@@ -825,17 +848,18 @@ display: block;
   top: 0px;
   left: 0px;
   background: rgba(255, 255, 255, 0);
-  z-index: 200;
 }
 
 .modal_content {
+  align-self: center;
+  width: max-content;
   height: fit-content;
-  background: #fff;
-  border-radius: 5px;
   position: absolute;
-  top: 220px;
-  right: 200px;
+  top: 135px;
+  left: 50%;
+  background-color: #fff;
   box-shadow: 0 2px 15px 1px rgba(163, 163, 163, 0.2);
+  z-index: 200;
 }
 
 .modal_content .button_wrap {
@@ -854,7 +878,7 @@ display: block;
 .modal_content .button_wrap .add {
   padding: 5px 10px;
   background: #ff8c00;
-  border-radius: 25px;
+  border-radius: 5px;
   color: #fff;
   width: fit-content;
   margin: 0 0 0 auto;
@@ -1071,7 +1095,7 @@ display: block;
 /*handsontable*/
 .handsontable thead tr th .relative {
   text-align: left;
-  padding: 10px;
+  padding: 7px 10px;
   font-size: 1.1em;
 }
 
@@ -1092,9 +1116,9 @@ display: block;
   text-align: center;
 }
 
-::placeholder {
+/* ::placeholder {
   color: #dadce0;
-}
+} */
 
 .search-header .search-header_wrapper {
   padding-top: 0.5em;

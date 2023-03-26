@@ -1,12 +1,4 @@
-@charset "UTF-8";
-/* Google Font Link */
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
-}
+
 
 body {
   margin: 0;
@@ -784,11 +776,7 @@ width: 35px;
   min-height: 81vh;
 } */
 
-.modal_content {
-  top: 135px;
-  right: 80px;
-  width: fit-content;
-}
+
 
 .modal_content .modal_container{
   height: 70vh;
@@ -1123,9 +1111,11 @@ width: 35px;
 
 #modal-karte .tab-wrap .show .form-table tbody tr #body-table-td table thead tr th{
   display: revert;
+  padding: 0;
 }
 #modal-karte .tab-wrap .show .form-table tbody tr #body-table-td table tbody tr th{
   display: revert;
+  padding: 0;
 }
 #modal-karte .tab-wrap .show .form-table tbody tr #body-table-td table tbody tr td{
   display: revert;
@@ -1316,6 +1306,10 @@ width: 10px;
   width: fit-content;
 }
 
+.pika-title{
+  display: flex;
+}
+
 .pika-lendar #pika-title-hy span{
   vertical-align: 6px;
   font-size: 1.5em;
@@ -1365,4 +1359,19 @@ width: 10px;
 }
 .wtHolder::-webkit-scrollbar-thumb {
   background: #a5a5a5;
+}
+
+
+.pika-ok{
+  padding: 3px 5px;
+  background-color: #ff8c00;
+  color: #fff;
+  border-radius: 5px;
+  margin: auto 0;
+}
+
+
+#search-result-count{
+  display: block;
+  margin: auto 0;
 }
