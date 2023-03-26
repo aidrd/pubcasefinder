@@ -677,6 +677,9 @@ body {
   #modal-karte .tab-wrap ul .tab-btn span {
     display: none;
   }
+  #modal-karte .tab-wrap ul .tab-btn .modal-icon {
+    margin:0 auto
+  }
 }
 
 /**/
@@ -1113,9 +1116,9 @@ display: block;
   text-align: center;
 }
 
-::placeholder {
+/* ::placeholder {
   color: #dadce0;
-}
+} */
 
 .search-header .search-header_wrapper {
   padding-top: 0.5em;

@@ -1111,9 +1111,11 @@ width: 35px;
 
 #modal-karte .tab-wrap .show .form-table tbody tr #body-table-td table thead tr th{
   display: revert;
+  padding: 0;
 }
 #modal-karte .tab-wrap .show .form-table tbody tr #body-table-td table tbody tr th{
   display: revert;
+  padding: 0;
 }
 #modal-karte .tab-wrap .show .form-table tbody tr #body-table-td table tbody tr td{
   display: revert;
