@@ -411,13 +411,17 @@ body {
   /* border-radius: 10px 0 0 0; */
 }
 
+#modal-karte .tab-wrap ul .tab-btn span{
+  margin-left: 0.3em;
+}
+
 #modal-karte .tab-wrap ul .tab-btn-last {
   /* border-radius: 0 10px 0 0; */
 }
 
 
 #modal-karte .tab-wrap ul .tab-btn {
-  /* width: 50%; */
+  width: 50%; 
   /*padding: 0.7em 0;*/
   /* padding: 5px 10px; */
   padding-left: 10px;
@@ -438,6 +442,7 @@ body {
   width: 20px;
   background-size: contain;
   background-repeat: no-repeat;
+  margin: auto 0;
 }
 
 .modal-patient {
