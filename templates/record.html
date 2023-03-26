@@ -126,11 +126,12 @@
                 </div>
             </li>
             <li>
-                <a class="sidebar-filebond" href="#">
+                <a class="sidebar-filebond" href="#" onclick="document.getElementById('merge_btn').click()">
                     <i class="material-symbols-outlined">
                         cell_merge
                     </i>
                     <span class="links_name">File bond</span>
+                    <input type="file" id="merge_btn" onchange="importFile(event)">
                 </a>
                 <!--<span class="tooltip">Analytics</span>-->
             </li>
@@ -267,16 +268,20 @@
                     </div>
                     <div id="table_menu">
                         <span onclick="addColumn()" id="add-column">
-                            <i class="material-symbols-outlined">
-                                view_week</i>
+                            <!-- <i class="material-symbols-outlined">
+                                view_week</i> -->
+                            <div class="list-icon list-column"></div>
                             <span>列追加</span></span>
-                        <span onclick="addRow()" id="add-row"><i class="material-symbols-outlined">
-                                table_rows
-                            </i><span>行追加</span></span>
+                        <span onclick="addRow()" id="add-row">
+                            <!-- <i class="material-symbols-outlined">
+                                table_rows</i> -->
+                            <div class="list-icon list-row"></div>
+                            <span>行追加</span></span>
                         <li class="modal_open karte-btn karte-add" data-target="modal-karte" rel="noopener noreferrer">
-                            <i class="material-symbols-outlined">
-                                edit_square
-                            </i><span>New</span>
+                            <!-- <i class="material-symbols-outlined">
+                                edit_square</i> -->
+                            <div class="list-icon list-edit"></div>
+                            <span>New</span>
                         </li>
                     </div>
                 </div>
@@ -299,7 +304,6 @@
             <div id="myGrid" ondragover="onDragOver(event)" ondrop="onDrop(event)"></div>
         </main>
 
-        <!-- changes start -->
         <main id="charts-patients">
             <!-- <div class="chart-container">
                 <canvas class="chart bar-chart" id="bar-chart-family"></canvas>
@@ -310,16 +314,12 @@
             <div class="chart-container">
                 <canvas class="chart pie-chart" id="pie-chart-sex"></canvas>
             </div>
-            <!-- changes start 3/12 -->
             <!-- <div class="chart-container">
                 <canvas class="chart pie-chart" id="pie-chart-age"></canvas>
             </div> -->
-            <!-- changes end 3/12 -->
-            <!-- changes start 3/13 -->
             <div class="chart-container">
                 <canvas class="chart bar-chart" id="bar-chart-group"></canvas>
             </div>
-            <!-- changes end 3/13 -->
         </main>
     </section>
     <div id="modal-karte" class="modal_box modal-karte">
@@ -340,11 +340,6 @@
         </div>-->
         <div class="tab-wrap" id="tab-wrap"></div>
         <div id="modal-karte-button">
-            <button class="modal-close"><i class="material-symbols-outlined">
-                    close
-                </i>
-                <p>Data save</p>
-            </button>
             <button class="modal-phenopackets"><img src="/static/images/PhenoPackets_Logo.png">
                 <p>Phenopackets
                     download</p>
@@ -356,6 +351,10 @@
                     file_copy
                 </i>
                 <p>Data copy</p>
+            </button>
+            <button class="modal-close"><span class="material-symbols-outlined">
+                    close
+                </span>
             </button>
         </div>
     </div>

@@ -2,10 +2,10 @@ let categories = [
     {
         categoryId: 'p000',
         dataKey: 'patientInfo',
-        iconClass: 'bxt icon material-icons-outlined',
-        iconName: 'person',
+        iconClass: 'modal-icon modal-patient',
+        iconName: '',
         displayName: {
-            en: 'Patient Information',
+            en: 'Patient Info',
             ja: '患者基本情報',
             ko: '환자 기본 정보',
             zh: '患者基本信息',
@@ -191,10 +191,10 @@ let categories = [
     {
         categoryId: 'm000',
         dataKey: 'medicalInfo',
-        iconClass: 'material-symbols-outlined',
-        iconName: 'medical_information',
+        iconClass: 'modal-icon modal-medical',
+        iconName: '',
         displayName: {
-            en: 'Medical Information',
+            en: 'Medical Info',
             ja: '診療情報',
             ko: '찰 정보',
             zh: '诊察信息',
@@ -561,10 +561,10 @@ let categories = [
     {
         categoryId: 'pi000',
         dataKey: 'phenotypicInfo',
-        iconClass: 'material-symbols-outlined',
-        iconName: 'dns',
+        iconClass: 'modal-icon modal-phenotype',
+        iconName: '',
         displayName: {
-            en: 'Phenotype Information',
+            en: 'Phenotype Info',
             ja: '表現型情報',
             ko: '표현형 정보',
             zh: '表型信息',
@@ -937,10 +937,10 @@ let categories = [
     {
         categoryId: 'g000',
         dataKey: 'geneInfo',
-        iconClass: 'icon-omim2',
+        iconClass: 'modal-icon modal-gene',
         iconName: '',
         displayName: {
-            en: 'Genotype Information',
+            en: 'Genotype Info',
             ja: '遺伝子型情報',
             ko: '유전자형 정보',
             zh: '基因型信息',
@@ -1212,10 +1212,10 @@ let categories = [
     {
         categoryId: 'f000',
         dataKey: 'familyInfo',
-        iconClass: 'material-symbols-outlined',
-        iconName: 'diversity_3',
+        iconClass: 'modal-icon modal-family',
+        iconName: '',
         displayName: {
-            en: 'Family Information',
+            en: 'Family Info',
             ja: '家系情報',
             ko: '가계 정보',
             zh: '家庭信息',

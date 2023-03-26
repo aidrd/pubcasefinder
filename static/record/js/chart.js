@@ -44,9 +44,6 @@ function createChart() {
             dataObject[displayKey] = dataObject[displayKey] ? dataObject[displayKey] + 1 : 1
         }
 
-        let category = categories.filter(c => c.categoryId === 'p000')
-        let column = category[0].columns.filter(c => c.columnId === 'p009')
-
         let chart = new Chart(ctx, {
             type: 'pie',
             data: {
@@ -57,13 +54,16 @@ function createChart() {
             },
             options: {
                 responsive: true,
+                maintainAspectRatio: false,
                 plugins: {
                     legend: {
                         position: 'top'
                     },
                     title: {
                         display: true,
-                        text: title
+                        text: title,
+                        position: 'top',
+                        align: 'start'
                     }
                 }
             }
@@ -92,6 +92,7 @@ function createChart() {
             },
             options: {
                 responsive: true,
+                maintainAspectRatio: false,
                 scales: {
                     y: {
                         beginAtZero: true
@@ -104,7 +105,9 @@ function createChart() {
                     },
                     title: {
                         display: true,
-                        text: title
+                        text: title,
+                        position: 'top',
+                        align: 'start'
                     }
                 }
             }
@@ -155,13 +158,16 @@ function createChart() {
             },
             options: {
                 responsive: true,
+                maintainAspectRatio: false,
                 plugins: {
                     legend: {
                         position: 'top'
                     },
                     title: {
                         display: true,
-                        text: title
+                        text: title,
+                        position: 'top',
+                        align: 'start'
                     }
                 }
             }

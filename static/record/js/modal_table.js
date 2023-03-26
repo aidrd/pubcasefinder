@@ -23,6 +23,8 @@ let bodyHeaders = [], bodyColumns = [], bodyDataKey = []
 let bodySchema = {}, bodyData = [], currentBodyData = []
 // let bodyContainer = document.getElementById('bodyModal')
 
+
+
 async function geneTable() {
     if (!toReset) return
 
@@ -50,6 +52,8 @@ async function geneTable() {
         })
         geneDataKey.push(g.columnId)
     })
+
+    addDeleteColumn('gene')
 
     if (currentPatient) {
         let patientData = contentData.filter(d => { return d.PCFNo == currentPatient })[0]
@@ -130,6 +134,8 @@ async function bodyTable() {
         })
     })
 
+    addDeleteColumn('body')
+
     if (currentBodyData.length === 0) {
         currentBodyData.push(JSON.parse(JSON.stringify(bodySchema)))
     }
@@ -181,3 +187,37 @@ function resetData(type) {
         
     }
 }
+
+function addDeleteColumn(type) {
+    let deleteHeader = ''
+    let deleteColumn = {
+        data: type,
+        className: 'htMiddle htCenter',
+        renderer: deleteModalRenderer
+    }
+
+    if (type === 'gene') {
+        geneColumns.unshift(deleteColumn)
+        geneHeaders.unshift(deleteHeader)
+    } else if (type === 'body') {
+        bodyColumns.unshift(deleteColumn)
+        bodyHeaders.unshift(deleteHeader)
+    }
+}
+
+function deleteModalRenderer(instance, td, row, col, prop, value, cellProperties) {
+    Handsontable.renderers.BaseRenderer.apply(this, arguments)
+
+    td.innerHTML = `<div class="list-icon list-delete"></div>`
+    td.onclick = function() {
+        if (confirm('削除してもよろしいでしょうか。')) {
+            if ($(td).parents('div#geneModal').length > 0) {
+                geneHot.alter('remove_row', row, 1)
+            } else if ($(td).parents('div#bodyModal').length > 0) {
+                bodyHot.alter('remove_row', row, 1)
+            }
+        }
+    }
+}
+
+Handsontable.renderers.registerRenderer('deleteModalRenderer', deleteModalRenderer)

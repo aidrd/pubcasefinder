@@ -8,7 +8,7 @@ setInitialLanguage()
 let count
 let toReset = true
 
-let defaultColumns = ['caseSolved', 'chiefComplaint', 'finalDiagnosis', 'clinicalDiagnosis', 'age', 'sex', 'group', 'relationship', 'familyId', 'patientId']
+let defaultColumns = ['caseSolved', 'chiefComplaint', 'finalDiagnosis', 'clinicalDiagnosis', 'sex','age', 'birth', 'lifeStatus', 'group', 'relationship', 'familyId', 'patientId']
 // defaultColumns = ['birth', 'age', 'death', 'familyId', 'patientId']
 let actions = ['REMOVE', 'EDIT']
 actions = ['EDIT', 'REMOVE']
@@ -41,12 +41,64 @@ let updateSettings = {
     manualColumnMove: true,
     manualColumnResize: true,
     manualRowMove: true,
+    afterRowMove: (movedRows, finalIndex, dropIndex, movePossible, orderChanged) => {
+        if (orderChanged) {
+            let movedRow = movedRows[0]
+            console.log(movedRow, finalIndex)
+            let temp = contentData.splice(movedRow, 1)[0]
+            
+            console.log('removed', temp)
+            contentData.splice(finalIndex, 0, temp)
+            console.log('after insert', contentData)
+
+            // let tempArray = contentData
+            // if (finalIndex >= tempArray.length) {
+            //     let i = finalIndex - tempArray.length + 1
+            //     while (i--) {
+            //         tempArray.push(undefined)
+            //     }
+            // }
+            // tempArray.splice(finalIndex, 0, tempArray.splice(movedRow, 1)[0])
+            // contentData = tempArray
+            // console.log(contentData)
+
+            // if (finalIndex >= contentData.length) {
+            //     let x = finalIndex - contentData.length + 1
+            //     while (x--) {
+            //         arr.push(undefined)
+            //     }
+            // }
+
+            // contentData.splice(finalIndex, 0, contentData.splice(movedRow, 1)[0])
+        } else {
+            console.log(hot.getSourceData())
+        }
+        return true
+    },
     contextMenu: true,
     allowRemoveColumn: true,
     columnSorting: {
         indicator: true,
         sortEmptyCells: false
     },
+    beforeColumnMove: (movedColumns) => {
+        if (movedColumns[0] < 2) return false
+    },
+    // afterColumnMove: (movedColumns, finalIndex, dropIndex, movePossible, orderChanged) => {
+    //     if (orderChanged) {
+    //         let movedColumn = movedColumns[0]
+
+    //         if (finalIndex >= existingColumns.length) {
+    //             let x = finalIndex - existingColumns.length + 1
+    //             while (x--) {
+    //                 existingColumns.push(undefined)
+    //             }
+    //         }
+
+    //         existingColumns.splice(finalIndex, 0, existingColumns.splice(movedColumn, 1)[0])
+    //     }
+    //     return true
+    // },
     beforeColumnSort: (currentSortConfig, destinationSortConfigs) => {
         if (destinationSortConfigs.length > 0) {
             if (destinationSortConfigs[0].column < 2) return false
@@ -209,7 +261,11 @@ function createColumns() {
                         yearRange: [1900, new Date().getFullYear()],
                         onDraw: function(datepicker) {
                             let close = document.createElement('span')
+                            close.classList.add('pika-ok')
                             close.innerHTML = 'OK'
+
+                            $(datepicker.el).find('table').addClass('hide')
+                            $(datepicker.el).find('button').addClass('hide')
 
                             close.addEventListener('click', () => {
                                 let year = $('.pika-select.pika-select-year').val()
@@ -281,7 +337,7 @@ function createColumns() {
         actions.forEach(a => {
             let colHeader = ''
             let column = {
-                data: 'PCFNo',
+                data: a === 'EDIT' ? 'PCFNo' : '',
                 className: 'htMiddle htCenter',
                 renderer: a === 'EDIT' ? editRenderer : removeRenderer
             }
@@ -342,22 +398,22 @@ function addColumn() {
 
             switch (key) {
                 case 'patientInfo':
-                    icon = '<i class="bxt icon material-icons-outlined"> person</i>'
+                    icon = '<div class="add-column-icon modal-patient"></div>'
                     break
                 case 'medicalInfo':
-                    icon = '<i class="material-symbols-outlined">medical_information</i>'
+                    icon = '<div class="add-column-icon modal-medical"></div>'
                     break
                 //modified by hzhang@bits start
                 //                case 'phenoTypicInfo':
                 case 'phenotypicInfo':
                     //modified by hzhang@bits end
-                    icon = '<i class="material-symbols-outlined">dns</i>'
+                    icon = '<div class="add-column-icon modal-phenotype"></div>'
                     break
                 case 'geneInfo':
-                    icon = '<i class="icon-omim2"></i>'
+                    icon = '<div class="add-column-icon modal-gene"></div>'
                     break
                 case 'familyInfo':
-                    icon = '<i class="material-symbols-outlined">diversity_3</i>'
+                    icon = '<div class="add-column-icon modal-family"></div>'
                     break
                 case 'カスタム':
                     icon = '<i class="material-symbols-outlined">category</i>'
@@ -432,52 +488,73 @@ function addColumn() {
 
 function showHideAllColumn(e) {
     let categoryKey = e.id.split('_')[1]
-    let categoryId = categoryKey === 'カスタム' ? 'c' : categoryKey.charAt(0)
-
-    $(`input[data-category='${categoryKey}']`).each((i, c) => {
-        if (c.checked !== e.checked) c.click()
-    })
-}
-
-function showHideColumn(e) {
-    let colId = e.id
+    // $(`input[data-category='${categoryKey}']`).each((i, c) => {
+    //     if (c.checked !== e.checked) c.click()
+    // })
 
     if (e.checked) {
-        let col = dataColumns[colId]
-
-        existingColumns.push(colId)
-        colHeaders.push(col.colHeader)
-        columns.push(col.column)
+        let elements = $(`input[data-category='${categoryKey}']:not(:checked)`)
+        elements.each((i, c) => {
+            showColumn(c.id)
+        })
         rerenderTable()
         hot.scrollViewportTo('', existingColumns.length - 1)
     } else {
-        colHeaders.splice(colHeaders.indexOf(`<i class="material-icons-outlined sort_icon"></i>${e.dataset.colname}`), 1)
-
-        if (['m013_2', 'm013_3', 'm013_4'].includes(colId)) {
-            let renderer
-            switch (colId) {
-                case 'm013_2':
-                    renderer = 'weightRenderer'
-                    break
-                case 'm013_3':
-                    renderer = 'heightRenderer'
-                    break
-                case 'm013_4':
-                    renderer = 'headRenderer'
-                    break
-            }
-
-            columns.forEach((h, i) => {
-                if (h.data !== 'm013') return
-                if (h.renderer.name === renderer) columns.splice(i, 1)
-            })
-        } else {
-            columns = columns.filter(h => { return h.data !== colId })
-        }
-        existingColumns.splice(existingColumns.indexOf(colId), 1)
+        let elements = $(`input[data-category='${categoryKey}']:checked`)
+        elements.each((i, c) => {
+            hideColumn(c.id, c.dataset.colname)
+        })
 
         rerenderTable()
     }
+
+    $(`input[data-category='${categoryKey}']`).prop('checked', e.checked)
+}
+
+function showHideColumn(e) {
+    if (e.checked) {
+        showColumn(e.id)
+        rerenderTable()
+        hot.scrollViewportTo('', existingColumns.length - 1)
+    } else {
+        hideColumn(e.id, e.dataset.colname)
+        rerenderTable()
+    }
+}
+
+function showColumn(colId) {
+    let col = dataColumns[colId]
+
+    existingColumns.push(colId)
+    colHeaders.push(col.colHeader)
+    columns.push(col.column)
+}
+
+function hideColumn(colId, colHeader) {
+    colHeaders.splice(colHeaders.indexOf(`<i class="material-icons-outlined sort_icon"></i>${colHeader}`), 1)
+
+    if (['m013_2', 'm013_3', 'm013_4'].includes(colId)) {
+        let renderer
+        switch (colId) {
+            case 'm013_2':
+                renderer = 'weightRenderer'
+                break
+            case 'm013_3':
+                renderer = 'heightRenderer'
+                break
+            case 'm013_4':
+                renderer = 'headRenderer'
+                break
+        }
+
+        columns.forEach((h, i) => {
+            if (h.data !== 'm013') return
+            if (h.renderer.name === renderer) columns.splice(i, 1)
+        })
+    } else {
+        columns = columns.filter(h => { return h.data !== colId })
+    }
+    existingColumns.splice(existingColumns.indexOf(colId), 1)
 }
 
 function removeCustomColumn(e) {
@@ -500,8 +577,8 @@ function addRow(data) {
 
     temp.PCFNo = pcfNo
 
-    let num = hot.countRows() + 1
-
+    // let num = hot.countRows() + 1
+    let num = localStorage.patientCount ? parseInt(localStorage.patientCount) + 1 : hot.countRows() + 1
     temp['p001'] = `P${num.toString().padStart(7, 0)}`
 
     // if (count) {
@@ -511,6 +588,7 @@ function addRow(data) {
     //     count = num
     // }
 
+    localStorage.patientCount = num
     count++
 
     if (data) {
@@ -637,7 +715,7 @@ async function updateTable(data, changeHeaders) {
 
 function importFile(event) {
     let file = event.target.files[0]
-    fileReader(file, file.type)
+    fileReader(file, file.type, event.target.id === 'import_btn')
 }
 
 function onDragOver(event) {
@@ -648,32 +726,24 @@ function onDragOver(event) {
 function onDrop(event) {
     event.preventDefault()
     let file = event.dataTransfer.items[0].getAsFile()
-    fileReader(file, file.type)
+    fileReader(file, file.type, true)
 }
 
-function fileReader(file, fileType) {
+function fileReader(file, fileType, overwrite) {
     let reader = new FileReader()
     reader.onload = (event => {
         let data = event.target.result
         let object
 
-        if (contentData.length === 1) {
-            let toDelete = true
-            for (let [k, v] of Object.entries(contentData[0])) {
-                if (k === 'PCFNo' || k === 'p001') {
-                    // return
-                } else if (k === 'm013') {
-                    for (let [gk, gv] of Object.entries(v[0])) {
-                        if (gv) toDelete = false
-                    }
-                } else if (Array.isArray(v)) {
-                    if (v.length > 0) toDelete = false
-                } else if (v) {
-                    toDelete = false
-                }
-            }
+        if (overwrite) {
+            contentData = []
 
-            if (toDelete) hot.alter('remove_row', 1, 1)
+            Object.assign(updateSettings, {
+                data: contentData
+            })
+        
+            hot.updateSettings(updateSettings)
+            hot.render()
         }
 
         if (fileType === 'text/csv' || fileType === 'text/tab-separated-values') {
@@ -695,6 +765,7 @@ function fileReader(file, fileType) {
             }
         }
 
+        localStorage.patientCount = object.patientCount || object.PATIENTS.length
         updateTable(object.PATIENTS, fileType)
 
         if (object.visibleColumns) {
@@ -864,7 +935,8 @@ function getExportData() {
             PATIENTS: patientsData,
             visibleColumns,
             keyName,
-            lang
+            lang,
+            patientCount: localStorage.patientCount
         }
 
         return jsonResult
@@ -1037,6 +1109,7 @@ function rerenderTable() {
 
 function beforeLoad() {
     if (contentData.length > 0) localStorage.contentData = JSON.stringify(contentData)
+    localStorage.removeItem(patientCount)
     return 'load'
 }
 
@@ -1085,10 +1158,14 @@ function setInitialLanguage() {
 
             let li = document.createElement('li')
             li.classList.add(...liClass)
+            // li.innerHTML += `
+            //             <i class="${category.iconClass}">${category.iconName}</i>
+            //             <span>${category['displayName'][lang] || category['displayName']['en']}</span>
+            //         `
             li.innerHTML += `
-                        <i class="${category.iconClass}">${category.iconName}</i>
-                        <span>${category['displayName'][lang] || category['displayName']['en']}</span>
-                    `
+                <div class="${category.iconClass}"></div>
+                <span>${category['displayName'][lang] || category['displayName']['en']}</span>
+            `
             ul.appendChild(li)
 
             let divClass = ['tab-contents']

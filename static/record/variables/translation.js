@@ -120,7 +120,6 @@ let elementTranslation = {
         ja: '作成',
         ko: ''
     },
-    /* changes start */
     'chart-title-age': {
         en: 'Age',
         ja: '年齢',
@@ -141,5 +140,4 @@ let elementTranslation = {
         ja: '未記入',
         ko: ''
     }
-    /* changes end */
 }

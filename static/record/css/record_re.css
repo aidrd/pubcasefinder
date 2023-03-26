@@ -686,9 +686,9 @@ width: 35px;
   background: #ebebeb;
 }
 
-#content-patients #home-menu .right-menu #table_menu #add-column i {
+/* #content-patients #home-menu .right-menu #table_menu #add-column i {
   font-size: 20px;
-}
+} */
 
 #content-patients #home-menu .right-menu #table_menu #add-row {
   padding: 0.1em 1em;
@@ -709,9 +709,28 @@ width: 35px;
   outline: none;
 }
 
+.list-icon {
+  height: 20px;
+  width: 20px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  margin: auto;
+}
 
-#content-patients #home-menu .right-menu #table_menu #add-row i {
-  font-size: 20px;
+.list-column {
+  background-image: url("../images/png/list-column.png");
+}
+
+.list-row {
+  background-image: url("../images/png/list-row.png");
+}
+
+.list-edit {
+  background-image: url("../images/png/list-edit.png");
+}
+
+.list-delete {
+  background-image: url("../images/png/list-delete.png");
 }
 
 #content-patients #home-menu .right-menu #table_menu li {
@@ -898,10 +917,10 @@ width: 35px;
   list-style: none;
 }
 
-.home-section #content-patients #modal-karte .tab-wrap ul .tab-btn i {
+/* .home-section #content-patients #modal-karte .tab-wrap ul .tab-btn i {
   font-size: 17px;
   vertical-align: -2px;
-}
+} */
 
 .home-section #content-patients #modal-karte .tab-wrap ul .show {
   background: #000;
@@ -1179,7 +1198,10 @@ width: 35px;
 }
 
 #charts-patients{
-  margin: 2em;
+  margin: 2em auto;
+  border: 1px solid;
+  width: 95%;
+  height: 80vh;
 }
 
 #charts-patients h1{
@@ -1190,10 +1212,15 @@ width: 35px;
   /* padding: 2em; */
   margin-bottom: 2em;
   display: inline-flex;
+  position: relative;
+  height: 30%;
+  width: 40%;
 }
 
 .chart-container canvas{
   margin: 0 auto;
+  background: #ccc;
+  width: 90% !important;
 }
 
 

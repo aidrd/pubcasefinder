@@ -7,17 +7,22 @@ $('#nav-info').click(() => {
 })
 
 $('#nav-menu').click(() => {
+    closeKarteModal()
     $('.common-menu').toggleClass('dropdown-menu-open')
 })
 
 $('#nav-language').click(() => {
+    closeKarteModal()
     $('#dropdown-language').toggleClass('dropdown-menu-open')
 })
 
 $('#menu-save').click((e) => {
+    closeKarteModal()
     if (e.target.closest('.save-panel')) return
     $('.save-panel').toggleClass('save-panel-open')
 })
+
+$('.nav-list a').on('click', closeKarteModal)
 
 // window.onclick = (e) => {
 //     if ($('.save-panel-open')) {
@@ -50,12 +55,6 @@ $('#menu-save').click((e) => {
 
 function openModal(patientId) {
     // $('body').append('<div class="modal_bg modal_karte_bg"></div>')
-    /* changes start 3/12 */
-    // $('.modal_bg').animate({
-    //     width: '35%'
-    // }, 500)
-    // $('.modal_bg').fadeIn()
-    /* changes end 3/12 */
 
     var modal = '#modal-karte'
 
@@ -64,10 +63,6 @@ function openModal(patientId) {
     modalResize()
     populateOptions('group_options')
     populateOptions('family_options')
-
-    // document.querySelector(`.tab-wrap *[name="p004"]`).onclick = function () {
-    //     document.getElementById('group_options').style.display = 'block'
-    // }
 
     inputValues()
 
@@ -132,10 +127,9 @@ function openModal(patientId) {
     }
 
     function optionLoop(start, end, id) {
-        start = parseInt(start)
+        start = parseInt(start) || 1
         end = parseInt(end)
-        let opt = `<option value="0" hidden>${end === 12 ? translate('select-month') : translate('select-year')}</option>`
-
+        let opt = `<option value="0">${end === 12 ? translate('select-month') : translate('select-year')}</option>`
         if (end === 12) {
             for (let i = start; i <= end; i++) {
                 let display = i
@@ -180,10 +174,15 @@ function openModal(patientId) {
             currentPatient = patientData['PCFNo']
             PCFNo = patientData['PCFNo']
         } else {
-            let d = new Date()
-            PCFNo = `P${d.getFullYear()}${d.getMonth() + 1}${d.getDate()}${d.getHours()}${d.getMinutes()}${d.getSeconds()}${d.getMilliseconds()}`
-            let num = hot.countRows() + 1
-            document.querySelector(`.tab-wrap *[name="p001"]`).value = `P${num.toString().padStart(7, 0)}`
+            // let d = new Date()
+            // PCFNo = `P${d.getFullYear()}${d.getMonth() + 1}${d.getDate()}${d.getHours()}${d.getMinutes()}${d.getSeconds()}${d.getMilliseconds()}`
+            // let num = localStorage.patientCount ? parseInt(localStorage.patientCount) + 1 : hot.countRows() + 1
+            // document.querySelector(`.tab-wrap *[name="p001"]`).value = `P${num.toString().padStart(7, 0)}`
+            addRow()
+            patientData = contentData[contentData.length - 1]
+            currentPatient = patientData['PCFNo']
+            PCFNo = patientData['PCFNo']
+
             // if (count) {
             //     document.querySelector(`.tab-wrap *[name="p001"]`).value = `P${count.toString().padStart(7, 0)}`
             // } else {
@@ -275,16 +274,15 @@ function openModal(patientId) {
                         let age
                         let year = document.querySelector(`.tab-wrap *[name="p006_year"]`).value
                         let month = document.querySelector(`.tab-wrap *[name="p006_month"]`).value
+
                         if (!month) {
                             age = d.getFullYear() - year
-                        } else if (year === '0' && month === '0') {
+                        } else if (year === '0') {
                             age = ''
                         } else if (month && year) {
-                            /* changes start 3/13 */
                             if (d.getMonth() + 1 >= parseInt(month)) {
-                                /* changes end 3/13 */
                                 age = d.getFullYear() - year
-                                if (age === 0) age = '0'
+                                if (age === 0 ) age = '0'
                             } else {
                                 age = d.getFullYear() - year - 1
                                 if (age < 1) age = '0'
@@ -316,10 +314,14 @@ function openModal(patientId) {
                 } else if (colId === 'p004') {
                     document.getElementById('group_options').onchange = function (e) {
                         onchange('p004', e.target.value)
+                        e.target.previousSibling.value = e.target.value
+                        e.target.selectedIndex = 0
                     }
                 } else if (colId === 'p002') {
                     document.getElementById('family_options').onchange = function (e) {
                         onchange('p002', e.target.value)
+                        e.target.previousSibling.value = e.target.value
+                        e.target.selectedIndex = 0
                     }
                 }
 
@@ -387,7 +389,10 @@ function openModal(patientId) {
                     value = `${document.querySelector(`.tab-wrap *[name="${pre}_year"]`).value}/${document.querySelector(`.tab-wrap *[name="${pre}_month"]`).value}`
                 }
             }
+
+            patientData[key] = value
             changedData[key] = value
+            hot.render()
         }
 
         function showHideDeathDate(parent, value) {
@@ -520,9 +525,7 @@ function copyPatient() {
 }
 
 function openInfo() {
-    if ($('#modal-karte').css('display') === 'block') {
-        $('#modal-karte').fadeOut()
-    }
+    closeKarteModal()
 
     $('body').append('<div class="modal_bg"></div>')
     $('.modal_bg').fadeIn()
@@ -554,3 +557,8 @@ function openInfo() {
     })
 }
 
+function closeKarteModal() {
+    if ($('#modal-karte').css('display') === 'block') {
+        $('#modal-karte').fadeOut()
+    }
+}

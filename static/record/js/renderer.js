@@ -16,8 +16,9 @@ function checkBoxRenderer(instance, td) {
 
 function editRenderer(instance, td, row, col, prop, value, cellProperties) {
     Handsontable.renderers.TextRenderer.apply(this, arguments)
-    td.innerHTML = `<i class="material-symbols-outlined">edit_square</i>`
+    td.innerHTML = `<div class="list-icon list-edit"></div>`
     td.onclick = function() {
+        console.log(value)
         openModal(value)
     }
 }
@@ -25,7 +26,7 @@ function editRenderer(instance, td, row, col, prop, value, cellProperties) {
 function removeRenderer(instance, td, row, col, prop, value, cellProperties) {
     Handsontable.renderers.BaseRenderer.apply(this, arguments)
 
-    td.innerHTML = `<i class="material-icons-outlined">delete</i>`
+    td.innerHTML = `<div class="list-icon list-delete"></div>`
     td.onclick = function() {
         if (confirm('削除してもよろしいでしょうか。')) {
             hot.alter('remove_row', row, 1)
