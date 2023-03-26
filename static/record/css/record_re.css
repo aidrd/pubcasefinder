@@ -1,3 +1,5 @@
+
+
 body {
   margin: 0;
   height: 100vh;
@@ -1363,5 +1365,11 @@ width: 10px;
   background-color: #ff8c00;
   color: #fff;
   border-radius: 5px;
+  margin: auto 0;
+}
+
+
+#search-result-count{
+  display: block;
   margin: auto 0;
 }
