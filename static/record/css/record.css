@@ -8,10 +8,9 @@ body {
   transition: var(--tran-05);
 }
 
-::selection {
+/* ::selection {
   background-color: var(--primary-color);
-  color: #fff;
-}
+} */
 
 .search-header-karte {
   z-index: 200;
@@ -859,7 +858,7 @@ display: block;
 .modal_content .button_wrap .add {
   padding: 5px 10px;
   background: #ff8c00;
-  border-radius: 25px;
+  border-radius: 5px;
   color: #fff;
   width: fit-content;
   margin: 0 0 0 auto;
@@ -1076,7 +1075,7 @@ display: block;
 /*handsontable*/
 .handsontable thead tr th .relative {
   text-align: left;
-  padding: 10px;
+  padding: 7px 10px;
   font-size: 1.1em;
 }
 
