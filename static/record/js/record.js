@@ -57,7 +57,7 @@ let updateSettings = {
             //     while (i--) {
             //         tempArray.push(undefined)
             //     }
-            // }
+            // }f
             // tempArray.splice(finalIndex, 0, tempArray.splice(movedRow, 1)[0])
             // contentData = tempArray
             // console.log(contentData)
@@ -741,7 +741,9 @@ function fileReader(file, fileType, overwrite) {
             Object.assign(updateSettings, {
                 data: contentData
             })
-        
+
+            localStorage.patientCount = 0
+
             hot.updateSettings(updateSettings)
             hot.render()
         }
@@ -765,7 +767,14 @@ function fileReader(file, fileType, overwrite) {
             }
         }
 
-        localStorage.patientCount = object.patientCount || object.PATIENTS.length
+        if (localStorage.patientCount) {
+            let currentCount = parseInt(localStorage.patientCount)
+            console.log(currentCount)
+            localStorage.patientCount = currentCount + (object.patientCount || object.PATIENTS.length)
+        } else {
+            localStorage.patientCount = object.patientCount || object.PATIENTS.length
+        }
+
         updateTable(object.PATIENTS, fileType)
 
         if (object.visibleColumns) {
@@ -1108,8 +1117,9 @@ function rerenderTable() {
 }
 
 function beforeLoad() {
+    console.log('hello')
     if (contentData.length > 0) localStorage.contentData = JSON.stringify(contentData)
-    localStorage.removeItem(patientCount)
+    localStorage.removeItem('patientCount')
     return 'load'
 }
 
