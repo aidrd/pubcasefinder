@@ -191,7 +191,7 @@ body {
 .search_wrap {
   display: flex;
   background: #F2F3F3;
-  border-radius: 20px;
+  border-radius: 5px;
   padding-left: 0.5em;
 }
 
