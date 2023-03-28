@@ -1196,10 +1196,37 @@ width: 35px;
 }
 
 #charts-patients{
-  margin: 2em auto;
-  border: 1px solid;
+  /* margin: 0.2em 1em; */
+  /* margin-right: 1em;
+  margin-left: 1em; */
+  /* border: 1px solid; */
   width: 95%;
   height: 80vh;
+}
+
+#charts-patients #home-menu{
+  display: flex;
+  padding: 0.2em 1em;
+  height: 55px;
+}
+
+#charts-patients #home-menu .title{
+  display: flex;
+    align-items: center;
+}
+
+#charts-patients #home-menu .title .person_icon {
+  color: #fff;
+  background-color: #11101d;
+  padding: 0.3em;
+  border-radius: 20px;
+  font-size: 18px;
+}
+
+#charts-patients #home-menu .title span{
+  font-size: 17px;
+  margin: 0 0 0 0.5em;
+  white-space: nowrap;
 }
 
 #charts-patients h1{
@@ -1217,8 +1244,11 @@ width: 35px;
 
 .chart-container canvas{
   margin: 0 auto;
-  background: #ccc;
+  background: #fff;
   width: 90% !important;
+  padding: 10px 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 15px 1px rgba(163, 163, 163, 0.2);
 }
 
 
