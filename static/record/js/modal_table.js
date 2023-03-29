@@ -5,6 +5,9 @@ let modalTableSettings = {
     autoColumnSize: {
     	useHeaders: true
     },
+    afterGetRowHeader: (row, TH) => {
+        TH.className = 'htMiddle'
+    },
     contextMenu: true,
     allowRemoveColumn: false,
     trimDropdown: false,
@@ -22,8 +25,6 @@ let bodySettings = JSON.parse(JSON.stringify(modalTableSettings))
 let bodyHeaders = [], bodyColumns = [], bodyDataKey = []
 let bodySchema = {}, bodyData = [], currentBodyData = []
 // let bodyContainer = document.getElementById('bodyModal')
-
-
 
 async function geneTable() {
     if (!toReset) return
@@ -130,7 +131,7 @@ async function bodyTable() {
         bodyHeaders.push(`${displayName}${c.columnId === 'm013_2' ? '(kg)' : '(cm)' }`)
         bodyColumns.push({
             data: c.columnId,
-            type: 'text'
+            type: 'text',
         })
     })
 

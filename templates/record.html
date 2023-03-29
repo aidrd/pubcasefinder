@@ -77,18 +77,14 @@
         <ul class="nav-list">
             <li>
                 <a class="sidebar-patients sidebar-selected" href="#" onclick="toggleTableChart('table')">
-                    <i class="material-symbols-outlined">
-                        recent_actors
-                    </i>
+                    <div class="sidebar-icon sidebar-patient"></div>
                     <span class="links_name">Patients</span>
                 </a>
                 <!--<span class="tooltip">Patients</span>-->
             </li>
             <li>
                 <a class="sidebar-analytics" href="#" onclick="toggleTableChart('chart')">
-                    <i class="material-symbols-outlined">
-                        pie_chart
-                    </i>
+                    <div class="sidebar-icon sidebar-stats"></div>
                     <span class="links_name">Stats</span>
                 </a>
                 <!--<span class="tooltip">Analytics</span>-->
@@ -96,9 +92,7 @@
             <li>
             <li class="">
                 <a href="#" onclick="document.getElementById('import_btn').click()">
-                    <i class="icon material-symbols-outlined">
-                        folder_open
-                    </i>
+                    <div class="sidebar-icon sidebar-open"></div>
                     <span class="text nav-text links_name">File open</span>
                     <input type="file" id="import_btn" onchange="importFile(event)">
                 </a>
@@ -106,9 +100,7 @@
             </li>
             <li id="menu-save">
                 <a href="#">
-                    <i class="material-symbols-outlined">
-                        save
-                    </i>
+                    <div class="sidebar-icon sidebar-save"></div>
                     <span class="links_name">File save
                     </span>
                 </a>
@@ -123,13 +115,11 @@
                     <button id="dl_table_button" onclick="getExportData(false)">Save</button>
                 </div>
                 <!--<div class="popup-bg-cover"></div>-->
-    </div>
+    <!-- </div> -->
     </li>
     <li>
         <a class="sidebar-filebond" href="#" onclick="document.getElementById('merge_btn').click()">
-            <i class="material-symbols-outlined">
-                cell_merge
-            </i>
+            <div class="sidebar-icon sidebar-bond"></div>
             <span class="links_name">File bond</span>
             <input type="file" id="merge_btn" onchange="importFile(event)">
         </a>
@@ -264,7 +254,7 @@
                             manage_search
                         </span>
                         <span id="search-result-count"></span>
-                        <input type="search" placeholder="一覧表を検索" id="search_input">
+                        <input type="search" placeholder="一覧表を検索" id="search_input" autocomplete="off">
                     </div>
                     <div id="table_menu">
                         <span onclick="addColumn()" id="add-column">
@@ -282,7 +272,7 @@
                         <li class="modal_open karte-btn karte-add" data-target="modal-karte" rel="noopener noreferrer">
                             <!-- <i class="material-symbols-outlined">
                                 edit_square</i> -->
-                            <div class="list-icon list-edit"></div>
+                            <div class="list-icon list-edit-white"></div>
                             <span>New</span>
                         </li>
                     </div>
@@ -369,7 +359,7 @@
     </div>
 
     <div id="modal-info" class="modal_box modal-karte">
-        <div class="modal-karte-button-sub">
+        <div class="modal-karte-button-sub" id="modal-info-content">
             <ul>
                 <li>
                     <i class="material-symbols-outlined">

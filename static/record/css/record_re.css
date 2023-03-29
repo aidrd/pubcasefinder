@@ -224,6 +224,70 @@ i {
   border-radius: 12px;
 }
 
+.sidebar-icon {
+  height: 35px;
+  width: 35px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  margin: 0 auto 7%;
+}
+
+.sidebar .sidebar-selected .links_name,
+.sidebar li a:hover .links_name {
+  transition: all 0.5s ease;
+  color: #11101D;
+}
+
+.sidebar-patient {
+  background-image: url("../images/png/slider-patient-w.png");
+}
+
+.sidebar li a:hover .sidebar-patient, 
+.sidebar-selected .sidebar-patient,
+.sidebar-patient:hover {
+  background-image: url("../images/png/slider-patient.png");
+}
+
+.sidebar-stats {
+  background-image: url("../images/png/slider-stats-w.png");
+}
+
+.sidebar li a:hover .sidebar-stats, 
+.sidebar-selected .sidebar-stats,
+.sidebar-stats:hover {
+  background-image: url("../images/png/slider-stats.png");
+}
+
+.sidebar-open {
+  background-image: url("../images/png/slider-open-w.png");
+}
+
+.sidebar li a:hover .sidebar-open, 
+.sidebar-selected .sidebar-open,
+.sidebar-open:hover {
+  background-image: url("../images/png/slider-open.png");
+}
+
+.sidebar-save {
+  background-image: url("../images/png/slider-save-w.png");
+}
+
+.sidebar li a:hover .sidebar-save,
+.sidebar-selected .sidebar-save,
+.sidebar-save:hover {
+  background-image: url("../images/png/slider-save.png");
+}
+
+.sidebar-bond {
+  background-image: url("../images/png/slider-bond-w.png");
+}
+
+.sidebar li a:hover .sidebar-bond, 
+.sidebar-selected .sidebar-bond,
+.sidebar-bond:hover {
+  background-image: url("../images/png/slider-bond.png");
+}
+
 .sidebar li.contact {
   position: fixed;
   height: 60px;
@@ -717,6 +781,10 @@ width: 35px;
   background-image: url("../images/png/list-row.png");
 }
 
+.list-edit-white {
+  background-image: url("../images/png/list-edit-w.png");
+}
+
 .list-edit {
   background-image: url("../images/png/list-edit.png");
 }
@@ -1129,6 +1197,7 @@ width: 35px;
   border-bottom: 1px solid #ccc;
 }
 
+
 #menu-save .save-panel {
   margin-top: -10px;
   background: #1d1b31;
@@ -1144,7 +1213,6 @@ width: 35px;
   pointer-events: none;
 }
 
-
 #menu-save .save-panel-open {
   top: 0;
   opacity: 1;
@@ -1152,13 +1220,10 @@ width: 35px;
   transition: all 0.4s ease;
 }
 
-
 #menu-save .save-panel .save-format {
   display: flex;
   align-items: center;
 }
-
-
 
 #menu-save .save-panel .save-format p {
   white-space: nowrap;

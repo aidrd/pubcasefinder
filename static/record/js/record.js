@@ -44,35 +44,19 @@ let updateSettings = {
     afterRowMove: (movedRows, finalIndex, dropIndex, movePossible, orderChanged) => {
         if (orderChanged) {
             let movedRow = movedRows[0]
-            console.log(movedRow, finalIndex)
-            let temp = contentData.splice(movedRow, 1)[0]
-            
-            console.log('removed', temp)
-            contentData.splice(finalIndex, 0, temp)
-            console.log('after insert', contentData)
+            let tempArray = JSON.parse(JSON.stringify(contentData))
 
-            // let tempArray = contentData
-            // if (finalIndex >= tempArray.length) {
-            //     let i = finalIndex - tempArray.length + 1
-            //     while (i--) {
-            //         tempArray.push(undefined)
-            //     }
-            // }f
-            // tempArray.splice(finalIndex, 0, tempArray.splice(movedRow, 1)[0])
-            // contentData = tempArray
-            // console.log(contentData)
+            if (finalIndex >= tempArray.length) {
+                let x = finalIndex - tempArray.length + 1
+                while (x--) {
+                    tempArray.push(undefined)
+                }
+            }
 
-            // if (finalIndex >= contentData.length) {
-            //     let x = finalIndex - contentData.length + 1
-            //     while (x--) {
-            //         arr.push(undefined)
-            //     }
-            // }
-
-            // contentData.splice(finalIndex, 0, contentData.splice(movedRow, 1)[0])
-        } else {
-            console.log(hot.getSourceData())
+            tempArray.splice(finalIndex, 0, tempArray.splice(movedRow, 1)[0])
+            contentData = tempArray
         }
+
         return true
     },
     contextMenu: true,
@@ -84,21 +68,29 @@ let updateSettings = {
     beforeColumnMove: (movedColumns) => {
         if (movedColumns[0] < 2) return false
     },
-    // afterColumnMove: (movedColumns, finalIndex, dropIndex, movePossible, orderChanged) => {
-    //     if (orderChanged) {
-    //         let movedColumn = movedColumns[0]
+    afterColumnMove: (movedColumns, finalIndex, dropIndex, movePossible, orderChanged) => {
+        if (orderChanged) {
+            let movedColumn = movedColumns[0] - 2
+            console.log(movedColumn, finalIndex)
 
-    //         if (finalIndex >= existingColumns.length) {
-    //             let x = finalIndex - existingColumns.length + 1
-    //             while (x--) {
-    //                 existingColumns.push(undefined)
-    //             }
-    //         }
+            finalIndex -= 2
+            let tempArray = JSON.parse(JSON.stringify(existingColumns))
+            // console.log(tempArray)
+            // console.log(tempArray.splice(movedColumn, 1)[0])
 
-    //         existingColumns.splice(finalIndex, 0, existingColumns.splice(movedColumn, 1)[0])
-    //     }
-    //     return true
-    // },
+            if (finalIndex >= tempArray.length) {
+                let x = finalIndex - tempArray.length + 1
+                while (x--) {
+                    tempArray.push(undefined)
+                }
+            }
+
+            tempArray.splice(finalIndex, 0, tempArray.splice(movedColumn, 1)[0])
+            existingColumns = tempArray
+            console.log(existingColumns)
+        }
+        return true
+    },
     beforeColumnSort: (currentSortConfig, destinationSortConfigs) => {
         if (destinationSortConfigs.length > 0) {
             if (destinationSortConfigs[0].column < 2) return false
@@ -119,6 +111,12 @@ let updateSettings = {
                 }
             })
         }
+    },
+    afterGetRowHeader: (row, TH) => {
+        TH.className = 'htMiddle'
+    },
+    beforeCopy: (data, coords) => {
+        if (coords[0].startCol === 0 || coords[0].startCol === 1) return false
     },
     filters: true,
     dropdownMenu: true,
@@ -769,7 +767,6 @@ function fileReader(file, fileType, overwrite) {
 
         if (localStorage.patientCount) {
             let currentCount = parseInt(localStorage.patientCount)
-            console.log(currentCount)
             localStorage.patientCount = currentCount + (object.patientCount || object.PATIENTS.length)
         } else {
             localStorage.patientCount = object.patientCount || object.PATIENTS.length
