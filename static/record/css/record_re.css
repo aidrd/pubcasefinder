@@ -198,8 +198,23 @@ i {
 
 .sidebar.open li a{
   margin: 0;
-  display: inline-block;
+  display: flex;
+  padding: 10px 15px;
 }
+
+.sidebar.open li a .sidebar-icon{
+  margin: 0;
+  /* display: inline-block; */
+  width: 30px;
+  height: 30px;
+  margin-right: 0.4em;
+}
+
+.sidebar.open li a .links_name{
+  vertical-align: 10px;
+  padding-bottom: 0;
+}
+
 
 .sidebar.open li a .links_name {
   opacity: 1;
@@ -225,11 +240,11 @@ i {
 }
 
 .sidebar-icon {
-  height: 35px;
-  width: 35px;
+  height: 33px;
+  width: 33px;
   background-size: contain;
   background-repeat: no-repeat;
-  margin: 0 auto 7%;
+  margin: 10px auto 5px;
 }
 
 .sidebar .sidebar-selected .links_name,
