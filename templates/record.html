@@ -115,17 +115,17 @@
                     <button id="dl_table_button" onclick="getExportData(false)">Save</button>
                 </div>
                 <!--<div class="popup-bg-cover"></div>-->
-    <!-- </div> -->
-    </li>
-    <li>
-        <a class="sidebar-filebond" href="#" onclick="document.getElementById('merge_btn').click()">
-            <div class="sidebar-icon sidebar-bond"></div>
-            <span class="links_name">File bond</span>
-            <input type="file" id="merge_btn" onchange="importFile(event)">
-        </a>
-        <!--<span class="tooltip">Analytics</span>-->
-    </li>
-    <!--<li class="contact">
+                <!-- </div> -->
+            </li>
+            <li>
+                <a class="sidebar-filebond" href="#" onclick="document.getElementById('merge_btn').click()">
+                    <div class="sidebar-icon sidebar-bond"></div>
+                    <span class="links_name">File bond</span>
+                    <input type="file" id="merge_btn" onchange="importFile(event)">
+                </a>
+                <!--<span class="tooltip">Analytics</span>-->
+            </li>
+            <!--<li class="contact">
                 <a href="#">
                     <i class="material-symbols-outlined">
                         mail
@@ -134,7 +134,7 @@
                 </a>
                 <span class="tooltip">Contact</span>
             </li>-->
-    </ul>
+        </ul>
     </div>
     <section class="home-section">
         <div class="common-nav-container" id="nav-case">
@@ -323,6 +323,8 @@
         </main>
     </section>
     <div id="modal-karte" class="modal_box modal-karte">
+        <!--left-->
+        <div class="resize-handle"></div>
         <!--<div id="modal-karte-button-sub">
             <button class="modal-phenopackets"><img src="/static/images/PhenoPackets_Logo.png">
                 <p>Phenopackets
@@ -429,6 +431,35 @@
                 closeBtn.classList.replace("bx-menu-alt-right", "bx-menu");//replacing the iocns class
             }
         }
+
+        //resize handle
+        const modal = document.querySelector('#modal-karte');
+        const resizeHandle = modal.querySelector('.resize-handle');
+
+        let isResizing = false;
+        let lastX = 0;
+
+        resizeHandle.addEventListener('mousedown', (event) => {
+            isResizing = true;
+            lastX = event.clientX;
+        });
+
+        document.addEventListener('mousemove', (event) => {
+            if (!isResizing) return;
+
+            const delta = event.clientX - lastX;
+            lastX = event.clientX;
+            const modalWidth = parseInt(getComputedStyle(modal).getPropertyValue('width'));
+            const newWidth = modalWidth - delta;
+            if (newWidth < 400) newWidth = 400;
+
+            modal.style.width = newWidth + 'px';
+        });
+
+        document.addEventListener('mouseup', () => {
+            isResizing = false;
+        });
+
     </script>
 </body>
 
