@@ -452,6 +452,12 @@
             const modalWidth = parseInt(getComputedStyle(modal).getPropertyValue('width'));
             const newWidth = modalWidth - delta;
             if (newWidth < 400) newWidth = 400;
+            if (newWidth < 520) {
+                document.querySelectorAll("#modal-karte .tab-wrap ul .tab-btn span").forEach(elem => elem.style.display = "none");
+            } else {
+                document.querySelectorAll("#modal-karte .tab-wrap ul .tab-btn span").forEach(elem => elem.style.display = "block");
+            }
+
 
             modal.style.width = newWidth + 'px';
         });
