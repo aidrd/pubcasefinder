@@ -1162,7 +1162,8 @@ display: block;
 }
 
 #geneModal {
-  min-height: 200px;
+  /* min-height: 200px; */
+  height: calc(100vh - 240px) !important;
 }
 
 .genetic_list {
