@@ -394,7 +394,10 @@ function openModal(patientId) {
                 }
             }
 
-            patientData[key] = value
+            contentData.forEach(p => {
+                if (p.PCFNo === currentPatient) p[key] = value
+            })
+
             changedData[key] = value
             hot.render()
         }

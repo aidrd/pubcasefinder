@@ -9,7 +9,7 @@ let count
 let toReset = true
 
 let defaultColumns = ['caseSolved', 'chiefComplaint', 'finalDiagnosis', 'clinicalDiagnosis', 'sex','age', 'birth', 'lifeStatus', 'group', 'relationship', 'familyId', 'patientId']
-// defaultColumns = ['birth', 'age', 'death', 'familyId', 'patientId']
+// defaultColumns = ['patientId', 'lifeStatus']
 let actions = ['REMOVE', 'EDIT']
 actions = ['EDIT', 'REMOVE']
 
@@ -71,12 +71,9 @@ let updateSettings = {
     afterColumnMove: (movedColumns, finalIndex, dropIndex, movePossible, orderChanged) => {
         if (orderChanged) {
             let movedColumn = movedColumns[0] - 2
-            console.log(movedColumn, finalIndex)
 
             finalIndex -= 2
             let tempArray = JSON.parse(JSON.stringify(existingColumns))
-            // console.log(tempArray)
-            // console.log(tempArray.splice(movedColumn, 1)[0])
 
             if (finalIndex >= tempArray.length) {
                 let x = finalIndex - tempArray.length + 1
@@ -87,7 +84,6 @@ let updateSettings = {
 
             tempArray.splice(finalIndex, 0, tempArray.splice(movedColumn, 1)[0])
             existingColumns = tempArray
-            console.log(existingColumns)
         }
         return true
     },
@@ -275,6 +271,11 @@ function createColumns() {
                             var prevButt = document.querySelector('.pika-prev')
                             prevButt.parentNode.insertBefore(close, prevButt)
                         }
+                    }
+                } else if (c.type === 'dropdown') {
+                    column.trimDropdown = true
+                    if (colId === 'm010' || colId === 'f002') {
+                        column.trimDropdown = false
                     }
                 }
 

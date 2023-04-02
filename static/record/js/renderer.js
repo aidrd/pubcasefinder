@@ -18,7 +18,6 @@ function editRenderer(instance, td, row, col, prop, value, cellProperties) {
     Handsontable.renderers.TextRenderer.apply(this, arguments)
     td.innerHTML = `<div class="list-icon list-edit"></div>`
     td.onclick = function() {
-        console.log(value)
         openModal(value)
     }
 }
