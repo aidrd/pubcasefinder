@@ -1356,13 +1356,13 @@ width: 35px;
   background: #fff;
   border: none;
   border-radius: 12px;
-  padding: 2em 4em 3em;
+  padding: 3em 3em 2em;
 }
 
 #modal-info .modal-karte-button-sub ul li{
   display: flex;
   align-items: center;
-  padding: 1em 0;
+  padding-bottom: 1.5em;
 }
 
 #modal-info .modal-karte-button-sub ul li i{
@@ -1380,17 +1380,24 @@ width: 35px;
 #modal-info .modal-karte-button-sub ul li span h4{
   text-align: left;
   font-size: 1.1em;
+  font-weight: bold;
 }
 
-#modal-info #modal-info-button{
-  margin-top: 2em;
+#modal-info .modal-karte-button-sub ul li span p{
+  font-size: 1em;
+  font-weight: normal;
 }
+
+/* #modal-info #modal-info-button{
+  margin-top: 1em;
+} */
 
 #modal-info #modal-info-button span{
   background: #11101D;
   color: #fff;
   padding: 0.7em 3em;
   border-radius: 3em;
+  display: block;
 }
 
 
