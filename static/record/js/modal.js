@@ -649,3 +649,40 @@ function closeKarteModal() {
         $('#modal-karte').fadeOut()
     }
 }
+
+
+
+
+//resize handle
+const modal = document.querySelector('#modal-karte');
+const resizeHandle = modal.querySelector('.resize-handle');
+
+let isResizing = false;
+let lastX = 0;
+
+resizeHandle.addEventListener('mousedown', (event) => {
+    isResizing = true;
+    lastX = event.clientX;
+});
+
+document.addEventListener('mousemove', (event) => {
+    if (!isResizing) return;
+
+    const delta = event.clientX - lastX;
+    lastX = event.clientX;
+    const modalWidth = parseInt(getComputedStyle(modal).getPropertyValue('width'));
+    const newWidth = modalWidth - delta;
+    if (newWidth < 400) newWidth = 400;
+    if (newWidth < 520) {
+        document.querySelectorAll("#modal-karte .tab-wrap ul .tab-btn span").forEach(elem => elem.style.display = "none");
+    } else {
+        document.querySelectorAll("#modal-karte .tab-wrap ul .tab-btn span").forEach(elem => elem.style.display = "block");
+    }
+
+
+    modal.style.width = newWidth + 'px';
+});
+
+document.addEventListener('mouseup', () => {
+    isResizing = false;
+});
