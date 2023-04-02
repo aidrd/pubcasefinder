@@ -207,7 +207,7 @@ i {
   /* display: inline-block; */
   width: 30px;
   height: 30px;
-  margin-right: 0.4em;
+  margin-right: 0.7em;
 }
 
 .sidebar.open li a .links_name{
@@ -824,6 +824,22 @@ width: 35px;
 
 .list-delete {
   background-image: url("../images/png/list-delete.png");
+}
+
+.list-undo {
+  background-image: url("../images/png/list-undo.png");
+}
+
+.list-redo {
+  background-image: url("../images/png/list-redo.png");
+}
+
+.list-reset {
+  background-image: url("../images/png/list-reset.png");
+}
+
+.list-search {
+  background-image: url("../images/png/list-search.png");
 }
 
 #content-patients #home-menu .right-menu #table_menu li {
