@@ -1519,7 +1519,8 @@ width: 10px;
 
 #search-result-count{
   display: block;
-  margin: auto 0;
+  margin: auto 0.7em;
+  color: #394466;
 }
 
 

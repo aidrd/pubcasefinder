@@ -863,11 +863,20 @@ display: block;
   height: fit-content;
   position: absolute;
   top: 135px;
-  left: 50%;
+  right: 100px;
   background-color: #fff;
   box-shadow: 0 2px 15px 1px rgba(163, 163, 163, 0.2);
   z-index: 200;
 }
+
+@media (max-width: 830px) {
+  .modal_content {
+    top: 175px;
+    right: 142px;
+  }
+}
+
+
 
 .modal_content .button_wrap {
   display: flex;
