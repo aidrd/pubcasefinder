@@ -622,7 +622,7 @@ function openInfo() {
         <ul>
             <li>
                 <i class="material-symbols-outlined">
-                    receipt_long
+                dvr
                 </i>
                 <span>
                     <h4>${Object.keys(infoTranslations[lang][0])}</h4>
@@ -631,9 +631,9 @@ function openInfo() {
                 </span>
             </li>
             <li>
-                <i class="material-symbols-outlined">
-                    subscriptions
-                </i>
+            <i class="material-symbols-outlined">
+            demography
+            </i>
                 <span>
                     <h4>${Object.keys(infoTranslations[lang][1])}</h4>
                     <p>${Object.values(infoTranslations[lang][1])}
@@ -641,8 +641,8 @@ function openInfo() {
                 </span>
             </li>
             <li>
-                <i class="material-symbols-outlined">
-                    format_list_numbered
+            <i class="material-symbols-outlined">
+                handshake
                 </i>
                 <span>
                     <h4>${Object.keys(infoTranslations[lang][2])}</h4>
@@ -651,9 +651,9 @@ function openInfo() {
                 </span>
             </li>
             <li>
-                <i class="material-symbols-outlined">
-                    sign_language
-                </i>
+            <i class="material-symbols-outlined">
+            keyboard_previous_language
+            </i>
                 <span>
                     <h4>${Object.keys(infoTranslations[lang][3])}</h4>
                     <p>${Object.values(infoTranslations[lang][3])}

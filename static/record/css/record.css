@@ -863,16 +863,23 @@ display: block;
   height: fit-content;
   position: absolute;
   top: 135px;
-  right: 100px;
+  right: 255px;
   background-color: #fff;
   box-shadow: 0 2px 15px 1px rgba(163, 163, 163, 0.2);
   z-index: 200;
 }
 
+@media (max-width: 1242px) {
+  .modal_content {
+    top: 135px;
+    right: 100px;
+  }
+}
+
 @media (max-width: 830px) {
   .modal_content {
     top: 175px;
-    right: 142px;
+    right: 120px;
   }
 }
 
