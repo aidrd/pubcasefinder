@@ -660,9 +660,27 @@ width: 35px;
 
 #content-patients #home-menu {
   display: flex;
-  padding: 0.2em 1em;
+  padding: 0.5em 1em;
   height: 55px;
 }
+
+@media (max-width: 830px) {
+  #content-patients #home-menu {
+    display: inline-table;
+    height: 90px;
+  }
+  #content-patients #home-menu .right-menu input{
+    width: 10em;
+  }
+  #content-patients #home-menu .right-menu #hot-undo{
+    padding: 0.3em 0.3em 0.3em 0;
+  }
+  #myGrid{
+    height: calc(100vh - 185px) !important;
+  }
+}
+
+
 
 #content-patients #home-menu .title {
   display: flex;
@@ -698,7 +716,7 @@ width: 35px;
 }
 
 #content-patients #home-menu .right-menu input {
-  width: 20em;
+  width: 15em;
 }
 
 #content-patients #home-menu .right-menu span {
