@@ -1244,6 +1244,7 @@ width: 35px;
   border-radius: 5px;
   display: block;
   pointer-events: none;
+  z-index: 20 !important;
 }
 
 #menu-save .save-panel-open {
