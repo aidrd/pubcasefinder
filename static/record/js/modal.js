@@ -47,9 +47,6 @@ $(document).mouseup((e) => {
 });
 
 
-
-
-
 $('.nav-list a').on('click', closeKarteModal)
 
 // window.onclick = (e) => {
