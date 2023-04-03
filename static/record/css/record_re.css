@@ -1102,6 +1102,7 @@ width: 35px;
   background: #000;
   color: #fff;
   margin-bottom: 0.5em;
+  user-select: none;
 }
 
 .home-section #content-patients #modal-karte .tab-wrap .show .form-table tbody tr td #bodyModal_add i {
@@ -1245,10 +1246,18 @@ width: 35px;
   /* border-top: 1px solid #ccc; */
   border-bottom: 1px solid #ccc;
 }
+
+#modal-karte .tab-wrap .show .form-table tbody tr #body-table-td table tbody tr th .relative{
+  padding: 5px 10px;
+  height: 20px;
+}
+
 #modal-karte .tab-wrap .show .form-table tbody tr #body-table-td table tbody tr td{
   display: revert;
   /* border-top: 1px solid #ccc; */
   border-bottom: 1px solid #ccc;
+  height: 22px;
+  padding: 5px 10px;
 }
 
 

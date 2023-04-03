@@ -571,6 +571,11 @@ body {
   background: #394466;
   color: #fff;
   margin-bottom: 0.5em;
+  user-select: none;
+}
+
+#modal-karte .tab-wrap .show .form-table tbody tr td #bodyModal_add:hover {
+opacity: 0.6;
 }
 
 #modal-karte .tab-wrap .show .form-table tbody tr td #bodyModal_add i {
@@ -1174,6 +1179,11 @@ display: block;
   background: #394466;
   color: #fff;
   margin-bottom: 0.5em;
+  user-select: none;
+}
+
+#genemodal_add:hover {
+  opacity: 0.6;
 }
 
 #genemodal_add i {
