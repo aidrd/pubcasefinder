@@ -110,6 +110,7 @@ body {
   background-color: #000;
   border-radius: 30px;
   margin-left: 0.5em;
+  user-select: none;
 }
 
 #nav-left .sidebar .menu-bar .menu ul li .karte-add i {
@@ -383,6 +384,7 @@ body {
 
 #modal-karte #modal-karte-button-sub .modal-copy {
   background: #fff;
+  user-select: none;
 }
 
 #modal-karte #modal-karte-button-sub .modal-copy i {
@@ -397,6 +399,7 @@ body {
 
 #modal-karte #modal-karte-button-sub .modal-phenopackets {
   background: #fff;
+  user-select: none;
 }
 
 #modal-karte #modal-karte-button-sub .modal-phenopackets i {
@@ -427,6 +430,7 @@ body {
 
 #modal-karte .tab-wrap ul .tab-btn span{
   margin-left: 0.3em;
+  user-select: none;
 }
 
 #modal-karte .tab-wrap ul .tab-btn-last {

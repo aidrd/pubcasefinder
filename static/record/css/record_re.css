@@ -729,14 +729,17 @@ width: 35px;
   display: block;
   margin-right: 1em;
   margin-top: 7px;
+  user-select: none;
 }
 
 #content-patients #home-menu .right-menu #hot-redo{
   transition: 0.2s;
+  user-select: none;
 }
 
 #content-patients #home-menu .right-menu #hot-undo{
   transition: 0.2s;
+  user-select: none;
 }
 
 #content-patients #home-menu .right-menu #reset:hover{
@@ -767,7 +770,8 @@ width: 35px;
   border-radius: 20px;
   margin-left: 0.2em;
   cursor:pointer;
-  transition: 0.2s ;
+  transition: 0.2s;
+  user-select: none;
 }
 #content-patients #home-menu .right-menu #table_menu #add-column:hover {
   opacity: 0.8;
@@ -785,7 +789,8 @@ width: 35px;
   border-radius: 20px;
   margin-left: 0.2em;
   cursor:pointer;
-  transition: 0.2s ;
+  transition: 0.2s;
+  user-select: none;
 }
 
 #content-patients #home-menu .right-menu #table_menu #add-row:hover {
@@ -1329,6 +1334,7 @@ width: 35px;
 #charts-patients #home-menu .title{
   display: flex;
     align-items: center;
+    user-select: none;
 }
 
 #charts-patients #home-menu .title .person_icon {
@@ -1337,12 +1343,14 @@ width: 35px;
   padding: 0.3em;
   border-radius: 20px;
   font-size: 18px;
+  user-select: none;
 }
 
 #charts-patients #home-menu .title span{
   font-size: 17px;
   margin: 0 0 0 0.5em;
   white-space: nowrap;
+  user-select: none;
 }
 
 #charts-patients h1{
@@ -1461,6 +1469,7 @@ width: 10px;
 
 .search_wrap span{
   pointer-events:none;
+  user-select: none;
 }
 
 
