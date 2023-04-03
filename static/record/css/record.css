@@ -193,7 +193,9 @@ body {
   display: flex;
   background: #F2F3F3;
   border-radius: 5px;
-  padding-left: 0.5em;
+  padding-left: 5px;
+  height: 38px;
+    width: 230px;
 }
 
 #nav-left .home main #home-menu #reset i {
@@ -263,6 +265,7 @@ body {
   padding: 0.7em 0.8em;
   width: fit-content;
   border-radius: 0.5em 0.5em 0 0;
+  user-select: none;
 }
 
 #nav-left .home main #home-menu #table_menu #download {

@@ -699,6 +699,7 @@ width: 35px;
   font-size: 17px;
   margin: 0 0 0 0.5em;
   white-space: nowrap;
+  user-select: none;
 }
 
 
@@ -706,6 +707,7 @@ width: 35px;
   font-size: 17px;
   white-space: nowrap;
   color: #ff8c00;
+  user-select: none;
 }
 
 #content-patients #home-menu .right-menu {
@@ -728,8 +730,9 @@ width: 35px;
   transition: 0.2s;
   display: block;
   margin-right: 1em;
-  margin-top: 7px;
   user-select: none;
+  display: flex;
+  padding: 0.3em;
 }
 
 #content-patients #home-menu .right-menu #hot-redo{
@@ -1551,10 +1554,11 @@ width: 10px;
 }
 
 
-#search-result-count{
+.search_wrap #search-result-count{
   display: block;
   margin: auto 0.7em;
-  color: #394466;
+  color: #ff8c00;
+  padding: 0 !important;
 }
 
 
