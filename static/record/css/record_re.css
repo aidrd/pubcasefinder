@@ -240,11 +240,11 @@ i {
 }
 
 .sidebar-icon {
-  height: 33px;
-  width: 33px;
+  height: 30px;
+  width: 30px;
   background-size: contain;
   background-repeat: no-repeat;
-  margin: 10px auto 5px;
+  margin: 10px auto 7px;
 }
 
 .sidebar .sidebar-selected .links_name,
