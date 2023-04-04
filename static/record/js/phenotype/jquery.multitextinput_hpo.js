@@ -136,6 +136,40 @@
         $('<span>').addClass("sample").addClass(CLASS_OBSERVED_N).text(LANGUAGE[current_settings.language]['sample_label'][OBSERVED_N]).appendTo($header); 
 
 
+        let $doc_btn_wrapper = $('<div>').addClass('text-input-doc-btn-wrapper').appendTo($container);
+        current_settings.doc_list.forEach(doc => {
+            if(!doc.dataSrcColumnId) return;
+            let btn = document.createElement('button');
+            let btn_title = (doc.title).toUpperCase();
+            btn.innerHTML = `<span class="material-symbols-outlined">playlist_add</span>${btn_title}`
+            $(btn).data('docId', doc.docId).data('dataSrcColumnId',doc.dataSrcColumnId).addClass('doc')
+                  .attr('id', `docBtn-${doc.docId}`)
+                  .click(function(){
+                        //paste text by id
+                        let $btn = $(this)
+                        let dataSrcColumnId = $btn.data('dataSrcColumnId')
+                        if($btn.hasClass('selected')){
+                            $btn.removeClass('selected');
+                            _clear();
+                        }else{
+                            if(_isFunction(current_settings.getDocByColId)) {
+                                _clear()
+                                let text = current_settings.getDocByColId(dataSrcColumnId)
+                                $text_input_textarea.add_text(text);
+                                $text_input_textarea.set_focus();
+                                $btn.addClass('selected')
+                                if(text){
+                                    setTimeout(function(){_parse_text();}, 100);
+                                }
+                            }else{
+                                alert('func not defined')
+                            }
+                        }
+                  })
+                  .appendTo($doc_btn_wrapper);
+
+        })
+
         // content
         let $content = $('<div>').addClass('text-input-content d-flex justify-content-between').appendTo($container);
         let $text_input_textarea_wrapper = $('<div>').addClass('text-input-wrapper')
@@ -164,50 +198,14 @@
 					 }).appendTo($content);
 
         // footer
-        let $footer = $('<div>').addClass('text-input-footer d-flex justify-content-between').appendTo($container);
+        let $footer = $('<div>').addClass('text-input-footer d-flex justify-content-end').appendTo($container);
 
-        let $div_btn_wraper_l = $('<div>').addClass('text-input-button-wrapper d-flex flex-row').appendTo($footer);        
-        current_settings.doc_list.forEach(doc => {
-            if(!doc.dataSrcColumnId) return;
-            let btn = document.createElement('button');
-            let btn_title = (doc.title).toUpperCase();
-            btn.innerHTML = `<span class="material-symbols-outlined">playlist_add</span>${btn_title}`
-            $(btn).data('docId', doc.docId).data('dataSrcColumnId',doc.dataSrcColumnId).addClass('doc')
-                  .attr('id', `docBtn-${doc.docId}`)
-                  .click(function(){
-                      //paste text by id
-                        let $btn = $(this)
-                        let dataSrcColumnId = $btn.data('dataSrcColumnId')
-                        if($btn.hasClass('selected')){
-							$btn.removeClass('selected');
-                            _clear();
-                        }else{
-                            if(_isFunction(current_settings.getDocByColId)) {
-                                _clear()
-                                let text = current_settings.getDocByColId(dataSrcColumnId)
-                                $text_input_textarea.add_text(text);
-                                $text_input_textarea.set_focus();
-                                $btn.addClass('selected')
-                                if(text){
-                                    setTimeout(function(){_parse_text();}, 100);
-                                }
-                            }else{
-                                alert('func not defined')
-                            }
-                        }
-                  })
-                  .appendTo($div_btn_wraper_l);
-
-        })
-
-
-        let $div_btn_wraper_r = $('<div>').addClass('text-input-button-wrapper d-flex flex-row').appendTo($footer);
         let $clear_button = $('<button>').addClass('ctl')
                                           .text("CLEAR")
                                           .click(function(){
                                               _clear();
                                           })
-                                          .appendTo($div_btn_wraper_r);
+                                          .appendTo($footer);
         let $close_button = $('<button>').addClass('ctl')
                                           .text("CLOSE")
                                           .attr('id',"text-input-close-button")
@@ -215,7 +213,7 @@
                                               _clear();
                                               if(_isFunction(current_settings.trigger_close))current_settings.trigger_close(); 
                                           })
-                                          .appendTo($div_btn_wraper_r);
+                                          .appendTo($footer);
                                        
         let $input_button = $('<button>').addClass('enter')
                     .attr('id',"text-input-apply-button")
@@ -246,16 +244,16 @@
                             alert("No HPO selected.");
                         }
                      })
-                     .appendTo($div_btn_wraper_r);
+                     .appendTo($footer);
 
-
+/*
         if($.isPlainObject( window['tmripple']) && $.isFunction(window['tmripple'].init)){
 			$parse_button.attr({'data-animation':'ripple'});
 			$div_btn_wraper_l.find('button').attr({'data-animation':'ripple'});
 			$div_btn_wraper_r.find('button').attr({'data-animation':'ripple'});
             tmripple.init();
         }
-
+*/
         // end of ui initialize
 
         let _clear = function(){

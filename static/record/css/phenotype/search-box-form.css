@@ -43,14 +43,8 @@
   font-size: 18px;
 }
 
-.round-button:hover{
-  opacity: 0.8;
-  /*background: #ebebeb;*/
-  background: #484545;
-  color: #fff;
-}
 #btn_text_input_trigger.selected{
-  background-color: #484545;
+  background-color: #AEB0B5;
   color: #fff;
 }
 

@@ -1,5 +1,4 @@
 #text-input-container {
-  border: solid 1px #AEB0B5;
   border-radius: 5px;
   width: 100%;
   margin-top:1px;
@@ -249,72 +248,78 @@
 }
 
 #text-input-parse-button {
-  height: 48px;
-  width: 48px;
+  height: 36px;
+  width: 36px;
   color:white;
   background-color:#222057;
   opacity:1.0;
-  font-size:30px;
+  font-size:20px;
   border:0px;
   margin:0;
   position: absolute;
-  top: calc(50% - 24px);
-  left:calc(50% - 24px);
+  top: calc(50% - 18px);
+  left:calc(50% - 18px);
 }
 
-#text-input-container .text-input-footer {
+#text-input-container .text-input-doc-btn-wrapper {
   width: 100%;
-  margin-top: 10px;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  display: -ms-flexbox;
+  display: flex;
+  flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
 }
 
-#text-input-container  .text-input-footer .text-input-button-wrapper {
-  height: 30px;
-  margin: 0;
-}
-#text-input-container  .text-input-footer .text-input-button-wrapper button {
+
+#text-input-container  .text-input-doc-btn-wrapper button {
   border-radius: 5px;
   padding-left: 10px;
   padding-right: 10px;
-}
-
-#text-input-container  .text-input-footer .text-input-button-wrapper button.doc {
-  color: #007BFF;
-  border: 1px solid #007BFF;
+  color: #067ABC;
+  border: 1px solid #067ABC;
   margin-right: 5px;
   display: flex;
   align-items: center;
 }
 
-#text-input-container  .text-input-footer .text-input-button-wrapper button.doc.selected {
-  background-color: #007BFF;
+#text-input-container  .text-input-doc-btn-wrapper button.selected {
+  background-color: #067ABC;
   color: #fff;
 }
 
-#text-input-container  .text-input-footer .text-input-button-wrapper button.doc:hover {
-  background-color: #007BFF;
+#text-input-container  .text-input-doc-btn-wrapper button:hover {
+  background-color: #067ABC;
   color: #fff;
 }
 
 
+#text-input-container .text-input-footer {
+  width: 100%;
+  margin-top: 10px;
+  height: 30px;
+}
 
-#text-input-container  .text-input-footer .text-input-button-wrapper button.ctl {
+#text-input-container  .text-input-footer button {
+  border-radius: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+
+#text-input-container  .text-input-footer button.ctl{
   background-color: #AEB0B5;
   color: #fff;
   border: 1px solid #AEB0B5;
   margin-right: 5px;
 }
-#text-input-container  .text-input-footer .text-input-button-wrapper button.ctl:hover {
-  background: #484545;
-}
-#text-input-container  .text-input-footer .text-input-button-wrapper button.enter {
+
+#text-input-container  .text-input-footer button.enter {
   background-color: #ff8c00;
   border: 1px solid #ff8c00;
   color: #fff;
 }
 
-#text-input-container  .text-input-footer .text-input-button-wrapper button.enter:hover {
-  background-color: #ff7000;
-}
 .observed:before {
   background: red;
 }
