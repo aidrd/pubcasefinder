@@ -24,7 +24,7 @@ function createChart() {
     // let sexData = contentData.map(d => d['p009'])
     // createPieChart(document.getElementById('pie-chart-sex'), sexData, translate('chart-title-sex'))
     let sexAgeData = filterData(contentData)
-    createMultipleBarChart(document.getElementById('pie-chart-sex-age'), sexAgeData, translate('chart-title-sex'))
+    createMultipleBarChart(document.getElementById('pie-chart-sex-age'), sexAgeData, translate('chart-title-age'))
 
     let sexData = contentData.map(d => d['p009'])
     createPieChart(document.getElementById('pie-chart-sex'), sexData, translate('chart-title-sex'))
@@ -168,6 +168,28 @@ function createChart() {
                         text: title,
                         position: 'top',
                         align: 'start'
+                    }
+                },
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: translate('chart-multiple-age-sex-x'),
+                            align: 'end'
+                        },
+                        ticks: {
+                            display: true
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: translate('chart-multiple-age-sex-y'),
+                            align: 'end'
+                        },
+                        ticks: {
+                            display: true
+                        }
                     }
                 }
             }

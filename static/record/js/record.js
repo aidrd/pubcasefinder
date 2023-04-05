@@ -65,8 +65,8 @@ let updateSettings = {
         indicator: true,
         sortEmptyCells: false
     },
-    beforeColumnMove: (movedColumns) => {
-        if (movedColumns[0] < 2) return false
+    beforeColumnMove: (movedColumns, finalIndex) => {
+        if (movedColumns[0] < 2 || finalIndex < 2) return false
     },
     afterColumnMove: (movedColumns, finalIndex, dropIndex, movePossible, orderChanged) => {
         if (orderChanged) {
@@ -140,9 +140,26 @@ window.onload = async () => {
     function searchFunction (value) {
         const search = hot.getPlugin('search')
 
-        const queryResult = search.query(value)
+        const searchCallback = function(instance, row, col, data, testResult) {
+            if (testResult) {
+                let element = instance.getCellMeta(row, col)
+                if (col === 1) {
+                    element.isSearchResult = false
+                } else {
+                    element.isSearchResult = true
+                }
+            }
+        }
+
+        const queryResult = search.query(value, searchCallback)
+
         const totalIndexes = Array.from(Array(hot.countRows()).keys())
-        let matching = queryResult.map(obj => obj.row)
+        // let matching = queryResult.map(obj => obj.row)
+        let matching = []
+        queryResult.forEach(obj => {
+            if (obj.col > 1) matching.push(obj.row)
+        })
+
         let count = matching.length
 
         hot.updateSettings({ hiddenRows: { rows: totalIndexes } })
@@ -457,7 +474,8 @@ function addColumn() {
 
         let column = {
             data: colId,
-            type: 'text'
+            type: 'text',
+            className: 'htMiddle'
         }
 
         dataSchema[colId] = null

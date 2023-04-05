@@ -111,11 +111,11 @@ let categories = [
                 type: 'date',
                 table: true,
                 displayName: {
-                    en: 'Birth',
-                    ja: '生年月',
-                    ko: '생년월',
-                    zh: '出生日期',
-                    zhcht: '出生日期'
+                    en: 'Birth (yyyy/mm)',
+                    ja: '生年月 (yyyy/mm)',
+                    ko: '생년월 (yyyy/mm)',
+                    zh: '出生日期 (yyyy/mm)',
+                    zhcht: '出生日期 (yyyy/mm)'
                 }
             },
             {
@@ -141,11 +141,11 @@ let categories = [
                 type: 'date',
                 table: true,
                 displayName: {
-                    en: 'Death',
-                    ja: '没年月',
-                    ko: '사망일',
-                    zh: '已故日期',
-                    zhcht: '已故日期'
+                    en: 'Death (yyyy/mm)',
+                    ja: '没年月 (yyyy/mm)',
+                    ko: '사망일 (yyyy/mm)',
+                    zh: '已故日期 (yyyy/mm)',
+                    zhcht: '已故日期 (yyyy/mm)'
                 }
             },
             {
@@ -413,11 +413,11 @@ let categories = [
                 type: 'text',
                 table: true,
                 displayName: {
-                    en: 'Body Weight',
-                    ja: '体重',
-                    ko: '체중',
-                    zh: '体重',
-                    zhcht: '體重'
+                    en: 'Body Weight (kg)',
+                    ja: '体重 (kg)',
+                    ko: '체중 (kg)',
+                    zh: '体重 (kg)',
+                    zhcht: '體重 (kg)'
                 }
             },
             {
@@ -428,11 +428,11 @@ let categories = [
                 type: 'text',
                 table: true,
                 displayName: {
-                    en: 'Body Height',
-                    ja: '身長',
-                    ko: '신장',
-                    zh: '身高',
-                    zhcht: '身高'
+                    en: 'Body Height (cm)',
+                    ja: '身長 (cm)',
+                    ko: '신장 (cm)',
+                    zh: '身高 (cm)',
+                    zhcht: '身高 (cm)'
                 }
             },
             {
@@ -443,11 +443,11 @@ let categories = [
                 type: 'text',
                 table: true,
                 displayName: {
-                    en: 'Head Circumference',
-                    ja: '頭囲',
-                    ko: '머리둘레',
-                    zh: '头围',
-                    zhcht: '頭圍'
+                    en: 'Head Circumference (cm)',
+                    ja: '頭囲 (cm)',
+                    ko: '머리둘레 (cm)',
+                    zh: '头围 (cm)',
+                    zhcht: '頭圍 (cm)'
                 }
             },
             {

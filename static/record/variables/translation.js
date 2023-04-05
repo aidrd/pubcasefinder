@@ -139,5 +139,15 @@ let elementTranslation = {
         en: 'Null',
         ja: '未記入',
         ko: ''
+    },
+    'chart-multiple-age-sex-x': {
+        en: 'Age',
+        ja: '年代',
+        ko: ''
+    },
+    'chart-multiple-age-sex-y': {
+        en: 'Person',
+        ja: '人物',
+        ko: ''
     }
 }

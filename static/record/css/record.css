@@ -1151,6 +1151,10 @@ display: block;
   text-align: center;
 }
 
+.modal_box .handsontable.listbox td, .handsontable.listbox th {
+  text-align: left;
+}
+
 /* ::placeholder {
   color: #dadce0;
 } */

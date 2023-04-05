@@ -128,7 +128,7 @@ async function bodyTable() {
         let displayName = c['displayName'][lang] || c['displayName']['en']
 
         bodySchema[c.columnId] = null
-        bodyHeaders.push(`${displayName}${c.columnId === 'm013_2' ? '(kg)' : '(cm)' }`)
+        bodyHeaders.push(`${displayName}`)
         bodyColumns.push({
             data: c.columnId,
             type: 'text',
