@@ -499,8 +499,13 @@ body {
 
 #modal-karte .tab-wrap .tab-contents {
   display: none;
+  height: 100vh;
   max-height: calc(100vh - 190px);
   overflow-y: scroll;
+}
+
+#modal-karte .tab-wrap .tab-contents .search-box_wrapper{
+  min-width: auto;
 }
 
 #modal-karte .tab-wrap .show {
