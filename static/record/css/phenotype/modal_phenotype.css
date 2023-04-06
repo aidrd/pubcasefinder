@@ -78,7 +78,10 @@
 
 #phenotype_add i {margin-right: 0.2em;}
 
-.phenotype_add_wrapper{text-align:center;margin-top:10px;}
+.phenotype_add_wrapper{
+  text-align:center;
+  /* margin-top:10px; */
+}
 
 .phenotype_title_sub{
   display: flex;
