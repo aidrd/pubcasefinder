@@ -683,8 +683,11 @@
 						////if(json_data.length > 0 && json_data[0] === 'mondo_id') json_data = json_data.slice(1);
 						//let json_data = _parseJson(data);
 						//_store_idlist_to_cache(settings[SETTINGS_KEY_TARGET], settings[SETTINGS_KEY_FILTER], json_data);
-						let hash_data = _parseJson(data);
-						let json_data = hash_data.map(function(d) { return d['mondo_id']; });;
+
+						//let hash_data = _parseJson(data);
+						//let json_data = hash_data.map(function(d) { return d['mondo_id']; });;
+						let json_data = _get_panel_list_from_search_result(data);
+
 						_store_idlist_to_cache(settings[SETTINGS_KEY_TARGET], settings[SETTINGS_KEY_FILTER], json_data);
 						_search_panel_data(settings);
 						return;

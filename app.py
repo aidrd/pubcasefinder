@@ -1732,10 +1732,14 @@ def pcf_get_all_panel():
     response_data = {}
 
     OBJ_MYSQL = MySQLdb.connect(unix_socket=db_sock, host="localhost", db=db_name, user=db_user, passwd=db_pw, charset="utf8")
-    cursor = OBJ_MYSQL.cursor(MySQLdb.cursors.DictCursor)
-    sql =  u"select MondoID as mondo_id, MondoTerm as panel_name,GeneCount as count from Panel order by MondoID;"
+    #cursor = OBJ_MYSQL.cursor(MySQLdb.cursors.DictCursor)
+    cursor = OBJ_MYSQL.cursor()
+    #sql =  u"select MondoID as mondo_id, MondoTerm as panel_name,GeneCount as count from Panel order by MondoID;"
+    sql =  u"select MondoID from Panel order by MondoID;"
     cursor.execute(sql)
     results = cursor.fetchall()
     OBJ_MYSQL.close()
-
-    return json.dumps(results, ensure_ascii=False)
+    
+    #return json.dumps(results, ensure_ascii=False)
+    response_data['input:'] = [list[0] for list in results]
+    return json.dumps(response_data, ensure_ascii=False)
