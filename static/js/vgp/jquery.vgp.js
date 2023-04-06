@@ -1,7 +1,8 @@
 ;(function ($) {
 
-	const URL_GET_ALL_PANEL_ID           = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_get_all_panel',
-		  //URL_GET_ALL_PANEL_ID           = '/static/data/panel/all_panel_id.json';
+	const //URL_GET_ALL_PANEL_ID           = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_get_all_panel',
+		  URL_GET_ALL_PANEL_ID           = '/pcf_get_all_panel',
+		  //URL_GET_ALL_PANEL_ID           = '/static/data/panel/all_panel_id.json',
 		  URL_GET_PANEL_ID_BY_PANEL      = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_panel_get_mondo_id_match_panel_name_synonym',
 		  URL_GET_PANEL_ID_BY_GENE       = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_panel_get_mondo_id_match_gene_symbol_synonym_ncbiid',
 		  URL_GET_PANEL_DATA_BY_PANEL_ID = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_get_panel_data_by_mondo_id',

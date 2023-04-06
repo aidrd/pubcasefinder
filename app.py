@@ -1725,3 +1725,17 @@ def vgp():
         r_schema = request.args.get('schema')
 
     return render_template('vgp.html', r_schema=r_schema, r_lang=r_lang)
+
+@app.route('/pcf_get_all_panel', methods=['GET', 'POST'])
+def pcf_get_all_panel():
+
+    response_data = {}
+
+    OBJ_MYSQL = MySQLdb.connect(unix_socket=db_sock, host="localhost", db=db_name, user=db_user, passwd=db_pw, charset="utf8")
+    cursor = OBJ_MYSQL.cursor(MySQLdb.cursors.DictCursor)
+    sql =  u"select MondoID as mondo_id, MondoTerm as panel_name,GeneCount as count from Panel order by MondoID;"
+    cursor.execute(sql)
+    results = cursor.fetchall()
+    OBJ_MYSQL.close()
+
+    return json.dumps(results, ensure_ascii=False)
