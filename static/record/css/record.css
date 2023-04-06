@@ -499,6 +499,7 @@ body {
 
 #modal-karte .tab-wrap .tab-contents {
   display: none;
+  height: 100vh;
   max-height: calc(100vh - 190px);
   overflow-y: scroll;
 }
