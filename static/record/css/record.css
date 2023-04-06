@@ -504,6 +504,10 @@ body {
   overflow-y: scroll;
 }
 
+#modal-karte .tab-wrap .tab-contents .search-box_wrapper{
+  min-width: auto;
+}
+
 #modal-karte .tab-wrap .show {
   display: block;
   padding: 10px 20px;
