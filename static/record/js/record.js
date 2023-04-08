@@ -141,13 +141,16 @@ window.onload = async () => {
         const search = hot.getPlugin('search')
 
         const searchCallback = function(instance, row, col, data, testResult) {
+            let element = instance.getCellMeta(row, col)
+
             if (testResult) {
-                let element = instance.getCellMeta(row, col)
                 if (col === 1) {
                     element.isSearchResult = false
                 } else {
                     element.isSearchResult = true
                 }
+            } else {
+                element.isSearchResult = false
             }
         }
 
@@ -1321,7 +1324,7 @@ function setInitialLanguage() {
                 let option = document.createElement('option')
                 option.value = ''
                 option.innerText = translate('select')
-                option.hidden = true
+                option.hidden = false
                 select.add(option)
 
                 let options = c.options.dataValue

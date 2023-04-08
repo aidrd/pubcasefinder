@@ -370,7 +370,7 @@ let categories = [
             {
                 columnId: 'm011',
                 dataKey: 'examinationFinding',
-                inputType: 'text',
+                inputType: 'textarea',
                 phenoKey: '',
                 type: 'text',
                 table: true,

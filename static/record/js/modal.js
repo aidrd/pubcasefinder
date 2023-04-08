@@ -253,11 +253,11 @@ function openModal(patientId) {
 
                 if (colId === 'p005') {
                     let parent = $('#p008').parent()
-                    showHideDeathDate(parent, value)
+                    showHideDeathDate(parent, 'deceased')
 
                     radioInput.on('click change', () => {
                         let radioValue = radioInput.filter(':checked').val()
-                        showHideDeathDate(parent, radioValue)
+                        // showHideDeathDate(parent, radioValue)
                         if (radioValue === 'alive') onchange('p008', '')
                     })
                 } else if (colId === 'p006_year' || colId === 'p008_year') {
@@ -411,7 +411,14 @@ function openModal(patientId) {
                 if (value === '') {
                     value = ''
                 } else {
-                    value = `${document.querySelector(`.tab-wrap *[name="${pre}_year"]`).value}/${document.querySelector(`.tab-wrap *[name="${pre}_month"]`).value}`
+                    let year = document.querySelector(`.tab-wrap *[name="${pre}_year"]`).value
+                    let month = document.querySelector(`.tab-wrap *[name="${pre}_month"]`).value
+                    if (year === '0' & month === '0') {
+                        value = ''
+                    } else {
+                        value = `${year}/${month}`
+                    }
+                    // value = `${document.querySelector(`.tab-wrap *[name="${pre}_year"]`).value}/${document.querySelector(`.tab-wrap *[name="${pre}_month"]`).value}`
                 }
             }
 

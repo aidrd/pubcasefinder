@@ -146,8 +146,8 @@ let elementTranslation = {
         ko: ''
     },
     'chart-multiple-age-sex-y': {
-        en: 'Person',
-        ja: '人物',
+        en: '# of cases',
+        ja: '症例数',
         ko: ''
     }
 }

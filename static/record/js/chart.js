@@ -95,7 +95,16 @@ function createChart() {
                 maintainAspectRatio: false,
                 scales: {
                     y: {
-                        beginAtZero: true
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: translate('chart-multiple-age-sex-y'),
+                            align: 'end'
+                        },
+                        ticks: {
+                            display: true,
+                            precision: 0
+                        }
                     }
                 },
                 plugins: {
@@ -178,7 +187,8 @@ function createChart() {
                             align: 'end'
                         },
                         ticks: {
-                            display: true
+                            display: true,
+                            precision: 0
                         }
                     },
                     y: {
@@ -188,7 +198,8 @@ function createChart() {
                             align: 'end'
                         },
                         ticks: {
-                            display: true
+                            display: true,
+                            precision: 0
                         }
                     }
                 }
