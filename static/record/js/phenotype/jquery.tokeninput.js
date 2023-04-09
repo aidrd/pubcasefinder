@@ -170,7 +170,9 @@
 		disabled: false,
 
 		uisetting_tag_size: UISETTING_TAG_SIZE_L,
-		uisetting_language: LANGUAGE_EN + "" + LANGUAGE_JA
+		uisetting_language: LANGUAGE_EN + "" + LANGUAGE_JA,
+		
+		getExcludeHPOList: null
 	};
 
 	// Default classes to use when theming
@@ -1140,6 +1142,8 @@
 			// exclude current tokens if configured
 			results = excludeCurrent(results);
 
+			results = exclude_loaded_hpos(results);
+
 			if(results && results.length) {
 				dropdown.empty();
 				var dropdown_ul = $("<ul/>")
@@ -1300,6 +1304,21 @@
 			}).fail(function(jqXHR, textStatus, errorThrown ) {
 				console.log(textStatus, errorThrown);
 			});
+		}
+
+		function exclude_loaded_hpos(results){
+
+			if($.isFunction($(input).data("settings").getExcludeHPOList)) {
+				let exclude_hpo_list = $(input).data("settings").getExcludeHPOList();
+				if($.isArray(exclude_hpo_list) && exclude_hpo_list.length > 0){
+					return results.filter(hpo_obj => {
+						let id = hpo_obj.id.replace('_ja','');
+						return !exclude_hpo_list.includes(id);
+					});
+				}
+			}
+
+			return results;
 		}
 
 		// Do the actual search

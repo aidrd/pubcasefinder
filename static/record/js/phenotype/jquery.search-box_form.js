@@ -42,7 +42,8 @@
         lang:                       'ja',
         doc_list:                   null,
         getDocByColId:              null,
-        onClickTextBtn:             null,		
+        onClickTextBtn:             null,	
+        getExcludeHPOList:             null,	
         uisetting_tag_size:         UISETTING_TAG_SIZE_L,
         uisetting_language:         UISETTING_LANGUAGE_ENGLISH,UISETTING_LANGUAGE_JAPANESE
     };
@@ -378,7 +379,8 @@
                 },
                 onClickDelete:        function() {
                     $("#tokeninput_hpo").popupRelationHPO('triggerChangeState');
-                }
+                },
+                getExcludeHPOList:      settings.getExcludeHPOList
             }
         );
 

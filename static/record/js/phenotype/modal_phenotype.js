@@ -149,13 +149,6 @@ function phenotypeInfo_createFilterUI(filter_container_id) {
 
 function phenotypeInfo_onFilterChange(){
 
-/*
-    if($('#phenotypic-btn-filter').hasClass('active')===false){
-         $('#phenotype_list').find('li').show();
-         return;
-    }
-*/
-
     let filter_list = [];
 
     $('#phenotype_filter').find("input[type='checkbox']:checked").each(function(){
@@ -228,6 +221,9 @@ function phenotypeInfo_initUI(phenotypeInfo_container){
                 $('#phenotype_add').hide();
                 $('#phenotype_doc_input_btn_wrapper').hide();
             }
+        },
+        'getExcludeHPOList': function(){
+            return phenotypeData['pi001'];
         }
     })
 
