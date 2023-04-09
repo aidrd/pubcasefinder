@@ -408,7 +408,7 @@ i {
 .common-brand{
   display: block;
     max-width: 200px;
-    min-width: 170px;
+    min-width: 200px;
     margin: auto 0;
 }
 

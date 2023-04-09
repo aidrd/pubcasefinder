@@ -1,17 +1,66 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="200" height="200" viewBox="0 0 200 200">
-  <defs>
-    <clipPath id="clip-commonmenu-icon2">
-      <rect width="200" height="200"/>
-    </clipPath>
-  </defs>
-  <g id="commonmenu-icon2" clip-path="url(#clip-commonmenu-icon2)">
-    <g id="グループ_56235" data-name="グループ 56235" transform="translate(-10873.702 -7350.411)">
-      <path id="パス_104491" data-name="パス 104491" d="M390.932,159.141c-18.548,37.853-69.245,43.694-103.261,23.829,7.012.564,14.234,2.005,21.181,2.322,29.646,3.193,60.207-4.958,82.08-26.151" transform="translate(10641.188 7295.33)"/>
-      <path id="パス_104492" data-name="パス 104492" d="M425.1,135.995a24.6,24.6,0,0,0-19.149-3.1c-8.343,2.459-13.734,7.978-17.314,15.334-14.73,30.564-39.675,54.728-66.978,74.41-15.334,10.869-32.118,19.959-50.682,23.936a.467.467,0,0,0-.366.472.46.46,0,0,0,.481.436c9.635-.527,18.92-3.73,28.263-6.18,53.75-14.109,77.988-47.275,96.009-85.9,3.187-6.85,7.134-16.211,15.666-16.812,6.96-1.048,12.74,1.463,18.207,5.5,2.91,1.88,15.017,10.775,15.017,10.775s-4.638-6.908-19.155-18.868" transform="translate(10606.273 7240.129)"/>
-      <path id="パス_104493" data-name="パス 104493" d="M404.721,159.553a37.659,37.659,0,0,1-5.168,10.882,96.766,96.766,0,0,1-8.931,11.287c-31.009,32.834-68.849,27.334-104.837,6.076a130.864,130.864,0,0,0,11.951,9.836c21.986,14.459,51.169,20.136,75.748,8.487,9.888-4.476,15.34-9.181,22.882-17.945,12-13.938,8.356-28.623,8.356-28.623" transform="translate(10637.288 7296.173)"/>
-      <path id="パス_104494" data-name="パス 104494" d="M346.128,184.191c-4.165-13.886-20.657-20.072-24.006-32.295-1.551-9.7,7.865-11.311,18.04-12.134-7.027-1.246-14.371-2-19.956,4.379-2.307,3.727-2.218,8.855,1.99,15.827,7.225,10.8,23.363,32.191,19.947,50.974,0,0,8.255-12.521,3.986-26.752" transform="translate(10704.7 7253.929)"/>
-      <path id="パス_104495" data-name="パス 104495" d="M309.471,175.485l7.557,21.194-12.969-18.387Z" transform="translate(10674.739 7328.79)"/>
-      <path id="パス_104496" data-name="パス 104496" d="M303.745,181.44l28.586,3.047-28.586,3.047Z" transform="translate(10674.094 7340.981)"/>
-    </g>
-  </g>
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 27.4.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="レイヤー_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
+	 y="0px" viewBox="0 0 200 200" style="enable-background:new 0 0 200 200;" xml:space="preserve">
+<g>
+	<defs>
+		<rect id="SVGID_1_" x="-152.4" y="-108.1" width="200" height="200"/>
+	</defs>
+	<clipPath id="SVGID_00000044175614801181745870000009083204906781684640_">
+		<use xlink:href="#SVGID_1_"  style="overflow:visible;"/>
+	</clipPath>
+</g>
+<script>//<![CDATA[  <-- For SVG support
+	if ('WebSocket' in window) {
+		(function () {
+			function refreshCSS() {
+				var sheets = [].slice.call(document.getElementsByTagName("link"));
+				var head = document.getElementsByTagName("head")[0];
+				for (var i = 0; i < sheets.length; ++i) {
+					var elem = sheets[i];
+					var parent = elem.parentElement || head;
+					parent.removeChild(elem);
+					var rel = elem.rel;
+					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+					}
+					parent.appendChild(elem);
+				}
+			}
+			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+			var address = protocol + window.location.host + window.location.pathname + '/ws';
+			var socket = new WebSocket(address);
+			socket.onmessage = function (msg) {
+				if (msg.data == 'reload') window.location.reload();
+				else if (msg.data == 'refreshcss') refreshCSS();
+			};
+			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+				console.log('Live reload enabled.');
+				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+			}
+		})();
+	}
+	else {
+		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+	}
+	// 
+	]]>
+</script>
+<g id="グループ_56385" transform="translate(-205.743 -501.001)">
+	<path id="パス_104894" d="M366.8,528c-5.8-3.6-12.7-4.8-19.2-3.1c-8.4,2.4-13.7,7.9-17.5,15.3c-14.9,30.7-39.8,54.9-67.4,74.6
+		c-15.3,11-32.1,19.9-50.8,24c-0.2,0-0.5,0.2-0.5,0.5c0,0.2,0.2,0.5,0.5,0.5c9.6-0.5,18.9-3.6,28.3-6.2c54-14.1,78.2-47.5,96.4-86.1
+		c3.1-7,7.2-16.3,15.8-16.8c7-1.2,12.7,1.4,18.5,5.5c2.9,1.9,15.1,10.8,15.1,10.8S381.4,540,366.8,528"/>
+	<path id="パス_104895" d="M375.2,574.1c-5.8-5.3-11.3-10.3-12.9-16.3c-1.4-9.8,7.9-11.3,18.2-12.2c-7-1.2-14.4-2.2-19.9,4.6
+		c-2.2,3.6-2.2,8.9,2.2,15.8c2.4,3.6,6.7,9.4,10.3,15.1C373.7,578.8,374.5,575.7,375.2,574.1"/>
+	<path id="パス_104896" d="M366.3,618.9c-8.6,1.7-18.7,0-22.3-7.7c-1.9-4.1-3.4-10.6-9.4-13.4c0,0,6,2.2,8.2,4.6
+		c4.1,4.6,4.6,12.7,11.7,13.9c9.1,1.2,25.7-1.2,33.6-14.9c1.7-2.9,2.2-6.2,1.2-9.4l0,0l0,0c-1.9-6.2-7-11.3-12-16.1
+		c-1.2,3.8-2.9,7.4-5,10.8c-7,9.4-18.7,11-29.3,8.6c-11-3.4-19.9-16.8-19.9-16.8c0.5,4.1,4.6,11.7,9.4,15.6
+		c-2.9,7.7-12.7,38.4,18.9,37.2c22.1-0.7,35.5-8.6,37.9-27.3C387.9,605.7,384.5,614.3,366.3,618.9"/>
+	<path id="パス_104897" d="M330.8,627.5c-14.4,4.6-30.7,7-45.8,5.3c-7-0.5-14.4-1.9-21.3-2.4c22.5,13.2,54,13.9,77,2.6
+		C337.1,632.3,333.7,630.2,330.8,627.5"/>
+	<path id="パス_104898" d="M360.3,633.3c0,0-1.7,1.4-4.8,4.1c-29.5,24.7-64.3,18.5-97.4-1.2c3.6,3.6,7.7,7,12,9.8
+		c13.4,8.9,29,13.9,44.8,14.6l10.8,15.3l-12.7-1.2v6.2l28.8-3.1l-15.3-1.7l-5.5-15.3c8.6-0.5,17.3-2.4,25.2-6.2
+		c10.1-4.6,15.3-9.4,23-18c2.2-2.2,3.8-4.6,5.3-7C369.9,631.4,365.4,632.6,360.3,633.3"/>
+</g>
 </svg>
