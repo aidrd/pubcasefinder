@@ -1556,7 +1556,7 @@ width: 10px;
 
 .search_wrap #search-result-count{
   display: block;
-  margin: auto 0.7em;
+  margin: auto 0;
   color: #ff8c00;
   padding: 0 !important;
 }
