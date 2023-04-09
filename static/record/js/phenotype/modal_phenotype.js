@@ -158,22 +158,27 @@ function phenotypeInfo_onFilterChange(){
         filter_list.push({cid:cid,val:val});
     });
 
+    let cnt = $('#phenotype_list').find('li').length;
+
     if(filter_list.length === 0){
         $('#phenotype_list').find('li').show();
-        return;
+    }else{
+        
+        $('#phenotype_list').find('li').each(function(li_idx,li){
+            let isShown = false;
+            filter_list.forEach(filter => {
+                if(phenotypeData[filter.cid][li_idx] === filter.val) isShown = true;
+            });
+            if(isShown){
+                $(li).show();
+            }else{
+                $(li).hide();
+                cnt--;
+            }
+        });
     }
 
-    $('#phenotype_list').find('li').each(function(li_idx,li){
-        let isShown = false;
-        filter_list.forEach(filter => {
-            if(phenotypeData[filter.cid][li_idx] === filter.val) isShown = true;
-        });
-        if(isShown){
-            $(li).show();
-        }else{
-            $(li).hide();
-        }
-    });
+    $("#phenotype_num").text(`(${cnt})`);
 }
 
 function phenotypeInfo_updateNum(){
