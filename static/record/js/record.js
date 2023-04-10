@@ -8,7 +8,7 @@ setInitialLanguage()
 let count
 let toReset = true
 
-let defaultColumns = ['caseSolved', 'chiefComplaint', 'finalDiagnosis', 'clinicalDiagnosis', 'sex','age', 'birth', 'lifeStatus', 'group', 'relationship', 'familyId', 'patientId']
+let defaultColumns = ['caseSolved', 'chiefComplaint', 'finalDiagnosis', 'clinicalDiagnosis', 'sex', 'age', 'birth', 'lifeStatus', 'group', 'relationship', 'familyId', 'patientId']
 // defaultColumns = ['patientId', 'lifeStatus']
 let actions = ['REMOVE', 'EDIT']
 actions = ['EDIT', 'REMOVE']
@@ -137,10 +137,10 @@ window.onload = async () => {
     hot = new Handsontable(hotContainer, updateSettings)
     exportPlugin = hot.getPlugin('exportFile')
 
-    function searchFunction (value) {
+    function searchFunction(value) {
         const search = hot.getPlugin('search')
 
-        const searchCallback = function(instance, row, col, data, testResult) {
+        const searchCallback = function (instance, row, col, data, testResult) {
             let element = instance.getCellMeta(row, col)
 
             if (testResult) {
@@ -262,7 +262,7 @@ function createColumns() {
 
                 if (c.type === 'date') {
                     column.dateFormat = 'YYYY/MM',
-                    column.correctFormat = true
+                        column.correctFormat = true
                     column.datePickerConfig = {
                         dateFormat: 'mm-yy',
                         firstDay: 0,
@@ -273,7 +273,7 @@ function createColumns() {
                         // yearSuffix: '年',
                         // maxDate: new Date(),
                         yearRange: [1900, new Date().getFullYear()],
-                        onDraw: function(datepicker) {
+                        onDraw: function (datepicker) {
                             let close = document.createElement('span')
                             close.classList.add('pika-ok')
                             close.innerHTML = 'OK'
@@ -462,7 +462,7 @@ function addColumn() {
                             onchange="showHideColumn(this)"
                             ${existingColumns.includes(key) ? 'checked' : ''}>
                     <label for="${key}">${colName}</label>
-                    ${type === 'custom' ? `<i class="material-icons-outlined" onclick="removeCustomColumn(${colName})">delete</i>` : ''}
+                    ${type === 'custom' ? `<i class="material-icons-outlined add-custom-column" onclick="removeCustomColumn(${colName})">delete</i>` : ''}
                 </div>
             `
         }

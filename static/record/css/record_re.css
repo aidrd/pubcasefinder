@@ -1572,3 +1572,8 @@ width: 10px;
   cursor: col-resize;
   background-color: #eee;
 }
+
+
+.add-custom-column{
+  float: right;
+}
