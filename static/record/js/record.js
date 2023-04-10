@@ -462,7 +462,7 @@ function addColumn() {
                             onchange="showHideColumn(this)"
                             ${existingColumns.includes(key) ? 'checked' : ''}>
                     <label for="${key}">${colName}</label>
-                    ${type === 'custom' ? `<i class="material-icons-outlined add-custom-column" onclick="removeCustomColumn(${colName})">delete</i>` : ''}
+                    ${type === 'custom' ? `<div class="list-icon list-delete add-custom-column" onclick="removeCustomColumn(${colName})"></div>` : ''}
                 </div>
             `
         }
