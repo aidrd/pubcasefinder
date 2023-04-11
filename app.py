@@ -1735,11 +1735,67 @@ def pcf_get_all_panel():
     #cursor = OBJ_MYSQL.cursor(MySQLdb.cursors.DictCursor)
     cursor = OBJ_MYSQL.cursor()
     #sql =  u"select MondoID as mondo_id, MondoTerm as panel_name,GeneCount as count from Panel order by MondoID;"
-    sql =  u"select MondoID from Panel order by MondoID;"
+    sql =  u"select distinct MondoID from Panel order by MondoID;"
     cursor.execute(sql)
     results = cursor.fetchall()
     OBJ_MYSQL.close()
     
     #return json.dumps(results, ensure_ascii=False)
     response_data['input:'] = [list[0] for list in results]
+    return json.dumps(response_data, ensure_ascii=False)
+
+@app.route('/pcf_panel_get_mondo_id_match_panel_name_synonym', methods=['GET'])
+def pcf_panel_get_mondo_id_match_panel_name_synonym():
+
+    r_lang = "en"
+    if request.args.get('lang') is not None:
+        r_lang = request.args.get('lang')
+
+    r_input_text = ""
+    if request.args.get('input_text') is not None:
+        r_input_text = request.args.get('input_text')
+
+
+    values = ('%'+r_input_text+'%','%'+r_input_text+'%')
+    sql = """select distinct MondoID from Panel where MondoTerm like %s OR MondoTermSynonym like %s order by MondoID"""
+
+    if r_lang == 'ja':
+        sql =  """select distinct MondoID from Panel where MondoTerm like %s OR MondoTermSynonym like %s OR MondoTermJa like %s order by MondoID"""
+        values = ('%'+r_input_text+'%','%'+r_input_text+'%','%'+r_input_text+'%')
+
+    #app.logger.info(sql)
+
+    response_data = {}
+
+    OBJ_MYSQL = MySQLdb.connect(unix_socket=db_sock, host="localhost", db=db_name, user=db_user, passwd=db_pw, charset="utf8")
+
+    cursor = OBJ_MYSQL.cursor()
+
+    cursor.execute(sql, values)
+
+    results = cursor.fetchall()
+    OBJ_MYSQL.close()
+    response_data['input:'] = [list[0] for list in results]
+
+    return json.dumps(response_data, ensure_ascii=False)
+
+@app.route('/pcf_panel_get_mondo_id_match_gene_symbol_synonym_ncbiid', methods=['GET'])
+def pcf_panel_get_mondo_id_match_gene_symbol_synonym_ncbiid():
+
+    r_input_text = ""
+    if request.args.get('input_text') is not None:
+        r_input_text = request.args.get('input_text')
+        r_input_text = r_input_text.upper()
+
+    values = ('%'+r_input_text+'%',)
+    sql = """select distinct MondoID from Panel where GeneSymbolList like %s order by MondoID"""
+
+    response_data = {}
+    OBJ_MYSQL = MySQLdb.connect(unix_socket=db_sock, host="localhost", db=db_name, user=db_user, passwd=db_pw, charset="utf8")
+    cursor = OBJ_MYSQL.cursor()
+    cursor.execute(sql, values)
+    results = cursor.fetchall()
+    OBJ_MYSQL.close()
+    response_data['input:'] = [list[0] for list in results]
+
     return json.dumps(response_data, ensure_ascii=False)
