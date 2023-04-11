@@ -1754,13 +1754,13 @@ def pcf_panel_get_mondo_id_match_panel_name_synonym():
     r_input_text = ""
     if request.args.get('input_text') is not None:
         r_input_text = request.args.get('input_text')
-
+        r_input_text = r_input_text.lower()
 
     values = ('%'+r_input_text+'%','%'+r_input_text+'%')
-    sql = """select distinct MondoID from Panel where MondoTerm like %s OR MondoTermSynonym like %s order by MondoID"""
+    sql = """select distinct MondoID from Panel where lower(MondoTerm) like %s OR lower(MondoTermSynonym) like %s order by MondoID"""
 
     if r_lang == 'ja':
-        sql =  """select distinct MondoID from Panel where MondoTerm like %s OR MondoTermSynonym like %s OR MondoTermJa like %s order by MondoID"""
+        sql =  """select distinct MondoID from Panel where lower(MondoTerm) like %s OR lower(MondoTermSynonym) like %s OR lower(MondoTermJa) like %s order by MondoID"""
         values = ('%'+r_input_text+'%','%'+r_input_text+'%','%'+r_input_text+'%')
 
     #app.logger.info(sql)
