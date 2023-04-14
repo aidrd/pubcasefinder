@@ -152,6 +152,30 @@
   padding-top: 10px;
 }
 
+#phenotype_selectedfilter_wrap {
+/*  border-top: solid 1px #AEB0B5;*/
+  width: 100%;
+  background-color: #fff !important;
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 12px;
+  margin-bottom: 5px;
+  /*display: none;*/
+}
+
+#phenotype_selectedfilter_wrap div{
+    padding-top: 5px;
+    margin-right: 5px;
+    font-size: 13px;
+}
+#phenotype_selectedfilter_wrap span{
+  border: solid 1px #AEB0B5;
+  border-radius: 5px !important;
+  padding: 5px 5px 5px 5px;
+  margin-right: 10px;
+  margin-bottom: 5px;
+  white-space: nowrap;
+}
 #phenotype_list {
   border-top: solid 1px #AEB0B5;
   border-radius: 0 !important;

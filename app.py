@@ -1788,7 +1788,7 @@ def pcf_panel_get_mondo_id_match_gene_symbol_synonym_ncbiid():
         r_input_text = r_input_text.upper()
 
     values = ('%'+r_input_text+'%',)
-    sql = """select distinct MondoID from Panel where GeneSymbolList like %s order by MondoID"""
+    sql = u"select distinct MondoID from Panel where GeneSymbolList like %s order by MondoID"
 
     response_data = {}
     OBJ_MYSQL = MySQLdb.connect(unix_socket=db_sock, host="localhost", db=db_name, user=db_user, passwd=db_pw, charset="utf8")

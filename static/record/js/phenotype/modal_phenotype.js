@@ -108,7 +108,8 @@ function phenotypeInfo_createFilterUI(filter_container_id) {
     $('<button>').text(translate('phenotypic-info-filter-clearall'))
                  .click(function(){
                      $('#phenotype_filter').find("input[type='checkbox']").prop('checked','');
-                     $('#phenotype_list').find('li').show();    
+                     //$('#phenotype_list').find('li').show();    
+                     phenotypeInfo_onFilterChange();
                  })
                  .appendTo($div_ctl);
 
@@ -150,13 +151,27 @@ function phenotypeInfo_createFilterUI(filter_container_id) {
 function phenotypeInfo_onFilterChange(){
 
     let filter_list = [];
+    let $phenotype_selectedfilter_wrap = $('#phenotype_selectedfilter_wrap');
+    $phenotype_selectedfilter_wrap.find('span').remove();
 
     $('#phenotype_filter').find("input[type='checkbox']:checked").each(function(){
         let $cbx = $(this);
         let cid = $cbx.data('cid');
         let val = $cbx.val();
         filter_list.push({cid:cid,val:val});
+
+        let displayName = $cbx.next().text();
+        $('<span>').text(displayName).appendTo($phenotype_selectedfilter_wrap);
     });
+
+    if(filter_list.length === 0){
+        $phenotype_selectedfilter_wrap.hide();
+    }else{
+        if($("#phenotypic-btn-filter").hasClass('active')){
+        }else{
+            $phenotype_selectedfilter_wrap.show();
+        }
+    }
 
     let cnt = $('#phenotype_list').find('li').length;
 
@@ -209,7 +224,8 @@ function phenotypeInfo_initUI(phenotypeInfo_container){
                 <button id="phenotypic-btn-filter" class="round-button"><span class="material-symbols-outlined">tune</span></button>
             </div>
         </div>
-        <div id=phenotype_filter></div>
+        <div id="phenotype_filter"></div>
+        <div id="phenotype_selectedfilter_wrap"><div>Filters:</div></div>
         <ul id="phenotype_list"></ul>
     `
     let phenotypeInfo_doc_list = phenotypeInfo_createDocList();
@@ -275,11 +291,13 @@ function phenotypeInfo_initUI(phenotypeInfo_container){
         if($(this).hasClass('active')){
             $(this).removeClass('active');
             $('#phenotype_filter').removeClass('active');
-            //$('#phenotype_list').find('li').show();
+            if($('#phenotype_selectedfilter_wrap').find('span').length > 0){
+                $('#phenotype_selectedfilter_wrap').show();
+            }
         }else{
             $(this).addClass('active');
             $('#phenotype_filter').addClass('active');
-            //phenotypeInfo_onFilterChange();
+            $('#phenotype_selectedfilter_wrap').hide();
         }
     });
 
@@ -457,6 +475,8 @@ function phenotypeInfo_createRows(){
                            })
                            phenotypeInfo_updateNum();
                            $(this).closest('li').remove();
+                           phenotypeInfo_updateFilterCNT();
+                           phenotypeInfo_onFilterChange(); 
                        }
                        e.stopPropagation();
                    })
