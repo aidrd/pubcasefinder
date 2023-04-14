@@ -462,7 +462,7 @@ function addColumn() {
                             onchange="showHideColumn(this)"
                             ${existingColumns.includes(key) ? 'checked' : ''}>
                     <label for="${key}">${colName}</label>
-                    ${type === 'custom' ? `<div class="list-icon list-delete add-custom-column" onclick="removeCustomColumn(${colName})"></div>` : ''}
+                    ${type === 'custom' ? `<div class="list-icon list-delete add-custom-column" data-colname="${colName}" onclick="removeCustomColumn(this)"></div>` : ''}
                 </div>
             `
         }
@@ -745,6 +745,8 @@ function onDragOver(event) {
 
 function onDrop(event) {
     event.preventDefault()
+    if (document.getElementById('modal-karte').style.display === 'block') return
+
     let file = event.dataTransfer.items[0].getAsFile()
     fileReader(file, file.type, true)
 }
@@ -779,7 +781,8 @@ function fileReader(file, fileType, overwrite) {
                     colHeader: `<i class="material-icons-outlined sort_icon"></i>${v}`,
                     column: {
                         data: k,
-                        type: 'text'
+                        type: 'text',
+                        className: 'htMiddle'
                     }
                 }
 
