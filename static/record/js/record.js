@@ -17,6 +17,7 @@ actions = ['EDIT', 'REMOVE']
 // colHeaders = HOT headers
 let colHeaders = [], columns = []
 let existingColumns = [], hiddenColumns = [], customColumns = []
+let customColumnCount = 0
 
 // dataSchema = HOT dataSchema
 // dataColumn = columns + colHeaders
@@ -408,6 +409,7 @@ function addColumn() {
     if (customColumns.length > 0) createColumn('カスタム', 'title', 'カスタム', null)
 
     customColumns.forEach(c => {
+        customColumnCount += 1
         createColumn(c, 'custom', c, 'カスタム')
     })
 
@@ -474,7 +476,8 @@ function addColumn() {
 
         let colHeader = `<i class="material-icons-outlined sort_icon"></i>${add.value}`
 
-        let colId = `c${`${customColumns.length + 1}`.padStart(3, '0')}`
+        customColumnCount += 1
+        let colId = `c${`${customColumnCount}`.padStart(3, '0')}`
 
         let column = {
             data: colId,
