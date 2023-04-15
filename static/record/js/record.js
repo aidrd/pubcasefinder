@@ -455,6 +455,7 @@ function addColumn() {
                     <input  type="checkbox"
                             class="modal_add_columns"
                             id="${key}"
+                            data-id="${key}"
                             data-type="${type}"
                             data-colname="${colName}"
                             data-category2="${key.charAt(0)}"
@@ -462,7 +463,7 @@ function addColumn() {
                             onchange="showHideColumn(this)"
                             ${existingColumns.includes(key) ? 'checked' : ''}>
                     <label for="${key}">${colName}</label>
-                    ${type === 'custom' ? `<div class="list-icon list-delete add-custom-column" data-colname="${colName}" onclick="removeCustomColumn(this)"></div>` : ''}
+                    ${type === 'custom' ? `<div class="list-icon list-delete add-custom-column" data-colname="${colName}" data-id="${key}" onclick="removeCustomColumn(this)"></div>` : ''}
                 </div>
             `
         }
@@ -533,11 +534,11 @@ function showHideAllColumn(e) {
 
 function showHideColumn(e) {
     if (e.checked) {
-        showColumn(e.id)
+        showColumn(e.dataset.id)
         rerenderTable()
         hot.scrollViewportTo('', existingColumns.length - 1)
     } else {
-        hideColumn(e.id, e.dataset.colname)
+        hideColumn(e.dataset.id, e.dataset.colname)
         rerenderTable()
     }
 }
@@ -578,10 +579,11 @@ function hideColumn(colId, colHeader) {
 }
 
 function removeCustomColumn(e) {
-    delete dataSchema[e.id]
-    delete dataColumns[e.id]
+    let id = e.dataset.id
+    delete dataSchema[id]
+    delete dataColumns[id]
 
-    customColumns.splice(customColumns.indexOf(e.id), 1)
+    customColumns.splice(customColumns.indexOf(id), 1)
 
     e.checked = false
     showHideColumn(e)
