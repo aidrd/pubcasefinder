@@ -409,7 +409,7 @@ function addColumn() {
     if (customColumns.length > 0) createColumn('カスタム', 'title', 'カスタム', null)
 
     customColumns.forEach(c => {
-        customColumnCount += 1
+        // customColumnCount += 1
         createColumn(c, 'custom', c, 'カスタム')
     })
 
@@ -590,6 +590,8 @@ function removeCustomColumn(e) {
 
     e.checked = false
     showHideColumn(e)
+
+    contentData.forEach(d => delete d[id])
 
     e.parentElement.remove()
 }
@@ -791,6 +793,7 @@ function fileReader(file, fileType, overwrite) {
                     }
                 }
 
+                customColumnCount += 1
                 customColumns.push(k)
             }
         }
