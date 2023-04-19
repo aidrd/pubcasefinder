@@ -583,13 +583,17 @@ function hideColumn(colId, colHeader) {
 
 function removeCustomColumn(e) {
     let id = e.dataset.id
+    let colName = e.dataset.colname
     delete dataSchema[id]
     delete dataColumns[id]
 
     customColumns.splice(customColumns.indexOf(id), 1)
 
-    // e.checked = false
-    // showHideColumn(e)
+    let isVisible = colHeaders.indexOf(`<i class="material-icons-outlined sort_icon"></i>${colName}`) > -1
+
+    if (isVisible) {
+        showHideColumn(e)
+    }
 
     contentData.forEach(d => delete d[id])
 
