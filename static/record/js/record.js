@@ -588,8 +588,8 @@ function removeCustomColumn(e) {
 
     customColumns.splice(customColumns.indexOf(id), 1)
 
-    e.checked = false
-    showHideColumn(e)
+    // e.checked = false
+    // showHideColumn(e)
 
     contentData.forEach(d => delete d[id])
 
