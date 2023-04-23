@@ -15,6 +15,9 @@
       min-width: 200px;
       margin: auto 0;
   }
+  .common-brand img{
+  width: 200px;
+  }
   
   .nav-items{
     margin: auto 0 auto auto;
@@ -258,6 +261,7 @@
   }
   #modal-info .modal-karte-button-sub ul{
     padding: 0;
+    margin-bottom: 0;
   }
   
   #modal-info .modal-karte-button-sub ul li{
@@ -283,6 +287,7 @@
     text-align: left;
     font-size: 1.1em;
     font-weight: bold;
+    margin-bottom: 0;
   }
   
   #modal-info .modal-karte-button-sub ul li span p{
@@ -306,6 +311,7 @@
   .info-modal-close{
   padding: 0;
   background: none;
+  border: none;
   }
 
   #modal-info #modal-info-button button:focus {
@@ -441,7 +447,6 @@
   left: 0;
   width: 100%;
   height: 100%;
-  /* background-color: rgba(0,0,0,0.5); */
   background-color: rgba(0, 0, 0, 0);
   z-index: 10;
 } 
@@ -458,22 +463,12 @@
     width: 1em;
     margin-right: .2em;
     text-align: center;
-    /* opacity: .8; */
-    /* For safety - reset parent styles, that can break glyph codes*/
     font-variant: normal;
     text-transform: none;
-    /* fix buttons height, for twitter bootstrap */
     line-height: 1em;
-    /* Animation center compensation - margins should be symmetric */
-    /* remove if not needed */
     margin-left: .2em;
-    /* you can be more comfortable with increased icons size */
-    /* font-size: 120%; */
-    /* Font smoothing. That was taken from TWBS */
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    /* Uncomment for 3D effect */
-    /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
   }
   .icon-database:before { content: '\e801'; } /* '' */
   .icon-wrench:before { content: '\e802'; } /* '' */
@@ -502,3 +497,17 @@
   .icon-history:before { content: '\f1da'; } /* '' */
   .icon-question-circle-o:before { content: '\f29c'; } /* '' */
   /* END: 20201102 Asano(SDS) for fontello */
+
+
+#nav-panel .nav-items li .dropdown-trigger:hover{
+  border: solid 1px #fff;
+  background: #fff;
+  color: #258800;
+}
+#nav-panel .nav-items #nav-menu .dropdown-menu .common-menu-wrap .dropdown-service .dropdown-menu-item:hover {
+  background-color: #e4ebe6;
+}
+
+#nav-panel .nav-items .nav-item-dropdown .dropdown-menu .dropdown-menu-item:hover{
+  background-color: #e4ebe6;
+}
