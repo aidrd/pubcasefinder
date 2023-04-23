@@ -84,3 +84,19 @@ modalContent.innerHTML = `
         </li>
     </ul>
 `
+
+document.getElementById('selected-language-display').textContent = lang.toUpperCase()
+// function changeLanguage() {
+//     $('ul#dropdown-language li').click((e) => {
+//         if (e.target.classList.contains('popup-bg-cover')) return document.getElementById('dropdown-language').classList.toggle('dropdown-menu-open')
+//         let newLang = e.target.dataset.lang
+
+//         if (newLang === lang) return
+
+//         document.getElementById('selected-language-display').innerText = e.target.innerText
+//         localStorage.lang = newLang
+
+//         pageReload()
+//     })
+// }
+
