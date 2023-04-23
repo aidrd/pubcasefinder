@@ -395,7 +395,7 @@ i {
 }
 
 /*nav*/
-.common-nav-container {
+/* .common-nav-container {
   background-color: #f0f0f0;
   border-bottom: solid 1px #ddd;
   padding: 0.5em 1em;
@@ -420,7 +420,6 @@ i {
 
 #nav-case{
   background-color: #f6f6f6;
-  /*border-bottom: none;*/
 }
 
 .common-nav-container ul,
@@ -589,7 +588,6 @@ width: 35px;
   position: absolute;
   min-width: 100%;
   margin: 0;
-  /*box-shadow: 0 2px 15px 1px rgba(163, 163, 163, 0.2);*/
 }
 
 .nav-item-dropdown .dropdown-explanation .dropdown-menu-item {
@@ -627,7 +625,6 @@ width: 35px;
   border: solid 1px #ddd;
   padding: 0.5em 1em;
   border-radius: 2em;
-  /* margin: 2em 0em; */
   display: inline-block;
   color: #37405b;
 }
@@ -641,17 +638,11 @@ width: 35px;
 .dropdown-trigger i {
   font-size: 23px;
   vertical-align: -6px;
-  /*border: solid 1px #ddd;
-  padding: 0.5em;
-  border-radius: 2em;*/
 }
+ */
 
-/* .dropdown-trigger:focus + .dropdown-menu {
-  display: block;
-  opacity: 1;
-} */
 
-/**/
+
 #content-patients {
   background-color: #fff;
   border-radius: 10px;

@@ -4,24 +4,124 @@
 {% else %}
 <html lang="en">
 {% endif %}
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="/static/bootstrap-4.6.2-dist/css/bootstrap.css">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="/static/bootstrap-4.6.2-dist/css/bootstrap.css">
   <!--  <link rel="stylesheet" href="/static/css/vgp/notosansjp.css"> -->
   <!--  <link href="http://fonts.googleapis.com/earlyaccess/notosansjp.css"> -->
-    <link rel="stylesheet" href="/static/css/vgp/vgp.css">
-    <link rel="stylesheet" href="/static/css/vgp/tippy.css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
-    <title>Panel Search</title>
-  </head>
-  <body>
-    <header class="navbar navbar-expand flex-column flex-md-row justify-content-between vgp-navbar">
+  <link rel='stylesheet' href="/static/css/pcf/branc.css">
+  <link rel='stylesheet' href="/static/css/pcf/branc-ie7.css">
+  <link rel='stylesheet' href="/static/css/pcf/branc-ie7-codes.css">
+  <link rel='stylesheet' href="/static/css/pcf/branc-embedded.css">
+  <link rel="stylesheet" href="/static/css/vgp/vgp.css">
+  <link rel="stylesheet" href="/static/css/vgp/tippy.css">
+  <link rel="stylesheet" href="/static/css/common-nav.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+  <title>Panel Search : PubcaseFinder</title>
+</head>
+
+<body>
+  <div class="common-nav-container" id="nav-case">
+    <a href="#" class="common-brand"><img src="/static/record/images/logo_CaseSharing.svg"></a>
+    <ul class="nav-items">
+      <!-- Dropdown menu -->
+      <li class="nav-item nav-item-dropdown" id="nav-info">
+        <a class="dropdown-trigger" href="#">
+          <i class="material-symbols-outlined">
+            info
+          </i>
+        </a>
+      </li>
+      <li class="nav-item nav-item-dropdown" id="nav-menu">
+        <a class="dropdown-trigger" href="#"><i class="material-symbols-outlined">
+            apps
+          </i></a>
+        <ul class="dropdown-menu common-menu">
+          <ul class="common-menu-wrap">
+            <li class="dropdown-menu-item common-menu-item">
+              <a href="/templates/guides.html">
+                <i class="icon-question-circle-o"></i>
+                <span>Guides</span></a>
+            </li>
+            <li class="dropdown-menu-item common-menu-item">
+              <a href="/templates/api.html"><i class="icon-wrench"></i><span>API</span></a>
+            </li>
+            <li class="dropdown-menu-item common-menu-item">
+              <a href="/templates/history.html"><i class="icon-history"></i><span>History</span></a>
+            </li>
+            <li class="dropdown-menu-item common-menu-item">
+              <a href="/templates/termsofservice.html"><i class="icon-doc-text-inv"></i><span>Terms</span></a>
+            </li>
+            <li class="dropdown-menu-item common-menu-item">
+              <a href="/templates/sources.html"><i class="icon-database"></i><span>Sources</span></a>
+            </li>
+            <!--<li class="dropdown-menu-item common-menu-item">
+                    <a target="_blank" href="https://integbio.jp/rdf/dataset/pubcasefinder"><i
+                            class="icon-share"></i><span>RDF</span></a>
+                </li>-->
+            <li class="dropdown-menu-item common-menu-item">
+              <a title="Comments &amp; suggestions are welcome!"
+                href="mailto:support@dbcls.rois.ac.jp,pubcasefinder@dbcls.rois.ac.jp"><i
+                  class="icon-mail-alt"></i><span>Contact</span></a>
+            </li>
+            <ul class="dropdown-service">
+              <li class="dropdown-menu-item">
+                <i>
+                  <img src="/static/record/images/commonmenu-icon1.svg">
+                </i>
+                <span>
+                  <h4>Disease Search</h4>
+                </span>
+              </li>
+              <li class="dropdown-menu-item">
+                <i>
+                  <img src="/static/record/images/commonmenu-icon2.svg">
+                </i>
+                <span>
+                  <h4>Case Sharing</h4>
+                </span>
+              </li>
+              <li class="dropdown-menu-item">
+                <i>
+                  <img src="/static/record/images/commonmenu-icon3.svg">
+                </i>
+                <span>
+                  <h4>Panel Search</h4>
+                </span>
+              </li>
+            </ul>
+          </ul>
+          <li class="popup-bg-cover"></li>
+        </ul>
+      </li>
+      <li class="nav-item nav-item-dropdown" id="nav-language">
+        <a class="dropdown-trigger" href="#">
+          <i class="material-symbols-outlined">
+            public
+          </i>
+          <span id="selected-language-display"></span></a>
+        <ul class="dropdown-menu" id="dropdown-language">
+          <ul class="dropdown-languag-wrap">
+            <li class="dropdown-menu-item" data-lang="ja">日本語</li>
+            <li class="dropdown-menu-item" data-lang="en">English</li>
+            <li class="dropdown-menu-item" data-lang="ko">한국어</li>
+            <li class="dropdown-menu-item" data-lang="zh">中文(简体)</li>
+            <li class="dropdown-menu-item" data-lang="zhcht">中文(繁体)</li>
+          </ul>
+          <li class="popup-bg-cover"></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+  <!-- <header class="navbar navbar-expand flex-column flex-md-row justify-content-between vgp-navbar">
       <div class="vgp-navbar-sub">
         <span class="vgp-navbar-brand">PubCaseFinder</span>
         <span class="vgp-navbar-subbrand">Panel Search</span>
@@ -29,7 +129,6 @@
       <div class="vgp-navbar-sub">
         <span class="material-symbols-outlined">info</span>
         <span class="material-symbols-outlined">widgets</span>
-        <!-- <div class="material-symbols-outlined">language</div> -->
         <div class="dropdown" style="display:inline-block;">
           <button class="material-symbols-outlined dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">language</button>
           <div class="dropdown-menu  dropdown-menu-right">
@@ -38,273 +137,334 @@
           </div>
         </div>
       </div>
-    </header>
-    <main class="container-fluid vgp-main">
-      <div class="vgp-title d-flex justify-content-end">
-        <div class="vgp-title-sub row align-items-center">
-          <span class="vgp-title-sub-right-date">Updated Dec 9,2022</span>
-          <button id="vgp-download-all-btn" data-toggle="tooltip" data-placement="top" title="" data-original-title="Download all Panels">
-            All panels <span class="material-icons">save_alt</span>
+    </header> -->
+  <main class="container-fluid vgp-main">
+    <div class="vgp-title d-flex justify-content-end">
+      <div class="vgp-title-sub row align-items-center">
+        <span class="vgp-title-sub-right-date">Updated Dec 9,2022</span>
+        <button id="vgp-download-all-btn" data-toggle="tooltip" data-placement="top" title=""
+          data-original-title="Download all Panels">
+          All panels <span class="material-icons">save_alt</span>
+        </button>
+      </div>
+    </div>
+    <div class="d-md-flex flex-md-row row vgp-search">
+      <div class="col row vgp-search-sub">
+        <div class="dropdown vgp-target-wrapper">
+          <button id="btn-vgp-target" class="btn btn-vgp-target dropdown-toggle" type="button" data-vgp-target="all"
+            data-toggle="dropdown" aria-expanded="false">
+            Panel
           </button>
+          <div class="dropdown-menu">
+            <button class="dropdown-item" type="button" onclick="change_target('panel','Panel');">Panel</button>
+            <button class="dropdown-item" type="button" onclick="change_target('gene', 'Gene');">Gene</button>
+          </div>
+        </div>
+        <div class="vgp-searchicon-wrapper">
+          <span class="material-symbols-outlined vgp-searchicon">search</span>
+        </div>
+        <div class="col vgp-filter-wrapper">
+          <input id="vgp-filter" type="text" autocomplete="off" autocapitalize="off"
+            placeholder="Filter 10,000 panels"></input>
         </div>
       </div>
-      <div class="d-md-flex flex-md-row row vgp-search">
-        <div class="col row vgp-search-sub">
-          <div class="dropdown vgp-target-wrapper">
-            <button id="btn-vgp-target" class="btn btn-vgp-target dropdown-toggle" type="button" data-vgp-target="all" data-toggle="dropdown" aria-expanded="false">
-             Panel
-            </button>
-            <div class="dropdown-menu">
-              <button class="dropdown-item" type="button" onclick="change_target('panel','Panel');">Panel</button>
-              <button class="dropdown-item" type="button" onclick="change_target('gene', 'Gene');">Gene</button>
-            </div>
-          </div>
-          <div class="vgp-searchicon-wrapper">
-            <span class="material-symbols-outlined vgp-searchicon">search</span>
-          </div>
-          <div class="col vgp-filter-wrapper">
-            <input id="vgp-filter" type="text" autocomplete="off" autocapitalize="off" placeholder="Filter 10,000 panels"></input>
-          </div>
-        </div>
+    </div>
+    <div class="d-flex flex-row justify-content-between vgp-title2" id="vgp-title2">
+      <div class="vgp-title-sub">
+        <span id="vgp-searched-panels-num">10,001</span> panels
       </div>
-      <div class="d-flex flex-row justify-content-between vgp-title2" id="vgp-title2">
-        <div class="vgp-title-sub">
-          <span id="vgp-searched-panels-num">10,001</span> panels
-        </div>
-        <div class="vgp-title-sub">
-          Per page 
-          <div class="dropdown vgp-size-wrapper">
-            <button id="btn-vgp-size" class="btn btn-vgp-size dropdown-toggle" type="button" data-num_per_page=50 data-toggle="dropdown" aria-expanded="false">50</button>
-            <div class="dropdown-menu">
-              <button class="dropdown-item" type="button" onclick="change_pagenum(-1);">All</button>
-              <button class="dropdown-item" type="button" onclick="change_pagenum(50);">50</button>
-              <button class="dropdown-item" type="button" onclick="change_pagenum(100);">100</button>
-              <button class="dropdown-item" type="button" onclick="change_pagenum(200);">200</button>
-            </div>
+      <div class="vgp-title-sub">
+        Per page
+        <div class="dropdown vgp-size-wrapper">
+          <button id="btn-vgp-size" class="btn btn-vgp-size dropdown-toggle" type="button" data-num_per_page=50
+            data-toggle="dropdown" aria-expanded="false">50</button>
+          <div class="dropdown-menu">
+            <button class="dropdown-item" type="button" onclick="change_pagenum(-1);">All</button>
+            <button class="dropdown-item" type="button" onclick="change_pagenum(50);">50</button>
+            <button class="dropdown-item" type="button" onclick="change_pagenum(100);">100</button>
+            <button class="dropdown-item" type="button" onclick="change_pagenum(200);">200</button>
           </div>
         </div>
       </div>
-      <div id="vgp-list-root-panel"></div>
-    </main>
-<div onclick="topFunction()" id="btn_back_to_top" title="Go to top">
-  <img style="height:60px;width:60px;" src="/static/images/vgp/TOP.png"></img>
-</div>
-  </body>
-  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
-  <script src="/static/bootstrap-4.6.2-dist/js/bootstrap.bundle.js"></script>
-  <script src="https://unpkg.com/@popperjs/core@2"></script>
-  <script src="/static/js/vgp/tippyjs/tippy-bundle.umd.js"></script>
+    </div>
+    <div id="vgp-list-root-panel"></div>
+  </main>
+  <div id="modal-info" class="modal_box modal-karte">
+    <div class="modal-karte-button-sub" id="modal-info-content">
+      <ul>
+        <li>
+          <i class="material-symbols-outlined">
+            computer
+          </i>
+          <span>
+            <h4>How to use</h4>
+            <p>Here is a brief description of how to use the service. This is a dummy text.This is a dummy
+              text.
+            </p>
+          </span>
+        </li>
+        <li>
+          <i class="material-symbols-outlined">
+            subscriptions
+          </i>
+          <span>
+            <h4>How to use</h4>
+            <p>Here is a brief description of how to use the service. This is a dummy text.This is a dummy
+              text.
+            </p>
+          </span>
+        </li>
+        <li>
+          <i class="material-symbols-outlined">
+            format_list_numbered
+          </i>
+          <span>
+            <h4>How to use</h4>
+            <p>Here is a brief description of how to use the service. This is a dummy text.This is a dummy
+              text.
+            </p>
+          </span>
+        </li>
+        <li>
+          <i class="material-symbols-outlined">
+            sign_language
+          </i>
+          <span>
+            <h4>How to use</h4>
+            <p>Here is a brief description of how to use the service. This is a dummy text.This is a dummy
+              text.
+            </p>
+          </span>
+        </li>
+      </ul>
+    </div>
+    <div id="modal-info-button">
+      <button class="info-modal-close"><span>Let's start!</span></button>
+    </div>
+  </div>
+  <div onclick="topFunction()" id="btn_back_to_top" title="Go to top">
+    <img style="height:60px;width:60px;" src="/static/images/vgp/TOP.png"></img>
+  </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+<script src="/static/bootstrap-4.6.2-dist/js/bootstrap.bundle.js"></script>
+<script src="https://unpkg.com/@popperjs/core@2"></script>
+<script src="/static/js/vgp/tippyjs/tippy-bundle.umd.js"></script>
 <!--
   <script src="https://unpkg.com/@popperjs/core@2"></script>
   <script src="https://unpkg.com/tippy.js@6"></script>
 -->
-  <script type="text/javascript" src="/static/js/vgp/jquery.vgp.js"></script>
-  <script type="text/javascript" src="/static/js/vgp/jquery.vgp_collapse_panel.js"></script>
-  <script>
+<script src="/static/record/variables/translation.js" async defer></script>
+<script src="/static/record/js/vgp.js" async defer></script>
+<script src="/static/record/js/modal.js" async defer></script>
+<script type="text/javascript" src="/static/js/vgp/jquery.vgp.js"></script>
+<script type="text/javascript" src="/static/js/vgp/jquery.vgp_collapse_panel.js"></script>
+<script>
 
-    function topFunction() {
-        document.body.scrollTop = 0;
-        document.documentElement.scrollTop = 0;
+  function topFunction() {
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+    $('#btn_back_to_top').hide();
+  }
+
+
+  var iev = 0;
+  var ieold = (/MSIE (\d+\.\d+);/.test(navigator.userAgent));
+  var trident = !!navigator.userAgent.match(/Trident\/7.0/);
+  var rv = navigator.userAgent.indexOf("rv:11.0");
+
+  if (ieold) iev = new Number(RegExp.$1);
+  if (navigator.appVersion.indexOf("MSIE 10") != -1) iev = 10;
+  if (trident && rv != -1) iev = 11;
+
+  if (typeof InstallTrigger !== 'undefined' || iev == 11) {
+    $(window).on('scroll', function (e) {
+
+      tippy.hideAll();
+
+      if (document.body.scrollTop > 110 || document.documentElement.scrollTop > 110) {
+        $('#btn_back_to_top').show();
+      } else {
         $('#btn_back_to_top').hide();
-    }
+      }
+    });
+  } else {
+    $('body').on('mousewheel', function (e) {
 
+      tippy.hideAll();
 
-    var iev=0;
-    var ieold = (/MSIE (\d+\.\d+);/.test(navigator.userAgent));
-    var trident = !!navigator.userAgent.match(/Trident\/7.0/);
-    var rv=navigator.userAgent.indexOf("rv:11.0");
+      if (document.body.scrollTop > 110 ||
+        document.documentElement.scrollTop > 110 ||
+        $('html').scrollTop() > 110 ||
+        $('body').scrollTop() > 110) {
+        $('#btn_back_to_top').show();
+      } else {
+        $('#btn_back_to_top').hide();
+      }
+    });
+  }
 
-    if (ieold) iev=new Number(RegExp.$1);
-    if (navigator.appVersion.indexOf("MSIE 10") != -1) iev=10;
-    if (trident&&rv!=-1) iev=11;
+  function change_pagenum(num) {
+    let num_old = $("#btn-vgp-size").data('num_per_page');
 
-    if(typeof InstallTrigger !== 'undefined' || iev == 11) {
-        $(window).on('scroll', function(e){
+    if (num_old === num) return;
 
-			tippy.hideAll();
-
-            if (document.body.scrollTop > 110 || document.documentElement.scrollTop > 110) {
-                $('#btn_back_to_top').show();
-            } else {
-                $('#btn_back_to_top').hide();
-            }
-        });
+    if (num === -1) {
+      $("#btn-vgp-size").html('All');
+      $("#btn-vgp-size").data('num_per_page', -1);
     } else {
-        $('body').on('mousewheel', function(e){
-
-            tippy.hideAll();
-
-            if (document.body.scrollTop > 110 ||
-                document.documentElement.scrollTop > 110 ||
-                $('html').scrollTop() > 110 ||
-                $('body').scrollTop() > 110) {
-                $('#btn_back_to_top').show();
-            } else {
-                $('#btn_back_to_top').hide();
-            }
-        });
+      $("#btn-vgp-size").html(num);
+      $("#btn-vgp-size").data('num_per_page', num);
     }
 
-      function change_pagenum(num){
-          let num_old = $("#btn-vgp-size").data('num_per_page');
-          
-          if(num_old === num) return;
-          
-          if(num === -1){
-              $("#btn-vgp-size").html('All');
-              $("#btn-vgp-size").data('num_per_page', -1);
-          }else{
-              $("#btn-vgp-size").html(num);
-              $("#btn-vgp-size").data('num_per_page', num);
-          }
-          
-          $("#vgp-list-root-panel").visual_gene_panel_list('search_panels',{'vgp-size':num,'vgp-size-limit':num});
+    $("#vgp-list-root-panel").visual_gene_panel_list('search_panels', { 'vgp-size': num, 'vgp-size-limit': num });
 
-      }
+  }
 
-      function change_target(target,title){
-        let target_old = $("#btn-vgp-target").data('vgp-target');
-        if(target_old === target) return;
-        $("#btn-vgp-target").html(title);
-        $("#btn-vgp-target").data('vgp-target',target);
+  function change_target(target, title) {
+    let target_old = $("#btn-vgp-target").data('vgp-target');
+    if (target_old === target) return;
+    $("#btn-vgp-target").html(title);
+    $("#btn-vgp-target").data('vgp-target', target);
 
-        let num = $("#btn-vgp-size").data('num_per_page');
-        $("#vgp-list-root-panel").visual_gene_panel_list('search_panels',{'vgp-target':target,'vgp-size':num,'vgp-size-limit':num});
-      }
+    let num = $("#btn-vgp-size").data('num_per_page');
+    $("#vgp-list-root-panel").visual_gene_panel_list('search_panels', { 'vgp-target': target, 'vgp-size': num, 'vgp-size-limit': num });
+  }
 
-      function format_filter_str(v){
-          //encodeURIComponent
-          return v.replace(/ /g,',');
-      }	
+  function format_filter_str(v) {
+    //encodeURIComponent
+    return v.replace(/ /g, ',');
+  }
 
-      var timeout;
-      function do_search() {
-        var v = $('#vgp-filter').val();
-        //console.log('remove search event ' + timeout);
-        clearTimeout(timeout);
-        timeout = setTimeout(function(){
-            let num = $("#btn-vgp-size").data('num_per_page');
-            $("#vgp-list-root-panel").visual_gene_panel_list('search_panels',{'vgp-filter':format_filter_str(v),'vgp-size':num,'vgp-size-limit':num});
-        }, 100);
-        //console.log('regist search event ' + timeout);
-      }
+  var timeout;
+  function do_search() {
+    var v = $('#vgp-filter').val();
+    //console.log('remove search event ' + timeout);
+    clearTimeout(timeout);
+    timeout = setTimeout(function () {
+      let num = $("#btn-vgp-size").data('num_per_page');
+      $("#vgp-list-root-panel").visual_gene_panel_list('search_panels', { 'vgp-filter': format_filter_str(v), 'vgp-size': num, 'vgp-size-limit': num });
+    }, 100);
+    //console.log('regist search event ' + timeout);
+  }
 
   var KEY = {
-    BACKSPACE    : 8,
-    TAB          : 9,
-    ENTER        : 13,
-    ESCAPE       : 27,
-    SPACE        : 32,
-    PAGE_UP      : 33,
-    PAGE_DOWN    : 34,
-    END          : 35,
-    HOME         : 36,
-    LEFT         : 37,
-    UP           : 38,
-    RIGHT        : 39,
-    DOWN         : 40,
-	DELETE       : 46,
-    NUMPAD_ENTER : 108,
-	SEMICOLON    : 186,
-    COMMA        : 188
+    BACKSPACE: 8,
+    TAB: 9,
+    ENTER: 13,
+    ESCAPE: 27,
+    SPACE: 32,
+    PAGE_UP: 33,
+    PAGE_DOWN: 34,
+    END: 35,
+    HOME: 36,
+    LEFT: 37,
+    UP: 38,
+    RIGHT: 39,
+    DOWN: 40,
+    DELETE: 46,
+    NUMPAD_ENTER: 108,
+    SEMICOLON: 186,
+    COMMA: 188
   };
 
-      function attach_auto_search(){
-        $('#vgp-filter')
-          .bind("input", function (event) {
-              //console.log('input triggered');
-              if (String.fromCharCode(event.which)) {
-                setTimeout(function(){ do_search(); }, 50);
-              }
-          })
-          .keydown(function (event) {
+  function attach_auto_search() {
+    $('#vgp-filter')
+      .bind("input", function (event) {
+        //console.log('input triggered');
+        if (String.fromCharCode(event.which)) {
+          setTimeout(function () { do_search(); }, 50);
+        }
+      })
+      .keydown(function (event) {
 
-              switch(event.keyCode) {
-                  case KEY.LEFT:
-                  case KEY.RIGHT:
-                  case KEY.UP:
-                  case KEY.DOWN:
-				  case KEY.HOME:
-				  case KEY.END:
-                    break;
-				  case KEY.DELETE:
-					//console.log('delete', this.value, (new Blob([this.value])).size);
-					setTimeout(function(){ do_search(); }, 50);	
-					break;
-                  case KEY.BACKSPACE:
-                    //console.log('backspace', this.value, (new Blob([this.value])).size);
-                    setTimeout(function(){ do_search(); }, 50);
-                    break;
-                  case KEY.TAB:
-                  case KEY.ENTER:
-                  case KEY.NUMPAD_ENTER:
-                  //case KEY.COMMAA:
-				  case KEY.SEMICOLON:
-				  //case KEY.SPACE:
-                    //console.log('tab enter comma', this.value, (new Blob([this.value])).size);
-					setTimeout(function(){ do_search(); }, 50);
-                    event.stopPropagation();
-                    event.preventDefault();
-                    return false;
-                    break;
-                  case KEY.ESCAPE:
-                    return true;
-                  default:
-                    if (String.fromCharCode(event.which)) {
-                      //console.log('trigger code', event.which);
-                      setTimeout(function(){ do_search(); }, 50);
-                    }
-                    break;
-              }
-          });
+        switch (event.keyCode) {
+          case KEY.LEFT:
+          case KEY.RIGHT:
+          case KEY.UP:
+          case KEY.DOWN:
+          case KEY.HOME:
+          case KEY.END:
+            break;
+          case KEY.DELETE:
+            //console.log('delete', this.value, (new Blob([this.value])).size);
+            setTimeout(function () { do_search(); }, 50);
+            break;
+          case KEY.BACKSPACE:
+            //console.log('backspace', this.value, (new Blob([this.value])).size);
+            setTimeout(function () { do_search(); }, 50);
+            break;
+          case KEY.TAB:
+          case KEY.ENTER:
+          case KEY.NUMPAD_ENTER:
+          //case KEY.COMMAA:
+          case KEY.SEMICOLON:
+            //case KEY.SPACE:
+            //console.log('tab enter comma', this.value, (new Blob([this.value])).size);
+            setTimeout(function () { do_search(); }, 50);
+            event.stopPropagation();
+            event.preventDefault();
+            return false;
+            break;
+          case KEY.ESCAPE:
+            return true;
+          default:
+            if (String.fromCharCode(event.which)) {
+              //console.log('trigger code', event.which);
+              setTimeout(function () { do_search(); }, 50);
+            }
+            break;
+        }
+      });
 
-      }
+  }
 
 
-      function attach_manual_search(){
-        $('#vgp-filter').change(function(){
-          let v = $(this).val();
-          //console.log( v );
-          $("#vgp-list-root-panel").visual_gene_panel_list('search_panels',{'vgp-filter':format_filter_str(v)});
-        });
-      }
-      
-      $(document).ready(function() {
-           $("#vgp-list-root-panel").visual_gene_panel_list({
+  function attach_manual_search() {
+    $('#vgp-filter').change(function () {
+      let v = $(this).val();
+      //console.log( v );
+      $("#vgp-list-root-panel").visual_gene_panel_list('search_panels', { 'vgp-filter': format_filter_str(v) });
+    });
+  }
+
+  $(document).ready(function () {
+    $("#vgp-list-root-panel").visual_gene_panel_list({
 {% if r_lang == "ja" %}
-               'language':'ja',
-{% else %}
-               'language':'en',
-{% endif %}
-               'after_search_idlist':function(num){
-                   let total_num_str = num.toLocaleString("en-US");
-                   $('#vgp-searched-panels-num').text(total_num_str);
-               },
-{% if r_schema == "auto" %}
-               'check_consistence':function(filter_str){
-                   let v = format_filter_str($('#vgp-filter').val());
-                   //console.log('filer consistence: old: ('+filter_str+') new:('+v+')');
-                   return v === filter_str;
-               }
-{% endif %}
+               'language': 'ja',
+    {% else %}
+    'language': 'en',
+    {% endif %}
+    'after_search_idlist': function (num) {
+      let total_num_str = num.toLocaleString("en-US");
+      $('#vgp-searched-panels-num').text(total_num_str);
+    },
+    {% if r_schema == "auto" %}
+  'check_consistence': function(filter_str) {
+    let v = format_filter_str($('#vgp-filter').val());
+    //console.log('filer consistence: old: ('+filter_str+') new:('+v+')');
+    return v === filter_str;
+  }
+  {% endif %}
            });
 
-           setTimeout(function() {
-               $("#vgp-list-root-panel").visual_gene_panel_list('search_panels',{'vgp-target':'panel','vgp-filter':''});
-           }, 100);
+  setTimeout(function () {
+    $("#vgp-list-root-panel").visual_gene_panel_list('search_panels', { 'vgp-target': 'panel', 'vgp-filter': '' });
+  }, 100);
 
-           $('#vgp-download-all-btn').click(function(){
-               $(this).tooltip('hide');
-               $("#vgp-list-root-panel").visual_gene_panel_list('download_all_panels');
-           }).tooltip();
+  $('#vgp-download-all-btn').click(function () {
+    $(this).tooltip('hide');
+    $("#vgp-list-root-panel").visual_gene_panel_list('download_all_panels');
+  }).tooltip();
 
-{% if r_schema == "auto" %}
-           attach_auto_search();
-{% else %} 
-           attach_manual_search();
-{% endif %} 
+  {% if r_schema == "auto" %}
+  attach_auto_search();
+  {% else %}
+  attach_manual_search();
+  {% endif %}
 
-           setTimeout(function() {$("#vgp-filter").focus();}, 300);
+  setTimeout(function () { $("#vgp-filter").focus(); }, 300);
        });
-  </script>
+</script>
+
 </html>

@@ -1,0 +1,504 @@
+/*nav*/
+.common-nav-container {
+    background-color: #f0f0f0;
+    border-bottom: solid 1px #ddd;
+    padding: 0.5em 1em;
+    display: flex;
+    margin: 0 auto;
+    text-align: right;
+    height: 60px;
+  }
+  
+  .common-brand{
+    display: block;
+      max-width: 200px;
+      min-width: 200px;
+      margin: auto 0;
+  }
+  
+  .nav-items{
+    margin: auto 0 auto auto;
+  }
+  
+  
+  
+  #nav-case{
+    background-color: #f6f6f6;
+    /*border-bottom: none;*/
+  }
+  
+  .common-nav-container ul,
+  .common-nav-container li {
+    list-style: none;
+    -webkit-padding-start: 0;
+  }
+  
+  .common-nav-container a {
+    text-decoration: none;
+  }
+  
+  .nav-item {
+    display: inline;
+  }
+  
+  .nav-item-dropdown {
+    position: relative;
+  }
+  
+  .nav-item-dropdown .dropdown-menu {
+    display: inline-block;
+    text-align: right;
+    position: absolute;
+    right: -10px;
+    top: 38px;
+    display: none;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    width: 160px;
+    padding: 0;
+    left: auto;
+    text-align: left;
+    box-shadow: 0 2px 15px 1px rgba(163, 163, 163, 0.2);
+  }
+  
+  .nav-item-dropdown .dropdown-menu-open {
+    display: block;
+    opacity: 1;
+  }
+  
+  .nav-item-dropdown .dropdown-menu a {
+    color: #11101d;
+    outline: none;
+    text-decoration: none;
+  }
+  
+  .nav-item-dropdown .dropdown-menu .dropdown-menu-item {
+    cursor: pointer;
+    padding: 0.7em 1em;
+    text-align: left;
+  }
+  
+  .nav-item-dropdown .dropdown-menu .dropdown-selected,
+  .nav-item-dropdown .dropdown-menu .dropdown-menu-item:hover {
+    background-color: #e4e5eb;
+  }
+  
+  .nav-item-dropdown .dropdown-menu .dropdown-menu-item a i {
+    padding-right: 0.7em;
+  }
+  
+  .nav-item-dropdown .common-menu {
+  }
+  
+  .nav-item-dropdown .common-menu .common-menu-wrap{
+    position: relative;
+    z-index: 1001;
+    min-width: 15rem;
+    padding: 1em;
+    background-color: #fff;
+    border-radius: 0.5em;
+    box-shadow: 0 2px 15px 1px rgba(163, 163, 163, 0.2);
+  }
+  
+  .nav-item-dropdown #dropdown-language .dropdown-languag-wrap{
+    position: relative;
+    z-index: 1001;
+    background-color: #fff;
+    border-radius: 0.5em;
+    box-shadow: 0 2px 15px 1px rgba(163, 163, 163, 0.2);
+    overflow: hidden;
+  }
+  
+  
+  .nav-item-dropdown .common-menu .common-menu-item {
+    cursor: pointer;
+    padding: 0.7em 0;
+    text-align: center;
+    display: table-cell;
+    float: left;
+    width: 33%;
+  }
+  
+  .nav-item-dropdown .common-menu .common-menu-item:hover {
+    background-color: #e4e5eb;
+    border-radius: 0.5em;
+  }
+  
+  .nav-item-dropdown .common-menu .common-menu-item a i {
+    font-size: 1.7em;
+    padding-right: 0;
+  }
+  
+  .nav-item-dropdown .common-menu .common-menu-item a span {
+    font-size: 0.8em;
+    display: block;
+    width: fit-content;
+    margin: 0 auto;
+    text-align: center;
+  }
+  
+  .nav-item-dropdown .common-menu .dropdown-service {
+    display: inline-block;
+    margin-top: 0.5em;
+    width: 100%;
+  }
+  
+  .nav-item-dropdown .common-menu .dropdown-service .dropdown-menu-item {
+    display: flex;
+    align-items: center;
+    border-top: 1px solid #f4f4f4;
+    padding: 0.5em;
+  }
+  
+  .nav-item-dropdown .common-menu .dropdown-service .dropdown-menu-item i {
+    background: #f4f4f4;
+    padding: 0.5em;
+    height: fit-content;
+    border-radius: 50px;
+    margin-right: 0.5em;
+  }
+  
+  .nav-item-dropdown .common-menu .dropdown-service .dropdown-menu-item i img{
+  width: 35px;
+  }
+  
+  
+  .nav-item-dropdown .common-menu .dropdown-service .dropdown-menu-item span {
+    display: block;
+  }
+  
+  .nav-item-dropdown .common-menu .dropdown-service .dropdown-menu-item h4 {
+    line-height: 1.2em;
+    font-size: 1em;
+    margin-bottom: 0;
+  }
+  
+  .nav-item-dropdown .common-menu .dropdown-service .dropdown-menu-item span p {
+    font-size: 0.4em;
+  }
+  
+  .nav-item-dropdown .common-menu .dropdown-service .dropdown-menu-item:hover {
+    background-color: #e4e5eb;
+    border-top: 1px solid #ffffff;
+  }
+  
+  .nav-item-dropdown .common-menu .dropdown-service .dropdown-menu-item:hover i {
+    background: #fff;
+  }
+  
+  .nav-item-dropdown .dropdown-explanation {
+    box-shadow: none;
+    background-color: #cdd3e8;
+    right: 0;
+    left: -440px;
+    width: 30em;
+    position: absolute;
+    min-width: 100%;
+    margin: 0;
+  }
+  
+  .nav-item-dropdown .dropdown-explanation .dropdown-menu-item {
+    display: inline-flex;
+    border-top: 1px solid #bdc3d8;
+  }
+  
+  .nav-item-dropdown .dropdown-explanation .dropdown-menu-item i {
+    color: #11101d;
+    padding: 0.5em;
+    border-radius: 40px;
+    margin-right: 1em;
+    margin: auto 0;
+    background-color: #fff;
+  }
+  
+  .nav-item-dropdown .dropdown-explanation .dropdown-menu-item span {
+    margin-left: 1em;
+  }
+  
+  .nav-item-dropdown .dropdown-explanation .dropdown-menu-item span p {
+    font-size: 14px;
+  }
+  
+  .nav-item-dropdown .dropdown-explanation .dropdown-menu-item:hover {
+    background-color: #cdd3e8;
+  }
+  
+  .nav-item-dropdown .dropdown-explanation .dropdown-menu-item:first-child {
+    border-top: 1px solid #cdd3e8;
+  }
+  
+  .dropdown-trigger {
+    position: relative;
+    border: solid 1px #ddd;
+    padding: 0.5em 1em;
+    border-radius: 2em;
+    /* margin: 2em 0em; */
+    display: inline-block;
+    color: #37405b;
+  }
+  
+  .dropdown-trigger:hover{
+    border: solid 1px #fff;
+    background: #fff;
+    color: #007bff;
+  }
+  
+  .dropdown-trigger i {
+    font-size: 23px;
+    vertical-align: -6px;
+  }
+
+
+
+#modal-info {
+    background: #fff;
+    border: none;
+    border-radius: 12px;
+    padding: 3em 3em 2em;
+  }
+  #modal-info .modal-karte-button-sub ul{
+    padding: 0;
+  }
+  
+  #modal-info .modal-karte-button-sub ul li{
+    display: flex;
+    align-items: center;
+    padding-bottom: 1.5em;
+    text-align: left;
+  }
+  
+  #modal-info .modal-karte-button-sub ul li i{
+    background: #f4f4f4;
+    padding: 0.5em;
+    height: fit-content;
+    border-radius: 1em;
+    margin-right: 0.5em;
+  }
+  
+  #modal-info .modal-karte-button-sub ul li span{
+    display: block;
+  }
+  
+  #modal-info .modal-karte-button-sub ul li span h4{
+    text-align: left;
+    font-size: 1.1em;
+    font-weight: bold;
+  }
+  
+  #modal-info .modal-karte-button-sub ul li span p{
+    font-size: 1em;
+    font-weight: normal;
+    margin: 0;
+  }
+  
+  /* #modal-info #modal-info-button{
+    margin-top: 1em;
+  } */
+  
+  #modal-info #modal-info-button span{
+    background: #11101D;
+    color: #fff;
+    padding: 0.7em 3em;
+    border-radius: 3em;
+    display: block;
+  }
+
+  .info-modal-close{
+  padding: 0;
+  background: none;
+  }
+
+  #modal-info #modal-info-button button:focus {
+    outline: none;
+  }
+
+
+/*モーダル*/
+.modal_open {
+    display: inline-block;
+    float: none;
+}
+
+.modal_box {
+    position: fixed;
+    z-index: 10000;
+    display: none;
+    width: 80%;
+    max-width: 840px;
+    margin: 0;
+    padding: 30px 4vw;
+    border: 5px solid #293255;
+    text-align: center;
+    background: #fff;
+    box-sizing: border-box;
+    border-radius: 30px;
+}
+
+.modal_box .modal_img img {
+    height: 150px;
+}
+
+.modal_box .modal_img h2 {
+    padding-top: 0.5em;
+    text-align: center;
+    color: #337AB7;
+    font-weight: 500;
+    font-size: 1.4em;
+    font-weight: bold;
+}
+
+.modal_box .modal_img p {
+    text-align: center;
+    line-height: 1.3em;
+    margin-top: 0.3em;
+    padding-bottom: 2em;
+    border-bottom: 1px dashed #293255;
+}
+
+.modal_box .modal_list {
+    padding-top: 1.5em;
+}
+
+.modal_box .modal_list img {
+    display: block;
+    width: 20em;
+    float: left;
+    margin-right: 2em;
+}
+
+.modal_box .modal_list h3 {
+    text-align: left;
+    color: #293255;
+    font-weight: 500;
+    font-size: 1.2em;
+    margin-bottom: 0.5em;
+}
+
+.modal_box .modal_list iframe {
+    height: 150px;
+    float: left;
+    margin-right: 2em;
+    border-radius: 7px;
+}
+
+.modal_box .modal_list p {
+    line-height: 1.3em;
+}
+
+.modal_box .modal_list button {
+    margin-top: 0.5em;
+    background-color: #F73859;
+    color: #fff;
+    border: 0px none;
+    transition: 1.0s;
+    border-radius: 5px;
+    padding: 10px;
+    float: left;
+    margin-right: 5px;
+}
+
+.modal_box .modal_list button:hover {
+    border: solid 1px #cf1f3d;
+    background-color: #cf1f3d;
+    color: #fff;
+    border: 0px none;
+}
+
+.modal_close {
+    position: absolute;
+    top: -30px;
+    right: -30px;
+    display: block;
+    width: 60px;
+    font-size: 35px;
+    color: #fff;
+    line-height: 60px;
+    text-align: center;
+    background: #293255;
+    border-radius: 30px;
+}
+
+.modal_close i {
+    line-height: 62px;
+    vertical-align: bottom;
+}
+
+.modal_bg {
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 9999;
+    display: none;
+    width: 100%;
+    height: 120%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+
+.popup-bg-cover{
+	position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* background-color: rgba(0,0,0,0.5); */
+  background-color: rgba(0, 0, 0, 0);
+  z-index: 10;
+} 
+  
+  
+
+[class^="icon-"]:before, [class*=" icon-"]:before {
+    font-family: "branc";
+    font-style: normal;
+    font-weight: normal;
+    speak: never;
+    display: inline-block;
+    text-decoration: inherit;
+    width: 1em;
+    margin-right: .2em;
+    text-align: center;
+    /* opacity: .8; */
+    /* For safety - reset parent styles, that can break glyph codes*/
+    font-variant: normal;
+    text-transform: none;
+    /* fix buttons height, for twitter bootstrap */
+    line-height: 1em;
+    /* Animation center compensation - margins should be symmetric */
+    /* remove if not needed */
+    margin-left: .2em;
+    /* you can be more comfortable with increased icons size */
+    /* font-size: 120%; */
+    /* Font smoothing. That was taken from TWBS */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    /* Uncomment for 3D effect */
+    /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  }
+  .icon-database:before { content: '\e801'; } /* '' */
+  .icon-wrench:before { content: '\e802'; } /* '' */
+  .icon-share:before { content: '\e803'; } /* '' */
+  .icon-icon-movie:before { content: '\e805'; } /* '' */
+  .icon-omim:before {
+      content: '\e80a';
+      font-size: 20px;
+   }
+  .icon-orphanet:before {
+      content: '\e80b';
+      font-size: 20px;
+   }
+  .icon-cause:before {
+      content: '\e80d';
+      font-size: 25px;
+   }
+  .icon-users:before {
+      content: '\1f465';
+      font-size: 20px;
+   }
+  .icon-icon-search:before { content: '\e810'; } /* '' */
+  .icon-icon-symptoms:before { content: '\e811'; } /* '' */
+  .icon-mail-alt:before { content: '\f0e0'; } /* '' */
+  .icon-doc-text-inv:before { content: '\f15c'; } /* '' */
+  .icon-history:before { content: '\f1da'; } /* '' */
+  .icon-question-circle-o:before { content: '\f29c'; } /* '' */
+  /* END: 20201102 Asano(SDS) for fontello */
