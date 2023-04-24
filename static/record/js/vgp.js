@@ -104,3 +104,11 @@ document.getElementById('selected-language-display').textContent =
 //     })
 // }
 
+$(window).scroll(function () {
+    var scroll = $(window).scrollTop();
+    if (scroll >= $(window).height()) {
+        $("#nav-panel").addClass("scrolled");
+    } else {
+        $("#nav-panel").removeClass("scrolled");
+    }
+});

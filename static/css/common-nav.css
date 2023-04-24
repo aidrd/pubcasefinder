@@ -498,6 +498,21 @@
   .icon-question-circle-o:before { content: '\f29c'; } /* '' */
   /* END: 20201102 Asano(SDS) for fontello */
 
+#nav-panel{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+    transition: background-color 0.5s ease-in-out;
+}
+
+#nav-panel.scrolled {
+  background-color: #fff;
+  border-bottom: solid 1px #fff;
+  box-shadow: 0 2px 4px rgba(0,0,0,.1);
+}
+  
 
 #nav-panel .nav-items li .dropdown-trigger:hover{
   border: solid 1px #fff;
