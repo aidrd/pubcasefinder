@@ -68,9 +68,10 @@ body {
 
 
 .vgp-main { 
-  margin: 50px auto 50px auto;
+  margin: 80px auto 50px auto;
   min-width: 800px;
   max-width: 80%;
+  padding: 0;
 }
 
 .vgp-main .vgp-title .vgp-title-sub {
@@ -79,7 +80,7 @@ body {
 
 .vgp-main .vgp-title .vgp-title-sub .vgp-title-sub-right-date {
   margin-right: 1rem;
-  font-size: 20px;
+  font-size: 1em;
   font-weight: 500;
 }
 
