@@ -89,10 +89,10 @@ body {
   border-radius: 5px;
   color: #258800;
   background: #fff;
-  padding: 6px 20px 6px 20px;
+  padding: 5px 12px;
   display: flex;
   align-items: center;
-  font-size: 20px;
+  font-size: 1.1em;
 }
 #vgp-download-all-btn:hover {
   color: #fff;
