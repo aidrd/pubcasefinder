@@ -2,8 +2,8 @@
 
 body {
   /*font-family: 'Noto Sans JP', sans-serif;*/
-  /* overflow-y: scroll; */
-  overflow-y: hidden;
+  overflow-y: scroll;
+  /* overflow-y: hidden; */
 }
 
 .row {
