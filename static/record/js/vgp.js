@@ -88,22 +88,6 @@ modalContent.innerHTML = `
 document.getElementById('selected-language-display').textContent =
     $('ul#dropdown-language li').filter((i, el) => el.dataset.lang === lang)[0].innerText;
 
-
-
-// function changeLanguage() {
-//     $('ul#dropdown-language li').click((e) => {
-//         if (e.target.classList.contains('popup-bg-cover')) return document.getElementById('dropdown-language').classList.toggle('dropdown-menu-open')
-//         let newLang = e.target.dataset.lang
-
-//         if (newLang === lang) return
-
-//         document.getElementById('selected-language-display').innerText = e.target.innerText
-//         localStorage.lang = newLang
-
-//         pageReload()
-//     })
-// }
-
 $(window).scroll(function () {
     var scroll = $(window).scrollTop();
     if (scroll >= $(window).height()) {
