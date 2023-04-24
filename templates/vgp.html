@@ -110,11 +110,11 @@
           <span id="selected-language-display"></span></a>
         <ul class="dropdown-menu" id="dropdown-language">
           <ul class="dropdown-languag-wrap">
-            <li class="dropdown-menu-item" data-lang="ja">日本語</li>
-            <li class="dropdown-menu-item" data-lang="en">English</li>
-            <li class="dropdown-menu-item" data-lang="ko">한국어</li>
-            <li class="dropdown-menu-item" data-lang="zh">中文(简体)</li>
-            <li class="dropdown-menu-item" data-lang="zhcht">中文(繁体)</li>
+            <li class="dropdown-menu-item" data-lang="ja"><a href="{{ request.path }}?lang=ja">日本語</a></li>
+            <li class="dropdown-menu-item" data-lang="en"><a href="{{ request.path }}?lang=en">English</a></li>
+            <li class="dropdown-menu-item" data-lang="ko"><a href="{{ request.path }}?lang=ko">한국어</a></li>
+            <li class="dropdown-menu-item" data-lang="zh"><a href="{{ request.path }}?lang=zh">中文(简体)</a></li>
+            <li class="dropdown-menu-item" data-lang="zhcht"><a href="{{ request.path }}?lang=zhcht">中文(繁体)</a></li>
           </ul>
           <li class="popup-bg-cover"></li>
         </ul>

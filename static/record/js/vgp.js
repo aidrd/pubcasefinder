@@ -85,7 +85,11 @@ modalContent.innerHTML = `
     </ul>
 `
 
-document.getElementById('selected-language-display').textContent = lang.toUpperCase()
+document.getElementById('selected-language-display').textContent =
+    $('ul#dropdown-language li').filter((i, el) => el.dataset.lang === lang)[0].innerText;
+
+
+
 // function changeLanguage() {
 //     $('ul#dropdown-language li').click((e) => {
 //         if (e.target.classList.contains('popup-bg-cover')) return document.getElementById('dropdown-language').classList.toggle('dropdown-menu-open')
