@@ -161,7 +161,15 @@ window.onload = async () => {
         // let matching = queryResult.map(obj => obj.row)
         let matching = []
         queryResult.forEach(obj => {
-            if (obj.col > 1) matching.push(obj.row)
+//modified start by hzhang@bits
+//            if (obj.col > 1) matching.push(obj.row)
+            if (obj.col > 1){
+                let element = hot.getCellMeta(obj.row, obj.col);
+                if(element.prop.startsWith('pi00') === false){
+                    matching.push(obj.row)
+                }
+            }
+//modified end by hzhang@bits
         })
 
         let count = matching.length
