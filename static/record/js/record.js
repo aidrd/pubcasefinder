@@ -165,7 +165,7 @@ window.onload = async () => {
 //            if (obj.col > 1) matching.push(obj.row)
             if (obj.col > 1){
                 let element = hot.getCellMeta(obj.row, obj.col);
-                if(element.prop.startsWith('pi00') === false){
+                if(element.prop.startsWith('pi') === false){
                     matching.push(obj.row)
                 }
             }
