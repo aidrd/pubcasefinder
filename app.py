@@ -1716,15 +1716,7 @@ def get_hpo_data_by_hpo_id():
 @app.route('/panel/search')
 def vgp():
 
-    r_lang = "en"
-    if request.args.get('lang') is not None:
-        r_lang = request.args.get('lang')
-
-    r_schema = "auto"
-    if request.args.get('schema') is not None:
-        r_schema = request.args.get('schema')
-
-    return render_template('vgp.html', r_schema=r_schema, r_lang=r_lang)
+    return render_template('vgp.html')
 
 @app.route('/pcf_get_all_panel', methods=['GET', 'POST'])
 def pcf_get_all_panel():

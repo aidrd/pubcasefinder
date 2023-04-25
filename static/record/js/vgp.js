@@ -1,10 +1,31 @@
-// Read the language from the URL
-let lang = window.location.href.split('?lang=')[1] ?? 'en';
+// modify start by hzhang@bits 
+//// Read the language from the URL
+//let lang = window.location.href.split('?lang=')[1] ?? 'en';
 
-// Remove anchor from the URL
-if (lang) {
-    lang = lang.split('#')[0];
-}
+//// Remove anchor from the URL
+//if (lang) {
+//    lang = lang.split('#')[0];
+//}
+
+let lang = localStorage.lang || 'en'
+lang = lang === 'undefined' ? 'en' : lang
+
+$(`.dropdown-menu-item[data-lang='${lang}']`).addClass('dropdown-selected')
+document.getElementById('selected-language-display').innerText = $('.dropdown-selected').text()
+
+$('ul#dropdown-language li').click((e) => {
+    if (e.target.classList.contains('popup-bg-cover')) return document.getElementById('dropdown-language').classList.toggle('dropdown-menu-open')
+    let newLang = e.target.dataset.lang
+
+    if (newLang === lang) return
+
+    document.getElementById('selected-language-display').innerText = e.target.innerText
+    localStorage.lang = newLang
+
+    window.location.reload()
+})
+
+// modify end by hzhang@bits
 
 let infoTranslations = {
     en: [

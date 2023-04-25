@@ -1,9 +1,5 @@
 <!doctype html>
-{% if r_lang == "ja" %}
-<html lang="ja">
-{% else %}
 <html lang="en">
-{% endif %}
 
 <head>
   <!-- Required meta tags -->
@@ -429,24 +425,28 @@
   }
 
   $(document).ready(function () {
+
+    let lang = localStorage.lang || 'en';
+    lang = lang === 'undefined' ? 'en' : lang;
+
+    let language = 'en';
+    if(lang === 'ja') language = 'ja';
+
     $("#vgp-list-root-panel").visual_gene_panel_list({
-{% if r_lang == "ja" %}
-               'language': 'ja',
-    {% else %}
-    'language': 'en',
-    {% endif %}
-    'after_search_idlist': function (num) {
-      let total_num_str = num.toLocaleString("en-US");
-      $('#vgp-searched-panels-num').text(total_num_str);
-    },
-    {% if r_schema == "auto" %}
-  'check_consistence': function(filter_str) {
-    let v = format_filter_str($('#vgp-filter').val());
-    //console.log('filer consistence: old: ('+filter_str+') new:('+v+')');
-    return v === filter_str;
-  }
-  {% endif %}
-           });
+
+        'language': language,
+
+        'after_search_idlist': function (num) {
+            let total_num_str = num.toLocaleString("en-US");
+            $('#vgp-searched-panels-num').text(total_num_str);
+        },
+
+        'check_consistence': function(filter_str) {
+            let v = format_filter_str($('#vgp-filter').val());
+            //console.log('filer consistence: old: ('+filter_str+') new:('+v+')');
+            return v === filter_str;
+        }
+    });
 
   setTimeout(function () {
     $("#vgp-list-root-panel").visual_gene_panel_list('search_panels', { 'vgp-target': 'panel', 'vgp-filter': '' });
@@ -457,14 +457,10 @@
     $("#vgp-list-root-panel").visual_gene_panel_list('download_all_panels');
   }).tooltip();
 
-  {% if r_schema == "auto" %}
   attach_auto_search();
-  {% else %}
-  attach_manual_search();
-  {% endif %}
 
-  setTimeout(function () { $("#vgp-filter").focus(); }, 300);
-       });
+  setTimeout(function () { $("#vgp-filter").focus(); }, 300);});
+
 </script>
 
 </html>
