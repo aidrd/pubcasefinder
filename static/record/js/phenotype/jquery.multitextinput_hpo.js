@@ -127,13 +127,15 @@
         };
 
         // header
-        let $header = $('<div>').addClass('text-input-header d-flex flex-row').appendTo($container);
+        let $header = $('<div>').addClass('text-input-header d-flex flex-wrap').appendTo($container);
         let $h5 = $('<h5>').addClass('flex-fill').appendTo($header);
         let html_str = "<img src=\"/static/record/images/HPOID.svg\">Automatically Extract Signs And Symptoms";
         $h5.html(html_str);
 
-        $('<span>').addClass("sample").addClass(CLASS_OBSERVED_Y).addClass('mr-3').text(LANGUAGE[current_settings.language]['sample_label'][OBSERVED_Y]).appendTo($header);
-        $('<span>').addClass("sample").addClass(CLASS_OBSERVED_N).text(LANGUAGE[current_settings.language]['sample_label'][OBSERVED_N]).appendTo($header); 
+		
+		let $sample_wrap = $('<div>').addClass('sample-wrap d-flex flex-nowrap').appendTo($header);
+        $('<span>').addClass("sample").addClass(CLASS_OBSERVED_Y).addClass('mr-3').text(LANGUAGE[current_settings.language]['sample_label'][OBSERVED_Y]).appendTo($sample_wrap);
+        $('<span>').addClass("sample").addClass(CLASS_OBSERVED_N).text(LANGUAGE[current_settings.language]['sample_label'][OBSERVED_N]).appendTo($sample_wrap); 
 
 
         let $doc_btn_wrapper = $('<div>').addClass('text-input-doc-btn-wrapper').appendTo($container);

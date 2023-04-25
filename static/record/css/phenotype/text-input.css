@@ -66,13 +66,14 @@
   text-align: left;
 }
 
-#text-input-container .text-input-header .sample {
-  font-size: 14px;
+#text-input-container .text-input-header .sample-wrap .sample {
+  font-size: 13px;
   display: flex;
   align-items: center;
+  margin-top: 5px;
 }
 
-#text-input-container .text-input-header .sample:before {
+#text-input-container .text-input-header .sample-wrap .sample:before {
   content:"\A";
   width:6px;
   height:6px;
