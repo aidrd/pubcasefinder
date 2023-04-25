@@ -338,18 +338,22 @@
   cursor: pointer;
 }
 
-#phenotype_list .phenotype_list_row .detail table.phenotype-list-table-multi {    
-  display: block;
+#phenotype_list .phenotype_list_row .detail table.phenotype-list-table-large {display: block;}
+#phenotype_list .phenotype_list_row .detail table.phenotype-list-table-medium {display: none;}
+#phenotype_list .phenotype_list_row .detail table.phenotype-list-table-small {display: none;}
+
+@media screen and (max-width: 1024px) {
+  #phenotype_list .phenotype_list_row .detail table.phenotype-list-table-large {display: none;}
+  #phenotype_list .phenotype_list_row .detail table.phenotype-list-table-medium {display: block;}
+  #phenotype_list .phenotype_list_row .detail table.phenotype-list-table-small {display: none;}
 }
 
-#phenotype_list .phenotype_list_row .detail table.phenotype-list-table-single {
-  display: none;
+@media screen and (max-width: 600px) {
+  #phenotype_list .phenotype_list_row .detail table.phenotype-list-table-large {display: none;}
+  #phenotype_list .phenotype_list_row .detail table.phenotype-list-table-medium {display: none;}
+  #phenotype_list .phenotype_list_row .detail table.phenotype-list-table-small {display: block;}
 }
 
-@media screen and (max-width: 500px) {
-  #phenotype_list .phenotype_list_row .detail table.phenotype-list-table-multi {display: none;}
-  #phenotype_list .phenotype_list_row .detail table.phenotype-list-table-single {display: block;}
-}
 
 #phenotype_list .phenotype_list_row .detail table tr td.phenotype_input_single_line{
 /* width: 90%;*/

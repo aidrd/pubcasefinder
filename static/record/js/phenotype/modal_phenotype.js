@@ -325,15 +325,17 @@ function phenotypeInfo_onInputChange(input_obj){
         console.log('Error: unknown phenotypeInfo inputType (' + inputType + ')');
     }
 
-    let relative_id = $input.data('relative_id');
-    if(relative_id){
-        if(inputType === 'checkbox'){
-           let v = $input.prop('checked');
-           $('#'+relative_id).prop('checked',v);
-        }else{
-            $('#'+relative_id).val(val);
+    ['relative_id1','relative_id2'].forEach(id_str => {
+        let relative_id = $input.data(id_str);
+        if(relative_id){
+            if(inputType === 'checkbox'){
+                let v = $input.prop('checked');
+                $('#'+relative_id).prop('checked',v);
+            }else{
+                $('#'+relative_id).val(val);
+            }
         }
-    }
+    })
 }
 
 function phenotypeInfo_createCbx(cbx_id,cid,inputType,checked,displayName,onchange){
@@ -584,102 +586,125 @@ function phenotypeInfo_createRows(){
                    .appendTo($header_sub_right);
         
         let $detail = $('<div>').addClass('detail').appendTo($li)
-        let $tbl  = $('<table>').addClass('phenotype-list-table-multi').appendTo($detail)
-        let $tr1  = $('<tr>').appendTo($tbl);
-        let $td_h = $('<td>').attr('colspan',6).appendTo($tr1);
+        let $tbl_large  = $('<table>').addClass('phenotype-list-table-large').appendTo($detail);
+        let $tbl_medium = $('<table>').addClass('phenotype-list-table-medium').appendTo($detail);
+        let $tbl_small = $('<table>').addClass('phenotype-list-table-small').appendTo($detail);
 
-        let $tbl_single_line = $('<table>').addClass('phenotype-list-table-single').appendTo($detail);
-
-        // doc src list
-        ['pi003','pi004','pi005','pi006'].forEach(cid => {
+        function _crete_checkbox_td(cid,cbx_id,relative_id1,relative_id2,phenotypeInfo,phenotypeData,lang,$td){
             let col         = phenotypeInfo.columns.filter(c => { return c.columnId === cid})[0]
             let displayName = col['displayName'][lang] || col['displayName']['en']
             let checked     = phenotypeData[cid][i] === col.options.dataValue[1] ? 'checked' : '';
-            let cbx_id      = `cbx-${i}-${cid}`;
-            let $cbx_wrapper = phenotypeInfo_createCbx(cbx_id,cid,col.inputType,checked,displayName,phenotypeInfo_onInputChange).appendTo($td_h);
+            phenotypeInfo_createCbx(cbx_id,cid,col.inputType,checked,displayName,phenotypeInfo_onInputChange).appendTo($td);
+            $('#'+cbx_id).data('relative_id1', relative_id1).data('relative_id2', relative_id2);
+        } 
 
-			let $tr_single_line = $('<tr>').appendTo($tbl_single_line);
-			let $td_single_line = $('<td>').attr('colspan',2).appendTo($tr_single_line);
-			let cbx_id_single_line      = `cbx-${i}-${cid}_single_line`;
-			let $cbx_wrapper_single_line = phenotypeInfo_createCbx(cbx_id_single_line,cid,col.inputType,checked,displayName,phenotypeInfo_onInputChange).appendTo($td_single_line);
-
-            $('#'+cbx_id).data('relative_id', cbx_id_single_line);
-            $('#'+cbx_id_single_line).data('relative_id', cbx_id);
+        let $tr_large = $('<tr>').appendTo($tbl_large);
+        let $td_large = $('<td>').attr('colspan',6).appendTo($tr_large);
+        ['pi003','pi004','pi005','pi006'].forEach(cid => {
+            let cbx_id       = `cbx-${i}-${cid}`;
+            let relative_id1 = `cbx-${i}-${cid}-medium`;
+            let relative_id2 = `cbx-${i}-${cid}-small`;
+            _crete_checkbox_td(cid,cbx_id,relative_id1,relative_id2,phenotypeInfo,phenotypeData,lang,$td_large);
         });
-        //detail 
+        
+        [['pi003','pi004'],['pi005','pi006']].forEach(lst => {
+            let $tr_medium = $('<tr>').appendTo($tbl_medium);
+            lst.forEach(cid => {
+                let $td_medium = $('<td>').attr('colspan',2).appendTo($tr_medium);
+                let cbx_id       = `cbx-${i}-${cid}-medium`;
+                let relative_id1 = `cbx-${i}-${cid}`;
+                let relative_id2 = `cbx-${i}-${cid}-small`;
+                _crete_checkbox_td(cid,cbx_id,relative_id1,relative_id2,phenotypeInfo,phenotypeData,lang,$td_medium);
+            });
+        });
+
+        [['pi003'],['pi004'],['pi005'],['pi006']].forEach(lst => {
+            let $tr_small = $('<tr>').appendTo($tbl_small);
+            lst.forEach(cid => {
+                let $td_small = $('<td>').attr('colspan',2).appendTo($tr_small);
+                let cbx_id       = `cbx-${i}-${cid}-small`;
+                let relative_id1 = `cbx-${i}-${cid}`;
+                let relative_id2 = `cbx-${i}-${cid}-medium`;
+                _crete_checkbox_td(cid,cbx_id,relative_id1,relative_id2,phenotypeInfo,phenotypeData,lang,$td_small);
+            });
+        });
+
+
+        function _crete_input_td(cid,input_id,relative_id1,relative_id2,phenotypeInfo,phenotypeData,lang,$tr,colspan){
+            let col = phenotypeInfo.columns.filter(c => { return c.columnId === cid})[0];
+            let displayName = col['displayName'][lang] || col['displayName']['en'];
+            $('<td>').text(displayName).appendTo($tr);
+            let $td2 = $('<td>').addClass('phenotype_input').appendTo($tr);
+            if(colspan){
+                $td2.attr('colspan',colspan);
+            }
+
+            let input;
+            if (col.inputType === 'text') {
+                input = document.createElement('input');
+                input.type = 'text';
+                let v = phenotypeData[cid][i];
+                $(input).val(v).appendTo($td2);
+            } else if (col.inputType === 'select') {
+                input = document.createElement('select');
+                $(input).appendTo($td2);
+                let options = col.options.dataValue;
+                let optionLang = col['options'][lang].length > 0 ? col['options'][lang] : col['options']['en'];
+                options.forEach((o, k) => {
+                    let option = document.createElement('option');
+                    option.value = o;
+                    option.innerText = optionLang[k]; 
+                    input.add(option);
+                })
+                input.value = phenotypeData[cid][i];
+            }
+
+            $(input).data('cid', cid)
+                    .attr('id', input_id)
+                    .data('relative_id1', relative_id1)
+                    .data('relative_id2', relative_id2)
+                    .data('inputType', col.inputType)
+                    .change(function(){phenotypeInfo_onInputChange(this);});
+        }
+
         [['pi008','pi009','pi010'],['pi011','pi012','pi013'],['pi014','pi015']].forEach(lst => {
-            let $tr = $('<tr>').appendTo($tbl);
+            let $tr = $('<tr>').appendTo($tbl_large);
             lst.forEach((cid,cid_idx) => {
-                let col = phenotypeInfo.columns.filter(c => { return c.columnId === cid})[0];
-                let displayName = col['displayName'][lang] || col['displayName']['en'];
-
-                $('<td>').text(displayName).appendTo($tr);
-                let $td2 = $('<td>').addClass('phenotype_input').appendTo($tr);
-
-                if(lst.length < 3 && cid_idx === lst.length-1){
-                    $td2.attr('colspan',3);
-                }
-
-
-                let $tr_single_line = $('<tr>').appendTo($tbl_single_line);
-                let $td1_single_line = $('<td>').text(displayName).appendTo($tr_single_line);
-                let $td2_single_line = $('<td>').addClass('phenotype_input_single_line').appendTo($tr_single_line);
-
-
-                let input;
-                let input_single_line;
-                if (col.inputType === 'text') {
-                    input = document.createElement('input');
-                    input.type = 'text';
-                    let v = phenotypeData[cid][i];
-                    $(input).val(v).appendTo($td2);
-
-                    input_single_line = document.createElement('input');
-                    input_single_line.type = 'text';
-                    $(input_single_line).val(v).appendTo($td2_single_line);                    
-                    
-                } else if (col.inputType === 'select') {
-                    input = document.createElement('select');
-                    input_single_line = document.createElement('select');
-
-                    $(input).appendTo($td2);
-                    $(input_single_line).appendTo($td2_single_line);
-
-                    let options = col.options.dataValue;
-                    let optionLang = col['options'][lang].length > 0 ? col['options'][lang] : col['options']['en'];
-                    options.forEach((o, k) => {
-                        let option = document.createElement('option');
-                        option.value = o;
-                        option.innerText = optionLang[k]; 
-                        input.add(option);
-
-                        let option_single_line = document.createElement('option');
-                        option_single_line.value = o;
-                        option_single_line.innerText = optionLang[k];
-                        input_single_line.add(option_single_line);
-                    })
-                    input.value = phenotypeData[cid][i];
-                    input_single_line.value = phenotypeData[cid][i];
-                }
-
                 let input_id = `input-${i}-${cid}`;
-                let input_id_singleline = `input-${i}-${cid}_single_line`;
+                let relative_id1 = `input-${i}-${cid}-medium`;
+                let relative_id2 = `input-${i}-${cid}-small`;
+                let colspan = 0;
+                if(lst.length < 3 && cid_idx === lst.length-1){
+                    colspan = 3;
+                }
+                _crete_input_td(cid,input_id,relative_id1,relative_id2,phenotypeInfo,phenotypeData,lang,$tr,colspan);
+            });
+        });
 
-                $(input).data('cid', cid)
-                        .attr('id', input_id)
-                        .data('relative_id', input_id_singleline)
-                        .data('inputType', col.inputType)
-                        .change(function(){phenotypeInfo_onInputChange(this);});
+        [['pi008','pi009'],['pi010','pi011'],['pi012','pi013'],['pi014'],['pi015']].forEach(lst => {
+            let $tr = $('<tr>').appendTo($tbl_medium);
+            lst.forEach((cid,cid_idx) => {
+                let input_id = `input-${i}-${cid}-medium`;
+                let relative_id1 = `input-${i}-${cid}`;
+                let relative_id2 = `input-${i}-${cid}-small`;
+                let colspan = 0;
+                if(lst.length < 2){
+                    colspan = 3;
+                }
+                _crete_input_td(cid,input_id,relative_id1,relative_id2,phenotypeInfo,phenotypeData,lang,$tr,colspan);
+            });
+        });
 
-
-                $(input_single_line).data('cid', cid)
-                        .attr('id', input_id_singleline)
-                        .data('relative_id', input_id)
-                        .data('inputType', col.inputType)
-                        .change(function(){phenotypeInfo_onInputChange(this);});
-
-            })
-        })
+        [['pi008'],['pi009'],['pi010'],['pi011'],['pi012'],['pi013'],['pi014'],['pi015']].forEach(lst => {
+            let $tr = $('<tr>').appendTo($tbl_small);
+            lst.forEach((cid,cid_idx) => {
+                let input_id = `input-${i}-${cid}-small`;
+                let relative_id1 = `input-${i}-${cid}`;
+                let relative_id2 = `input-${i}-${cid}-medium`;
+                let colspan = 0;
+                _crete_input_td(cid,input_id,relative_id1,relative_id2,phenotypeInfo,phenotypeData,lang,$tr,colspan);
+            });
+        });
     }
 }
 
