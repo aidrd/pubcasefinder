@@ -9,8 +9,6 @@
 
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="/static/bootstrap-4.6.2-dist/css/bootstrap.css">
-  <!--  <link rel="stylesheet" href="/static/css/vgp/notosansjp.css"> -->
-  <!--  <link href="http://fonts.googleapis.com/earlyaccess/notosansjp.css"> -->
   <link rel='stylesheet' href="/static/css/pcf/branc.css">
   <link rel='stylesheet' href="/static/css/pcf/branc-ie7.css">
   <link rel='stylesheet' href="/static/css/pcf/branc-ie7-codes.css">
@@ -23,8 +21,8 @@
     href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
   <title>Panel Search : PubcaseFinder</title>
 </head>
-
 <body>
+  <div id="vgp-loader-whole" style="display: none;"></div>
   <div class="common-nav-container" id="nav-panel">
     <a href="#" class="common-brand"><img src="/static/record/images/logo_PanelSearch.svg"></a>
     <ul class="nav-items">
@@ -138,8 +136,7 @@
     <div class="vgp-title d-flex justify-content-end">
       <div class="vgp-title-sub row align-items-center">
         <span class="vgp-title-sub-right-date">Updated Dec 9,2022</span>
-        <button id="vgp-download-all-btn" data-toggle="tooltip" data-placement="top" title=""
-          data-original-title="Download all Panels">
+        <button id="vgp-download-all-btn" data-toggle="tooltip" data-placement="top" title="" data-original-title="Download all Panels">
           All panels <span class="material-icons">save_alt</span>
         </button>
       </div>
@@ -147,8 +144,7 @@
     <div class="d-md-flex flex-md-row row vgp-search">
       <div class="col row vgp-search-sub">
         <div class="dropdown vgp-target-wrapper">
-          <button id="btn-vgp-target" class="btn btn-vgp-target dropdown-toggle" type="button" data-vgp-target="all"
-            data-toggle="dropdown" aria-expanded="false">
+          <button id="btn-vgp-target" class="btn btn-vgp-target dropdown-toggle" type="button" data-vgp-target="all" data-toggle="dropdown" aria-expanded="false">
             Panel
           </button>
           <div class="dropdown-menu">
@@ -160,22 +156,19 @@
           <span class="material-symbols-outlined vgp-searchicon">search</span>
         </div>
         <div class="col vgp-filter-wrapper">
-          <input id="vgp-filter" type="text" autocomplete="off" autocapitalize="off"
-            placeholder="Filter 10,000 panels"></input>
+          <input id="vgp-filter" type="text" autocomplete="off" autocapitalize="off" placeholder="Filter 10,000 panels"></input>
         </div>
       </div>
     </div>
     <div class="d-flex flex-row justify-content-between vgp-title2" id="vgp-title2">
       <div class="vgp-title-sub">
-        <span id="vgp-searched-panels-num">10,001</span> panels
+        <span id="vgp-searched-panels-num">9,998</span> panels
       </div>
       <div class="vgp-title-sub">
         Per page
         <div class="dropdown vgp-size-wrapper">
-          <button id="btn-vgp-size" class="btn btn-vgp-size dropdown-toggle" type="button" data-num_per_page=50
-            data-toggle="dropdown" aria-expanded="false">50</button>
+          <button id="btn-vgp-size" class="btn btn-vgp-size dropdown-toggle" type="button" data-num_per_page=50 data-toggle="dropdown" aria-expanded="false">50</button>
           <div class="dropdown-menu">
-            <button class="dropdown-item" type="button" onclick="change_pagenum(-1);">All</button>
             <button class="dropdown-item" type="button" onclick="change_pagenum(50);">50</button>
             <button class="dropdown-item" type="button" onclick="change_pagenum(100);">100</button>
             <button class="dropdown-item" type="button" onclick="change_pagenum(200);">200</button>
@@ -275,9 +268,7 @@
 
   if (typeof InstallTrigger !== 'undefined' || iev == 11) {
     $(window).on('scroll', function (e) {
-
       tippy.hideAll();
-
       if (document.body.scrollTop > 110 || document.documentElement.scrollTop > 110) {
         $('#btn_back_to_top').show();
       } else {
@@ -286,9 +277,7 @@
     });
   } else {
     $('body').on('mousewheel', function (e) {
-
       tippy.hideAll();
-
       if (document.body.scrollTop > 110 ||
         document.documentElement.scrollTop > 110 ||
         $('html').scrollTop() > 110 ||
@@ -305,15 +294,10 @@
 
     if (num_old === num) return;
 
-    if (num === -1) {
-      $("#btn-vgp-size").html('All');
-      $("#btn-vgp-size").data('num_per_page', -1);
-    } else {
-      $("#btn-vgp-size").html(num);
-      $("#btn-vgp-size").data('num_per_page', num);
-    }
+    $("#btn-vgp-size").html(num);
+    $("#btn-vgp-size").data('num_per_page', num);
 
-    $("#vgp-list-root-panel").visual_gene_panel_list('search_panels', { 'vgp-size': num, 'vgp-size-limit': num });
+    $("#vgp-list-root-panel").visual_gene_panel_list('search_panels', { 'vgp-size': num});
 
   }
 
@@ -324,12 +308,13 @@
     $("#btn-vgp-target").data('vgp-target', target);
 
     let num = $("#btn-vgp-size").data('num_per_page');
-    $("#vgp-list-root-panel").visual_gene_panel_list('search_panels', { 'vgp-target': target, 'vgp-size': num, 'vgp-size-limit': num });
+    $("#vgp-list-root-panel").visual_gene_panel_list('search_panels', { 'vgp-target': target});
   }
 
   function format_filter_str(v) {
     //encodeURIComponent
-    return v.replace(/ /g, ',');
+    //return v.replace(/ /g, ',');
+    return encodeURIComponent(v)
   }
 
   var timeout;
@@ -339,7 +324,7 @@
     clearTimeout(timeout);
     timeout = setTimeout(function () {
       let num = $("#btn-vgp-size").data('num_per_page');
-      $("#vgp-list-root-panel").visual_gene_panel_list('search_panels', { 'vgp-filter': format_filter_str(v), 'vgp-size': num, 'vgp-size-limit': num });
+      $("#vgp-list-root-panel").visual_gene_panel_list('search_panels', { 'vgp-filter': format_filter_str(v)});
     }, 100);
     //console.log('regist search event ' + timeout);
   }
@@ -448,18 +433,18 @@
         }
     });
 
-  setTimeout(function () {
-    $("#vgp-list-root-panel").visual_gene_panel_list('search_panels', { 'vgp-target': 'panel', 'vgp-filter': '' });
-  }, 100);
+    setTimeout(function () {
+        $("#vgp-list-root-panel").visual_gene_panel_list('search_panels', { 'vgp-target': 'panel', 'vgp-filter': '' });
+    }, 100);
 
-  $('#vgp-download-all-btn').click(function () {
-    $(this).tooltip('hide');
-    $("#vgp-list-root-panel").visual_gene_panel_list('download_all_panels');
-  }).tooltip();
+    $('#vgp-download-all-btn').click(function () {
+        $(this).tooltip('hide');
+        $("#vgp-list-root-panel").visual_gene_panel_list('download_all_panels');
+    }).tooltip();
 
-  attach_auto_search();
+    attach_auto_search();
 
-  setTimeout(function () { $("#vgp-filter").focus(); }, 300);});
+    setTimeout(function () { $("#vgp-filter").focus(); }, 300);});
 
 </script>
 

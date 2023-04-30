@@ -1721,23 +1721,40 @@ def vgp():
 @app.route('/pcf_get_all_panel', methods=['GET', 'POST'])
 def pcf_get_all_panel():
 
+    r_sort = "sortfield"
+    if request.args.get('sort') is not None:
+        if request.args.get('sort') == 'gene':
+            r_sort = "GeneCount"
+
+    r_dir = "asc"
+    if request.args.get('dir') is not None:
+        r_dir = request.args.get('dir')
+
     response_data = {}
 
     OBJ_MYSQL = MySQLdb.connect(unix_socket=db_sock, host="localhost", db=db_name, user=db_user, passwd=db_pw, charset="utf8")
-    #cursor = OBJ_MYSQL.cursor(MySQLdb.cursors.DictCursor)
     cursor = OBJ_MYSQL.cursor()
-    #sql =  u"select MondoID as mondo_id, MondoTerm as panel_name,GeneCount as count from Panel order by MondoID;"
-    sql =  u"select distinct MondoID from Panel order by MondoID;"
+    sql =  'select distinct MondoID,lower(MondoTerm) as sortfield from Panel order by {} {}'.format(r_sort,r_dir)
+    #app.logger.info('pcf_get_all_panel: ' + sql)
+
     cursor.execute(sql)
     results = cursor.fetchall()
     OBJ_MYSQL.close()
     
-    #return json.dumps(results, ensure_ascii=False)
     response_data['input:'] = [list[0] for list in results]
     return json.dumps(response_data, ensure_ascii=False)
 
 @app.route('/pcf_panel_get_mondo_id_match_panel_name_synonym', methods=['GET'])
 def pcf_panel_get_mondo_id_match_panel_name_synonym():
+
+    r_sort = "sortfield"
+    if request.args.get('sort') is not None:
+        if request.args.get('sort') == 'gene':
+            r_sort = "GeneCount"
+
+    r_dir = "asc"
+    if request.args.get('dir') is not None:
+        r_dir = request.args.get('dir')
 
     r_lang = "en"
     if request.args.get('lang') is not None:
@@ -1747,13 +1764,14 @@ def pcf_panel_get_mondo_id_match_panel_name_synonym():
     if request.args.get('input_text') is not None:
         r_input_text = request.args.get('input_text')
         r_input_text = r_input_text.lower()
+        r_input_text = "%" + r_input_text + "%"
 
-    values = ('%'+r_input_text+'%','%'+r_input_text+'%')
-    sql = """select distinct MondoID from Panel where lower(MondoTerm) like %s OR lower(MondoTermSynonym) like %s order by MondoID"""
+    #values = (r_input_text,r_input_text,r_sort,r_dir)
+    sql = """select distinct MondoID, lower(MondoTerm) as sortfield from Panel where lower(MondoTerm) like '%s' OR lower(MondoTermSynonym) like '%s' order by %s %s"""%(r_input_text,r_input_text,r_sort,r_dir)
 
     if r_lang == 'ja':
-        sql =  """select distinct MondoID from Panel where lower(MondoTerm) like %s OR lower(MondoTermSynonym) like %s OR lower(MondoTermJa) like %s order by MondoID"""
-        values = ('%'+r_input_text+'%','%'+r_input_text+'%','%'+r_input_text+'%')
+        sql =  """select distinct MondoID, lower(MondoTerm) as sortfield from Panel where lower(MondoTerm) like '%s' OR lower(MondoTermSynonym) like '%s' OR lower(MondoTermJa) like '%s' order by %s %s"""%(r_input_text,r_input_text,r_input_text,r_sort,r_dir)
+        #values = (r_input_text,r_input_text,r_input_text,r_sort,r_dir)
 
     #app.logger.info(sql)
 
@@ -1763,7 +1781,8 @@ def pcf_panel_get_mondo_id_match_panel_name_synonym():
 
     cursor = OBJ_MYSQL.cursor()
 
-    cursor.execute(sql, values)
+    #cursor.execute(sql, values)
+    cursor.execute(sql)
 
     results = cursor.fetchall()
     OBJ_MYSQL.close()
@@ -1774,18 +1793,27 @@ def pcf_panel_get_mondo_id_match_panel_name_synonym():
 @app.route('/pcf_panel_get_mondo_id_match_gene_symbol_synonym_ncbiid', methods=['GET'])
 def pcf_panel_get_mondo_id_match_gene_symbol_synonym_ncbiid():
 
+    r_sort = "MondoTerm"
+    if request.args.get('sort') is not None:
+        if request.args.get('sort') == 'gene':
+            r_sort = "GeneCount"
+
+    r_dir = "asc"
+    if request.args.get('dir') is not None:
+        r_dir = request.args.get('dir')
+
     r_input_text = ""
     if request.args.get('input_text') is not None:
         r_input_text = request.args.get('input_text')
         r_input_text = r_input_text.upper()
+        r_input_text = "%" + r_input_text + "%"
 
-    values = ('%'+r_input_text+'%',)
-    sql = u"select distinct MondoID from Panel where GeneSymbolList like %s order by MondoID"
+    sql = """select distinct MondoID from Panel where GeneSymbolList like '%s' order by %s %s"""%(r_input_text,r_sort,r_dir)
 
     response_data = {}
     OBJ_MYSQL = MySQLdb.connect(unix_socket=db_sock, host="localhost", db=db_name, user=db_user, passwd=db_pw, charset="utf8")
     cursor = OBJ_MYSQL.cursor()
-    cursor.execute(sql, values)
+    cursor.execute(sql)
     results = cursor.fetchall()
     OBJ_MYSQL.close()
     response_data['input:'] = [list[0] for list in results]

@@ -843,7 +843,7 @@ let categories = [
                     en: 'Age of onset',
                     ja: '発症年齢',
                     ko: '',
-                    zh: '',
+                    zh: '发病年龄',
                     zhcht: ''
                 },
                 options: {

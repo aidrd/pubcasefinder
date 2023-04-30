@@ -354,12 +354,6 @@
   #phenotype_list .phenotype_list_row .detail table.phenotype-list-table-small {display: block;}
 }
 
-
-#phenotype_list .phenotype_list_row .detail table tr td.phenotype_input_single_line{
-/* width: 90%;*/
-}
-
-
 #phenotype-detail-switch {
   width:  32px;
   height: 24px;
