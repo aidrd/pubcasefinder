@@ -646,20 +646,17 @@ async function updateTable(data, changeHeaders) {
     let month = d.getMonth()
 
     data = data.map(row => {
-        let translatedRow = row;
-        Object.keys(row).forEach(columnId => {
-            if(mapDataValueToName[columnId]) {
-                let translatedValue = mapDataValueToName[columnId][row[columnId]];
-                if(translatedValue) {
-                    row[columnId] = translatedValue;
-                }
-            }
-        })
-        return translatedRow
     })
 
-    data.map(d => {
-        contentData.push(d)
+    data.forEach(row => {
+        // Translate if possible
+        Object.keys(row).forEach(columnId => {
+            let translatedValue = dataValueToNameMap?.[columnId][row[columnId]];
+            if(translatedValue) {
+                row[columnId] = translatedValue;
+            }
+        })
+        contentData.push(row)
     })
 
     if (contentData.length > 0) {
@@ -913,21 +910,23 @@ function getKeyFromTranslation(obj, val) {
 }
 
 
-// Map [column name] => [value name] => [data value] for 'dropdown' type columns
-let mapNameToDataValue = {};
-let mapDataValueToName = {};
+// Map [columnId] => [name in current language] => [dataValue] for 'dropdown' type columns
+let nameToDataValueMap = {};
+
+// Map [columnId] => [dataValue] => [name in current language] for 'dropdown' type columns
+let dataValueToNameMap = {};
 
 let currentLang = localStorage.lang
 for(let category of categories) {
     for(let column of category.columns) {
         if(column.type !== 'dropdown' || !column.options)
             continue
-        mapNameToDataValue[column.columnId] = {}
-        mapDataValueToName[column.columnId] = {}
+        nameToDataValueMap[column.columnId] = {}
+        dataValueToNameMap[column.columnId] = {}
         // for loop with index
         column.options[currentLang].forEach((optionName, index) => {
-            mapNameToDataValue[column.columnId][optionName] = column.options.dataValue[index]
-            mapDataValueToName[column.columnId][column.options.dataValue[index]] = optionName
+            nameToDataValueMap[column.columnId][optionName] = column.options.dataValue[index]
+            dataValueToNameMap[column.columnId][column.options.dataValue[index]] = optionName
         })
     }
 }
@@ -987,8 +986,9 @@ function getExportData() {
                     })
 
                     v = tempV
-                } else if(mapNameToDataValue[k]) {
-                    v = mapNameToDataValue[k][v] || v;
+                } else if(nameToDataValueMap[k]) {
+                    // Translate to dataValue if possible
+                    v = nameToDataValueMap[k][v] || v;
                 }
 
                 pData[k] = v
