@@ -646,21 +646,6 @@ async function updateTable(data, changeHeaders) {
     let month = d.getMonth()
 
     data.map(d => {
-        if (d['p006']) {
-            let birth = d['p006'].split('/')
-            let bYear = parseInt(birth[0])
-            let bMonth = parseInt(birth[1])
-            let age
-
-            if (month >= bMonth) {
-                age = year - bYear
-            } else {
-                age = year - bYear - 1
-                if (age < 1) age = 0
-            }
-
-            d['p007'] = age
-        }
         contentData.push(d)
     })
 

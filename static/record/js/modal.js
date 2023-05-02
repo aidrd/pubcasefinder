@@ -269,7 +269,6 @@ function openModal(patientId) {
                         onchange(colId === 'p006_year' ? 'p006' : 'p008')
 
                         if (colId === 'p006_year') {
-                            setAge()
                             // onchange('p007', age)
                             changeDeathOptions('year')
                         } else if (colId === 'p008_year') {
@@ -284,39 +283,13 @@ function openModal(patientId) {
                     monthElement.onchange = function () {
                         onchange(colId === 'p006_year' ? 'p006' : 'p008')
                         if (colId === 'p006_year') {
-                            setAge()
                             // onchange('p007', age)
                             changeDeathOptions('month')
                         }
                     }
 
-                    setAge()
                     changeDeathOptions('year')
                     changeDeathOptions('month')
-
-                    function setAge() {
-                        let d = new Date()
-                        let age
-                        let year = document.querySelector(`.tab-wrap *[name="p006_year"]`).value
-                        let month = document.querySelector(`.tab-wrap *[name="p006_month"]`).value
-
-                        if (!month) {
-                            age = d.getFullYear() - year
-                        } else if (year === '0') {
-                            age = ''
-                        } else if (month && year) {
-                            if (d.getMonth() + 1 >= parseInt(month)) {
-                                age = d.getFullYear() - year
-                                if (age === 0) age = '0'
-                            } else {
-                                age = d.getFullYear() - year - 1
-                                if (age < 1) age = '0'
-                            }
-                        }
-
-                        document.querySelector(`.tab-wrap *[name="p007"]`).value = age || ''
-                        onchange('p007', age)
-                    }
 
                     function changeDeathOptions(type) {
                         let d = new Date()
