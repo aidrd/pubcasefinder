@@ -93,6 +93,31 @@ let categories = [
                 }
             },
             {
+                // TODO: What should columnId be?
+                columnId: 'p004-2',
+                dataKey: 'presenceOrAbsenceOfOnset',
+                inputType: 'select',
+                phenoKey: '',
+                type: 'dropdown',
+                table: true,
+                displayName: {
+                    en: 'Presence or absence of onset',
+                    ja: '発症の有無',
+                    ko: '발병의 유무',
+                    zh: '发病的有无',
+                    zhcht: '發病的有無'
+                },
+                options: {
+                    dataValue: ['alive', 'deceased'],
+                    // TODO: What should choices be?
+                    en: [],
+                    ja: ['発症', '未発症', '不明'],
+                    ko: [],
+                    zh: [],
+                    zhcht: []
+                }
+            },
+            {
                 columnId: 'p005',
                 dataKey: 'lifeStatus',
                 inputType: 'radio',
@@ -158,6 +183,22 @@ let categories = [
                     ko: '사망일 (yyyy/mm)',
                     zh: '已故日期 (yyyy/mm)',
                     zhcht: '已故日期 (yyyy/mm)'
+                }
+            },
+            {
+                // TODO: What should columnId be?
+                columnId: 'p008-2',
+                dataKey: 'examinationDay',
+                inputType: 'select-date',
+                phenoKey: '',
+                type: 'date',
+                table: true,
+                displayName: {
+                    en: 'Examination day',
+                    ja: '診察日 (yyyy/mm/dd)',
+                    ko: '진찰 날짜 (yyyy/mm/dd)',
+                    zh: '诊察日 (yyyy/mm/dd)',
+                    zhcht: '診察日 (yyyy/mm/dd)'
                 }
             },
             {
