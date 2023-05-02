@@ -57,12 +57,24 @@ let categories = [
                     zhcht: '關係'
                 },
                 options: {
+                    // TODO: What should dataValue be?
                     dataValue: ['proband', 'father', 'mother', 'sibling', 'child', 'grandfather', 'grandmother', 'other'],
-                    en: ['Proband', 'Father', 'Mother', 'Sibling', 'Child', 'Grandfather', 'Grandmother', 'Other'],
-                    ja: ['発端者', '父親', '母親', '兄弟姉妹', '子供', '祖父', '祖母', 'その他'],
-                    ko: ['본인', '부', '모', '형제자매', '아이', '조부', '할머니', '기타'],
-                    zh: ['发病者', '父亲', '母亲', '兄弟姐妹', '孩子', '祖父', '祖母', '其他'],
-                    zhcht: ['發病者', '父親', '母親', '兄弟姐妹', '孩子', '祖父', '祖母', '其他']
+                    en: ['Proband (the individual)', 'Father', 'Mother', 'Parent (unknown details)', 'Siblings', 'Child',
+                        'Grandparents (paternal)', 'Grandparents (maternal)', 'Grandparents (unknown details)',
+                        'Uncle (paternal)', 'Uncle (maternal)', 'Aunt (paternal)', 'Aunt (maternal)', 'Nephew/Niece',
+                        'Grandchild', 'Cousin', 'Unknown', 'Other (paternal)', 'Other (maternal)',
+                    ],
+                    ja: ['発端者（本人）', '父', '母', '親（詳細不明）', '兄弟姉妹', '子ども', '祖父母（父方）', '祖父母（母方）', '祖父母（詳細不明）',
+                            'おじ（父方）', 'おじ（母方）', 'おば（父方）',
+                            'おば（母方）', '甥姪', '孫', 'いとこ', '不明', 'その他（父方）', 'その他（母方）', ],
+                    ko: ['발단자(본인)', '아버지', '어머니', '부모(상세 불명)', '형제자매', '자식', '조부모(아버지 쪽)', '조부모(어머니 쪽)',
+                        '조부모(상세 불명)', '삼촌(아버지 쪽)', '삼촌(어머니 쪽)', '고모(아버지 쪽)', '이모(어머니 쪽)', '조카', '손자녀',
+                        '사촌', '불명', '기타(아버지 쪽)', '기타(어머니 쪽)',],
+                    zh: ['发端者（本人）','父亲','母亲','父母（详细不明）','兄弟姐妹','孩子','祖父母（父方）','祖父母（母方）','祖父母（详细不明）',
+                        '叔叔（父方）','叔叔（母方）','姑姑（父方）','姨妈（母方）','侄子侄女','孙子孙女','表亲','不明','其他（父方）','其他（母方）',],
+                    zhcht: ['發端者（本人）', '父親', '母親', '父母（詳細不明）', '兄弟姊妹', '孩子', '祖父母（父方）', '祖父母（母方）',
+                        '祖父母（詳細不明）', '叔叔（父方）', '叔叔（母方）', '姑姑（父方）', '姨媽（母方）',
+                        '侄子侄女', '孫子孫女', '表親', '不明', '其他（父方）', '其他（母方）', ]
                 }
             },
             {
