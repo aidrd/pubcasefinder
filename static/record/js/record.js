@@ -645,6 +645,19 @@ async function updateTable(data, changeHeaders) {
     let year = d.getFullYear()
     let month = d.getMonth()
 
+    data = data.map(row => {
+        let translatedRow = row;
+        Object.keys(row).forEach(columnId => {
+            if(mapDataValueToName[columnId]) {
+                let translatedValue = mapDataValueToName[columnId][row[columnId]];
+                if(translatedValue) {
+                    row[columnId] = translatedValue;
+                }
+            }
+        })
+        return translatedRow
+    })
+
     data.map(d => {
         contentData.push(d)
     })
@@ -899,6 +912,25 @@ function getKeyFromTranslation(obj, val) {
     return Object.keys(obj).find(key => !(typeof obj[key] === 'object') ? obj[key] === val : getKeyFromTranslation(obj[key], val))
 }
 
+
+// Map [column name] => [value name] => [data value] for 'dropdown' type columns
+let mapNameToDataValue = {};
+let mapDataValueToName = {};
+
+let currentLang = localStorage.lang
+for(let category of categories) {
+    for(let column of category.columns) {
+        if(column.type !== 'dropdown' || !column.options)
+            continue
+        mapNameToDataValue[column.columnId] = {}
+        mapDataValueToName[column.columnId] = {}
+        // for loop with index
+        column.options[currentLang].forEach((optionName, index) => {
+            mapNameToDataValue[column.columnId][optionName] = column.options.dataValue[index]
+            mapDataValueToName[column.columnId][column.options.dataValue[index]] = optionName
+        })
+    }
+}
 function getExportData() {
     $('.save-panel').toggleClass('save-panel-open')
 
@@ -955,6 +987,8 @@ function getExportData() {
                     })
 
                     v = tempV
+                } else if(mapNameToDataValue[k]) {
+                    v = mapNameToDataValue[k][v] || v;
                 }
 
                 pData[k] = v
