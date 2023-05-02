@@ -58,7 +58,11 @@ let categories = [
                 },
                 options: {
                     // TODO: What should dataValue be?
-                    dataValue: ['proband', 'father', 'mother', 'sibling', 'child', 'grandfather', 'grandmother', 'other'],
+                    dataValue: ['proband_individual', 'father', 'mother', 'parent_unknown', 'sibling', 'child',
+                        'grandparent_paternal', 'grandparent_maternal', 'grandparent_unknown',
+                        'uncle_paternal', 'uncle_maternal', 'aunt_paternal', 'aunt_maternal', 'nephew_niece',
+                        'grandchild', 'cousin', 'unknown', 'other_paternal', 'other_maternal',
+                    ],
                     en: ['Proband (the individual)', 'Father', 'Mother', 'Parent (unknown details)', 'Siblings', 'Child',
                         'Grandparents (paternal)', 'Grandparents (maternal)', 'Grandparents (unknown details)',
                         'Uncle (paternal)', 'Uncle (maternal)', 'Aunt (paternal)', 'Aunt (maternal)', 'Nephew/Niece',
@@ -314,12 +318,12 @@ let categories = [
                     zhcht: '診斷情況'
                 },
                 options: {
-                    dataValue: ['solved', 'candidate', 'VUS', 'unresolved'],
-                    en: ['Solved', 'Candidate', 'VUS', 'Unresolved'],
-                    ja: ['解決', '新規候補', 'VUS', '未解決'],
-                    ko: ['해결', '후보자', 'VUS', '미해결'],
-                    zh: ['解决了', '新候補者', 'VUS', '未解决'],
-                    zhcht: ['解決了', '新候選人', 'VUS', '未解決']
+                    dataValue: ['UNKNOWN_PROGRESS', 'IN_PROGRESS', 'COMPLETED', 'SOLVED', 'UNSOLVED'],
+                    en: ['UNKNOWN_PROGRESS', 'IN_PROGRESS', 'COMPLETED', 'SOLVED', 'UNSOLVED'],
+                    ja: ['進行状況不明', '進行中', '完了', '解決済み', '未解決',],
+                    ko: ["알 수 없는 진행 상황", "진행 중", "완료됨", "해결됨", "해결되지 않음"],
+                    zh: ["未知进度", "进行中", "已完成", "已解决", "未解决",],
+                    zhcht: ["未知進度", "進行中", "已完成", "已解決", "未解決",],
                 }
             },
             {

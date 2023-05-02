@@ -645,18 +645,17 @@ async function updateTable(data, changeHeaders) {
     let year = d.getFullYear()
     let month = d.getMonth()
 
-    data = data.map(row => {
-    })
-
     data.forEach(row => {
         // Translate if possible
-        Object.keys(row).forEach(columnId => {
-            let translatedValue = dataValueToNameMap?.[columnId][row[columnId]];
-            if(translatedValue) {
-                row[columnId] = translatedValue;
-            }
-        })
-        contentData.push(row)
+        if(typeof row === 'object') {
+            Object.keys(row).forEach(columnId => {
+                let translatedValue = dataValueToNameMap?.[columnId]?.[row[columnId]];
+                if(translatedValue) {
+                    row[columnId] = translatedValue;
+                }
+            })
+            contentData.push(row)
+        }
     })
 
     if (contentData.length > 0) {
