@@ -94,7 +94,7 @@ let categories = [
             },
             {
                 // TODO: What should columnId be?
-                columnId: 'p004-2',
+                columnId: 'p00a',
                 dataKey: 'presenceOrAbsenceOfOnset',
                 inputType: 'select',
                 phenoKey: '',
@@ -156,21 +156,6 @@ let categories = [
                 }
             },
             {
-                columnId: 'p007',
-                dataKey: 'age',
-                inputType: 'text',
-                phenoKey: '',
-                type: 'text',
-                table: true,
-                displayName: {
-                    en: 'Age',
-                    ja: '年齢',
-                    ko: '연령',
-                    zh: '年龄',
-                    zhcht: '年齢'
-                }
-            },
-            {
                 columnId: 'p008',
                 dataKey: 'death',
                 inputType: 'select-date',
@@ -187,7 +172,7 @@ let categories = [
             },
             {
                 // TODO: What should columnId be?
-                columnId: 'p008-2',
+                columnId: 'p00b',
                 dataKey: 'examinationDay',
                 inputType: 'select-date',
                 phenoKey: '',
@@ -199,6 +184,21 @@ let categories = [
                     ko: '진찰 날짜 (yyyy/mm/dd)',
                     zh: '诊察日 (yyyy/mm/dd)',
                     zhcht: '診察日 (yyyy/mm/dd)'
+                }
+            },
+            {
+                columnId: 'p007',
+                dataKey: 'age',
+                inputType: 'text',
+                phenoKey: '',
+                type: 'text',
+                table: true,
+                displayName: {
+                    en: 'Age',
+                    ja: '年齢',
+                    ko: '연령',
+                    zh: '年龄',
+                    zhcht: '年齢'
                 }
             },
             {
@@ -233,7 +233,7 @@ let categories = [
                 table: true,
                 displayName: {
                     en: 'Note',
-                    ja: '概要',
+                    ja: '備考',
                     ko: '비고',
                     zh: '备注',
                     zhcht: '備註'
@@ -323,6 +323,29 @@ let categories = [
                 }
             },
             {
+                columnId: 'm010',
+                dataKey: 'ageOnset',
+                inputType: 'select',
+                phenoKey: '',
+                type: 'dropdown',
+                table: true,
+                displayName: {
+                    en: 'Age of Onset',
+                    ja: '発症年齢',
+                    ko: '발병연령',
+                    zh: '发病年龄',
+                    zhcht: '發病年齡'
+                },
+                options: {
+                    dataValue: ['unknown', 'congenitalOnset', 'antenatalOnsetEmbryonal', 'antenatalOnsetFetal', 'neonatalOnset', 'infantileOnset', 'childhoodOnset', 'juvenileOnset', 'adultOnsetYoungAdult', 'AaultOnsetMiddleAge', 'adultOnsetLate'],
+                    en: ['Unknown', 'Congenital Onset', 'Antenatal Onset - Embryonal', 'Antenatal Onset - Fetal', 'Neonatal Onset', 'Infantile Onset', 'Childhood Onset', 'Juvenile Onset', 'Adult Onset - Young Adult', 'Adult Onset - Middle Age', 'Adult Onset - Late'],
+                    ja: ['不明', '先天性の発症', '出生前発症 - 胎生期発症', '出生前発症- 胎児期発症', '新生児期発症', '幼児期発症', '小児期発症', '若年性発症（思春期発症）', '成人発症', '成人発症- 前期発症（青年期発症）', '成人発症- 中年期発症（壮年期発症）', '成人発症- 後期発症'],
+                    ko: [],
+                    zh: [],
+                    zhcht: []
+                }
+            },
+            {
                 columnId: 'm005',
                 dataKey: 'currentMedicalHistory',
                 inputType: 'textarea',
@@ -398,41 +421,18 @@ let categories = [
                 }
             },
             {
-                columnId: 'm010',
-                dataKey: 'ageOnset',
-                inputType: 'select',
-                phenoKey: '',
-                type: 'dropdown',
-                table: true,
-                displayName: {
-                    en: 'Age of Onset',
-                    ja: '発症年齢',
-                    ko: '발병연령',
-                    zh: '发病年龄',
-                    zhcht: '發病年齡'
-                },
-                options: {
-                    dataValue: ['unknown', 'congenitalOnset', 'antenatalOnsetEmbryonal', 'antenatalOnsetFetal', 'neonatalOnset', 'infantileOnset', 'childhoodOnset', 'juvenileOnset', 'adultOnsetYoungAdult', 'AaultOnsetMiddleAge', 'adultOnsetLate'],
-                    en: ['Unknown', 'Congenital Onset', 'Antenatal Onset - Embryonal', 'Antenatal Onset - Fetal', 'Neonatal Onset', 'Infantile Onset', 'Childhood Onset', 'Juvenile Onset', 'Adult Onset - Young Adult', 'Adult Onset - Middle Age', 'Adult Onset - Late'],
-                    ja: ['不明', '先天性の発症', '出生前発症 - 胎生期発症', '出生前発症- 胎児期発症', '新生児期発症', '幼児期発症', '小児期発症', '若年性発症（思春期発症）', '成人発症', '成人発症- 前期発症（青年期発症）', '成人発症- 中年期発症（壮年期発症）', '成人発症- 後期発症'],
-                    ko: [],
-                    zh: [],
-                    zhcht: []
-                }
-            },
-            {
-                columnId: 'm011',
-                dataKey: 'examinationFinding',
-                inputType: 'textarea',
+                columnId: 'm017',
+                dataKey: 'medications',
+                inputType: 'text',
                 phenoKey: '',
                 type: 'text',
                 table: true,
                 displayName: {
-                    en: 'Examination Finding',
-                    ja: '検査所見',
-                    ko: '검사 소견',
-                    zh: '检查结果',
-                    zhcht: '檢查結果'
+                    en: 'Medications',
+                    ja: '常用薬',
+                    ko: '상용약',
+                    zh: '正规药',
+                    zhcht: '正規藥'
                 }
             },
             {
@@ -457,51 +457,6 @@ let categories = [
                 //     zh: [],
                 //     zhcht: []
                 // }
-            },
-            {
-                columnId: 'm013_2',
-                dataKey: 'bodyWeight',
-                inputType: 'hot',
-                phenoKey: '',
-                type: 'text',
-                table: true,
-                displayName: {
-                    en: 'Body Weight (kg)',
-                    ja: '体重 (kg)',
-                    ko: '체중 (kg)',
-                    zh: '体重 (kg)',
-                    zhcht: '體重 (kg)'
-                }
-            },
-            {
-                columnId: 'm013_3',
-                dataKey: 'bodyHeight',
-                inputType: 'hot',
-                phenoKey: '',
-                type: 'text',
-                table: true,
-                displayName: {
-                    en: 'Body Height (cm)',
-                    ja: '身長 (cm)',
-                    ko: '신장 (cm)',
-                    zh: '身高 (cm)',
-                    zhcht: '身高 (cm)'
-                }
-            },
-            {
-                columnId: 'm013_4',
-                dataKey: 'headCircumference',
-                inputType: 'hot',
-                phenoKey: '',
-                type: 'text',
-                table: true,
-                displayName: {
-                    en: 'Head Circumference (cm)',
-                    ja: '頭囲 (cm)',
-                    ko: '머리둘레 (cm)',
-                    zh: '头围 (cm)',
-                    zhcht: '頭圍 (cm)'
-                }
             },
             {
                 columnId: 'm014',
@@ -565,21 +520,6 @@ let categories = [
                 // }
             },
             {
-                columnId: 'm017',
-                dataKey: 'medications',
-                inputType: 'text',
-                phenoKey: '',
-                type: 'text',
-                table: true,
-                displayName: {
-                    en: 'Medications',
-                    ja: '内服薬',
-                    ko: '상용약',
-                    zh: '正规药',
-                    zhcht: '正規藥'
-                }
-            },
-            {
                 columnId: 'm018',
                 dataKey: 'travelHistory',
                 inputType: 'textarea',
@@ -608,7 +548,82 @@ let categories = [
                     zh: '疫苗接种史',
                     zhcht: '疫苗接種史'
                 }
-            }
+            },
+            {
+                columnId: 'm013_2',
+                dataKey: 'bodyWeight',
+                inputType: 'hot',
+                phenoKey: '',
+                type: 'text',
+                table: true,
+                displayName: {
+                    en: 'Body Weight (kg)',
+                    ja: '体重 (kg)',
+                    ko: '체중 (kg)',
+                    zh: '体重 (kg)',
+                    zhcht: '體重 (kg)'
+                }
+            },
+            {
+                columnId: 'm013_3',
+                dataKey: 'bodyHeight',
+                inputType: 'hot',
+                phenoKey: '',
+                type: 'text',
+                table: true,
+                displayName: {
+                    en: 'Body Height (cm)',
+                    ja: '身長 (cm)',
+                    ko: '신장 (cm)',
+                    zh: '身高 (cm)',
+                    zhcht: '身高 (cm)'
+                }
+            },
+            {
+                columnId: 'm013_4',
+                dataKey: 'headCircumference',
+                inputType: 'hot',
+                phenoKey: '',
+                type: 'text',
+                table: true,
+                displayName: {
+                    en: 'Head Circumference (cm)',
+                    ja: '頭囲 (cm)',
+                    ko: '머리둘레 (cm)',
+                    zh: '头围 (cm)',
+                    zhcht: '頭圍 (cm)'
+                }
+            },
+            {
+                columnId: 'm00a', // TODO
+                dataKey: 'physicalFindings',
+                inputType: 'textarea',
+                phenoKey: '',
+                type: 'text',
+                table: true,
+                displayName: {
+                    en: 'Physical Findings',
+                    ja: '身体所見',
+                    ko: '신체 소견',
+                    zh: '身体所见',
+                    zhcht: '身體所見'
+                }
+            },
+            {
+                columnId: 'm011',
+                dataKey: 'examinationFinding',
+                inputType: 'textarea',
+                phenoKey: '',
+                type: 'text',
+                table: true,
+                displayName: {
+                    en: 'Examination Findings',
+                    ja: '検査所見',
+                    ko: '검사 소견',
+                    zh: '检查所见',
+                    zhcht: '檢查所見'
+                }
+            },
         ]
     },
     {
