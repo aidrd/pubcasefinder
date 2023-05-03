@@ -1460,15 +1460,13 @@ width: 10px;
   margin-left: 9px;
 }
 
-
-.p006_year{
-  margin-right: 0.5em;
+#p007_year {
+  width: 100px !important;
 }
 
-.p008_year{
+.p006_year, .p007_year, .p008_year, .p00b_year, #p00b_month, #p007_month {
   margin-right: 0.5em;
 }
-
 
 .search_wrap span{
   pointer-events:none;

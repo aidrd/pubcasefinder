@@ -292,7 +292,7 @@ function openModal(patientId) {
                 } else if(colId === 'p00b_year' || colId === 'p007_year') {
                     let key = colId.split('_')[0]
                     let monthId = `${key}_month`
-                    let date = value ? value.split('/') : ['']
+                    let date = value ? value.toString().split('/') : ['']
                     let yearValue = date[0]
                     if (yearValue) element.value = yearValue
                     element.onchange = function () {
