@@ -138,9 +138,27 @@ function openModal(patientId) {
         dateOptions('p007') // age
         dateOptions('p008') // death
         dateOptions('p00b', true) // ExaminationDay
+
+        // For age
+        setOptionsForAge()
+
         // add by hzhang@bits start
         phenotypeInfo_reset()
         // add by hzhang@bits end
+    }
+
+    function setOptionsForAge() {
+        let parent = document.querySelector(`.tab-wrap`);
+        // For month
+        let options = `<option value="0">${translate('select-age-month')}</option>`;
+        for (let i = 0; i <= 11; i++) {
+            options += `<option value="${i.toString().padStart(2, '0')}">${i}</option>`;
+        }
+        parent.querySelector(`*[name="p007_month"]`).innerHTML = options;
+
+        // For day
+        parent.querySelector(`*[name="p007_day"]`).innerHTML = createDayOptions();
+
     }
 
     function dateOptions(type, includeDay = false) {
@@ -245,6 +263,7 @@ function openModal(patientId) {
                     case 'p006':
                     case 'p008':
                     case 'p00b':
+                    case 'p007':
                         value = patientData[colId]
                         colId = `${colId}_year`
                         break
@@ -270,26 +289,27 @@ function openModal(patientId) {
                         // showHideDeathDate(parent, radioValue)
                         if (radioValue === 'alive') onchange('p008', '')
                     })
-                } else if(colId === 'p00b_year') {
-                    let monthId = 'p00b_month'
+                } else if(colId === 'p00b_year' || colId === 'p007_year') {
+                    let key = colId.split('_')[0]
+                    let monthId = `${key}_month`
                     let date = value ? value.split('/') : ['']
                     let yearValue = date[0]
                     if (yearValue) element.value = yearValue
                     element.onchange = function () {
-                        onchange('p00b')
+                        onchange(key)
                     }
 
                     let monthElement = document.querySelector(`.tab-wrap *[name="${monthId}"]`)
                     let monthValue = date[1]
                     if (monthValue) monthElement.value = monthValue
                     monthElement.onchange = function () {
-                        onchange('p00b')
+                        onchange(key)
                     }
-                    let dayElement = document.querySelector(`.tab-wrap *[name="p00b_day"]`)
+                    let dayElement = document.querySelector(`.tab-wrap *[name="${key}_day"]`)
                     let dayValue = date[2]
                     if (dayValue) dayElement.value = dayValue
                     dayElement.onchange = function () {
-                        onchange('p00b')
+                        onchange(key)
                     }
                     return
                 } else if (colId === 'p006_year' || colId === 'p008_year') {
@@ -409,7 +429,7 @@ function openModal(patientId) {
         })
 
         function onchange(key, value, element) {
-            let dateKey = ['p006', 'p008', 'p00b']
+            let dateKey = ['p006', 'p008', 'p00b', 'p007']
 
             if (dateKey.includes(key)) {
                 let pre = key

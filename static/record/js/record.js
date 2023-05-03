@@ -265,7 +265,7 @@ function createColumns() {
                     source: options,
                     strict: true,
                     allowInvalid: false,
-                    readOnly: false,
+                    readOnly: c.readOnly || false,
                     className: 'htMiddle'
                 }
 
@@ -1348,7 +1348,28 @@ function setInitialLanguage() {
             if (c.type === 'display') td.innerText = 'P20220600001'
             tr.appendChild(td)
 
-            if (c.inputType === 'text' || c.inputType === 'input-select') {
+            if (c.dataKey === 'age') {
+                let yearInput = document.createElement('input')
+                yearInput.type = 'number'
+                yearInput.classList.add(`${c.columnId}_year`)
+                yearInput.id = `${c.columnId}_year`
+                yearInput.name = `${c.columnId}_year`
+                yearInput.dataset.columnname = c.columnId
+                td.appendChild(yearInput)
+
+                let selectMonth = document.createElement('select')
+                selectMonth.name = `${c.columnId}_month`
+                selectMonth.id = `${c.columnId}_month`
+                selectMonth.dataset.columnname = c.columnId
+                td.appendChild(selectMonth)
+
+                let selectDay = document.createElement('select')
+                selectDay.name = `${c.columnId}_day`
+                selectDay.id = `${c.columnId}_day`
+                selectDay.dataset.columnname = c.columnId
+                td.appendChild(selectDay)
+            }
+            else if (c.inputType === 'text' || c.inputType === 'input-select') {
                 let input = document.createElement('input')
                 input.type = 'text'
                 input.name = c.columnId

@@ -180,7 +180,9 @@ let categories = [
                 dataKey: 'examinationDay',
                 inputType: 'select-date',
                 phenoKey: '',
+                dateFormat: 'YYYY/MM/DD',
                 type: 'date',
+                includeDay: true,
                 table: true,
                 displayName: {
                     en: 'Examination day',
@@ -196,13 +198,14 @@ let categories = [
                 inputType: 'text',
                 phenoKey: '',
                 type: 'text',
+                readOnly: true,
                 table: true,
                 displayName: {
                     en: 'Age',
-                    ja: '年齢',
-                    ko: '연령',
-                    zh: '年龄',
-                    zhcht: '年齢'
+                    ja: '年齢 (yy/mm/dd)',
+                    ko: '연령 (yy/mm/dd)',
+                    zh: '年龄 (yy/mm/dd)',
+                    zhcht: '年齢 (yy/mm/dd)'
                 }
             },
             {
