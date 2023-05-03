@@ -49,6 +49,11 @@ let elementTranslation = {
         ja: '- 月を選択 -',
         ko: ''
     },
+    'select-day': {
+        en: '- Select Day -',
+        ja: '- 日を選択 -',
+        ko: ''
+    },
     'm013': {
         en: 'Growth Chart',
         ja: '身体情報',

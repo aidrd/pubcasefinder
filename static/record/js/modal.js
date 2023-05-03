@@ -135,13 +135,15 @@ function openModal(patientId) {
         $('input[name="m016-list"]').hide() // smoking
         document.querySelector('.tab-btn').click()
         dateOptions('p006') // birth
+        dateOptions('p007') // age
         dateOptions('p008') // death
+        dateOptions('p00b', true) // ExaminationDay
         // add by hzhang@bits start
         phenotypeInfo_reset()
         // add by hzhang@bits end
     }
 
-    function dateOptions(type) {
+    function dateOptions(type, includeDay = false) {
         let this_month, this_year, today
         today = new Date()
         this_year = today.getFullYear()
@@ -149,6 +151,16 @@ function openModal(patientId) {
 
         optionLoop(1900, this_year, `${type}_year`)
         optionLoop(1, 12, `${type}_month`)
+        if(includeDay)
+            document.querySelector(`.tab-wrap *[name="${type}_day"]`).innerHTML = createDayOptions();
+    }
+
+    function createDayOptions(id) {
+        let options = `<option value="0">${translate('select-day')}</option>`;
+        for (let i = 1; i <= 31; i++) {
+            options += `<option value="${i.toString().padStart(2, '0')}">${i}</option>`;
+        }
+        return options;
     }
 
     function optionLoop(start, end, id) {
@@ -231,10 +243,8 @@ function openModal(patientId) {
                 let value, colId = c.columnId
                 switch (colId) {
                     case 'p006':
-                        value = patientData[colId]
-                        colId = `${colId}_year`
-                        break
                     case 'p008':
+                    case 'p00b':
                         value = patientData[colId]
                         colId = `${colId}_year`
                         break
@@ -260,6 +270,28 @@ function openModal(patientId) {
                         // showHideDeathDate(parent, radioValue)
                         if (radioValue === 'alive') onchange('p008', '')
                     })
+                } else if(colId === 'p00b_year') {
+                    let monthId = 'p00b_month'
+                    let date = value ? value.split('/') : ['']
+                    let yearValue = date[0]
+                    if (yearValue) element.value = yearValue
+                    element.onchange = function () {
+                        onchange('p00b')
+                    }
+
+                    let monthElement = document.querySelector(`.tab-wrap *[name="${monthId}"]`)
+                    let monthValue = date[1]
+                    if (monthValue) monthElement.value = monthValue
+                    monthElement.onchange = function () {
+                        onchange('p00b')
+                    }
+                    let dayElement = document.querySelector(`.tab-wrap *[name="p00b_day"]`)
+                    let dayValue = date[2]
+                    if (dayValue) dayElement.value = dayValue
+                    dayElement.onchange = function () {
+                        onchange('p00b')
+                    }
+                    return
                 } else if (colId === 'p006_year' || colId === 'p008_year') {
                     let monthId = colId === 'p006_year' ? 'p006_month' : 'p008_month'
                     let date = value ? value.split('/') : ['']
@@ -377,7 +409,7 @@ function openModal(patientId) {
         })
 
         function onchange(key, value, element) {
-            let dateKey = ['p006', 'p008']
+            let dateKey = ['p006', 'p008', 'p00b']
 
             if (dateKey.includes(key)) {
                 let pre = key
@@ -386,12 +418,14 @@ function openModal(patientId) {
                 } else {
                     let year = document.querySelector(`.tab-wrap *[name="${pre}_year"]`).value
                     let month = document.querySelector(`.tab-wrap *[name="${pre}_month"]`).value
+                    let day = document.querySelector(`.tab-wrap *[name="${pre}_day"]`)?.value
                     if (year === '0' & month === '0') {
                         value = ''
-                    } else {
+                    } else if(day) {
+                        value = `${year}/${month}/${day}`
+                    }  else {
                         value = `${year}/${month}`
                     }
-                    // value = `${document.querySelector(`.tab-wrap *[name="${pre}_year"]`).value}/${document.querySelector(`.tab-wrap *[name="${pre}_month"]`).value}`
                 }
             }
 

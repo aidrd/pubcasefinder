@@ -270,10 +270,10 @@ function createColumns() {
                 }
 
                 if (c.type === 'date') {
-                    column.dateFormat = 'YYYY/MM',
-                        column.correctFormat = true
+                    column.dateFormat = c.dateFormat || 'YYYY/MM'
+                    column.correctFormat = true
                     column.datePickerConfig = {
-                        dateFormat: 'mm-yy',
+                        dateFormat: c.dateFormat || 'DD/MM/YYYY',
                         firstDay: 0,
                         numberOfMonths: 1,
                         showMonthAfterYear: true,
@@ -282,7 +282,9 @@ function createColumns() {
                         // yearSuffix: '年',
                         // maxDate: new Date(),
                         yearRange: [1900, new Date().getFullYear()],
-                        onDraw: function (datepicker) {
+                    }
+                    if(!c.includeDay) {
+                        column.datePickerConfig.onDraw = function (datepicker) {
                             let close = document.createElement('span')
                             close.classList.add('pika-ok')
                             close.innerHTML = 'OK'
@@ -1083,6 +1085,10 @@ function editTable(isSave) {
                     let pre = e.dataset.columnname
                     value = `${document.querySelector(`.tab-wrap *[name="${pre}_year"]`).value}/${document.querySelector(`.tab-wrap *[name="${pre}_month"]`).value}`
                     if (value === '0/0') value = ''
+                } else if(e.dataset.columnname === 'p00b') {
+                    let col = e.dataset.columnname
+                    value = `${document.querySelector(`.tab-wrap *[name="${col}_year"]`).value}/${document.querySelector(`.tab-wrap *[name="${col}_month"]`).value}/${document.querySelector(`.tab-wrap *[name="${col}_day"]`).value}`
+                    if (value === '0/0/0') value = ''
                 } else if (e.dataset.columnname === 'p002') {
                     if (!(familyOptions.includes(value))) familyOptions.push(value)
                 } else if (e.dataset.columnname === 'p004') {
@@ -1389,6 +1395,13 @@ function setInitialLanguage() {
                 selectMonth.id = `${c.columnId}_month`
                 selectMonth.dataset.columnname = c.columnId
                 td.appendChild(selectMonth)
+                if(c.includeDay) {
+                    let selectDay = document.createElement('select')
+                    selectDay.name = `${c.columnId}_day`
+                    selectDay.id = `${c.columnId}_day`
+                    selectDay.dataset.columnname = c.columnId
+                    td.appendChild(selectDay)
+                }
             } else if (c.inputType === 'radio' || c.inputType === 'radio-input') {
                 let options = c.options.dataValue
                 let optionLang = c['options'][lang].length > 0 ? c['options'][lang] : c['options']['en']
