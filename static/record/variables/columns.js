@@ -982,7 +982,7 @@ let categories = [
                 table:     true,
                 displayName: {
                     en: 'Resolution',
-                    ja: '消失',
+                    ja: '症状消失',
                     ko: '',
                     zh: '',
                     zhcht: ''
