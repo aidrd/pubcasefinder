@@ -910,25 +910,17 @@ let categories = [
             {
                 columnId:  'pi011',
                 dataKey:   'hpo_age_of_onset',
-                inputType: 'select',
+                inputType: 'age',
                 phenoKey:  '',
-                type:      'dropdown',
+                type:      'text',
                 table:     true,
                 displayName: {
                     en: 'Age of onset',
-                    ja: '発症年齢',
+                    ja: '発症年齢 (yy/mm/dd)',
                     ko: '',
-                    zh: '发病年龄',
+                    zh: '发病年龄 (yy/mm/dd)',
                     zhcht: ''
                 },
-                options: {
-                    dataValue: ['unknown', 'adult', 'antenatal', 'pediatric', 'congenital', 'puerperal', 'neonatal'],
-                    en: ['Unknown', 'Adult onset', 'Antenatal onset', 'Pediatric onset', 'Congenital onset', 'Puerperal onset', 'Neonatal onset'],
-                    ja: ['Unknown', 'Adult onset', 'Antenatal onset', 'Pediatric onset', 'Congenital onset', 'Puerperal onset', 'Neonatal onset'],
-                    ko: ['', '', '', '', '', '', ''],
-                    zh: ['', '', '', '', '', '', ''],
-                    zhcht: ['','','','','', '', '']
-                }
             },
             {
                 columnId:  'pi012',
@@ -979,13 +971,13 @@ let categories = [
             {
                 columnId:  'pi014',
                 dataKey:   'hpo_resolution',
-                inputType: 'text',
+                inputType: 'age',
                 phenoKey:  '',
                 type:      'text',
                 table:     true,
                 displayName: {
                     en: 'Resolution',
-                    ja: '症状消失',
+                    ja: '症状消失 (yy/mm/dd)',
                     ko: '',
                     zh: '',
                     zhcht: ''

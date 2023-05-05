@@ -70,7 +70,7 @@ function phenotypeInfo_createExtraPopupItems() {
 
 function phenotypeInfo_updateFilterCNT() {
     let phenotypeInfo = phenotypeInfo_getPhenotypeInfo();
-    ['pi003','pi004','pi005','pi006','pi008','pi009','pi010','pi011','pi012','pi013'].forEach(cid => {
+    ['pi003','pi004','pi005','pi006','pi008','pi009','pi010','pi012','pi013'].forEach(cid => {
         let col = phenotypeInfo.columns.filter(c => { return c.columnId === cid})[0];
         if(col.inputType === 'checkbox'){
             let cbx_id      = `cbx-filter-${cid}`;
@@ -129,7 +129,7 @@ function phenotypeInfo_createFilterUI(filter_container_id) {
         $('#'+cbx_id).val(col.options.dataValue[1]);
     });
 
-    ['pi008','pi009','pi010','pi011','pi012','pi013'].forEach(cid => {
+    ['pi008','pi009','pi010', 'pi012','pi013'].forEach(cid => {
         let $tr = $('<tr>').appendTo($tbl);
         let col = phenotypeInfo.columns.filter(c => { return c.columnId === cid})[0];
         let titleName = col['displayName'][lang] || col['displayName']['en'];
@@ -304,8 +304,13 @@ function phenotypeInfo_onInputChange(input_obj){
     let hpo_id  = $li.find('.hpo_id')[0].innerHTML;
     
     let idx   = phenotypeData['pi001'].indexOf(hpo_id);
-    
-    if(inputType === 'text' ){
+
+    if(inputType === 'age') {
+        let year = $input.parent().children('.age-year').val() || 0;
+        let month = $input.parent().children('.age-month').val() || 0;
+        let day = $input.parent().children('.age-day').val() || 0;
+        phenotypeData[cid][idx] = `${year}/${month}/${day}`;
+    } else if(inputType === 'text' ){
         phenotypeData[cid][idx] = val;
     }else if(inputType === 'select'){
         phenotypeData[cid][idx] = val;
@@ -639,32 +644,65 @@ function phenotypeInfo_createRows(){
                 $td2.attr('colspan',colspan);
             }
 
-            let input;
-            if (col.inputType === 'text') {
-                input = document.createElement('input');
-                input.type = 'text';
-                let v = phenotypeData[cid][i];
-                $(input).val(v).appendTo($td2);
-            } else if (col.inputType === 'select') {
-                input = document.createElement('select');
-                $(input).appendTo($td2);
-                let options = col.options.dataValue;
-                let optionLang = col['options'][lang].length > 0 ? col['options'][lang] : col['options']['en'];
-                options.forEach((o, k) => {
-                    let option = document.createElement('option');
-                    option.value = o;
-                    option.innerText = optionLang[k]; 
-                    input.add(option);
-                })
-                input.value = phenotypeData[cid][i];
-            }
+            if(col.inputType === 'age'){
+                let tokens = phenotypeData[cid][i].split('/');
+                let year = parseInt(tokens?.[0]);
+                let month = parseInt(tokens?.[1]);
+                let day = parseInt(tokens?.[2]);
+                if(!Number.isInteger(year)) year = '';
+                if(!Number.isInteger(month)) month = '';
+                if(!Number.isInteger(day)) day = '';
+                let monthOptions = `<option value=''>${translate('select-age-month')}</option>`
+                monthOptions += [...Array(12).keys()].map(i => `<option value=${i} ${i === month ? 'selected' : ''}>${i}</option>`).join('');
+                let dayOptions = `<option value=''>${translate('select-day')}</option>`
+                dayOptions += [...Array(31).keys()].map(i => `<option value=${i} ${i === day ? 'selected' : ''}>${i}</option>`).join('');
 
-            $(input).data('cid', cid)
-                    .attr('id', input_id)
-                    .data('relative_id1', relative_id1)
-                    .data('relative_id2', relative_id2)
-                    .data('inputType', col.inputType)
-                    .change(function(){phenotypeInfo_onInputChange(this);});
+                $td2.html(`
+                    <input type="number" class="age-year" step="1" value=${year}>
+                    <select class="age-month">
+                        ${monthOptions}
+                    </select>
+                    <select class="age-day">
+                        ${dayOptions}
+                    </select>
+                `);
+                $td2.children('input, select').data('cid', cid)
+                  .data('relative_id1', relative_id1)
+                  .data('relative_id2', relative_id2)
+                  .data('inputType', col.inputType)
+                  .change(function() {
+                      phenotypeInfo_onInputChange(this);
+                  });
+            } else {
+                let input;
+                if(col.inputType === 'text') {
+                    input = document.createElement('input');
+                    input.type = 'text';
+                    let v = phenotypeData[cid][i];
+                    $(input).val(v).appendTo($td2);
+                } else if(col.inputType === 'select') {
+                    input = document.createElement('select');
+                    $(input).appendTo($td2);
+                    let options = col.options.dataValue;
+                    let optionLang = col['options'][lang].length > 0 ? col['options'][lang] : col['options']['en'];
+                    options.forEach((o, k) => {
+                        let option = document.createElement('option');
+                        option.value = o;
+                        option.innerText = optionLang[k];
+                        input.add(option);
+                    })
+                    input.value = phenotypeData[cid][i];
+                }
+
+                $(input).data('cid', cid)
+                  .attr('id', input_id)
+                  .data('relative_id1', relative_id1)
+                  .data('relative_id2', relative_id2)
+                  .data('inputType', col.inputType)
+                  .change(function() {
+                      phenotypeInfo_onInputChange(this);
+                  });
+            }
         }
 
         [['pi008','pi009','pi010'],['pi011','pi012','pi013'],['pi014','pi015']].forEach(lst => {

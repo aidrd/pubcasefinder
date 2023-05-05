@@ -328,7 +328,21 @@
   width: 100%;
   cursor: pointer;
 }
+
+#phenotype_list .phenotype_list_row .detail table tr td input.age-year {
+  width: 80px !important;
+}
+
+#phenotype_list .phenotype_list_row .detail table tr td select.age-month {
+  width: 140px !important;
+}
+
+#phenotype_list .phenotype_list_row .detail table tr td select.age-day {
+  width: 140px !important;
+}
+
 #phenotype_list .phenotype_list_row .detail table tr td input[type="text"],
+#phenotype_list .phenotype_list_row .detail table tr td input[type="number"],
 #phenotype_list .phenotype_list_row .detail table tr td input[type="select"] {
   width: 100%;
   padding: 0.35em 0.5em;
