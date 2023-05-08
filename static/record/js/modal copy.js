@@ -278,25 +278,18 @@ function openModal(patientId) {
                 let element = document.querySelector(`.tab-wrap *[name="${colId}"]`)
                 if (!element) return
 
-                let radioInput = $(`.tab-wrap input[name="${colId}"]`)
-                // let radioInput = document.querySelectorAll(`.tab-wrap input[name="${colId}"]`)
+                // let radioInput = $(`.tab-wrap input[name="${colId}"]`)
+                let radioInput = document.querySelectorAll(`.tab-wrap input[name="${colId}"]`)
 
                 if (colId === 'p005') {
                     let parent = $('#p008').parent()
                     showHideDeathDate(parent, 'deceased')
 
-                    // radioInput.forEach(r => {
-                    //     r.addEventListener('change', (e) => {
-                    //         let radioValue = $(`.tab-wrap input[name="${colId}"]`).filter(':checked').val()
-                    //         // showHideDeathDate(parent, radioValue)
-                    //         if (radioValue === 'alive') onchange('p008', '')
-                    //     })
-                    // })
-                    // radioInput.on('click change', () => {
-                    //     let radioValue = radioInput.filter(':checked').val()
-                    //     // showHideDeathDate(parent, radioValue)
-                    //     if (radioValue === 'alive') onchange('p008', '')
-                    // })
+                    radioInput.on('click change', () => {
+                        let radioValue = radioInput.filter(':checked').val()
+                        // showHideDeathDate(parent, radioValue)
+                        if (radioValue === 'alive') onchange('p008', '')
+                    })
                 } else if(colId === 'p00b_year' || colId === 'p007_year') {
                     let key = colId.split('_')[0]
                     let monthId = `${key}_month`
@@ -395,21 +388,6 @@ function openModal(patientId) {
                         textInput.val(value)
                     }
 
-                    // radioInput.forEach(r => {
-                    //     r.addEventListener('change', (e) => {
-                    //         let radioValue = radioInput.filter(':checked').val()
-                    //         if (radioValue === 'no') {
-                    //             textInput.hide()
-                    //             onchange(colId, '')
-                    //         } else {
-                    //             textInput.show()
-                    //             textInput.on('change', () => {
-                    //                 onchange(colId, textInput.val())
-                    //             })
-                    //         }
-                    //     })
-                    // })
-
                     radioInput.on('click change', () => {
                         let radioValue = radioInput.filter(':checked').val()
                         if (radioValue === 'no') {
@@ -436,17 +414,14 @@ function openModal(patientId) {
 
                 let type = element.type
                 if (type === 'radio') {
-                    $(`.tab-wrap input[name="${colId}"]`).off().on('change', (e) => {
-                        let targetValue = e.currentTarget.value
-
-                        // let prev = $(`.tab-wrap input[name="${colId}"][data-checked=true]`)[0]
-
-                        // if (prev) console.log(targetValue, prev.value)
-
-                        // // $(targetValue).attr('data-checked', 'true')
-                        // targetValue.dataset.checked = true
-            
+                    console.log('changed radio', element)
+                    $(`.tab-wrap input[name="${colId}"]`).on('change', (e) => {
+                        let targetValue = $(`.tab-wrap input[name="${colId}"]:checked`).val()
+                        const start = performance.now();
+                        console.log(targetValue)
                         targetValue = getDataDisplayOption(c.options, targetValue, 'displayValue')
+                        const end = performance.now();
+                        console.log('time', end - start, targetValue)
                         onchange(colId, targetValue)
                     })
                 }

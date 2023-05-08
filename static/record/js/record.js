@@ -9,7 +9,7 @@ let count
 let toReset = true
 
 let defaultColumns = ['caseSolved', 'chiefComplaint', 'finalDiagnosis', 'clinicalDiagnosis', 'sex', 'age', 'birth', 'lifeStatus', 'group', 'presenceOrAbsenceOfOnset', 'examinationDay', 'relationship', 'familyId', 'patientId']
-// defaultColumns = ['patientId', 'lifeStatus']
+defaultColumns = ['patientId', 'lifeStatus', 'birth', 'death']
 let actions = ['REMOVE', 'EDIT']
 actions = ['EDIT', 'REMOVE']
 
@@ -33,9 +33,10 @@ let updateSettings = {
     width: '100%',
     height: '100%',
     rowHeaders: true,
-    rowHeights: 30,
-    defaultRowHeight: 30,
+    // rowHeights: 30,
+    // defaultRowHeight: 30,
     autoRowSize: true,
+    autoColumnSize: true,
     hiddenColumns: true,
     fixedColumnsLeft: 2,
     search: true,
@@ -1435,6 +1436,20 @@ function setInitialLanguage() {
                         </label>
                     `
                 })
+
+                let clear = document.createElement('div')
+                clear.classList.add('radio-clear')
+                clear.innerHTML = 'clear'
+                clear.onclick = () => {
+                    contentData.forEach(p => {
+                        if (p.PCFNo === currentPatient) p[c.columnId] = ''
+                    })
+        
+                    changedData[c.columnId] = ''
+                    hot.render()
+                    $(td).find('input').prop('checked', false)
+                }
+                td.appendChild(clear)
 
                 if (c.inputType === 'radio-input') {
                     let input = document.createElement('input')
