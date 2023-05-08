@@ -21,6 +21,7 @@
     href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
   <title>Panel Search : PubcaseFinder</title>
 </head>
+
 <body>
   <div id="vgp-loader-whole" style="display: none;"></div>
   <div class="common-nav-container" id="nav-panel">
@@ -41,21 +42,25 @@
         <ul class="dropdown-menu common-menu">
           <ul class="common-menu-wrap">
             <li class="dropdown-menu-item common-menu-item">
-              <a href="/templates/guides.html">
+              <a href="/guides.html" target="_blank">
                 <i class="icon-question-circle-o"></i>
                 <span>Guides</span></a>
             </li>
             <li class="dropdown-menu-item common-menu-item">
-              <a href="/templates/api.html"><i class="icon-wrench"></i><span>API</span></a>
+              <a href="/api.html" target="_blank">
+                <i class="icon-wrench"></i><span>API</span></a>
             </li>
             <li class="dropdown-menu-item common-menu-item">
-              <a href="/templates/history.html"><i class="icon-history"></i><span>History</span></a>
+              <a href="/history.html" target="_blank">
+                <i class="icon-history"></i><span>History</span></a>
             </li>
             <li class="dropdown-menu-item common-menu-item">
-              <a href="/templates/termsofservice.html"><i class="icon-doc-text-inv"></i><span>Terms</span></a>
+              <a href="/termsofservice.html" target="_blank">
+                <i class="icon-doc-text-inv"></i><span>Terms</span></a>
             </li>
             <li class="dropdown-menu-item common-menu-item">
-              <a href="/templates/sources.html"><i class="icon-database"></i><span>Sources</span></a>
+              <a href="/sources.html" target="_blank">
+                <i class="icon-database"></i><span>Sources</span></a>
             </li>
             <!--<li class="dropdown-menu-item common-menu-item">
                     <a target="_blank" href="https://integbio.jp/rdf/dataset/pubcasefinder"><i
@@ -136,7 +141,8 @@
     <div class="vgp-title d-flex justify-content-end">
       <div class="vgp-title-sub row align-items-center">
         <span class="vgp-title-sub-right-date">Updated Dec 9,2022</span>
-        <button id="vgp-download-all-btn" data-toggle="tooltip" data-placement="top" title="" data-original-title="Download all Panels">
+        <button id="vgp-download-all-btn" data-toggle="tooltip" data-placement="top" title=""
+          data-original-title="Download all Panels">
           All panels <span class="material-icons">save_alt</span>
         </button>
       </div>
@@ -144,7 +150,8 @@
     <div class="d-md-flex flex-md-row row vgp-search">
       <div class="col row vgp-search-sub">
         <div class="dropdown vgp-target-wrapper">
-          <button id="btn-vgp-target" class="btn btn-vgp-target dropdown-toggle" type="button" data-vgp-target="all" data-toggle="dropdown" aria-expanded="false">
+          <button id="btn-vgp-target" class="btn btn-vgp-target dropdown-toggle" type="button" data-vgp-target="all"
+            data-toggle="dropdown" aria-expanded="false">
             Panel
           </button>
           <div class="dropdown-menu">
@@ -156,7 +163,8 @@
           <span class="material-symbols-outlined vgp-searchicon">search</span>
         </div>
         <div class="col vgp-filter-wrapper">
-          <input id="vgp-filter" type="text" autocomplete="off" autocapitalize="off" placeholder="Filter 10,000 panels"></input>
+          <input id="vgp-filter" type="text" autocomplete="off" autocapitalize="off"
+            placeholder="Filter 10,000 panels"></input>
         </div>
       </div>
     </div>
@@ -167,7 +175,8 @@
       <div class="vgp-title-sub">
         Per page
         <div class="dropdown vgp-size-wrapper">
-          <button id="btn-vgp-size" class="btn btn-vgp-size dropdown-toggle" type="button" data-num_per_page=50 data-toggle="dropdown" aria-expanded="false">50</button>
+          <button id="btn-vgp-size" class="btn btn-vgp-size dropdown-toggle" type="button" data-num_per_page=50
+            data-toggle="dropdown" aria-expanded="false">50</button>
           <div class="dropdown-menu">
             <button class="dropdown-item" type="button" onclick="change_pagenum(50);">50</button>
             <button class="dropdown-item" type="button" onclick="change_pagenum(100);">100</button>
@@ -297,7 +306,7 @@
     $("#btn-vgp-size").html(num);
     $("#btn-vgp-size").data('num_per_page', num);
 
-    $("#vgp-list-root-panel").visual_gene_panel_list('search_panels', { 'vgp-size': num});
+    $("#vgp-list-root-panel").visual_gene_panel_list('search_panels', { 'vgp-size': num });
 
   }
 
@@ -308,7 +317,7 @@
     $("#btn-vgp-target").data('vgp-target', target);
 
     let num = $("#btn-vgp-size").data('num_per_page');
-    $("#vgp-list-root-panel").visual_gene_panel_list('search_panels', { 'vgp-target': target});
+    $("#vgp-list-root-panel").visual_gene_panel_list('search_panels', { 'vgp-target': target });
   }
 
   function format_filter_str(v) {
@@ -324,7 +333,7 @@
     clearTimeout(timeout);
     timeout = setTimeout(function () {
       let num = $("#btn-vgp-size").data('num_per_page');
-      $("#vgp-list-root-panel").visual_gene_panel_list('search_panels', { 'vgp-filter': format_filter_str(v)});
+      $("#vgp-list-root-panel").visual_gene_panel_list('search_panels', { 'vgp-filter': format_filter_str(v) });
     }, 100);
     //console.log('regist search event ' + timeout);
   }
@@ -415,36 +424,37 @@
     lang = lang === 'undefined' ? 'en' : lang;
 
     let language = 'en';
-    if(lang === 'ja') language = 'ja';
+    if (lang === 'ja') language = 'ja';
 
     $("#vgp-list-root-panel").visual_gene_panel_list({
 
-        'language': language,
+      'language': language,
 
-        'after_search_idlist': function (num) {
-            let total_num_str = num.toLocaleString("en-US");
-            $('#vgp-searched-panels-num').text(total_num_str);
-        },
+      'after_search_idlist': function (num) {
+        let total_num_str = num.toLocaleString("en-US");
+        $('#vgp-searched-panels-num').text(total_num_str);
+      },
 
-        'check_consistence': function(filter_str) {
-            let v = format_filter_str($('#vgp-filter').val());
-            //console.log('filer consistence: old: ('+filter_str+') new:('+v+')');
-            return v === filter_str;
-        }
+      'check_consistence': function (filter_str) {
+        let v = format_filter_str($('#vgp-filter').val());
+        //console.log('filer consistence: old: ('+filter_str+') new:('+v+')');
+        return v === filter_str;
+      }
     });
 
     setTimeout(function () {
-        $("#vgp-list-root-panel").visual_gene_panel_list('search_panels', { 'vgp-target': 'panel', 'vgp-filter': '' });
+      $("#vgp-list-root-panel").visual_gene_panel_list('search_panels', { 'vgp-target': 'panel', 'vgp-filter': '' });
     }, 100);
 
     $('#vgp-download-all-btn').click(function () {
-        $(this).tooltip('hide');
-        $("#vgp-list-root-panel").visual_gene_panel_list('download_all_panels');
+      $(this).tooltip('hide');
+      $("#vgp-list-root-panel").visual_gene_panel_list('download_all_panels');
     }).tooltip();
 
     attach_auto_search();
 
-    setTimeout(function () { $("#vgp-filter").focus(); }, 300);});
+    setTimeout(function () { $("#vgp-filter").focus(); }, 300);
+  });
 
 </script>
 
