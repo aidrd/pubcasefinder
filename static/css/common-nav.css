@@ -147,10 +147,13 @@
   }
   
   .nav-item-dropdown .common-menu .dropdown-service .dropdown-menu-item {
-    display: flex;
-    align-items: center;
     border-top: 1px solid #f4f4f4;
     padding: 0.5em;
+  }
+
+  .nav-item-dropdown .common-menu .dropdown-service .dropdown-menu-item a {
+    display: flex;
+    align-items: center;
   }
   
   .nav-item-dropdown .common-menu .dropdown-service .dropdown-menu-item i {
