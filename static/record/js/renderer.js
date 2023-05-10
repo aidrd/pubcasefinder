@@ -69,9 +69,15 @@ function getLatest(type, value) {
     return value[value.length - 1][type] || ''
 }
 
+function customRenderer(instance, td, row, col, prop, value, cellProperties) {
+    Handsontable.renderers.TextRenderer.apply(this, arguments)
+    td.classList.add('custom-cell')
+}
+
 Handsontable.renderers.registerRenderer('removeRenderer', removeRenderer)
 Handsontable.renderers.registerRenderer('editRenderer', editRenderer)
 Handsontable.renderers.registerRenderer('multipleRenderer', multipleRenderer)
 Handsontable.renderers.registerRenderer('heightRenderer', heightRenderer)
 Handsontable.renderers.registerRenderer('weightRenderer', weightRenderer)
 Handsontable.renderers.registerRenderer('headRenderer', headRenderer)
+Handsontable.renderers.registerRenderer('customRenderer', customRenderer)
