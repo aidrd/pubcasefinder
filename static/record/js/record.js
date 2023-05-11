@@ -35,7 +35,7 @@ let updateSettings = {
     rowHeaders: true,
     // rowHeights: 30,
     // defaultRowHeight: 30,
-    autoRowSize: true,
+    // autoRowSize: true,
     autoColumnSize: true,
     hiddenColumns: true,
     fixedColumnsLeft: 2,
@@ -493,7 +493,8 @@ function addColumn() {
         let column = {
             data: colId,
             type: 'text',
-            className: 'htMiddle'
+            className: 'htMiddle',
+            renderer: 'customRenderer'
         }
 
         dataSchema[colId] = null
@@ -798,7 +799,8 @@ function fileReader(file, fileType, overwrite) {
                     column: {
                         data: k,
                         type: 'text',
-                        className: 'htMiddle'
+                        className: 'htMiddle',
+                        renderer: 'customRenderer'
                     }
                 }
 
@@ -1045,8 +1047,11 @@ function downloadSample(type) {
 }
 
 function exportFile(type, file) {
+    let filename = prompt('ファイル名を入力して下さい')
+    if (!filename) filename = `patients_${Date.now()}`
+
     let a = document.createElement('a')
-    a.download = `patients_${Date.now()}.${type}`
+    a.download = `${filename}.${type}`
     a.style.visibility = 'hidden'
 
     let data = `text/json;charset=utf-8,` +
