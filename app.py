@@ -1760,18 +1760,21 @@ def pcf_panel_get_mondo_id_match_panel_name_synonym():
     if request.args.get('lang') is not None:
         r_lang = request.args.get('lang')
 
-    r_input_text = ""
+    r_inputs = []
+    sql_params = []
     if request.args.get('input_text') is not None:
-        r_input_text = request.args.get('input_text')
-        r_input_text = r_input_text.lower()
-        r_input_text = "%" + r_input_text + "%"
+        r_inputs = request.args.get('input_text').replace(u'　', u' ').split()
+        for v in r_inputs:
+            sql_params.append("%"+v+"%")
+        for v in r_inputs:
+            sql_params.append("%"+v+"%")
 
-    #values = (r_input_text,r_input_text,r_sort,r_dir)
-    sql = """select distinct MondoID, lower(MondoTerm) as sortfield from Panel where lower(MondoTerm) like '%s' OR lower(MondoTermSynonym) like '%s' order by %s %s"""%(r_input_text,r_input_text,r_sort,r_dir)
+    sql = u"select distinct MondoID, lower(MondoTerm) as sortfield from Panel where ( {0} ) OR ( {1} ) order by {2} {3}".format(' AND '.join(map(lambda x: "MondoTerm collate utf8_unicode_ci like %s", r_inputs)), ' AND '.join(map(lambda x: "MondoTermSynonym collate utf8_unicode_ci like %s", r_inputs)), r_sort, r_dir)
 
     if r_lang == 'ja':
-        sql =  """select distinct MondoID, lower(MondoTerm) as sortfield from Panel where lower(MondoTerm) like '%s' OR lower(MondoTermSynonym) like '%s' OR lower(MondoTermJa) like '%s' order by %s %s"""%(r_input_text,r_input_text,r_input_text,r_sort,r_dir)
-        #values = (r_input_text,r_input_text,r_input_text,r_sort,r_dir)
+        for v in r_inputs:
+            sql_params.append("%"+v+"%")
+        sql = u"select distinct MondoID, lower(MondoTerm) as sortfield from Panel where ( {0} ) OR ( {1} ) OR ( {2} ) order by {3} {4}".format(' AND '.join(map(lambda x: "MondoTerm collate utf8_unicode_ci like %s", r_inputs)), ' AND '.join(map(lambda x: "MondoTermSynonym collate utf8_unicode_ci like %s", r_inputs)), ' AND '.join(map(lambda x: "MondoTermJa collate utf8_unicode_ci like %s", r_inputs)),r_sort, r_dir)
 
     #app.logger.info(sql)
 
@@ -1782,7 +1785,7 @@ def pcf_panel_get_mondo_id_match_panel_name_synonym():
     cursor = OBJ_MYSQL.cursor()
 
     #cursor.execute(sql, values)
-    cursor.execute(sql)
+    cursor.execute(sql, tuple(sql_params))
 
     results = cursor.fetchall()
     OBJ_MYSQL.close()
@@ -1793,7 +1796,7 @@ def pcf_panel_get_mondo_id_match_panel_name_synonym():
 @app.route('/pcf_panel_get_mondo_id_match_gene_symbol_synonym_ncbiid', methods=['GET'])
 def pcf_panel_get_mondo_id_match_gene_symbol_synonym_ncbiid():
 
-    r_sort = "MondoTerm"
+    r_sort = "sortfield"
     if request.args.get('sort') is not None:
         if request.args.get('sort') == 'gene':
             r_sort = "GeneCount"
@@ -1802,18 +1805,21 @@ def pcf_panel_get_mondo_id_match_gene_symbol_synonym_ncbiid():
     if request.args.get('dir') is not None:
         r_dir = request.args.get('dir')
 
-    r_input_text = ""
+    r_inputs = []
+    sql_params = []
     if request.args.get('input_text') is not None:
-        r_input_text = request.args.get('input_text')
-        r_input_text = r_input_text.upper()
-        r_input_text = "%" + r_input_text + "%"
+        r_inputs = request.args.get('input_text').replace(u'　', u' ').split()
+        for v in r_inputs:
+            sql_params.append("%"+v+"%")
 
-    sql = """select distinct MondoID from Panel where GeneSymbolList like '%s' order by %s %s"""%(r_input_text,r_sort,r_dir)
+
+    sql = u"select distinct MondoID, lower(MondoTerm) as sortfield from Panel where ( {0} ) order by {1} {2}".format(' AND '.join(map(lambda x: "GeneSymbolList collate utf8_unicode_ci like %s", r_inputs)), r_sort, r_dir)
+    #app.logger.info(sql)
 
     response_data = {}
     OBJ_MYSQL = MySQLdb.connect(unix_socket=db_sock, host="localhost", db=db_name, user=db_user, passwd=db_pw, charset="utf8")
     cursor = OBJ_MYSQL.cursor()
-    cursor.execute(sql)
+    cursor.execute(sql, tuple(sql_params))
     results = cursor.fetchall()
     OBJ_MYSQL.close()
     response_data['input:'] = [list[0] for list in results]
