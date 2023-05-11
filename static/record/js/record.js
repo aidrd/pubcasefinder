@@ -156,21 +156,43 @@ window.onload = async () => {
             }
         }
 
-        const queryResult = search.query(value, searchCallback)
+        //modified start by hzhang@bits
+        //const queryResult = search.query(value, searchCallback)
+        const queryResult = search.query(value, searchCallback, function (q, v) {
+
+            if (typeof q == 'undefined' || q == null  || !q.toLowerCase || q.length === 0 || 
+                typeof v == 'undefined' || v == null) {
+                return false;
+            }
+
+            if(typeof v === 'object' && Array.isArray(v)){
+                let ret = false;
+                v.forEach(v_e => {
+                    if(typeof v_e === 'object' && 'name_en' in v_e){
+                        let n_k = `name_${lang}`;
+                        let n = n_k in v_e && v_e[n_k] ? v_e[n_k] : v_e['name_en'];
+                        if(n.toLowerCase().indexOf(q.toLowerCase()) !== -1){
+                            ret = true;
+                        }
+                    }else{
+                        if((""+v_e).toLowerCase().indexOf((""+q).toLowerCase()) !== -1){
+                            ret = true;
+                        }
+                    }
+                });
+
+                return ret;
+            }
+
+            return v.toString().toLowerCase().indexOf(q.toLowerCase()) !== -1;
+        });
+        //modified end by hzhang@bits
 
         const totalIndexes = Array.from(Array(hot.countRows()).keys())
         // let matching = queryResult.map(obj => obj.row)
         let matching = []
         queryResult.forEach(obj => {
-//modified start by hzhang@bits
-//            if (obj.col > 1) matching.push(obj.row)
-            if (obj.col > 1){
-                let element = hot.getCellMeta(obj.row, obj.col);
-                if(element.prop.startsWith('pi') === false){
-                    matching.push(obj.row)
-                }
-            }
-//modified end by hzhang@bits
+            if (obj.col > 1) matching.push(obj.row)
         })
 
         let count = matching.length
