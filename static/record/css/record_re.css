@@ -1568,3 +1568,10 @@ width: 10px;
   margin-right: 0 !important;
   margin-left: 0 !important;
 }
+
+
+.radio-clear{
+    float: right;
+    text-decoration: underline;
+    color: #9b9b9b;
+}
