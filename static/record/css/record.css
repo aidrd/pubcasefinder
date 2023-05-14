@@ -682,9 +682,9 @@ opacity: 0.6;
   border-bottom: 0;
 }
 
-.custom-cell {
+/* .custom-cell {
   background-color: rgb(201, 199, 172) !important;
-}
+} */
 
 /* #modal-karte .tab-wrap .show .treatment-table tbody tr th {
   width: 11em;
