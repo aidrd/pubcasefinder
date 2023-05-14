@@ -160,22 +160,22 @@ window.onload = async () => {
         //const queryResult = search.query(value, searchCallback)
         const queryResult = search.query(value, searchCallback, function (q, v) {
 
-            if (typeof q == 'undefined' || q == null  || !q.toLowerCase || q.length === 0 || 
+            if (typeof q == 'undefined' || q == null || !q.toLowerCase || q.length === 0 ||
                 typeof v == 'undefined' || v == null) {
                 return false;
             }
 
-            if(typeof v === 'object' && Array.isArray(v)){
+            if (typeof v === 'object' && Array.isArray(v)) {
                 let ret = false;
                 v.forEach(v_e => {
-                    if(typeof v_e === 'object' && 'name_en' in v_e){
+                    if (typeof v_e === 'object' && 'name_en' in v_e) {
                         let n_k = `name_${lang}`;
                         let n = n_k in v_e && v_e[n_k] ? v_e[n_k] : v_e['name_en'];
-                        if(n.toLowerCase().indexOf(q.toLowerCase()) !== -1){
+                        if (n.toLowerCase().indexOf(q.toLowerCase()) !== -1) {
                             ret = true;
                         }
-                    }else{
-                        if((""+v_e).toLowerCase().indexOf((""+q).toLowerCase()) !== -1){
+                    } else {
+                        if (("" + v_e).toLowerCase().indexOf(("" + q).toLowerCase()) !== -1) {
                             ret = true;
                         }
                     }
@@ -306,7 +306,7 @@ function createColumns() {
                         // maxDate: new Date(),
                         yearRange: [1900, new Date().getFullYear()],
                     }
-                    if(!c.includeDay) {
+                    if (!c.includeDay) {
                         column.datePickerConfig.onDraw = function (datepicker) {
                             let close = document.createElement('span')
                             close.classList.add('pika-ok')
@@ -673,10 +673,10 @@ async function updateTable(data, changeHeaders) {
 
     data.forEach(row => {
         // Translate if possible
-        if(typeof row === 'object') {
+        if (typeof row === 'object') {
             Object.keys(row).forEach(columnId => {
                 let translatedValue = dataValueToNameMap?.[columnId]?.[row[columnId]];
-                if(translatedValue) {
+                if (translatedValue) {
                     row[columnId] = translatedValue;
                 }
             })
@@ -943,9 +943,9 @@ let nameToDataValueMap = {};
 let dataValueToNameMap = {};
 
 let currentLang = localStorage.lang
-for(let category of categories) {
-    for(let column of category.columns) {
-        if(column.type !== 'dropdown' || !column.options)
+for (let category of categories) {
+    for (let column of category.columns) {
+        if (column.type !== 'dropdown' || !column.options)
             continue
         nameToDataValueMap[column.columnId] = {}
         dataValueToNameMap[column.columnId] = {}
@@ -1012,7 +1012,7 @@ function getExportData() {
                     })
 
                     v = tempV
-                } else if(nameToDataValueMap[k]) {
+                } else if (nameToDataValueMap[k]) {
                     // Translate to dataValue if possible
                     v = nameToDataValueMap[k][v] || v;
                 }
@@ -1069,11 +1069,12 @@ function downloadSample(type) {
 }
 
 function exportFile(type, file) {
-    let filename = prompt('ファイル名を入力して下さい')
-    if (!filename) filename = `patients_${Date.now()}`
+    // let filename = prompt('ファイル名を入力して下さい')
+    // if (!filename) filename = `patients_${Date.now()}`
 
     let a = document.createElement('a')
-    a.download = `${filename}.${type}`
+    a.download = `patients_${Date.now()}.${type}`
+    // a.download = `${filename}.${type}`
     a.style.visibility = 'hidden'
 
     let data = `text/json;charset=utf-8,` +
@@ -1113,7 +1114,7 @@ function editTable(isSave) {
                     let pre = e.dataset.columnname
                     value = `${document.querySelector(`.tab-wrap *[name="${pre}_year"]`).value}/${document.querySelector(`.tab-wrap *[name="${pre}_month"]`).value}`
                     if (value === '0/0') value = ''
-                } else if(e.dataset.columnname === 'p00b') {
+                } else if (e.dataset.columnname === 'p00b') {
                     let col = e.dataset.columnname
                     value = `${document.querySelector(`.tab-wrap *[name="${col}_year"]`).value}/${document.querySelector(`.tab-wrap *[name="${col}_month"]`).value}/${document.querySelector(`.tab-wrap *[name="${col}_day"]`).value}`
                     if (value === '0/0/0') value = ''
@@ -1444,7 +1445,7 @@ function setInitialLanguage() {
                 selectMonth.id = `${c.columnId}_month`
                 selectMonth.dataset.columnname = c.columnId
                 td.appendChild(selectMonth)
-                if(c.includeDay) {
+                if (c.includeDay) {
                     let selectDay = document.createElement('select')
                     selectDay.name = `${c.columnId}_day`
                     selectDay.id = `${c.columnId}_day`
@@ -1471,7 +1472,7 @@ function setInitialLanguage() {
                     contentData.forEach(p => {
                         if (p.PCFNo === currentPatient) p[c.columnId] = ''
                     })
-        
+
                     changedData[c.columnId] = ''
                     hot.render()
                     $(td).find('input').prop('checked', false)
