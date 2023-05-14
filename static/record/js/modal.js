@@ -426,13 +426,13 @@ function openModal(patientId) {
                     return
                 }
 
-                element.onchange = function (e) {
-                    let targetValue = e.target.value
-                    if (e.target.type === 'select-one' || colId === 'p005') {
-                        targetValue = getDataDisplayOption(c.options, targetValue, 'displayValue')
-                    }
-                    onchange(colId, targetValue)
-                }
+                // element.onchange = function (e) {
+                //     let targetValue = e.target.value
+                //     if (e.target.type === 'select-one' || colId === 'p005') {
+                //         targetValue = getDataDisplayOption(c.options, targetValue, 'displayValue')
+                //     }
+                //     onchange(colId, targetValue)
+                // }
 
                 let type = element.type
                 if (type === 'radio') {
@@ -449,6 +449,14 @@ function openModal(patientId) {
                         targetValue = getDataDisplayOption(c.options, targetValue, 'displayValue')
                         onchange(colId, targetValue)
                     })
+                } else {
+                    element.onchange = function (e) {
+                        let targetValue = e.target.value
+                        if (e.target.type === 'select-one' || colId === 'p005') {
+                            targetValue = getDataDisplayOption(c.options, targetValue, 'displayValue')
+                        }
+                        onchange(colId, targetValue)
+                    }
                 }
 
                 if (!value) return
@@ -482,12 +490,20 @@ function openModal(patientId) {
                 }
             }
 
-            contentData.forEach(p => {
-                if (p.PCFNo === currentPatient) p[key] = value
+            let patientIdx = null
+            contentData.forEach((p, i) => {
+                if (p.PCFNo === currentPatient) {
+                    patientIdx = i
+                    p[key] = value
+                }
             })
 
+            let columnIdx = existingColumns.indexOf(key) + actions.length
+
+            hot.setDataAtCell(patientIdx, columnIdx, value)
             changedData[key] = value
-            hot.render()
+
+            // hot.render()
         }
 
         function showHideDeathDate(parent, value) {
