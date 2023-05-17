@@ -261,6 +261,7 @@
     border: none;
     border-radius: 12px;
     padding: 3em 3em 2em;
+    word-break: break-all;
   }
   #modal-info .modal-karte-button-sub ul{
     padding: 0;
@@ -529,3 +530,4 @@
 #nav-panel .nav-items .nav-item-dropdown .dropdown-menu .dropdown-menu-item:hover{
   background-color: #e4ebe6;
 }
+
