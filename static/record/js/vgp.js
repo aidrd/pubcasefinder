@@ -8,7 +8,7 @@
 //}
 
 let lang = localStorage.lang || 'en'
-lang = lang === 'undefined' ? 'en' : lang
+lang = lang === undefined ? 'en' : lang
 
 $(`.dropdown-menu-item[data-lang='${lang}']`).addClass('dropdown-selected')
 document.getElementById('selected-language-display').innerText = $('.dropdown-selected').text()
