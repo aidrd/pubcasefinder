@@ -500,9 +500,12 @@ function openModal(patientId) {
 
             let columnIdx = existingColumns.indexOf(key) + actions.length
 
-            hot.setDataAtCell(patientIdx, columnIdx, value)
-            changedData[key] = value
+            if (columnIdx <= 0) {
+                columnIdx += actions.length
+                hot.setDataAtCell(patientIdx, columnIdx, value)
+            }
 
+            changedData[key] = value
             // hot.render()
         }
 

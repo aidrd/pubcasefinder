@@ -775,6 +775,7 @@ async function updateTable(data, changeHeaders) {
 function importFile(event) {
     let file = event.target.files[0]
     fileReader(file, file.type, event.target.id === 'import_btn')
+    event.target.value = ''
 }
 
 function onDragOver(event) {
@@ -1072,8 +1073,11 @@ function exportFile(type, file) {
     // let filename = prompt('ファイル名を入力して下さい')
     // if (!filename) filename = `patients_${Date.now()}`
 
+    let d = new Date()
+
     let a = document.createElement('a')
-    a.download = `patients_${Date.now()}.${type}`
+    a.download = `patients_${d.getFullYear()}${addZero(d.getMonth() + 1)}${addZero(d.getDate())}${addZero(d.getHours())}${addZero(d.getMinutes())}.${type}`
+    // a.download = `patients_${Date.now()}.${type}`
     // a.download = `${filename}.${type}`
     a.style.visibility = 'hidden'
 
@@ -1089,6 +1093,10 @@ function exportFile(type, file) {
     document.body.appendChild(a)
     a.click()
     a.remove()
+
+    function addZero(number) {
+        return String(number).padStart(2, '0')
+    }
 }
 
 function editTable(isSave) {
@@ -1162,7 +1170,10 @@ function editTable(isSave) {
     // existing patient
     let patientData = contentData.filter(d => { return d.PCFNo == currentPatient })[0]
 
+    console.log(currentPatient)
     for (let [k, v] of Object.entries(changedData)) {
+        console.log(k, v)
+        // console.log
         patientData[k] = v
 
         if (k === 'p002') {
@@ -1597,6 +1608,20 @@ function setInitialLanguage() {
                         inheritance
                     </label>
                 `
+
+                let clear = document.createElement('div')
+                clear.classList.add('radio-clear')
+                clear.innerHTML = 'clear'
+                clear.onclick = () => {
+                    contentData.forEach(p => {
+                        if (p.PCFNo === currentPatient) p[c.columnId] = ''
+                    })
+
+                    changedData[c.columnId] = ''
+                    hot.render()
+                    $(td).find('input').prop('checked', false)
+                }
+                td.appendChild(clear)
             }
         }
 
