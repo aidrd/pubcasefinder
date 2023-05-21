@@ -1529,22 +1529,19 @@ function setInitialLanguage() {
                         <label for="autosomal_dominant_somatic_cell_mutation">
                             <input id="autosomal_dominant_somatic_cell_mutation" type="radio"
                                 name="f002" value="Autosomal dominant somatic cell mutation"
-                                data-columnname="f002">
-                            Autosomal
+                                data-columnname="f002">Autosomal
                             dominant somatic cell mutation
                         </label>
                         <label for="autosomal_dominant_contiguous_gene_syndrome">
                             <input id="autosomal_dominant_contiguous_gene_syndrome" type="radio"
                                 name="f002" value="Autosomal dominant contiguous gene syndrome"
-                                data-columnname="f002">
-                            Autosomal
+                                data-columnname="f002">Autosomal
                             dominant contiguous gene syndrome
                         </label>
                     </details>
                     <label for="autosomal_recessive_inheritance">
                         <input id="autosomal_recessive_inheritance" type="radio" name="f002"
-                            value="Autosomal recessive inheritance" data-columnname="f002">
-                        Autosomal
+                            value="Autosomal recessive inheritance" data-columnname="f002">Autosomal
                         recessive inheritance
                     </label>
                     <details>
