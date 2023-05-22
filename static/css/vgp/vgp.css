@@ -681,3 +681,8 @@ body {
   width: 100%;
   transform: rotateX(90deg);
 }
+
+
+#btn_back_to_top img{
+  width: 66px !important;
+}
