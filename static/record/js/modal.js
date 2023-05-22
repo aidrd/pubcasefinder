@@ -86,8 +86,8 @@ function openModal(patientId) {
     modalReset()
 
     modalResize()
-    populateOptions('group_options')
-    populateOptions('family_options')
+    populateGroupFamilyOptions('group_options')
+    populateGroupFamilyOptions('family_options')
 
     inputValues()
 
@@ -167,13 +167,42 @@ function openModal(patientId) {
         this_year = today.getFullYear()
         this_month = today.getMonth() + 1
 
-        optionLoop(1900, this_year, `${type}_year`)
-        optionLoop(1, 12, `${type}_month`)
+        createYearOptions(1900, this_year, `${type}_year`)
+        createMonthOptions(1, 12, `${type}_month`)
         if(includeDay)
             document.querySelector(`.tab-wrap *[name="${type}_day"]`).innerHTML = createDayOptions();
     }
 
-    function createDayOptions(id) {
+    function createYearOptions(startYear, endYear, id) {
+        startYear = parseInt(startYear) || 1
+        endYear = parseInt(endYear)
+        let opt = `<option value="0">${translate('select-year')}</option>`
+        
+        for (let i = endYear; i >= startYear; i--) {
+            opt += `<option value="${i.toString()}"}>${i}</option>`
+        }
+
+        return document.querySelector(`.tab-wrap *[name="${id}"]`).innerHTML = opt
+    }
+
+    function createMonthOptions(startMonth, endMonth, id) {
+        startMonth = parseInt(startMonth) || 1
+        endMonth = parseInt(endMonth)
+        let opt = `<option value="0">${translate('select-month')}</option>`
+
+        for (let i = startMonth; i <= endMonth; i++) {
+            let display = i
+            let temp = i
+
+            // if (temp % 10 === 0 && end !== 12) display = `${i}s`
+
+            opt += `<option value="${i.toString().padStart(2, '0')}">${display}</option>`
+        }
+       
+        return document.querySelector(`.tab-wrap *[name="${id}"]`).innerHTML = opt
+    }
+
+    function createDayOptions() {
         let options = `<option value="0">${translate('select-day')}</option>`;
         for (let i = 1; i <= 31; i++) {
             options += `<option value="${i.toString().padStart(2, '0')}">${i}</option>`;
@@ -181,29 +210,7 @@ function openModal(patientId) {
         return options;
     }
 
-    function optionLoop(start, end, id) {
-        start = parseInt(start) || 1
-        end = parseInt(end)
-        let opt = `<option value="0">${end === 12 ? translate('select-month') : translate('select-year')}</option>`
-        if (end === 12) {
-            for (let i = start; i <= end; i++) {
-                let display = i
-                let temp = i
-
-                if (temp % 10 === 0 && end !== 12) display = `${i}s`
-
-                opt += `<option value="${i.toString().padStart(2, '0')}">${display}</option>`
-            }
-        } else {
-            for (let i = end; i >= start; i--) {
-                opt += `<option value="${i.toString().padStart(2, '0')}"}>${i}</option>`
-            }
-        }
-
-        return document.querySelector(`.tab-wrap *[name="${id}"]`).innerHTML = opt
-    }
-
-    function populateOptions(element) {
+    function populateGroupFamilyOptions(element) {
         let parent = document.getElementById(element)
         if (!parent) return
 
@@ -360,10 +367,10 @@ function openModal(patientId) {
                         let deathYear = document.querySelector(`.tab-wrap *[name="p008_year"]`).value
 
                         if (type === 'year') {
-                            optionLoop(birthYear, d.getFullYear(), `p008_year`)
+                            createYearOptions(birthYear, d.getFullYear(), `p008_year`)
                         } else if (type === 'month') {
                             if (deathYear === birthYear) {
-                                optionLoop(birthMonth, 12, `p008_month`)
+                                createMonthOptions(birthMonth, 12, `p008_month`)
                             }
                         }
 
@@ -505,7 +512,7 @@ function openModal(patientId) {
                 hot.setDataAtCell(patientIdx, columnIdx, value)
             }
 
-            changedData[key] = value
+            // changedData[key] = value
             // hot.render()
         }
 

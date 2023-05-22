@@ -116,6 +116,16 @@ let updateSettings = {
     beforeCopy: (data, coords) => {
         if (coords[0].startCol === 0 || coords[0].startCol === 1) return false
     },
+    beforePaste: (data, coords) => {
+        let totalRows = hot.countRows()
+        let startRow = coords[0].startRow
+        let copyLength = data.length
+        let newTotalRows = startRow + copyLength
+
+        if (newTotalRows > totalRows) {
+            data.splice(totalRows - startRow - 1, newTotalRows - totalRows)
+        }
+    },
     filters: true,
     dropdownMenu: true,
     outsideClickDeselects: false,
@@ -1170,18 +1180,17 @@ function editTable(isSave) {
     // existing patient
     let patientData = contentData.filter(d => { return d.PCFNo == currentPatient })[0]
 
-    console.log(currentPatient)
-    for (let [k, v] of Object.entries(changedData)) {
-        console.log(k, v)
-        // console.log
-        patientData[k] = v
+    // for (let [k, v] of Object.entries(changedData)) {
+    //     console.log(k, v)
+    //     // console.log
+    //     patientData[k] = v
 
-        if (k === 'p002') {
-            if (!(familyOptions.includes(v))) familyOptions.push(v)
-        } else if (k === 'p004') {
-            if (!(groupOptions.includes(v))) groupOptions.push(v)
-        }
-    }
+    //     if (k === 'p002') {
+    //         if (!(familyOptions.includes(v))) familyOptions.push(v)
+    //     } else if (k === 'p004') {
+    //         if (!(groupOptions.includes(v))) groupOptions.push(v)
+    //     }
+    // }
 
     if (geneData.length > 0) {
         let geneDataKeys = Object.keys(geneData[0])
@@ -1207,7 +1216,7 @@ function editTable(isSave) {
 
     function resetData() {
         currentPatient = ''
-        changedData = {}
+        // changedData = {}
     }
 }
 
@@ -1484,7 +1493,7 @@ function setInitialLanguage() {
                         if (p.PCFNo === currentPatient) p[c.columnId] = ''
                     })
 
-                    changedData[c.columnId] = ''
+                    // changedData[c.columnId] = ''
                     hot.render()
                     $(td).find('input').prop('checked', false)
                 }
@@ -1614,7 +1623,7 @@ function setInitialLanguage() {
                         if (p.PCFNo === currentPatient) p[c.columnId] = ''
                     })
 
-                    changedData[c.columnId] = ''
+                    // changedData[c.columnId] = ''
                     hot.render()
                     $(td).find('input').prop('checked', false)
                 }
