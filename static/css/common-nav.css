@@ -531,3 +531,6 @@
   background-color: #e4ebe6;
 }
 
+#nav-panel .nav-items .nav-item-dropdown .dropdown-menu .dropdown-selected, .nav-item-dropdown .dropdown-menu .dropdown-menu-item:hover{
+  background-color: #e4ebe6;
+}

@@ -52,7 +52,7 @@ let infoTranslations = {
         { '数据来源': '虚拟基因面板是由以下数据来源构建的。</br>・Mondo: <a href="http://purl.obolibrary.org/obo/mondo.obo">http://purl.obolibrary.org/obo/mondo.obo</a></br>・MedGen: <a href="https://ftp.ncbi.nlm.nih.gov/gene/DATA/mim2gene_medgen" target="_blank">https://ftp.ncbi.nlm.nih.gov/gene/DATA/mim2gene_medgen</a></br>・Orphanet: <a href="http://www.orphadata.org/data/xml/en_product6.xml" target="_blank">http://www.orphadata.org/data/xml/en_product6.xml</a></br>・GenCC: <a href="https://search.thegencc.org/download" target="_blank">https://search.thegencc.org/download</a>' },
         { '免责声明': '请参考<a href="https://pubcasefinder.dbcls.jp/termsofservice?lang=en" target="_blank">这个链接</a>。' }
     ],
-    zhct: [
+    zhcht: [
         { '什麼是面板搜索？': 'Panel Search 是一個公開可用的數據庫，可讓您搜索和利用與 9,998 種人類疾病相關的虛擬基因面板。 Virtual Gene Panels 可用於對基因組序列進行高效的臨床解釋。' },
         { '如何構建虛擬基因面板': '基於包括許多罕見和遺傳疾病的君主疾病本體論 (Mondo)，我們構建了虛擬基因面板，可以自動總結每種疾病的致病基因。 通過使用 Mondo 中的疾病等級信息，我們還自動構建了針對疾病組的虛擬基因面板，例如“孟德爾疾病”。' },
         { '數據源': 'Virtual Gene Panels 是根據以下數據源構建的。</br>・Mondo: <a href="http://purl.obolibrary.org/obo/mondo.obo">http://purl.obolibrary.org/obo/mondo.obo</a></br>・MedGen: <a href="https://ftp.ncbi.nlm.nih.gov/gene/DATA/mim2gene_medgen" target="_blank">https://ftp.ncbi.nlm.nih.gov/gene/DATA/mim2gene_medgen</a></br>・Orphanet: <a href="http://www.orphadata.org/data/xml/en_product6.xml" target="_blank">http://www.orphadata.org/data/xml/en_product6.xml</a></br>・GenCC: <a href="https://search.thegencc.org/download" target="_blank">https://search.thegencc.org/download</a>' },
