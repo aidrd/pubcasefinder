@@ -11,12 +11,12 @@
   
   .common-brand{
     display: block;
-      max-width: 200px;
+      max-width: 220px;
       min-width: 200px;
       margin: auto 0;
   }
   .common-brand img{
-  width: 200px;
+  width: 220px !important;
   }
   
   .nav-items{
