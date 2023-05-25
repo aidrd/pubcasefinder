@@ -1673,34 +1673,34 @@ function translate(word) {
 
 let infoTranslations = {
     en: [
-        { 'Usable in a local environment': 'CaseSharing can be used in a local environment, allowing doctors and nurses to save case information on their own computers. This contributes to smoother information sharing and access within the hospital, and helps to streamline medical practices.' },
-        { 'Try with sample data': 'Try out the system\'s functionality with sample data to get a better understanding of its operation and the components of case information.' },
-        { 'Encouraging collaboration': 'In the future, we plan to expand the system\'s capabilities to enable smoother information sharing with other systems. This will lead to increased efficiency and productivity through better collaboration.' },
-        { 'Multilingual support': 'The system supports languages such as English, Japanese, Korean, and Chinese, allowing people around the world to use the system in their own language and facilitating communication with users from different regions.' }
+        { 'What is Case Sharing?': 'Case Sharing is a system for managing and sharing case information on rare and genetic diseases. The system can be used without user registration. Lets get an idea of how to use this system with sample data.' },
+        { 'Usable in a local environment': 'Case information managed by Case Sharing is not stored in the cloud, but in your own computer. Case information can also be exported to the Phenopackets format, an international case information sharing format. This makes it easy for users to control their own information management and sharing.' },
+        { 'Encouraging collaboration': 'In the future, Case Sharing will support not only Phenopackets but also other formats such as OMOP so that information can be shared smoothly with other systems. In addition, this system supports English, Japanese, Korean, Chinese, and other languages to facilitate information sharing with users around the world.' },
+        { 'Disclaimer': 'Please refer to <a href="https://pubcasefinder.dbcls.jp/termsofservice?lang=en">this link</a>.' }
     ],
     ja: [
-        { 'ローカル環境で使える': 'CaseSharingはローカル環境で使え、医師や看護師などが症例情報を自分のコンピューターに保存できることを意味します。これにより、病院内の情報共有やアクセスがスムーズになり、医療現場の効率化に貢献します。' },
-        { 'サンプルデータで試す': 'サンプルデータを用いて本システムの使用イメージをつかみましょう。本システムの操作方法や症例情報の構成要素について理解を深めることができます。' },
-        { 'コラボレーションを促進': '将来、他のシステムとスムーズに情報の共有ができるように、機能を拡張する予定です。情報の共有により業務の効率化や生産性向上につながります。' },
-        { '多言語化': '本システムは英語、日本語、韓国語、中国語などの言語に対応しています。これにより、世界中の人々が、自分の言語で本システムを利用できるようになり、世界各地のユーザーとのコミュニケーションもスムーズになります。' }
+        { 'Case Sharingとは？': 'Case Sharingは、希少疾患・遺伝性疾患の症例情報を、管理・共有するためのシステムです。ユーザ登録なしに利用することができます。サンプルデータを用いて本システムの使用イメージをつかみましょう。' },
+        { 'ローカル環境で使える': 'Case Sharingで管理する症例情報は、クラウドに保存するのではなく、自身のコンピュータに保存します。また、国際的な症例情報共有形式であるPhenopacketsで症例情報を出力することも可能です。これにより、情報管理や共有を自身でコントロールすることが容易となります。' },
+        { 'コラボレーションを促進': '将来、他のシステムとスムーズに情報共有ができるように、Phenopacketsだけでなく、OMOPなど他の形式にも対応する予定です。また、本システムは英語、日本語、韓国語、中国語などの言語に対応しており、世界各地のユーザとの情報共有もスムーズになります。' },
+        { '免責事項': '<a href="https://pubcasefinder.dbcls.jp/termsofservice">リンク先</a>を参照してください。' }
     ],
     ko: [
-        { '로컬 환경에서 사용 가능합니다.': 'CaseSharing은 로컬 환경에서 사용할 수 있으며, 의사나 간호사 등이 증례 정보를 자신의 컴퓨터에 저장할 수 있습니다. 이로 인해 병원 내 정보 공유와 접근이 원활해지며, 의료 현장의 효율화에 기여합니다.' },
-        { '샘플 데이터로 시도해 보세요.': '샘플 데이터를 이용하여 본 시스템의 사용 이미지를 파악할 수 있습니다. 본 시스템의 조작 방법이나 증례 정보의 구성 요소에 대해 이해를 깊이 드실 수 있습니다.' },
-        { '협업을 촉진합니다.': '앞으로 다른 시스템과 원활하게 정보 공유가 가능하도록 기능을 확장할 예정입니다. 정보 공유를 통해 업무의 효율화와 생산성 향상에 이어집니다.' },
-        { '다국어화': '본 시스템은 영어, 일본어, 한국어, 중국어 등의 언어를 지원합니다. 이를 통해 전 세계 사람들이 자신의 언어로 본 시스템을 이용할 수 있게 되어, 세계 각지의 사용자들과의 커뮤니케이션도 원활해집니다.' }
+        { 'Case Sharing이란?': 'Case Sharing은 희귀 질환 및 유전성 질환의 사례 정보를 관리하고 공유하기 위한 시스템입니다. 사용자 등록 없이 이용할 수 있습니다.  샘플 데이터를 활용하여 본 시스템의 사용 이미지를 파악해 봅시다.' },
+        { '로컬 환경에서 사용 가능': 'Case Sharing에서 관리하는 증례 정보는 클라우드에 저장하는 것이 아니라 자신의 컴퓨터에 저장합니다. 또한 국제적인 증례 정보 공유 형식인 Phenopackets로 증례 정보를 출력할 수도 있습니다. 이를 통해 정보 관리와 공유를 자체적으로 제어할 수 있습니다.' },
+        { '협업 촉진': '미래에 다른 시스템과의 원활한 정보 공유를 위해 Phenopackets 뿐만 아니라 OMOP 등 다른 형식에도 대응할 예정입니다. 또한 본 시스템은 영어, 일본어, 한국어, 중국어 등의 다양한 언어를 지원하므로 전 세계 각지의 사용자들과 정보 공유도 원활해질 것입니다.' },
+        { '면책 사항': '<a href="https://pubcasefinder.dbcls.jp/termsofservice?lang=ko">링크</a>를 참조해 주시기 바랍니다.' }
     ],
     zh: [
-        { '本地环境可用': 'CaseSharing可在本地环境中使用，意味着医生、护士等可以将病例信息保存在自己的计算机上。这将使医院内的信息共享和访问更加顺畅，为医疗现场的效率提供贡献。' },
-        { '使用示例数据进行尝试': '使用示例数据来了解本系统的使用情况。您可以深入了解本系统的操作方法和病例信息的组成要素。' },
-        { '促进协作': '未来，我们计划扩展功能，以便与其他系统顺畅共享信息。信息共享将促进业务效率和生产力的提高。' },
-        { '多语言化': '本系统支持英语、日语、韩语、中文等多种语言。这将使世界各地的人们可以使用自己的语言使用本系统，与全球用户的沟通也将更加顺畅。' }
+        { '什么是个案分享？': '病例共享是一个管理和共享罕见病和遗传病病例信息的系统。无需用户注册即可使用该系统。让我们了解一下如何将此系统与示例数据一起使用。' },
+        { '可在本地环境中使用': 'Case Sharing 管理的案例信息不存储在云端，而是存储在您自己的计算机中。案例信息还可以导出为 Phenopackets 格式，这是一种国际案例信息共享格式。这使得用户可以轻松控制自己的信息管理和共享。' },
+        { '鼓励合作': '未来, Case Sharing不仅支持Phenopackets, 还支持OMOP等其他格式, 以便与其他系统顺利共享信息。此外，该系统还支持英文、日文、韩文、中文等多种语言，方便与全球用户进行信息共享。' },
+        { '免责声明': '<a href="https://pubcasefinder.dbcls.jp/termsofservice?lang=en">请参考这</a>个链接。' }
     ],
-    zhct: [
-        { '本地環境可使用。': 'CaseSharing 可在本地環境中使用，醫生和護士等可以將病例信息保存在自己的計算機上。這樣一來，醫院內的信息共享和訪問將變得更加順暢，有助於提高醫療效率。CaseSharing 可在本地環境中使用，醫生和護士等可以將病例信息保存在自己的計算機上。這樣一來，醫院內的信息共享和訪問將變得更加順暢，有助於提高醫療效率。' },
-        { '使用樣例數據進行試用。': '利用樣例數據來瞭解本系統的使用方法。您可以深入理解本系統的操作方法和病例信息的組成要素。' },
-        { '促進協作。': '未來，我們計劃擴展功能，使其能夠與其他系統順暢共享信息。信息共享有助於提高工作效率和生產力。' },
-        { '多語言化。': '本系統支持英語、日語、韓語、中文等多種語言。這樣一來，全球各地的人們都可以使用自己的語言使用本系統，與世界各地的用戶進行順暢的溝通。' }
+    zhcht: [
+        { '什麼是個案分享？': '病例共享是一個管理和共享罕見病和遺傳病病例信息的系統。無需用戶註冊即可使用該系統。讓我們了解一下如何將此系統與示例數據一起使用。' },
+        { '可在本地環境中使用': 'Case Sharing 管理的案例信息不存儲在雲端，而是存儲在您自己的計算機中。案例信息還可以導出為 Phenopackets 格式，這是一種國際案例信息共享格式。這使得用戶可以輕鬆控制自己的信息管理和共享。' },
+        { '鼓勵合作': '未來, Case Sharing不僅支持Phenopackets, 還支持OMOP等其他格式, 以便與其他系統順利共享信息。此外, 該系統還支持英文、日文、韓文、中文等多種語言，方便與全球用戶進行信息共享。' },
+        { '免責聲明': '請參考<a href="https://pubcasefinder.dbcls.jp/termsofservice?lang=en">此鏈接</a>。' }
     ]
 }
 
