@@ -62,7 +62,8 @@ let infoTranslations = {
 
 let modalContent = document.getElementById('modal-info-content')
 modalContent.innerHTML = `
-    <ul>
+<img src="/static/record/images/logo_PanelSearch.svg" class="info-panel-img">    
+<ul>
         <li>
             <i class="material-symbols-outlined">
             search

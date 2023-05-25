@@ -264,8 +264,9 @@
     background: #fff;
     border: none;
     border-radius: 12px;
-    padding: 3em 3em 2em;
-    word-break: break-all;
+    padding: 2.5em 2em 2em;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
   }
   #modal-info .modal-karte-button-sub ul{
     padding: 0;
@@ -275,7 +276,7 @@
   #modal-info .modal-karte-button-sub ul li{
     display: flex;
     align-items: center;
-    padding-bottom: 1.5em;
+    padding-bottom: 1em;
     text-align: left;
   }
   
@@ -296,6 +297,7 @@
     font-size: 1.1em;
     font-weight: bold;
     margin-bottom: 0;
+    color: #13295A;
   }
   
   #modal-info .modal-karte-button-sub ul li span p{
@@ -303,15 +305,20 @@
     font-weight: normal;
     margin: 0;
   }
+
+
+  #modal-info .modal-karte-button-sub ul li span a{
+    color: #4b84ff;
+  }
   
   /* #modal-info #modal-info-button{
     margin-top: 1em;
   } */
   
   #modal-info #modal-info-button span{
-    background: #11101D;
+    background: #13295A;
     color: #fff;
-    padding: 0.7em 3em;
+    padding: 0.3em 3em;
     border-radius: 3em;
     display: block;
   }
@@ -541,4 +548,15 @@
 
 #logo-panel img{
   margin-left: 10px;
+}
+
+
+.info-panel-img{
+  width: 270px;
+  margin-bottom: 1em;
+}
+
+.info-case-img{
+  width: 270px;
+  margin-bottom: 1em;
 }

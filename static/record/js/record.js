@@ -1706,7 +1706,8 @@ let infoTranslations = {
 
 let modalContent = document.getElementById('modal-info-content')
 modalContent.innerHTML = `
-    <ul>
+<img src="/static/record/images/logo_CaseSharing.svg" class="info-case-img">        
+<ul>
         <li>
             <i class="material-symbols-outlined">
             dvr
