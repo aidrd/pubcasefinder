@@ -80,6 +80,10 @@
     padding: 0.7em 1em;
     text-align: left;
   }
+
+  #nav-case .nav-items .nav-item-dropdown .dropdown-menu .dropdown-menu-item:hover{
+    background-color: #e4e5eb;
+  }
   
   .nav-item-dropdown .dropdown-menu .dropdown-selected,
   .nav-item-dropdown .dropdown-menu .dropdown-menu-item:hover {
