@@ -538,3 +538,7 @@
 #nav-panel .nav-items .nav-item-dropdown .dropdown-menu .dropdown-selected, .nav-item-dropdown .dropdown-menu .dropdown-menu-item:hover{
   background-color: #e4ebe6;
 }
+
+#logo-panel img{
+  margin-left: 10px;
+}
