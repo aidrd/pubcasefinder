@@ -1712,8 +1712,8 @@ def get_hpo_data_by_hpo_id():
 
 #####
 # display visual gene panel page
-# /panel/search
-@app.route('/panel/search')
+# /panelsearch
+@app.route('/panelsearch')
 def vgp():
 
     return render_template('vgp.html')
