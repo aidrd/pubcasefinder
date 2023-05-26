@@ -129,15 +129,15 @@ function openModal(patientId) {
     function modalReset() {
         $(`.tab-wrap input[type="text"], .tab-wrap textarea, .tab-wrap select`).val('')
         $('.tab-wrap input:radio').prop('checked', false)
-        $('#p008').parent().hide()
-        $('input[name="m012-list"]').hide() // allergies
-        $('input[name="m015-list"]').hide() // drinking
-        $('input[name="m016-list"]').hide() // smoking
+        $(`#${columnKeys.CASE_DEATH}`).parent().hide()
+        $(`input[name="${columnKeys.MEDICAL_ALLERGIES}-list"]`).hide() // allergies
+        $(`input[name="${columnKeys.MEDICAL_DRINKING}-list"]`).hide() // drinking
+        $(`input[name="${columnKeys.MEDICAL_SMOKING}-list"]`).hide() // smoking
         document.querySelector('.tab-btn').click()
-        dateOptions('p006') // birth
-        dateOptions('p007') // age
-        dateOptions('p008') // death
-        dateOptions('p00b', true) // ExaminationDay
+        dateOptions(columnKeys.CASE_BIRTH)
+        dateOptions(columnKeys.CASE_AGE)
+        dateOptions(columnKeys.CASE_DEATH)
+        dateOptions(columnKeys.CASE_EXAMINATION_DAY, true)
 
         // For age
         setOptionsForAge()
@@ -154,10 +154,10 @@ function openModal(patientId) {
         for (let i = 0; i <= 11; i++) {
             options += `<option value="${i.toString().padStart(2, '0')}">${i}</option>`;
         }
-        parent.querySelector(`*[name="p007_month"]`).innerHTML = options;
+        parent.querySelector(`*[name="${columnKeys.CASE_AGE}_month"]`).innerHTML = options;
 
         // For day
-        parent.querySelector(`*[name="p007_day"]`).innerHTML = createDayOptions();
+        parent.querySelector(`*[name="${columnKeys.CASE_AGE}_day"]`).innerHTML = createDayOptions();
 
     }
 
@@ -236,29 +236,17 @@ function openModal(patientId) {
             currentPatient = patientData['PCFNo']
             PCFNo = patientData['PCFNo']
         } else {
-            // let d = new Date()
-            // PCFNo = `P${d.getFullYear()}${d.getMonth() + 1}${d.getDate()}${d.getHours()}${d.getMinutes()}${d.getSeconds()}${d.getMilliseconds()}`
-            // let num = localStorage.patientCount ? parseInt(localStorage.patientCount) + 1 : hot.countRows() + 1
-            // document.querySelector(`.tab-wrap *[name="p001"]`).value = `P${num.toString().padStart(7, 0)}`
             addRow()
             patientData = contentData[contentData.length - 1]
             currentPatient = patientData['PCFNo']
-            PCFNo = patientData['PCFNo']
-
-            // if (count) {
-            //     document.querySelector(`.tab-wrap *[name="p001"]`).value = `P${count.toString().padStart(7, 0)}`
-            // } else {
-            //     document.querySelector(`.tab-wrap *[name="p001"]`).value = `P${num.toString().padStart(7, 0)}`
-            //     count = num
-            // }        
+            PCFNo = patientData['PCFNo']      
         }
 
         document.getElementById('PCFNo').nextElementSibling.innerHTML = PCFNo
 
         categories.forEach(category => {
             // modified by hzhang@bits start
-            //if (category.dataKey === 'phenotypicInfo') return
-            if (category.dataKey === 'phenotypicInfo') {
+            if (category.categoryId === columnKeys.PHENOTYPE_INFO) {
                 phenotypeInfo_inputValues(patientData);
                 return;
             }
@@ -267,10 +255,10 @@ function openModal(patientId) {
             category.columns.forEach(c => {
                 let value, colId = c.columnId
                 switch (colId) {
-                    case 'p006':
-                    case 'p008':
-                    case 'p00b':
-                    case 'p007':
+                    case columnKeys.CASE_BIRTH:
+                    case columnKeys.CASE_DEATH:
+                    case columnKeys.CASE_EXAMINATION_DAY:
+                    case columnKeys.CASE_AGE:
                         value = patientData[colId]
                         colId = `${colId}_year`
                         break
@@ -288,25 +276,13 @@ function openModal(patientId) {
                 let radioInput = $(`.tab-wrap input[name="${colId}"]`)
                 // let radioInput = document.querySelectorAll(`.tab-wrap input[name="${colId}"]`)
 
-                if (colId === 'p005') {
-                    let parent = $('#p008').parent()
+                if (colId === columnKeys.CASE_LIFE_STATUS) {
+                    let parent = $(`#${columnKeys.CASE_DEATH}`).parent()
                     showHideDeathDate(parent, 'deceased')
-
-                    // radioInput.forEach(r => {
-                    //     r.addEventListener('change', (e) => {
-                    //         let radioValue = $(`.tab-wrap input[name="${colId}"]`).filter(':checked').val()
-                    //         // showHideDeathDate(parent, radioValue)
-                    //         if (radioValue === 'alive') onchange('p008', '')
-                    //     })
-                    // })
-                    // radioInput.on('click change', () => {
-                    //     let radioValue = radioInput.filter(':checked').val()
-                    //     // showHideDeathDate(parent, radioValue)
-                    //     if (radioValue === 'alive') onchange('p008', '')
-                    // })
-                } else if(colId === 'p00b_year' || colId === 'p007_year') {
-                    let key = colId.split('_')[0]
-                    let monthId = `${key}_month`
+                } else if(colId === `${columnKeys.CASE_EXAMINATION_DAY}_year` || colId === `${columnKeys.CASE_DEATH}_year`) {
+                    // let key = colId.split('_')[0]
+                    // console.log(key, colId)
+                    let monthId = colId === `${columnKeys.CASE_EXAMINATION_DAY}_year` ? `${columnKeys.CASE_EXAMINATION_DAY}_month` : `${columnKeys.CASE_DEATH}_month`
                     let date = value ? value.toString().split('/') : ['']
                     let yearValue = date[0]
                     if (yearValue) element.value = yearValue
@@ -320,25 +296,24 @@ function openModal(patientId) {
                     monthElement.onchange = function () {
                         onchange(key)
                     }
-                    let dayElement = document.querySelector(`.tab-wrap *[name="${key}_day"]`)
+                    let dayElement = document.querySelector(`.tab-wrap *[name="${columnKeys.CASE_EXAMINATION_DAY}_day"]`)
                     let dayValue = date[2]
                     if (dayValue) dayElement.value = dayValue
                     dayElement.onchange = function () {
                         onchange(key)
                     }
                     return
-                } else if (colId === 'p006_year' || colId === 'p008_year') {
-                    let monthId = colId === 'p006_year' ? 'p006_month' : 'p008_month'
+                } else if (colId === `${columnKeys.CASE_BIRTH}_year` || colId === `${columnKeys.CASE_DEATH}_year`) {
+                    let monthId = colId === `${columnKeys.CASE_BIRTH}_year` ? `${columnKeys.CASE_BIRTH}_month` : `${columnKeys.CASE_DEATH}_month`
                     let date = value ? value.split('/') : ['']
                     let yearValue = date[0]
                     if (yearValue) element.value = yearValue
                     element.onchange = function () {
-                        onchange(colId === 'p006_year' ? 'p006' : 'p008')
+                        onchange(colId === `${columnKeys.CASE_BIRTH}_year` ? columnKeys.CASE_BIRTH : columnKeys.CASE_DEATH)
 
-                        if (colId === 'p006_year') {
-                            // onchange('p007', age)
+                        if (colId === `${columnKeys.CASE_BIRTH}_year`) {
                             changeDeathOptions('year')
-                        } else if (colId === 'p008_year') {
+                        } else if (colId === `${columnKeys.CASE_DEATH}_year`) {
                             changeDeathOptions('month')
                         }
                     }
@@ -346,11 +321,9 @@ function openModal(patientId) {
                     let monthElement = document.querySelector(`.tab-wrap *[name="${monthId}"]`)
                     let monthValue = date[1]
                     if (monthValue) monthElement.value = monthValue
-                    // cancelIdleCallback.onchange = function () {
                     monthElement.onchange = function () {
-                        onchange(colId === 'p006_year' ? 'p006' : 'p008')
-                        if (colId === 'p006_year') {
-                            // onchange('p007', age)
+                        onchange(colId === `${columnKeys.CASE_BIRTH}_year` ? columnKeys.CASE_BIRTH : columnKeys.CASE_DEATH)
+                        if (colId === `${columnKeys.CASE_BIRTH}_year`) {
                             changeDeathOptions('month')
                         }
                     }
@@ -361,38 +334,38 @@ function openModal(patientId) {
                     function changeDeathOptions(type) {
                         let d = new Date()
 
-                        let birthYear = document.querySelector(`.tab-wrap *[name="p006_year"]`).value
-                        let birthMonth = document.querySelector(`.tab-wrap *[name="p006_month"]`).value
+                        let birthYear = document.querySelector(`.tab-wrap *[name="${columnKeys.CASE_BIRTH}_year"]`).value
+                        let birthMonth = document.querySelector(`.tab-wrap *[name="${columnKeys.CASE_BIRTH}_month"]`).value
 
-                        let deathYear = document.querySelector(`.tab-wrap *[name="p008_year"]`).value
+                        let deathYear = document.querySelector(`.tab-wrap *[name="${columnKeys.CASE_DEATH}_year"]`).value
 
                         if (type === 'year') {
-                            createYearOptions(birthYear, d.getFullYear(), `p008_year`)
+                            createYearOptions(birthYear, d.getFullYear(), `${columnKeys.CASE_DEATH}_year`)
                         } else if (type === 'month') {
                             if (deathYear === birthYear) {
-                                createMonthOptions(birthMonth, 12, `p008_month`)
+                                createMonthOptions(birthMonth, 12, `${columnKeys.CASE_DEATH}_month`)
                             }
                         }
 
-                        document.querySelector(`.tab-wrap *[name="p008_year"]`).value = deathYear
+                        document.querySelector(`.tab-wrap *[name="${columnKeys.CASE_DEATH}_year"]`).value = deathYear
                     }
 
                     return
-                } else if (colId === 'p004') {
+                } else if (colId === columnKeys.CASE_GROUP) {
                     document.getElementById('group_options').onchange = function (e) {
-                        onchange('p004', e.target.value)
+                        onchange(columnKeys.CASE_GROUP, e.target.value)
                         e.target.previousSibling.value = e.target.value
                         e.target.selectedIndex = 0
                     }
-                } else if (colId === 'p002') {
+                } else if (colId === columnKeys.CASE_FAMILY_ID) {
                     document.getElementById('family_options').onchange = function (e) {
-                        onchange('p002', e.target.value)
+                        onchange(columnKeys.CASE_FAMILY_ID, e.target.value)
                         e.target.previousSibling.value = e.target.value
                         e.target.selectedIndex = 0
                     }
                 }
 
-                if (['m012', 'm015', 'm016'].includes(colId)) {
+                if ([columnKeys.MEDICAL_ALLERGIES, columnKeys.MEDICAL_DRINKING, columnKeys.MEDICAL_SMOKING].includes(colId)) {
                     $(`.tab-wrap input[name="${colId}"][value="${value ? 'yes' : 'no'}"]`).prop('checked', true)
 
                     let textInput = $(`.tab-wrap input[name="${colId}-list"]`)
@@ -433,33 +406,18 @@ function openModal(patientId) {
                     return
                 }
 
-                // element.onchange = function (e) {
-                //     let targetValue = e.target.value
-                //     if (e.target.type === 'select-one' || colId === 'p005') {
-                //         targetValue = getDataDisplayOption(c.options, targetValue, 'displayValue')
-                //     }
-                //     onchange(colId, targetValue)
-                // }
-
                 let type = element.type
                 if (type === 'radio') {
                     $(`.tab-wrap input[name="${colId}"]`).off().on('change', (e) => {
                         let targetValue = e.currentTarget.value
 
-                        // let prev = $(`.tab-wrap input[name="${colId}"][data-checked=true]`)[0]
-
-                        // if (prev) console.log(targetValue, prev.value)
-
-                        // // $(targetValue).attr('data-checked', 'true')
-                        // targetValue.dataset.checked = true
-            
                         targetValue = getDataDisplayOption(c.options, targetValue, 'displayValue')
                         onchange(colId, targetValue)
                     })
                 } else {
                     element.onchange = function (e) {
                         let targetValue = e.target.value
-                        if (e.target.type === 'select-one' || colId === 'p005') {
+                        if (e.target.type === 'select-one' || colId === columnKeys.CASE_LIFE_STATUS) {
                             targetValue = getDataDisplayOption(c.options, targetValue, 'displayValue')
                         }
                         onchange(colId, targetValue)
@@ -477,7 +435,7 @@ function openModal(patientId) {
         })
 
         function onchange(key, value, element) {
-            let dateKey = ['p006', 'p008', 'p00b', 'p007']
+            let dateKey = [columnKeys.CASE_BIRTH, columnKeys.CASE_DEATH, columnKeys.CASE_EXAMINATION_DAY, columnKeys.CASE_AGE]
 
             if (dateKey.includes(key)) {
                 let pre = key
@@ -547,15 +505,8 @@ function generatePhenopackets() {
     let patientData = contentData.filter(d => { return d.PCFNo == currentPatient })[0]
     if (!patientData) return
 
-    // let category = categories.filter(c => { return c.categoryId === dataColumns['p005'].category })
-    // let columnDetails = category[0].columns.filter(c => { return c.columnId === 'p005' })
-    // let options = columnDetails[0].options[lang]
-    // let index = options.indexOf(patientData['p005'])
-    // console.log(index, columnDetails[0].options.dataValue[index])
-    // console.log(patientData['p005'])
-
     let status
-    if (patientData['p005'] === 'alive' || patientData['p005'] === 'Alive' || patientData['p005'] === '生存') {
+    if (patientData[columnKeys.CASE_LIFE_STATUS] === 'alive' || patientData[columnKeys.CASE_LIFE_STATUS] === 'Alive' || patientData[columnKeys.CASE_LIFE_STATUS] === '生存') {
         status = 'ALIVE'
     } else {
         status = 'DECEASED'
@@ -567,20 +518,14 @@ function generatePhenopackets() {
 
     if (status === 'DECEASED') {
         vitalStatus.timeOfDeath = {
-            timestamp: patientData['p008']
+            timestamp: patientData[columnKeys.CASE_DEATH]
         }
     }
 
-    // category = categories.filter(c => { return c.categoryId === dataColumns['p009'].category })
-    // columnDetails = category[0].columns.filter(c => { return c.columnId === 'p009' })
-    // options = columnDetails[0].options[lang]
-    // index = options.indexOf(patientData['p009'])
-    // console.log(options, index)
-
     let sex
-    if (patientData['p009'] === '男性' || patientData['p009'] === 'male' || patientData['p009'] === 'Male') {
+    if (patientData[columnKeys.CASE_SEX] === '男性' || patientData[columnKeys.CASE_SEX] === 'male' || patientData[columnKeys.CASE_SEX] === 'Male') {
         sex = 'MALE'
-    } else if (patientData['p009'] === '女性' || patientData['p009'] === 'female' || patientData['p009'] === 'Female') {
+    } else if (patientData[columnKeys.CASE_SEX] === '女性' || patientData[columnKeys.CASE_SEX] === 'female' || patientData[columnKeys.CASE_SEX] === 'Female') {
         sex = 'FEMALE'
     } else {
         sex = 'UNKNOWN_STATUS'
@@ -589,11 +534,11 @@ function generatePhenopackets() {
 
     let phenopacket = {
         phenopacket: {
-            id: patientData['p004'] || '',
+            id: patientData[columnKeys.CASE_GROUP] || '',
             subject: {
                 id: currentPatient,
                 sex: sex,
-                dateOfBirth: patientData['p006'],
+                dateOfBirth: patientData[columnKeys.CASE_BIRTH],
                 vitalStatus: vitalStatus
             }
         }

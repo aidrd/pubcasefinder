@@ -1,4 +1,10 @@
-let newData = {
+let newData = { "PCFNo": null }
+
+for (let key in columnKeys) {
+    newData[columnKeys[key]] = null
+}
+
+let newData_ = {
     "PCFNo": null,
     "p001": null,
     "p002": null,
