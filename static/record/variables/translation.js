@@ -59,12 +59,12 @@ let elementTranslation = {
         ja: '- 日を選択 -',
         ko: ''
     },
-    'm013': {
+    'medical_body_info': {
         en: 'Growth Chart',
         ja: '身体情報',
         ko: ''
     },
-    'm013_1': {
+    'medical_body_info_date': {
         en: 'Date',
         ja: '日付',
         ko: ''

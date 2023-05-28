@@ -277,10 +277,10 @@ function createColumns() {
 
         categories.forEach(category => {
             category.columns.forEach(c => {
-                let key = c.dataKey
                 let colId = c.columnId
                 let displayName = c['displayName'][lang] || c['displayName']['en']
 
+                let dataSchemaColId = colId
                 let options
                 if (c.options) {
                     options = c['options'][lang].length > 0 ? c['options'][lang] : c['options']['en']
@@ -358,7 +358,7 @@ function createColumns() {
                     // add by hzhang@bits end
                 } else if (colId === columnKeys.MEDICAL_BODY_WEIGHT || colId === columnKeys.MEDICAL_BODY_HEIGHT || colId === columnKeys.MEDICAL_HEAD_CIRCUMFERENCE) {
                     column.editor = false
-                    column.data = 'm013'
+                    column.data = columnKeys.MEDICAL_BODY_INFO
                     switch (colId) {
                         case columnKeys.MEDICAL_BODY_WEIGHT:
                             column.renderer = weightRenderer
@@ -370,6 +370,7 @@ function createColumns() {
                             column.renderer = headRenderer
                             break
                     }
+                    dataSchemaColId = columnKeys.MEDICAL_BODY_INFO
                 }
 
                 if (defaultColumns.includes(colId)) {
@@ -387,9 +388,7 @@ function createColumns() {
 
                 colSequence++
 
-                let dsColId = key === 'bodyHeight' || key === 'bodyWeight' || key === 'headCircumference' ? 'm013' : colId
-
-                dataSchema[dsColId] = null
+                dataSchema[dataSchemaColId] = null
             })
         })
 
@@ -601,7 +600,7 @@ function hideColumn(colId, colHeader) {
         }
 
         columns.forEach((h, i) => {
-            if (h.data !== 'm013') return
+            if (h.data !== columnKeys.MEDICAL_BODY_INFO) return
             if (h.renderer.name === renderer) columns.splice(i, 1)
         })
     } else {
@@ -654,7 +653,6 @@ function addRow(data) {
 }
 
 async function updateTable(data, changeHeaders) {
-    console.log('updatetable')
     let d = new Date()
     let year = d.getFullYear()
     let month = d.getMonth()
@@ -684,11 +682,11 @@ async function updateTable(data, changeHeaders) {
             newHeaders.forEach(h => {
                 if (h === 'PCFNo') return
 
-                if (h === 'm013') {
-                    let subIds = contentData[0]['m013']
+                if (h === columnKeys.MEDICAL_BODY_INFO) {
+                    let subIds = contentData[0][columnKeys.MEDICAL_BODY_INFO]
                     if (subIds) {
                         Object.keys(subIds[0]).forEach(k => {
-                            if (k !== 'm013_1') createColumn(k)
+                            if (k !== columnKeys.MEDICAL_BODY_INFO_DATE) createColumn(k)
                         })
                     }
                 } else {
@@ -697,7 +695,7 @@ async function updateTable(data, changeHeaders) {
             })
         } else {
             newHeaders.forEach(h => {
-                if (h === 'PCFNo' || h === 'm013') return
+                if (h === 'PCFNo' || h === columnKeys.MEDICAL_BODY_INFO) return
                 if (!(Object.keys(dataColumns).includes(h))) createColumn(h, true)
             })
         }
@@ -880,7 +878,7 @@ function convertCSVToJSON(csv, isExport) {
                 if (isExport) {
                     if (contentData.length > 0) {
                         if (contentData.length > 0) {
-                            let bodyInfo = contentData[idx - 1]['m013']
+                            let bodyInfo = contentData[idx - 1][columnKeys.MEDICAL_BODY_INFO]
                             if (bodyInfo) {
                                 value = bodyInfo[bodyInfo.length - 1][columnId]
                             } else {
@@ -890,7 +888,7 @@ function convertCSVToJSON(csv, isExport) {
                     }
                 } else {
                     let subColumnId = columnId
-                    columnId = 'm013'
+                    columnId = columnKeys.MEDICAL_BODY_INFO
                     growthChartData[subColumnId] = value
                     value = [growthChartData]
                 }
@@ -989,7 +987,7 @@ function getExportData() {
                     keyName[k] = getHeaderName(k)
                 }
 
-                if (k === 'm013') {
+                if (k === columnKeys.MEDICAL_BODY_INFO) {
                     let tempV = []
 
                     v.forEach((gc, gcIdx) => {
@@ -1033,7 +1031,7 @@ function getExportData() {
         if (header) {
             header = header.colHeader.replace('<i class="material-icons-outlined sort_icon"></i>', '')
         } else {
-            if (k === 'm013' || k === 'm013_1') header = translate(k)
+            if (k === columnKeys.MEDICAL_BODY_INFO || k === columnKeys.MEDICAL_BODY_INFO_DATE) header = translate(k)
         }
 
         return header || k
@@ -1139,9 +1137,9 @@ function editTable(isSave) {
         }
 
         if (currentBodyData.length > 0) {
-            newPatient['m013'] = []
+            newPatient[columnKeys.MEDICAL_BODY_INFO] = []
             currentBodyData.forEach(bd => {
-                newPatient['m013'].push(bd)
+                newPatient[columnKeys.MEDICAL_BODY_INFO].push(bd)
             })
         }
 
@@ -1303,11 +1301,11 @@ function setInitialLanguage() {
             table.classList.add('form-table')
             if (i === 1) table.classList.add('treatment-table')
             if (i === 4) table.classList.add('family-table')
-            table.innerHTML = `<tbody id="tbody_${category.dataKey}">`
+            table.innerHTML = `<tbody id="tbody_${category.categoryId}">`
             div.appendChild(table)
 
             if (i === 0) {
-                createRow(`tbody_${category.dataKey}`,
+                createRow(`tbody_${category.categoryId}`,
                     {
                         columnId: 'PCFNo',
                         dataKey: 'PCFNo',
@@ -1324,10 +1322,10 @@ function setInitialLanguage() {
             }
 
             category.columns.forEach(c => {
-                if (c.dataKey === 'bodyWeight' || c.dataKey === 'bodyHeight' || c.dataKey === 'headCircumference') {
-                    createTable(`tbody_${category.dataKey}`, 'm013')
+                if (c.columnId === columnKeys.MEDICAL_BODY_WEIGHT || c.columnId === columnKeys.MEDICAL_BODY_HEIGHT || c.columnId === columnKeys.MEDICAL_HEAD_CIRCUMFERENCE) {
+                    createTable(`tbody_${category.categoryId}`, columnKeys.MEDICAL_BODY_INFO)
                 } else {
-                    createRow(`tbody_${category.dataKey}`, c)
+                    createRow(`tbody_${category.categoryId}`, c)
                 }
             })
         })
@@ -1347,10 +1345,10 @@ function setInitialLanguage() {
             if (c.type === 'display') td.innerText = 'P20220600001'
             tr.appendChild(td)
 
-            if (c.dataKey === 'age') {
+            if (c.columnId === columnKeys.CASE_AGE) {
                 let yearInput = document.createElement('input')
                 yearInput.type = 'number'
-                yearInput.classList.add(`${c.columnId}_year`)
+                yearInput.classList.add(...[`${c.columnId}_year`, 'select_date_year', 'age_select_date_year'])
                 yearInput.id = `${c.columnId}_year`
                 yearInput.name = `${c.columnId}_year`
                 yearInput.dataset.columnname = c.columnId
@@ -1404,13 +1402,14 @@ function setInitialLanguage() {
                 })
             } else if (c.inputType === 'select-date') {
                 let selectYear = document.createElement('select')
-                selectYear.classList.add(`${c.columnId}_year`)
+                selectYear.classList.add(...[`${c.columnId}_year`, 'select-date-year'])
                 selectYear.id = `${c.columnId}_year`
                 selectYear.name = `${c.columnId}_year`
                 selectYear.dataset.columnname = c.columnId
                 td.appendChild(selectYear)
 
                 let selectMonth = document.createElement('select')
+                selectYear.classList.add('select_date_month')
                 selectMonth.name = `${c.columnId}_month`
                 selectMonth.id = `${c.columnId}_month`
                 selectMonth.dataset.columnname = c.columnId
@@ -1590,8 +1589,8 @@ function setInitialLanguage() {
             parent.appendChild(tr)
 
             let th = document.createElement('th')
-            th.id = 'm013'
-            th.innerText = translate('m013')
+            th.id = columnKeys.MEDICAL_BODY_INFO
+            th.innerText = translate(columnKeys.MEDICAL_BODY_INFO)
             tr.appendChild(th)
 
             let td = document.createElement('td')

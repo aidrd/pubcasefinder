@@ -107,8 +107,8 @@ async function bodyTable() {
 
     if (currentPatient) {
         let patientData = contentData.filter(d => { return d.PCFNo == currentPatient })[0]
-        if (!patientData['m013']) patientData['m013'] = []
-        bodyData = patientData['m013']
+        if (!patientData[columnKeys.MEDICAL_BODY_INFO]) patientData[columnKeys.MEDICAL_BODY_INFO] = []
+        bodyData = patientData[columnKeys.MEDICAL_BODY_INFO]
         currentBodyData = bodyData
     }
 
@@ -118,7 +118,7 @@ async function bodyTable() {
     bodySchema.date = null
     bodyHeaders.push(translate('date'))
     bodyColumns.push({
-        data: 'm013_1',
+        data: columnKeys.MEDICAL_BODY_INFO_DATE,
         type: 'date',
         dateFormat: 'YYYY/MM/DD',
         correctFormat: true

@@ -1153,13 +1153,13 @@ width: 35px;
   background: #fff;
 }
 
-.home-section #content-patients #modal-karte .tab-wrap .show .form-table tbody tr td .birth_year {
+/* .home-section #content-patients #modal-karte .tab-wrap .show .form-table tbody tr td .birth_year {
   width: auto;
 }
 
 .home-section #content-patients #modal-karte .tab-wrap .show .form-table tbody tr td .death_year {
   width: auto;
-}
+} */
 
 .home-section #content-patients #modal-karte .tab-wrap .show .form-table tbody tr td ::placeholder {
   color: #e3e3e3;
@@ -1461,12 +1461,22 @@ width: 10px;
   margin-left: 9px;
 }
 
-#p007_year {
+/* #p007_year {
   width: 100px !important;
+} */
+
+
+/* .p006_year, .p007_year, .p008_year, .p00b_year, #p00b_month, #p007_month {
+  margin-right: 0.5em;
+} */
+
+.select_date_year, .select_date_month {
+  margin-right: 0.5em;
+  width: auto
 }
 
-.p006_year, .p007_year, .p008_year, .p00b_year, #p00b_month, #p007_month {
-  margin-right: 0.5em;
+#age_select_date_year {
+  width: 100px !important;
 }
 
 .search_wrap span{

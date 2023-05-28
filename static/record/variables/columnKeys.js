@@ -60,7 +60,7 @@ let columnKeys = {
     GENOTYPE_ANALYSIS: 'genotype_analysis',
     GENOTYPE_GENE: 'genotype_gene',
     GENOTYPE_STATUS: 'genotype_status',
-    GENOTYPE_STRATEGY: 'genotype_strategy',
+    // GENOTYPE_STRATEGY: 'genotype_strategy',
     GENOTYPE_CDNA_CHANGE: 'genotype_cdna_change',
     GENOTYPE_PATHOGENICIT: 'genotype_pathogenicit',
     GENOTYPE_ALLELIC_STATE: 'genotype_allelic_state',
@@ -70,7 +70,7 @@ let columnKeys = {
     GENOTYPE_PROTEIN_CHARGE: 'genotype_protein_charge',
     GENOTYPE_ANNOTATION: 'genotype_annotation',
     GENOTYPE_INHERITANCE: 'genotype_inheritance',
-    GENOTYPE_EVIDENCE: 'genotype_evidence',
+    // GENOTYPE_EVIDENCE: 'genotype_evidence',
     GENOTYPE_COMMENTS: 'genotype_comments',
 
     FAMILY_INFO: 'family_info',
