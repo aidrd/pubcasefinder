@@ -8,7 +8,8 @@ setInitialLanguage()
 let count
 let toReset = true
 
-let defaultColumns = ['caseSolved', 'chiefComplaint', 'finalDiagnosis', 'clinicalDiagnosis', 'sex', 'age', 'birth', 'lifeStatus', 'group', 'presenceOrAbsenceOfOnset', 'examinationDay', 'relationship', 'familyId', 'patientId']
+// let defaultColumns = ['caseSolved', 'chiefComplaint', 'finalDiagnosis', 'clinicalDiagnosis', 'case_sex', 'age', 'case_birth', 'lifeStatus', 'group', 'presenceOrAbsenceOfOnset', 'examinationDay', 'relationship', 'case_family_id', 'case_info']
+let defaultColumns = [columnKeys.MEDICAL_CASE_SOLVED, columnKeys.MEDICAL_CHIEF_COMPLAINT, columnKeys.MEDICAL_FINAL_DIAGNOSIS, columnKeys.MEDICAL_CLINICAL_DIAGNOSIS, columnKeys.CASE_SEX, columnKeys.CASE_AGE, columnKeys.CASE_BIRTH, columnKeys.CASE_LIFE_STATUS, columnKeys.CASE_GROUP, columnKeys.CASE_PRESENCE_OR_ABSENCE_OF_ONSET, columnKeys.CASE_EXAMINATION_DAY, columnKeys.CASE_RELATIONSHIP, columnKeys.CASE_FAMILY_ID, columnKeys.CASE_ID]
 let actions = ['REMOVE', 'EDIT']
 actions = ['EDIT', 'REMOVE']
 
@@ -360,7 +361,6 @@ function createColumns() {
                     column.data = 'm013'
                     switch (colId) {
                         case columnKeys.MEDICAL_BODY_WEIGHT:
-                            console.log('key', key)
                             column.renderer = weightRenderer
                             break
                         case columnKeys.MEDICAL_BODY_HEIGHT:
@@ -372,7 +372,7 @@ function createColumns() {
                     }
                 }
 
-                if (defaultColumns.includes(key)) {
+                if (defaultColumns.includes(colId)) {
                     colHeaders.push(colHeader)
                     columns.push(column)
                     existingColumns.push(colId)
@@ -449,7 +449,6 @@ function addColumn() {
     })
 
     function createColumn(colName, type, key, parent) {
-        // console.log(colName, type, key, parent)
         if (type === 'title') {
             let icon
 
@@ -475,7 +474,7 @@ function addColumn() {
             }
             container.innerHTML +=
                 `<div class="add_column_title">
-                <input type="checkbox" id="cb_${key}" class="add-column-checkbox" onchange="showHideAllColumn(this)">
+                <input type="checkbox" id="cb_${key}" class="add-column-checkbox" data-id="${key}" onchange="showHideAllColumn(this)">
                 ${icon}${colName}
             </div>`
         } else {
@@ -484,7 +483,6 @@ function addColumn() {
             if (type === 'custom' && dataCol) {
                 colName = dataCol.colHeader.replace('<i class="material-icons-outlined sort_icon"></i>', '')
             }
-            // console.log(colName)
 
             container.innerHTML += `
                 <div>
@@ -511,7 +509,7 @@ function addColumn() {
         let colHeader = `<i class="material-icons-outlined sort_icon"></i>${add.value}`
 
         customColumnCount += 1
-        let colId = `c${`${customColumnCount}`.padStart(3, '0')}`
+        let colId = `custom_${`${customColumnCount}`.padStart(3, '0')}`
 
         let column = {
             data: colId,
@@ -545,10 +543,7 @@ function addColumn() {
 }
 
 function showHideAllColumn(e) {
-    let categoryKey = e.id.split('_')[1]
-    // $(`input[data-category='${categoryKey}']`).each((i, c) => {
-    //     if (c.checked !== e.checked) c.click()
-    // })
+    let categoryKey = e.dataset.id
 
     if (e.checked) {
         let elements = $(`input[data-category='${categoryKey}']:not(:checked)`)
@@ -840,6 +835,7 @@ function fileReader(file, fileType, overwrite) {
             existingColumns = []
 
             object.visibleColumns.forEach(vc => {
+                console.log(vc)
                 colHeaders.push(dataColumns[vc]['colHeader'])
                 columns.push(dataColumns[vc]['column'])
                 existingColumns.push(vc)
@@ -989,7 +985,7 @@ function getExportData() {
         dlData.forEach((d, idx) => {
             let pData = {}
             for (let [k, v] of Object.entries(d)) {
-                if (idx === 0 && k.charAt(0) === 'c') {
+                if (k.split('_')[0] === 'custom') {
                     keyName[k] = getHeaderName(k)
                 }
 

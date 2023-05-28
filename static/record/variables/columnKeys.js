@@ -31,6 +31,8 @@ let columnKeys = {
     MEDICAL_SMOKING: 'medical_smoking',
     MEDICAL_TRAVEL_HISTORY: 'medical_travel_history',
     MEDICAL_VACCINATION_HISTORY: 'medical_vaccination_history',
+    MEDICAL_BODY_INFO: 'medical_body_info',
+    MEDICAL_BODY_INFO_DATE: 'medical_body_info_date',
     MEDICAL_BODY_WEIGHT: 'medical_body_weight',
     MEDICAL_BODY_HEIGHT: 'medical_body_height',
     MEDICAL_HEAD_CIRCUMFERENCE: 'medical_head_circumference',

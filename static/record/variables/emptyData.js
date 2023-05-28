@@ -1,8 +1,16 @@
-let newData = { "PCFNo": null }
+let newData = { 'PCFNo': null, 'medical_body_info': [{}] }
+
+let notIncludedInNewData = ['CASE_INFO', 'MEDICAL_INFO', 'MEDICAL_BODY_INFO', 'MEDICAL_BODY_INFO_DATE', 'PHENOTYPE_INFO', 'GENOTYPE_INFO', 'FAMILY_INFO']
+
+let bodyInfoKeys = ['MEDICAL_BODY_INFO_DATE', 'MEDICAL_BODY_WEIGHT', 'MEDICAL_BODY_HEIGHT', 'MEDICAL_HEAD_CIRCUMFERENCE']
 
 for (let key in columnKeys) {
-    newData[columnKeys[key]] = null
+    if (!notIncludedInNewData.includes(key) && !bodyInfoKeys.includes(key)) newData[columnKeys[key]] = null
 }
+
+bodyInfoKeys.forEach(k => {
+    newData.medical_body_info[0][k.toLocaleLowerCase()] = null
+})
 
 let newData_ = {
     "PCFNo": null,
