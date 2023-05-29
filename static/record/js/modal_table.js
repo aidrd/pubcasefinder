@@ -36,6 +36,8 @@ async function geneTable() {
     let geneTypeInfo = geneInfo[0].columns
     
     geneTypeInfo.forEach(g => {
+        if (g.columnId === columnKeys.GENOTYPE_ANALYSIS) return
+
         let displayName = g['displayName'][lang] || g['displayName']['en']
         let options
         if (g.options) {

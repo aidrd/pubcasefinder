@@ -14,13 +14,13 @@ let categories = [
         columns: [
             {
                 columnId: 'case_id',
-                dataKey: 'patientId',
+                dataKey: 'caseId',
                 inputType: 'text',
                 phenoKey: '',
                 type: 'text',
                 table: true,
                 displayName: {
-                    en: 'Patient ID',
+                    en: 'Case ID',
                     ja: '患者ID',
                     ko: '환자 ID',
                     zh: '患者ID',
@@ -993,6 +993,7 @@ let categories = [
             {
                 columnId: 'genotype_analysis',
                 dataKey: 'genotype_analysis',
+                inputType: 'textarea',
                 phenoKey: '',
                 type: 'text',
                 table: true,
@@ -1336,8 +1337,8 @@ let categories = [
                     en: ['Unknown', 'Yes', 'No'],
                     ja: ['不明', 'はい', 'いいえ'],
                     ko: [],
-                    zh: '',
-                    zhcht: ''
+                    zh: [],
+                    zhcht: []
                 }
             },
             {

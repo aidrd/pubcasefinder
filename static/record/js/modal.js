@@ -16,16 +16,6 @@ $('#nav-language').click(() => {
     $('#dropdown-language').toggleClass('dropdown-menu-open')
 })
 
-// $('#menu-save').click((e) => {
-//     closeKarteModal()
-//     if (e.target.closest('.save-panel')) return
-//     $('.save-panel').toggleClass('save-panel-open');
-//     $('#menu-save div.popup-bg-cover')[0].style.display = "block";
-// })
-// $('#menu-save div.popup-bg-cover').click((e) => {
-//     $('.save-panel').toggleClass('save-panel-open');
-// });
-
 $('#menu-save').click((e) => {
     closeKarteModal();
     if (e.target.closest('.save-panel')) return;
@@ -49,38 +39,7 @@ $(document).mouseup((e) => {
 
 $('.nav-list a').on('click', closeKarteModal)
 
-// window.onclick = (e) => {
-//     if ($('.save-panel-open')) {
-//         console.log(e.target.closest('.save-panel'))
-//         return
-//     }
-
-//     console.log('not open')
-//     //     if (!e.target.closest('.save-panel')) $('.save-panel-open').toggleClass('save-panel-open')
-// }
-
-// $(function () {
-//     $('.tab-btn').on('click', function () {
-//         var tabWrap = $(this).parents('.tab-wrap')
-//         var tabBtn = tabWrap.find('.tab-btn')
-//         var tabContents = tabWrap.find('.tab-contents')
-//         tabBtn.removeClass('show')
-//         $(this).addClass('show')
-//         var elmIndex = tabBtn.index(this)
-//         tabContents.removeClass('show')
-//         tabContents.eq(elmIndex).addClass('show')
-
-//         if ($(tabContents.eq(elmIndex)).children('#geneModal')[0]) {
-//             geneTable()
-//         } else if ($(tabContents.eq(elmIndex)).find('#bodyModal')[0]) {
-//             bodyTable()
-//         }
-//     })
-// })
-
 function openModal(patientId) {
-    // $('body').append('<div class="modal_bg modal_karte_bg"></div>')
-
     var modal = '#modal-karte'
 
     modalReset()
@@ -99,9 +58,6 @@ function openModal(patientId) {
         if ($(this).hasClass('modal-copy')) copyPatient()
 
         $('.modal_box').fadeOut()
-        // $('.modal_bg').fadeOut(1000, function () {
-        //     $('.modal_bg').remove()
-        // })
 
         bodyData = []
         bodyTable()

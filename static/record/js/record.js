@@ -1279,8 +1279,24 @@ function setInitialLanguage() {
                 phenotypeInfo_initUI(div)
                 // modified by hzhang@bits end
                 return
-            } else if (i === 3) {
-                div.innerHTML = `
+            }
+
+            let table = document.createElement('table')
+            table.classList.add('form-table')
+            if (i === 1) table.classList.add('treatment-table')
+            if (i === 4) table.classList.add('family-table')
+            table.innerHTML = `<tbody id="tbody_${category.categoryId}">`
+            div.appendChild(table)
+
+            if (i === 3) {
+                let genotypeAnalysis = category.columns.filter(c => c.columnId === columnKeys.GENOTYPE_ANALYSIS)
+                if (genotypeAnalysis) {
+                    console.log(genotypeAnalysis)
+                    // createRow(`tab-content-${category.categoryId}`, genotypeAnalysis[0])
+                    createRow(`tbody_${category.categoryId}`, genotypeAnalysis[0])
+                }
+
+                div.innerHTML += `
                     <p>
                         <span id="genemodal_add" onclick="addGeneRow()">
                             <i class="material-icons-outlined">add_circle_outline
@@ -1296,13 +1312,6 @@ function setInitialLanguage() {
 
                 return
             }
-
-            let table = document.createElement('table')
-            table.classList.add('form-table')
-            if (i === 1) table.classList.add('treatment-table')
-            if (i === 4) table.classList.add('family-table')
-            table.innerHTML = `<tbody id="tbody_${category.categoryId}">`
-            div.appendChild(table)
 
             if (i === 0) {
                 createRow(`tbody_${category.categoryId}`,
