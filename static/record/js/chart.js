@@ -18,21 +18,13 @@ function toggleTableChart(type) {
 function createChart() {
     charts.forEach(c => c.destroy())
 
-    // let familyData = contentData.map(d => d['p002'])
-    // createBarChart(document.getElementById('bar-chart-family'), familyData, '家族ID')
-
-    // let sexData = contentData.map(d => d['p009'])
-    // createPieChart(document.getElementById('pie-chart-sex'), sexData, translate('chart-title-sex'))
     let sexAgeData = filterData(contentData)
     createMultipleBarChart(document.getElementById('pie-chart-sex-age'), sexAgeData, translate('chart-title-age'))
 
-    let sexData = contentData.map(d => d['p009'])
+    let sexData = contentData.map(d => d[columnKeys.CASE_SEX])
     createPieChart(document.getElementById('pie-chart-sex'), sexData, translate('chart-title-sex'))
 
-    // let ageData = contentData.map(d => d['p007'])
-    // createPieChart(document.getElementById('pie-chart-age'), ageData, translate('chart-title-age'))
-
-    let groupData = contentData.map(d => d['p004'])
+    let groupData = contentData.map(d => d[columnKeys.CASE_GROUP])
     createBarChart(document.getElementById('bar-chart-group'), groupData, translate('chart-title-group'))
 
     function createPieChart(container, data, title) {
@@ -128,8 +120,8 @@ function createChart() {
     function createMultipleBarChart(container, data, title) {
         let ctx = container.getContext('2d')
 
-        let category = categories.filter(c => c.categoryId === 'p000')
-        let column = category[0].columns.filter(c => c.columnId === 'p009')
+        let category = categories.filter(c => c.categoryId === columnKeys.CASE_INFO)
+        let column = category[0].columns.filter(c => c.columnId === columnKeys.CASE_SEX)
         let labels = column[0].options[lang]
 
         let dataSetsData = []
@@ -257,17 +249,17 @@ function createChart() {
 
         data.forEach(d => {
             let sex
-            if (d['p009'] === 'Male' || d['p009'] === 'male' || d['p009'] === '男性' || d['p009'] === '남성') {
+            if (d[columnKeys.CASE_SEX] === 'Male' || d[columnKeys.CASE_SEX] === 'male' || d[columnKeys.CASE_SEX] === '男性' || d[columnKeys.CASE_SEX] === '남성') {
                 sex = 'male'
-            } else if (d['p009'] === 'Female' || d['p009'] === 'female' || d['p009'] === '女性' || d['p009'] === '여성') {
+            } else if (d[columnKeys.CASE_SEX] === 'Female' || d[columnKeys.CASE_SEX] === 'female' || d[columnKeys.CASE_SEX] === '女性' || d[columnKeys.CASE_SEX] === '여성') {
                 sex = 'female'
-            } else if (d['p009'] === 'Other' || d['p009'] === 'other' || d['p009'] === 'その他' || d['p009'] === '기타') {
+            } else if (d[columnKeys.CASE_SEX] === 'Other' || d[columnKeys.CASE_SEX] === 'other' || d[columnKeys.CASE_SEX] === 'その他' || d[columnKeys.CASE_SEX] === '기타') {
                 sex = 'other'
-            } else if (d['p009'] === 'Unknown' || d['p009'] === 'unknown' || d['p009'] === '不明' || d['p009'] === '불명') {
+            } else if (d[columnKeys.CASE_SEX] === 'Unknown' || d[columnKeys.CASE_SEX] === 'unknown' || d[columnKeys.CASE_SEX] === '不明' || d[columnKeys.CASE_SEX] === '불명') {
                 sex = 'unknown'
             }
 
-            let age = d['p007']
+            let age = d[columnKeys.CASE_AGE]
             if (age < 10) {
                 ageGroup['age00'][sex] += 1
             } else if (age >= 60) {

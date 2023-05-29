@@ -32,7 +32,7 @@ async function geneTable() {
     let tempData = {}
 
     resetData('gene')
-    let geneInfo = categories.filter(c => { return c.dataKey === 'geneInfo' })
+    let geneInfo = categories.filter(c => { return c.categoryId === columnKeys.GENOTYPE_INFO })
     let geneTypeInfo = geneInfo[0].columns
     
     geneTypeInfo.forEach(g => {
@@ -107,18 +107,18 @@ async function bodyTable() {
 
     if (currentPatient) {
         let patientData = contentData.filter(d => { return d.PCFNo == currentPatient })[0]
-        if (!patientData['m013']) patientData['m013'] = []
-        bodyData = patientData['m013']
+        if (!patientData[columnKeys.MEDICAL_BODY_INFO]) patientData[columnKeys.MEDICAL_BODY_INFO] = []
+        bodyData = patientData[columnKeys.MEDICAL_BODY_INFO]
         currentBodyData = bodyData
     }
 
-    let medicalInfo = categories.filter(c => { return c.dataKey === 'medicalInfo' })
-    let bodyInfo = medicalInfo[0].columns.filter(c => { return c.dataKey === 'bodyWeight' || c.dataKey === 'bodyHeight' || c.dataKey === 'headCircumference'})
+    let medicalInfo = categories.filter(c => { return c.categoryId === columnKeys.MEDICAL_INFO })
+    let bodyInfo = medicalInfo[0].columns.filter(c => { return c.columnId === columnKeys.MEDICAL_BODY_WEIGHT || c.columnId === columnKeys.MEDICAL_BODY_HEIGHT || c.columnId === columnKeys.MEDICAL_HEAD_CIRCUMFERENCE})
     
     bodySchema.date = null
     bodyHeaders.push(translate('date'))
     bodyColumns.push({
-        data: 'm013_1',
+        data: columnKeys.MEDICAL_BODY_INFO_DATE,
         type: 'date',
         dateFormat: 'YYYY/MM/DD',
         correctFormat: true

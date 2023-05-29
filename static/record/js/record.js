@@ -8,8 +8,8 @@ setInitialLanguage()
 let count
 let toReset = true
 
-let defaultColumns = ['caseSolved', 'chiefComplaint', 'finalDiagnosis', 'clinicalDiagnosis', 'sex', 'age', 'birth', 'lifeStatus', 'group', 'presenceOrAbsenceOfOnset', 'examinationDay', 'relationship', 'familyId', 'patientId']
-// defaultColumns = ['patientId', 'lifeStatus', 'birth', 'death']
+// let defaultColumns = ['caseSolved', 'chiefComplaint', 'finalDiagnosis', 'clinicalDiagnosis', 'case_sex', 'age', 'case_birth', 'lifeStatus', 'group', 'presenceOrAbsenceOfOnset', 'examinationDay', 'relationship', 'case_family_id', 'case_info']
+let defaultColumns = [columnKeys.MEDICAL_CASE_SOLVED, columnKeys.MEDICAL_CHIEF_COMPLAINT, columnKeys.MEDICAL_FINAL_DIAGNOSIS, columnKeys.MEDICAL_CLINICAL_DIAGNOSIS, columnKeys.CASE_SEX, columnKeys.CASE_AGE, columnKeys.CASE_BIRTH, columnKeys.CASE_LIFE_STATUS, columnKeys.CASE_GROUP, columnKeys.CASE_PRESENCE_OR_ABSENCE_OF_ONSET, columnKeys.CASE_EXAMINATION_DAY, columnKeys.CASE_RELATIONSHIP, columnKeys.CASE_FAMILY_ID, columnKeys.CASE_ID]
 let actions = ['REMOVE', 'EDIT']
 actions = ['EDIT', 'REMOVE']
 
@@ -102,9 +102,9 @@ let updateSettings = {
 
                 if (!newValue) return
 
-                if (col === 'p002') {
+                if (col === columnKeys.CASE_FAMILY_ID) {
                     if (!(familyOptions.includes(newValue))) familyOptions.push(newValue)
-                } else if (col === 'p004') {
+                } else if (col === columnKeys.CASE_GROUP) {
                     if (!(groupOptions.includes(newValue))) groupOptions.push(newValue)
                 }
             })
@@ -276,15 +276,11 @@ function createColumns() {
         let colSequence = 2
 
         categories.forEach(category => {
-            // modified by hzhang@bits start
-            //if (category.dataKey === 'phenotypicInfo') return
-            // modified by hzhang@bits end
-
             category.columns.forEach(c => {
-                let key = c.dataKey
                 let colId = c.columnId
                 let displayName = c['displayName'][lang] || c['displayName']['en']
 
+                let dataSchemaColId = colId
                 let options
                 if (c.options) {
                     options = c['options'][lang].length > 0 ? c['options'][lang] : c['options']['en']
@@ -338,21 +334,21 @@ function createColumns() {
                     }
                 } else if (c.type === 'dropdown') {
                     column.trimDropdown = true
-                    if (colId === 'm010' || colId === 'f002') {
+                    if (colId === columnKeys.MEDICAL_AGE_ONSET || colId === columnKeys.FAMILY_MODE_INHERITANCE) {
                         column.trimDropdown = false
                     }
                 }
 
-                if (key === 'group' || key === 'familyId') {
+                if (colId === columnKeys.CASE_GROUP || colId === columnKeys.CASE_FAMILY_ID) {
                     column.allowInvalid = true
                     column.strict = false
                     column.source = groupOptions
-                    if (key === 'familyId') column.source = familyOptions
-                } else if (category['dataKey'] === 'geneInfo' || key === 'chiefComplaints') {
+                    if (colId === columnKeys.CASE_FAMILY_ID) column.source = familyOptions
+                } else if (category['categoryId'] === columnKeys.GENOTYPE_INFO || colId === columnKeys.MEDICAL_CHIEF_COMPLAINT) {
                     column.renderer = multipleRenderer
-                    if (category['dataKey'] === 'geneInfo') column.editor = false
+                    if (category['categoryId'] === columnKeys.PHENOTYPE_INFO) column.editor = false
                     // add by hzhang@bits start
-                } else if (category['dataKey'] === 'phenotypicInfo') {
+                } else if (category['categoryId'] === columnKeys.PHENOTYPE_INFO) {
                     if (colId === 'pi002') {
                         column.renderer = phenotypeInfo_phenotypeNameRenderer
                     } else {
@@ -360,23 +356,24 @@ function createColumns() {
                     }
                     column.editor = false
                     // add by hzhang@bits end
-                } else if (colId === 'm013_2' || colId === 'm013_3' || colId === 'm013_4') {
+                } else if (colId === columnKeys.MEDICAL_BODY_WEIGHT || colId === columnKeys.MEDICAL_BODY_HEIGHT || colId === columnKeys.MEDICAL_HEAD_CIRCUMFERENCE) {
                     column.editor = false
-                    column.data = 'm013'
+                    column.data = columnKeys.MEDICAL_BODY_INFO
                     switch (colId) {
-                        case 'm013_2':
+                        case columnKeys.MEDICAL_BODY_WEIGHT:
                             column.renderer = weightRenderer
                             break
-                        case 'm013_3':
+                        case columnKeys.MEDICAL_BODY_HEIGHT:
                             column.renderer = heightRenderer
                             break
-                        case 'm013_4':
+                        case columnKeys.MEDICAL_HEAD_CIRCUMFERENCE:
                             column.renderer = headRenderer
                             break
                     }
+                    dataSchemaColId = columnKeys.MEDICAL_BODY_INFO
                 }
 
-                if (defaultColumns.includes(key)) {
+                if (defaultColumns.includes(colId)) {
                     colHeaders.push(colHeader)
                     columns.push(column)
                     existingColumns.push(colId)
@@ -391,9 +388,7 @@ function createColumns() {
 
                 colSequence++
 
-                let dsColId = key === 'bodyHeight' || key === 'bodyWeight' || key === 'headCircumference' ? 'm013' : colId
-
-                dataSchema[dsColId] = null
+                dataSchema[dataSchemaColId] = null
             })
         })
 
@@ -438,14 +433,10 @@ function addColumn() {
     container.innerHTML = ''
 
     categories.forEach(category => {
-        // modified by hzhang@bits start
-        //if (category.dataKey === 'phenotypicInfo') return
-        // modified by hzhang@bits end
-
-        createColumn(category['displayName'][lang], 'title', category['dataKey'], null)
+        createColumn(category['displayName'][lang], 'title', category['categoryId'], null)
         category.columns.forEach(c => {
             let displayName = c['displayName'][lang] || c['displayName']['en']
-            if (c.table) createColumn(displayName, c.type, c['columnId'], category['dataKey'])
+            if (c.table) createColumn(displayName, c.type, c['columnId'], category['categoryId'])
         })
     })
 
@@ -461,22 +452,19 @@ function addColumn() {
             let icon
 
             switch (key) {
-                case 'patientInfo':
+                case columnKeys.CASE_INFO:
                     icon = '<div class="add-column-icon modal-patient"></div>'
                     break
-                case 'medicalInfo':
+                case columnKeys.MEDICAL_INFO:
                     icon = '<div class="add-column-icon modal-medical"></div>'
                     break
-                //modified by hzhang@bits start
-                //                case 'phenoTypicInfo':
-                case 'phenotypicInfo':
-                    //modified by hzhang@bits end
+                case columnKeys.PHENOTYPE_INFO:
                     icon = '<div class="add-column-icon modal-phenotype"></div>'
                     break
-                case 'geneInfo':
+                case columnKeys.GENOTYPE_INFO:
                     icon = '<div class="add-column-icon modal-gene"></div>'
                     break
-                case 'familyInfo':
+                case columnKeys.FAMILY_INFO:
                     icon = '<div class="add-column-icon modal-family"></div>'
                     break
                 case 'カスタム':
@@ -485,7 +473,7 @@ function addColumn() {
             }
             container.innerHTML +=
                 `<div class="add_column_title">
-                <input type="checkbox" id="cb_${key}" class="add-column-checkbox" onchange="showHideAllColumn(this)">
+                <input type="checkbox" id="cb_${key}" class="add-column-checkbox" data-id="${key}" onchange="showHideAllColumn(this)">
                 ${icon}${colName}
             </div>`
         } else {
@@ -520,7 +508,7 @@ function addColumn() {
         let colHeader = `<i class="material-icons-outlined sort_icon"></i>${add.value}`
 
         customColumnCount += 1
-        let colId = `c${`${customColumnCount}`.padStart(3, '0')}`
+        let colId = `custom_${`${customColumnCount}`.padStart(3, '0')}`
 
         let column = {
             data: colId,
@@ -537,7 +525,6 @@ function addColumn() {
         colHeaders.push(colHeader)
         columns.push(column)
         existingColumns.push(colId)
-        // customColumns.push(add.value)
         customColumns.push(colId)
         createColumn(add.value, 'custom', colId)
 
@@ -555,10 +542,7 @@ function addColumn() {
 }
 
 function showHideAllColumn(e) {
-    let categoryKey = e.id.split('_')[1]
-    // $(`input[data-category='${categoryKey}']`).each((i, c) => {
-    //     if (c.checked !== e.checked) c.click()
-    // })
+    let categoryKey = e.dataset.id
 
     if (e.checked) {
         let elements = $(`input[data-category='${categoryKey}']:not(:checked)`)
@@ -601,22 +585,22 @@ function showColumn(colId) {
 function hideColumn(colId, colHeader) {
     colHeaders.splice(colHeaders.indexOf(`<i class="material-icons-outlined sort_icon"></i>${colHeader}`), 1)
 
-    if (['m013_2', 'm013_3', 'm013_4'].includes(colId)) {
+    if ([columnKeys.MEDICAL_BODY_WEIGHT, columnKeys.MEDICAL_BODY_HEIGHT, columnKeys.MEDICAL_HEAD_CIRCUMFERENCE].includes(colId)) {
         let renderer
         switch (colId) {
-            case 'm013_2':
+            case columnKeys.MEDICAL_BODY_WEIGHT:
                 renderer = 'weightRenderer'
                 break
-            case 'm013_3':
+            case columnKeys.MEDICAL_BODY_HEIGHT:
                 renderer = 'heightRenderer'
                 break
-            case 'm013_4':
+            case columnKeys.MEDICAL_HEAD_CIRCUMFERENCE:
                 renderer = 'headRenderer'
                 break
         }
 
         columns.forEach((h, i) => {
-            if (h.data !== 'm013') return
+            if (h.data !== columnKeys.MEDICAL_BODY_INFO) return
             if (h.renderer.name === renderer) columns.splice(i, 1)
         })
     } else {
@@ -652,16 +636,8 @@ function addRow(data) {
 
     temp.PCFNo = pcfNo
 
-    // let num = hot.countRows() + 1
     let num = localStorage.patientCount ? parseInt(localStorage.patientCount) + 1 : hot.countRows() + 1
-    temp['p001'] = `P${num.toString().padStart(7, 0)}`
-
-    // if (count) {
-    //     temp['p001'] = `P${count.toString().padStart(7, 0)}`
-    // } else {
-    //     temp['p001'] = `P${num.toString().padStart(7, 0)}`
-    //     count = num
-    // }
+    temp[columnKeys.CASE_ID] = `P${num.toString().padStart(7, 0)}`
 
     localStorage.patientCount = num
     count++
@@ -706,11 +682,11 @@ async function updateTable(data, changeHeaders) {
             newHeaders.forEach(h => {
                 if (h === 'PCFNo') return
 
-                if (h === 'm013') {
-                    let subIds = contentData[0]['m013']
+                if (h === columnKeys.MEDICAL_BODY_INFO) {
+                    let subIds = contentData[0][columnKeys.MEDICAL_BODY_INFO]
                     if (subIds) {
                         Object.keys(subIds[0]).forEach(k => {
-                            if (k !== 'm013_1') createColumn(k)
+                            if (k !== columnKeys.MEDICAL_BODY_INFO_DATE) createColumn(k)
                         })
                     }
                 } else {
@@ -719,7 +695,7 @@ async function updateTable(data, changeHeaders) {
             })
         } else {
             newHeaders.forEach(h => {
-                if (h === 'PCFNo' || h === 'm013') return
+                if (h === 'PCFNo' || h === columnKeys.MEDICAL_BODY_INFO) return
                 if (!(Object.keys(dataColumns).includes(h))) createColumn(h, true)
             })
         }
@@ -769,10 +745,10 @@ async function updateTable(data, changeHeaders) {
     })
 
     contentData.map(d => {
-        let groupId = d['p004']
+        let groupId = d[columnKeys.CASE_GROUP]
         if (groupId && !(groupOptions.includes(groupId))) groupOptions.push(groupId)
 
-        let familyId = d['p002']
+        let familyId = d[columnKeys.CASE_FAMILY_ID]
         if (familyId && !(familyOptions.includes(familyId))) familyOptions.push(familyId)
     })
 
@@ -857,6 +833,7 @@ function fileReader(file, fileType, overwrite) {
             existingColumns = []
 
             object.visibleColumns.forEach(vc => {
+                console.log(vc)
                 colHeaders.push(dataColumns[vc]['colHeader'])
                 columns.push(dataColumns[vc]['column'])
                 existingColumns.push(vc)
@@ -897,11 +874,11 @@ function convertCSVToJSON(csv, isExport) {
 
             let value = d[i]
 
-            if (['m013_2', 'm013_3', 'm013_4'].includes(columnId)) {
+            if ([columnKeys.MEDICAL_BODY_WEIGHT, columnKeys.MEDICAL_BODY_HEIGHT, columnKeys.MEDICAL_HEAD_CIRCUMFERENCE].includes(columnId)) {
                 if (isExport) {
                     if (contentData.length > 0) {
                         if (contentData.length > 0) {
-                            let bodyInfo = contentData[idx - 1]['m013']
+                            let bodyInfo = contentData[idx - 1][columnKeys.MEDICAL_BODY_INFO]
                             if (bodyInfo) {
                                 value = bodyInfo[bodyInfo.length - 1][columnId]
                             } else {
@@ -911,7 +888,7 @@ function convertCSVToJSON(csv, isExport) {
                     }
                 } else {
                     let subColumnId = columnId
-                    columnId = 'm013'
+                    columnId = columnKeys.MEDICAL_BODY_INFO
                     growthChartData[subColumnId] = value
                     value = [growthChartData]
                 }
@@ -1006,11 +983,11 @@ function getExportData() {
         dlData.forEach((d, idx) => {
             let pData = {}
             for (let [k, v] of Object.entries(d)) {
-                if (idx === 0 && k.charAt(0) === 'c') {
+                if (k.split('_')[0] === 'custom') {
                     keyName[k] = getHeaderName(k)
                 }
 
-                if (k === 'm013') {
+                if (k === columnKeys.MEDICAL_BODY_INFO) {
                     let tempV = []
 
                     v.forEach((gc, gcIdx) => {
@@ -1054,7 +1031,7 @@ function getExportData() {
         if (header) {
             header = header.colHeader.replace('<i class="material-icons-outlined sort_icon"></i>', '')
         } else {
-            if (k === 'm013' || k === 'm013_1') header = translate(k)
+            if (k === columnKeys.MEDICAL_BODY_INFO || k === columnKeys.MEDICAL_BODY_INFO_DATE) header = translate(k)
         }
 
         return header || k
@@ -1128,17 +1105,17 @@ function editTable(isSave) {
                 newPatient[e.dataset.columnname] = $(`input[name="${e.name}"]:checked`).val() || null
             } else {
                 let value = e.value
-                if (e.dataset.columnname === 'p006' || e.dataset.columnname === 'p008') {
+                if (e.dataset.columnname === columnKeys.CASE_BIRTH || e.dataset.columnname === columnKeys.CASE_DEATH) {
                     let pre = e.dataset.columnname
                     value = `${document.querySelector(`.tab-wrap *[name="${pre}_year"]`).value}/${document.querySelector(`.tab-wrap *[name="${pre}_month"]`).value}`
                     if (value === '0/0') value = ''
-                } else if (e.dataset.columnname === 'p00b') {
+                } else if (e.dataset.columnname === columnKeys.CASE_EXAMINATION_DAY) {
                     let col = e.dataset.columnname
                     value = `${document.querySelector(`.tab-wrap *[name="${col}_year"]`).value}/${document.querySelector(`.tab-wrap *[name="${col}_month"]`).value}/${document.querySelector(`.tab-wrap *[name="${col}_day"]`).value}`
                     if (value === '0/0/0') value = ''
-                } else if (e.dataset.columnname === 'p002') {
+                } else if (e.dataset.columnname === columnKeys.CASE_FAMILY_ID) {
                     if (!(familyOptions.includes(value))) familyOptions.push(value)
-                } else if (e.dataset.columnname === 'p004') {
+                } else if (e.dataset.columnname === columnKeys.CASE_GROUP) {
                     if (!(groupOptions.includes(value))) groupOptions.push(value)
                 }
 
@@ -1160,9 +1137,9 @@ function editTable(isSave) {
         }
 
         if (currentBodyData.length > 0) {
-            newPatient['m013'] = []
+            newPatient[columnKeys.MEDICAL_BODY_INFO] = []
             currentBodyData.forEach(bd => {
-                newPatient['m013'].push(bd)
+                newPatient[columnKeys.MEDICAL_BODY_INFO].push(bd)
             })
         }
 
@@ -1179,18 +1156,6 @@ function editTable(isSave) {
 
     // existing patient
     let patientData = contentData.filter(d => { return d.PCFNo == currentPatient })[0]
-
-    // for (let [k, v] of Object.entries(changedData)) {
-    //     console.log(k, v)
-    //     // console.log
-    //     patientData[k] = v
-
-    //     if (k === 'p002') {
-    //         if (!(familyOptions.includes(v))) familyOptions.push(v)
-    //     } else if (k === 'p004') {
-    //         if (!(groupOptions.includes(v))) groupOptions.push(v)
-    //     }
-    // }
 
     if (geneData.length > 0) {
         let geneDataKeys = Object.keys(geneData[0])
@@ -1283,10 +1248,6 @@ function setInitialLanguage() {
 
             let li = document.createElement('li')
             li.classList.add(...liClass)
-            // li.innerHTML += `
-            //             <i class="${category.iconClass}">${category.iconName}</i>
-            //             <span>${category['displayName'][lang] || category['displayName']['en']}</span>
-            //         `
             li.innerHTML += `
                 <div class="${category.iconClass}"></div>
                 <span>${category['displayName'][lang] || category['displayName']['en']}</span>
@@ -1306,28 +1267,15 @@ function setInitialLanguage() {
                 $(li).addClass('show')
                 $(div).addClass('show')
 
-                if (category.categoryId === 'g000') {
+                if (category.categoryId === columnKeys.GENOTYPE_INFO) {
                     geneTable()
-                } else if (category.categoryId === 'm000') {
+                } else if (category.categoryId === columnKeys.MEDICAL_INFO) {
                     bodyTable()
                 }
             })
 
             if (i === 2) {
                 // modified by hzhang@bits start
-                /*
-                                div.innerHTML = `
-                                    <p>${translate('phenotypic-info-search')}</p>
-                                    <div style="width:100%;margin: 20px auto 0px auto;">
-                                        <div class="search-box_wrapper" style="width:100%;">
-                                            <div id="search_box_form"></div>
-                                        </div>
-                                        <div class="search-ex">
-                                            <a href="#" id="ex_phenotypes">ex) {{ _('index_Sample') }}</a>
-                                        </div>
-                                    </div>
-                                `
-                */
                 phenotypeInfo_initUI(div)
                 // modified by hzhang@bits end
                 return
@@ -1353,11 +1301,11 @@ function setInitialLanguage() {
             table.classList.add('form-table')
             if (i === 1) table.classList.add('treatment-table')
             if (i === 4) table.classList.add('family-table')
-            table.innerHTML = `<tbody id="tbody_${category.dataKey}">`
+            table.innerHTML = `<tbody id="tbody_${category.categoryId}">`
             div.appendChild(table)
 
             if (i === 0) {
-                createRow(`tbody_${category.dataKey}`,
+                createRow(`tbody_${category.categoryId}`,
                     {
                         columnId: 'PCFNo',
                         dataKey: 'PCFNo',
@@ -1374,10 +1322,10 @@ function setInitialLanguage() {
             }
 
             category.columns.forEach(c => {
-                if (c.dataKey === 'bodyWeight' || c.dataKey === 'bodyHeight' || c.dataKey === 'headCircumference') {
-                    createTable(`tbody_${category.dataKey}`, 'm013')
+                if (c.columnId === columnKeys.MEDICAL_BODY_WEIGHT || c.columnId === columnKeys.MEDICAL_BODY_HEIGHT || c.columnId === columnKeys.MEDICAL_HEAD_CIRCUMFERENCE) {
+                    createTable(`tbody_${category.categoryId}`, columnKeys.MEDICAL_BODY_INFO)
                 } else {
-                    createRow(`tbody_${category.dataKey}`, c)
+                    createRow(`tbody_${category.categoryId}`, c)
                 }
             })
         })
@@ -1397,10 +1345,10 @@ function setInitialLanguage() {
             if (c.type === 'display') td.innerText = 'P20220600001'
             tr.appendChild(td)
 
-            if (c.dataKey === 'age') {
+            if (c.columnId === columnKeys.CASE_AGE) {
                 let yearInput = document.createElement('input')
                 yearInput.type = 'number'
-                yearInput.classList.add(`${c.columnId}_year`)
+                yearInput.classList.add(...[`${c.columnId}_year`, 'select_date_year', 'age_select_date_year'])
                 yearInput.id = `${c.columnId}_year`
                 yearInput.name = `${c.columnId}_year`
                 yearInput.dataset.columnname = c.columnId
@@ -1427,7 +1375,7 @@ function setInitialLanguage() {
 
                 if (c.inputType === 'input-select') {
                     let select = document.createElement('select')
-                    select.id = c.dataKey === 'familyId' ? 'family_options' : 'group_options'
+                    select.id = c.columnId === columnKeys.CASE_FAMILY_ID ? 'family_options' : 'group_options'
                     td.appendChild(select)
 
                     td.id = 'group_wrap'
@@ -1454,13 +1402,14 @@ function setInitialLanguage() {
                 })
             } else if (c.inputType === 'select-date') {
                 let selectYear = document.createElement('select')
-                selectYear.classList.add(`${c.columnId}_year`)
+                selectYear.classList.add(...[`${c.columnId}_year`, 'select-date-year'])
                 selectYear.id = `${c.columnId}_year`
                 selectYear.name = `${c.columnId}_year`
                 selectYear.dataset.columnname = c.columnId
                 td.appendChild(selectYear)
 
                 let selectMonth = document.createElement('select')
+                selectYear.classList.add('select_date_month')
                 selectMonth.name = `${c.columnId}_month`
                 selectMonth.id = `${c.columnId}_month`
                 selectMonth.dataset.columnname = c.columnId
@@ -1516,101 +1465,101 @@ function setInitialLanguage() {
             } else if (c.inputType === 'multiple-radio') {
                 td.innerHTML = `
                     <label for="sporadic">
-                        <input id="sporadic" type="radio" name="f002" value="Sporadic"
-                            data-columnname="f002">Sporadic
+                        <input id="sporadic" type="radio" name="${columnKeys.FAMILY_MODE_INHERITANCE}" value="Sporadic"
+                            data-columnname="${columnKeys.FAMILY_MODE_INHERITANCE}">Sporadic
                     </label>
                     <details>
                         <summary>
                             <label for="autosomal_dominant_inheritance">
-                                <input id="autosomal_dominant_inheritance" type="radio" name="f002"
+                                <input id="autosomal_dominant_inheritance" type="radio" name="${columnKeys.FAMILY_MODE_INHERITANCE}"
                                     value="Autosomal dominant inheritance"
-                                    data-columnname="f002">Autosomal
+                                    data-columnname="${columnKeys.FAMILY_MODE_INHERITANCE}">Autosomal
                                 dominant
                                 inheritance
                             </label>
                         </summary>
                         <label for="sex_limited_autosomal_dominant">
-                            <input id="sex_limited_autosomal_dominant" type="radio" name="f002"
+                            <input id="sex_limited_autosomal_dominant" type="radio" name="${columnKeys.FAMILY_MODE_INHERITANCE}"
                                 value="Sex-limited autosomal dominant"
-                                data-columnname="f002">Sex-limited
+                                data-columnname="${columnKeys.FAMILY_MODE_INHERITANCE}">Sex-limited
                             autosomal dominant
                         </label>
                         <label for="autosomal_dominant_somatic_cell_mutation">
                             <input id="autosomal_dominant_somatic_cell_mutation" type="radio"
-                                name="f002" value="Autosomal dominant somatic cell mutation"
-                                data-columnname="f002">Autosomal
+                                name="${columnKeys.FAMILY_MODE_INHERITANCE}" value="Autosomal dominant somatic cell mutation"
+                                data-columnname="${columnKeys.FAMILY_MODE_INHERITANCE}">Autosomal
                             dominant somatic cell mutation
                         </label>
                         <label for="autosomal_dominant_contiguous_gene_syndrome">
                             <input id="autosomal_dominant_contiguous_gene_syndrome" type="radio"
-                                name="f002" value="Autosomal dominant contiguous gene syndrome"
-                                data-columnname="f002">Autosomal
+                                name="${columnKeys.FAMILY_MODE_INHERITANCE}" value="Autosomal dominant contiguous gene syndrome"
+                                data-columnname="${columnKeys.FAMILY_MODE_INHERITANCE}">Autosomal
                             dominant contiguous gene syndrome
                         </label>
                     </details>
                     <label for="autosomal_recessive_inheritance">
-                        <input id="autosomal_recessive_inheritance" type="radio" name="f002"
-                            value="Autosomal recessive inheritance" data-columnname="f002">Autosomal
+                        <input id="autosomal_recessive_inheritance" type="radio" name="${columnKeys.FAMILY_MODE_INHERITANCE}"
+                            value="Autosomal recessive inheritance" data-columnname="${columnKeys.FAMILY_MODE_INHERITANCE}">Autosomal
                         recessive inheritance
                     </label>
                     <details>
                         <summary>
                             <label for="gonosomal_inheritance">
-                                <input id="gonosomal_inheritance" type="radio" name="f002"
-                                    value="Gonosomal inheritance" data-columnname="f002">Gonosomal
+                                <input id="gonosomal_inheritance" type="radio" name="${columnKeys.FAMILY_MODE_INHERITANCE}"
+                                    value="Gonosomal inheritance" data-columnname="${columnKeys.FAMILY_MODE_INHERITANCE}">Gonosomal
                                 inheritance
                             </label>
                         </summary>
                         <label for="x_linked_inheritance">
-                            <input id="x_linked_inheritance" type="radio" name="f002"
-                                value="X-linked inheritance" data-columnname="f002">X-linked
+                            <input id="x_linked_inheritance" type="radio" name="${columnKeys.FAMILY_MODE_INHERITANCE}"
+                                value="X-linked inheritance" data-columnname="${columnKeys.FAMILY_MODE_INHERITANCE}">X-linked
                             inheritance
                         </label>
                         <label for="x_linked_dominant_inheritance">
-                            <input id="x_linked_dominant_inheritance" type="radio" name="f002"
-                                value="X-linked dominant inheritance" data-columnname="f002">X-linked
+                            <input id="x_linked_dominant_inheritance" type="radio" name="${columnKeys.FAMILY_MODE_INHERITANCE}"
+                                value="X-linked dominant inheritance" data-columnname="${columnKeys.FAMILY_MODE_INHERITANCE}">X-linked
                             dominant inheritance
                         </label>
                         <label for="x_linked_recessive_inheritance">
-                            <input id="x_linked_recessive_inheritance" type="radio" name="f002"
+                            <input id="x_linked_recessive_inheritance" type="radio" name="${columnKeys.FAMILY_MODE_INHERITANCE}"
                                 value="X-linked recessive inheritance"
-                                data-columnname="f002">X-linked
+                                data-columnname="${columnKeys.FAMILY_MODE_INHERITANCE}">X-linked
                             recessive inheritance
                         </label>
                         <label for="y_linked_inheritance">
-                            <input id="y_linked_inheritance" type="radio" name="f002"
-                                value="Y-linked inheritance" data-columnname="f002">Y-linked
+                            <input id="y_linked_inheritance" type="radio" name="${columnKeys.FAMILY_MODE_INHERITANCE}"
+                                value="Y-linked inheritance" data-columnname="${columnKeys.FAMILY_MODE_INHERITANCE}">Y-linked
                             inheritance
                         </label>
                     </details>
                     <details>
                         <summary>
                             <label for="multifactorial_inheritance">
-                                <input id="multifactorial_inheritance" type="radio" name="f002"
+                                <input id="multifactorial_inheritance" type="radio" name="${columnKeys.FAMILY_MODE_INHERITANCE}"
                                     value="Multifactorial inheritance"
-                                    data-columnname="f002">Multifactorial
+                                    data-columnname="${columnKeys.FAMILY_MODE_INHERITANCE}">Multifactorial
                                 inheritance
                             </label>
                         </summary>
                         <label for="digenic_inheritance">
-                            <input id="digenic_inheritance" type="radio" name="f002"
-                                value="Digenic inheritance" data-columnname="f002">Digenic
+                            <input id="digenic_inheritance" type="radio" name="${columnKeys.FAMILY_MODE_INHERITANCE}"
+                                value="Digenic inheritance" data-columnname="${columnKeys.FAMILY_MODE_INHERITANCE}">Digenic
                             inheritance
                         </label>
                         <label for="oligogenic_inheritance">
-                            <input id="oligogenic_inheritance" type="radio" name="f002"
-                                value="Oligogenic inheritance" data-columnname="f002">Oligogenic
+                            <input id="oligogenic_inheritance" type="radio" name="${columnKeys.FAMILY_MODE_INHERITANCE}"
+                                value="Oligogenic inheritance" data-columnname="${columnKeys.FAMILY_MODE_INHERITANCE}">Oligogenic
                             inheritance
                         </label>
                         <label for="polygenic_inheritance">
-                            <input id="polygenic_inheritance" type="radio" name="f002"
-                                value="Polygenic inheritance" data-columnname="f002">Polygenic
+                            <input id="polygenic_inheritance" type="radio" name="${columnKeys.FAMILY_MODE_INHERITANCE}"
+                                value="Polygenic inheritance" data-columnname="${columnKeys.FAMILY_MODE_INHERITANCE}">Polygenic
                             inheritance
                         </label>
                     </details>
                     <label for="mitochondrialx_inheritance">
-                        <input id="mitochondrialx_inheritance" type="radio" name="f002"
-                            value="Mitochondrial inheritance" data-columnname="f002">Mitochondrial
+                        <input id="mitochondrialx_inheritance" type="radio" name="${columnKeys.FAMILY_MODE_INHERITANCE}"
+                            value="Mitochondrial inheritance" data-columnname="${columnKeys.FAMILY_MODE_INHERITANCE}">Mitochondrial
                         inheritance
                     </label>
                 `
@@ -1640,8 +1589,8 @@ function setInitialLanguage() {
             parent.appendChild(tr)
 
             let th = document.createElement('th')
-            th.id = 'm013'
-            th.innerText = translate('m013')
+            th.id = columnKeys.MEDICAL_BODY_INFO
+            th.innerText = translate(columnKeys.MEDICAL_BODY_INFO)
             tr.appendChild(th)
 
             let td = document.createElement('td')

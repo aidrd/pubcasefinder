@@ -642,13 +642,13 @@ opacity: 0.6;
   background: #fff;
 }
 
-#modal-karte .tab-wrap .show .form-table tbody tr td .birth_year {
+/* #modal-karte .tab-wrap .show .form-table tbody tr td .birth_year {
   width: auto;
 }
 
 #modal-karte .tab-wrap .show .form-table tbody tr td .death_year {
   width: auto;
-}
+} */
 
 #modal-karte .tab-wrap .show .form-table tbody tr td ::placeholder {
   color: #e3e3e3;

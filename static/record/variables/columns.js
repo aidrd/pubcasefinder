@@ -1,11 +1,11 @@
 let categories = [
     {
-        categoryId: 'p000',
-        dataKey: 'patientInfo',
+        categoryId: 'case_info',
+        dataKey: 'caseInfo',
         iconClass: 'modal-icon modal-patient',
         iconName: '',
         displayName: {
-            en: 'Patient Info',
+            en: 'Case Info',
             ja: '患者基本情報',
             ko: '환자 기본 정보',
             zh: '患者基本信息',
@@ -13,7 +13,7 @@ let categories = [
         },
         columns: [
             {
-                columnId: 'p001',
+                columnId: 'case_id',
                 dataKey: 'patientId',
                 inputType: 'text',
                 phenoKey: '',
@@ -28,7 +28,7 @@ let categories = [
                 }
             },
             {
-                columnId: 'p002',
+                columnId: 'case_family_id',
                 dataKey: 'familyId',
                 inputType: 'input-select',
                 phenoKey: '',
@@ -43,7 +43,7 @@ let categories = [
                 }
             },
             {
-                columnId: 'p003',
+                columnId: 'case_relationship',
                 dataKey: 'relationship',
                 inputType: 'select',
                 phenoKey: '',
@@ -82,7 +82,7 @@ let categories = [
                 }
             },
             {
-                columnId: 'p004',
+                columnId: 'case_group',
                 dataKey: 'group',
                 inputType: 'input-select',
                 phenoKey: '',
@@ -98,7 +98,7 @@ let categories = [
             },
             {
                 // TODO: What should columnId be?
-                columnId: 'p00a',
+                columnId: 'case_presence_or_absence_of_onset',
                 dataKey: 'presenceOrAbsenceOfOnset',
                 inputType: 'select',
                 phenoKey: '',
@@ -122,7 +122,7 @@ let categories = [
                 }
             },
             {
-                columnId: 'p005',
+                columnId: 'case_life_status',
                 dataKey: 'lifeStatus',
                 inputType: 'radio',
                 phenoKey: '',
@@ -145,7 +145,7 @@ let categories = [
                 }
             },
             {
-                columnId: 'p006',
+                columnId: 'case_birth',
                 dataKey: 'birth',
                 inputType: 'select-date',
                 phenoKey: '',
@@ -160,7 +160,7 @@ let categories = [
                 }
             },
             {
-                columnId: 'p008',
+                columnId: 'case_death',
                 dataKey: 'death',
                 inputType: 'select-date',
                 phenoKey: '',
@@ -176,7 +176,7 @@ let categories = [
             },
             {
                 // TODO: What should columnId be?
-                columnId: 'p00b',
+                columnId: 'case_examination_day',
                 dataKey: 'examinationDay',
                 inputType: 'select-date',
                 phenoKey: '',
@@ -193,7 +193,7 @@ let categories = [
                 }
             },
             {
-                columnId: 'p007',
+                columnId: 'case_age',
                 dataKey: 'age',
                 inputType: 'text',
                 phenoKey: '',
@@ -209,7 +209,7 @@ let categories = [
                 }
             },
             {
-                columnId: 'p009',
+                columnId: 'case_sex',
                 dataKey: 'sex',
                 inputType: 'select',
                 phenoKey: '',
@@ -232,7 +232,7 @@ let categories = [
                 }
             },
             {
-                columnId: 'p010',
+                columnId: 'case_note',
                 dataKey: 'note',
                 inputType: 'textarea',
                 phenoKey: '',
@@ -249,7 +249,7 @@ let categories = [
         ]
     },
     {
-        categoryId: 'm000',
+        categoryId: 'medical_info',
         dataKey: 'medicalInfo',
         iconClass: 'modal-icon modal-medical',
         iconName: '',
@@ -262,7 +262,7 @@ let categories = [
         },
         columns: [
             {
-                columnId: 'm001',
+                columnId: 'medical_clinical_diagnosis',
                 dataKey: 'clinicalDiagnosis',
                 inputType: 'text',
                 phenoKey: '',
@@ -277,7 +277,7 @@ let categories = [
                 }
             },
             {
-                columnId: 'm002',
+                columnId: 'medical_final_diagnosis',
                 dataKey: 'finalDiagnosis',
                 inputType: 'text',
                 phenoKey: '',
@@ -292,7 +292,7 @@ let categories = [
                 }
             },
             {
-                columnId: 'm003',
+                columnId: 'medical_chief_complaint',
                 dataKey: 'chiefComplaint',
                 inputType: 'text',
                 phenoKey: '',
@@ -307,7 +307,7 @@ let categories = [
                 }
             },
             {
-                columnId: 'm004',
+                columnId: 'medical_case_solved',
                 dataKey: 'caseSolved',
                 inputType: 'select',
                 phenoKey: '',
@@ -330,7 +330,7 @@ let categories = [
                 }
             },
             {
-                columnId: 'm010',
+                columnId: 'medical_age_onset',
                 dataKey: 'ageOnset',
                 inputType: 'select',
                 phenoKey: '',
@@ -353,7 +353,7 @@ let categories = [
                 }
             },
             {
-                columnId: 'm005',
+                columnId: 'medical_current_history',
                 dataKey: 'currentMedicalHistory',
                 inputType: 'textarea',
                 phenoKey: '',
@@ -368,7 +368,7 @@ let categories = [
                 }
             },
             {
-                columnId: 'm006',
+                columnId: 'medical_previous_history',
                 dataKey: 'previousMedicalHistory',
                 inputType: 'textarea',
                 phenoKey: '',
@@ -383,7 +383,7 @@ let categories = [
                 }
             },
             {
-                columnId: 'm007',
+                columnId: 'medical_prenatal_perinatal_history',
                 dataKey: 'prenatalPerinatalHistory',
                 inputType: 'textarea',
                 phenoKey: '',
@@ -398,7 +398,7 @@ let categories = [
                 }
             },
             {
-                columnId: 'm008',
+                columnId: 'medical_early_developmental_and_schooling_history',
                 dataKey: 'earlyDevelopmentalAndSchoolingHistory',
                 inputType: 'textarea',
                 phenoKey: '',
@@ -413,7 +413,7 @@ let categories = [
                 }
             },
             {
-                columnId: 'm009',
+                columnId: 'medical_process',
                 dataKey: 'process',
                 inputType: 'textarea',
                 phenoKey: '',
@@ -428,7 +428,7 @@ let categories = [
                 }
             },
             {
-                columnId: 'm017',
+                columnId: 'medical_medications',
                 dataKey: 'medications',
                 inputType: 'text',
                 phenoKey: '',
@@ -443,7 +443,7 @@ let categories = [
                 }
             },
             {
-                columnId: 'm012',
+                columnId: 'medical_allergies',
                 dataKey: 'allergies',
                 inputType: 'text',
                 phenoKey: '',
@@ -455,18 +455,10 @@ let categories = [
                     ko: '알레르기',
                     zh: '过敏症',
                     zhcht: '過敏症'
-                },
-                // options: {
-                //     dataValue: ['yes', 'no'],
-                //     en: ['Yes', 'No'],
-                //     ja: ['有', '無'],
-                //     ko: [],
-                //     zh: [],
-                //     zhcht: []
-                // }
+                }
             },
             {
-                columnId: 'm014',
+                columnId: 'medical_social_history',
                 dataKey: 'socialHistory',
                 inputType: 'textarea',
                 phenoKey: '',
@@ -481,7 +473,7 @@ let categories = [
                 }
             },
             {
-                columnId: 'm015',
+                columnId: 'medical_drinking',
                 dataKey: 'drinking',
                 inputType: 'text',
                 phenoKey: '',
@@ -493,18 +485,10 @@ let categories = [
                     ko: '음주량',
                     zh: '饮酒量',
                     zhcht: '飲酒量'
-                },
-                // options: {
-                //     dataValue: ['yes', 'no'],
-                //     en: ['Yes', 'No'],
-                //     ja: ['有', '無'],
-                //     ko: [],
-                //     zh: [],
-                //     zhcht: []
-                // }
+                }
             },
             {
-                columnId: 'm016',
+                columnId: 'medical_smoking',
                 dataKey: 'smoking',
                 inputType: 'text',
                 phenoKey: '',
@@ -516,18 +500,10 @@ let categories = [
                     ko: '흡연',
                     zh: '吸烟',
                     zhcht: '吸菸'
-                },
-                // options: {
-                //     dataValue: ['yes', 'no'],
-                //     en: ['Yes', 'No'],
-                //     ja: ['有', '無'],
-                //     ko: [],
-                //     zh: [],
-                //     zhcht: []
-                // }
+                }
             },
             {
-                columnId: 'm018',
+                columnId: 'medical_travel_history',
                 dataKey: 'travelHistory',
                 inputType: 'textarea',
                 phenoKey: '',
@@ -542,7 +518,7 @@ let categories = [
                 }
             },
             {
-                columnId: 'm019',
+                columnId: 'medical_vaccination_history',
                 dataKey: 'vaccinationHistory',
                 inputType: 'textarea',
                 phenoKey: '',
@@ -557,7 +533,7 @@ let categories = [
                 }
             },
             {
-                columnId: 'm013_2',
+                columnId: 'medical_body_weight',
                 dataKey: 'bodyWeight',
                 inputType: 'hot',
                 phenoKey: '',
@@ -572,7 +548,7 @@ let categories = [
                 }
             },
             {
-                columnId: 'm013_3',
+                columnId: 'medical_body_height',
                 dataKey: 'bodyHeight',
                 inputType: 'hot',
                 phenoKey: '',
@@ -587,7 +563,7 @@ let categories = [
                 }
             },
             {
-                columnId: 'm013_4',
+                columnId: 'medical_head_circumference',
                 dataKey: 'headCircumference',
                 inputType: 'hot',
                 phenoKey: '',
@@ -602,7 +578,7 @@ let categories = [
                 }
             },
             {
-                columnId: 'm00a', // TODO
+                columnId: 'medical_physical_findings', // TODO
                 dataKey: 'physicalFindings',
                 inputType: 'textarea',
                 phenoKey: '',
@@ -617,7 +593,7 @@ let categories = [
                 }
             },
             {
-                columnId: 'm011',
+                columnId: 'medical_examination_findings',
                 dataKey: 'examinationFinding',
                 inputType: 'textarea',
                 phenoKey: '',
@@ -634,7 +610,7 @@ let categories = [
         ]
     },
     {
-        categoryId: 'pi000',
+        categoryId: 'phenotype_info',
         dataKey: 'phenotypicInfo',
         iconClass: 'modal-icon modal-phenotype',
         iconName: '',
@@ -654,7 +630,7 @@ let categories = [
                 hpo_list: [],
                 withUI:   'yes',
                 schema:   'auto',
-                dataSrcColumnId: 'm005'
+                dataSrcColumnId: 'medical_current_history'
             },
             {
                 docId: 'pi004',
@@ -663,7 +639,7 @@ let categories = [
                 hpo_list: [],
                 withUI: 'yes',
                 schema: 'auto',
-                dataSrcColumnId: 'm006'
+                dataSrcColumnId: 'medical_previous_history'
             },
             {
                 docId: 'pi005',
@@ -672,7 +648,7 @@ let categories = [
                 text:     null,
                 hpo_list: [],
                 schema: 'auto',
-                dataSrcColumnId: 'm009'
+                dataSrcColumnId: 'medical_process'
             },
             {
                 docId: 'pi006',
@@ -681,7 +657,7 @@ let categories = [
                 text:     null,
                 hpo_list: [],
                 schema: 'auto',
-                dataSrcColumnId: 'f001'
+                dataSrcColumnId: 'family_history'
             },
             {
                 docId: 'pi007',
@@ -1002,7 +978,7 @@ let categories = [
 // modified by hzhang@bits.cc end
     },
     {
-        categoryId: 'g000',
+        categoryId: 'genotype_info',
         dataKey: 'geneInfo',
         iconClass: 'modal-icon modal-gene',
         iconName: '',
@@ -1015,7 +991,21 @@ let categories = [
         },
         columns: [
             {
-                columnId: 'g001',
+                columnId: 'genotype_analysis',
+                dataKey: 'genotype_analysis',
+                phenoKey: '',
+                type: 'text',
+                table: true,
+                displayName: {
+                    en: 'Genetic Analysis',
+                    ja: '遺伝子解析',
+                    ko: '',
+                    zh: '',
+                    zhcht: ''
+                }
+            },
+            {
+                columnId: 'genotype_gene',
                 dataKey: 'gene',
                 phenoKey: '',
                 type: 'text',
@@ -1029,87 +1019,51 @@ let categories = [
                 }
             },
             {
-                columnId: 'g002',
+                columnId: 'genotype_status',
                 dataKey: 'status',
                 phenoKey: '',
                 type: 'dropdown',
                 table: true,
                 displayName: {
-                    en: 'Status',
-                    ja: 'Status',
+                    en: 'Interpretation Status',
+                    ja: 'Interpretation Status',
                     ko: '',
                     zh: '',
                     zhcht: ''
                 },
                 options: {
-                    dataValue: ['Rejected Candidate', 'Confirmed causa', 'Carrier', 'Tested Negative'],
-                    en: ['Rejected Candidate', 'Confirmed causa', 'Carrier', 'Tested Negative'],
-                    ja: ['Rejected Candidate', 'Confirmed causa', 'Carrier', 'Tested Negative'],
+                    dataValue: ['Unknown Status', 'Rejected', 'Candidate', 'Contributory', 'Causative'],
+                    en: ['Unknown Status', 'Rejected', 'Candidate', 'Contributory', 'Causative'],
+                    ja: ['Unknown Status', 'Rejected', 'Candidate', 'Contributory', 'Causative'],
                     ko: [],
                     zh: [],
                     zhcht: []
                 }
             },
+            // {
+            //     columnId: 'genotype_strategy',
+            //     dataKey: 'strategy',
+            //     phenoKey: '',
+            //     type: 'dropdown',
+            //     table: true,
+            //     displayName: {
+            //         en: 'Strategy',
+            //         ja: 'Strategy',
+            //         ko: '',
+            //         zh: '',
+            //         zhcht: ''
+            //     },
+            //     options: {
+            //         dataValue: ['Sequencing', 'Deletion/duplication', 'Familial mutation', 'Common mutations'],
+            //         en: ['Sequencing', 'Deletion/duplication', 'Familial mutation', 'Common mutations'],
+            //         ja: ['Sequencing', 'Deletion/duplication', 'Familial mutation', 'Common mutations'],
+            //         ko: [],
+            //         zh: '',
+            //         zhcht: ''
+            //     }
+            // },
             {
-                columnId: 'g003',
-                dataKey: 'strategy',
-                phenoKey: '',
-                type: 'dropdown',
-                table: true,
-                displayName: {
-                    en: 'Strategy',
-                    ja: 'Strategy',
-                    ko: '',
-                    zh: '',
-                    zhcht: ''
-                },
-                options: {
-                    dataValue: ['Sequencing', 'Deletion/duplication', 'Familial mutation', 'Common mutations'],
-                    en: ['Sequencing', 'Deletion/duplication', 'Familial mutation', 'Common mutations'],
-                    ja: ['Sequencing', 'Deletion/duplication', 'Familial mutation', 'Common mutations'],
-                    ko: [],
-                    zh: '',
-                    zhcht: ''
-                }
-            },
-            {
-                columnId: 'g004',
-                dataKey: 'reference',
-                phenoKey: '',
-                type: 'dropdown',
-                table: true,
-                displayName: {
-                    en: 'Reference',
-                    ja: 'Reference',
-                    ko: '',
-                    zh: '',
-                    zhcht: ''
-                },
-                options: {
-                    dataValue: ['GRCh37 (hg19)', 'GRCh38 (hg38)', 'GRCh36 (hg18)'],
-                    en: ['GRCh37 (hg19)', 'GRCh38 (hg38)', 'GRCh36 (hg18)'],
-                    ja: ['GRCh37 (hg19)', 'GRCh38 (hg38)', 'GRCh36 (hg18)'],
-                    ko: [],
-                    zh: [],
-                    zhcht: []
-                }
-            },
-            {
-                columnId: 'g005',
-                dataKey: 'chrPosition',
-                phenoKey: '',
-                type: 'text',
-                table: true,
-                displayName: {
-                    en: 'Chr:Position',
-                    ja: 'Chr:Position',
-                    ko: '',
-                    zh: '',
-                    zhcht: ''
-                }
-            },
-            {
-                columnId: 'g006',
+                columnId: 'genotype_cdna_change',
                 dataKey: 'cDNAChange',
                 phenoKey: '',
                 type: 'text',
@@ -1123,7 +1077,7 @@ let categories = [
                 }
             },
             {
-                columnId: 'g007',
+                columnId: 'genotype_pathogenicit',
                 dataKey: 'pathogenicity',
                 phenoKey: '',
                 type: 'dropdown',
@@ -1145,7 +1099,7 @@ let categories = [
                 }
             },
             {
-                columnId: 'g008',
+                columnId: 'genotype_allelic_state',
                 dataKey: 'genotype',
                 phenoKey: '',
                 type: 'dropdown',
@@ -1167,7 +1121,43 @@ let categories = [
                 }
             },
             {
-                columnId: 'g009',
+                columnId: 'genotype_reference',
+                dataKey: 'reference',
+                phenoKey: '',
+                type: 'dropdown',
+                table: true,
+                displayName: {
+                    en: 'Reference',
+                    ja: 'Reference',
+                    ko: '',
+                    zh: '',
+                    zhcht: ''
+                },
+                options: {
+                    dataValue: ['GRCh37 (hg19)', 'GRCh38 (hg38)', 'GRCh36 (hg18)'],
+                    en: ['GRCh37 (hg19)', 'GRCh38 (hg38)', 'GRCh36 (hg18)'],
+                    ja: ['GRCh37 (hg19)', 'GRCh38 (hg38)', 'GRCh36 (hg18)'],
+                    ko: [],
+                    zh: [],
+                    zhcht: []
+                }
+            },
+            {
+                columnId: 'genotype_chr_position',
+                dataKey: 'chrPosition',
+                phenoKey: '',
+                type: 'text',
+                table: true,
+                displayName: {
+                    en: 'Chr:Position',
+                    ja: 'Chr:Position',
+                    ko: '',
+                    zh: '',
+                    zhcht: ''
+                }
+            },
+            {
+                columnId: 'genotype_transcript',
                 dataKey: 'transcript',
                 phenoKey: '',
                 type: 'text',
@@ -1181,7 +1171,7 @@ let categories = [
                 }
             },
             {
-                columnId: 'g010',
+                columnId: 'genotype_protein_charge',
                 dataKey: 'proteinCharge',
                 phenoKey: '',
                 type: 'text',
@@ -1195,29 +1185,29 @@ let categories = [
                 }
             },
             {
-                columnId: 'g011',
+                columnId: 'genotype_annotation',
                 dataKey: 'annotations',
                 phenoKey: '',
                 type: 'dropdown',
                 table: true,
                 displayName: {
-                    en: 'Annotations',
-                    ja: 'Annotations',
+                    en: 'Annotation',
+                    ja: 'Annotation',
                     ko: '',
                     zh: '',
                     zhcht: ''
                 },
                 options: {
-                    dataValue: ['missense', 'nonsense', 'insertion - in frame', 'insertion - frameshift', 'deletion - in frame', 'deletion - frameshift', 'indel - in frame', 'indel - frameshift', 'duplication', 'repeat expansion', 'synonymous', 'other'],
-                    en: ['missense', 'nonsense', 'insertion - in frame', 'insertion - frameshift', 'deletion - in frame', 'deletion - frameshift', 'indel - in frame', 'indel - frameshift', 'duplication', 'repeat expansion', 'synonymous', 'other'],
-                    ja: ['missense', 'nonsense', 'insertion - in frame', 'insertion - frameshift', 'deletion - in frame', 'deletion - frameshift', 'indel - in frame', 'indel - frameshift', 'duplication', 'repeat expansion', 'synonymous', 'other'],
+                    dataValue: ['frameshift deletion', 'frameshift insertion', 'frameshift substitution', 'nonframeshift deletion', 'nonframeshift insertion', 'nonframeshift substitution', 'synonymous SNV', 'nonsynonymous SNV', 'stopgain SNV', 'stoploss SNV', 'stopgain', 'stoploss', 'splicing', 'other', 'unknown'],
+                    en: ['frameshift deletion', 'frameshift insertion', 'frameshift substitution', 'nonframeshift deletion', 'nonframeshift insertion', 'nonframeshift substitution', 'synonymous SNV', 'nonsynonymous SNV', 'stopgain SNV', 'stoploss SNV', 'stopgain', 'stoploss', 'splicing', 'other', 'unknown'],
+                    ja: ['frameshift deletion', 'frameshift insertion', 'frameshift substitution', 'nonframeshift deletion', 'nonframeshift insertion', 'nonframeshift substitution', 'synonymous SNV', 'nonsynonymous SNV', 'stopgain SNV', 'stoploss SNV', 'stopgain', 'stoploss', 'splicing', 'other', 'unknown'],
                     ko: [],
                     zh: [],
                     zhcht: []
                 }
             },
             {
-                columnId: 'g012',
+                columnId: 'genotype_inheritance',
                 dataKey: 'inheritance',
                 phenoKey: '',
                 type: 'dropdown',
@@ -1230,38 +1220,38 @@ let categories = [
                     zhcht: ''
                 },
                 options: {
-                    dataValue: ['de novo germline', 'de novo somatic mosaicism', 'maternal', 'paternal', 'unknown'],
-                    en: ['de novo germline', 'de novo somatic mosaicism', 'maternal', 'paternal', 'unknown'],
-                    ja: ['de novo germline', 'de novo somatic mosaicism', 'maternal', 'paternal', 'unknown'],
+                    dataValue: ['autosomal recessive - compound heterozygous', 'autosomal recessive - homozygous', 'autosomal dominant', 'autosomal dominant - new mutation', 'autosomal dominant - Inherited mutation', 'x-linked recessive', 'x-linked dominant', 'paternal imprinting', 'maternal imprinting', 'other', 'unknown'],
+                    en: ['autosomal recessive - compound heterozygous', 'autosomal recessive - homozygous', 'autosomal dominant', 'autosomal dominant - new mutation', 'autosomal dominant - Inherited mutation', 'x-linked recessive', 'x-linked dominant', 'paternal imprinting', 'maternal imprinting', 'other', 'unknown'],
+                    ja: ['autosomal recessive - compound heterozygous', 'autosomal recessive - homozygous', 'autosomal dominant', 'autosomal dominant - new mutation', 'autosomal dominant - Inherited mutation', 'x-linked recessive', 'x-linked dominant', 'paternal imprinting', 'maternal imprinting', 'other', 'unknown'],
                     ko: [],
                     zh: [],
                     zhcht: []
                 }
             },
+            // {
+            //     columnId: 'genotype_evidence',
+            //     dataKey: 'evidence',
+            //     phenoKey: '',
+            //     type: 'dropdown',
+            //     table: true,
+            //     displayName: {
+            //         en: 'Evidence',
+            //         ja: 'Evidence',
+            //         ko: '',
+            //         zh: '',
+            //         zhcht: ''
+            //     },
+            //     options: {
+            //         dataValue: ['Rare (MAF less than 0.01)', 'Predicted damaging by in silico models', 'Reported in other affected individuals'],
+            //         en: ['Rare (MAF less than 0.01)', 'Predicted damaging by in silico models', 'Reported in other affected individuals'],
+            //         ja: ['Rare (MAF less than 0.01)', 'Predicted damaging by in silico models', 'Reported in other affected individuals'],
+            //         ko: [],
+            //         zh: [],
+            //         zhcht: []
+            //     }
+            // },
             {
-                columnId: 'g013',
-                dataKey: 'evidence',
-                phenoKey: '',
-                type: 'dropdown',
-                table: true,
-                displayName: {
-                    en: 'Evidence',
-                    ja: 'Evidence',
-                    ko: '',
-                    zh: '',
-                    zhcht: ''
-                },
-                options: {
-                    dataValue: ['Rare (MAF less than 0.01)', 'Predicted damaging by in silico models', 'Reported in other affected individuals'],
-                    en: ['Rare (MAF less than 0.01)', 'Predicted damaging by in silico models', 'Reported in other affected individuals'],
-                    ja: ['Rare (MAF less than 0.01)', 'Predicted damaging by in silico models', 'Reported in other affected individuals'],
-                    ko: [],
-                    zh: [],
-                    zhcht: []
-                }
-            },
-            {
-                columnId: 'g014',
+                columnId: 'genotype_comments',
                 dataKey: 'comments',
                 phenoKey: '',
                 type: 'text',
@@ -1277,7 +1267,7 @@ let categories = [
         ]
     },
     {
-        categoryId: 'f000',
+        categoryId: 'family_info',
         dataKey: 'familyInfo',
         iconClass: 'modal-icon modal-family',
         iconName: '',
@@ -1290,7 +1280,7 @@ let categories = [
         },
         columns: [
             {
-                columnId: 'f001',
+                columnId: 'family_history',
                 dataKey: 'familyHistory',
                 inputType: 'textarea',
                 phenoKey: '',
@@ -1305,7 +1295,7 @@ let categories = [
                 }
             },
             {
-                columnId: 'f002',
+                columnId: 'family_mode_inheritance',
                 dataKey: 'geneticList',
                 inputType: 'multiple-radio',
                 phenoKey: '',
@@ -1328,7 +1318,7 @@ let categories = [
                 }
             },
             {
-                columnId: 'f003',
+                columnId: 'family_other_affected_relatives',
                 dataKey: 'otherAffectedRelatives',
                 inputType: 'radio',
                 phenoKey: '',
@@ -1351,7 +1341,7 @@ let categories = [
                 }
             },
             {
-                columnId: 'f004',
+                columnId: 'family_consanguinity',
                 dataKey: 'consanguineMarriage',
                 inputType: 'radio',
                 phenoKey: '',
@@ -1374,7 +1364,7 @@ let categories = [
                 }
             },
             {
-                columnId: 'f005',
+                columnId: 'family_miscarriage',
                 dataKey: 'miscarriage',
                 inputType: 'radio',
                 phenoKey: '',
@@ -1397,7 +1387,7 @@ let categories = [
                 }
             },
             {
-                columnId: 'f006',
+                columnId: 'family_paternal_ethnicity',
                 dataKey: 'paternalEthnicity',
                 inputType: 'text',
                 phenoKey: '',
@@ -1412,7 +1402,7 @@ let categories = [
                 }
             },
             {
-                columnId: 'f007',
+                columnId: 'family_maternal_ethnicity',
                 dataKey: 'maternalEthnicity',
                 inputType: 'text',
                 phenoKey: '',
@@ -1420,7 +1410,7 @@ let categories = [
                 table: true,
                 displayName: {
                     en: 'Maternal Ethnicity',
-                    ja: '母性の民族',
+                    ja: '母方の民族',
                     ko: '모계 민족성',
                     zh: '母亲种族',
                     zhcht: '母親種族'
