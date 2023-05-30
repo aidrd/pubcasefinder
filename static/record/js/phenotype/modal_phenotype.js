@@ -48,7 +48,7 @@ function phenotypeInfo_createDocList() {
 function phenotypeInfo_createExtraPopupItems() {
     let phenotypeInfo = phenotypeInfo_getPhenotypeInfo();
     let extra_popup_items = [];
-    ['pi008','pi009','pi010','pi011','pi012','pi013','pi014','pi015'].forEach(cid => {
+    [columnKeys.PHENOTYPE_EXCLUDED,columnKeys.PHENOTYPE_CLINICAL_RELEVANCE,columnKeys.PHENOTYPE_SEVERITY,columnKeys.PHENOTYPE_AGE_ONSET,columnKeys.PHENOTYPE_TEMPORAL_PATTERN,columnKeys.PHENOTYPE_PACE_PROGRESSION,columnKeys.PPHENOTYPE_RESOLUTION,columnKeys.PHENOTYPE_COMMENTS].forEach(cid => {
         let col = phenotypeInfo.columns.filter(c => { return c.columnId === cid})[0];
 
         let dataValue = '';
@@ -70,7 +70,8 @@ function phenotypeInfo_createExtraPopupItems() {
 
 function phenotypeInfo_updateFilterCNT() {
     let phenotypeInfo = phenotypeInfo_getPhenotypeInfo();
-    ['pi003','pi004','pi005','pi006','pi008','pi009','pi010','pi012','pi013'].forEach(cid => {
+
+    [columnKeys.PHENOTYPE_MEDICAL_CURRENT_HISTORY,columnKeys.PHENOTYPE_MEDICAL_PREVIOUS_HISTORY,columnKeys.PHENOTYPE_PROCESS,columnKeys.PHENOTYPE_FAMILY_HISTORY,columnKeys.PHENOTYPE_EXCLUDED,columnKeys.PHENOTYPE_CLINICAL_RELEVANCE,columnKeys.PHENOTYPE_SEVERITY,columnKeys.PHENOTYPE_TEMPORAL_PATTERN,columnKeys.PHENOTYPE_PACE_PROGRESSION].forEach(cid => {
         let col = phenotypeInfo.columns.filter(c => { return c.columnId === cid})[0];
         if(col.inputType === 'checkbox'){
             let cbx_id      = `cbx-filter-${cid}`;
@@ -119,7 +120,7 @@ function phenotypeInfo_createFilterUI(filter_container_id) {
 
     let phenotypeInfo = phenotypeInfo_getPhenotypeInfo();
     // doc src list
-    ['pi003','pi004','pi005','pi006'].forEach(cid => {
+    [columnKeys.PHENOTYPE_MEDICAL_CURRENT_HISTORY,columnKeys.PHENOTYPE_MEDICAL_PREVIOUS_HISTORY,columnKeys.PHENOTYPE_PROCESS,columnKeys.PHENOTYPE_FAMILY_HISTORY].forEach(cid => {
         let col         = phenotypeInfo.columns.filter(c => { return c.columnId === cid})[0]
         let displayName = col['displayName'][lang] || col['displayName']['en']
         displayName += '(0)';
@@ -129,7 +130,7 @@ function phenotypeInfo_createFilterUI(filter_container_id) {
         $('#'+cbx_id).val(col.options.dataValue[1]);
     });
 
-    ['pi008','pi009','pi010', 'pi012','pi013'].forEach(cid => {
+    [columnKeys.PHENOTYPE_EXCLUDED,columnKeys.PHENOTYPE_CLINICAL_RELEVANCE,columnKeys.PHENOTYPE_SEVERITY, columnKeys.PHENOTYPE_TEMPORAL_PATTERN,columnKeys.PHENOTYPE_PACE_PROGRESSION].forEach(cid => {
         let $tr = $('<tr>').appendTo($tbl);
         let col = phenotypeInfo.columns.filter(c => { return c.columnId === cid})[0];
         let titleName = col['displayName'][lang] || col['displayName']['en'];
@@ -197,7 +198,7 @@ function phenotypeInfo_onFilterChange(){
 }
 
 function phenotypeInfo_updateNum(){
-    $("#phenotype_num").text(`(${phenotypeData['pi001'].length})`);
+    $("#phenotype_num").text(`(${phenotypeData[columnKeys.PHENOTYPE_HPO_ID].length})`);
 }
 
 
@@ -303,7 +304,7 @@ function phenotypeInfo_onInputChange(input_obj){
     let $li     = $input.closest('li');
     let hpo_id  = $li.find('.hpo_id')[0].innerHTML;
     
-    let idx   = phenotypeData['pi001'].indexOf(hpo_id);
+    let idx   = phenotypeData[columnKeys.PHENOTYPE_HPO_ID].indexOf(hpo_id);
 
     if(inputType === 'age') {
         let year = $input.parent().children('.age-year').val() || 0;
@@ -446,8 +447,7 @@ function _contruct_popup_content(hpo_id,popup_data, lang){
 
 
 function phenotypeInfo_createRows(){
-    
-    if(!phenotypeData || !('pi001' in phenotypeData) || !phenotypeData['pi001'].length) return;
+    if(!phenotypeData || !(columnKeys.PHENOTYPE_HPO_ID in phenotypeData) || !phenotypeData[columnKeys.PHENOTYPE_HPO_ID].length) return;
 
     // update list num
     phenotypeInfo_updateNum();
@@ -458,7 +458,7 @@ function phenotypeInfo_createRows(){
  
     let $ul = $('#phenotype_list');
     
-    for(let i=0;i<phenotypeData['pi001'].length;i++){
+    for(let i=0;i<phenotypeData[columnKeys.PHENOTYPE_HPO_ID].length;i++){
 
         let $li=$('<li>').addClass('phenotype_list_row').addClass('shadow-sm').addClass(if_show_detail ? 'active' : '').appendTo($ul);
         
@@ -473,7 +473,7 @@ function phenotypeInfo_createRows(){
                    .click(function(e){
                        if( confirm( translate('phenotypic-info-comfirm-delete') )){
                            let hpo_id = $(this).next().text();
-                           let idx = phenotypeData['pi001'].indexOf(hpo_id);
+                           let idx = phenotypeData[columnKeys.PHENOTYPE_HPO_ID].indexOf(hpo_id);
                            let phenotypeInfo = phenotypeInfo_getPhenotypeInfo();
                            phenotypeInfo.columns.forEach(col => {
                                phenotypeData[col.columnId].splice(idx,1);
@@ -489,7 +489,7 @@ function phenotypeInfo_createRows(){
 
         // hpo id
         let button = document.createElement('button');
-        button.textContent = phenotypeData['pi001'][i];
+        button.textContent = phenotypeData[columnKeys.PHENOTYPE_HPO_ID][i];
         button.classList.add("list-tag");
         button.classList.add("hpo_id");
         //$('<span>').addClass('hpo_id').text(phenotypeData['pi001'][i]).appendTo($header_sub_left);
@@ -507,8 +507,8 @@ function phenotypeInfo_createRows(){
             placement:    'bottom-start',
             content:      'Loading...',
             offset:       [0,0],
-            popup_url:    URL_GET_HPO_TOOLTIP_DATA_BY_HPO_ID+'?hpo_id=' + phenotypeData['pi001'][i],
-            popup_id:     phenotypeData['pi001'][i],
+            popup_url:    URL_GET_HPO_TOOLTIP_DATA_BY_HPO_ID+'?hpo_id=' + phenotypeData[columnKeys.PHENOTYPE_HPO_ID][i],
+            popup_id:     phenotypeData[columnKeys.PHENOTYPE_HPO_ID][i],
             popup_lang:   lang==='ja'?'ja':'en',
             onCreate(instance) {
                 // Setup our own custom state properties
@@ -566,16 +566,16 @@ function phenotypeInfo_createRows(){
             let $div1 = $('<div>').addClass('d-flex align-items-start w-50').appendTo($div);
             let $div2 = $('<div>').addClass('d-flex align-items-start w-50').appendTo($div); 
 
-            let hpo_name_ja = phenotypeData['pi002'][i]['name_ja'];
+            let hpo_name_ja = phenotypeData[columnKeys.PHENOTYPE_HPO_LABEL][i]['name_ja'];
             $('<span>').addClass('text-left').text(hpo_name_ja).appendTo($div1);
 
-            let hpo_name_en = phenotypeData['pi002'][i]['name_en'];
+            let hpo_name_en = phenotypeData[columnKeys.PHENOTYPE_HPO_LABEL][i]['name_en'];
             $('<span>').addClass('text-left').text(hpo_name_en).appendTo($div2);
 
         } else {
-            let hpo_name = phenotypeData['pi002'][i]['name_en'];
+            let hpo_name = phenotypeData[columnKeys.PHENOTYPE_HPO_LABEL][i]['name_en'];
             let hpo_name_key = `name_${lang}`;
-            if(phenotypeData['pi002'][i][hpo_name_key]) hpo_name = phenotypeData['pi002'][i][hpo_name_key];
+            if(phenotypeData[columnKeys.PHENOTYPE_HPO_LABEL][i][hpo_name_key]) hpo_name = phenotypeData[columnKeys.PHENOTYPE_HPO_LABEL][i][hpo_name_key];
             $('<span>').addClass('hpo_name').addClass('text-left').text(hpo_name).appendTo($header_sub_left);
         }
 
@@ -605,14 +605,14 @@ function phenotypeInfo_createRows(){
 
         let $tr_large = $('<tr>').appendTo($tbl_large);
         let $td_large = $('<td>').attr('colspan',6).appendTo($tr_large);
-        ['pi003','pi004','pi005','pi006'].forEach(cid => {
+        [columnKeys.PHENOTYPE_MEDICAL_CURRENT_HISTORY,columnKeys.PHENOTYPE_MEDICAL_PREVIOUS_HISTORY,columnKeys.PHENOTYPE_PROCESS,columnKeys.PHENOTYPE_FAMILY_HISTORY].forEach(cid => {
             let cbx_id       = `cbx-${i}-${cid}`;
             let relative_id1 = `cbx-${i}-${cid}-medium`;
             let relative_id2 = `cbx-${i}-${cid}-small`;
             _crete_checkbox_td(cid,cbx_id,relative_id1,relative_id2,phenotypeInfo,phenotypeData,lang,$td_large);
         });
         
-        [['pi003','pi004'],['pi005','pi006']].forEach(lst => {
+        [[columnKeys.PHENOTYPE_MEDICAL_CURRENT_HISTORY,columnKeys.PHENOTYPE_MEDICAL_PREVIOUS_HISTORY],[columnKeys.PHENOTYPE_PROCESS,columnKeys.PHENOTYPE_FAMILY_HISTORY]].forEach(lst => {
             let $tr_medium = $('<tr>').appendTo($tbl_medium);
             lst.forEach(cid => {
                 let $td_medium = $('<td>').attr('colspan',2).appendTo($tr_medium);
@@ -623,7 +623,7 @@ function phenotypeInfo_createRows(){
             });
         });
 
-        [['pi003'],['pi004'],['pi005'],['pi006']].forEach(lst => {
+        [[columnKeys.PHENOTYPE_MEDICAL_CURRENT_HISTORY],[columnKeys.PHENOTYPE_MEDICAL_PREVIOUS_HISTORY],[columnKeys.PHENOTYPE_PROCESS],[columnKeys.PHENOTYPE_FAMILY_HISTORY]].forEach(lst => {
             let $tr_small = $('<tr>').appendTo($tbl_small);
             lst.forEach(cid => {
                 let $td_small = $('<td>').attr('colspan',2).appendTo($tr_small);
@@ -705,7 +705,7 @@ function phenotypeInfo_createRows(){
             }
         }
 
-        [['pi008','pi009','pi010'],['pi011','pi012','pi013'],['pi014','pi015']].forEach(lst => {
+        [[columnKeys.PHENOTYPE_EXCLUDED,columnKeys.PHENOTYPE_CLINICAL_RELEVANCE,columnKeys.PHENOTYPE_SEVERITY],[columnKeys.PHENOTYPE_AGE_ONSET,columnKeys.PHENOTYPE_TEMPORAL_PATTERN,columnKeys.PHENOTYPE_PACE_PROGRESSION],[columnKeys.PPHENOTYPE_RESOLUTION,columnKeys.PHENOTYPE_COMMENTS]].forEach(lst => {
             let $tr = $('<tr>').appendTo($tbl_large);
             lst.forEach((cid,cid_idx) => {
                 let input_id = `input-${i}-${cid}`;
@@ -719,7 +719,7 @@ function phenotypeInfo_createRows(){
             });
         });
 
-        [['pi008','pi009'],['pi010','pi011'],['pi012','pi013'],['pi014'],['pi015']].forEach(lst => {
+        [[columnKeys.PHENOTYPE_EXCLUDED,columnKeys.PHENOTYPE_CLINICAL_RELEVANCE],[columnKeys.PHENOTYPE_SEVERITY,columnKeys.PHENOTYPE_AGE_ONSET],[columnKeys.PHENOTYPE_TEMPORAL_PATTERN,columnKeys.PHENOTYPE_PACE_PROGRESSION],[columnKeys.PPHENOTYPE_RESOLUTION],[columnKeys.PHENOTYPE_COMMENTS]].forEach(lst => {
             let $tr = $('<tr>').appendTo($tbl_medium);
             lst.forEach((cid,cid_idx) => {
                 let input_id = `input-${i}-${cid}-medium`;
@@ -733,7 +733,7 @@ function phenotypeInfo_createRows(){
             });
         });
 
-        [['pi008'],['pi009'],['pi010'],['pi011'],['pi012'],['pi013'],['pi014'],['pi015']].forEach(lst => {
+        [[columnKeys.PHENOTYPE_EXCLUDED],[columnKeys.PHENOTYPE_CLINICAL_RELEVANCE],[columnKeys.PHENOTYPE_SEVERITY],[columnKeys.PHENOTYPE_AGE_ONSET],[columnKeys.PHENOTYPE_TEMPORAL_PATTERN],[columnKeys.PHENOTYPE_PACE_PROGRESSION],[columnKeys.PPHENOTYPE_RESOLUTION],[columnKeys.PHENOTYPE_COMMENTS]].forEach(lst => {
             let $tr = $('<tr>').appendTo($tbl_small);
             lst.forEach((cid,cid_idx) => {
                 let input_id = `input-${i}-${cid}-small`;
@@ -756,7 +756,7 @@ function phenotypeInfo_addRows(){
     hpo_list.forEach(hpo => {
         let hpo_id = hpo.id.replace('_ja','');
         let existed_hpo = [];
-        phenotypeData['pi001'].filter((hid,idx) => { 
+        phenotypeData[columnKeys.PHENOTYPE_HPO_ID].filter((hid,idx) => { 
             if(hid === hpo_id){
                 existed_hpo.push(idx)
             } 
@@ -765,21 +765,21 @@ function phenotypeInfo_addRows(){
             let idx = existed_hpo[0]
             if('docId' in hpo){
                 phenotypeData[hpo.docId][idx] = phenotypeInfo.columns.filter(c => { return c.columnId === hpo.docId})[0].options.dataValue[1]
-                phenotypeData['pi008'][idx]   = hpo.is_observed
+                phenotypeData[columnKeys.PHENOTYPE_EXCLUDED][idx]   = hpo.is_observed
             }else{
-                phenotypeData['pi007'][idx] = phenotypeInfo.columns.filter(c => { return c.columnId === 'pi007'})[0].options.dataValue[1]
-                phenotypeData['pi008'][idx] = phenotypeInfo.columns.filter(c => { return c.columnId === 'pi008'})[0].options.dataValue[0]
+                phenotypeData[columnKeys.PHENOTYPE_ANY_TEXT][idx] = phenotypeInfo.columns.filter(c => { return c.columnId === columnKeys.PHENOTYPE_ANY_TEXT})[0].options.dataValue[1]
+                phenotypeData[columnKeys.PHENOTYPE_EXCLUDED][idx] = phenotypeInfo.columns.filter(c => { return c.columnId === columnKeys.PHENOTYPE_EXCLUDED})[0].options.dataValue[0]
             }
             return;
         }
         phenotypeInfo.columns.forEach(c => {
-            if(c.columnId === 'pi001'){
+            if(c.columnId === columnKeys.PHENOTYPE_HPO_ID){
                 let col_val = hpo[c.dataKey].replace('_ja','');
                 phenotypeData[c.columnId].push(col_val);
                 return
             }
 
-            if(c.columnId === 'pi002'){
+            if(c.columnId === columnKeys.PHENOTYPE_HPO_LABEL){
                 let obj = {};
                 c.languages.forEach(language => {
                     let key = `name_${language}`;
@@ -789,7 +789,7 @@ function phenotypeInfo_addRows(){
                 return
             }
 
-            if (['pi003', 'pi004', 'pi005', 'pi006'].includes(c.columnId)) {
+            if ([columnKeys.PHENOTYPE_MEDICAL_CURRENT_HISTORY, columnKeys.PHENOTYPE_MEDICAL_PREVIOUS_HISTORY, columnKeys.PHENOTYPE_PROCESS, columnKeys.PHENOTYPE_FAMILY_HISTORY].includes(c.columnId)) {
                 if('docId' in hpo && hpo.docId === c.columnId){
                     // from doc
                     phenotypeData[c.columnId].push(c.options.dataValue[1])
@@ -800,7 +800,7 @@ function phenotypeInfo_addRows(){
                 return
             }
             
-            if(c.columnId === 'pi007'){
+            if(c.columnId === columnKeys.PHENOTYPE_ANY_TEXT){
                 if('docId' in hpo){
                     // from document,then set manual flag to no
                     phenotypeData[c.columnId].push(c.options.dataValue[0])
@@ -811,7 +811,7 @@ function phenotypeInfo_addRows(){
                 return
             }
             
-            if(c.columnId === 'pi008'){
+            if(c.columnId === columnKeys.PHENOTYPE_EXCLUDED){
                 if('is_observed' in hpo){
                     // from document,then set to the document value
                     phenotypeData[c.columnId].push(hpo.is_observed)
