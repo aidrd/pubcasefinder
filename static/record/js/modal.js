@@ -62,10 +62,10 @@ function openModal(patientId) {
         bodyData = []
         bodyTable()
     })
-
-    $('.modal-phenopackets').off().click(function (e) {
-        generatePhenopackets()
-    })
+    //This will be activated again when we go live.
+    // $('.modal-phenopackets').off().click(function (e) {
+    //     generatePhenopackets()
+    // })
 
     $(window).on('resize', function () {
         modalResize()
@@ -125,7 +125,7 @@ function openModal(patientId) {
 
         createYearOptions(1900, this_year, `${type}_year`)
         createMonthOptions(1, 12, `${type}_month`)
-        if(includeDay)
+        if (includeDay)
             document.querySelector(`.tab-wrap *[name="${type}_day"]`).innerHTML = createDayOptions();
     }
 
@@ -133,7 +133,7 @@ function openModal(patientId) {
         startYear = parseInt(startYear) || 1
         endYear = parseInt(endYear)
         let opt = `<option value="0">${translate('select-year')}</option>`
-        
+
         for (let i = endYear; i >= startYear; i--) {
             opt += `<option value="${i.toString()}"}>${i}</option>`
         }
@@ -154,7 +154,7 @@ function openModal(patientId) {
 
             opt += `<option value="${i.toString().padStart(2, '0')}">${display}</option>`
         }
-       
+
         return document.querySelector(`.tab-wrap *[name="${id}"]`).innerHTML = opt
     }
 
@@ -195,7 +195,7 @@ function openModal(patientId) {
             addRow()
             patientData = contentData[contentData.length - 1]
             currentPatient = patientData['PCFNo']
-            PCFNo = patientData['PCFNo']      
+            PCFNo = patientData['PCFNo']
         }
 
         document.getElementById('PCFNo').nextElementSibling.innerHTML = PCFNo
@@ -235,7 +235,7 @@ function openModal(patientId) {
                 if (colId === columnKeys.CASE_LIFE_STATUS) {
                     let parent = $(`#${columnKeys.CASE_DEATH}`).parent()
                     showHideDeathDate(parent, 'deceased')
-                } else if(colId === `${columnKeys.CASE_EXAMINATION_DAY}_year` || colId === `${columnKeys.CASE_DEATH}_year`) {
+                } else if (colId === `${columnKeys.CASE_EXAMINATION_DAY}_year` || colId === `${columnKeys.CASE_DEATH}_year`) {
                     // let key = colId.split('_')[0]
                     // console.log(key, colId)
                     let monthId = colId === `${columnKeys.CASE_EXAMINATION_DAY}_year` ? `${columnKeys.CASE_EXAMINATION_DAY}_month` : `${columnKeys.CASE_DEATH}_month`
@@ -403,9 +403,9 @@ function openModal(patientId) {
                     let day = document.querySelector(`.tab-wrap *[name="${pre}_day"]`)?.value
                     if (year === '0' & month === '0') {
                         value = ''
-                    } else if(day) {
+                    } else if (day) {
                         value = `${year}/${month}/${day}`
-                    }  else {
+                    } else {
                         value = `${year}/${month}`
                     }
                 }
