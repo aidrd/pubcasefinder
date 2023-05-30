@@ -10,6 +10,7 @@ let toReset = true
 
 // let defaultColumns = ['caseSolved', 'chiefComplaint', 'finalDiagnosis', 'clinicalDiagnosis', 'case_sex', 'age', 'case_birth', 'lifeStatus', 'group', 'presenceOrAbsenceOfOnset', 'examinationDay', 'relationship', 'case_family_id', 'case_info']
 let defaultColumns = [columnKeys.MEDICAL_CASE_SOLVED, columnKeys.MEDICAL_CHIEF_COMPLAINT, columnKeys.MEDICAL_FINAL_DIAGNOSIS, columnKeys.MEDICAL_CLINICAL_DIAGNOSIS, columnKeys.CASE_SEX, columnKeys.CASE_AGE, columnKeys.CASE_BIRTH, columnKeys.CASE_LIFE_STATUS, columnKeys.CASE_GROUP, columnKeys.CASE_PRESENCE_OR_ABSENCE_OF_ONSET, columnKeys.CASE_EXAMINATION_DAY, columnKeys.CASE_RELATIONSHIP, columnKeys.CASE_FAMILY_ID, columnKeys.CASE_ID]
+defaultColumns = [columnKeys.CASE_AGE, columnKeys.CASE_FAMILY_ID, columnKeys.CASE_ID]
 let actions = ['REMOVE', 'EDIT']
 actions = ['EDIT', 'REMOVE']
 
@@ -1350,16 +1351,20 @@ function setInitialLanguage() {
             tr.appendChild(th)
 
             let td = document.createElement('td')
-            if (c.type === 'display') td.innerText = 'P20220600001'
+            if (c.type === 'display') td.innerText = 'C20220600001'
             tr.appendChild(td)
 
             if (c.columnId === columnKeys.CASE_AGE) {
                 let yearInput = document.createElement('input')
                 yearInput.type = 'number'
+                yearInput.min = 0
                 yearInput.classList.add(...[`${c.columnId}_year`, 'select_date_year', 'age_select_date_year'])
                 yearInput.id = `${c.columnId}_year`
                 yearInput.name = `${c.columnId}_year`
                 yearInput.dataset.columnname = c.columnId
+                yearInput.addEventListener('change', (e) => {
+                    if (e.target.value < 0) e.target.value = ''
+                })
                 td.appendChild(yearInput)
 
                 let selectMonth = document.createElement('select')
@@ -1373,8 +1378,7 @@ function setInitialLanguage() {
                 selectDay.id = `${c.columnId}_day`
                 selectDay.dataset.columnname = c.columnId
                 td.appendChild(selectDay)
-            }
-            else if (c.inputType === 'text' || c.inputType === 'input-select') {
+            } else if (c.inputType === 'text' || c.inputType === 'input-select') {
                 let input = document.createElement('input')
                 input.type = 'text'
                 input.name = c.columnId

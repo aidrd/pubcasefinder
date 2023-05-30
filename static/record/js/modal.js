@@ -83,7 +83,7 @@ function openModal(patientId) {
     }
 
     function modalReset() {
-        $(`.tab-wrap input[type="text"], .tab-wrap textarea, .tab-wrap select`).val('')
+        $(`.tab-wrap input[type="text"], .tab-wrap input[type="number"], .tab-wrap textarea, .tab-wrap select`).val('')
         $('.tab-wrap input:radio').prop('checked', false)
         $(`#${columnKeys.CASE_DEATH}`).parent().hide()
         $(`input[name="${columnKeys.MEDICAL_ALLERGIES}-list"]`).hide() // allergies
@@ -144,7 +144,7 @@ function openModal(patientId) {
     function createMonthOptions(startMonth, endMonth, id) {
         startMonth = parseInt(startMonth) || 1
         endMonth = parseInt(endMonth)
-        let opt = `<option value="0">${translate('select-month')}</option>`
+        let opt = `<option value="-">${translate('select-month')}</option>`
 
         for (let i = startMonth; i <= endMonth; i++) {
             let display = i
@@ -230,33 +230,31 @@ function openModal(patientId) {
                 if (!element) return
 
                 let radioInput = $(`.tab-wrap input[name="${colId}"]`)
-                // let radioInput = document.querySelectorAll(`.tab-wrap input[name="${colId}"]`)
 
                 if (colId === columnKeys.CASE_LIFE_STATUS) {
                     let parent = $(`#${columnKeys.CASE_DEATH}`).parent()
                     showHideDeathDate(parent, 'deceased')
                 } else if (colId === `${columnKeys.CASE_EXAMINATION_DAY}_year` || colId === `${columnKeys.CASE_DEATH}_year`) {
                     // let key = colId.split('_')[0]
-                    // console.log(key, colId)
                     let monthId = colId === `${columnKeys.CASE_EXAMINATION_DAY}_year` ? `${columnKeys.CASE_EXAMINATION_DAY}_month` : `${columnKeys.CASE_DEATH}_month`
                     let date = value ? value.toString().split('/') : ['']
                     let yearValue = date[0]
                     if (yearValue) element.value = yearValue
                     element.onchange = function () {
-                        onchange(key)
+                        onchange(c.columnId)
                     }
 
                     let monthElement = document.querySelector(`.tab-wrap *[name="${monthId}"]`)
                     let monthValue = date[1]
                     if (monthValue) monthElement.value = monthValue
                     monthElement.onchange = function () {
-                        onchange(key)
+                        onchange(c.columnId)
                     }
                     let dayElement = document.querySelector(`.tab-wrap *[name="${columnKeys.CASE_EXAMINATION_DAY}_day"]`)
                     let dayValue = date[2]
                     if (dayValue) dayElement.value = dayValue
                     dayElement.onchange = function () {
-                        onchange(key)
+                        onchange(c.columnId)
                     }
                     return
                 } else if (colId === `${columnKeys.CASE_BIRTH}_year` || colId === `${columnKeys.CASE_DEATH}_year`) {
@@ -307,6 +305,28 @@ function openModal(patientId) {
                     }
 
                     return
+                } else if (colId === `${columnKeys.CASE_AGE}_year`) {
+                    element = document.querySelector(`.tab-wrap *[name="${colId}"]`)
+                    let date = value ? value.toString().split('/') : ['']
+                    let yearValue = date[0]
+                    if (yearValue) element.value = yearValue
+                    element.onchange = function () {
+                        onchange(columnKeys.CASE_AGE)
+                    }
+
+                    let monthElement = document.querySelector(`.tab-wrap *[name="${columnKeys.CASE_AGE}_month"]`)
+                    let monthValue = date[1]
+                    if (monthValue) monthElement.value = monthValue
+                    monthElement.onchange = function () {
+                        onchange(columnKeys.CASE_AGE)
+                    }
+                    let dayElement = document.querySelector(`.tab-wrap *[name="${columnKeys.CASE_AGE}_day"]`)
+                    let dayValue = date[2]
+                    if (dayValue) dayElement.value = dayValue
+                    dayElement.onchange = function () {
+                        onchange(columnKeys.CASE_AGE)
+                    }
+                    return
                 } else if (colId === columnKeys.CASE_GROUP) {
                     document.getElementById('group_options').onchange = function (e) {
                         onchange(columnKeys.CASE_GROUP, e.target.value)
@@ -330,21 +350,6 @@ function openModal(patientId) {
                         textInput.show()
                         textInput.val(value)
                     }
-
-                    // radioInput.forEach(r => {
-                    //     r.addEventListener('change', (e) => {
-                    //         let radioValue = radioInput.filter(':checked').val()
-                    //         if (radioValue === 'no') {
-                    //             textInput.hide()
-                    //             onchange(colId, '')
-                    //         } else {
-                    //             textInput.show()
-                    //             textInput.on('change', () => {
-                    //                 onchange(colId, textInput.val())
-                    //             })
-                    //         }
-                    //     })
-                    // })
 
                     radioInput.on('click change', () => {
                         let radioValue = radioInput.filter(':checked').val()
@@ -392,7 +397,6 @@ function openModal(patientId) {
 
         function onchange(key, value, element) {
             let dateKey = [columnKeys.CASE_BIRTH, columnKeys.CASE_DEATH, columnKeys.CASE_EXAMINATION_DAY, columnKeys.CASE_AGE]
-
             if (dateKey.includes(key)) {
                 let pre = key
                 if (value === '') {
@@ -419,9 +423,9 @@ function openModal(patientId) {
                 }
             })
 
-            let columnIdx = existingColumns.indexOf(key) + actions.length
+            let columnIdx = existingColumns.indexOf(key)
 
-            if (columnIdx <= 0) {
+            if (columnIdx >= 0) {
                 columnIdx += actions.length
                 hot.setDataAtCell(patientIdx, columnIdx, value)
             }
@@ -610,7 +614,7 @@ document.addEventListener('mousemove', (event) => {
     const delta = event.clientX - lastX;
     lastX = event.clientX;
     const modalWidth = parseInt(getComputedStyle(modal).getPropertyValue('width'));
-    const newWidth = modalWidth - delta;
+    let newWidth = modalWidth - delta;
     if (newWidth < 400) newWidth = 400;
     if (newWidth < 520) {
         document.querySelectorAll("#modal-karte .tab-wrap ul .tab-btn span").forEach(elem => elem.style.display = "none");
