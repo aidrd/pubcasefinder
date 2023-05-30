@@ -1195,6 +1195,7 @@ display: block;
   border-radius: 5px;
   background: #394466;
   color: #fff;
+  margin-top: 0.6em;
   margin-bottom: 0.5em;
   user-select: none;
 }
