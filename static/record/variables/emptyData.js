@@ -5,7 +5,13 @@ let notIncludedInNewData = ['CASE_INFO', 'MEDICAL_INFO', 'MEDICAL_BODY_INFO', 'M
 let bodyInfoKeys = ['MEDICAL_BODY_INFO_DATE', 'MEDICAL_BODY_WEIGHT', 'MEDICAL_BODY_HEIGHT', 'MEDICAL_HEAD_CIRCUMFERENCE']
 
 for (let key in columnKeys) {
-    if (!notIncludedInNewData.includes(key) && !bodyInfoKeys.includes(key)) newData[columnKeys[key]] = null
+    if (notIncludedInNewData.includes(key) || bodyInfoKeys.includes(key)) continue
+
+    if (key.split('_')[0] === 'PHENOTYPE' || key.split('_')[0] === 'GENOTYPE') {
+        newData[columnKeys[key]] = []
+    } else {
+        newData[columnKeys[key]] = null
+    }
 }
 
 bodyInfoKeys.forEach(k => {

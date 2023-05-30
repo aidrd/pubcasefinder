@@ -12,7 +12,6 @@ let columnKeys = {
     CASE_AGE: 'case_age',
     CASE_SEX: 'case_sex',
     CASE_NOTE: 'case_note',
-    
     MEDICAL_INFO: 'medical_info',
     MEDICAL_CLINICAL_DIAGNOSIS: 'medical_clinical_diagnosis',
     MEDICAL_FINAL_DIAGNOSIS: 'medical_final_diagnosis',
@@ -38,7 +37,6 @@ let columnKeys = {
     MEDICAL_HEAD_CIRCUMFERENCE: 'medical_head_circumference',
     MEDICAL_PHYSICAL_FINDINGS: 'medical_physical_findings',
     MEDICAL_EXAMINATION_FINDINGS: 'medical_examination_findings',
-
     PHENOTYPE_INFO: 'phenotype_info',
     PHENOTYPE_HPO_ID: 'phenotype_hpo_id',
     PHENOTYPE_HPO_LABEL: 'phenotype_hpo_label',
@@ -55,7 +53,6 @@ let columnKeys = {
     PHENOTYPE_PACE_PROGRESSION: 'phenotype_pace_progression',
     PHENOTYPE_RESOLUTION: 'phenotype_resolution',
     PHENOTYPE_COMMENTS: 'phenotype_comments',
-
     GENOTYPE_INFO: 'genotype_info',
     GENOTYPE_ANALYSIS: 'genotype_analysis',
     GENOTYPE_GENE: 'genotype_gene',
@@ -72,7 +69,6 @@ let columnKeys = {
     GENOTYPE_INHERITANCE: 'genotype_inheritance',
     // GENOTYPE_EVIDENCE: 'genotype_evidence',
     GENOTYPE_COMMENTS: 'genotype_comments',
-
     FAMILY_INFO: 'family_info',
     FAMILY_HISTORY: 'family_history',
     FAMILY_MODE_INHERITANCE: 'family_mode_inheritance',

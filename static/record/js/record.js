@@ -349,7 +349,7 @@ function createColumns() {
                     if (category['categoryId'] === columnKeys.PHENOTYPE_INFO) column.editor = false
                     // add by hzhang@bits start
                 } else if (category['categoryId'] === columnKeys.PHENOTYPE_INFO) {
-                    if (colId === 'pi002') {
+                    if (colId === columnKeys.PHENOTYPE_HPO_LABEL) {
                         column.renderer = phenotypeInfo_phenotypeNameRenderer
                     } else {
                         column.renderer = multipleRenderer
@@ -637,7 +637,7 @@ function addRow(data) {
     temp.PCFNo = pcfNo
 
     let num = localStorage.patientCount ? parseInt(localStorage.patientCount) + 1 : hot.countRows() + 1
-    temp[columnKeys.CASE_ID] = `P${num.toString().padStart(7, 0)}`
+    temp[columnKeys.CASE_ID] = `C${num.toString().padStart(7, 0)}`
 
     localStorage.patientCount = num
     count++
@@ -1048,7 +1048,7 @@ function downloadSample(type) {
     temp.PCFNo = pcfNo
 
     let num = hot.countRows() + 1
-    temp['症例ID'] = `P${num.toString().padStart(7, 0)}`
+    temp['症例ID'] = `C${num.toString().padStart(7, 0)}`
 
     if (type === 'json') sampleData = { 'PATIENTS': [temp] }
     if (type === 'excel') sampleData = Papa.unparse([temp], { delimiter: '\t' })
@@ -1291,7 +1291,6 @@ function setInitialLanguage() {
             if (i === 3) {
                 let genotypeAnalysis = category.columns.filter(c => c.columnId === columnKeys.GENOTYPE_ANALYSIS)
                 if (genotypeAnalysis) {
-                    console.log(genotypeAnalysis)
                     // createRow(`tab-content-${category.categoryId}`, genotypeAnalysis[0])
                     createRow(`tbody_${category.categoryId}`, genotypeAnalysis[0])
                 }

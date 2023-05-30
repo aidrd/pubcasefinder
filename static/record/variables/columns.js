@@ -8,8 +8,8 @@ let categories = [
             en: 'Case Info',
             ja: '症例基本情報',
             ko: '의료사례 기본 정보',
-            zh: '病例基本信息',
-            zhcht: '病例基本資訊'
+            zh: '案件基本信息',
+            zhcht: '案件基本信息'
         },
         columns: [
             {
@@ -623,7 +623,7 @@ let categories = [
         // modified by hzhang@bits.cc start
         , doc_list: [
             {
-                docId: 'pi003',
+                docId: 'phenotype_medical_current_history',
                 title: null,
                 text: null,
                 hpo_list: [],
@@ -632,7 +632,7 @@ let categories = [
                 dataSrcColumnId: 'medical_current_history'
             },
             {
-                docId: 'pi004',
+                docId: 'phenotype_medical_previous_history',
                 title: null,
                 text: null,
                 hpo_list: [],
@@ -641,7 +641,7 @@ let categories = [
                 dataSrcColumnId: 'medical_previous_history'
             },
             {
-                docId: 'pi005',
+                docId: 'phenotype_process',
                 withUI: 'yes',
                 title: null,
                 text: null,
@@ -650,7 +650,7 @@ let categories = [
                 dataSrcColumnId: 'medical_process'
             },
             {
-                docId: 'pi006',
+                docId: 'phenotype_family_history',
                 withUI: 'yes',
                 title: null,
                 text: null,
@@ -659,7 +659,7 @@ let categories = [
                 dataSrcColumnId: 'family_history'
             },
             {
-                docId: 'pi007',
+                docId: 'phenotype_any_text',
                 withUI: 'yes',
                 title: null,
                 text: null,
@@ -670,7 +670,7 @@ let categories = [
         ],
         columns: [
             {
-                columnId: 'pi001',
+                columnId: 'phenotype_hpo_id',
                 dataKey: 'id',
                 phenoKey: '',
                 type: 'text',
@@ -684,7 +684,7 @@ let categories = [
                 }
             },
             {
-                columnId: 'pi002',
+                columnId: 'phenotype_hpo_label',
                 dataKey: 'name',
                 phenoKey: '',
                 type: 'text',
@@ -699,7 +699,7 @@ let categories = [
                 languages: ['en', 'ja', 'ko', 'zh', 'zhcht']
             },
             {
-                columnId: 'pi003',
+                columnId: 'phenotype_medical_current_history',
                 dataKey: 'source_medical_history_current',
                 inputType: 'checkbox',
                 phenoKey: '',
@@ -722,7 +722,7 @@ let categories = [
                 }
             },
             {
-                columnId: 'pi004',
+                columnId: 'phenotype_medical_previous_history',
                 dataKey: 'source_medical_history_previous',
                 inputType: 'checkbox',
                 phenoKey: '',
@@ -745,7 +745,7 @@ let categories = [
                 }
             },
             {
-                columnId: 'pi005',
+                columnId: 'phenotype_process',
                 dataKey: 'source_medical_history_process',
                 inputType: 'checkbox',
                 phenoKey: '',
@@ -768,7 +768,7 @@ let categories = [
                 }
             },
             {
-                columnId: 'pi006',
+                columnId: 'phenotype_family_history',
                 dataKey: 'source_medical_history_family',
                 inputType: 'checkbox',
                 phenoKey: '',
@@ -791,7 +791,7 @@ let categories = [
                 }
             },
             {
-                columnId: 'pi007',
+                columnId: 'phenotype_any_text',
                 dataKey: 'source_manual',
                 inputType: 'checkbox',
                 phenoKey: '',
@@ -814,7 +814,7 @@ let categories = [
                 }
             },
             {
-                columnId: 'pi008',
+                columnId: 'phenotype_excluded',
                 dataKey: 'is_observed',
                 inputType: 'select',
                 phenoKey: '',
@@ -837,7 +837,7 @@ let categories = [
                 }
             },
             {
-                columnId: 'pi009',
+                columnId: 'phenotype_clinical_relevance',
                 dataKey: 'hpo_clinical_relevance',
                 inputType: 'select',
                 phenoKey: '',
@@ -860,7 +860,7 @@ let categories = [
                 }
             },
             {
-                columnId: 'pi010',
+                columnId: 'phenotype_severity',
                 dataKey: 'hpo_severity',
                 inputType: 'select',
                 phenoKey: '',
@@ -883,7 +883,7 @@ let categories = [
                 }
             },
             {
-                columnId: 'pi011',
+                columnId: 'phenotype_age_onset',
                 dataKey: 'hpo_age_of_onset',
                 inputType: 'age',
                 phenoKey: '',
@@ -898,7 +898,7 @@ let categories = [
                 },
             },
             {
-                columnId: 'pi012',
+                columnId: 'phenotype_temporal_pattern',
                 dataKey: 'hpo_temporal_pattern',
                 inputType: 'select',
                 phenoKey: '',
@@ -921,7 +921,7 @@ let categories = [
                 }
             },
             {
-                columnId: 'pi013',
+                columnId: 'phenotype_pace_progression',
                 dataKey: 'hpo_pace_of_progression',
                 inputType: 'select',
                 phenoKey: '',
@@ -944,7 +944,7 @@ let categories = [
                 }
             },
             {
-                columnId: 'pi014',
+                columnId: 'phenotype_resolution',
                 dataKey: 'hpo_resolution',
                 inputType: 'age',
                 phenoKey: '',
@@ -959,7 +959,7 @@ let categories = [
                 },
             },
             {
-                columnId: 'pi015',
+                columnId: 'phenotype_comments',
                 dataKey: 'hpo_comments',
                 inputType: 'text',
                 phenoKey: '',
