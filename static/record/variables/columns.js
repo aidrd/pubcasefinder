@@ -8,8 +8,8 @@ let categories = [
             en: 'Case Info',
             ja: '症例基本情報',
             ko: '의료사례 기본 정보',
-            zh: '案件基本信息',
-            zhcht: '案件基本信息'
+            zh: '病例基本信息',
+            zhcht: '病例基本資訊'
         },
         columns: [
             {
@@ -113,12 +113,11 @@ let categories = [
                 },
                 options: {
                     dataValue: ['alive', 'deceased'],
-                    // TODO: What should choices be?
-                    en: [],
+                    en: ['Onset', 'Asymptomatic', 'Unknown'],
                     ja: ['発症', '未発症', '不明'],
-                    ko: [],
-                    zh: [],
-                    zhcht: []
+                    ko: ['발병', '무증상', '알 수 없음'],
+                    zh: ['发病', '无症状', '不明'],
+                    zhcht: ['發病', '無症狀', '不明']
                 }
             },
             {
