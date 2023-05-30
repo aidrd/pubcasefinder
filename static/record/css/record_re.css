@@ -977,11 +977,14 @@ width: 35px;
 .modal-phenopackets {
   background: #fff;
   padding: 0.3em 1em;
+  text-decoration: none;
+  background: #d0d0d0 !important;
 }
 
 .modal-phenopackets img{
   width: 20px;
   margin-right: 0.5em;
+  opacity: 0.6;
 }
 
 .modal-phenopackets i {
@@ -989,10 +992,29 @@ width: 35px;
   margin-left: 0.2em;
 }
 
-.modal-phenopackets:hover {
+/* .modal-phenopackets:hover {
   text-decoration: none;
   opacity: 0.6;
+} */
+
+.modal-pcf {
+  background: #fff;
+  padding: 0.3em 1em;
+  text-decoration: none;
+  background: #d0d0d0 !important;
 }
+
+.modal-pcf  img{
+  width: 20px;
+  margin-right: 0.2em;
+  opacity: 0.6;
+}
+
+.modal-pcf  i {
+  font-size: 20px;
+  margin-left: 0.2em;
+}
+
 
 .home-section #content-patients #modal-karte .tab-wrap {
   background-color: #fff;
