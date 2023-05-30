@@ -1048,7 +1048,7 @@ function downloadSample(type) {
     temp.PCFNo = pcfNo
 
     let num = hot.countRows() + 1
-    temp['患者ID'] = `P${num.toString().padStart(7, 0)}`
+    temp['症例ID'] = `P${num.toString().padStart(7, 0)}`
 
     if (type === 'json') sampleData = { 'PATIENTS': [temp] }
     if (type === 'excel') sampleData = Papa.unparse([temp], { delimiter: '\t' })

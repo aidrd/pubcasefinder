@@ -6,10 +6,10 @@ let categories = [
         iconName: '',
         displayName: {
             en: 'Case Info',
-            ja: '患者基本情報',
-            ko: '환자 기본 정보',
-            zh: '患者基本信息',
-            zhcht: '患者基本信息'
+            ja: '症例基本情報',
+            ko: '의료사례 기본 정보',
+            zh: '案件基本信息',
+            zhcht: '案件基本信息'
         },
         columns: [
             {
@@ -21,10 +21,10 @@ let categories = [
                 table: true,
                 displayName: {
                     en: 'Case ID',
-                    ja: '患者ID',
-                    ko: '환자 ID',
-                    zh: '患者ID',
-                    zhcht: '患者ID'
+                    ja: '症例ID',
+                    ko: '의료사례 ID',
+                    zh: '案件ID',
+                    zhcht: '案件ID'
                 }
             },
             {
@@ -69,16 +69,16 @@ let categories = [
                         'Grandchild', 'Cousin', 'Unknown', 'Other (paternal)', 'Other (maternal)',
                     ],
                     ja: ['発端者（本人）', '父', '母', '親（詳細不明）', '兄弟姉妹', '子ども', '祖父母（父方）', '祖父母（母方）', '祖父母（詳細不明）',
-                            'おじ（父方）', 'おじ（母方）', 'おば（父方）',
-                            'おば（母方）', '甥姪', '孫', 'いとこ', '不明', 'その他（父方）', 'その他（母方）', ],
+                        'おじ（父方）', 'おじ（母方）', 'おば（父方）',
+                        'おば（母方）', '甥姪', '孫', 'いとこ', '不明', 'その他（父方）', 'その他（母方）',],
                     ko: ['발단자(본인)', '아버지', '어머니', '부모(상세 불명)', '형제자매', '자식', '조부모(아버지 쪽)', '조부모(어머니 쪽)',
                         '조부모(상세 불명)', '삼촌(아버지 쪽)', '삼촌(어머니 쪽)', '고모(아버지 쪽)', '이모(어머니 쪽)', '조카', '손자녀',
                         '사촌', '불명', '기타(아버지 쪽)', '기타(어머니 쪽)',],
-                    zh: ['发端者（本人）','父亲','母亲','父母（详细不明）','兄弟姐妹','孩子','祖父母（父方）','祖父母（母方）','祖父母（详细不明）',
-                        '叔叔（父方）','叔叔（母方）','姑姑（父方）','姨妈（母方）','侄子侄女','孙子孙女','表亲','不明','其他（父方）','其他（母方）',],
+                    zh: ['发端者（本人）', '父亲', '母亲', '父母（详细不明）', '兄弟姐妹', '孩子', '祖父母（父方）', '祖父母（母方）', '祖父母（详细不明）',
+                        '叔叔（父方）', '叔叔（母方）', '姑姑（父方）', '姨妈（母方）', '侄子侄女', '孙子孙女', '表亲', '不明', '其他（父方）', '其他（母方）',],
                     zhcht: ['發端者（本人）', '父親', '母親', '父母（詳細不明）', '兄弟姊妹', '孩子', '祖父母（父方）', '祖父母（母方）',
                         '祖父母（詳細不明）', '叔叔（父方）', '叔叔（母方）', '姑姑（父方）', '姨媽（母方）',
-                        '侄子侄女', '孫子孫女', '表親', '不明', '其他（父方）', '其他（母方）', ]
+                        '侄子侄女', '孫子孫女', '表親', '不明', '其他（父方）', '其他（母方）',]
                 }
             },
             {
@@ -621,21 +621,21 @@ let categories = [
             zh: '表型信息',
             zhcht: '表型信息'
         }
-// modified by hzhang@bits.cc start
-        ,doc_list: [
+        // modified by hzhang@bits.cc start
+        , doc_list: [
             {
-                docId:    'pi003',
-                title:    null,
-                text:     null,
+                docId: 'pi003',
+                title: null,
+                text: null,
                 hpo_list: [],
-                withUI:   'yes',
-                schema:   'auto',
+                withUI: 'yes',
+                schema: 'auto',
                 dataSrcColumnId: 'medical_current_history'
             },
             {
                 docId: 'pi004',
-                title:    null,
-                text:     null,
+                title: null,
+                text: null,
                 hpo_list: [],
                 withUI: 'yes',
                 schema: 'auto',
@@ -644,8 +644,8 @@ let categories = [
             {
                 docId: 'pi005',
                 withUI: 'yes',
-                title:    null,
-                text:     null,
+                title: null,
+                text: null,
                 hpo_list: [],
                 schema: 'auto',
                 dataSrcColumnId: 'medical_process'
@@ -653,8 +653,8 @@ let categories = [
             {
                 docId: 'pi006',
                 withUI: 'yes',
-                title:    null,
-                text:     null,
+                title: null,
+                text: null,
                 hpo_list: [],
                 schema: 'auto',
                 dataSrcColumnId: 'family_history'
@@ -662,8 +662,8 @@ let categories = [
             {
                 docId: 'pi007',
                 withUI: 'yes',
-                title:    null,
-                text:     null,
+                title: null,
+                text: null,
                 hpo_list: [],
                 schema: 'manual',
                 dataSrcColumnId: null
@@ -672,10 +672,10 @@ let categories = [
         columns: [
             {
                 columnId: 'pi001',
-                dataKey:  'id',
+                dataKey: 'id',
                 phenoKey: '',
-                type:     'text',
-                table:    true,
+                type: 'text',
+                table: true,
                 displayName: {
                     en: 'HPO ID',
                     ja: 'HPO ID',
@@ -686,10 +686,10 @@ let categories = [
             },
             {
                 columnId: 'pi002',
-                dataKey:  'name',
+                dataKey: 'name',
                 phenoKey: '',
-                type:     'text',
-                table:    true,
+                type: 'text',
+                table: true,
                 displayName: {
                     en: 'Symptom',
                     ja: '症状',
@@ -697,15 +697,15 @@ let categories = [
                     zh: '',
                     zhcht: ''
                 },
-                languages: ['en','ja','ko','zh','zhcht']
+                languages: ['en', 'ja', 'ko', 'zh', 'zhcht']
             },
             {
-                columnId:  'pi003',
-                dataKey:   'source_medical_history_current',
+                columnId: 'pi003',
+                dataKey: 'source_medical_history_current',
                 inputType: 'checkbox',
-                phenoKey:  '',
-                type:      'text',
-                table:     true,
+                phenoKey: '',
+                type: 'text',
+                table: true,
                 displayName: {
                     en: 'Current Medical History',
                     ja: '現病歴',
@@ -716,19 +716,19 @@ let categories = [
                 options: {
                     dataValue: ['no', 'yes'],
                     en: ['No', 'Yes'],
-                    ja: ['無','有'],
+                    ja: ['無', '有'],
                     ko: [],
                     zh: [],
                     zhcht: []
                 }
             },
             {
-                columnId:  'pi004',
-                dataKey:   'source_medical_history_previous',
+                columnId: 'pi004',
+                dataKey: 'source_medical_history_previous',
                 inputType: 'checkbox',
-                phenoKey:  '',
-                type:      'text',
-                table:     true,
+                phenoKey: '',
+                type: 'text',
+                table: true,
                 displayName: {
                     en: 'Previous Medical History',
                     ja: '既往歴',
@@ -739,19 +739,19 @@ let categories = [
                 options: {
                     dataValue: ['no', 'yes'],
                     en: ['No', 'Yes'],
-                    ja: ['無','有'],
+                    ja: ['無', '有'],
                     ko: [],
                     zh: [],
                     zhcht: []
                 }
             },
             {
-                columnId:  'pi005',
-                dataKey:   'source_medical_history_process',
-                inputType: 'checkbox', 
-                phenoKey:  '',
-                type:      'text',
-                table:     true,
+                columnId: 'pi005',
+                dataKey: 'source_medical_history_process',
+                inputType: 'checkbox',
+                phenoKey: '',
+                type: 'text',
+                table: true,
                 displayName: {
                     en: 'Process',
                     ja: '経過',
@@ -762,19 +762,19 @@ let categories = [
                 options: {
                     dataValue: ['no', 'yes'],
                     en: ['No', 'Yes'],
-                    ja: ['無','有'],
+                    ja: ['無', '有'],
                     ko: [],
                     zh: [],
                     zhcht: []
-                 }
+                }
             },
             {
-                columnId:  'pi006',
-                dataKey:   'source_medical_history_family',
+                columnId: 'pi006',
+                dataKey: 'source_medical_history_family',
                 inputType: 'checkbox',
-                phenoKey:  '',
-                type:      'text',
-                table:     true,
+                phenoKey: '',
+                type: 'text',
+                table: true,
                 displayName: {
                     en: 'Family History',
                     ja: '家族歴',
@@ -783,22 +783,22 @@ let categories = [
                     zhcht: '家族史'
                 },
                 options: {
-                    dataValue: ['no', 'yes'],  
+                    dataValue: ['no', 'yes'],
                     en: ['No', 'Yes'],
-                    ja: ['無','有'],
-                      ko: [],                    
+                    ja: ['無', '有'],
+                    ko: [],
                     zh: [],
                     zhcht: []
-                 }
+                }
             },
             {
-                columnId:  'pi007',
-                dataKey:   'source_manual',
+                columnId: 'pi007',
+                dataKey: 'source_manual',
                 inputType: 'checkbox',
-                phenoKey:  '', 
-                type:      'text',
-                table:     true,
-                displayName: { 
+                phenoKey: '',
+                type: 'text',
+                table: true,
+                displayName: {
                     en: 'Any Text',
                     ja: '任意のテキスト',
                     ko: '',
@@ -808,19 +808,19 @@ let categories = [
                 options: {
                     dataValue: ['no', 'yes'],
                     en: ['No', 'Yes'],
-                    ja: ['無','有'],
+                    ja: ['無', '有'],
                     ko: [],
                     zh: [],
                     zhcht: []
                 }
             },
             {
-                columnId:  'pi008',
-                dataKey:   'is_observed',
+                columnId: 'pi008',
+                dataKey: 'is_observed',
                 inputType: 'select',
-                phenoKey:  '',
-                type:      'dropdown',
-                table:     true,
+                phenoKey: '',
+                type: 'dropdown',
+                table: true,
                 displayName: {
                     en: 'Excluded',
                     ja: '症状の有無',
@@ -833,17 +833,17 @@ let categories = [
                     en: ['No', 'Yes'],
                     ja: ['症状あり', '症状なし'],
                     ko: ['증상 있음', '증상 없음'],
-                    zh: ['有症状','无症状'],
-                    zhcht: ['有症狀','無症狀']
+                    zh: ['有症状', '无症状'],
+                    zhcht: ['有症狀', '無症狀']
                 }
             },
             {
-                columnId:  'pi009',
-                dataKey:   'hpo_clinical_relevance',
+                columnId: 'pi009',
+                dataKey: 'hpo_clinical_relevance',
                 inputType: 'select',
-                phenoKey:  '',
-                type:      'dropdown',
-                table:     true,
+                phenoKey: '',
+                type: 'dropdown',
+                table: true,
                 displayName: {
                     en: 'Clinical relevance',
                     ja: '重要性',
@@ -861,12 +861,12 @@ let categories = [
                 }
             },
             {
-                columnId:  'pi010',
-                dataKey:   'hpo_severity',
+                columnId: 'pi010',
+                dataKey: 'hpo_severity',
                 inputType: 'select',
-                phenoKey:  '',
-                type:      'dropdown',
-                table:     true,
+                phenoKey: '',
+                type: 'dropdown',
+                table: true,
                 displayName: {
                     en: 'Severity',
                     ja: '重症度',
@@ -877,19 +877,19 @@ let categories = [
                 options: {
                     dataValue: ['borderline', 'severe', 'profound', 'moderate', 'mild'],
                     en: ['Borderline', 'Severe', 'Profound', 'Moderate', 'Mild'],
-                    ja: ['境界域', '重度', '最重度','中等度','軽度'],
+                    ja: ['境界域', '重度', '最重度', '中等度', '軽度'],
                     ko: [],
                     zh: [],
                     zhcht: []
                 }
             },
             {
-                columnId:  'pi011',
-                dataKey:   'hpo_age_of_onset',
+                columnId: 'pi011',
+                dataKey: 'hpo_age_of_onset',
                 inputType: 'age',
-                phenoKey:  '',
-                type:      'text',
-                table:     true,
+                phenoKey: '',
+                type: 'text',
+                table: true,
                 displayName: {
                     en: 'Age of onset',
                     ja: '発症年齢 (yy/mm/dd)',
@@ -899,12 +899,12 @@ let categories = [
                 },
             },
             {
-                columnId:  'pi012',
-                dataKey:   'hpo_temporal_pattern',
+                columnId: 'pi012',
+                dataKey: 'hpo_temporal_pattern',
                 inputType: 'select',
-                phenoKey:  '',
-                type:      'dropdown',
-                table:     true,
+                phenoKey: '',
+                type: 'dropdown',
+                table: true,
                 displayName: {
                     en: 'Temporal pattern',
                     ja: '発症パターン',
@@ -913,7 +913,7 @@ let categories = [
                     zhcht: ''
                 },
                 options: {
-                    dataValue: ['unknown', 'recurrent', 'subacute', 'fluctuating', 'migratory', 'diurnal', 'stable','insidious','prolonged','nocturnal','chronic','transient'],
+                    dataValue: ['unknown', 'recurrent', 'subacute', 'fluctuating', 'migratory', 'diurnal', 'stable', 'insidious', 'prolonged', 'nocturnal', 'chronic', 'transient'],
                     en: ['Unknown', 'Recurrent Acute', 'Subacute', 'Fluctuating', 'Migratory', 'Diurnal', 'Stable', 'Insidious onset', 'Prolonged', 'Nocturnal', 'Chronic', 'Transient'],
                     ja: ['Unknown', 'Recurrent Acute', 'Subacute', 'Fluctuating', 'Migratory', 'Diurnal', 'Stable', 'Insidious onset', 'Prolonged', 'Nocturnal', 'Chronic', 'Transient'],
                     ko: [],
@@ -922,12 +922,12 @@ let categories = [
                 }
             },
             {
-                columnId:  'pi013',
-                dataKey:   'hpo_pace_of_progression',
+                columnId: 'pi013',
+                dataKey: 'hpo_pace_of_progression',
                 inputType: 'select',
-                phenoKey:  '',
-                type:      'dropdown',
-                table:     true,
+                phenoKey: '',
+                type: 'dropdown',
+                table: true,
                 displayName: {
                     en: 'Pace of progression',
                     ja: '進行速度',
@@ -941,16 +941,16 @@ let categories = [
                     ja: ['Unknown', 'Progressive', 'Variable progression rate', 'Slowly progressive', 'Nonprogressive', 'Rapidly progressive'],
                     ko: ['', '', '', '', '', ''],
                     zh: ['', '', '', '', '', ''],
-                    zhcht: ['','','','','', '']
+                    zhcht: ['', '', '', '', '', '']
                 }
             },
             {
-                columnId:  'pi014',
-                dataKey:   'hpo_resolution',
+                columnId: 'pi014',
+                dataKey: 'hpo_resolution',
                 inputType: 'age',
-                phenoKey:  '',
-                type:      'text',
-                table:     true,
+                phenoKey: '',
+                type: 'text',
+                table: true,
                 displayName: {
                     en: 'Resolution',
                     ja: '症状消失 (yy/mm/dd)',
@@ -961,11 +961,11 @@ let categories = [
             },
             {
                 columnId: 'pi015',
-                dataKey:  'hpo_comments',
+                dataKey: 'hpo_comments',
                 inputType: 'text',
-                phenoKey:  '',  
-                type:      'text',
-                table:     true,
+                phenoKey: '',
+                type: 'text',
+                table: true,
                 displayName: {
                     en: 'Comments',
                     ja: 'コメント',
@@ -975,7 +975,7 @@ let categories = [
                 }
             }
         ]
-// modified by hzhang@bits.cc end
+        // modified by hzhang@bits.cc end
     },
     {
         categoryId: 'genotype_info',
@@ -1093,7 +1093,7 @@ let categories = [
                 options: {
                     dataValue: ['Pathogenic', 'Likely Pathogenic', 'Varitant of Unknown Significance', 'Likely Benign', 'Benign', 'Investigation Needed'],
                     en: ['Pathogenic', 'Likely Pathogenic', 'Varitant of Unknown Significance', 'Likely Benign', 'Benign', 'Investigation Needed'],
-                    ja:['Pathogenic', 'Likely Pathogenic', 'Varitant of Unknown Significance', 'Likely Benign', 'Benign', 'Investigation Needed'],
+                    ja: ['Pathogenic', 'Likely Pathogenic', 'Varitant of Unknown Significance', 'Likely Benign', 'Benign', 'Investigation Needed'],
                     ko: [],
                     zh: [],
                     zhcht: []
