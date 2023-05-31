@@ -1492,12 +1492,18 @@ width: 10px;
   margin-right: 0.5em;
 } */
 
-.select_date_year, .select_date_month {
+.select-date-year, .select_date_month {
   margin-right: 0.5em;
   width: auto
 }
 
-#age_select_date_year {
+.select_date_year, #case_age_month, #medical_age_onset_month {
+  margin-right: 0.5em;
+  width: auto
+}
+
+
+#case_age_year, #medical_age_onset_year{
   width: 100px !important;
 }
 

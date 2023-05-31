@@ -200,11 +200,11 @@ let categories = [
                 readOnly: true,
                 table: true,
                 displayName: {
-                    en: 'Age',
-                    ja: '年齢 (yy/mm/dd)',
-                    ko: '연령 (yy/mm/dd)',
-                    zh: '年龄 (yy/mm/dd)',
-                    zhcht: '年齢 (yy/mm/dd)'
+                    en: 'Age (YMD)',
+                    ja: '年齢 (YMD)',
+                    ko: '연령 (YMD)',
+                    zh: '年龄 (YMD)',
+                    zhcht: '年齢 (YMD)'
                 }
             },
             {
