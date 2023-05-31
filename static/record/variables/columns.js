@@ -336,11 +336,11 @@ let categories = [
                 type: 'text',
                 table: true,
                 displayName: {
-                    en: 'Age of Onset',
-                    ja: '発症年齢',
-                    ko: '발병연령',
-                    zh: '发病年龄',
-                    zhcht: '發病年齡'
+                    en: 'Age of Onset (YMD)',
+                    ja: '発症年齢 (YMD)',
+                    ko: '발병연령 (YMD)',
+                    zh: '发病年龄 (YMD)',
+                    zhcht: '發病年齡 (YMD)'
                 }
             },
             {
@@ -882,11 +882,11 @@ let categories = [
                 type: 'text',
                 table: true,
                 displayName: {
-                    en: 'Age of onset',
-                    ja: '発症年齢 (yy/mm/dd)',
-                    ko: '',
-                    zh: '发病年龄 (yy/mm/dd)',
-                    zhcht: ''
+                    en: 'Age of Onset (YMD)',
+                    ja: '発症年齢 (YMD)',
+                    ko: '발병연령 (YMD)',
+                    zh: '发病年龄 (YMD)',
+                    zhcht: '發病年齡 (YMD)'
                 },
             },
             {
