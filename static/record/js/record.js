@@ -10,7 +10,7 @@ let toReset = true
 
 // let defaultColumns = ['caseSolved', 'chiefComplaint', 'finalDiagnosis', 'clinicalDiagnosis', 'case_sex', 'age', 'case_birth', 'lifeStatus', 'group', 'presenceOrAbsenceOfOnset', 'examinationDay', 'relationship', 'case_family_id', 'case_info']
 let defaultColumns = [columnKeys.MEDICAL_CASE_SOLVED, columnKeys.MEDICAL_CHIEF_COMPLAINT, columnKeys.MEDICAL_FINAL_DIAGNOSIS, columnKeys.MEDICAL_CLINICAL_DIAGNOSIS, columnKeys.CASE_SEX, columnKeys.CASE_AGE, columnKeys.CASE_BIRTH, columnKeys.CASE_LIFE_STATUS, columnKeys.CASE_GROUP, columnKeys.CASE_PRESENCE_OR_ABSENCE_OF_ONSET, columnKeys.CASE_EXAMINATION_DAY, columnKeys.CASE_RELATIONSHIP, columnKeys.CASE_FAMILY_ID, columnKeys.CASE_ID]
-defaultColumns = [columnKeys.CASE_AGE, columnKeys.CASE_FAMILY_ID, columnKeys.CASE_ID]
+// defaultColumns = [columnKeys.CASE_AGE, columnKeys.CASE_ID]
 let actions = ['REMOVE', 'EDIT']
 actions = ['EDIT', 'REMOVE']
 
@@ -398,6 +398,7 @@ function createColumns() {
             let column = {
                 data: a === 'EDIT' ? 'PCFNo' : '',
                 className: 'htMiddle htCenter',
+                editor: false,
                 renderer: a === 'EDIT' ? editRenderer : removeRenderer
             }
 
@@ -1354,7 +1355,7 @@ function setInitialLanguage() {
             if (c.type === 'display') td.innerText = 'C20220600001'
             tr.appendChild(td)
 
-            if (c.columnId === columnKeys.CASE_AGE) {
+            if (c.columnId === columnKeys.CASE_AGE || c.columnId === columnKeys.MEDICAL_AGE_ONSET) {
                 let yearInput = document.createElement('input')
                 yearInput.type = 'number'
                 yearInput.min = 0

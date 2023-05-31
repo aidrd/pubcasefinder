@@ -41,6 +41,7 @@ $('.nav-list a').on('click', closeKarteModal)
 
 function openModal(patientId) {
     var modal = '#modal-karte'
+    toReset = true
 
     modalReset()
 
@@ -94,28 +95,32 @@ function openModal(patientId) {
         dateOptions(columnKeys.CASE_AGE)
         dateOptions(columnKeys.CASE_DEATH)
         dateOptions(columnKeys.CASE_EXAMINATION_DAY, true)
+        dateOptions(columnKeys.MEDICAL_AGE_ONSET)
 
         // For age
-        setOptionsForAge()
+        setOptionsForAge(columnKeys.CASE_AGE)
+        setOptionsForAge(columnKeys.MEDICAL_AGE_ONSET)
 
         // add by hzhang@bits start
         phenotypeInfo_reset()
         // add by hzhang@bits end
     }
 
-    function setOptionsForAge() {
+    function setOptionsForAge(columnId) {
         let parent = document.querySelector(`.tab-wrap`);
         // For month
-        let options = `<option value="0">${translate('select-age-month')}</option>`;
+        let options = `<option value="-">${translate('select-age-month')}</option>`;
         for (let i = 0; i <= 11; i++) {
             options += `<option value="${i.toString().padStart(2, '0')}">${i}</option>`;
         }
-        parent.querySelector(`*[name="${columnKeys.CASE_AGE}_month"]`).innerHTML = options;
+        // parent.querySelector(`*[name="${columnKeys.CASE_AGE}_month"]`).innerHTML = options;
+        parent.querySelector(`*[name="${columnId}_month"]`).innerHTML = options;
 
         // For day
-        parent.querySelector(`*[name="${columnKeys.CASE_AGE}_day"]`).innerHTML = createDayOptions();
-
+        // parent.querySelector(`*[name="${columnKeys.CASE_AGE}_day"]`).innerHTML = createDayOptions();
+        parent.querySelector(`*[name="${columnId}_day"]`).innerHTML = createDayOptions();
     }
+
 
     function dateOptions(type, includeDay = false) {
         let this_month, this_year, today
@@ -159,7 +164,7 @@ function openModal(patientId) {
     }
 
     function createDayOptions() {
-        let options = `<option value="0">${translate('select-day')}</option>`;
+        let options = `<option value="-">${translate('select-day')}</option>`;
         for (let i = 1; i <= 31; i++) {
             options += `<option value="${i.toString().padStart(2, '0')}">${i}</option>`;
         }
@@ -215,6 +220,7 @@ function openModal(patientId) {
                     case columnKeys.CASE_DEATH:
                     case columnKeys.CASE_EXAMINATION_DAY:
                     case columnKeys.CASE_AGE:
+                    case columnKeys.MEDICAL_AGE_ONSET:
                         value = patientData[colId]
                         colId = `${colId}_year`
                         break
@@ -305,26 +311,33 @@ function openModal(patientId) {
                     }
 
                     return
-                } else if (colId === `${columnKeys.CASE_AGE}_year`) {
+                } else if (colId === `${columnKeys.CASE_AGE}_year` || colId === `${columnKeys.MEDICAL_AGE_ONSET}_year`) {
                     element = document.querySelector(`.tab-wrap *[name="${colId}"]`)
-                    let date = value ? value.toString().split('/') : ['']
+                    colId = colId === `${columnKeys.CASE_AGE}_year` ? columnKeys.CASE_AGE : columnKeys.MEDICAL_AGE_ONSET
+                    let date = value ? value.toString().split('Y') : ['']
                     let yearValue = date[0]
+                    console.log('yearValue', yearValue)
                     if (yearValue) element.value = yearValue
                     element.onchange = function () {
-                        onchange(columnKeys.CASE_AGE)
+                        // onchange(columnKeys.CASE_AGE)
+                        onchange(colId)
                     }
 
-                    let monthElement = document.querySelector(`.tab-wrap *[name="${columnKeys.CASE_AGE}_month"]`)
-                    let monthValue = date[1]
+                    let monthElement = document.querySelector(`.tab-wrap *[name="${colId}_month"]`)
+                    let monthValue = date[1]?.split('M')[0]
+                    console.log('monthValue', monthValue)
                     if (monthValue) monthElement.value = monthValue
                     monthElement.onchange = function () {
-                        onchange(columnKeys.CASE_AGE)
+                        // onchange(columnKeys.CASE_AGE)
+                        onchange(colId)
                     }
-                    let dayElement = document.querySelector(`.tab-wrap *[name="${columnKeys.CASE_AGE}_day"]`)
-                    let dayValue = date[2]
+                    let dayElement = document.querySelector(`.tab-wrap *[name="${colId}_day"]`)
+                    let dayValue = date[1]?.split('M')[1].slice(0, -1)
+                    console.log('dayValue', dayValue)
                     if (dayValue) dayElement.value = dayValue
                     dayElement.onchange = function () {
-                        onchange(columnKeys.CASE_AGE)
+                        // onchange(columnKeys.CASE_AGE)
+                        onchange(colId)
                     }
                     return
                 } else if (colId === columnKeys.CASE_GROUP) {
@@ -396,7 +409,7 @@ function openModal(patientId) {
         })
 
         function onchange(key, value, element) {
-            let dateKey = [columnKeys.CASE_BIRTH, columnKeys.CASE_DEATH, columnKeys.CASE_EXAMINATION_DAY, columnKeys.CASE_AGE]
+            let dateKey = [columnKeys.CASE_BIRTH, columnKeys.CASE_DEATH, columnKeys.CASE_EXAMINATION_DAY, columnKeys.CASE_AGE, columnKeys.MEDICAL_AGE_ONSET]
             if (dateKey.includes(key)) {
                 let pre = key
                 if (value === '') {
@@ -408,9 +421,9 @@ function openModal(patientId) {
                     if (year === '0' & month === '0') {
                         value = ''
                     } else if (day) {
-                        value = `${year}/${month}/${day}`
+                        value = pre === columnKeys.CASE_AGE || pre === columnKeys.MEDICAL_AGE_ONSET ? `${year}Y${month}M${day}D` : `${year}/${month}/${day}`
                     } else {
-                        value = `${year}/${month}`
+                        value = pre === columnKeys.CASE_AGE || pre === columnKeys.MEDICAL_AGE_ONSET ? `${year}Y${month}M${day}D` : `${year}/${month}`
                     }
                 }
             }

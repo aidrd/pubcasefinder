@@ -65,8 +65,8 @@ let elementTranslation = {
         ko: ''
     },
     'medical_body_info_date': {
-        en: 'Date',
-        ja: '日付',
+        en: 'Date(yyyy/mm/dd)',
+        ja: '日付(yyyy/mm/dd)',
         ko: ''
     }, 'growthChart': {
         en: 'Growth Chart',
@@ -74,8 +74,8 @@ let elementTranslation = {
         ko: ''
     },
     'date': {
-        en: 'Date',
-        ja: '日付',
+        en: 'Date(yyyy/mm/dd)',
+        ja: '日付(yyyy/mm/dd)',
         ko: ''
     },
     // modified by hzhang@bits start

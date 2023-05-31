@@ -112,7 +112,7 @@ let categories = [
                     zhcht: '發病的有無'
                 },
                 options: {
-                    dataValue: ['alive', 'deceased'],
+                    dataValue: ['alive', 'deceased', 'unknown'],
                     en: ['Onset', 'Asymptomatic', 'Unknown'],
                     ja: ['発症', '未発症', '不明'],
                     ko: ['발병', '무증상', '알 수 없음'],
@@ -331,9 +331,9 @@ let categories = [
             {
                 columnId: 'medical_age_onset',
                 dataKey: 'ageOnset',
-                inputType: 'select',
+                inputType: 'text',
                 phenoKey: '',
-                type: 'dropdown',
+                type: 'text',
                 table: true,
                 displayName: {
                     en: 'Age of Onset',
@@ -341,14 +341,6 @@ let categories = [
                     ko: '발병연령',
                     zh: '发病年龄',
                     zhcht: '發病年齡'
-                },
-                options: {
-                    dataValue: ['unknown', 'congenitalOnset', 'antenatalOnsetEmbryonal', 'antenatalOnsetFetal', 'neonatalOnset', 'infantileOnset', 'childhoodOnset', 'juvenileOnset', 'adultOnsetYoungAdult', 'AaultOnsetMiddleAge', 'adultOnsetLate'],
-                    en: ['Unknown', 'Congenital Onset', 'Antenatal Onset - Embryonal', 'Antenatal Onset - Fetal', 'Neonatal Onset', 'Infantile Onset', 'Childhood Onset', 'Juvenile Onset', 'Adult Onset - Young Adult', 'Adult Onset - Middle Age', 'Adult Onset - Late'],
-                    ja: ['不明', '先天性の発症', '出生前発症 - 胎生期発症', '出生前発症- 胎児期発症', '新生児期発症', '幼児期発症', '小児期発症', '若年性発症（思春期発症）', '成人発症', '成人発症- 前期発症（青年期発症）', '成人発症- 中年期発症（壮年期発症）', '成人発症- 後期発症'],
-                    ko: [],
-                    zh: [],
-                    zhcht: []
                 }
             },
             {
