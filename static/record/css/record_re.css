@@ -1452,21 +1452,21 @@ width: 35px;
 }
 
 
-#tbody_familyInfo tr td details{
+#tbody_family_info tr td details{
 display: grid;
 }
 
-#tbody_familyInfo tr td details summary label{
+#tbody_family_info tr td details summary label{
   margin-left: 0;
   padding: 0;
 }
 
-#tbody_familyInfo tr td details summary::marker{
+#tbody_family_info tr td details summary::marker{
 color: #007bff;
 width: 10px;
 }
 
-#tbody_familyInfo tr td details label{
+#tbody_family_info tr td details label{
   margin-left: 3em;
   padding: 0;
 }
