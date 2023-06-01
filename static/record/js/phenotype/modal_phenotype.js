@@ -310,7 +310,7 @@ function phenotypeInfo_onInputChange(input_obj){
         let year = $input.parent().children('.age-year').val() || 0;
         let month = $input.parent().children('.age-month').val() || 0;
         let day = $input.parent().children('.age-day').val() || 0;
-        phenotypeData[cid][idx] = `${year}Y${month}M${day}D`;
+        phenotypeData[cid][idx] = `${year}Y${month.toString().padStart(2, '0')}M${day.toString().padStart(2, '0')}D`;
     } else if(inputType === 'text' ){
         phenotypeData[cid][idx] = val;
     }else if(inputType === 'select'){
