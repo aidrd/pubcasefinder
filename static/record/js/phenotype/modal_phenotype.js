@@ -655,10 +655,10 @@ function phenotypeInfo_createRows(){
                 let monthOptions = `<option value=''>${translate('select-age-month')}</option>`
                 monthOptions += [...Array(12).keys()].map(i => `<option value=${i} ${i === month ? 'selected' : ''}>${i}</option>`).join('');
                 let dayOptions = `<option value=''>${translate('select-day')}</option>`
-                dayOptions += [...Array(31).keys()].map(i => `<option value=${i} ${i === day ? 'selected' : ''}>${i}</option>`).join('');
+                dayOptions += [...Array(30).keys()].map(i => i + 1).map(i => `<option value=${i} ${i === day ? 'selected' : ''}>${i}</option>`).join('');
 
                 $td2.html(`
-                    <input type="number" class="age-year" step="1" value=${year}>
+                    <input type="number" class="age-year" step="1" value="${year}" min="0">
                     <select class="age-month">
                         ${monthOptions}
                     </select>
