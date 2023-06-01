@@ -310,7 +310,7 @@ function phenotypeInfo_onInputChange(input_obj){
         let year = $input.parent().children('.age-year').val() || 0;
         let month = $input.parent().children('.age-month').val() || 0;
         let day = $input.parent().children('.age-day').val() || 0;
-        phenotypeData[cid][idx] = `${year}/${month}/${day}`;
+        phenotypeData[cid][idx] = `${year}Y${month}M${day}D`;
     } else if(inputType === 'text' ){
         phenotypeData[cid][idx] = val;
     }else if(inputType === 'select'){
@@ -645,7 +645,7 @@ function phenotypeInfo_createRows(){
             }
 
             if(col.inputType === 'age'){
-                let tokens = phenotypeData[cid][i].split('/');
+                let tokens = phenotypeData[cid][i].split(/[YMD]/);
                 let year = parseInt(tokens?.[0]);
                 let month = parseInt(tokens?.[1]);
                 let day = parseInt(tokens?.[2]);
