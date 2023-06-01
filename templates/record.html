@@ -76,14 +76,14 @@
         </div>
         <ul class="nav-list">
             <li>
-                <a class="sidebar-patients sidebar-selected" href="#" onclick="toggleTableChart('table')">
+                <a class="sidebar-patients sidebar-selected" onclick="toggleTableChart('table')">
                     <div class="sidebar-icon sidebar-patient"></div>
                     <span class="links_name">Cases</span>
                 </a>
                 <!--<span class="tooltip">Patients</span>-->
             </li>
             <li>
-                <a class="sidebar-analytics" href="#" onclick="toggleTableChart('chart')">
+                <a class="sidebar-analytics" onclick="toggleTableChart('chart')">
                     <div class="sidebar-icon sidebar-stats"></div>
                     <span class="links_name">Stats</span>
                 </a>
@@ -91,7 +91,7 @@
             </li>
             <li>
             <li class="">
-                <a href="#" onclick="document.getElementById('import_btn').click()">
+                <a onclick="document.getElementById('import_btn').click()">
                     <div class="sidebar-icon sidebar-open"></div>
                     <span class="text nav-text links_name">File open</span>
                     <input type="file" id="import_btn" onchange="importFile(event)">
@@ -99,7 +99,7 @@
                 <!--<span class="tooltip">File open</span>-->
             </li>
             <li id="menu-save">
-                <a href="#">
+                <a>
                     <div class="sidebar-icon sidebar-save"></div>
                     <span class="links_name">File save
                     </span>
@@ -118,7 +118,7 @@
                 <!-- <div class="popup-bg-cover" style="display: none;"></div> -->
             </li>
             <li>
-                <a class="sidebar-filebond" href="#" onclick="document.getElementById('merge_btn').click()">
+                <a class="sidebar-filebond" onclick="document.getElementById('merge_btn').click()">
                     <div class="sidebar-icon sidebar-bond"></div>
                     <span class="links_name">File merge</span>
                     <input type="file" id="merge_btn" onchange="importFile(event)">
@@ -126,7 +126,7 @@
                 <!--<span class="tooltip">Analytics</span>-->
             </li>
             <!--<li class="contact">
-                <a href="#">
+                <a >
                     <i class="material-symbols-outlined">
                         mail
                     </i>
@@ -138,18 +138,18 @@
     </div>
     <section class="home-section">
         <div class="common-nav-container" id="nav-case">
-            <a href="#" class="common-brand"><img src="/static/record/images/logo_CaseSharing.svg"></a>
+            <a class="common-brand"><img src="/static/record/images/logo_CaseSharing.svg"></a>
             <ul class="nav-items">
                 <!-- Dropdown menu -->
                 <li class="nav-item nav-item-dropdown" id="nav-info">
-                    <a class="dropdown-trigger" href="#">
+                    <a class="dropdown-trigger">
                         <i class="material-symbols-outlined">
                             info
                         </i>
                     </a>
                 </li>
                 <li class="nav-item nav-item-dropdown" id="nav-menu">
-                    <a class="dropdown-trigger" href="#"><i class="material-symbols-outlined">
+                    <a class="dropdown-trigger"><i class="material-symbols-outlined">
                             apps
                         </i></a>
                     <ul class="dropdown-menu common-menu">
@@ -221,7 +221,7 @@
                     </ul>
                 </li>
                 <li class="nav-item nav-item-dropdown" id="nav-language">
-                    <a class="dropdown-trigger" href="#">
+                    <a class="dropdown-trigger">
                         <i class="material-symbols-outlined">
                             public
                         </i>
