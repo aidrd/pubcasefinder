@@ -1453,13 +1453,24 @@ width: 35px;
 
 
 #tbody_family_info tr td details{
+outline: none;
+}
+
+#tbody_family_info tr td details:focus{
 display: grid;
 }
+
+#tbody_family_info tr td details summary:focus{
+outline: none;
+}
+
 
 #tbody_family_info tr td details summary label{
   margin-left: 0;
   padding: 0;
+  outline: none;
 }
+
 
 #tbody_family_info tr td details summary::marker{
 color: #007bff;
@@ -1469,14 +1480,17 @@ width: 10px;
 #tbody_family_info tr td details label{
   margin-left: 3em;
   padding: 0;
+  outline: none;
 }
 
 #sporadic{
   margin-left: 9px;
+  outline: none;
 }
 
 #autosomal_recessive_inheritance{
   margin-left: 9px;
+  outline: none;
 }
 
 #mitochondrialx_inheritance{
