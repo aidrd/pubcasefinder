@@ -636,6 +636,7 @@ function phenotypeInfo_createRows(){
 
 
         function _crete_input_td(cid,input_id,relative_id1,relative_id2,phenotypeInfo,phenotypeData,lang,$tr,colspan){
+            if (!cid) return
             let col = phenotypeInfo.columns.filter(c => { return c.columnId === cid})[0];
             let displayName = col['displayName'][lang] || col['displayName']['en'];
             $('<td>').text(displayName).appendTo($tr);

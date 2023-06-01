@@ -301,7 +301,7 @@ function createColumns() {
 
                 if (c.type === 'date') {
                     column.dateFormat = c.dateFormat || 'YYYY/MM'
-                    column.correctFormat = true
+                    // column.correctFormat = true
                     column.datePickerConfig = {
                         dateFormat: c.dateFormat || 'DD/MM/YYYY',
                         firstDay: 0,
@@ -355,7 +355,7 @@ function createColumns() {
                     } else {
                         column.renderer = multipleRenderer
                     }
-                    column.editor = false
+                    column.editor = colId === columnKeys.GENOTYPE_ANALYSIS
                     // add by hzhang@bits end
                 } else if (colId === columnKeys.MEDICAL_BODY_WEIGHT || colId === columnKeys.MEDICAL_BODY_HEIGHT || colId === columnKeys.MEDICAL_HEAD_CIRCUMFERENCE) {
                     column.editor = false
