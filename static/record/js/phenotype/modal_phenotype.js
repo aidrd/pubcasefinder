@@ -704,7 +704,7 @@ function phenotypeInfo_createRows() {
             }
         }
 
-        [[columnKeys.PHENOTYPE_EXCLUDED, columnKeys.PHENOTYPE_CLINICAL_RELEVANCE, columnKeys.PHENOTYPE_SEVERITY], [columnKeys.PHENOTYPE_AGE_ONSET, columnKeys.PHENOTYPE_TEMPORAL_PATTERN, columnKeys.PHENOTYPE_PACE_PROGRESSION], [columnKeys.PPHENOTYPE_RESOLUTION, columnKeys.PHENOTYPE_COMMENTS]].forEach(lst => {
+        [[columnKeys.PHENOTYPE_EXCLUDED, columnKeys.PHENOTYPE_CLINICAL_RELEVANCE, columnKeys.PHENOTYPE_SEVERITY], [columnKeys.PHENOTYPE_AGE_ONSET, columnKeys.PHENOTYPE_TEMPORAL_PATTERN, columnKeys.PHENOTYPE_PACE_PROGRESSION], [columnKeys.PHENOTYPE_RESOLUTION, columnKeys.PHENOTYPE_COMMENTS]].forEach(lst => {
             let $tr = $('<tr>').appendTo($tbl_large);
             lst.forEach((cid, cid_idx) => {
                 let input_id = `input-${i}-${cid}`;
@@ -718,7 +718,7 @@ function phenotypeInfo_createRows() {
             });
         });
 
-        [[columnKeys.PHENOTYPE_EXCLUDED, columnKeys.PHENOTYPE_CLINICAL_RELEVANCE], [columnKeys.PHENOTYPE_SEVERITY, columnKeys.PHENOTYPE_AGE_ONSET], [columnKeys.PHENOTYPE_TEMPORAL_PATTERN, columnKeys.PHENOTYPE_PACE_PROGRESSION], [columnKeys.PPHENOTYPE_RESOLUTION], [columnKeys.PHENOTYPE_COMMENTS]].forEach(lst => {
+        [[columnKeys.PHENOTYPE_EXCLUDED, columnKeys.PHENOTYPE_CLINICAL_RELEVANCE], [columnKeys.PHENOTYPE_SEVERITY, columnKeys.PHENOTYPE_AGE_ONSET], [columnKeys.PHENOTYPE_TEMPORAL_PATTERN, columnKeys.PHENOTYPE_PACE_PROGRESSION], [columnKeys.PHENOTYPE_RESOLUTION], [columnKeys.PHENOTYPE_COMMENTS]].forEach(lst => {
             let $tr = $('<tr>').appendTo($tbl_medium);
             lst.forEach((cid, cid_idx) => {
                 let input_id = `input-${i}-${cid}-medium`;
@@ -732,7 +732,7 @@ function phenotypeInfo_createRows() {
             });
         });
 
-        [[columnKeys.PHENOTYPE_EXCLUDED], [columnKeys.PHENOTYPE_CLINICAL_RELEVANCE], [columnKeys.PHENOTYPE_SEVERITY], [columnKeys.PHENOTYPE_AGE_ONSET], [columnKeys.PHENOTYPE_TEMPORAL_PATTERN], [columnKeys.PHENOTYPE_PACE_PROGRESSION], [columnKeys.PPHENOTYPE_RESOLUTION], [columnKeys.PHENOTYPE_COMMENTS]].forEach(lst => {
+        [[columnKeys.PHENOTYPE_EXCLUDED], [columnKeys.PHENOTYPE_CLINICAL_RELEVANCE], [columnKeys.PHENOTYPE_SEVERITY], [columnKeys.PHENOTYPE_AGE_ONSET], [columnKeys.PHENOTYPE_TEMPORAL_PATTERN], [columnKeys.PHENOTYPE_PACE_PROGRESSION], [columnKeys.PHENOTYPE_RESOLUTION], [columnKeys.PHENOTYPE_COMMENTS]].forEach(lst => {
             let $tr = $('<tr>').appendTo($tbl_small);
             lst.forEach((cid, cid_idx) => {
                 let input_id = `input-${i}-${cid}-small`;
