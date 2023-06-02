@@ -927,7 +927,7 @@ let categories = [
                     zhcht: '進展速度'
                 },
                 options: {
-                    dataValue: ['unknown', 'adult', 'antenatal', 'pediatric', 'congenital', 'puerperal', 'neonatal'],
+                    dataValue: ['unknown', 'progressive', 'variable', 'slowly', 'nonprogressive', 'rapidly'],
                     en: ['Unknown', 'Progressive', 'Variable progression rate', 'Slowly progressive', 'Nonprogressive', 'Rapidly progressive'],
                     ja: ['Unknown', 'Progressive', 'Variable progression rate', 'Slowly progressive', 'Nonprogressive', 'Rapidly progressive'],
                     ko: ['', '', '', '', '', ''],
