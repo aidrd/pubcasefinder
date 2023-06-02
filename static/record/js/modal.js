@@ -1,4 +1,5 @@
 $('.modal_open').click(() => {
+    console.log('hello')
     openModal(false)
 })
 
@@ -29,6 +30,8 @@ $('#menu-save .popup-bg-cover').click(() => {
 });
 
 $(document).mouseup((e) => {
+    console.log('clicked', e.target)
+
     const container = $('.save-panel');
     if (!container.is(e.target) && container.has(e.target).length === 0) {
         container.removeClass('save-panel-open');
@@ -40,6 +43,7 @@ $(document).mouseup((e) => {
 $('.nav-list a').on('click', closeKarteModal)
 
 function openModal(patientId) {
+    console.log('openModal')
     var modal = '#modal-karte'
     toReset = true
 
@@ -118,7 +122,7 @@ function openModal(patientId) {
 
         // For day
         // parent.querySelector(`*[name="${columnKeys.CASE_AGE}_day"]`).innerHTML = createDayOptions();
-        parent.querySelector(`*[name="${columnId}_day"]`).innerHTML = createDayOptions(true);
+        parent.querySelector(`*[name="${columnId}_day"]`).innerHTML = createDayOptions();
     }
 
 
@@ -235,13 +239,10 @@ function openModal(patientId) {
                 let element = document.querySelector(`.tab-wrap *[name="${colId}"]`)
                 if (!element) return
 
-                let radioInput = $(`.tab-wrap input[name="${colId}"]`)
-
                 if (colId === columnKeys.CASE_LIFE_STATUS) {
                     let parent = $(`#${columnKeys.CASE_DEATH}`).parent()
                     showHideDeathDate(parent, 'deceased')
                 } else if (colId === `${columnKeys.CASE_EXAMINATION_DAY}_year` || colId === `${columnKeys.CASE_DEATH}_year`) {
-                    // let key = colId.split('_')[0]
                     let monthId = colId === `${columnKeys.CASE_EXAMINATION_DAY}_year` ? `${columnKeys.CASE_EXAMINATION_DAY}_month` : `${columnKeys.CASE_DEATH}_month`
                     let date = value ? value.toString().split('/') : ['']
                     let yearValue = date[0]
@@ -354,7 +355,6 @@ function openModal(patientId) {
                 if ([columnKeys.MEDICAL_ALLERGIES, columnKeys.MEDICAL_DRINKING, columnKeys.MEDICAL_SMOKING].includes(colId)) {
                     $(`.tab-wrap input[name="${colId}"][value="${value ? 'yes' : 'no'}"]`).prop('checked', true)
 
-                    // let textInput = $(`.tab-wrap input[name="${colId}-list"]`)
                     let textInput = $(`.tab-wrap input[name="${colId}"]`)
 
                     if (value) {
@@ -365,19 +365,6 @@ function openModal(patientId) {
                     textInput.on('change', () => {
                         onchange(colId, textInput.val())
                     })
-
-                    // radioInput.on('click change', () => {
-                    //     let radioValue = radioInput.filter(':checked').val()
-                    //     if (radioValue === 'no') {
-                    //         textInput.hide()
-                    //         onchange(colId, '')
-                    //     } else {
-                    //         textInput.show()
-                    //         textInput.on('change', () => {
-                    //             onchange(colId, textInput.val())
-                    //         })
-                    //     }
-                    // })
 
                     return
                 }
@@ -426,11 +413,7 @@ function openModal(patientId) {
                         value = pre === columnKeys.CASE_AGE || pre === columnKeys.MEDICAL_AGE_ONSET ? `${year}Y${month}M${day}D` : `${year}/${month}/${day}`
                     } else if (year === '-' & month === '-') {
                         value = ''
-                    } 
-                    // else if (day) {
-                    //     console.log('here with day')
-                    //     value = pre === columnKeys.CASE_AGE || pre === columnKeys.MEDICAL_AGE_ONSET ? `${year}Y${month}M${day}D` : `${year}/${month}/${day}`
-                    // } 
+                    }
                     else {
                         value = pre === columnKeys.CASE_AGE || pre === columnKeys.MEDICAL_AGE_ONSET ? `${year}Y${month}M${day}D` : `${year}/${month}`
                     }
