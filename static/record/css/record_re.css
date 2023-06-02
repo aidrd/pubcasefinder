@@ -1452,12 +1452,14 @@ width: 35px;
 }
 
 
-#tbody_family_info tr td details{
+#tbody_family_info tr td details {
+  display: flex;
+  align-items: center;
 outline: none;
 }
 
 #tbody_family_info tr td details:focus{
-display: grid;
+    display: flex;
 }
 
 #tbody_family_info tr td details summary:focus{
@@ -1472,15 +1474,17 @@ outline: none;
 }
 
 
-#tbody_family_info tr td details summary::marker{
-color: #007bff;
-width: 10px;
+#tbody_family_info tr td details summary::marker {
+  color: #007bff;
+  width: 10px;
+  margin-right: 0.5em;
 }
 
-#tbody_family_info tr td details label{
+#tbody_family_info tr td details label {
   margin-left: 3em;
   padding: 0;
   outline: none;
+  display: inline;
 }
 
 #sporadic{
