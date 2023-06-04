@@ -934,7 +934,7 @@ let categories = [
                     zhcht: '進展速度'
                 },
                 options: {
-                    dataValue: ['unknown', 'progressive', 'variable', 'slowly', 'nonprogressive', 'rapidly'],
+                    dataValue: ['Unknown', 'Progressive', 'Variable progression rate', 'Slowly progressive', 'Nonprogressive', 'Rapidly progressive'],
                     en: ['Unknown', 'Progressive', 'Variable progression rate', 'Slowly progressive', 'Nonprogressive', 'Rapidly progressive'],
                     ja: ['Unknown', 'Progressive', 'Variable progression rate', 'Slowly progressive', 'Nonprogressive', 'Rapidly progressive'],
                     ko: ['', '', '', '', '', ''],
