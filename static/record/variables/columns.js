@@ -755,9 +755,9 @@ let categories = [
                     dataValue: ['no', 'yes'],
                     en: ['No', 'Yes'],
                     ja: ['無', '有'],
-                    ko: [],
-                    zh: [],
-                    zhcht: []
+                    ko: ['No', 'Yes'],
+                    zh: ['No', 'Yes'],
+                    zhcht: ['No', 'Yes']
                 }
             },
             {
@@ -778,9 +778,9 @@ let categories = [
                     dataValue: ['no', 'yes'],
                     en: ['No', 'Yes'],
                     ja: ['無', '有'],
-                    ko: [],
-                    zh: [],
-                    zhcht: []
+                    ko: ['No', 'Yes'],
+                    zh: ['No', 'Yes'],
+                    zhcht: ['No', 'Yes']
                 }
             },
             {
@@ -793,17 +793,17 @@ let categories = [
                 displayName: {
                     en: 'Any Text',
                     ja: '任意のテキスト',
-                    ko: '',
-                    zh: '',
-                    zhcht: ''
+                    ko: 'Any Text',
+                    zh: 'Any Text',
+                    zhcht: 'Any Text'
                 },
                 options: {
                     dataValue: ['no', 'yes'],
                     en: ['No', 'Yes'],
                     ja: ['無', '有'],
-                    ko: [],
-                    zh: [],
-                    zhcht: []
+                    ko: ['No', 'Yes'],
+                    zh: ['No', 'Yes'],
+                    zhcht: ['No', 'Yes']
                 }
             },
             {
@@ -841,17 +841,17 @@ let categories = [
                 displayName: {
                     en: 'Clinical relevance',
                     ja: '重要性',
-                    ko: '',
-                    zh: '',
-                    zhcht: ''
+                    ko: '중요성',
+                    zh: '重要性',
+                    zhcht: '重要性'
                 },
                 options: {
                     dataValue: ['normal', 'distinctive', 'minor'],
                     en: ['Normal', 'Distinctive finding', 'Minor finding'],
                     ja: ['通常', '高い', '低い'],
-                    ko: [],
-                    zh: [],
-                    zhcht: []
+                    ko: ['Normal', 'Distinctive finding', 'Minor finding'],
+                    zh: ['Normal', 'Distinctive finding', 'Minor finding'],
+                    zhcht: ['Normal', 'Distinctive finding', 'Minor finding']
                 }
             },
             {
@@ -865,17 +865,17 @@ let categories = [
                 displayName: {
                     en: 'Severity',
                     ja: '重症度',
-                    ko: '',
-                    zh: '',
-                    zhcht: ''
+                    ko: '중증도',
+                    zh: '重症程度',
+                    zhcht: '重症程度'
                 },
                 options: {
                     dataValue: ['borderline', 'severe', 'profound', 'moderate', 'mild'],
                     en: ['Borderline', 'Severe', 'Profound', 'Moderate', 'Mild'],
                     ja: ['境界域', '重度', '最重度', '中等度', '軽度'],
-                    ko: [],
-                    zh: [],
-                    zhcht: []
+                    ko: ['Borderline', 'Severe', 'Profound', 'Moderate', 'Mild'],
+                    zh: ['Borderline', 'Severe', 'Profound', 'Moderate', 'Mild'],
+                    zhcht: ['Borderline', 'Severe', 'Profound', 'Moderate', 'Mild']
                 }
             },
             {
@@ -905,17 +905,17 @@ let categories = [
                 displayName: {
                     en: 'Temporal pattern',
                     ja: '発症パターン',
-                    ko: '',
-                    zh: '',
-                    zhcht: ''
+                    ko: '발병 패턴',
+                    zh: '发症模式',
+                    zhcht: '發症模式'
                 },
                 options: {
                     dataValue: ['unknown', 'recurrent', 'subacute', 'fluctuating', 'migratory', 'diurnal', 'stable', 'insidious', 'prolonged', 'nocturnal', 'chronic', 'transient'],
                     en: ['Unknown', 'Recurrent Acute', 'Subacute', 'Fluctuating', 'Migratory', 'Diurnal', 'Stable', 'Insidious onset', 'Prolonged', 'Nocturnal', 'Chronic', 'Transient'],
                     ja: ['Unknown', 'Recurrent Acute', 'Subacute', 'Fluctuating', 'Migratory', 'Diurnal', 'Stable', 'Insidious onset', 'Prolonged', 'Nocturnal', 'Chronic', 'Transient'],
-                    ko: [],
-                    zh: [],
-                    zhcht: []
+                    ko: ['Unknown', 'Recurrent Acute', 'Subacute', 'Fluctuating', 'Migratory', 'Diurnal', 'Stable', 'Insidious onset', 'Prolonged', 'Nocturnal', 'Chronic', 'Transient'],
+                    zh: ['Unknown', 'Recurrent Acute', 'Subacute', 'Fluctuating', 'Migratory', 'Diurnal', 'Stable', 'Insidious onset', 'Prolonged', 'Nocturnal', 'Chronic', 'Transient'],
+                    zhcht: ['Unknown', 'Recurrent Acute', 'Subacute', 'Fluctuating', 'Migratory', 'Diurnal', 'Stable', 'Insidious onset', 'Prolonged', 'Nocturnal', 'Chronic', 'Transient']
                 }
             },
             {
@@ -937,9 +937,9 @@ let categories = [
                     dataValue: ['Unknown', 'Progressive', 'Variable progression rate', 'Slowly progressive', 'Nonprogressive', 'Rapidly progressive'],
                     en: ['Unknown', 'Progressive', 'Variable progression rate', 'Slowly progressive', 'Nonprogressive', 'Rapidly progressive'],
                     ja: ['Unknown', 'Progressive', 'Variable progression rate', 'Slowly progressive', 'Nonprogressive', 'Rapidly progressive'],
-                    ko: ['', '', '', '', '', ''],
-                    zh: ['', '', '', '', '', ''],
-                    zhcht: ['', '', '', '', '', '']
+                    ko: ['Unknown', 'Progressive', 'Variable progression rate', 'Slowly progressive', 'Nonprogressive', 'Rapidly progressive'],
+                    zh: ['Unknown', 'Progressive', 'Variable progression rate', 'Slowly progressive', 'Nonprogressive', 'Rapidly progressive'],
+                    zhcht: ['Unknown', 'Progressive', 'Variable progression rate', 'Slowly progressive', 'Nonprogressive', 'Rapidly progressive']
                 }
             },
             {
@@ -953,9 +953,9 @@ let categories = [
                 displayName: {
                     en: 'Resolution',
                     ja: '症状消失 (yy/mm/dd)',
-                    ko: '',
-                    zh: '',
-                    zhcht: ''
+                    ko: 'Resolution',
+                    zh: 'Resolution',
+                    zhcht: 'Resolution'
                 },
             },
             {
@@ -1000,9 +1000,9 @@ let categories = [
                 displayName: {
                     en: 'Genetic Analysis',
                     ja: '遺伝子解析',
-                    ko: '',
-                    zh: '',
-                    zhcht: ''
+                    ko: '유전자 분석',
+                    zh: '遗传子分析',
+                    zhcht: '遺傳子解析'
                 }
             },
             {
@@ -1015,9 +1015,9 @@ let categories = [
                 displayName: {
                     en: 'Gene',
                     ja: 'Gene',
-                    ko: '',
-                    zh: '',
-                    zhcht: ''
+                    ko: 'Gene',
+                    zh: 'Gene',
+                    zhcht: 'Gene'
                 }
             },
             {
@@ -1030,17 +1030,17 @@ let categories = [
                 displayName: {
                     en: 'Interpretation Status',
                     ja: 'Interpretation Status',
-                    ko: '',
-                    zh: '',
-                    zhcht: ''
+                    ko: 'Interpretation Status',
+                    zh: 'Interpretation Status',
+                    zhcht: 'Interpretation Status'
                 },
                 options: {
                     dataValue: ['Unknown Status', 'Rejected', 'Candidate', 'Contributory', 'Causative'],
                     en: ['Unknown Status', 'Rejected', 'Candidate', 'Contributory', 'Causative'],
                     ja: ['Unknown Status', 'Rejected', 'Candidate', 'Contributory', 'Causative'],
-                    ko: [],
-                    zh: [],
-                    zhcht: []
+                    ko: ['Unknown Status', 'Rejected', 'Candidate', 'Contributory', 'Causative'],
+                    zh: ['Unknown Status', 'Rejected', 'Candidate', 'Contributory', 'Causative'],
+                    zhcht: ['Unknown Status', 'Rejected', 'Candidate', 'Contributory', 'Causative']
                 }
             },
             // {
@@ -1075,9 +1075,9 @@ let categories = [
                 displayName: {
                     en: 'cDNA Change',
                     ja: 'cDNA Change',
-                    ko: '',
-                    zh: '',
-                    zhcht: ''
+                    ko: 'cDNA Change',
+                    zh: 'cDNA Change',
+                    zhcht: 'cDNA Change'
                 }
             },
             {
@@ -1090,17 +1090,17 @@ let categories = [
                 displayName: {
                     en: 'Pathogenicity',
                     ja: 'Pathogenicity',
-                    ko: '',
-                    zh: '',
-                    zhcht: ''
+                    ko: 'Pathogenicity',
+                    zh: 'Pathogenicity',
+                    zhcht: 'Pathogenicity'
                 },
                 options: {
                     dataValue: ['Pathogenic', 'Likely Pathogenic', 'Varitant of Unknown Significance', 'Likely Benign', 'Benign', 'Investigation Needed'],
                     en: ['Pathogenic', 'Likely Pathogenic', 'Varitant of Unknown Significance', 'Likely Benign', 'Benign', 'Investigation Needed'],
                     ja: ['Pathogenic', 'Likely Pathogenic', 'Varitant of Unknown Significance', 'Likely Benign', 'Benign', 'Investigation Needed'],
-                    ko: [],
-                    zh: [],
-                    zhcht: []
+                    ko: ['Pathogenic', 'Likely Pathogenic', 'Varitant of Unknown Significance', 'Likely Benign', 'Benign', 'Investigation Needed'],
+                    zh: ['Pathogenic', 'Likely Pathogenic', 'Varitant of Unknown Significance', 'Likely Benign', 'Benign', 'Investigation Needed'],
+                    zhcht: ['Pathogenic', 'Likely Pathogenic', 'Varitant of Unknown Significance', 'Likely Benign', 'Benign', 'Investigation Needed']
                 }
             },
             {
@@ -1113,17 +1113,17 @@ let categories = [
                 displayName: {
                     en: 'Genotype',
                     ja: 'Genotype',
-                    ko: '',
-                    zh: '',
-                    zhcht: ''
+                    ko: 'Genotype',
+                    zh: 'Genotype',
+                    zhcht: 'Genotype'
                 },
                 options: {
                     dataValue: ['heterozygous', 'homozygous', 'hemizygous'],
                     en: ['heterozygous', 'homozygous', 'hemizygous'],
                     ja: ['heterozygous', 'homozygous', 'hemizygous'],
-                    ko: [],
-                    zh: [],
-                    zhcht: []
+                    ko: ['heterozygous', 'homozygous', 'hemizygous'],
+                    zh: ['heterozygous', 'homozygous', 'hemizygous'],
+                    zhcht: ['heterozygous', 'homozygous', 'hemizygous']
                 }
             },
             {
@@ -1136,17 +1136,17 @@ let categories = [
                 displayName: {
                     en: 'Reference',
                     ja: 'Reference',
-                    ko: '',
-                    zh: '',
-                    zhcht: ''
+                    ko: 'Reference',
+                    zh: 'Reference',
+                    zhcht: 'Reference'
                 },
                 options: {
                     dataValue: ['GRCh37 (hg19)', 'GRCh38 (hg38)', 'GRCh36 (hg18)'],
                     en: ['GRCh37 (hg19)', 'GRCh38 (hg38)', 'GRCh36 (hg18)'],
                     ja: ['GRCh37 (hg19)', 'GRCh38 (hg38)', 'GRCh36 (hg18)'],
-                    ko: [],
-                    zh: [],
-                    zhcht: []
+                    ko: ['GRCh37 (hg19)', 'GRCh38 (hg38)', 'GRCh36 (hg18)'],
+                    zh: ['GRCh37 (hg19)', 'GRCh38 (hg38)', 'GRCh36 (hg18)'],
+                    zhcht: ['GRCh37 (hg19)', 'GRCh38 (hg38)', 'GRCh36 (hg18)']
                 }
             },
             {
@@ -1159,9 +1159,9 @@ let categories = [
                 displayName: {
                     en: 'Chr:Position',
                     ja: 'Chr:Position',
-                    ko: '',
-                    zh: '',
-                    zhcht: ''
+                    ko: 'Chr:Position',
+                    zh: 'Chr:Position',
+                    zhcht: 'Chr:Position'
                 }
             },
             {
@@ -1174,9 +1174,9 @@ let categories = [
                 displayName: {
                     en: 'Transcript',
                     ja: 'Transcript',
-                    ko: '',
-                    zh: '',
-                    zhcht: ''
+                    ko: 'Transcript',
+                    zh: 'Transcript',
+                    zhcht: 'Transcript'
                 }
             },
             {
@@ -1189,9 +1189,9 @@ let categories = [
                 displayName: {
                     en: 'Protein Charge',
                     ja: 'Protein Charge',
-                    ko: '',
-                    zh: '',
-                    zhcht: ''
+                    ko: 'Protein Charge',
+                    zh: 'Protein Charge',
+                    zhcht: 'Protein Charge'
                 }
             },
             {
@@ -1204,17 +1204,17 @@ let categories = [
                 displayName: {
                     en: 'Annotation',
                     ja: 'Annotation',
-                    ko: '',
-                    zh: '',
-                    zhcht: ''
+                    ko: 'Annotation',
+                    zh: 'Annotation',
+                    zhcht: 'Annotation'
                 },
                 options: {
                     dataValue: ['frameshift deletion', 'frameshift insertion', 'frameshift substitution', 'nonframeshift deletion', 'nonframeshift insertion', 'nonframeshift substitution', 'synonymous SNV', 'nonsynonymous SNV', 'stopgain SNV', 'stoploss SNV', 'stopgain', 'stoploss', 'splicing', 'other', 'unknown'],
                     en: ['frameshift deletion', 'frameshift insertion', 'frameshift substitution', 'nonframeshift deletion', 'nonframeshift insertion', 'nonframeshift substitution', 'synonymous SNV', 'nonsynonymous SNV', 'stopgain SNV', 'stoploss SNV', 'stopgain', 'stoploss', 'splicing', 'other', 'unknown'],
                     ja: ['frameshift deletion', 'frameshift insertion', 'frameshift substitution', 'nonframeshift deletion', 'nonframeshift insertion', 'nonframeshift substitution', 'synonymous SNV', 'nonsynonymous SNV', 'stopgain SNV', 'stoploss SNV', 'stopgain', 'stoploss', 'splicing', 'other', 'unknown'],
-                    ko: [],
-                    zh: [],
-                    zhcht: []
+                    ko: ['frameshift deletion', 'frameshift insertion', 'frameshift substitution', 'nonframeshift deletion', 'nonframeshift insertion', 'nonframeshift substitution', 'synonymous SNV', 'nonsynonymous SNV', 'stopgain SNV', 'stoploss SNV', 'stopgain', 'stoploss', 'splicing', 'other', 'unknown'],
+                    zh: ['frameshift deletion', 'frameshift insertion', 'frameshift substitution', 'nonframeshift deletion', 'nonframeshift insertion', 'nonframeshift substitution', 'synonymous SNV', 'nonsynonymous SNV', 'stopgain SNV', 'stoploss SNV', 'stopgain', 'stoploss', 'splicing', 'other', 'unknown'],
+                    zhcht: ['frameshift deletion', 'frameshift insertion', 'frameshift substitution', 'nonframeshift deletion', 'nonframeshift insertion', 'nonframeshift substitution', 'synonymous SNV', 'nonsynonymous SNV', 'stopgain SNV', 'stoploss SNV', 'stopgain', 'stoploss', 'splicing', 'other', 'unknown']
                 }
             },
             {
@@ -1227,17 +1227,17 @@ let categories = [
                 displayName: {
                     en: 'Inheritance',
                     ja: 'Inheritance',
-                    ko: '',
-                    zh: '',
-                    zhcht: ''
+                    ko: 'Inheritance',
+                    zh: 'Inheritance',
+                    zhcht: 'Inheritance'
                 },
                 options: {
                     dataValue: ['autosomal recessive - compound heterozygous', 'autosomal recessive - homozygous', 'autosomal dominant', 'autosomal dominant - new mutation', 'autosomal dominant - Inherited mutation', 'x-linked recessive', 'x-linked dominant', 'paternal imprinting', 'maternal imprinting', 'other', 'unknown'],
                     en: ['autosomal recessive - compound heterozygous', 'autosomal recessive - homozygous', 'autosomal dominant', 'autosomal dominant - new mutation', 'autosomal dominant - Inherited mutation', 'x-linked recessive', 'x-linked dominant', 'paternal imprinting', 'maternal imprinting', 'other', 'unknown'],
                     ja: ['autosomal recessive - compound heterozygous', 'autosomal recessive - homozygous', 'autosomal dominant', 'autosomal dominant - new mutation', 'autosomal dominant - Inherited mutation', 'x-linked recessive', 'x-linked dominant', 'paternal imprinting', 'maternal imprinting', 'other', 'unknown'],
-                    ko: [],
-                    zh: [],
-                    zhcht: []
+                    ko: ['autosomal recessive - compound heterozygous', 'autosomal recessive - homozygous', 'autosomal dominant', 'autosomal dominant - new mutation', 'autosomal dominant - Inherited mutation', 'x-linked recessive', 'x-linked dominant', 'paternal imprinting', 'maternal imprinting', 'other', 'unknown'],
+                    zh: ['autosomal recessive - compound heterozygous', 'autosomal recessive - homozygous', 'autosomal dominant', 'autosomal dominant - new mutation', 'autosomal dominant - Inherited mutation', 'x-linked recessive', 'x-linked dominant', 'paternal imprinting', 'maternal imprinting', 'other', 'unknown'],
+                    zhcht: ['autosomal recessive - compound heterozygous', 'autosomal recessive - homozygous', 'autosomal dominant', 'autosomal dominant - new mutation', 'autosomal dominant - Inherited mutation', 'x-linked recessive', 'x-linked dominant', 'paternal imprinting', 'maternal imprinting', 'other', 'unknown']
                 }
             },
             // {
@@ -1272,9 +1272,9 @@ let categories = [
                 displayName: {
                     en: 'Comments',
                     ja: 'Comments',
-                    ko: '',
-                    zh: '',
-                    zhcht: ''
+                    ko: 'Comments',
+                    zh: 'Comments',
+                    zhcht: 'Comments'
                 }
             }
         ]
@@ -1348,9 +1348,9 @@ let categories = [
                     dataValue: ['unknown', 'yes', 'no'],
                     en: ['Unknown', 'Yes', 'No'],
                     ja: ['不明', 'はい', 'いいえ'],
-                    ko: [],
-                    zh: [],
-                    zhcht: []
+                    ko: ['Unknown', 'Yes', 'No'],
+                    zh: ['Unknown', 'Yes', 'No'],
+                    zhcht: ['Unknown', 'Yes', 'No']
                 }
             },
             {
@@ -1371,9 +1371,9 @@ let categories = [
                     dataValue: ['unknown', 'yes', 'no'],
                     en: ['Unknown', 'Yes', 'No'],
                     ja: ['不明', 'はい', 'いいえ'],
-                    ko: [],
-                    zh: [],
-                    zhcht: []
+                    ko: ['Unknown', 'Yes', 'No'],
+                    zh: ['Unknown', 'Yes', 'No'],
+                    zhcht: ['Unknown', 'Yes', 'No']
                 }
             },
             {
@@ -1394,9 +1394,9 @@ let categories = [
                     dataValue: ['unknown', 'yes', 'no'],
                     en: ['Unknown', 'Yes', 'No'],
                     ja: ['不明', 'はい', 'いいえ'],
-                    ko: [],
-                    zh: [],
-                    zhcht: []
+                    ko: ['Unknown', 'Yes', 'No'],
+                    zh: ['Unknown', 'Yes', 'No'],
+                    zhcht: ['Unknown', 'Yes', 'No']
                 }
             },
             {
