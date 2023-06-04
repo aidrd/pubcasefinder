@@ -812,6 +812,7 @@ let categories = [
                 inputType: 'select',
                 phenoKey: '',
                 type: 'dropdown',
+                readOnly: true,
                 table: true,
                 displayName: {
                     en: 'Excluded',
@@ -835,6 +836,7 @@ let categories = [
                 inputType: 'select',
                 phenoKey: '',
                 type: 'dropdown',
+                readOnly: true,
                 table: true,
                 displayName: {
                     en: 'Clinical relevance',
@@ -858,6 +860,7 @@ let categories = [
                 inputType: 'select',
                 phenoKey: '',
                 type: 'dropdown',
+                readOnly: true,
                 table: true,
                 displayName: {
                     en: 'Severity',
@@ -881,6 +884,7 @@ let categories = [
                 inputType: 'age',
                 phenoKey: '',
                 type: 'text',
+                readOnly: true,
                 table: true,
                 displayName: {
                     en: 'Age of Onset (YMD)',
@@ -896,6 +900,7 @@ let categories = [
                 inputType: 'select',
                 phenoKey: '',
                 type: 'dropdown',
+                readOnly: true,
                 table: true,
                 displayName: {
                     en: 'Temporal pattern',
@@ -919,6 +924,7 @@ let categories = [
                 inputType: 'select',
                 phenoKey: '',
                 type: 'dropdown',
+                readOnly: true,
                 table: true,
                 displayName: {
                     en: 'Pace of progression',
@@ -942,6 +948,7 @@ let categories = [
                 inputType: 'age',
                 phenoKey: '',
                 type: 'text',
+                readOnly: true,
                 table: true,
                 displayName: {
                     en: 'Resolution',
@@ -957,6 +964,7 @@ let categories = [
                 inputType: 'text',
                 phenoKey: '',
                 type: 'text',
+                readOnly: true,
                 table: true,
                 displayName: {
                     en: 'Comments',
@@ -1003,6 +1011,7 @@ let categories = [
                 phenoKey: '',
                 type: 'text',
                 table: true,
+                readOnly: true,
                 displayName: {
                     en: 'Gene',
                     ja: 'Gene',
@@ -1016,6 +1025,7 @@ let categories = [
                 dataKey: 'status',
                 phenoKey: '',
                 type: 'dropdown',
+                readOnly: true,
                 table: true,
                 displayName: {
                     en: 'Interpretation Status',
@@ -1061,6 +1071,7 @@ let categories = [
                 phenoKey: '',
                 type: 'text',
                 table: true,
+                readOnly: true,
                 displayName: {
                     en: 'cDNA Change',
                     ja: 'cDNA Change',
@@ -1075,6 +1086,7 @@ let categories = [
                 phenoKey: '',
                 type: 'dropdown',
                 table: true,
+                readOnly: true,
                 displayName: {
                     en: 'Pathogenicity',
                     ja: 'Pathogenicity',
@@ -1097,6 +1109,7 @@ let categories = [
                 phenoKey: '',
                 type: 'dropdown',
                 table: true,
+                readOnly: true,
                 displayName: {
                     en: 'Genotype',
                     ja: 'Genotype',
@@ -1119,6 +1132,7 @@ let categories = [
                 phenoKey: '',
                 type: 'dropdown',
                 table: true,
+                readOnly: true,
                 displayName: {
                     en: 'Reference',
                     ja: 'Reference',
@@ -1141,6 +1155,7 @@ let categories = [
                 phenoKey: '',
                 type: 'text',
                 table: true,
+                readOnly: true,
                 displayName: {
                     en: 'Chr:Position',
                     ja: 'Chr:Position',
@@ -1155,6 +1170,7 @@ let categories = [
                 phenoKey: '',
                 type: 'text',
                 table: true,
+                readOnly: true,
                 displayName: {
                     en: 'Transcript',
                     ja: 'Transcript',
@@ -1169,6 +1185,7 @@ let categories = [
                 phenoKey: '',
                 type: 'text',
                 table: true,
+                readOnly: true,
                 displayName: {
                     en: 'Protein Charge',
                     ja: 'Protein Charge',
@@ -1183,6 +1200,7 @@ let categories = [
                 phenoKey: '',
                 type: 'dropdown',
                 table: true,
+                readOnly: true,
                 displayName: {
                     en: 'Annotation',
                     ja: 'Annotation',
@@ -1205,6 +1223,7 @@ let categories = [
                 phenoKey: '',
                 type: 'dropdown',
                 table: true,
+                readOnly: true,
                 displayName: {
                     en: 'Inheritance',
                     ja: 'Inheritance',
@@ -1249,6 +1268,7 @@ let categories = [
                 phenoKey: '',
                 type: 'text',
                 table: true,
+                readOnly: true,
                 displayName: {
                     en: 'Comments',
                     ja: 'Comments',
