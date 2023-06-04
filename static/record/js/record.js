@@ -10,7 +10,7 @@ let toReset = true
 
 // let defaultColumns = ['caseSolved', 'chiefComplaint', 'finalDiagnosis', 'clinicalDiagnosis', 'case_sex', 'age', 'case_birth', 'lifeStatus', 'group', 'presenceOrAbsenceOfOnset', 'examinationDay', 'relationship', 'case_family_id', 'case_info']
 let defaultColumns = [columnKeys.MEDICAL_CASE_SOLVED, columnKeys.MEDICAL_CHIEF_COMPLAINT, columnKeys.MEDICAL_FINAL_DIAGNOSIS, columnKeys.MEDICAL_CLINICAL_DIAGNOSIS, columnKeys.CASE_SEX, columnKeys.CASE_AGE, columnKeys.CASE_BIRTH, columnKeys.CASE_LIFE_STATUS, columnKeys.CASE_GROUP, columnKeys.CASE_PRESENCE_OR_ABSENCE_OF_ONSET, columnKeys.CASE_EXAMINATION_DAY, columnKeys.CASE_RELATIONSHIP, columnKeys.CASE_FAMILY_ID, columnKeys.CASE_ID]
-// defaultColumns = [columnKeys.CASE_AGE, columnKeys.CASE_ID]
+// defaultColumns = [columnKeys.GENOTYPE_ANALYSIS, columnKeys.CASE_ID]
 let actions = ['REMOVE', 'EDIT']
 actions = ['EDIT', 'REMOVE']
 
@@ -301,7 +301,7 @@ function createColumns() {
 
                 if (c.type === 'date') {
                     column.dateFormat = c.dateFormat || 'YYYY/MM'
-                    column.correctFormat = true
+                    // column.correctFormat = true
                     column.datePickerConfig = {
                         dateFormat: c.dateFormat || 'DD/MM/YYYY',
                         firstDay: 0,
@@ -346,7 +346,9 @@ function createColumns() {
                     column.source = groupOptions
                     if (colId === columnKeys.CASE_FAMILY_ID) column.source = familyOptions
                 } else if (category['categoryId'] === columnKeys.GENOTYPE_INFO || colId === columnKeys.MEDICAL_CHIEF_COMPLAINT) {
-                    column.renderer = multipleRenderer
+                    if (colId !== columnKeys.GENOTYPE_ANALYSIS) {
+                        column.renderer = multipleRenderer
+                    }
                     if (category['categoryId'] === columnKeys.PHENOTYPE_INFO) column.editor = false
                     // add by hzhang@bits start
                 } else if (category['categoryId'] === columnKeys.PHENOTYPE_INFO) {
@@ -355,7 +357,6 @@ function createColumns() {
                     } else {
                         column.renderer = multipleRenderer
                     }
-                    column.editor = false
                     // add by hzhang@bits end
                 } else if (colId === columnKeys.MEDICAL_BODY_WEIGHT || colId === columnKeys.MEDICAL_BODY_HEIGHT || colId === columnKeys.MEDICAL_HEAD_CIRCUMFERENCE) {
                     column.editor = false
@@ -774,6 +775,8 @@ function onDragOver(event) {
 function onDrop(event) {
     event.preventDefault()
     if (document.getElementById('modal-karte').style.display === 'block') return
+
+    alert('When the file is opened, the entered data will be lost.')
 
     let file = event.dataTransfer.items[0].getAsFile()
     fileReader(file, file.type, true)

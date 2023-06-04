@@ -34,19 +34,19 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="/static/css/pcf/remodal.css" rel="stylesheet">
     <link href="/static/css/pcf/remodal-default-theme.css" rel="stylesheet">
-    <link rel="apple-touch-icon" sizes="180x180" href="/static/images/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/static/images/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/static/images/favicon-16x16.png">
-    <link rel="manifest" href="/static/images/site.webmanifest">
-    <link rel="mask-icon" href="/static/images/safari-pinned-tab.svg" color="#2a3356">
+    <link rel="apple-touch-icon" sizes="180x180" href="/static/record/images/case-favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/static/record/images/case-favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/static/record/images/case-favicon/favicon-16x16.png">
+    <link rel="manifest" href="/static/record/images/case-favicon/site.webmanifest">
+    <link rel="mask-icon" href="/static/record/images/case-favicon/safari-pinned-tab.svg" color="#fc5d13">
+    <meta name="msapplication-TileColor" content="#fc5d13">
+    <meta name="theme-color" content="#ffffff">
     <script src="https://cdn.jsdelivr.net/npm/handsontable@12.3.1/dist/handsontable.full.min.js"></script>
     <link type="text/css" rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/handsontable@12.3.1/dist/handsontable.full.min.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/yamljs@0.3.0/dist/yaml.min.js"></script>
-    <meta name="msapplication-TileColor" content="#2a3356">
-    <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="/static/css/pcf/style-togo.css">
     <link rel="stylesheet" href="/static/record/css/record.css">
     <link rel="stylesheet" href="/static/record/css/record_re.css">
@@ -76,14 +76,14 @@
         </div>
         <ul class="nav-list">
             <li>
-                <a class="sidebar-patients sidebar-selected" href="#" onclick="toggleTableChart('table')">
+                <a class="sidebar-patients sidebar-selected" onclick="toggleTableChart('table')">
                     <div class="sidebar-icon sidebar-patient"></div>
                     <span class="links_name">Cases</span>
                 </a>
                 <!--<span class="tooltip">Patients</span>-->
             </li>
             <li>
-                <a class="sidebar-analytics" href="#" onclick="toggleTableChart('chart')">
+                <a class="sidebar-analytics" onclick="toggleTableChart('chart')">
                     <div class="sidebar-icon sidebar-stats"></div>
                     <span class="links_name">Stats</span>
                 </a>
@@ -91,7 +91,7 @@
             </li>
             <li>
             <li class="">
-                <a href="#" onclick="document.getElementById('import_btn').click()">
+                <a onclick="document.getElementById('import_btn').click()">
                     <div class="sidebar-icon sidebar-open"></div>
                     <span class="text nav-text links_name">File open</span>
                     <input type="file" id="import_btn" onchange="importFile(event)">
@@ -99,7 +99,7 @@
                 <!--<span class="tooltip">File open</span>-->
             </li>
             <li id="menu-save">
-                <a href="#">
+                <a>
                     <div class="sidebar-icon sidebar-save"></div>
                     <span class="links_name">File save
                     </span>
@@ -118,7 +118,7 @@
                 <!-- <div class="popup-bg-cover" style="display: none;"></div> -->
             </li>
             <li>
-                <a class="sidebar-filebond" href="#" onclick="document.getElementById('merge_btn').click()">
+                <a class="sidebar-filebond" onclick="document.getElementById('merge_btn').click()">
                     <div class="sidebar-icon sidebar-bond"></div>
                     <span class="links_name">File merge</span>
                     <input type="file" id="merge_btn" onchange="importFile(event)">
@@ -126,7 +126,7 @@
                 <!--<span class="tooltip">Analytics</span>-->
             </li>
             <!--<li class="contact">
-                <a href="#">
+                <a >
                     <i class="material-symbols-outlined">
                         mail
                     </i>
@@ -138,18 +138,18 @@
     </div>
     <section class="home-section">
         <div class="common-nav-container" id="nav-case">
-            <a href="#" class="common-brand"><img src="/static/record/images/logo_CaseSharing.svg"></a>
+            <a class="common-brand"><img src="/static/record/images/logo_CaseSharing.svg"></a>
             <ul class="nav-items">
                 <!-- Dropdown menu -->
                 <li class="nav-item nav-item-dropdown" id="nav-info">
-                    <a class="dropdown-trigger" href="#">
+                    <a class="dropdown-trigger">
                         <i class="material-symbols-outlined">
                             info
                         </i>
                     </a>
                 </li>
                 <li class="nav-item nav-item-dropdown" id="nav-menu">
-                    <a class="dropdown-trigger" href="#"><i class="material-symbols-outlined">
+                    <a class="dropdown-trigger"><i class="material-symbols-outlined">
                             apps
                         </i></a>
                     <ul class="dropdown-menu common-menu">
@@ -221,7 +221,7 @@
                     </ul>
                 </li>
                 <li class="nav-item nav-item-dropdown" id="nav-language">
-                    <a class="dropdown-trigger" href="#">
+                    <a class="dropdown-trigger">
                         <i class="material-symbols-outlined">
                             public
                         </i>

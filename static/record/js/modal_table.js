@@ -87,7 +87,34 @@ async function geneTable() {
         dataSchema: geneSchema,
         colHeaders: geneHeaders,
         columns: geneColumns,
-        height: '100%'
+        height: '100%',
+        beforeChange: (changes, type) => {
+            if (type === 'edit') {
+                changes.forEach(c => {
+                    let row = c[0]
+                    let colId = c[1]
+                    let newValue = c[3]
+    
+                    if (!newValue) return
+    
+                    geneData[row][colId] = newValue
+                })
+            }
+
+            if (currentPatient) {
+                let patientData = contentData.filter(d => { return d.PCFNo == currentPatient })[0]
+                let geneDataKeys = Object.keys(geneData[0])
+                geneDataKeys.forEach(k => {
+                    patientData[k] = []
+                })
+
+                geneData.forEach(gd => {
+                    for (let [k, v] of Object.entries(gd)) {
+                        patientData[k].push(v)
+                    }
+                })
+            }
+        }
     })
 
     if (!geneHot) {

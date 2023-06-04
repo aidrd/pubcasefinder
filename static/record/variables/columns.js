@@ -331,6 +331,7 @@ let categories = [
             {
                 columnId: 'medical_age_onset',
                 dataKey: 'ageOnset',
+                readOnly: true,
                 inputType: 'text',
                 phenoKey: '',
                 type: 'text',

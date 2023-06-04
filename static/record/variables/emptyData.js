@@ -14,6 +14,8 @@ for (let key in columnKeys) {
     }
 }
 
+newData['genotype_analysis'] = ''
+
 bodyInfoKeys.forEach(k => {
     newData.medical_body_info[0][k.toLocaleLowerCase()] = null
 })
