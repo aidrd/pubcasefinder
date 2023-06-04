@@ -90,7 +90,10 @@ function phenotypeInfo_updateFilterCNT() {
                 let cbx_id = `cbx-filter-${cid}-${i}`;
                 let displayName = optionLang[i];
                 let cnt = 0;
-                phenotypeData[cid].forEach(v => {
+                let targetList = phenotypeData[cid];
+                if(!Array.isArray(targetList))
+                    targetList = [targetList];
+                targetList.forEach(v => {
                     if (v === v_filter) cnt++;
                 });
                 let new_name = `${displayName}(${cnt})`;
