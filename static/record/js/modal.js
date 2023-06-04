@@ -96,10 +96,10 @@ function openModal(patientId) {
         $(`input[name="${columnKeys.MEDICAL_SMOKING}-list"]`).hide() // smoking
         document.querySelector('.tab-btn').click()
         dateOptions(columnKeys.CASE_BIRTH)
-        dateOptions(columnKeys.CASE_AGE)
+        dateOptions(columnKeys.CASE_AGE, true, false)
         dateOptions(columnKeys.CASE_DEATH)
         dateOptions(columnKeys.CASE_EXAMINATION_DAY, true)
-        dateOptions(columnKeys.MEDICAL_AGE_ONSET)
+        dateOptions(columnKeys.MEDICAL_AGE_ONSET, true, false)
 
         // For age
         setOptionsForAge(columnKeys.CASE_AGE)
@@ -122,20 +122,20 @@ function openModal(patientId) {
 
         // For day
         // parent.querySelector(`*[name="${columnKeys.CASE_AGE}_day"]`).innerHTML = createDayOptions();
-        parent.querySelector(`*[name="${columnId}_day"]`).innerHTML = createDayOptions();
+        parent.querySelector(`*[name="${columnId}_day"]`).innerHTML = createDayOptions(false);
     }
 
 
-    function dateOptions(type, includeDay = false) {
+    function dateOptions(type, includeDay = false, padZero = true) {
         let this_month, this_year, today
         today = new Date()
         this_year = today.getFullYear()
         this_month = today.getMonth() + 1
 
         createYearOptions(1900, this_year, `${type}_year`)
-        createMonthOptions(1, 12, `${type}_month`)
+        createMonthOptions(1, 12, `${type}_month`, padZero)
         if (includeDay)
-            document.querySelector(`.tab-wrap *[name="${type}_day"]`).innerHTML = createDayOptions();
+            document.querySelector(`.tab-wrap *[name="${type}_day"]`).innerHTML = createDayOptions(padZero);
     }
 
     function createYearOptions(startYear, endYear, id) {
@@ -150,7 +150,7 @@ function openModal(patientId) {
         return document.querySelector(`.tab-wrap *[name="${id}"]`).innerHTML = opt
     }
 
-    function createMonthOptions(startMonth, endMonth, id) {
+    function createMonthOptions(startMonth, endMonth, id, padZero = true) {
         startMonth = parseInt(startMonth) || 1
         endMonth = parseInt(endMonth)
         let opt = `<option value="-">${translate('select-month')}</option>`
@@ -161,16 +161,16 @@ function openModal(patientId) {
 
             // if (temp % 10 === 0 && end !== 12) display = `${i}s`
 
-            opt += `<option value="${i.toString().padStart(2, '0')}">${display}</option>`
+            opt += `<option value="${padZero ? i.toString().padStart(2, '0') : i}">${display}</option>`
         }
 
         return document.querySelector(`.tab-wrap *[name="${id}"]`).innerHTML = opt
     }
 
-    function createDayOptions(isDisabled = false) {
-        let options = `<option value="-" ${isDisabled ? 'disabled selected' : ''}>${translate('select-day')}</option>`;
+    function createDayOptions(padZero = true) {
+        let options = `<option value="-">${translate('select-day')}</option>`;
         for (let i = 1; i <= 31; i++) {
-            options += `<option value="${isDisabled ? i : i.toString().padStart(2, '0')}">${i}</option>`;
+            options += `<option value="${padZero ? i.toString().padStart(2, '0') : i.toString()}">${i}</option>`;
         }
         return options;
     }
@@ -315,24 +315,22 @@ function openModal(patientId) {
                 } else if (colId === `${columnKeys.CASE_AGE}_year` || colId === `${columnKeys.MEDICAL_AGE_ONSET}_year`) {
                     element = document.querySelector(`.tab-wrap *[name="${colId}"]`)
                     colId = colId === `${columnKeys.CASE_AGE}_year` ? columnKeys.CASE_AGE : columnKeys.MEDICAL_AGE_ONSET
-                    let date = value ? value.toString().split('Y') : ['']
-                    let yearValue = date[0]
-                    if (yearValue) element.value = yearValue
+
+                    let [year, month, day] = parseAgeString(value ? value.toString() : '');
+                    if(year) element.value = year
+
+                    let monthElement = document.querySelector(`.tab-wrap *[name="${colId}_month"]`)
+                    if(month) monthElement.value = month
+                    let dayElement = document.querySelector(`.tab-wrap *[name="${colId}_day"]`)
+                    if(day) dayElement.value = day
                     element.onchange = function () {
                         // onchange(columnKeys.CASE_AGE)
                         onchange(colId)
                     }
-
-                    let monthElement = document.querySelector(`.tab-wrap *[name="${colId}_month"]`)
-                    let monthValue = date[1]?.split('M')[0]
-                    if (monthValue) monthElement.value = monthValue
                     monthElement.onchange = function () {
                         // onchange(columnKeys.CASE_AGE)
                         onchange(colId)
                     }
-                    let dayElement = document.querySelector(`.tab-wrap *[name="${colId}_day"]`)
-                    let dayValue = date[1]?.split('M')[1].slice(0, -1)
-                    if (dayValue) dayElement.value = dayValue
                     dayElement.onchange = function () {
                         // onchange(columnKeys.CASE_AGE)
                         onchange(colId)
@@ -400,22 +398,32 @@ function openModal(patientId) {
         function onchange(key, value, element) {
             let dateKey = [columnKeys.CASE_BIRTH, columnKeys.CASE_DEATH, columnKeys.CASE_EXAMINATION_DAY, columnKeys.CASE_AGE, columnKeys.MEDICAL_AGE_ONSET]
             if (dateKey.includes(key)) {
+                const defaultValue = '-'
                 let pre = key
                 if (value === '') {
                     value = ''
                 } else {
-                    let year = document.querySelector(`.tab-wrap *[name="${pre}_year"]`).value || '-'
+                    let year = document.querySelector(`.tab-wrap *[name="${pre}_year"]`).value || defaultValue
                     let month = document.querySelector(`.tab-wrap *[name="${pre}_month"]`).value
                     let day = document.querySelector(`.tab-wrap *[name="${pre}_day"]`)?.value
-                    console.log(day)
-                    if (day) {
-                        console.log('here with day')
-                        value = pre === columnKeys.CASE_AGE || pre === columnKeys.MEDICAL_AGE_ONSET ? `${year}Y${month}M${day}D` : `${year}/${month}/${day}`
-                    } else if (year === '-' & month === '-') {
+                    let forAge = pre === columnKeys.CASE_AGE || pre === columnKeys.MEDICAL_AGE_ONSET
+                    if(forAge) {
                         value = ''
-                    }
-                    else {
-                        value = pre === columnKeys.CASE_AGE || pre === columnKeys.MEDICAL_AGE_ONSET ? `${year}Y${month}M${day}D` : `${year}/${month}`
+                        if (year !== defaultValue) {
+                            value += forAge ? year + 'Y' : year
+                        }
+                        if (month !== defaultValue) {
+                            value += forAge ? month + 'M' : (value.length === 0 ? month : '/' + month)
+                        }
+                        if (forAge && day && day !== defaultValue) {
+                            value += forAge ? day + 'D' : (value.length === 0 ? day : '/' + day)
+                        }
+                    } else {
+                        if(year === defaultValue && month === defaultValue && day === defaultValue) { 
+                            value = ''
+                        } else {
+                            value = `${year}/${month}/${day}`
+                        }
                     }
                 }
             }

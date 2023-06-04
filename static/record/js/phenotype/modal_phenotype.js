@@ -307,10 +307,17 @@ function phenotypeInfo_onInputChange(input_obj) {
     let idx = phenotypeData[columnKeys.PHENOTYPE_HPO_ID].indexOf(hpo_id);
 
     if (inputType === 'age') {
-        let year = $input.parent().children('.age-year').val() || 0;
-        let month = $input.parent().children('.age-month').val() || 0;
-        let day = $input.parent().children('.age-day').val() || 0;
-        phenotypeData[cid][idx] = `${year}Y${month.toString().padStart(2, '0')}M${day.toString().padStart(2, '0')}D`;
+        let ageString = '';
+        let year = $input.parent().children('.age-year').val();
+        let month = $input.parent().children('.age-month').val();
+        let day = $input.parent().children('.age-day').val();
+        if(year)
+            ageString += `${year}Y`;
+        if(month)
+            ageString += `${month}M`;
+        if(day)
+            ageString += `${day}D`;
+        phenotypeData[cid][idx] = ageString;
     } else if (inputType === 'text') {
         phenotypeData[cid][idx] = val;
     } else if (inputType === 'select') {
@@ -646,13 +653,7 @@ function phenotypeInfo_createRows() {
             }
 
             if(col.inputType === 'age'){
-                let tokens = phenotypeData[cid][i].split(/[YMD]/);
-                let year = parseInt(tokens?.[0]);
-                let month = parseInt(tokens?.[1]);
-                let day = parseInt(tokens?.[2]);
-                if (!Number.isInteger(year)) year = '';
-                if (!Number.isInteger(month)) month = '';
-                if (!Number.isInteger(day)) day = '';
+                let [year, month, day] = parseAgeString(phenotypeData[cid][i]);
                 let monthOptions = `<option value=''>${translate('select-age-month')}</option>`
                 monthOptions += [...Array(12).keys()].map(i => `<option value=${i} ${i === month ? 'selected' : ''}>${i}</option>`).join('');
                 let dayOptions = `<option value=''>${translate('select-day')}</option>`

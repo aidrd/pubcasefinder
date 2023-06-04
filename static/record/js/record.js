@@ -1634,6 +1634,28 @@ function translate(word) {
     }
 }
 
+function parseAgeString(ageString) {
+    let year = null, month = null, day = null;
+    if(ageString.includes('Y')) {
+        let dateItems = ageString.split("Y");
+        year = parseInt(dateItems[0]);
+        ageString = dateItems[1];
+    }
+    if(ageString.includes('M')) {
+        let dateItems = ageString.split("M");
+        month = parseInt(dateItems[0]);
+        ageString = dateItems[1];
+    }
+    if(ageString.includes('D')) {
+        let dateItems = ageString.split("D");
+        day = parseInt(dateItems[0]);
+    }
+    if (!Number.isInteger(year)) year = '';
+    if (!Number.isInteger(month)) month = '';
+    if (!Number.isInteger(day)) day = '';
+    return [year, month, day]
+}
+
 
 
 let infoTranslations = {
