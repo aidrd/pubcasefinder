@@ -671,9 +671,9 @@ let categories = [
                 displayName: {
                     en: 'HPO ID',
                     ja: 'HPO ID',
-                    ko: '',
-                    zh: '',
-                    zhcht: ''
+                    ko: 'HPO ID',
+                    zh: 'HPO ID',
+                    zhcht: 'HPO ID'
                 }
             },
             {
@@ -685,9 +685,9 @@ let categories = [
                 displayName: {
                     en: 'Symptom',
                     ja: '症状',
-                    ko: '',
-                    zh: '',
-                    zhcht: ''
+                    ko: '증상',
+                    zh: '症状',
+                    zhcht: '症狀'
                 },
                 languages: ['en', 'ja', 'ko', 'zh', 'zhcht']
             },
@@ -709,9 +709,9 @@ let categories = [
                     dataValue: ['no', 'yes'],
                     en: ['No', 'Yes'],
                     ja: ['無', '有'],
-                    ko: [],
-                    zh: [],
-                    zhcht: []
+                    ko: ['No', 'Yes'],
+                    zh: ['No', 'Yes'],
+                    zhcht: ['No', 'Yes']
                 }
             },
             {
@@ -732,9 +732,9 @@ let categories = [
                     dataValue: ['no', 'yes'],
                     en: ['No', 'Yes'],
                     ja: ['無', '有'],
-                    ko: [],
-                    zh: [],
-                    zhcht: []
+                    ko: ['No', 'Yes'],
+                    zh: ['No', 'Yes'],
+                    zhcht: ['No', 'Yes']
                 }
             },
             {
