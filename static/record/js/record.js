@@ -639,10 +639,10 @@ function addRow(data) {
 
     temp.PCFNo = pcfNo
 
-    let num = localStorage.patientCount ? parseInt(localStorage.patientCount) + 1 : hot.countRows() + 1
+    let num = localStorage.caseCount ? parseInt(localStorage.caseCount) + 1 : hot.countRows() + 1
     temp[columnKeys.CASE_ID] = `C${num.toString().padStart(7, 0)}`
 
-    localStorage.patientCount = num
+    localStorage.caseCount = num
     count++
 
     if (data) {
@@ -795,7 +795,7 @@ function fileReader(file, fileType, overwrite) {
                 data: contentData
             })
 
-            localStorage.patientCount = 0
+            localStorage.caseCount = 0
 
             hot.updateSettings(updateSettings)
             hot.render()
@@ -823,11 +823,11 @@ function fileReader(file, fileType, overwrite) {
             }
         }
 
-        if (localStorage.patientCount) {
-            let currentCount = parseInt(localStorage.patientCount)
-            localStorage.patientCount = currentCount + (object.patientCount || object.PATIENTS.length)
+        if (localStorage.caseCount) {
+            let currentCount = parseInt(localStorage.caseCount)
+            localStorage.caseCount = currentCount + (object.caseCount || object.PATIENTS.length)
         } else {
-            localStorage.patientCount = object.patientCount || object.PATIENTS.length
+            localStorage.caseCount = object.caseCount || object.PATIENTS.length
         }
 
         updateTable(object.PATIENTS, fileType)
@@ -1025,7 +1025,7 @@ function getExportData() {
             visibleColumns,
             keyName,
             lang,
-            patientCount: localStorage.patientCount
+            caseCount: localStorage.caseCount
         }
 
         return jsonResult
@@ -1204,7 +1204,7 @@ function rerenderTable() {
 function beforeLoad() {
     console.log('hello')
     if (contentData.length > 0) localStorage.contentData = JSON.stringify(contentData)
-    localStorage.removeItem('patientCount')
+    localStorage.removeItem('caseCount')
     return 'load'
 }
 
@@ -1636,17 +1636,17 @@ function translate(word) {
 
 function parseAgeString(ageString) {
     let year = null, month = null, day = null;
-    if(ageString.includes('Y')) {
+    if (ageString.includes('Y')) {
         let dateItems = ageString.split("Y");
         year = parseInt(dateItems[0]);
         ageString = dateItems[1];
     }
-    if(ageString.includes('M')) {
+    if (ageString.includes('M')) {
         let dateItems = ageString.split("M");
         month = parseInt(dateItems[0]);
         ageString = dateItems[1];
     }
-    if(ageString.includes('D')) {
+    if (ageString.includes('D')) {
         let dateItems = ageString.split("D");
         day = parseInt(dateItems[0]);
     }
