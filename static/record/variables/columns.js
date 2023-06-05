@@ -650,7 +650,7 @@ let categories = [
                 hpo_list: [],
                 schema: 'auto',
                 dataSrcColumnId: 'family_history'
-            }
+            },
         ],
         columns: [
             {
