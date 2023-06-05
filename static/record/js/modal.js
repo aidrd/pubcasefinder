@@ -423,7 +423,11 @@ function openModal(patientId) {
                         if (year === defaultValue && month === defaultValue && (!day || day === defaultValue)) {
                             value = ''
                         } else {
+<<<<<<< HEAD
                             if (day)
+=======
+                            if(day)
+>>>>>>> Fix dateFormat without day
                                 value = `${year}/${month}/${day}`
                             else
                                 value = `${year}/${month}`
