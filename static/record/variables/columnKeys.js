@@ -44,7 +44,6 @@ let columnKeys = {
     PHENOTYPE_MEDICAL_PREVIOUS_HISTORY: 'phenotype_medical_previous_history',
     PHENOTYPE_PROCESS: 'phenotype_process',
     PHENOTYPE_FAMILY_HISTORY: 'phenotype_family_history',
-    PHENOTYPE_ANY_TEXT: 'phenotype_any_text',
     PHENOTYPE_EXCLUDED: 'phenotype_excluded',
     PHENOTYPE_CLINICAL_RELEVANCE: 'phenotype_clinical_relevance',
     PHENOTYPE_SEVERITY: 'phenotype_severity',

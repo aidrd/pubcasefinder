@@ -91,7 +91,7 @@ function phenotypeInfo_updateFilterCNT() {
                 let displayName = optionLang[i];
                 let cnt = 0;
                 let targetList = phenotypeData[cid];
-                if(!Array.isArray(targetList))
+                if (!Array.isArray(targetList))
                     targetList = [targetList];
                 targetList.forEach(v => {
                     if (v === v_filter) cnt++;
@@ -314,11 +314,11 @@ function phenotypeInfo_onInputChange(input_obj) {
         let year = $input.parent().children('.age-year').val();
         let month = $input.parent().children('.age-month').val();
         let day = $input.parent().children('.age-day').val();
-        if(year)
+        if (year)
             ageString += `${year}Y`;
-        if(month)
+        if (month)
             ageString += `${month}M`;
-        if(day)
+        if (day)
             ageString += `${day}D`;
         phenotypeData[cid][idx] = ageString;
     } else if (inputType === 'text') {
@@ -655,7 +655,7 @@ function phenotypeInfo_createRows() {
                 $td2.attr('colspan', colspan);
             }
 
-            if(col.inputType === 'age'){
+            if (col.inputType === 'age') {
                 let [year, month, day] = parseAgeString(phenotypeData[cid][i]);
                 let monthOptions = `<option value=''>${translate('select-age-month')}</option>`
                 monthOptions += [...Array(12).keys()].map(i => `<option value=${i} ${i === month ? 'selected' : ''}>${i}</option>`).join('');
@@ -770,7 +770,6 @@ function phenotypeInfo_addRows() {
                 phenotypeData[hpo.docId][idx] = phenotypeInfo.columns.filter(c => { return c.columnId === hpo.docId })[0].options.dataValue[1]
                 phenotypeData[columnKeys.PHENOTYPE_EXCLUDED][idx] = hpo.is_observed
             } else {
-                phenotypeData[columnKeys.PHENOTYPE_ANY_TEXT][idx] = phenotypeInfo.columns.filter(c => { return c.columnId === columnKeys.PHENOTYPE_ANY_TEXT })[0].options.dataValue[1]
                 phenotypeData[columnKeys.PHENOTYPE_EXCLUDED][idx] = phenotypeInfo.columns.filter(c => { return c.columnId === columnKeys.PHENOTYPE_EXCLUDED })[0].options.dataValue[0]
             }
             return;
@@ -799,17 +798,6 @@ function phenotypeInfo_addRows() {
                 } else {
                     // from manual
                     phenotypeData[c.columnId].push(c.options.dataValue[0])
-                }
-                return
-            }
-
-            if (c.columnId === columnKeys.PHENOTYPE_ANY_TEXT) {
-                if ('docId' in hpo) {
-                    // from document,then set manual flag to no
-                    phenotypeData[c.columnId].push(c.options.dataValue[0])
-                } else {
-                    //manual input,,then set manual flag to yes
-                    phenotypeData[c.columnId].push(c.options.dataValue[1])
                 }
                 return
             }

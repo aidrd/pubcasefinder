@@ -650,15 +650,6 @@ let categories = [
                 hpo_list: [],
                 schema: 'auto',
                 dataSrcColumnId: 'family_history'
-            },
-            {
-                docId: 'phenotype_any_text',
-                withUI: 'yes',
-                title: null,
-                text: null,
-                hpo_list: [],
-                schema: 'manual',
-                dataSrcColumnId: null
             }
         ],
         columns: [
@@ -773,29 +764,6 @@ let categories = [
                     ko: '가족력',
                     zh: '家族史',
                     zhcht: '家族史'
-                },
-                options: {
-                    dataValue: ['no', 'yes'],
-                    en: ['No', 'Yes'],
-                    ja: ['無', '有'],
-                    ko: ['No', 'Yes'],
-                    zh: ['No', 'Yes'],
-                    zhcht: ['No', 'Yes']
-                }
-            },
-            {
-                columnId: 'phenotype_any_text',
-                dataKey: 'source_manual',
-                inputType: 'checkbox',
-                phenoKey: '',
-                type: 'text',
-                table: true,
-                displayName: {
-                    en: 'Any Text',
-                    ja: '任意のテキスト',
-                    ko: 'Any Text',
-                    zh: 'Any Text',
-                    zhcht: 'Any Text'
                 },
                 options: {
                     dataValue: ['no', 'yes'],
