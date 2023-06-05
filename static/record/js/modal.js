@@ -45,8 +45,9 @@ $('.nav-list a').on('click', closeKarteModal)
 function openModal(patientId) {
     console.log('openModal')
     var modal = '#modal-karte'
-    toReset = true
 
+    toReset = true
+    const minimumYearOfBirth = 1800;
     modalReset()
 
     modalResize()
@@ -132,14 +133,14 @@ function openModal(patientId) {
         this_year = today.getFullYear()
         this_month = today.getMonth() + 1
 
-        createYearOptions(1900, this_year, `${type}_year`)
+        createYearOptions(minimumYearOfBirth, this_year, `${type}_year`)
         createMonthOptions(1, 12, `${type}_month`, padZero)
         if (includeDay)
             document.querySelector(`.tab-wrap *[name="${type}_day"]`).innerHTML = createDayOptions(padZero);
     }
 
     function createYearOptions(startYear, endYear, id) {
-        startYear = parseInt(startYear) || 1
+        startYear = parseInt(startYear) || minimumYearOfBirth
         endYear = parseInt(endYear)
         let opt = `<option value="-">${translate('select-year')}</option>`
 
@@ -419,7 +420,7 @@ function openModal(patientId) {
                             value += forAge ? day + 'D' : (value.length === 0 ? day : '/' + day)
                         }
                     } else {
-                        if (year === defaultValue && month === defaultValue && day === defaultValue) {
+                        if (year === defaultValue && month === defaultValue && (!day || day === defaultValue)) {
                             value = ''
                         } else {
                             if (day)
