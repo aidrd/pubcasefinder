@@ -317,12 +317,12 @@ function openModal(patientId) {
                     colId = colId === `${columnKeys.CASE_AGE}_year` ? columnKeys.CASE_AGE : columnKeys.MEDICAL_AGE_ONSET
 
                     let [year, month, day] = parseAgeString(value ? value.toString() : '');
-                    if(year) element.value = year
+                    if (year) element.value = year
 
                     let monthElement = document.querySelector(`.tab-wrap *[name="${colId}_month"]`)
-                    if(month) monthElement.value = month
+                    if (month) monthElement.value = month
                     let dayElement = document.querySelector(`.tab-wrap *[name="${colId}_day"]`)
-                    if(day) dayElement.value = day
+                    if (day) dayElement.value = day
                     element.onchange = function () {
                         // onchange(columnKeys.CASE_AGE)
                         onchange(colId)
@@ -407,7 +407,7 @@ function openModal(patientId) {
                     let month = document.querySelector(`.tab-wrap *[name="${pre}_month"]`).value
                     let day = document.querySelector(`.tab-wrap *[name="${pre}_day"]`)?.value
                     let forAge = pre === columnKeys.CASE_AGE || pre === columnKeys.MEDICAL_AGE_ONSET
-                    if(forAge) {
+                    if (forAge) {
                         value = ''
                         if (year !== defaultValue) {
                             value += forAge ? year + 'Y' : year
@@ -419,10 +419,13 @@ function openModal(patientId) {
                             value += forAge ? day + 'D' : (value.length === 0 ? day : '/' + day)
                         }
                     } else {
-                        if(year === defaultValue && month === defaultValue && day === defaultValue) { 
+                        if (year === defaultValue && month === defaultValue && day === defaultValue) {
                             value = ''
                         } else {
-                            value = `${year}/${month}/${day}`
+                            if (day)
+                                value = `${year}/${month}/${day}`
+                            else
+                                value = `${year}/${month}`
                         }
                     }
                 }
