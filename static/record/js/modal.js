@@ -45,7 +45,6 @@ $('.nav-list a').on('click', closeKarteModal)
 function openModal(patientId) {
     console.log('openModal')
     var modal = '#modal-karte'
-
     toReset = true
     const minimumYearOfBirth = 1800;
     modalReset()
@@ -420,14 +419,10 @@ function openModal(patientId) {
                             value += forAge ? day + 'D' : (value.length === 0 ? day : '/' + day)
                         }
                     } else {
-                        if (year === defaultValue && month === defaultValue && (!day || day === defaultValue)) {
+                        if(year === defaultValue && month === defaultValue && (!day || day === defaultValue)) { 
                             value = ''
                         } else {
-<<<<<<< HEAD
-                            if (day)
-=======
                             if(day)
->>>>>>> Fix dateFormat without day
                                 value = `${year}/${month}/${day}`
                             else
                                 value = `${year}/${month}`
