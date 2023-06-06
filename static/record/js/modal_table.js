@@ -240,7 +240,7 @@ function deleteModalRenderer(instance, td, row, col, prop, value, cellProperties
 
     td.innerHTML = `<div class="list-icon list-delete"></div>`
     td.onclick = function() {
-        if (confirm('削除してもよろしいでしょうか。')) {
+        if (confirm(translate('phenotypic-info-comfirm-delete'))) {
             if ($(td).parents('div#geneModal').length > 0) {
                 geneHot.alter('remove_row', row, 1)
             } else if ($(td).parents('div#bodyModal').length > 0) {

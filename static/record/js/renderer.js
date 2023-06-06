@@ -28,7 +28,7 @@ function removeRenderer(instance, td, row, col, prop, value, cellProperties) {
 
     td.innerHTML = `<div class="list-icon list-delete"></div>`
     td.onclick = function() {
-        if (confirm('削除してもよろしいでしょうか。')) {
+        if (confirm(translate('phenotypic-info-comfirm-delete'))) {
             hot.alter('remove_row', row, 1)
             document.getElementById('row_count').innerHTML = hot.countRows()
         }
