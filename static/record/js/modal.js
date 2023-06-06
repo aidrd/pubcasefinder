@@ -425,10 +425,10 @@ function openModal(patientId) {
                             value += forAge ? day + 'D' : (value.length === 0 ? day : '/' + day)
                         }
                     } else {
-                        if(year === defaultValue && month === defaultValue && (!day || day === defaultValue)) { 
+                        if (year === defaultValue && month === defaultValue && (!day || day === defaultValue)) { 
                             value = ''
                         } else {
-                            if(day)
+                            if (day)
                                 value = `${year}/${month}/${day}`
                             else
                                 value = `${year}/${month}`
