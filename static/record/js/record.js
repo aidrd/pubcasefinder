@@ -805,6 +805,8 @@ function fileReader(file, fileType, overwrite) {
             object = convertCSVToJSON(data)
         } else {
             object = JSON.parse(data)
+            customColumnCount = 0
+            customColumns = []
 
             for (let [k, v] of Object.entries(object.keyName)) {
                 dataSchema[k] = null
