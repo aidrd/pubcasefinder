@@ -57,6 +57,9 @@ function openModal(patientId) {
 
     $(modal).fadeIn()
 
+
+    geneTable()
+
     $('.modal-close, .modal-copy').off().click(function (e) {
         editTable($(this).hasClass('modal-close'))
 

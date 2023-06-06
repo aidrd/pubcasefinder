@@ -1128,18 +1128,7 @@ function editTable(isSave) {
             }
         })
 
-        if (geneData.length > 0) {
-            let geneDataKeys = Object.keys(geneData[0])
-            geneDataKeys.forEach(k => {
-                newPatient[k] = []
-            })
-
-            geneData.forEach(gd => {
-                for (let [k, v] of Object.entries(gd)) {
-                    newPatient[k].push(v)
-                }
-            })
-        }
+        updatePatientGeneData(newPatient);
 
         if (currentBodyData.length > 0) {
             newPatient[columnKeys.MEDICAL_BODY_INFO] = []
@@ -1162,9 +1151,10 @@ function editTable(isSave) {
     // existing patient
     let patientData = contentData.filter(d => { return d.PCFNo == currentPatient })[0]
 
-    if (geneData.length > 0) {
-        let geneDataKeys = Object.keys(geneData[0])
-        geneDataKeys.forEach(k => {
+    updatePatientGeneData(patientData);
+
+    function updatePatientGeneData(patientData) {    
+        geneDataKey.forEach(k => {
             patientData[k] = []
         })
 
@@ -1174,6 +1164,7 @@ function editTable(isSave) {
             }
         })
     }
+
 
     // add by hzhang@bits start
     Object.keys(phenotypeData).forEach(cid => {
@@ -1271,10 +1262,7 @@ function setInitialLanguage() {
                 $('.show').removeClass('show')
                 $(li).addClass('show')
                 $(div).addClass('show')
-
-                if (category.categoryId === columnKeys.GENOTYPE_INFO) {
-                    geneTable()
-                } else if (category.categoryId === columnKeys.MEDICAL_INFO) {
+                if (category.categoryId === columnKeys.MEDICAL_INFO) {
                     bodyTable()
                 }
             })
