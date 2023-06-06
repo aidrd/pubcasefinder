@@ -62,6 +62,9 @@ function openModal(patientId) {
 
     $('.modal-close, .modal-copy').off().click(function (e) {
         editTable($(this).hasClass('modal-close'))
+        // Avoid bugs when modal-close is double clicked
+        if ($(this).hasClass('modal-close'))
+            $(this).off()
 
         if ($(this).hasClass('modal-copy')) copyPatient()
 
