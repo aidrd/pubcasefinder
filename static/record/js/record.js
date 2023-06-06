@@ -825,12 +825,12 @@ function fileReader(file, fileType, overwrite) {
 
         if (localStorage.caseCount) {
             let currentCount = parseInt(localStorage.caseCount)
-            localStorage.caseCount = currentCount + (object.caseCount || object.PATIENTS.length)
+            localStorage.caseCount = currentCount + (object.caseCount || object.CASES.length)
         } else {
-            localStorage.caseCount = object.caseCount || object.PATIENTS.length
+            localStorage.caseCount = object.caseCount || object.CASES.length
         }
 
-        updateTable(object.PATIENTS, fileType)
+        updateTable(object.CASES, fileType)
 
         if (object.visibleColumns) {
             colHeaders.length = 2
@@ -908,7 +908,7 @@ function convertCSVToJSON(csv, isExport) {
         }
     })
 
-    return { PATIENTS: patientsData }
+    return { CASES: patientsData }
 }
 
 function getColumnId(columnHeader) {
@@ -976,8 +976,8 @@ function getExportData() {
     }
 
     if (type === 'json') exportedString = getJSONDownload(dlData)
-    if (type === 'csv') exportedString = Papa.unparse(dlData.PATIENTS)
-    if (type === 'tsv') exportedString = Papa.unparse(dlData.PATIENTS, { delimiter: '\t' })
+    if (type === 'csv') exportedString = Papa.unparse(dlData.CASES)
+    if (type === 'tsv') exportedString = Papa.unparse(dlData.CASES, { delimiter: '\t' })
 
     exportFile(type, exportedString)
 
@@ -1021,7 +1021,7 @@ function getExportData() {
         })
 
         jsonResult = {
-            PATIENTS: patientsData,
+            CASES: patientsData,
             visibleColumns,
             keyName,
             lang,
@@ -1055,7 +1055,7 @@ function downloadSample(type) {
     let num = hot.countRows() + 1
     temp['症例ID'] = `C${num.toString().padStart(7, 0)}`
 
-    if (type === 'json') sampleData = { 'PATIENTS': [temp] }
+    if (type === 'json') sampleData = { 'CASES': [temp] }
     if (type === 'excel') sampleData = Papa.unparse([temp], { delimiter: '\t' })
 
     exportFile(type === 'json' ? type : 'tsv', sampleData)
