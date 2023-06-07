@@ -36,6 +36,8 @@ async function geneTable() {
     let geneTypeInfo = geneInfo[0].columns
     
     geneTypeInfo.forEach(g => {
+        if (g.columnId === columnKeys.GENOTYPE_ANALYSIS) return
+
         let displayName = g['displayName'][lang] || g['displayName']['en']
         let options
         if (g.options) {
@@ -85,7 +87,34 @@ async function geneTable() {
         dataSchema: geneSchema,
         colHeaders: geneHeaders,
         columns: geneColumns,
-        height: '100%'
+        height: '100%',
+        beforeChange: (changes, type) => {
+            if (type === 'edit') {
+                changes.forEach(c => {
+                    let row = c[0]
+                    let colId = c[1]
+                    let newValue = c[3]
+    
+                    if (!newValue) return
+    
+                    geneData[row][colId] = newValue
+                })
+            }
+
+            if (currentPatient) {
+                let patientData = contentData.filter(d => { return d.PCFNo == currentPatient })[0]
+                let geneDataKeys = Object.keys(geneData[0])
+                geneDataKeys.forEach(k => {
+                    patientData[k] = []
+                })
+
+                geneData.forEach(gd => {
+                    for (let [k, v] of Object.entries(gd)) {
+                        patientData[k].push(v)
+                    }
+                })
+            }
+        }
     })
 
     if (!geneHot) {
@@ -107,8 +136,8 @@ async function bodyTable() {
 
     if (currentPatient) {
         let patientData = contentData.filter(d => { return d.PCFNo == currentPatient })[0]
-        if (!patientData['m013']) patientData['m013'] = []
-        bodyData = patientData['m013']
+        if (!patientData[columnKeys.MEDICAL_BODY_INFO]) patientData[columnKeys.MEDICAL_BODY_INFO] = []
+        bodyData = patientData[columnKeys.MEDICAL_BODY_INFO]
         currentBodyData = bodyData
     }
 
@@ -118,7 +147,7 @@ async function bodyTable() {
     bodySchema.date = null
     bodyHeaders.push(translate('date'))
     bodyColumns.push({
-        data: 'm013_1',
+        data: columnKeys.MEDICAL_BODY_INFO_DATE,
         type: 'date',
         dateFormat: 'YYYY/MM/DD',
         correctFormat: true
@@ -211,7 +240,7 @@ function deleteModalRenderer(instance, td, row, col, prop, value, cellProperties
 
     td.innerHTML = `<div class="list-icon list-delete"></div>`
     td.onclick = function() {
-        if (confirm('削除してもよろしいでしょうか。')) {
+        if (confirm(translate('phenotypic-info-comfirm-delete'))) {
             if ($(td).parents('div#geneModal').length > 0) {
                 geneHot.alter('remove_row', row, 1)
             } else if ($(td).parents('div#bodyModal').length > 0) {

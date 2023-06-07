@@ -1,4 +1,5 @@
 $('.modal_open').click(() => {
+    console.log('hello')
     openModal(false)
 })
 
@@ -16,16 +17,6 @@ $('#nav-language').click(() => {
     $('#dropdown-language').toggleClass('dropdown-menu-open')
 })
 
-// $('#menu-save').click((e) => {
-//     closeKarteModal()
-//     if (e.target.closest('.save-panel')) return
-//     $('.save-panel').toggleClass('save-panel-open');
-//     $('#menu-save div.popup-bg-cover')[0].style.display = "block";
-// })
-// $('#menu-save div.popup-bg-cover').click((e) => {
-//     $('.save-panel').toggleClass('save-panel-open');
-// });
-
 $('#menu-save').click((e) => {
     closeKarteModal();
     if (e.target.closest('.save-panel')) return;
@@ -39,6 +30,8 @@ $('#menu-save .popup-bg-cover').click(() => {
 });
 
 $(document).mouseup((e) => {
+    console.log('clicked', e.target)
+
     const container = $('.save-panel');
     if (!container.is(e.target) && container.has(e.target).length === 0) {
         container.removeClass('save-panel-open');
@@ -49,40 +42,11 @@ $(document).mouseup((e) => {
 
 $('.nav-list a').on('click', closeKarteModal)
 
-// window.onclick = (e) => {
-//     if ($('.save-panel-open')) {
-//         console.log(e.target.closest('.save-panel'))
-//         return
-//     }
-
-//     console.log('not open')
-//     //     if (!e.target.closest('.save-panel')) $('.save-panel-open').toggleClass('save-panel-open')
-// }
-
-// $(function () {
-//     $('.tab-btn').on('click', function () {
-//         var tabWrap = $(this).parents('.tab-wrap')
-//         var tabBtn = tabWrap.find('.tab-btn')
-//         var tabContents = tabWrap.find('.tab-contents')
-//         tabBtn.removeClass('show')
-//         $(this).addClass('show')
-//         var elmIndex = tabBtn.index(this)
-//         tabContents.removeClass('show')
-//         tabContents.eq(elmIndex).addClass('show')
-
-//         if ($(tabContents.eq(elmIndex)).children('#geneModal')[0]) {
-//             geneTable()
-//         } else if ($(tabContents.eq(elmIndex)).find('#bodyModal')[0]) {
-//             bodyTable()
-//         }
-//     })
-// })
-
 function openModal(patientId) {
-    // $('body').append('<div class="modal_bg modal_karte_bg"></div>')
-
+    console.log('openModal')
     var modal = '#modal-karte'
-
+    toReset = true
+    const minimumYearOfBirth = 1800;
     modalReset()
 
     modalResize()
@@ -93,23 +57,26 @@ function openModal(patientId) {
 
     $(modal).fadeIn()
 
+
+    geneTable()
+
     $('.modal-close, .modal-copy').off().click(function (e) {
         editTable($(this).hasClass('modal-close'))
+        // Avoid bugs when modal-close is double clicked
+        if ($(this).hasClass('modal-close'))
+            $(this).off()
 
         if ($(this).hasClass('modal-copy')) copyPatient()
 
         $('.modal_box').fadeOut()
-        // $('.modal_bg').fadeOut(1000, function () {
-        //     $('.modal_bg').remove()
-        // })
 
         bodyData = []
         bodyTable()
     })
-
-    $('.modal-phenopackets').off().click(function (e) {
-        generatePhenopackets()
-    })
+    //This will be activated again when we go live.
+    // $('.modal-phenopackets').off().click(function (e) {
+    //     generatePhenopackets()
+    // })
 
     $(window).on('resize', function () {
         modalResize()
@@ -127,7 +94,7 @@ function openModal(patientId) {
     }
 
     function modalReset() {
-        $(`.tab-wrap input[type="text"], .tab-wrap textarea, .tab-wrap select`).val('')
+        $(`.tab-wrap input[type="text"], .tab-wrap input[type="number"], .tab-wrap textarea, .tab-wrap select`).val('')
         $('.tab-wrap input:radio').prop('checked', false)
         $(`#${columnKeys.CASE_DEATH}`).parent().hide()
         $(`input[name="${columnKeys.MEDICAL_ALLERGIES}-list"]`).hide() // allergies
@@ -135,49 +102,53 @@ function openModal(patientId) {
         $(`input[name="${columnKeys.MEDICAL_SMOKING}-list"]`).hide() // smoking
         document.querySelector('.tab-btn').click()
         dateOptions(columnKeys.CASE_BIRTH)
-        dateOptions(columnKeys.CASE_AGE)
+        dateOptions(columnKeys.CASE_AGE, true, false)
         dateOptions(columnKeys.CASE_DEATH)
         dateOptions(columnKeys.CASE_EXAMINATION_DAY, true)
+        dateOptions(columnKeys.MEDICAL_AGE_ONSET, true, false)
 
         // For age
-        setOptionsForAge()
+        setOptionsForAge(columnKeys.CASE_AGE)
+        setOptionsForAge(columnKeys.MEDICAL_AGE_ONSET)
 
         // add by hzhang@bits start
         phenotypeInfo_reset()
         // add by hzhang@bits end
     }
 
-    function setOptionsForAge() {
+    function setOptionsForAge(columnId) {
         let parent = document.querySelector(`.tab-wrap`);
         // For month
-        let options = `<option value="0">${translate('select-age-month')}</option>`;
+        let options = `<option value="-">${translate('select-age-month')}</option>`;
         for (let i = 0; i <= 11; i++) {
-            options += `<option value="${i.toString().padStart(2, '0')}">${i}</option>`;
+            options += `<option value="${i}">${i}</option>`;
         }
-        parent.querySelector(`*[name="${columnKeys.CASE_AGE}_month"]`).innerHTML = options;
+        // parent.querySelector(`*[name="${columnKeys.CASE_AGE}_month"]`).innerHTML = options;
+        parent.querySelector(`*[name="${columnId}_month"]`).innerHTML = options;
 
         // For day
-        parent.querySelector(`*[name="${columnKeys.CASE_AGE}_day"]`).innerHTML = createDayOptions();
-
+        // parent.querySelector(`*[name="${columnKeys.CASE_AGE}_day"]`).innerHTML = createDayOptions();
+        parent.querySelector(`*[name="${columnId}_day"]`).innerHTML = createDayOptions(false);
     }
 
-    function dateOptions(type, includeDay = false) {
+
+    function dateOptions(type, includeDay = false, padZero = true) {
         let this_month, this_year, today
         today = new Date()
         this_year = today.getFullYear()
         this_month = today.getMonth() + 1
 
-        createYearOptions(1900, this_year, `${type}_year`)
-        createMonthOptions(1, 12, `${type}_month`)
-        if(includeDay)
-            document.querySelector(`.tab-wrap *[name="${type}_day"]`).innerHTML = createDayOptions();
+        createYearOptions(minimumYearOfBirth, this_year, `${type}_year`)
+        createMonthOptions(1, 12, `${type}_month`, padZero)
+        if (includeDay)
+            document.querySelector(`.tab-wrap *[name="${type}_day"]`).innerHTML = createDayOptions(padZero);
     }
 
     function createYearOptions(startYear, endYear, id) {
-        startYear = parseInt(startYear) || 1
+        startYear = parseInt(startYear) || minimumYearOfBirth
         endYear = parseInt(endYear)
-        let opt = `<option value="0">${translate('select-year')}</option>`
-        
+        let opt = `<option value="-">${translate('select-year')}</option>`
+
         for (let i = endYear; i >= startYear; i--) {
             opt += `<option value="${i.toString()}"}>${i}</option>`
         }
@@ -185,10 +156,10 @@ function openModal(patientId) {
         return document.querySelector(`.tab-wrap *[name="${id}"]`).innerHTML = opt
     }
 
-    function createMonthOptions(startMonth, endMonth, id) {
+    function createMonthOptions(startMonth, endMonth, id, padZero = true) {
         startMonth = parseInt(startMonth) || 1
         endMonth = parseInt(endMonth)
-        let opt = `<option value="0">${translate('select-month')}</option>`
+        let opt = `<option value="-">${translate('select-month')}</option>`
 
         for (let i = startMonth; i <= endMonth; i++) {
             let display = i
@@ -196,16 +167,16 @@ function openModal(patientId) {
 
             // if (temp % 10 === 0 && end !== 12) display = `${i}s`
 
-            opt += `<option value="${i.toString().padStart(2, '0')}">${display}</option>`
+            opt += `<option value="${padZero ? i.toString().padStart(2, '0') : i}">${display}</option>`
         }
-       
+
         return document.querySelector(`.tab-wrap *[name="${id}"]`).innerHTML = opt
     }
 
-    function createDayOptions() {
-        let options = `<option value="0">${translate('select-day')}</option>`;
+    function createDayOptions(padZero = true) {
+        let options = `<option value="-">${translate('select-day')}</option>`;
         for (let i = 1; i <= 31; i++) {
-            options += `<option value="${i.toString().padStart(2, '0')}">${i}</option>`;
+            options += `<option value="${padZero ? i.toString().padStart(2, '0') : i.toString()}">${i}</option>`;
         }
         return options;
     }
@@ -239,7 +210,7 @@ function openModal(patientId) {
             addRow()
             patientData = contentData[contentData.length - 1]
             currentPatient = patientData['PCFNo']
-            PCFNo = patientData['PCFNo']      
+            PCFNo = patientData['PCFNo']
         }
 
         document.getElementById('PCFNo').nextElementSibling.innerHTML = PCFNo
@@ -259,6 +230,7 @@ function openModal(patientId) {
                     case columnKeys.CASE_DEATH:
                     case columnKeys.CASE_EXAMINATION_DAY:
                     case columnKeys.CASE_AGE:
+                    case columnKeys.MEDICAL_AGE_ONSET:
                         value = patientData[colId]
                         colId = `${colId}_year`
                         break
@@ -273,34 +245,29 @@ function openModal(patientId) {
                 let element = document.querySelector(`.tab-wrap *[name="${colId}"]`)
                 if (!element) return
 
-                let radioInput = $(`.tab-wrap input[name="${colId}"]`)
-                // let radioInput = document.querySelectorAll(`.tab-wrap input[name="${colId}"]`)
-
                 if (colId === columnKeys.CASE_LIFE_STATUS) {
                     let parent = $(`#${columnKeys.CASE_DEATH}`).parent()
                     showHideDeathDate(parent, 'deceased')
-                } else if(colId === `${columnKeys.CASE_EXAMINATION_DAY}_year` || colId === `${columnKeys.CASE_DEATH}_year`) {
-                    // let key = colId.split('_')[0]
-                    // console.log(key, colId)
+                } else if (colId === `${columnKeys.CASE_EXAMINATION_DAY}_year` || colId === `${columnKeys.CASE_DEATH}_year`) {
                     let monthId = colId === `${columnKeys.CASE_EXAMINATION_DAY}_year` ? `${columnKeys.CASE_EXAMINATION_DAY}_month` : `${columnKeys.CASE_DEATH}_month`
                     let date = value ? value.toString().split('/') : ['']
                     let yearValue = date[0]
                     if (yearValue) element.value = yearValue
                     element.onchange = function () {
-                        onchange(key)
+                        onchange(c.columnId)
                     }
 
                     let monthElement = document.querySelector(`.tab-wrap *[name="${monthId}"]`)
                     let monthValue = date[1]
                     if (monthValue) monthElement.value = monthValue
                     monthElement.onchange = function () {
-                        onchange(key)
+                        onchange(c.columnId)
                     }
                     let dayElement = document.querySelector(`.tab-wrap *[name="${columnKeys.CASE_EXAMINATION_DAY}_day"]`)
                     let dayValue = date[2]
                     if (dayValue) dayElement.value = dayValue
                     dayElement.onchange = function () {
-                        onchange(key)
+                        onchange(c.columnId)
                     }
                     return
                 } else if (colId === `${columnKeys.CASE_BIRTH}_year` || colId === `${columnKeys.CASE_DEATH}_year`) {
@@ -351,6 +318,30 @@ function openModal(patientId) {
                     }
 
                     return
+                } else if (colId === `${columnKeys.CASE_AGE}_year` || colId === `${columnKeys.MEDICAL_AGE_ONSET}_year`) {
+                    element = document.querySelector(`.tab-wrap *[name="${colId}"]`)
+                    colId = colId === `${columnKeys.CASE_AGE}_year` ? columnKeys.CASE_AGE : columnKeys.MEDICAL_AGE_ONSET
+
+                    let [year, month, day] = parseAgeString(value ? value.toString() : '');
+                    if (year !== '') element.value = year
+
+                    let monthElement = document.querySelector(`.tab-wrap *[name="${colId}_month"]`)
+                    if (month !== '') monthElement.value = month
+                    let dayElement = document.querySelector(`.tab-wrap *[name="${colId}_day"]`)
+                    if (day !== '') dayElement.value = day
+                    element.onchange = function () {
+                        // onchange(columnKeys.CASE_AGE)
+                        onchange(colId)
+                    }
+                    monthElement.onchange = function () {
+                        // onchange(columnKeys.CASE_AGE)
+                        onchange(colId)
+                    }
+                    dayElement.onchange = function () {
+                        // onchange(columnKeys.CASE_AGE)
+                        onchange(colId)
+                    }
+                    return
                 } else if (colId === columnKeys.CASE_GROUP) {
                     document.getElementById('group_options').onchange = function (e) {
                         onchange(columnKeys.CASE_GROUP, e.target.value)
@@ -368,39 +359,15 @@ function openModal(patientId) {
                 if ([columnKeys.MEDICAL_ALLERGIES, columnKeys.MEDICAL_DRINKING, columnKeys.MEDICAL_SMOKING].includes(colId)) {
                     $(`.tab-wrap input[name="${colId}"][value="${value ? 'yes' : 'no'}"]`).prop('checked', true)
 
-                    let textInput = $(`.tab-wrap input[name="${colId}-list"]`)
+                    let textInput = $(`.tab-wrap input[name="${colId}"]`)
 
                     if (value) {
                         textInput.show()
                         textInput.val(value)
                     }
 
-                    // radioInput.forEach(r => {
-                    //     r.addEventListener('change', (e) => {
-                    //         let radioValue = radioInput.filter(':checked').val()
-                    //         if (radioValue === 'no') {
-                    //             textInput.hide()
-                    //             onchange(colId, '')
-                    //         } else {
-                    //             textInput.show()
-                    //             textInput.on('change', () => {
-                    //                 onchange(colId, textInput.val())
-                    //             })
-                    //         }
-                    //     })
-                    // })
-
-                    radioInput.on('click change', () => {
-                        let radioValue = radioInput.filter(':checked').val()
-                        if (radioValue === 'no') {
-                            textInput.hide()
-                            onchange(colId, '')
-                        } else {
-                            textInput.show()
-                            textInput.on('change', () => {
-                                onchange(colId, textInput.val())
-                            })
-                        }
+                    textInput.on('change', () => {
+                        onchange(colId, textInput.val())
                     })
 
                     return
@@ -435,22 +402,37 @@ function openModal(patientId) {
         })
 
         function onchange(key, value, element) {
-            let dateKey = [columnKeys.CASE_BIRTH, columnKeys.CASE_DEATH, columnKeys.CASE_EXAMINATION_DAY, columnKeys.CASE_AGE]
-
+            let dateKey = [columnKeys.CASE_BIRTH, columnKeys.CASE_DEATH, columnKeys.CASE_EXAMINATION_DAY, columnKeys.CASE_AGE, columnKeys.MEDICAL_AGE_ONSET]
             if (dateKey.includes(key)) {
+                const defaultValue = '-'
                 let pre = key
                 if (value === '') {
                     value = ''
                 } else {
-                    let year = document.querySelector(`.tab-wrap *[name="${pre}_year"]`).value
+                    let year = document.querySelector(`.tab-wrap *[name="${pre}_year"]`).value || defaultValue
                     let month = document.querySelector(`.tab-wrap *[name="${pre}_month"]`).value
                     let day = document.querySelector(`.tab-wrap *[name="${pre}_day"]`)?.value
-                    if (year === '0' & month === '0') {
+                    let forAge = pre === columnKeys.CASE_AGE || pre === columnKeys.MEDICAL_AGE_ONSET
+                    if (forAge) {
                         value = ''
-                    } else if(day) {
-                        value = `${year}/${month}/${day}`
-                    }  else {
-                        value = `${year}/${month}`
+                        if (year !== defaultValue) {
+                            value += forAge ? year + 'Y' : year
+                        }
+                        if (month !== defaultValue) {
+                            value += forAge ? month + 'M' : (value.length === 0 ? month : '/' + month)
+                        }
+                        if (forAge && day && day !== defaultValue) {
+                            value += forAge ? day + 'D' : (value.length === 0 ? day : '/' + day)
+                        }
+                    } else {
+                        if (year === defaultValue && month === defaultValue && (!day || day === defaultValue)) { 
+                            value = ''
+                        } else {
+                            if (day)
+                                value = `${year}/${month}/${day}`
+                            else
+                                value = `${year}/${month}`
+                        }
                     }
                 }
             }
@@ -463,9 +445,9 @@ function openModal(patientId) {
                 }
             })
 
-            let columnIdx = existingColumns.indexOf(key) + actions.length
+            let columnIdx = existingColumns.indexOf(key)
 
-            if (columnIdx <= 0) {
+            if (columnIdx >= 0) {
                 columnIdx += actions.length
                 hot.setDataAtCell(patientIdx, columnIdx, value)
             }
@@ -654,7 +636,7 @@ document.addEventListener('mousemove', (event) => {
     const delta = event.clientX - lastX;
     lastX = event.clientX;
     const modalWidth = parseInt(getComputedStyle(modal).getPropertyValue('width'));
-    const newWidth = modalWidth - delta;
+    let newWidth = modalWidth - delta;
     if (newWidth < 400) newWidth = 400;
     if (newWidth < 520) {
         document.querySelectorAll("#modal-karte .tab-wrap ul .tab-btn span").forEach(elem => elem.style.display = "none");

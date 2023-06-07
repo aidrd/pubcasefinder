@@ -8,7 +8,9 @@ setInitialLanguage()
 let count
 let toReset = true
 
-let defaultColumns = ['caseSolved', 'chiefComplaint', 'finalDiagnosis', 'clinicalDiagnosis', 'sex', 'age', 'birth', 'lifeStatus', 'group', 'presenceOrAbsenceOfOnset', 'examinationDay', 'relationship', 'familyId', 'patientId']
+// let defaultColumns = ['caseSolved', 'chiefComplaint', 'finalDiagnosis', 'clinicalDiagnosis', 'case_sex', 'age', 'case_birth', 'lifeStatus', 'group', 'presenceOrAbsenceOfOnset', 'examinationDay', 'relationship', 'case_family_id', 'case_info']
+let defaultColumns = [columnKeys.MEDICAL_CASE_SOLVED, columnKeys.MEDICAL_CHIEF_COMPLAINT, columnKeys.MEDICAL_FINAL_DIAGNOSIS, columnKeys.MEDICAL_CLINICAL_DIAGNOSIS, columnKeys.CASE_SEX, columnKeys.CASE_AGE, columnKeys.CASE_BIRTH, columnKeys.CASE_LIFE_STATUS, columnKeys.CASE_GROUP, columnKeys.CASE_PRESENCE_OR_ABSENCE_OF_ONSET, columnKeys.CASE_EXAMINATION_DAY, columnKeys.CASE_RELATIONSHIP, columnKeys.CASE_FAMILY_ID, columnKeys.CASE_ID]
+// defaultColumns = [columnKeys.GENOTYPE_ANALYSIS, columnKeys.CASE_ID]
 let actions = ['REMOVE', 'EDIT']
 actions = ['EDIT', 'REMOVE']
 
@@ -276,10 +278,10 @@ function createColumns() {
 
         categories.forEach(category => {
             category.columns.forEach(c => {
-                let key = c.dataKey
                 let colId = c.columnId
                 let displayName = c['displayName'][lang] || c['displayName']['en']
 
+                let dataSchemaColId = colId
                 let options
                 if (c.options) {
                     options = c['options'][lang].length > 0 ? c['options'][lang] : c['options']['en']
@@ -299,7 +301,7 @@ function createColumns() {
 
                 if (c.type === 'date') {
                     column.dateFormat = c.dateFormat || 'YYYY/MM'
-                    column.correctFormat = true
+                    // column.correctFormat = true
                     column.datePickerConfig = {
                         dateFormat: c.dateFormat || 'DD/MM/YYYY',
                         firstDay: 0,
@@ -344,23 +346,23 @@ function createColumns() {
                     column.source = groupOptions
                     if (colId === columnKeys.CASE_FAMILY_ID) column.source = familyOptions
                 } else if (category['categoryId'] === columnKeys.GENOTYPE_INFO || colId === columnKeys.MEDICAL_CHIEF_COMPLAINT) {
-                    column.renderer = multipleRenderer
+                    if (colId !== columnKeys.GENOTYPE_ANALYSIS) {
+                        column.renderer = multipleRenderer
+                    }
                     if (category['categoryId'] === columnKeys.PHENOTYPE_INFO) column.editor = false
                     // add by hzhang@bits start
                 } else if (category['categoryId'] === columnKeys.PHENOTYPE_INFO) {
-                    if (colId === 'pi002') {
+                    if (colId === columnKeys.PHENOTYPE_HPO_LABEL) {
                         column.renderer = phenotypeInfo_phenotypeNameRenderer
                     } else {
                         column.renderer = multipleRenderer
                     }
-                    column.editor = false
                     // add by hzhang@bits end
                 } else if (colId === columnKeys.MEDICAL_BODY_WEIGHT || colId === columnKeys.MEDICAL_BODY_HEIGHT || colId === columnKeys.MEDICAL_HEAD_CIRCUMFERENCE) {
                     column.editor = false
-                    column.data = 'm013'
+                    column.data = columnKeys.MEDICAL_BODY_INFO
                     switch (colId) {
                         case columnKeys.MEDICAL_BODY_WEIGHT:
-                            console.log('key', key)
                             column.renderer = weightRenderer
                             break
                         case columnKeys.MEDICAL_BODY_HEIGHT:
@@ -370,9 +372,10 @@ function createColumns() {
                             column.renderer = headRenderer
                             break
                     }
+                    dataSchemaColId = columnKeys.MEDICAL_BODY_INFO
                 }
 
-                if (defaultColumns.includes(key)) {
+                if (defaultColumns.includes(colId)) {
                     colHeaders.push(colHeader)
                     columns.push(column)
                     existingColumns.push(colId)
@@ -387,9 +390,7 @@ function createColumns() {
 
                 colSequence++
 
-                let dsColId = key === 'bodyHeight' || key === 'bodyWeight' || key === 'headCircumference' ? 'm013' : colId
-
-                dataSchema[dsColId] = null
+                dataSchema[dataSchemaColId] = null
             })
         })
 
@@ -398,6 +399,7 @@ function createColumns() {
             let column = {
                 data: a === 'EDIT' ? 'PCFNo' : '',
                 className: 'htMiddle htCenter',
+                editor: false,
                 renderer: a === 'EDIT' ? editRenderer : removeRenderer
             }
 
@@ -449,7 +451,6 @@ function addColumn() {
     })
 
     function createColumn(colName, type, key, parent) {
-        // console.log(colName, type, key, parent)
         if (type === 'title') {
             let icon
 
@@ -475,7 +476,7 @@ function addColumn() {
             }
             container.innerHTML +=
                 `<div class="add_column_title">
-                <input type="checkbox" id="cb_${key}" class="add-column-checkbox" onchange="showHideAllColumn(this)">
+                <input type="checkbox" id="cb_${key}" class="add-column-checkbox" data-id="${key}" onchange="showHideAllColumn(this)">
                 ${icon}${colName}
             </div>`
         } else {
@@ -484,7 +485,6 @@ function addColumn() {
             if (type === 'custom' && dataCol) {
                 colName = dataCol.colHeader.replace('<i class="material-icons-outlined sort_icon"></i>', '')
             }
-            // console.log(colName)
 
             container.innerHTML += `
                 <div>
@@ -511,7 +511,7 @@ function addColumn() {
         let colHeader = `<i class="material-icons-outlined sort_icon"></i>${add.value}`
 
         customColumnCount += 1
-        let colId = `c${`${customColumnCount}`.padStart(3, '0')}`
+        let colId = `custom_${`${customColumnCount}`.padStart(3, '0')}`
 
         let column = {
             data: colId,
@@ -545,10 +545,7 @@ function addColumn() {
 }
 
 function showHideAllColumn(e) {
-    let categoryKey = e.id.split('_')[1]
-    // $(`input[data-category='${categoryKey}']`).each((i, c) => {
-    //     if (c.checked !== e.checked) c.click()
-    // })
+    let categoryKey = e.dataset.id
 
     if (e.checked) {
         let elements = $(`input[data-category='${categoryKey}']:not(:checked)`)
@@ -606,7 +603,7 @@ function hideColumn(colId, colHeader) {
         }
 
         columns.forEach((h, i) => {
-            if (h.data !== 'm013') return
+            if (h.data !== columnKeys.MEDICAL_BODY_INFO) return
             if (h.renderer.name === renderer) columns.splice(i, 1)
         })
     } else {
@@ -642,10 +639,10 @@ function addRow(data) {
 
     temp.PCFNo = pcfNo
 
-    let num = localStorage.patientCount ? parseInt(localStorage.patientCount) + 1 : hot.countRows() + 1
-    temp[columnKeys.CASE_ID] = `P${num.toString().padStart(7, 0)}`
+    let num = localStorage.caseCount ? parseInt(localStorage.caseCount) + 1 : hot.countRows() + 1
+    temp[columnKeys.CASE_ID] = `C${num.toString().padStart(7, 0)}`
 
-    localStorage.patientCount = num
+    localStorage.caseCount = num
     count++
 
     if (data) {
@@ -659,7 +656,6 @@ function addRow(data) {
 }
 
 async function updateTable(data, changeHeaders) {
-    console.log('updatetable')
     let d = new Date()
     let year = d.getFullYear()
     let month = d.getMonth()
@@ -689,11 +685,11 @@ async function updateTable(data, changeHeaders) {
             newHeaders.forEach(h => {
                 if (h === 'PCFNo') return
 
-                if (h === 'm013') {
-                    let subIds = contentData[0]['m013']
+                if (h === columnKeys.MEDICAL_BODY_INFO) {
+                    let subIds = contentData[0][columnKeys.MEDICAL_BODY_INFO]
                     if (subIds) {
                         Object.keys(subIds[0]).forEach(k => {
-                            if (k !== 'm013_1') createColumn(k)
+                            if (k !== columnKeys.MEDICAL_BODY_INFO_DATE) createColumn(k)
                         })
                     }
                 } else {
@@ -702,7 +698,7 @@ async function updateTable(data, changeHeaders) {
             })
         } else {
             newHeaders.forEach(h => {
-                if (h === 'PCFNo' || h === 'm013') return
+                if (h === 'PCFNo' || h === columnKeys.MEDICAL_BODY_INFO) return
                 if (!(Object.keys(dataColumns).includes(h))) createColumn(h, true)
             })
         }
@@ -780,6 +776,8 @@ function onDrop(event) {
     event.preventDefault()
     if (document.getElementById('modal-karte').style.display === 'block') return
 
+    alert('When the file is opened, the entered data will be lost.')
+
     let file = event.dataTransfer.items[0].getAsFile()
     fileReader(file, file.type, true)
 }
@@ -797,7 +795,7 @@ function fileReader(file, fileType, overwrite) {
                 data: contentData
             })
 
-            localStorage.patientCount = 0
+            localStorage.caseCount = 0
 
             hot.updateSettings(updateSettings)
             hot.render()
@@ -807,6 +805,8 @@ function fileReader(file, fileType, overwrite) {
             object = convertCSVToJSON(data)
         } else {
             object = JSON.parse(data)
+            customColumnCount = 0
+            customColumns = []
 
             for (let [k, v] of Object.entries(object.keyName)) {
                 dataSchema[k] = null
@@ -825,14 +825,14 @@ function fileReader(file, fileType, overwrite) {
             }
         }
 
-        if (localStorage.patientCount) {
-            let currentCount = parseInt(localStorage.patientCount)
-            localStorage.patientCount = currentCount + (object.patientCount || object.PATIENTS.length)
+        if (localStorage.caseCount) {
+            let currentCount = parseInt(localStorage.caseCount)
+            localStorage.caseCount = currentCount + (object.caseCount || object.CASES.length)
         } else {
-            localStorage.patientCount = object.patientCount || object.PATIENTS.length
+            localStorage.caseCount = object.caseCount || object.CASES.length
         }
 
-        updateTable(object.PATIENTS, fileType)
+        updateTable(object.CASES, fileType)
 
         if (object.visibleColumns) {
             colHeaders.length = 2
@@ -840,6 +840,7 @@ function fileReader(file, fileType, overwrite) {
             existingColumns = []
 
             object.visibleColumns.forEach(vc => {
+                console.log(vc)
                 colHeaders.push(dataColumns[vc]['colHeader'])
                 columns.push(dataColumns[vc]['column'])
                 existingColumns.push(vc)
@@ -884,7 +885,7 @@ function convertCSVToJSON(csv, isExport) {
                 if (isExport) {
                     if (contentData.length > 0) {
                         if (contentData.length > 0) {
-                            let bodyInfo = contentData[idx - 1]['m013']
+                            let bodyInfo = contentData[idx - 1][columnKeys.MEDICAL_BODY_INFO]
                             if (bodyInfo) {
                                 value = bodyInfo[bodyInfo.length - 1][columnId]
                             } else {
@@ -894,7 +895,7 @@ function convertCSVToJSON(csv, isExport) {
                     }
                 } else {
                     let subColumnId = columnId
-                    columnId = 'm013'
+                    columnId = columnKeys.MEDICAL_BODY_INFO
                     growthChartData[subColumnId] = value
                     value = [growthChartData]
                 }
@@ -909,7 +910,7 @@ function convertCSVToJSON(csv, isExport) {
         }
     })
 
-    return { PATIENTS: patientsData }
+    return { CASES: patientsData }
 }
 
 function getColumnId(columnHeader) {
@@ -977,8 +978,8 @@ function getExportData() {
     }
 
     if (type === 'json') exportedString = getJSONDownload(dlData)
-    if (type === 'csv') exportedString = Papa.unparse(dlData.PATIENTS)
-    if (type === 'tsv') exportedString = Papa.unparse(dlData.PATIENTS, { delimiter: '\t' })
+    if (type === 'csv') exportedString = Papa.unparse(dlData.CASES)
+    if (type === 'tsv') exportedString = Papa.unparse(dlData.CASES, { delimiter: '\t' })
 
     exportFile(type, exportedString)
 
@@ -989,11 +990,11 @@ function getExportData() {
         dlData.forEach((d, idx) => {
             let pData = {}
             for (let [k, v] of Object.entries(d)) {
-                if (idx === 0 && k.charAt(0) === 'c') {
+                if (k.split('_')[0] === 'custom') {
                     keyName[k] = getHeaderName(k)
                 }
 
-                if (k === 'm013') {
+                if (k === columnKeys.MEDICAL_BODY_INFO) {
                     let tempV = []
 
                     v.forEach((gc, gcIdx) => {
@@ -1022,11 +1023,11 @@ function getExportData() {
         })
 
         jsonResult = {
-            PATIENTS: patientsData,
+            CASES: patientsData,
             visibleColumns,
             keyName,
             lang,
-            patientCount: localStorage.patientCount
+            caseCount: localStorage.caseCount
         }
 
         return jsonResult
@@ -1037,7 +1038,7 @@ function getExportData() {
         if (header) {
             header = header.colHeader.replace('<i class="material-icons-outlined sort_icon"></i>', '')
         } else {
-            if (k === 'm013' || k === 'm013_1') header = translate(k)
+            if (k === columnKeys.MEDICAL_BODY_INFO || k === columnKeys.MEDICAL_BODY_INFO_DATE) header = translate(k)
         }
 
         return header || k
@@ -1054,9 +1055,9 @@ function downloadSample(type) {
     temp.PCFNo = pcfNo
 
     let num = hot.countRows() + 1
-    temp['患者ID'] = `P${num.toString().padStart(7, 0)}`
+    temp['症例ID'] = `C${num.toString().padStart(7, 0)}`
 
-    if (type === 'json') sampleData = { 'PATIENTS': [temp] }
+    if (type === 'json') sampleData = { 'CASES': [temp] }
     if (type === 'excel') sampleData = Papa.unparse([temp], { delimiter: '\t' })
 
     exportFile(type === 'json' ? type : 'tsv', sampleData)
@@ -1129,23 +1130,12 @@ function editTable(isSave) {
             }
         })
 
-        if (geneData.length > 0) {
-            let geneDataKeys = Object.keys(geneData[0])
-            geneDataKeys.forEach(k => {
-                newPatient[k] = []
-            })
-
-            geneData.forEach(gd => {
-                for (let [k, v] of Object.entries(gd)) {
-                    newPatient[k].push(v)
-                }
-            })
-        }
+        updatePatientGeneData(newPatient);
 
         if (currentBodyData.length > 0) {
-            newPatient['m013'] = []
+            newPatient[columnKeys.MEDICAL_BODY_INFO] = []
             currentBodyData.forEach(bd => {
-                newPatient['m013'].push(bd)
+                newPatient[columnKeys.MEDICAL_BODY_INFO].push(bd)
             })
         }
 
@@ -1163,9 +1153,10 @@ function editTable(isSave) {
     // existing patient
     let patientData = contentData.filter(d => { return d.PCFNo == currentPatient })[0]
 
-    if (geneData.length > 0) {
-        let geneDataKeys = Object.keys(geneData[0])
-        geneDataKeys.forEach(k => {
+    updatePatientGeneData(patientData);
+
+    function updatePatientGeneData(patientData) {    
+        geneDataKey.forEach(k => {
             patientData[k] = []
         })
 
@@ -1175,6 +1166,7 @@ function editTable(isSave) {
             }
         })
     }
+
 
     // add by hzhang@bits start
     Object.keys(phenotypeData).forEach(cid => {
@@ -1205,7 +1197,7 @@ function rerenderTable() {
 function beforeLoad() {
     console.log('hello')
     if (contentData.length > 0) localStorage.contentData = JSON.stringify(contentData)
-    localStorage.removeItem('patientCount')
+    localStorage.removeItem('caseCount')
     return 'load'
 }
 
@@ -1272,10 +1264,7 @@ function setInitialLanguage() {
                 $('.show').removeClass('show')
                 $(li).addClass('show')
                 $(div).addClass('show')
-
-                if (category.categoryId === columnKeys.GENOTYPE_INFO) {
-                    geneTable()
-                } else if (category.categoryId === columnKeys.MEDICAL_INFO) {
+                if (category.categoryId === columnKeys.MEDICAL_INFO) {
                     bodyTable()
                 }
             })
@@ -1285,8 +1274,23 @@ function setInitialLanguage() {
                 phenotypeInfo_initUI(div)
                 // modified by hzhang@bits end
                 return
-            } else if (i === 3) {
-                div.innerHTML = `
+            }
+
+            let table = document.createElement('table')
+            table.classList.add('form-table')
+            if (i === 1) table.classList.add('treatment-table')
+            if (i === 4) table.classList.add('family-table')
+            table.innerHTML = `<tbody id="tbody_${category.categoryId}">`
+            div.appendChild(table)
+
+            if (i === 3) {
+                let genotypeAnalysis = category.columns.filter(c => c.columnId === columnKeys.GENOTYPE_ANALYSIS)
+                if (genotypeAnalysis) {
+                    // createRow(`tab-content-${category.categoryId}`, genotypeAnalysis[0])
+                    createRow(`tbody_${category.categoryId}`, genotypeAnalysis[0])
+                }
+
+                div.innerHTML += `
                     <p>
                         <span id="genemodal_add" onclick="addGeneRow()">
                             <i class="material-icons-outlined">add_circle_outline
@@ -1303,15 +1307,8 @@ function setInitialLanguage() {
                 return
             }
 
-            let table = document.createElement('table')
-            table.classList.add('form-table')
-            if (i === 1) table.classList.add('treatment-table')
-            if (i === 4) table.classList.add('family-table')
-            table.innerHTML = `<tbody id="tbody_${category.dataKey}">`
-            div.appendChild(table)
-
             if (i === 0) {
-                createRow(`tbody_${category.dataKey}`,
+                createRow(`tbody_${category.categoryId}`,
                     {
                         columnId: 'PCFNo',
                         dataKey: 'PCFNo',
@@ -1328,10 +1325,10 @@ function setInitialLanguage() {
             }
 
             category.columns.forEach(c => {
-                if (c.dataKey === 'bodyWeight' || c.dataKey === 'bodyHeight' || c.dataKey === 'headCircumference') {
-                    createTable(`tbody_${category.dataKey}`, 'm013')
+                if (c.columnId === columnKeys.MEDICAL_BODY_WEIGHT || c.columnId === columnKeys.MEDICAL_BODY_HEIGHT || c.columnId === columnKeys.MEDICAL_HEAD_CIRCUMFERENCE) {
+                    createTable(`tbody_${category.categoryId}`, columnKeys.MEDICAL_BODY_INFO)
                 } else {
-                    createRow(`tbody_${category.dataKey}`, c)
+                    createRow(`tbody_${category.categoryId}`, c)
                 }
             })
         })
@@ -1348,16 +1345,20 @@ function setInitialLanguage() {
             tr.appendChild(th)
 
             let td = document.createElement('td')
-            if (c.type === 'display') td.innerText = 'P20220600001'
+            if (c.type === 'display') td.innerText = 'C20220600001'
             tr.appendChild(td)
 
-            if (c.dataKey === 'age') {
+            if (c.columnId === columnKeys.CASE_AGE || c.columnId === columnKeys.MEDICAL_AGE_ONSET) {
                 let yearInput = document.createElement('input')
                 yearInput.type = 'number'
-                yearInput.classList.add(`${c.columnId}_year`)
+                yearInput.min = 0
+                yearInput.classList.add(...[`${c.columnId}_year`, 'select_date_year', 'age_select_date_year'])
                 yearInput.id = `${c.columnId}_year`
                 yearInput.name = `${c.columnId}_year`
                 yearInput.dataset.columnname = c.columnId
+                yearInput.addEventListener('change', (e) => {
+                    if (e.target.value < 0) e.target.value = ''
+                })
                 td.appendChild(yearInput)
 
                 let selectMonth = document.createElement('select')
@@ -1371,8 +1372,7 @@ function setInitialLanguage() {
                 selectDay.id = `${c.columnId}_day`
                 selectDay.dataset.columnname = c.columnId
                 td.appendChild(selectDay)
-            }
-            else if (c.inputType === 'text' || c.inputType === 'input-select') {
+            } else if (c.inputType === 'text' || c.inputType === 'input-select') {
                 let input = document.createElement('input')
                 input.type = 'text'
                 input.name = c.columnId
@@ -1408,13 +1408,14 @@ function setInitialLanguage() {
                 })
             } else if (c.inputType === 'select-date') {
                 let selectYear = document.createElement('select')
-                selectYear.classList.add(`${c.columnId}_year`)
+                selectYear.classList.add(...[`${c.columnId}_year`, 'select-date-year'])
                 selectYear.id = `${c.columnId}_year`
                 selectYear.name = `${c.columnId}_year`
                 selectYear.dataset.columnname = c.columnId
                 td.appendChild(selectYear)
 
                 let selectMonth = document.createElement('select')
+                selectYear.classList.add('select_date_month')
                 selectMonth.name = `${c.columnId}_month`
                 selectMonth.id = `${c.columnId}_month`
                 selectMonth.dataset.columnname = c.columnId
@@ -1594,8 +1595,8 @@ function setInitialLanguage() {
             parent.appendChild(tr)
 
             let th = document.createElement('th')
-            th.id = 'm013'
-            th.innerText = translate('m013')
+            th.id = columnKeys.MEDICAL_BODY_INFO
+            th.innerText = translate(columnKeys.MEDICAL_BODY_INFO)
             tr.appendChild(th)
 
             let td = document.createElement('td')
@@ -1621,6 +1622,28 @@ function translate(word) {
     } else {
         return elementTranslation[word]['en']
     }
+}
+
+function parseAgeString(ageString) {
+    let year = null, month = null, day = null;
+    if (ageString.includes('Y')) {
+        let dateItems = ageString.split("Y");
+        year = parseInt(dateItems[0]);
+        ageString = dateItems[1];
+    }
+    if (ageString.includes('M')) {
+        let dateItems = ageString.split("M");
+        month = parseInt(dateItems[0]);
+        ageString = dateItems[1];
+    }
+    if (ageString.includes('D')) {
+        let dateItems = ageString.split("D");
+        day = parseInt(dateItems[0]);
+    }
+    if (!Number.isInteger(year)) year = '';
+    if (!Number.isInteger(month)) month = '';
+    if (!Number.isInteger(day)) day = '';
+    return [year, month, day]
 }
 
 

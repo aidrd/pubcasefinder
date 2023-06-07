@@ -59,14 +59,14 @@ let elementTranslation = {
         ja: '- 日を選択 -',
         ko: ''
     },
-    'm013': {
+    'medical_body_info': {
         en: 'Growth Chart',
         ja: '身体情報',
         ko: ''
     },
-    'm013_1': {
-        en: 'Date',
-        ja: '日付',
+    'medical_body_info_date': {
+        en: 'Date(yyyy/mm/dd)',
+        ja: '日付(yyyy/mm/dd)',
         ko: ''
     }, 'growthChart': {
         en: 'Growth Chart',
@@ -74,8 +74,8 @@ let elementTranslation = {
         ko: ''
     },
     'date': {
-        en: 'Date',
-        ja: '日付',
+        en: 'Date(yyyy/mm/dd)',
+        ja: '日付(yyyy/mm/dd)',
         ko: ''
     },
     // modified by hzhang@bits start
@@ -116,7 +116,7 @@ let elementTranslation = {
     },
     'phenotypic-info-comfirm-delete': {
         en: 'Are you sure you want to delete this item?',
-        ja: '削除してもよろしいでしょうか。',
+        ja: '削除しますか？',
         ko: ''
     },
     // modified by hzhang@bits end
