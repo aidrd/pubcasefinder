@@ -1650,33 +1650,33 @@ function parseAgeString(ageString) {
 
 let infoTranslations = {
     en: [
-        { 'What is Case Sharing?': 'Case Sharing is a system for managing and sharing case information on rare and genetic diseases. The system can be used without user registration. Lets get an idea of how to use this system with <a href="https://pubcasefinder.dbcls.jp/static/data/casesharing_sample_202306.json" download="casesharing_sample_202306.json" target="_blank">sample data</a>.' },
-        { 'Usable in a local environment': 'Case information managed by Case Sharing is not stored in the cloud, but in your own computer. Case information can also be exported to the Phenopackets format, an international case information sharing format. This makes it easy for users to control their own information management and sharing.' },
-        { 'Encouraging collaboration': 'In the future, Case Sharing will support not only Phenopackets but also other formats such as OMOP so that information can be shared smoothly with other systems. In addition, this system supports English, Japanese, Korean, Chinese, and other languages to facilitate information sharing with users around the world.' },
+        { 'What is CaseSharing?': 'CaseSharing is a system for managing and sharing case information on rare and genetic diseases. The system can be used without user registration. Lets get an idea of how to use this system with <a href="https://pubcasefinder.dbcls.jp/static/data/casesharing_sample_202306.json" download="casesharing_sample_202306.json" target="_blank">sample data</a>.' },
+        { 'Usable in a local environment': 'Case information managed by CaseSharing is not stored in the cloud, but in your own computer. Case information can also be exported to the Phenopackets format, an international case information sharing format. This makes it easy for users to control their own information management and sharing.' },
+        { 'Encouraging collaboration': 'In the future, CaseSharing will support not only Phenopackets but also other formats such as OMOP so that information can be shared smoothly with other systems. In addition, this system supports English, Japanese, Korean, Chinese, and other languages to facilitate information sharing with users around the world.' },
         { 'Disclaimer': 'Please refer to <a href="https://pubcasefinder.dbcls.jp/termsofservice?lang=en" target="_blank">this link</a>.' }
     ],
     ja: [
-        { 'Case Sharingとは？': 'Case Sharingは、希少疾患・遺伝性疾患の症例情報を、管理・共有するためのシステムです。ユーザ登録なしに利用することができます。<a href="https://pubcasefinder.dbcls.jp/static/data/casesharing_sample_202306.json" download="casesharing_sample_202306.json" target="_blank">サンプルデータ</a>を用いて本システムの使用イメージをつかみましょう。' },
-        { 'ローカル環境で使える': 'Case Sharingで管理する症例情報は、クラウドに保存するのではなく、自身のコンピュータに保存します。また、国際的な症例情報共有形式であるPhenopacketsで症例情報を出力することも可能です。これにより、情報管理や共有を自身でコントロールすることが容易となります。' },
+        { 'CaseSharingとは？': 'CaseSharingは、希少疾患・遺伝性疾患の症例情報を、管理・共有するためのシステムです。ユーザ登録なしに利用することができます。<a href="https://pubcasefinder.dbcls.jp/static/data/casesharing_sample_202306.json" download="casesharing_sample_202306.json" target="_blank">サンプルデータ</a>を用いて本システムの使用イメージをつかみましょう。' },
+        { 'ローカル環境で使える': 'CaseSharingで管理する症例情報は、クラウドに保存するのではなく、自身のコンピュータに保存します。また、国際的な症例情報共有形式であるPhenopacketsで症例情報を出力することも可能です。これにより、情報管理や共有を自身でコントロールすることが容易となります。' },
         { 'コラボレーションを促進': '将来、他のシステムとスムーズに情報共有ができるように、Phenopacketsだけでなく、OMOPなど他の形式にも対応する予定です。また、本システムは英語、日本語、韓国語、中国語などの言語に対応しており、世界各地のユーザとの情報共有もスムーズになります。' },
         { '免責事項': '<a href="https://pubcasefinder.dbcls.jp/termsofservice" target="_blank">リンク先</a>を参照してください。' }
     ],
     ko: [
-        { 'Case Sharing이란?': 'Case Sharing은 희귀 질환 및 유전성 질환의 사례 정보를 관리하고 공유하기 위한 시스템입니다. 사용자 등록 없이 이용할 수 있습니다. <a href="https://pubcasefinder.dbcls.jp/static/data/casesharing_sample_202306.json" download="casesharing_sample_202306.json" target="_blank">샘플 데이터</a>를 활용하여 본 시스템의 사용 이미지를 파악해 봅시다.' },
-        { '로컬 환경에서 사용 가능': 'Case Sharing에서 관리하는 증례 정보는 클라우드에 저장하는 것이 아니라 자신의 컴퓨터에 저장합니다. 또한 국제적인 증례 정보 공유 형식인 Phenopackets로 증례 정보를 출력할 수도 있습니다. 이를 통해 정보 관리와 공유를 자체적으로 제어할 수 있습니다.' },
+        { 'CaseSharing이란?': 'CaseSharing은 희귀 질환 및 유전성 질환의 사례 정보를 관리하고 공유하기 위한 시스템입니다. 사용자 등록 없이 이용할 수 있습니다. <a href="https://pubcasefinder.dbcls.jp/static/data/casesharing_sample_202306.json" download="casesharing_sample_202306.json" target="_blank">샘플 데이터</a>를 활용하여 본 시스템의 사용 이미지를 파악해 봅시다.' },
+        { '로컬 환경에서 사용 가능': 'CaseSharing에서 관리하는 증례 정보는 클라우드에 저장하는 것이 아니라 자신의 컴퓨터에 저장합니다. 또한 국제적인 증례 정보 공유 형식인 Phenopackets로 증례 정보를 출력할 수도 있습니다. 이를 통해 정보 관리와 공유를 자체적으로 제어할 수 있습니다.' },
         { '협업 촉진': '미래에 다른 시스템과의 원활한 정보 공유를 위해 Phenopackets 뿐만 아니라 OMOP 등 다른 형식에도 대응할 예정입니다. 또한 본 시스템은 영어, 일본어, 한국어, 중국어 등의 다양한 언어를 지원하므로 전 세계 각지의 사용자들과 정보 공유도 원활해질 것입니다.' },
         { '면책 사항': '<a href="https://pubcasefinder.dbcls.jp/termsofservice?lang=ko" target="_blank">링크</a>를 참조해 주시기 바랍니다.' }
     ],
     zh: [
         { '什么是个案分享？': '病例共享是一个管理和共享罕见病和遗传病病例信息的系统。无需用户注册即可使用该系统。让我们了解一下如何将此系统与<a href="https://pubcasefinder.dbcls.jp/static/data/casesharing_sample_202306.json" download="casesharing_sample_202306.json" target="_blank">示例数据</a>一起使用。' },
-        { '可在本地环境中使用': 'Case Sharing 管理的案例信息不存储在云端，而是存储在您自己的计算机中。案例信息还可以导出为 Phenopackets 格式，这是一种国际案例信息共享格式。这使得用户可以轻松控制自己的信息管理和共享。' },
-        { '鼓励合作': '未来, Case Sharing不仅支持Phenopackets, 还支持OMOP等其他格式, 以便与其他系统顺利共享信息。此外，该系统还支持英文、日文、韩文、中文等多种语言，方便与全球用户进行信息共享。' },
+        { '可在本地环境中使用': 'CaseSharing 管理的案例信息不存储在云端，而是存储在您自己的计算机中。案例信息还可以导出为 Phenopackets 格式，这是一种国际案例信息共享格式。这使得用户可以轻松控制自己的信息管理和共享。' },
+        { '鼓励合作': '未来, CaseSharing不仅支持Phenopackets, 还支持OMOP等其他格式, 以便与其他系统顺利共享信息。此外，该系统还支持英文、日文、韩文、中文等多种语言，方便与全球用户进行信息共享。' },
         { '免责声明': '<a href="https://pubcasefinder.dbcls.jp/termsofservice?lang=en" target="_blank">请参考这</a>个链接。' }
     ],
     zhcht: [
         { '什麼是個案分享？': '病例共享是一個管理和共享罕見病和遺傳病病例信息的系統。無需用戶註冊即可使用該系統。讓我們了解一下如何將此系統與<a href="https://pubcasefinder.dbcls.jp/static/data/casesharing_sample_202306.json" download="casesharing_sample_202306.json" target="_blank">示例數據</a>一起使用。' },
-        { '可在本地環境中使用': 'Case Sharing 管理的案例信息不存儲在雲端，而是存儲在您自己的計算機中。案例信息還可以導出為 Phenopackets 格式，這是一種國際案例信息共享格式。這使得用戶可以輕鬆控制自己的信息管理和共享。' },
-        { '鼓勵合作': '未來, Case Sharing不僅支持Phenopackets, 還支持OMOP等其他格式, 以便與其他系統順利共享信息。此外, 該系統還支持英文、日文、韓文、中文等多種語言，方便與全球用戶進行信息共享。' },
+        { '可在本地環境中使用': 'CaseSharing 管理的案例信息不存儲在雲端，而是存儲在您自己的計算機中。案例信息還可以導出為 Phenopackets 格式，這是一種國際案例信息共享格式。這使得用戶可以輕鬆控制自己的信息管理和共享。' },
+        { '鼓勵合作': '未來, CaseSharing不僅支持Phenopackets, 還支持OMOP等其他格式, 以便與其他系統順利共享信息。此外, 該系統還支持英文、日文、韓文、中文等多種語言，方便與全球用戶進行信息共享。' },
         { '免責聲明': '請參考<a href="https://pubcasefinder.dbcls.jp/termsofservice?lang=en" target="_blank">此鏈接</a>。' }
     ]
 }
