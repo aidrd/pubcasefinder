@@ -1656,7 +1656,7 @@ let infoTranslations = {
         { 'Disclaimer': 'Please refer to <a href="https://pubcasefinder.dbcls.jp/termsofservice?lang=en" target="_blank">this link</a>.' }
     ],
     ja: [
-        { 'Case Sharingとは？': 'Case Sharingは、希少疾患・遺伝性疾患の症例情報を、管理・共有するためのシステムです。ユーザ登録なしに利用することができます。サンプルデータを用いて本システムの使用イメージをつかみましょう。' },
+        { 'Case Sharingとは？': 'Case Sharingは、希少疾患・遺伝性疾患の症例情報を、管理・共有するためのシステムです。ユーザ登録なしに利用することができます。<a href=“https://pubcasefinder.dbcls.jp/static/data/casesharing_sample_202306.json”  download>サンプルデータ</a>を用いて本システムの使用イメージをつかみましょう。' },
         { 'ローカル環境で使える': 'Case Sharingで管理する症例情報は、クラウドに保存するのではなく、自身のコンピュータに保存します。また、国際的な症例情報共有形式であるPhenopacketsで症例情報を出力することも可能です。これにより、情報管理や共有を自身でコントロールすることが容易となります。' },
         { 'コラボレーションを促進': '将来、他のシステムとスムーズに情報共有ができるように、Phenopacketsだけでなく、OMOPなど他の形式にも対応する予定です。また、本システムは英語、日本語、韓国語、中国語などの言語に対応しており、世界各地のユーザとの情報共有もスムーズになります。' },
         { '免責事項': '<a href="https://pubcasefinder.dbcls.jp/termsofservice" target="_blank">リンク先</a>を参照してください。' }
