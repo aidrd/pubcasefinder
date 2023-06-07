@@ -962,7 +962,7 @@ function getExportData() {
     if (isAll) {
         dlData = contentData
     } else {
-        alert('Only the data in the table will be downloaded.Please select the json format if you want to edit this data in this system in the future.')
+        alert('Only the data in the table will be downloaded. Please select the json format if you want to edit this data in this system in the future.')
 
         let exportedString = exportPlugin.exportAsString('csv', {
             bom: false,
