@@ -6,20 +6,37 @@
         <h1>History</h1>
         <div class="topics">
             <ul>
-                <li class="topics-title">2023/05/27</li>
+                <li class="topics-title">2023/06/07</li>
                 {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
                 <li>
 		  <div>
-                        新しい機能「<a href="https://pubcasefinder.dbcls.jp/panelsearch" target="_blank">PanelSearch</a>」をリリースしました。ヒトの9,998疾患に関連するVirtual Gene Panelを検索し、利活用できる公開データベースです。Virtual Gene Panelとは、多くの希少・遺伝性疾患を含む<a href="https://www.ebi.ac.uk/ols/ontologies/mondo" target="_blank">Monarch Disease Ontology</a>をベースに、それぞれの疾患について疾患原因遺伝子を自動でまとめた遺伝子パネルです。ゲノム配列の効率的な臨床的解釈に役立てることができます。</br>例えば、Filter Panelsテキストボックスに「Mendelian disease」を入力すると、4280遺伝子を含むMendelian diseaseパネルを検索することができ、パネル名の左にあるダウンロードボタンからダウンロード可能です。全パネルデータは画面右上の「All panels」ボタンからダウンロード可能です。
-                        ぜひご活用ください。
+                        新しい機能「<a href="https://pubcasefinder.dbcls.jp/casesharing" target="_blank">CaseSharing</a>」のβ版をリリースしました。</br></br>
+			CaseSharingは、希少疾患・遺伝性疾患の症例情報を、管理・共有するためのシステムです。ユーザ登録なしに利用することができます。<a href="https://pubcasefinder.dbcls.jp/static/data/casesharing_sample_202306.json" target="_blank">サンプルデータ</a>はこちらからダウンロード可能です。ぜひご活用ください。
 		  </div>
                 </li>
                 {% else %}
                 <li>
                     <div>
-		        We releae a new system, <a href="https://pubcasefinder.dbcls.jp/panelsearch" target="_blank">PanelSearch</a>.</br>
-			PanelSearch is a publicly-available database that allows you to search and utilize Virtual Gene Panels associated with 9,998 human diseases. Virtual Gene Panels can be used for efficient clinical interpretation of genome sequences.</br>
-			We hope you will make use of it.
+		        We releae a beta version of the new system, <a href="https://pubcasefinder.dbcls.jp/casesharing" target="_blank">CaseSharing</a>.</br></br>
+			Case Sharing is a system for managing and sharing case information on rare and genetic diseases. The system can be used without user registration. Lets get an idea of how to use this system with <a href="https://pubcasefinder.dbcls.jp/static/data/casesharing_sample_202306.json" target="_blank">sample data</a>. We hope you will make use of it.
+                    </div>
+                </li>
+                {% endif %}
+            </ul>
+            <ul>
+                <li class="topics-title">2023/05/27</li>
+                {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
+                <li>
+		  <div>
+                        新しい機能「<a href="https://pubcasefinder.dbcls.jp/panelsearch" target="_blank">PanelSearch</a>」をリリースしました。</br></br>
+			ヒトの9,998疾患に関連するVirtual Gene Panelを検索し、利活用できる公開データベースです。Virtual Gene Panelとは、多くの希少・遺伝性疾患を含む<a href="https://www.ebi.ac.uk/ols/ontologies/mondo" target="_blank">Monarch Disease Ontology</a>をベースに、それぞれの疾患について疾患原因遺伝子を自動でまとめた遺伝子パネルです。ゲノム配列の効率的な臨床的解釈に役立てることができます。</br>例えば、Filter Panelsテキストボックスに「Mendelian disease」を入力すると、4280遺伝子を含むMendelian diseaseパネルを検索することができ、パネル名の左にあるダウンロードボタンからダウンロード可能です。全パネルデータは画面右上の「All panels」ボタンからダウンロード可能です。ぜひご活用ください。
+		  </div>
+                </li>
+                {% else %}
+                <li>
+                    <div>
+		        We releae a new system, <a href="https://pubcasefinder.dbcls.jp/panelsearch" target="_blank">PanelSearch</a>.</br></br>
+			PanelSearch is a publicly-available database that allows you to search and utilize Virtual Gene Panels associated with 9,998 human diseases. Virtual Gene Panels can be used for efficient clinical interpretation of genome sequences. We hope you will make use of it.
                     </div>
                 </li>
                 {% endif %}
