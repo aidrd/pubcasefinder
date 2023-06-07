@@ -546,7 +546,7 @@
             "family_maternal_ethnicity": null
         },
         {
-            "PCFNo": "P202365143648816",
+            "PCFNo": "P202365141725803",
             "medical_body_info": [
                 {
                     "medical_body_info_date": null,
@@ -562,107 +562,6 @@
             "case_presence_or_absence_of_onset": "alive",
             "case_life_status": "deceased",
             "case_birth": "1977/-",
-            "case_death": null,
-            "case_examination_day": null,
-            "case_age": null,
-            "case_sex": "male",
-            "case_note": "Furmańczyk-Zawiska, A., Kubiak-Dydo, A., Użarowska-Gąska, E., Kotlarek-Łysakowska, M., Salata, K., Kolanowska, M., Świerniak, M., Gaj, P., Leszczyńska, B., Daniel, M., Jażdżewski, K., Durlik, M., & Wójcicka, A. (2021). Compound Haplotype Variants in CFH and CD46 Genes Determine Clinical Outcome of Atypical Hemolytic Uremic Syndrome (aHUS)-A Series of Cases from a Single Family. Journal of personalized medicine, 11(4), 304. https://doi.org/10.3390/jpm11040304",
-            "medical_clinical_diagnosis": null,
-            "medical_final_diagnosis": "Atypical Hemolytic Uremic Syndrome",
-            "medical_chief_complaint": "severe hemolytic anemia",
-            "medical_case_solved": "SOLVED",
-            "medical_age_onset": "22Y",
-            "medical_current_history": "Brother 1 (P1) fell ill in 1999, aged 22. He developed fever, abdominal pain, general malaise, vomiting, and was given an empirical antibiotic therapy for one week with no response. Oliguria appeared. On admission to the local hospital, he was in poor general condition, his blood pressure was 170/100 mmHg. Laboratory findings revealed severe hemolytic anemia: hemoglobin concentration (HGB) was 69 g/L, and hematocrit (HCT) was 18%. The platelets count (PLT) was 72 G/L; white blood count (WBC) was 13.2 G/L; lactate dehydrogenase activity (LDH) was 4936 U/L (range 80–248); anisocytosis with macrocytosis, microspherocytes, and schistocytes were present in the peripheral blood smear; and the direct Coombs’ test was negative. Serum creatinine concentration (SCr) was 7.8 mg/dL (range 0.6–1.3), urea 112 mg/dL (range 20–40), urine analysis revealed active urine sediment with leucocyturia, erythrocyturia, and proteinuria was 650 mg/dL in a portion. Blood transfusion and fresh frozen plasma (FFP) were given. Genetic analysis considering complement abnormalities was not performed at that time. Hemolysis was terminated within few days, with HGB and PLT raised and stabilized. However, there was no renal improvement, and anuria remained, so the patient required hemodialysis. A few days later, the patient deteriorated, lost consciousness, and was referred to intensive care unit. During the hemodialysis session, before therapeutic plasma exchange (TPE) had been introduced, the patient suffered from heart arrest with no response to resuscitation and died.",
-            "medical_previous_history": null,
-            "medical_prenatal_perinatal_history": null,
-            "medical_early_developmental_and_schooling_history": null,
-            "medical_process": null,
-            "medical_medications": null,
-            "medical_allergies": null,
-            "medical_social_history": null,
-            "medical_drinking": null,
-            "medical_smoking": null,
-            "medical_travel_history": null,
-            "medical_vaccination_history": null,
-            "medical_physical_findings": null,
-            "medical_examination_findings": null,
-            "phenotype_hpo_id": [],
-            "phenotype_hpo_label": [],
-            "phenotype_medical_current_history": [],
-            "phenotype_medical_previous_history": [],
-            "phenotype_process": [],
-            "phenotype_family_history": [],
-            "phenotype_any_text": [],
-            "phenotype_excluded": [],
-            "phenotype_clinical_relevance": [],
-            "phenotype_severity": [],
-            "phenotype_age_onset": [],
-            "phenotype_temporal_pattern": [],
-            "phenotype_pace_progression": [],
-            "phenotype_resolution": [],
-            "phenotype_comments": [],
-            "genotype_analysis": "",
-            "genotype_gene": [
-                null
-            ],
-            "genotype_status": [
-                null
-            ],
-            "genotype_cdna_change": [
-                null
-            ],
-            "genotype_pathogenicit": [
-                null
-            ],
-            "genotype_allelic_state": [
-                null
-            ],
-            "genotype_reference": [
-                null
-            ],
-            "genotype_chr_position": [
-                null
-            ],
-            "genotype_transcript": [
-                null
-            ],
-            "genotype_protein_charge": [
-                null
-            ],
-            "genotype_annotation": [
-                null
-            ],
-            "genotype_inheritance": [
-                null
-            ],
-            "genotype_comments": [
-                null
-            ],
-            "family_history": null,
-            "family_mode_inheritance": null,
-            "family_other_affected_relatives": null,
-            "family_consanguinity": null,
-            "family_miscarriage": null,
-            "family_paternal_ethnicity": null,
-            "family_maternal_ethnicity": null
-        },
-        {
-            "PCFNo": "P202365141725803",
-            "medical_body_info": [
-                {
-                    "medical_body_info_date": null,
-                    "medical_body_weight": null,
-                    "medical_body_height": null,
-                    "medical_head_circumference": null
-                }
-            ],
-            "case_id": "C0000006",
-            "case_family_id": "F0000003",
-            "case_relationship": "proband_individual",
-            "case_group": null,
-            "case_presence_or_absence_of_onset": "alive",
-            "case_life_status": "deceased",
-            "case_birth": "1977/05",
             "case_death": "1999/08",
             "case_examination_day": "",
             "case_age": "",
@@ -1030,7 +929,7 @@
                     "medical_head_circumference": null
                 }
             ],
-            "case_id": "C0000007",
+            "case_id": "C0000006",
             "case_family_id": "F0000003",
             "case_relationship": "proband_individual",
             "case_group": null,
@@ -1263,7 +1162,7 @@
                     "medical_head_circumference": null
                 }
             ],
-            "case_id": "C0000008",
+            "case_id": "C0000007",
             "case_family_id": "F0000003",
             "case_relationship": "proband_individual",
             "case_group": null,
@@ -1496,7 +1395,7 @@
                     "medical_head_circumference": null
                 }
             ],
-            "case_id": "C0000009",
+            "case_id": "C0000008",
             "case_family_id": "F0000003",
             "case_relationship": "sibling",
             "case_group": null,
@@ -1729,7 +1628,7 @@
                     "medical_head_circumference": null
                 }
             ],
-            "case_id": "C00000010",
+            "case_id": "C0000009",
             "case_family_id": "F0000003",
             "case_relationship": "sibling",
             "case_group": null,
@@ -1776,18 +1675,42 @@
             "phenotype_resolution": [],
             "phenotype_comments": [],
             "genotype_analysis": "",
-            "genotype_gene": [],
-            "genotype_status": [],
-            "genotype_cdna_change": [],
-            "genotype_pathogenicit": [],
-            "genotype_allelic_state": [],
-            "genotype_reference": [],
-            "genotype_chr_position": [],
-            "genotype_transcript": [],
-            "genotype_protein_charge": [],
-            "genotype_annotation": [],
-            "genotype_inheritance": [],
-            "genotype_comments": [],
+            "genotype_gene": [
+                null
+            ],
+            "genotype_status": [
+                null
+            ],
+            "genotype_cdna_change": [
+                null
+            ],
+            "genotype_pathogenicit": [
+                null
+            ],
+            "genotype_allelic_state": [
+                null
+            ],
+            "genotype_reference": [
+                null
+            ],
+            "genotype_chr_position": [
+                null
+            ],
+            "genotype_transcript": [
+                null
+            ],
+            "genotype_protein_charge": [
+                null
+            ],
+            "genotype_annotation": [
+                null
+            ],
+            "genotype_inheritance": [
+                null
+            ],
+            "genotype_comments": [
+                null
+            ],
             "family_history": null,
             "family_mode_inheritance": null,
             "family_other_affected_relatives": null,
@@ -1806,7 +1729,7 @@
                     "medical_head_circumference": null
                 }
             ],
-            "case_id": "C00000011",
+            "case_id": "C00000010",
             "case_family_id": "F0000003",
             "case_relationship": "sibling",
             "case_group": null,
@@ -1853,18 +1776,42 @@
             "phenotype_resolution": [],
             "phenotype_comments": [],
             "genotype_analysis": "",
-            "genotype_gene": [],
-            "genotype_status": [],
-            "genotype_cdna_change": [],
-            "genotype_pathogenicit": [],
-            "genotype_allelic_state": [],
-            "genotype_reference": [],
-            "genotype_chr_position": [],
-            "genotype_transcript": [],
-            "genotype_protein_charge": [],
-            "genotype_annotation": [],
-            "genotype_inheritance": [],
-            "genotype_comments": [],
+            "genotype_gene": [
+                null
+            ],
+            "genotype_status": [
+                null
+            ],
+            "genotype_cdna_change": [
+                null
+            ],
+            "genotype_pathogenicit": [
+                null
+            ],
+            "genotype_allelic_state": [
+                null
+            ],
+            "genotype_reference": [
+                null
+            ],
+            "genotype_chr_position": [
+                null
+            ],
+            "genotype_transcript": [
+                null
+            ],
+            "genotype_protein_charge": [
+                null
+            ],
+            "genotype_annotation": [
+                null
+            ],
+            "genotype_inheritance": [
+                null
+            ],
+            "genotype_comments": [
+                null
+            ],
             "family_history": null,
             "family_mode_inheritance": null,
             "family_other_affected_relatives": null,
@@ -1883,7 +1830,7 @@
                     "medical_head_circumference": null
                 }
             ],
-            "case_id": "C00000012",
+            "case_id": "C00000011",
             "case_family_id": "F0000003",
             "case_relationship": "sibling",
             "case_group": null,
@@ -1930,18 +1877,42 @@
             "phenotype_resolution": [],
             "phenotype_comments": [],
             "genotype_analysis": "",
-            "genotype_gene": [],
-            "genotype_status": [],
-            "genotype_cdna_change": [],
-            "genotype_pathogenicit": [],
-            "genotype_allelic_state": [],
-            "genotype_reference": [],
-            "genotype_chr_position": [],
-            "genotype_transcript": [],
-            "genotype_protein_charge": [],
-            "genotype_annotation": [],
-            "genotype_inheritance": [],
-            "genotype_comments": [],
+            "genotype_gene": [
+                null
+            ],
+            "genotype_status": [
+                null
+            ],
+            "genotype_cdna_change": [
+                null
+            ],
+            "genotype_pathogenicit": [
+                null
+            ],
+            "genotype_allelic_state": [
+                null
+            ],
+            "genotype_reference": [
+                null
+            ],
+            "genotype_chr_position": [
+                null
+            ],
+            "genotype_transcript": [
+                null
+            ],
+            "genotype_protein_charge": [
+                null
+            ],
+            "genotype_annotation": [
+                null
+            ],
+            "genotype_inheritance": [
+                null
+            ],
+            "genotype_comments": [
+                null
+            ],
             "family_history": null,
             "family_mode_inheritance": null,
             "family_other_affected_relatives": null,
@@ -1960,7 +1931,7 @@
                     "medical_head_circumference": null
                 }
             ],
-            "case_id": "C0000013",
+            "case_id": "C0000012",
             "case_family_id": "F0000003",
             "case_relationship": "sibling",
             "case_group": null,
@@ -2007,18 +1978,42 @@
             "phenotype_resolution": [],
             "phenotype_comments": [],
             "genotype_analysis": "",
-            "genotype_gene": [],
-            "genotype_status": [],
-            "genotype_cdna_change": [],
-            "genotype_pathogenicit": [],
-            "genotype_allelic_state": [],
-            "genotype_reference": [],
-            "genotype_chr_position": [],
-            "genotype_transcript": [],
-            "genotype_protein_charge": [],
-            "genotype_annotation": [],
-            "genotype_inheritance": [],
-            "genotype_comments": [],
+            "genotype_gene": [
+                null
+            ],
+            "genotype_status": [
+                null
+            ],
+            "genotype_cdna_change": [
+                null
+            ],
+            "genotype_pathogenicit": [
+                null
+            ],
+            "genotype_allelic_state": [
+                null
+            ],
+            "genotype_reference": [
+                null
+            ],
+            "genotype_chr_position": [
+                null
+            ],
+            "genotype_transcript": [
+                null
+            ],
+            "genotype_protein_charge": [
+                null
+            ],
+            "genotype_annotation": [
+                null
+            ],
+            "genotype_inheritance": [
+                null
+            ],
+            "genotype_comments": [
+                null
+            ],
             "family_history": null,
             "family_mode_inheritance": null,
             "family_other_affected_relatives": null,
@@ -2037,7 +2032,7 @@
                     "medical_head_circumference": null
                 }
             ],
-            "case_id": "C0000014",
+            "case_id": "C0000013",
             "case_family_id": "F0000003",
             "case_relationship": "nephew_niece",
             "case_group": null,
@@ -2342,7 +2337,7 @@
                     "medical_head_circumference": null
                 }
             ],
-            "case_id": "C0000015",
+            "case_id": "C0000014",
             "case_family_id": "F0000003",
             "case_relationship": "nephew_niece",
             "case_group": null,
@@ -2573,5 +2568,5 @@
     ],
     "keyName": {},
     "lang": "en",
-    "caseCount": "015"
+    "caseCount": "00015"
 }
