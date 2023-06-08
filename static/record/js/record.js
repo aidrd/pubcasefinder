@@ -937,7 +937,7 @@ let nameToDataValueMap = {};
 // Map [columnId] => [dataValue] => [name in current language] for 'dropdown' type columns
 let dataValueToNameMap = {};
 
-let currentLang = localStorage.lang
+
 for (let category of categories) {
     for (let column of category.columns) {
         if (column.type !== 'dropdown' || !column.options)
@@ -945,7 +945,7 @@ for (let category of categories) {
         nameToDataValueMap[column.columnId] = {}
         dataValueToNameMap[column.columnId] = {}
         // for loop with index
-        column.options[currentLang].forEach((optionName, index) => {
+        column.options[lang].forEach((optionName, index) => {
             nameToDataValueMap[column.columnId][optionName] = column.options.dataValue[index]
             dataValueToNameMap[column.columnId][column.options.dataValue[index]] = optionName
         })
