@@ -16,7 +16,8 @@
       margin: auto 0;
   }
   .common-brand img{
-  width: 220px !important;
+    width: 220px !important;
+    cursor: pointer;
   }
   
   .nav-items{
@@ -38,6 +39,7 @@
   
   .common-nav-container a {
     text-decoration: none;
+    cursor: pointer;
   }
   
   .nav-item {
@@ -245,6 +247,7 @@
     /* margin: 2em 0em; */
     display: inline-block;
     color: #37405b;
+    cursor: pointer;
   }
   
   .dropdown-trigger:hover{
