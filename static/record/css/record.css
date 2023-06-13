@@ -1336,10 +1336,10 @@ display: block;
 }
 
 #search-pcf-button {
-  color: #fff;
-  background-color: rgb(255, 126, 0);
-  display: inline-flex;
   border-radius: 5px;
   padding: 5px;
-  margin-left: 0.5em;
+}
+
+#phenotype_search_pcf {
+  display: inline-flex;
 }

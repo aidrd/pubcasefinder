@@ -235,8 +235,6 @@ function phenotypeInfo_initUI(phenotypeInfo_container) {
             <div class="phenotype_title_sub">
                 <span>${translate('phenotypic-info-list')}</span>
                 <span id="phenotype_num">(0)</span>
-                <div id="phenotype_search_pcf">
-                </div>
             </div>
             <div class="phenotype_title_sub">
                 <span>${translate('phenotypic-info-detail')}</span>
