@@ -205,8 +205,8 @@ function phenotypeInfo_updateNum() {
 }
 
 function phenotypeInfo_updatePCFSearchButton() {
-    let hpo_id_list = phenotypeData[columnKeys.PHENOTYPE_HPO_ID];
-    if (hpo_id_list.length === 0) {
+    let hpo_id_list = phenotypeData?.[columnKeys.PHENOTYPE_HPO_ID];
+    if (!phenotypeData || !hpo_id_list || hpo_id_list.length === 0) {
         $("#phenotype_search_pcf")[0].innerHTML = '';
     } else {
         $("#phenotype_search_pcf")[0].innerHTML = `
@@ -472,11 +472,11 @@ function _contruct_popup_content(hpo_id, popup_data, lang) {
 
 
 function phenotypeInfo_createRows() {
+    phenotypeInfo_updatePCFSearchButton();
     if (!phenotypeData || !(columnKeys.PHENOTYPE_HPO_ID in phenotypeData) || !phenotypeData[columnKeys.PHENOTYPE_HPO_ID].length) return;
 
     // update list num
     phenotypeInfo_updateNum();
-    phenotypeInfo_updatePCFSearchButton();
 
     let phenotypeInfo = phenotypeInfo_getPhenotypeInfo();
 
