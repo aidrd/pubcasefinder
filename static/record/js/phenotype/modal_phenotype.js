@@ -206,12 +206,13 @@ function phenotypeInfo_updateNum() {
 
 function phenotypeInfo_updatePCFSearchButton() {
     let hpo_id_list = phenotypeData[columnKeys.PHENOTYPE_HPO_ID];
-    if(hpo_id_list.length === 0) {
+    if (hpo_id_list.length === 0) {
         $("#phenotype_search_pcf")[0].innerHTML = '';
     } else {
         $("#phenotype_search_pcf")[0].innerHTML = `
             <a href="https://pubcasefinder.dbcls.jp/result?target=omim&phenotype=${hpo_id_list.join(',')}&filter=&vgp=&size=10&display_format=full&lang=en" target="_blank">
                 <button id="search-pcf-button">
+                <img src="/static/record/images/commonmenu-icon1.svg">
                     Search PCF
                 </button>
             </a>
