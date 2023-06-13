@@ -204,6 +204,20 @@ function phenotypeInfo_updateNum() {
     $("#phenotype_num").text(`(${phenotypeData[columnKeys.PHENOTYPE_HPO_ID].length})`);
 }
 
+function phenotypeInfo_updatePCFSearchButton() {
+    let hpo_id_list = phenotypeData[columnKeys.PHENOTYPE_HPO_ID];
+    if(hpo_id_list.length === 0) {
+        $("#phenotype_search_pcf")[0].innerHTML = '';
+    } else {
+        $("#phenotype_search_pcf")[0].innerHTML = `
+            <a href="https://pubcasefinder.dbcls.jp/result?target=omim&phenotype=${hpo_id_list.join(',')}&filter=&vgp=&size=10&display_format=full&lang=en" target="_blank">
+                <button id="search-pcf-button">
+                    Search PCF
+                </button>
+            </a>
+        `;
+    }
+}
 
 function phenotypeInfo_initUI(phenotypeInfo_container) {
     phenotypeInfo_container.innerHTML = `
@@ -221,6 +235,8 @@ function phenotypeInfo_initUI(phenotypeInfo_container) {
             <div class="phenotype_title_sub">
                 <span>${translate('phenotypic-info-list')}</span>
                 <span id="phenotype_num">(0)</span>
+                <div id="phenotype_search_pcf">
+                </div>
             </div>
             <div class="phenotype_title_sub">
                 <span>${translate('phenotypic-info-detail')}</span>
@@ -461,6 +477,7 @@ function phenotypeInfo_createRows() {
 
     // update list num
     phenotypeInfo_updateNum();
+    phenotypeInfo_updatePCFSearchButton();
 
     let phenotypeInfo = phenotypeInfo_getPhenotypeInfo();
 
@@ -489,6 +506,7 @@ function phenotypeInfo_createRows() {
                         phenotypeData[col.columnId].splice(idx, 1);
                     })
                     phenotypeInfo_updateNum();
+                    phenotypeInfo_updatePCFSearchButton();
                     $(this).closest('li').remove();
                     phenotypeInfo_updateFilterCNT();
                     phenotypeInfo_onFilterChange();
