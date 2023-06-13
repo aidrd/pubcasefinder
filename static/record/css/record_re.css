@@ -173,6 +173,7 @@ i {
   background: #11101D;
   margin: 0 auto;
   display: inline-grid;
+  cursor: pointer;
 }
 
 .sidebar .sidebar-selected,

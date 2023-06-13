@@ -116,7 +116,7 @@ let elementTranslation = {
     },
     'phenotypic-info-comfirm-delete': {
         en: 'Are you sure you want to delete this item?',
-        ja: '削除してもよろしいでしょうか。',
+        ja: '削除しますか？',
         ko: ''
     },
     // modified by hzhang@bits end
