@@ -213,7 +213,7 @@ function phenotypeInfo_updatePCFSearchButton() {
             <a href="https://pubcasefinder.dbcls.jp/result?target=omim&phenotype=${hpo_id_list.join(',')}&filter=&vgp=&size=10&display_format=full&lang=en" target="_blank">
                 <button id="search-pcf-button">
                 <img src="/static/record/images/commonmenu-icon1.svg">
-                    Search PCF
+                    PubCaseFinder Search
                 </button>
             </a>
         `;
