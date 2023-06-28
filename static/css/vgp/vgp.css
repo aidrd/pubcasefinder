@@ -319,6 +319,7 @@ body {
   color:     #258800;
   background-color: #FFF;
   font-size: 20px;
+  position: relative;
 }
 
 .vgp-panel-row .vgp-button-panel .vgp-button-wrap .vgp-round-btn:hover{
@@ -327,7 +328,10 @@ body {
 }
 
 .vgp-panel-row .vgp-button-panel .vgp-button-wrap .vgp-round-btn span {
-  margin-top: 4px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .vgp-panel-row .vgp-col-panel .vgp-name-wrapper {
