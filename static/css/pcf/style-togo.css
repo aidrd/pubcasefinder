@@ -4676,3 +4676,31 @@ label {
 	opacity: 0.5;
     transition: 0.2s;
 }
+
+
+.section-service .text-center h1{
+    color: #13295A;
+    font-size: 2em;
+    font-weight: 600;
+    margin-bottom: 0.5em;
+    white-space: nowrap;
+}
+
+.section-service .grid-w .item-w img{
+    margin: 0 auto;
+    width: 40%;
+}
+
+.section-service .grid-w .item-w h1{
+    font-size: 1.5em;
+    color: #13295A;
+}
+
+.section-service .grid-w .item-w a{
+    border-radius: 5px;
+    padding: 10px;
+    background-color: #13295A;
+    color: #fff;
+    width: 100%;
+    margin-top: auto;
+}

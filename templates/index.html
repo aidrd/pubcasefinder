@@ -166,7 +166,7 @@
                 <div class="search-box_wrapper">
                     <div class="search-brand">
                         <a href="/"><img src="/static/images/pcf/top/logo_color.svg" alt=""></a>
-			<!-- <a href="https://www.rarediseaseday.org/" target="_blank"><img src="/static/images/pcf/logo_rarediseaseday2023.svg" alt=""></a> -->
+                        <!-- <a href="https://www.rarediseaseday.org/" target="_blank"><img src="/static/images/pcf/logo_rarediseaseday2023.svg" alt=""></a> -->
                         {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
                         <p>希少・遺伝性疾患検索システム</p>
                         {% elif get_locale() == "ko" or get_locale() == "ko_KR" %}
@@ -753,36 +753,91 @@
                             <!--h1>Useful For Finding Diseases And Cases</h1-->
                             <!--h1>PubCaseFinder accelerates precision medicine for rare genetic diseases.</h6-->
                             <h1>Promoting Medical Genetics</h1>
-                            <h6>PubCaseFinder is directed toward medical genetics specialists, genetic counselors, pediatricians, and other clinicians related to rare and genetic diseases.</h6>
-                                <div class="hover_image_wrap">
-                                    <button>
-                                        <div class="rotate_image modal_open howtobtn" data-target="modal10"
-                                            rel="noopener noreferrer"><i class="icon-icon-movie"></i>How Does It Work?
-                                        </div>
-                                    </button>
-                                </div>
-                                <!--modal10-->
-                                <div id="modal10" class="modal_box">
-                                    <iframe class="howto_movie" width="560" height="450" src=""
-                                        title="YouTube video player" frameborder="0"
-                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                        allowfullscreen></iframe>
-                                    <div class="modal_img">
-
-                                        <!--Managing Patient Records-->
-                                        <div class="link_area">
-
-                                        </div>
+                            <h6>PubCaseFinder is directed toward medical genetics specialists, genetic counselors,
+                                pediatricians, and other clinicians related to rare and genetic diseases.</h6>
+                            <div class="hover_image_wrap">
+                                <button>
+                                    <div class="rotate_image modal_open howtobtn" data-target="modal10"
+                                        rel="noopener noreferrer"><i class="icon-icon-movie"></i>How Does It Work?
                                     </div>
+                                </button>
+                            </div>
+                            <!--modal10-->
+                            <div id="modal10" class="modal_box">
+                                <iframe class="howto_movie" width="560" height="450" src="" title="YouTube video player"
+                                    frameborder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowfullscreen></iframe>
+                                <div class="modal_img">
 
-                                    <p><a class="modal_close">
-                                            <div class="batsu">×</div>
-                                        </a>
-                                    </p>
+                                    <!--Managing Patient Records-->
+                                    <div class="link_area">
+
+                                    </div>
                                 </div>
+
+                                <p><a class="modal_close">
+                                        <div class="batsu">×</div>
+                                    </a>
+                                </p>
+                            </div>
                         </div>
                     </div>
                     <div class="movie-img"><img src="/static/images/pcf/top/img-movie.png"></div>
+                </div>
+            </div>
+
+            <div class="section-service">
+                <div class="text-center">
+                    <h1>Service</h1>
+                </div>
+                <div class="grid-w">
+                    <div class="item-w">
+                        <img src="/static/record/images/commonmenu-icon1.svg">
+                        <h1>DiseaseSearch</h1>
+                        {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
+                        <p>希少疾患の診断を支援するために作成された検索サービスです。 患者の症状と関連性の高い希少疾患や症例報告を効率よく検索できます。</p>
+                        {% elif get_locale() == "ko" or get_locale() == "ko_KR" %}
+                        <p>이는 희귀 질환의 진단을 지원하기 위해 만들어진 검색 서비스입니다. 환자의 증상과 관련이 높은 희귀 질환 및 사례 보고를 효율적으로 검색할 수 있습니다.</p>
+                        {% else %}
+                        <p>This is a search service created to support the diagnosis of rare diseases. It allows
+                            efficient searching of rare diseases and case reports that are highly relevant to a
+                            patient's symptoms.</p>
+                        {% endif %}
+                        <a href="#" class="Service-btn">
+                            More
+                        </a>
+                    </div>
+                    <div class="item-w">
+                        <img src="/static/record/images/commonmenu-icon2.svg">
+                        <h1>CaseSharing β</h1>
+                        {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
+                        <p>CaseSharingは、希少疾患・遺伝性疾患の症例情報を、管理・共有するためのシステムです。ユーザ登録なしに利用することができます。</p>
+                        {% elif get_locale() == "ko" or get_locale() == "ko_KR" %}
+                        <p>CaseSharing은 희귀 질환 및 유전성 질환의 사례 정보를 관리하고 공유하기 위한 시스템입니다. 사용자 등록 없이 이용할 수 있습니다.</p>
+                        {% else %}
+                        <p>CaseSharing is a system for managing and sharing case information of rare diseases and
+                            genetic disorders. It can be used without user registration.</p>
+                        {% endif %}
+                        <a href="#" class="Service-btn">
+                            More
+                        </a>
+                    </div>
+                    <div class="item-w">
+                        <img src="/static/record/images/commonmenu-icon3.svg">
+                        <h1>PanelSearch</h1>
+                        {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
+                        <p>PanelSearchはヒトの9,998疾患に関連するVirtual Gene Panelを検索し、利活用できる公開データベースです。</p>
+                        {% elif get_locale() == "ko" or get_locale() == "ko_KR" %}
+                        <p>PanelSearch는 9,998개의 인간 질환과 관련된 Virtual Gene Panel을 검색하고 활용할 수 있는 공개 데이터베이스입니다.</p>
+                        {% else %}
+                        <p>PanelSearch is a publicly accessible database that allows users to search and utilize Virtual
+                            Gene Panels associated with 9,998 human diseases.</p>
+                        {% endif %}
+                        <a href="#" class="Service-btn">
+                            More
+                        </a>
+                    </div>
                 </div>
             </div>
 
@@ -1002,10 +1057,8 @@
     id="common-footer__script"></script-->
 <script type="text/javascript"
     src="https://dbcls.rois.ac.jp/DBCLS-common-header-footer/v2/script/common-header-and-footer.js"
-    data-show-footer="true"
-    data-show-footer-license="true"
-    data-show-footer-links="true"
-    style="display: block" id="common-header-and-footer__script" data-width="976" data-color="mono"></script>
+    data-show-footer="true" data-show-footer-license="true" data-show-footer-links="true" style="display: block"
+    id="common-header-and-footer__script" data-width="976" data-color="mono"></script>
 <!-- END: Common header and fotter -->
 
 <!-- START: Slider -->
@@ -1281,7 +1334,7 @@
         'is_hierarchy_fullscreen': false,
         'schema': 'schema-2022',
         //'text_input_schema': 'auto',
-		'text_input_schema': 'manual'
+        'text_input_schema': 'manual'
         });
 
     $("#ex_phenotypes").click(function () {
