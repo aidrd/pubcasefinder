@@ -796,46 +796,42 @@
                         <img src="/static/record/images/commonmenu-icon1.svg">
                         <h1>DiseaseSearch</h1>
                         {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
-                        <p>希少疾患の診断を支援するために作成された検索サービスです。 患者の症状と関連性の高い希少疾患や症例報告を効率よく検索できます。</p>
+                        <p>患者の症状と関連性の高い希少・遺伝性疾患、疾患原因遺伝子、症例報告を効率よく検索できるシステムです。</p>
                         {% elif get_locale() == "ko" or get_locale() == "ko_KR" %}
                         <p>이는 희귀 질환의 진단을 지원하기 위해 만들어진 검색 서비스입니다. 환자의 증상과 관련이 높은 희귀 질환 및 사례 보고를 효율적으로 검색할 수 있습니다.</p>
                         {% else %}
-                        <p>This is a search service created to support the diagnosis of rare diseases. It allows
-                            efficient searching of rare diseases and case reports that are highly relevant to a
-                            patient's symptoms.</p>
+                        <p>The system enables efficient searches for rare and genetic diseases, disease-causing genes, and case reports that are highly relevant to a patient's symptoms.</p>
                         {% endif %}
                         <a href="https://pubcasefinder.dbcls.jp/" class="Service-btn" target="_blank">
-                            More
+                            Show
                         </a>
                     </div>
                     <div class="item-w">
                         <img src="/static/record/images/commonmenu-icon2.svg">
                         <h1>CaseSharing β</h1>
                         {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
-                        <p>CaseSharingは、希少疾患・遺伝性疾患の症例情報を、管理・共有するためのシステムです。ユーザ登録なしに利用することができます。</p>
+                        <p>希少・遺伝性疾患の症例情報を、管理・共有するためのシステムです。ユーザ登録なしに利用することができます。</p>
                         {% elif get_locale() == "ko" or get_locale() == "ko_KR" %}
                         <p>CaseSharing은 희귀 질환 및 유전성 질환의 사례 정보를 관리하고 공유하기 위한 시스템입니다. 사용자 등록 없이 이용할 수 있습니다.</p>
                         {% else %}
-                        <p>CaseSharing is a system for managing and sharing case information of rare diseases and
-                            genetic disorders. It can be used without user registration.</p>
+                        <p>This system enables managing and sharing case information on rare and genetic diseases without user registration.</p>
                         {% endif %}
                         <a href="https://pubcasefinder.dbcls.jp/casesharing" class="Service-btn" target="_blank">
-                            More
+                            Show
                         </a>
                     </div>
                     <div class="item-w">
                         <img src="/static/record/images/commonmenu-icon3.svg">
                         <h1>PanelSearch</h1>
                         {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
-                        <p>PanelSearchはヒトの9,998疾患に関連するVirtual Gene Panelを検索し、利活用できる公開データベースです。</p>
+                        <p>ヒトの9,998疾患に関連するVirtual Gene Panelを検索し、利活用できる公開データベースです。</p>
                         {% elif get_locale() == "ko" or get_locale() == "ko_KR" %}
                         <p>PanelSearch는 9,998개의 인간 질환과 관련된 Virtual Gene Panel을 검색하고 활용할 수 있는 공개 데이터베이스입니다.</p>
                         {% else %}
-                        <p>PanelSearch is a publicly accessible database that allows users to search and utilize Virtual
-                            Gene Panels associated with 9,998 human diseases.</p>
+                        <p>This public database enables searching and utilizing the Virtual Gene Panel associated with 9,998 human diseases.</p>
                         {% endif %}
                         <a href="https://pubcasefinder.dbcls.jp/panelsearch" class="Service-btn" target="_blank">
-                            More
+                            Show
                         </a>
                     </div>
                 </div>
@@ -931,6 +927,7 @@
                     </div>
                 </div>
             </div>
+
 
             <div class="section-citation">
                 <div class="text-center animation-box">
@@ -1053,11 +1050,11 @@
         <a href="https://pubcasefinder.dbcls.jp/casesharing" target="_blank">
             <img src="/static/record/images/logo_CaseSharing.svg" alt="CaseSharing">
             {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
-            <p>症例情報を管理・共有するためのシステム</p>
+            <p>症例情報を管理・共有</p>
             {% elif get_locale() == "ko" or get_locale() == "ko_KR" %}
             <p>케이스 정보를 관리하고 공유하기 위한 시스템</p>
             {% else %}
-            <p>System for managing and sharing case</p>
+            <p>Sharing case information</p>
             {% endif %}
         </a>
     </div>
@@ -1066,11 +1063,11 @@
         <a href="https://pubcasefinder.dbcls.jp/panelsearch" target="_blank">
             <img src="/static/record/images/logo_PanelSearch.svg" alt="PanelSearch">
             {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
-            <p>疾患に関連するVirtual Gene Panelを検索</p>
+            <p>Virtual Gene Panelを検索</p>
             {% elif get_locale() == "ko" or get_locale() == "ko_KR" %}
             <p>질환과 관련된 Virtual Gene Panel을 검색합니다</p>
             {% else %}
-            <p>Search for Virtual Gene Panels</p>
+            <p>Search Virtual Gene Panels</p>
             {% endif %}
         </a>
     </div>
