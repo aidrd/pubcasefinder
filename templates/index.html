@@ -1049,7 +1049,31 @@
 
     </section>
     </div>
+    <div class="floating-banner floating-CaseSharing">
+        <a href="#">
+            <img src="/static/record/images/logo_CaseSharing.svg" alt="CaseSharing">
+            {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
+            <p>症例情報を管理・共有するためのシステム</p>
+            {% elif get_locale() == "ko" or get_locale() == "ko_KR" %}
+            <p>케이스 정보를 관리하고 공유하기 위한 시스템</p>
+            {% else %}
+            <p>System for managing and sharing case</p>
+            {% endif %}
+        </a>
+    </div>
 
+    <div class="floating-banner floating-PanelSearch">
+        <a href="#">
+            <img src="/static/record/images/logo_PanelSearch.svg" alt="PanelSearch">
+            {% if get_locale() == "ja" or get_locale() == "ja_JP" %}
+            <p>疾患に関連するVirtual Gene Panelを検索</p>
+            {% elif get_locale() == "ko" or get_locale() == "ko_KR" %}
+            <p>질환과 관련된 Virtual Gene Panel을 검색합니다</p>
+            {% else %}
+            <p>Search for Virtual Gene Panels</p>
+            {% endif %}
+        </a>
+    </div>
 </body>
 
 <!-- START: Common header and footer -->
@@ -1264,6 +1288,18 @@
             });
         });
     });
+
+
+    const banner = document.querySelector('.floating-banner');
+
+    banner.addEventListener('mouseenter', () => {
+        banner.style.transform = 'translate(0, -10px)';
+    });
+
+    banner.addEventListener('mouseleave', () => {
+        banner.style.transform = 'translate(0, 0)';
+    });
+
 </script>
 <!-- END: Slider -->
 
