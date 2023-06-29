@@ -94,7 +94,7 @@
 /* END:fontello */
 
 
-html{
+html {
     overflow: auto;
 }
 
@@ -173,7 +173,7 @@ body {
     white-space: nowrap;
     transition: all 0.5s 0s ease;
     text-align: none;
-	line-height: 1.42857;
+    line-height: 1.42857;
     height: 3em;
     display: inline-flex;
 }
@@ -744,7 +744,7 @@ body {
     margin: 30px auto 20px auto;
 }
 
-.search-brand p{
+.search-brand p {
     text-align: center;
     color: #13295A;
 }
@@ -872,7 +872,6 @@ a.card-link {
     margin: 0 calc(50% - 50vw);
     display: flex;
     margin-top: 3em;
-    margin-bottom: 3em;
 }
 
 .section-movie .movie-wrapper {
@@ -1249,8 +1248,8 @@ p {
 
 .nav-pc ul {
     display: flex;
-	margin-top: inherit;
-	margin-bottom: inherit;
+    margin-top: inherit;
+    margin-bottom: inherit;
 }
 
 .nav-pc ul li {
@@ -1259,11 +1258,11 @@ p {
     white-space: nowrap;
 }
 
-.nav-pc ul li a{
+.nav-pc ul li a {
     transition: all 0.5s 0s ease;
 }
 
-.nav-pc ul li a:hover{
+.nav-pc ul li a:hover {
     color: #0056b3;
 }
 
@@ -3297,7 +3296,7 @@ label {
 }
 
 a {
-  color: inherit;
+    color: inherit;
 }
 
 label {
@@ -4035,7 +4034,7 @@ label {
     line-height: 1.5em;
 }
 
-.help-wrapper .content .column-wrapper .column-right .right-wrap p a{
+.help-wrapper .content .column-wrapper .column-right .right-wrap p a {
     color: #067ABC;
     border-bottom: 1px solid;
 }
@@ -4432,12 +4431,12 @@ label {
 }
 
 /* 新規追加 20220403 */
-.item-w button{
+.item-w button {
     width: 100%;
     margin-top: auto;
 }
 
-.Statistics-btn{
+.Statistics-btn {
     border-radius: 5px;
     padding: 10px;
     background-color: #13295A;
@@ -4459,9 +4458,9 @@ label {
     padding: 10px 10px 10px 40px;
     max-width: 110px;
     cursor: pointer;
-  }
-  
-  .select-text {
+}
+
+.select-text {
     position: relative;
     font-family: inherit;
     background-color: transparent;
@@ -4469,21 +4468,21 @@ label {
     border: none;
     border-radius: 2em;
     cursor: pointer;
-  }
-  
-  /* Remove focus */
-  .select-text:focus {
+}
+
+/* Remove focus */
+.select-text:focus {
     outline: none;
-    border-bottom: 1px solid rgba(0,0,0, 0);
-  }
-  
-    /* Use custom arrow */
-  .select .select-text {
+    border-bottom: 1px solid rgba(0, 0, 0, 0);
+}
+
+/* Use custom arrow */
+.select .select-text {
     appearance: none;
-    -webkit-appearance:none
-  }
-  
-  .select:after {
+    -webkit-appearance: none
+}
+
+.select:after {
     position: absolute;
     top: 18px;
     right: 10px;
@@ -4496,35 +4495,37 @@ label {
     border-right: 6px solid transparent;
     border-top: 6px solid rgba(0, 0, 0, 0.12);
     pointer-events: none;
-  }
-  
-  
-  /* LABEL ======================================= */
-  .select-label {
-    color: rgba(0,0,0, 0.26);
+}
+
+
+/* LABEL ======================================= */
+.select-label {
+    color: rgba(0, 0, 0, 0.26);
     font-weight: normal;
     position: absolute;
     pointer-events: none;
     left: 0;
     top: 10px;
     transition: 0.2s ease all;
-  }
-  
-  /* active state */
-  .select-text:focus ~ .select-label, .select-text:valid ~ .select-label {
+}
+
+/* active state */
+.select-text:focus~.select-label,
+.select-text:valid~.select-label {
     color: #2F80ED;
     transition: 0.2s ease all;
     padding-left: 12px;
-  }
-  
-  /* BOTTOM BARS ================================= */
-  .select-bar {
+}
+
+/* BOTTOM BARS ================================= */
+.select-bar {
     position: relative;
     display: block;
     width: 100px;
-  }
-  
-  .select-bar:before, .select-bar:after {
+}
+
+.select-bar:before,
+.select-bar:after {
     content: '';
     height: 2px;
     width: 0;
@@ -4532,15 +4533,15 @@ label {
     position: absolute;
     background: #2F80ED;
     transition: 0.2s ease all;
-  }
-  
+}
 
-  
-@media (max-width: 970px){
+
+
+@media (max-width: 970px) {
     .search-header .search-header_wrapper .search-header_top .search-header_left .language {
         margin-left: 1em;
-        margin-right: 1em; 
-    } 
+        margin-right: 1em;
+    }
 }
 
 
@@ -4548,12 +4549,14 @@ label {
 /*アコーディオン全体*/
 .tab_accordion {
     width: 100%;
-  }
-  .tab_accordion input {
+}
+
+.tab_accordion input {
     display: none;
-  }
-  .tab_accordion label {
-    cursor :pointer;
+}
+
+.tab_accordion label {
+    cursor: pointer;
     white-space: nowrap;
     display: block;
     margin: 0;
@@ -4571,19 +4574,22 @@ label {
     transition: 0.5s;
     width: 100%;
     margin-bottom: 0.2em;
-  }
-  .tab_accordion label:hover {
+}
+
+.tab_accordion label:hover {
     background-color: #6B7791;
     transition: 0.5s;
 }
-  .tab_accordion ul {
+
+.tab_accordion ul {
     margin: 0;
     padding: 0;
     list-style: none;
     margin-bottom: 1px;
-  }
-  .tab_accordion li {
-    cursor :pointer;
+}
+
+.tab_accordion li {
+    cursor: pointer;
     height: 0;
     overflow-y: hidden;
     transition: padding-bottom 0.5s, padding-top 0.5s;
@@ -4591,98 +4597,101 @@ label {
     -moz-transition: padding-bottom 0.5s, padding-top 0.5s;
     -ms-transition: padding-bottom 0.5s, padding-top 0.5s;
     -o-transition: padding-bottom 0.5s, padding-top 0.5s;
-  }
+}
 
 
-     
-  #menu_bar01:checked ~ #links01 li {
+
+#menu_bar01:checked~#links01 li {
     height: auto;
     opacity: 1;
     background: #f1f1f1;
     padding: 0.8em 1em;
     margin-bottom: 0.2em;
-  }
+}
 
-  .help-wrapper .content .column-wrapper .column-left .sidenav li .accordion_list{
+.help-wrapper .content .column-wrapper .column-left .sidenav li .accordion_list {
     color: initial;
     margin-bottom: 0;
     padding: 0;
     background-color: #f1f1f1;
     font-size: inherit;
-  }
-  .help-wrapper .content .column-wrapper .column-left .sidenav li .accordion_list:hover{
-    background-color: initial;
-  }
+}
 
-  #menu_bar01:checked ~ #links01 li:last-child{
+.help-wrapper .content .column-wrapper .column-left .sidenav li .accordion_list:hover {
+    background-color: initial;
+}
+
+#menu_bar01:checked~#links01 li:last-child {
     margin-bottom: 20px;
-  }
-  .tab_accordion label:after{
-    content:"";
-    display:block;
-    width:8px;
-    height:8px;
+}
+
+.tab_accordion label:after {
+    content: "";
+    display: block;
+    width: 8px;
+    height: 8px;
     border-top: #fff 2px solid;
     border-right: #fff 2px solid;
     -webkit-transform: rotate(135deg);
     -ms-transform: rotate(135deg);
     transform: rotate(135deg);
-    position:absolute;
+    position: absolute;
     right: 0;
     top: 0;
     bottom: 15%;
     margin: auto 0.7em auto 0;
-  }
+}
 
-  /*開いた状態の矢印描画*/
-  .tab_accordion input[type=checkbox]:checked + label:after{
-    content:"";
-    display:block;
-    width:8px;
-    height:8px;
+/*開いた状態の矢印描画*/
+.tab_accordion input[type=checkbox]:checked+label:after {
+    content: "";
+    display: block;
+    width: 8px;
+    height: 8px;
     border-top: #fff 2px solid;
     border-right: #fff 2px solid;
     -webkit-transform: rotate(-45deg);
     -ms-transform: rotate(-45deg);
     transform: rotate(-45deg);
-    position:absolute;
+    position: absolute;
     right: 0;
     top: 7%;
     bottom: 0;
     margin: auto 0.7em auto 0;
-  }
+}
 
-  .help-wrapper .content .column-wrapper .column-left .sidenav li .accordion_list:after{
+.help-wrapper .content .column-wrapper .column-left .sidenav li .accordion_list:after {
     right: 0;
-  }
-
-
-.modal-open {
-  overflow:hidden;
-  /*overflow-y:hidden;*/
-  padding-right: 0 !important;
 }
 
 
-.img_rarediseaseday{
+.modal-open {
+    overflow: hidden;
+    /*overflow-y:hidden;*/
+    padding-right: 0 !important;
+}
+
+
+.img_rarediseaseday {
     max-width: 250px;
     margin: 1em auto 0;
     border-radius: 2ch;
     box-shadow: 0 1rem 2rem hsl(0 0% 0% / 20%);
-    cursor:pointer;
+    cursor: pointer;
 }
 
 .img_rarediseaseday:hover {
-	opacity: 0.5;
+    opacity: 0.5;
     transition: 0.2s;
 }
 
-.section-service{
-padding-bottom: 6em;
+.section-service {
+    padding-top: 6em;
+    padding-bottom: 6em;
 }
 
 
-.section-service .text-center h1{
+.section-service .text-center h1 {
     color: #13295A;
     font-size: 2em;
     font-weight: 600;
@@ -4690,17 +4699,17 @@ padding-bottom: 6em;
     white-space: nowrap;
 }
 
-.section-service .grid-w .item-w img{
+.section-service .grid-w .item-w img {
     margin: 0 auto;
     width: 40%;
 }
 
-.section-service .grid-w .item-w h1{
+.section-service .grid-w .item-w h1 {
     font-size: 1.5em;
     color: #13295A;
 }
 
-.section-service .grid-w .item-w a{
+.section-service .grid-w .item-w a {
     border-radius: 5px;
     padding: 10px;
     background-color: #13295A;
@@ -4713,15 +4722,15 @@ padding-bottom: 6em;
 /* floating-banner */
 
 .floating-banner {
-  position: fixed;
-      left: 20px;
-      bottom: -30px;
-      width: 230px;
-      height: 100px;
-      background-color: #fff;
-      transition: transform 0.3s ease;
-      border-radius: 7px 7px 0 0;
-      box-shadow: 0 2px 15px 1px rgba(163, 163, 163, 0.5);
+    position: fixed;
+    left: 20px;
+    bottom: -30px;
+    width: 230px;
+    height: 100px;
+    background-color: #fff;
+    transition: transform 0.3s ease;
+    border-radius: 7px 7px 0 0;
+    box-shadow: 0 2px 15px 1px rgba(163, 163, 163, 0.5);
     padding: 7px 10px;
     display: flex;
     justify-content: center;
@@ -4729,11 +4738,11 @@ padding-bottom: 6em;
     text-decoration: none;
 }
 
-.floating-banner a{
+.floating-banner a {
     text-decoration: none !important;
 }
 
-.floating-banner a img{
+.floating-banner a img {
     width: 200px;
     text-decoration: none;
     height: 35px;
@@ -4741,26 +4750,25 @@ padding-bottom: 6em;
     display: block;
 }
 
-.floating-banner a p{
-    font-size: 0.5em;
+.floating-banner a p {
+    font-size: 0.8em;
     color: #13295A;
     text-align: center;
 }
 
 .floating-banner:hover {
-      transform: translate(0, -10px);
-        text-decoration: none;
-        color: #13295A;
+    transform: translate(0, -10px);
+    text-decoration: none;
+    color: #13295A;
 }
 
-.floating-PanelSearch{
-      left: 260px;
-      bottom: -30px;
-      height: 100px;
+.floating-PanelSearch {
+    left: 260px;
+    bottom: -30px;
+    height: 100px;
 }
 
 
-.floating-PanelSearch a img{
+.floating-PanelSearch a img {
     width: 170px;
 }
-
