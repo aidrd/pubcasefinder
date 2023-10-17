@@ -3789,6 +3789,8 @@
             $mfp_wrap_local.css({'top': pos+'px'});
 //			let max_height= Math.floor(document.documentElement.clientHeight) - Math.ceil(pos);
 //			$mfp_container.css({'max-height':max_height+'px','overflow':'hidden auto'});
+			let max_height= Math.floor(document.documentElement.clientHeight) - Math.ceil(pos);
+			$mfp_wrap_local.css({'max-height':max_height+'px','overflow':'hidden auto'});
 		}
 
 
