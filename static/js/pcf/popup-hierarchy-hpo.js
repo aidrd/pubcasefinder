@@ -3680,6 +3680,11 @@
 			//	max_height= Math.floor($(ATTACH_TO).height()) - Math.ceil(pos);
 			//}
             //$mfp_container.css({'max-height':max_height+'px','overflow':'hidden auto'});
+			let max_height= Math.floor(document.documentElement.clientHeight) - Math.ceil(pos);
+			$mfp_wrap_local.css({'max-height':max_height+'px','overflow':'hidden auto'});
+			
+
+
 
 //			if(!ATTACH_TO){
 //				let max_height= Math.floor(document.documentElement.clientHeight) - Math.ceil(pos);
