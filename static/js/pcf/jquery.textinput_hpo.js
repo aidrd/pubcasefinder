@@ -3,6 +3,7 @@
 	//const HPO_DIC="/static/data/POET_dictionary_manbyoAB_temp_ver.02-01-with.tsv.utf8.bits.20220612.v4",
 	//const HPO_DIC="/static/data/HPO-japanese.20220414-20220831.textinput.txt",
 	const HPO_DIC="/static/data/HPO-japanese.20221104.textinput.txt",
+	//const HPO_DIC="/static/data/HPO-japanese.20230214.textinput.txt",
 		  IS_NOTOBSERVED_REGEX='[な無](かった|く|い|し)|(られ|され|おら|せ|でき|出来|みえ|認め)ず',
 		  IS_NOTOBSERVED_CHARS_NUM=20,
 		  IS_NOTOBSERVED_STOP_LETTERS=["\,","\.","\。","\．","\\n"];
@@ -390,7 +391,7 @@
 			$.each(hpo_dic.get_dic(), function(i, item) {
 
 				let hpo_term = item.SEARCH_KEY;
-		
+
 				if(hpo_term.length > 0){
 		
 					// check if longer was chosen already.
@@ -410,6 +411,24 @@
 					if(none_longer_found){
 						let counter = 0;
 						for(let pos = text1.indexOf(hpo_term); pos !== -1; pos = text1.indexOf(hpo_term, pos + 1)) {
+
+                            let start = pos;
+                            let end   = pos + hpo_term.length -1;
+                            let isOverlapped = false;
+                            for(let idx=0; idx<matches_lst.length;idx++){
+                                if( end < matches_lst[idx].start || start > matches_lst[idx].end){
+                                    //no overlap
+                                }else{
+                                    //found overlap
+                                    isOverlapped = true;
+                                    break;
+                                }
+                            }
+
+                            if(isOverlapped){
+								continue;
+							}
+
 							let term_in_text = text.substring(pos, pos + hpo_term.length);
 							let obj = {start:		   pos,
 										end:		   pos + hpo_term.length -1,
