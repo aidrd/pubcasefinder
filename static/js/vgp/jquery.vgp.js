@@ -60,8 +60,10 @@
         [SETTINGS_KEY_LANG]:   LANGUAGE_EN,
         [SETTINGS_KEY_FUNC_AFTER_SEARCH_IDLIST]: null,
         [SETTINGS_KEY_FUNC_CHECK_CONSISTENCE]:   null,
-        [SETTINGS_KEY_SORT_TARGET]:              SORT_TARGET_PANEL,
-        [SETTINGS_KEY_SORT_DIRECTION]:           SORT_DIRECTION_ASC
+        //[SETTINGS_KEY_SORT_TARGET]:              SORT_TARGET_PANEL,
+        //[SETTINGS_KEY_SORT_DIRECTION]:           SORT_DIRECTION_ASC
+        [SETTINGS_KEY_SORT_TARGET]:              SORT_TARGET_GENE,
+        [SETTINGS_KEY_SORT_DIRECTION]:           SORT_DIRECTION_DSC
     };
     
     var _isFunction = function(value) {    return $.isFunction(value);    },
