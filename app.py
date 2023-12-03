@@ -1826,3 +1826,11 @@ def pcf_panel_get_mondo_id_match_gene_symbol_synonym_ncbiid():
     response_data['input:'] = [list[0] for list in results]
 
     return json.dumps(response_data, ensure_ascii=False)
+
+
+@app.route('/hposearch', methods=['GET'])
+def hposearch():
+    r_lang = ""
+    if request.args.get('lang') is not None:
+        r_lang = request.args.get('lang')
+    return render_template('hposearch.html', r_lang=r_lang)

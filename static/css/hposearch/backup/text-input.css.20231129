@@ -1,0 +1,366 @@
+#text-input-container {
+  border-radius: 5px;
+  width: 100%;
+  margin-top:1px;
+
+  padding: 15px;
+  position: relative;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  pointer-events: auto;
+  background-color: #fff;
+  background-clip: padding-box;
+  outline: 0;
+  box-shadow: 0px 8px 10px 1px rgb(0 0 0 / 14%), 0px 3px 14px 2px rgb(0 0 0 / 12%), 0px 5px 5px -3px rgb(0 0 0 / 20%);
+  display: none;
+}
+
+#text-input-container.active{
+  display: block;
+}
+
+#text-input-loader {
+  display: none;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+  background-color:#fff;
+  opacity:1.0;
+  z-index: 99999;
+}
+
+#text-input-loader div {
+  width: 300px;
+  position: absolute;
+  top: calc(50% - 17px);
+  left:calc(50% - 150px);
+}
+
+#text-input-loader .text-input-loader-gif {
+  width:  30px;
+  height: 30px;
+  padding: 0;
+  background: url(../../images/text-input-loader.gif) center no-repeat #fff;
+}
+
+#text-input-loader #text-input-loader-text:empty::before {
+  font-size: 22px;
+  content: " Loading HPO Dictionary ...";
+}
+
+
+
+
+#text-input-container .text-input-header {
+  width: 100%;
+  border: 0px;
+}
+
+#text-input-container .text-input-header {
+  margin-bottom: 5px;
+  line-height: 1.5;
+  text-align: left;
+}
+
+#text-input-container .text-input-header .sample-wrap .sample {
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  margin-top: 5px;
+}
+
+#text-input-container .text-input-header .sample-wrap .sample:before {
+  content:"\A";
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  display:inline-block;
+  margin-right:5px;
+}
+
+#text-input-container .text-input-content{
+  width:100%;
+  height: 202px;
+  position: relative;
+  flex: 1 1 auto;
+}
+
+#text-input-container .text-input-content .text-input-wrapper{
+  width: 49%;
+  height: 200px;
+  max-height:200px;
+  border-radius:5px;
+  background-color:#ced4da;
+  border:1px solid #ced4da;
+}
+
+#text-input-container .text-input-content .text-input-wrapper .text-input-textarea{
+  width:100%;
+  height: 100%;
+  margin: 0px;
+  border-radius:5px;
+  background-color:#f8f9fa;
+  padding: 10px;
+  overflow-y: auto;
+  text-align: left;
+}
+
+#text-input-container .text-input-content .text-input-wrapper .text-input-textarea:focus {
+  border-color: #394466;
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem #394466;
+}
+
+#text-input-container .text-input-content .text-input-wrapper .text-input-textarea:empty::before {
+  content: attr(data-placeholder);
+  color:   gray;
+  display: block;
+}
+
+#text-input-container  .text-input-content .text-input-wrapper .text-input-textarea span{
+  border-bottom: solid 2px #ffb7b7;
+}
+
+
+#text-input-container  .text-input-content .text-input-wrapper .text-input-textarea span.chosen{
+  background-color: #ffcccc;
+  border-bottom: solid 2px red;
+}
+
+#text-input-container  .text-input-content .text-input-wrapper .text-input-textarea span.notobserved {
+  border-bottom: solid 2px #b2e8f9;
+}
+
+#text-input-container  .text-input-content .text-input-wrapper .text-input-textarea span.notobserved.chosen {
+  background-color: #b2e8f9;
+  border-bottom: solid 2px blue;
+}
+
+
+#text-input-container  .text-input-content .text-input-wrapper .text-input-table{
+  font-family: Verdana, sans-serif !important;
+  width:  100%;
+  /*height: 100%;*/
+  background-color:#f8f9fa;
+  border-radius:5px;
+  border-spacing:   0px 2px;
+  overflow-y:       auto;
+  box-shadow:       none;
+  margin:           0px;
+  font-size:        18px;
+  font-weight:      300;
+ 
+}
+
+#text-input-container  .text-input-content .text-input-wrapper .text-input-table::-webkit-scrollbar {
+  display: block !important;
+}
+
+
+/*
+#text-input-container  .text-input-content .text-input-wrapper .text-input-table tbody{
+  overflow-y: scroll;
+}
+*/
+
+#text-input-container  .text-input-content .text-input-wrapper .text-input-table tbody tr{width: 100%;}
+#text-input-container  .text-input-content .text-input-wrapper .text-input-table tbody tr.chosen td{background-color: #e8edf4 !important;}
+
+
+#text-input-container  .text-input-content .text-input-wrapper .text-input-table tbody tr.chosen.observed{
+  border: 1px solid red;
+}
+
+#text-input-container  .text-input-content .text-input-wrapper .text-input-table tbody tr.chosen.notobserved {
+  border: 1px solid blue;
+}
+
+#text-input-container  .text-input-content .text-input-wrapper .text-input-table tbody tr td.selection {
+  width: 48px;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+#text-input-container  .text-input-content .text-input-wrapper .text-input-table tbody tr td.hpo_id {
+  width: 108px;
+  padding-left: 0px;
+  padding-right: 0px;
+  white-space: nowrap;
+}
+
+#text-input-container  .text-input-content .text-input-wrapper .text-input-table tbody tr td.hpo_id span{
+  border: 2px solid grey;
+  border-radius: 3px;
+  padding-left: 4px;
+  padding-right: 4px;
+  font-family: Verdana, sans-serif !important;
+}
+
+#text-input-container  .text-input-content   .text-input-wrapper .text-input-table tbody tr td.hpo_id:before {
+  content:"\A";
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  display:inline-block;
+  margin:0 6px 2px 0;
+}
+
+#text-input-container  .text-input-content .text-input-wrapper .text-input-table tbody tr td.hpo_name {
+  width: 90%;
+  font-family: Verdana, sans-serif !important;
+}
+
+
+#text-input-container  .text-input-content .text-input-wrapper .text-input-table tbody tr td button{
+  cursor: pointer;
+}
+
+#text-input-container  .text-input-content .text-input-wrapper .text-input-table tbody tr td div.dropdown .dropdown-menu {
+  padding: 0;
+  min-width: 100px;
+  display: none;
+}
+
+.tippy-content ul.dropdown-observe {
+  background-color: #fff;
+  color: black;
+}
+.tippy-content ul.dropdown-observe li {
+  padding: 5px 10px 5px 10px;
+  width: 100%;
+  cursor: pointer;
+}
+
+.tippy-content ul.dropdown-observe li:hover{
+  background-color: lightgrey;
+}
+
+.tippy-content ul.dropdown-observe li span:before {
+  content:"\A";
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  display:inline-block;
+  margin:0 5px 3px 0;
+}
+
+#text-input-parse-button {
+  height: 36px;
+  width: 36px;
+  color:white;
+  background-color:#222057;
+  opacity:1.0;
+  font-size:20px;
+  border:0px;
+  margin:0;
+  position: absolute;
+  top: calc(50% - 18px);
+  left:calc(50% - 18px);
+}
+
+#text-input-container .text-input-doc-btn-wrapper {
+  width: 100%;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  display: -ms-flexbox;
+  display: flex;
+  flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+}
+
+
+#text-input-container  .text-input-doc-btn-wrapper button {
+  border-radius: 5px;
+  padding-left: 8px;
+  padding-right: 9px;
+  color: #067ABC;
+  border: 1px solid #067ABC;
+  margin-right: 5px;
+  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+  user-select: none;
+}
+
+#text-input-container  .text-input-doc-btn-wrapper button.selected {
+  background-color: #067ABC;
+  color: #fff;
+}
+
+#text-input-container  .text-input-doc-btn-wrapper button:hover {
+  background-color: #067ABC;
+  color: #fff;
+}
+
+
+#text-input-container .text-input-footer {
+  width: 100%;
+  margin-top: 10px;
+  height: 30px;
+}
+
+#text-input-container  .text-input-footer button {
+  border-radius: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+
+#text-input-container  .text-input-footer button.ctl{
+  background-color: #AEB0B5;
+  color: #fff;
+  border: 1px solid #AEB0B5;
+  margin-right: 5px;
+  user-select: none;
+}
+
+#text-input-container  .text-input-footer button.enter {
+  background-color: #ff8c00;
+  border: 1px solid #ff8c00;
+  color: #fff;
+  user-select: none;
+}
+
+.observed:before {
+  background: red;
+}
+
+.notobserved:before {
+  background: blue;
+}
+
+
+#text2hpo-button {
+    border: solid 1px #AEB0B5;
+    border-radius: 5px;
+    color: black;
+    padding: 5px;
+    display: inline-block;
+    justify-content: center;
+    align-items: center;
+    margin-right: 5px;
+}
+
+#text2hpo-button img {
+    height: 20px;
+    width:  20px;
+}
+
+#phenotouch-button {
+    border: solid 1px #AEB0B5;
+    border-radius: 5px;
+    color: black;
+    padding: 5px;
+    display: inline-block;
+    justify-content: center;
+    align-items: center;
+}   
+
+#phenotouch-button img {
+    height: 20px;
+    width:  20px;
+}

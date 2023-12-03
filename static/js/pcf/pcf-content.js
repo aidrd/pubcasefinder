@@ -1650,19 +1650,116 @@
 		return text;
 	}
 
+	function _contruct_copy_content2(rank,detail_data,lang){
+		let target_id = rank.id;
+		let textArr = [];
+        //mondo id
+		if(_isExistVal("mondo_id",detail_data)){
+			textArr.push(detail_data.mondo_id.join(","));
+		}else{
+			textArr.push("");
+		}
+
+		if(RegExp_OMIM.test(target_id)){
+			//omim id
+			textArr.push(target_id);
+            //orpha id
+			if(_isExistVal("orpha_id",detail_data)){
+				textArr.push(detail_data.orpha_id.join(","));
+			}else{
+				textArr.push("");
+			}
+			//label en
+            if(_isExistVal("omim_disease_name_en",detail_data)){
+			    textArr.push(detail_data.omim_disease_name_en);
+            }else{
+                textArr.push("");
+            }
+
+            //label ja
+            if(lang==='ja' && _isExistVal("omim_disease_name_ja",detail_data)){
+                textArr.push(detail_data.omim_disease_name_ja);
+            }else{
+                textArr.push("");
+            }
+		}else{
+			//omim id
+			if(_isExistVal("omim_id",detail_data)){
+				textArr.push(detail_data.omim_id.join(","));
+			}else{
+				textArr.push("");
+			}			
+			//orpha id
+			textArr.push(target_id);
+
+            //label en
+            if(_isExistVal("orpha_disease_name_en",detail_data)){
+		    	textArr.push(detail_data.orpha_disease_name_en);
+            }else{
+                textArr.push("");
+            }		
+            //label ja	
+            if(lang==='ja' && _isExistVal("orpha_disease_name_ja",detail_data)){
+                textArr.push(detail_data.orpha_disease_name_ja);
+            }else{
+                textArr.push("");
+            }
+		}
+		return textArr.join("\t");
+	}
+
 	function _clear_selection(){
 		let target       = _get_active_target();
 		let $panel       = tab_panel_lst[target];
 		let id_selectnum = target + "_selected_num";
-                let id_clear     = target + "_clear_select";
+        let id_clear     = target + "_clear_select";
+        let id_copy      = target + "_copy_select";
 
 		$('#'+id_selectnum).hide();
 		$('#'+id_clear).hide();
+        if($('#'+id_copy).length) $('#'+id_copy).hide();
 
 		$panel.find("input[name='target_id']:checked").prop('checked',false); 
-
 	}
 	
+    function _copy_selection(){
+        let target   = _get_active_target();
+        let $panel   = tab_panel_lst[target];
+        let inputArr = $panel.find("input[name='target_id']:checked");
+        let copy_content_arr = [];
+        for(let i=0;i<inputArr.length;i++){
+            let copy_content = $(inputArr[i]).data("copy_content");
+            copy_content_arr.push(copy_content);
+        }
+
+        let text = copy_content_arr.join("\n");
+        if (window.clipboardData && window.clipboardData.setData) {
+            window.clipboardData.setData("Text", text);
+        } else if (document.queryCommandSupported && document.queryCommandSupported("copy")) {
+            let textarea = document.createElement("textarea");
+            textarea.style = "position: absolute; left: -1000px; top: -1000px";
+            textarea.textContent = text;
+            document.body.appendChild(textarea);
+            //textarea.select();
+            try {
+                let selection = document.getSelection();
+                selection.removeAllRanges();
+                let range = document.createRange();
+                range.selectNodeContents(textarea);
+                selection.addRange(range);
+                document.execCommand('copy');
+                selection.removeAllRanges();
+            }
+            catch (ex) {
+                console.log("Copy to clipboard failed.", ex);
+            }
+            finally {
+                document.body.removeChild(textarea);
+            }
+        }
+    }
+
+
 	function _on_select_changed(){
 
 		let target = _get_active_target();
@@ -1670,6 +1767,7 @@
 
 		let id_selectnum = target + "_selected_num";
 		let id_clear     = target + "_clear_select";
+        let id_copy      = target + "_copy_select";
 
 		let num = $panel.find("input[name='target_id']:checked").length;
 		$('#'+id_selectnum).text('' + num + " item selected");
@@ -1677,9 +1775,11 @@
 		if(num > 0){
 			$('#'+id_selectnum).show();
 			$('#'+id_clear).show();
+            if($('#'+id_copy).length) $('#'+id_copy).show();
 		}else{
 			$('#'+id_selectnum).hide();
 			$('#'+id_clear).hide();
+            if($('#'+id_copy).length) $('#'+id_copy).hide();
 		}
 
 	}
@@ -1720,12 +1820,31 @@
 			let $top_panel = $('<div>').addClass("list-header").appendTo($target_tab_panel);
 			$('<div>').attr('id', target + "_list-results").addClass("list-results").text(total_num_str + " results").appendTo($top_panel);
 			$('<div>').attr('id', target + "_selected_num").addClass("list-results-select-num").text("0 item selected").css({'display':'none'}).appendTo($top_panel);
-			$('<div>').attr('id', target + "_clear_select").addClass("list-results-clear-select").text("x clear selection")
+			$('<div>').attr('id', target + "_clear_select").addClass("list-results-clear-select").text("X CLEAR SELECTION")
 				.click(function(){
 					_clear_selection();
 				})
 				.css({'display':'none'})
 				.appendTo($top_panel);
+
+            //$('<div>').attr('id', target + "_copy_select").addClass("list-results-clear-select").text("COPY SELECTION")
+            if(target !== TARGET_GENE && target !== TARGET_CASE){ 
+              $('<div>').attr('id', target + "_copy_select").addClass("list-results-clear-select")
+                //.html("<i class=\"material-icons\">content_copy</i>COPY SELECTION")
+                .html(
+"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" fill=\"currentColor\" class=\"bi bi-files\" viewBox=\"0 0 16 16\"><path d=\"M13 0H6a2 2 0 0 0-2 2 2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h7a2 2 0 0 0 2-2 2 2 0 0 0 2-2V2a2 2 0 0 0-2-2m0 13V4a2 2 0 0 0-2-2H5a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1M3 4a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z\"\/><\/svg> COPY SELECTION"
+                )
+                .click(function(){
+                    $(this).tooltip('show');
+                    _copy_selection();
+                })
+                .css({'display':'none'})
+                .tooltip({'title':'Copied to clipboard!', 'trigger':'manual', 'placement':'top'})
+                .on('mouseleave', function () {
+                    $(this).tooltip('hide');
+                })
+                .appendTo($top_panel);
+            }
 
 			let $tag_sample_container = $('<div>').addClass("list-tag_sample").appendTo($top_panel);
 			LANGUAGE[lang]['SAMPLE_TAG_LABEL'][target].forEach(function(item){
@@ -1904,9 +2023,15 @@
 				$td_left.addClass('d-flex flex-row');
 				
 				let $sel = $('<div>').addClass('sel').appendTo($td_left);
-				$("<input type=\"checkbox\" value=\""+ranking_list[i].id+"\" name=\"target_id\"></input>")
-					.change(function(){_on_select_changed();}).appendTo($sel);
-
+                if(target !== TARGET_GENE && target !== TARGET_CASE){
+                    let copy_content_text = _contruct_copy_content2(ranking_list[i],detail_data[ranking_list[i].id],lang);
+				    $("<input type=\"checkbox\" value=\""+ranking_list[i].id+"\" name=\"target_id\"></input>")
+                        .data("copy_content",copy_content_text)
+					    .change(function(){_on_select_changed();}).appendTo($sel);
+                }else{
+                    $("<input type=\"checkbox\" value=\""+ranking_list[i].id+"\" name=\"target_id\"></input>")
+                        .change(function(){_on_select_changed();}).appendTo($sel);
+                }
 				/// rank
 				$('<div>').addClass('rank').text(i+1).appendTo($td_left);
 
@@ -1924,9 +2049,16 @@
 				}
 			}else{
 				let $rank = $('<div>').addClass('rank').appendTo($td_left);
+                
 				let input_str = "<input type=\"checkbox\" value=\""+ranking_list[i].id+"\" name=\"target_id\"><p>"+(i+1)+"</p></input>";
-				$(input_str).change(function(){ _on_select_changed(); }).appendTo($rank);
-				
+                if(target !== TARGET_GENE && target !== TARGET_CASE){
+                    let copy_content_text = _contruct_copy_content2(ranking_list[i],detail_data[ranking_list[i].id],lang);
+				    $(input_str).change(function(){ _on_select_changed(); })
+                        .data("copy_content",copy_content_text)
+                        .appendTo($rank);
+				}else{
+                    $(input_str).change(function(){ _on_select_changed(); }).appendTo($rank);
+                }
 				let $percentage = $("<span>("+ score+")</span>").appendTo($td_left);
 				if(!isDisplayFull) $percentage.addClass('summary');
 

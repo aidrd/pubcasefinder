@@ -478,6 +478,17 @@ border-radius: 50%;
   cursor: pointer;
 }
 
+.list-header .list-results-clear-select:hover{
+  color: black;
+}
+
+.list-header .list-results-clear-select i{
+  font-size: 17px;
+}
+
+.list-header .list-results-clear-select svg{
+  margin-bottom: 3px;
+}
 .list-header .list-tag_sample {
   margin: 0 0 0 auto;
 }

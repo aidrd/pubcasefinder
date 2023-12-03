@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--json test-->
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CaseSharing : PubCaseFinder</title>
+    <!--css-->
+    <!-- start bits-->
+    <link rel="stylesheet" href="https://unpkg.com/destyle.css@1.0.5/destyle.css">
+    <link rel="stylesheet" href="/static/bootstrap-4.6.2-dist/css/bootstrap.css">
+    <link rel="stylesheet" href="/static/css/hposearch/tippy.css">
+    <link rel="stylesheet" href="/static/css/hposearch/search-box-form.css">
+    <link rel="stylesheet" href="/static/css/hposearch/text-input.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/hposearch/magnific-popup.css">
+    <link rel="stylesheet" href="/static/css/hposearch/token-input-facebook.css">
+    <link rel="stylesheet" href="/static/css/hposearch/popup-hierarchy-hpo.css">
+    <link rel="stylesheet" href="https://unpkg.com/tippy.js@6/animations/scale.css" />
+    <link rel="stylesheet" href="https://unpkg.com/tippy.js@6/animations/scale-extreme.css" />
+    <link rel="stylesheet" href="/static/css/hposearch/modal_phenotype.css">
+    <!-- end bits-->
+    <link rel="stylesheet" href="https://unpkg.com/destyle.css@1.0.5/destyle.css">
+    <link rel='stylesheet' href="/static/css/pcf/branc.css">
+    <link rel='stylesheet' href="/static/css/pcf/branc-ie7.css">
+    <link rel='stylesheet' href="/static/css/pcf/branc-ie7-codes.css">
+    <link rel='stylesheet' href="/static/css/pcf/branc-embedded.css">
+    <link rel='stylesheet' href="/static/record/css/branc.css">
+    <link rel='stylesheet' href="/static/record/css/branc-ie7.css">
+    <link rel='stylesheet' href="/static/record/css/branc-ie7-codes.css">
+    <link rel='stylesheet' href="/static/record/css/branc-embedded.css">
+
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet"
+        type="text/css" media="all" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="/static/css/pcf/remodal.css" rel="stylesheet">
+    <link href="/static/css/pcf/remodal-default-theme.css" rel="stylesheet">
+    <link rel="apple-touch-icon" sizes="180x180" href="/static/record/images/case-favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/static/record/images/case-favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/static/record/images/case-favicon/favicon-16x16.png">
+    <link rel="manifest" href="/static/record/images/case-favicon/site.webmanifest">
+    <link rel="mask-icon" href="/static/record/images/case-favicon/safari-pinned-tab.svg" color="#fc5d13">
+    <meta name="msapplication-TileColor" content="#fc5d13">
+    <meta name="theme-color" content="#ffffff">
+    <script src="https://cdn.jsdelivr.net/npm/handsontable@12.3.1/dist/handsontable.full.min.js"></script>
+    <link type="text/css" rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/handsontable@12.3.1/dist/handsontable.full.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/yamljs@0.3.0/dist/yaml.min.js"></script>
+    <link rel="stylesheet" href="/static/css/pcf/style-togo.css">
+    <link rel="stylesheet" href="/static/record/css/record.css">
+    <link rel="stylesheet" href="/static/record/css/record_re.css">
+    <link rel="stylesheet" href="/static/css/hposearch/common-nav.css">
+    <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Noto+Sans+JP:wght@100;300;400;500;700;900&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+<!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>  -->
+</head>
+
+<body>
+    <!-- <body> -->
+    <div class="common-nav-container" id="nav-case">
+        <a href="https://pubcasefinder.dbcls.jp/casesharing" class="common-brand"><img
+                src="/static/record/images/logo_CaseSharing.svg"></a>
+        <ul class="nav-items">
+            <!-- Dropdown menu -->
+            <li class="nav-item nav-item-dropdown" id="nav-info">
+                <a class="dropdown-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="400"
+                        height="400" viewBox="0 0 400 400">
+                        <defs>
+                            <clipPath id="clip-common-info">
+                                <rect width="400" height="400" />
+                            </clipPath>
+                        </defs>
+                        <g id="common-info" clip-path="url(#clip-common-info)">
+                            <path class="icon-path" id="パス_124800" data-name="パス 124800"
+                                d="M179.5,32C98.168,32,32,98.168,32,179.5S98.168,327,179.5,327,327,260.832,327,179.5,260.832,32,179.5,32m0-32A179.5,179.5,0,1,1,0,179.5,179.5,179.5,0,0,1,179.5,0Z"
+                                transform="translate(21 21)" />
+                            <path class="icon-path" id="パス_124798" data-name="パス 124798"
+                                d="M24.5,0A24.5,24.5,0,1,1,0,24.5,24.5,24.5,0,0,1,24.5,0Z"
+                                transform="translate(176 104)" />
+                            <path class="icon-path" id="パス_124799" data-name="パス 124799"
+                                d="M19.5,0A19.5,19.5,0,0,1,39,19.5v89a19.5,19.5,0,0,1-39,0v-89A19.5,19.5,0,0,1,19.5,0Z"
+                                transform="translate(181 175)" />
+                        </g>
+                    </svg>
+
+                </a>
+            </li>
+            <li class="nav-item nav-item-dropdown" id="nav-menu">
+                <a class="dropdown-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="400"
+                        height="400" viewBox="0 0 400 400">
+                        <defs>
+                            <clipPath id="clip-common-menu">
+                                <rect width="400" height="400" />
+                            </clipPath>
+                        </defs>
+                        <g id="common-menu" clip-path="url(#clip-common-menu)">
+                            <g id="グループ_56854" data-name="グループ 56854" transform="translate(11 7)">
+                                <circle class="icon-circle" id="楕円形_469" data-name="楕円形 469" cx="30" cy="30" r="30"
+                                    transform="translate(53 56)" />
+                                <circle class="icon-circle" id="楕円形_469-2" data-name="楕円形 469" cx="30" cy="30"
+                                    r="30" transform="translate(159 56)" />
+                                <circle class="icon-circle" id="楕円形_469-3" data-name="楕円形 469" cx="30" cy="30"
+                                    r="30" transform="translate(265 56)" />
+                                <circle class="icon-circle" id="楕円形_469-4" data-name="楕円形 469" cx="30" cy="30"
+                                    r="30" transform="translate(53 163)" />
+                                <circle class="icon-circle" id="楕円形_469-5" data-name="楕円形 469" cx="30" cy="30"
+                                    r="30" transform="translate(159 163)" />
+                                <circle class="icon-circle" id="楕円形_469-6" data-name="楕円形 469" cx="30" cy="30"
+                                    r="30" transform="translate(265 163)" />
+                                <circle class="icon-circle" id="楕円形_469-7" data-name="楕円形 469" cx="30" cy="30"
+                                    r="30" transform="translate(53 270)" />
+                                <circle class="icon-circle" id="楕円形_469-8" data-name="楕円形 469" cx="30" cy="30"
+                                    r="30" transform="translate(159 270)" />
+                                <circle class="icon-circle" id="楕円形_469-9" data-name="楕円形 469" cx="30" cy="30"
+                                    r="30" transform="translate(265 270)" />
+                            </g>
+                        </g>
+                    </svg>
+                </a>
+                <ul class="dropdown-menu common-menu">
+                    <ul class="common-menu-wrap">
+                        <li class="dropdown-menu-item common-menu-item">
+                            <a href="/guides" target="_blank">
+                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                    width="400" height="400" viewBox="0 0 400 400">
+                                    <defs>
+                                        <clipPath id="clip-common-menu-guide">
+                                            <rect width="400" height="400" />
+                                        </clipPath>
+                                    </defs>
+                                    <g id="common-menu-guide" clip-path="url(#clip-common-menu-guide)">
+                                        <g id="グループ_56856" data-name="グループ 56856">
+                                            <path id="楕円形_468" data-name="楕円形 468"
+                                                d="M179.5,32C98.168,32,32,98.168,32,179.5S98.168,327,179.5,327,327,260.832,327,179.5,260.832,32,179.5,32m0-32A179.5,179.5,0,1,1,0,179.5,179.5,179.5,0,0,1,179.5,0Z"
+                                                transform="translate(21 21)" />
+                                            <circle id="楕円形_469" data-name="楕円形 469" cx="24.5" cy="24.5" r="24.5"
+                                                transform="translate(176 266)" />
+                                            <path id="パス_124789" data-name="パス 124789"
+                                                d="M66.25-177.666c0,9.81,6.727,15.7,14.015,15.7,5.326,0,6.727-1.4,14.3-8.97a53.248,53.248,0,0,1,37-14.575c21.863,0,40.083,12.613,40.083,33.916,0,15.416-5.606,20.181-29.712,40.083-9.53,8.129-26.068,21.863-26.068,49.613,0,6.727,1.682,15.136,15.977,15.136,14.015,0,15.136-7.848,15.977-13.454,2.242-15.136,3.083-20.742,21.022-35.878,19.9-16.538,34.757-28.871,34.757-56.34,0-34.757-28.31-61.946-70.635-61.946-16.257,0-29.992,3.083-50.454,16.818C79.7-195.605,66.25-186.636,66.25-177.666Z"
+                                                transform="translate(68.824 295.924)" />
+                                        </g>
+                                    </g>
+                                </svg>
+                                <span>Guides</span></a>
+                        </li>
+                        <li class="dropdown-menu-item common-menu-item">
+                            <a href="/api" target="_blank">
+                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                    width="400" height="400" viewBox="0 0 400 400">
+                                    <defs>
+                                        <clipPath id="clip-common-menu-api">
+                                            <rect width="400" height="400" />
+                                        </clipPath>
+                                    </defs>
+                                    <g id="common-menu-api" clip-path="url(#clip-common-menu-api)">
+                                        <g id="グループ_56855" data-name="グループ 56855">
+                                            <path id="合体_22" data-name="合体 22"
+                                                d="M-19613.486,6322.38a58.656,58.656,0,0,1-41.752-17.295,58.658,58.658,0,0,1-17.295-41.752,58.656,58.656,0,0,1,17.3-41.753l107.74-107.741c-.9-3.2-1.662-6.442-2.295-9.7a123.366,123.366,0,0,1-2.248-23.46,123.156,123.156,0,0,1,2.248-23.438,122.489,122.489,0,0,1,6.756-22.772,122.487,122.487,0,0,1,11.25-21.372,123.628,123.628,0,0,1,15.74-19.261,122.288,122.288,0,0,1,64.057-33.842,123.819,123.819,0,0,1,35.535-1.475,122.811,122.811,0,0,1,34.707,8.823,16,16,0,0,1,9.535,11.668,16,16,0,0,1-4.387,14.415l-47.705,47.676,31.523,31.5,48.961-48.929a16,16,0,0,1,14.047-4.447,16,16,0,0,1,11.727,8.919,122.369,122.369,0,0,1,10.625,35.721,123.2,123.2,0,0,1-.5,36.918,122.36,122.36,0,0,1-11.617,35.479,122.686,122.686,0,0,1-22.732,31.275,124.153,124.153,0,0,1-19.25,15.719,122.735,122.735,0,0,1-21.4,11.252,122.64,122.64,0,0,1-22.795,6.751,124.252,124.252,0,0,1-46.906,0,123.437,123.437,0,0,1-12.26-3.037l-106.859,106.859A58.663,58.663,0,0,1-19613.486,6322.38Zm184.324-332.514a91.6,91.6,0,0,0-16.906,1.577,90.419,90.419,0,0,0-47.359,25.031,91.7,91.7,0,0,0-11.658,14.262,90.321,90.321,0,0,0-8.3,15.775,90.529,90.529,0,0,0-4.99,16.82,91.142,91.142,0,0,0-1.662,17.348,91.144,91.144,0,0,0,1.664,17.37,91.057,91.057,0,0,0,4.105,14.56,16,16,0,0,1-3.668,16.926l-114.672,114.672a26.872,26.872,0,0,0-7.924,19.126,26.875,26.875,0,0,0,7.922,19.125,26.869,26.869,0,0,0,19.125,7.922,26.866,26.866,0,0,0,19.125-7.921l113.965-113.965a16,16,0,0,1,17.275-3.534,91.3,91.3,0,0,0,16.6,4.888,92.057,92.057,0,0,0,34.744,0,90.545,90.545,0,0,0,16.838-4.985,90.655,90.655,0,0,0,15.795-8.3,92.021,92.021,0,0,0,14.268-11.655,90.761,90.761,0,0,0,16.816-23.126,90.42,90.42,0,0,0,8.578-26.206,91.245,91.245,0,0,0,.365-27.339q-.24-1.74-.545-3.465l-41.8,41.775a16,16,0,0,1-22.621,0l-54.158-54.123a16,16,0,0,1-4.689-11.317,16,16,0,0,1,4.689-11.317l39.365-39.341c-.285-.032-.572-.063-.857-.093A91.853,91.853,0,0,0-19429.162,5989.866Z"
+                                                transform="translate(19686.105 -5936.828)" />
+                                            <ellipse id="楕円形_477" data-name="楕円形 477" cx="16.776" cy="16.762"
+                                                rx="16.776" ry="16.762" transform="translate(58.516 307.479)"
+                                                fill="#11101d" />
+                                        </g>
+                                    </g>
+                                </svg>
+                                <span>API</span></a>
+                        </li>
+                        <li class="dropdown-menu-item common-menu-item">
+                            <a href="/history" target="_blank">
+                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                    width="400" height="400" viewBox="0 0 400 400">
+                                    <defs>
+                                        <clipPath id="clip-common-menu-history">
+                                            <rect width="400" height="400" />
+                                        </clipPath>
+                                    </defs>
+                                    <g id="common-menu-history" clip-path="url(#clip-common-menu-history)">
+                                        <path id="合体_24" data-name="合体 24"
+                                            d="M-19106,6089.651a17,17,0,0,1,17-17,17,17,0,0,1,17,17c0,79.088,64.344,143.432,143.438,143.432s143.432-64.344,143.432-143.432-64.344-143.437-143.432-143.437a143.894,143.894,0,0,0-93.758,34.893h49.84a17,17,0,0,1,17,17,17,17,0,0,1-17,17h-86.5a17,17,0,0,1-16.73-13.958l-14.926-82.1a17,17,0,0,1,13.684-19.77,17,17,0,0,1,19.766,13.685l8.4,46.192a178,178,0,0,1,120.219-46.94c97.836,0,177.432,79.6,177.432,177.438s-79.6,177.433-177.432,177.433S-19106,6187.487-19106,6089.651Zm116.395,28.372a16,16,0,0,1-16-16,16,16,0,0,1,16-16h45.043V6030.6a16,16,0,0,1,16-16,16,16,0,0,1,16,16v71.426a16,16,0,0,1-16,16Z"
+                                            transform="translate(19130.932 -5884.31)" />
+                                    </g>
+                                </svg>
+
+                                <span>History</span></a>
+                        </li>
+                        <li class="dropdown-menu-item common-menu-item">
+                            <a href="/termsofservice" target="_blank">
+                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                    width="400" height="400" viewBox="0 0 400 400">
+                                    <defs>
+                                        <clipPath id="clip-common-menu-terms">
+                                            <rect width="400" height="400" />
+                                        </clipPath>
+                                    </defs>
+                                    <g id="common-menu-terms" clip-path="url(#clip-common-menu-terms)">
+                                        <g id="グループ_56857" data-name="グループ 56857">
+                                            <path id="長方形_8888" data-name="長方形 8888"
+                                                d="M33-16H283a49.056,49.056,0,0,1,49,49V278a49.056,49.056,0,0,1-49,49H33a49.056,49.056,0,0,1-49-49V33A49.056,49.056,0,0,1,33-16ZM283,295a17.019,17.019,0,0,0,17-17V33a17.019,17.019,0,0,0-17-17H33A17.019,17.019,0,0,0,16,33V278a17.019,17.019,0,0,0,17,17Z"
+                                                transform="translate(42 45)" />
+                                            <path id="線_967" data-name="線 967"
+                                                d="M169.156,16H0A16,16,0,0,1-16,0,16,16,0,0,1,0-16H169.156a16,16,0,0,1,16,16A16,16,0,0,1,169.156,16Z"
+                                                transform="translate(113.02 138.008)" />
+                                            <path id="線_968" data-name="線 968"
+                                                d="M169.156,16H0A16,16,0,0,1-16,0,16,16,0,0,1,0-16H169.156a16,16,0,0,1,16,16A16,16,0,0,1,169.156,16Z"
+                                                transform="translate(113.02 200)" />
+                                            <path id="線_969" data-name="線 969"
+                                                d="M169.156,16H0A16,16,0,0,1-16,0,16,16,0,0,1,0-16H169.156a16,16,0,0,1,16,16A16,16,0,0,1,169.156,16Z"
+                                                transform="translate(113.02 261.992)" />
+                                        </g>
+                                    </g>
+                                </svg>
+                                <span>Terms</span></a>
+                        </li>
+                        <li class="dropdown-menu-item common-menu-item">
+                            <a href="/sources" target="_blank">
+                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                    width="400" height="400" viewBox="0 0 400 400">
+                                    <defs>
+                                        <clipPath id="clip-common-menu-sources">
+                                            <rect width="400" height="400" />
+                                        </clipPath>
+                                    </defs>
+                                    <g id="common-menu-sources" clip-path="url(#clip-common-menu-sources)">
+                                        <g id="グループ_56858" data-name="グループ 56858">
+                                            <path id="楕円形_476" data-name="楕円形 476"
+                                                d="M156.5-16C185.305-16,329-13.4,329,38S185.305,92,156.5,92-16,89.4-16,38,127.695-16,156.5-16ZM294.581,38C281.549,29.245,234.212,16,156.5,16S31.451,29.245,18.419,38C31.451,46.755,78.788,60,156.5,60S281.549,46.755,294.581,38Z"
+                                                transform="translate(43 34)" />
+                                            <path id="パス_124794" data-name="パス 124794"
+                                                d="M172.5,40.324C143.695,40.324,0,37.722,0-13.653V-270a16,16,0,0,1,16-16,16,16,0,0,1,16,16V-15.615C40.269-7.054,88.746,8.324,172.5,8.324S304.731-7.054,313-15.615V-270a16,16,0,0,1,16-16,16,16,0,0,1,16,16V-13.653C345,37.722,201.305,40.324,172.5,40.324Z"
+                                                transform="translate(28 341.676)" />
+                                            <path id="パス_124795" data-name="パス 124795"
+                                                d="M172.5,53.977C143.695,53.977,0,51.375,0,0A16,16,0,0,1,16-16,16,16,0,0,1,31.862-2.108c7.853,8.531,56.4,24.085,140.638,24.085S305.285,6.424,313.138-2.108A16,16,0,0,1,329-16,16,16,0,0,1,345,0C345,51.375,201.305,53.977,172.5,53.977Z"
+                                                transform="translate(28 234.029)" />
+                                            <path id="パス_124796" data-name="パス 124796"
+                                                d="M172.5,53.977C143.695,53.977,0,51.375,0,0A16,16,0,0,1,16-16,16,16,0,0,1,31.862-2.108c7.853,8.531,56.4,24.085,140.638,24.085S305.285,6.424,313.138-2.108A16,16,0,0,1,329-16,16,16,0,0,1,345,0C345,51.375,201.305,53.977,172.5,53.977Z"
+                                                transform="translate(28 154.277)" />
+                                            <rect id="長方形_8893" data-name="長方形 8893" width="345" height="53"
+                                                transform="translate(28 173)" fill="none" />
+                                        </g>
+                                    </g>
+                                </svg>
+
+                                <span>Sources</span></a>
+                        </li>
+                        <li class="dropdown-menu-item common-menu-item">
+                            <a title="Comments &amp; suggestions are welcome!"
+                                href="mailto:support@dbcls.rois.ac.jp,pubcasefinder@dbcls.rois.ac.jp">
+                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                    width="400" height="400" viewBox="0 0 400 400">
+                                    <defs>
+                                        <clipPath id="clip-common-menu-contact">
+                                            <rect width="400" height="400" />
+                                        </clipPath>
+                                    </defs>
+                                    <g id="common-menu-contact" clip-path="url(#clip-common-menu-contact)">
+                                        <path id="合体_25" data-name="合体 25"
+                                            d="M-19057,5643a49.054,49.054,0,0,1-49-49V5423a49.054,49.054,0,0,1,49-49h262a49.054,49.054,0,0,1,49,49v171a49.054,49.054,0,0,1-49,49Zm-17-49a17.023,17.023,0,0,0,17,17h262a17.019,17.019,0,0,0,17-17V5441.934l-136.666,105.05a15.96,15.96,0,0,1-9.748,3.318,15.988,15.988,0,0,1-9.633-3.222L-19074,5441.62Zm149.488-79.808,137.885-105.984A16.89,16.89,0,0,0-18795,5406h-262a16.891,16.891,0,0,0-8.254,2.144Z"
+                                            transform="translate(19126 -5308)" />
+                                    </g>
+                                </svg>
+
+                                <span>Contact</span></a>
+                        </li>
+                    </ul>
+                    <li class="popup-bg-cover"></li>
+                </ul>
+            </li>
+            <li class="nav-item nav-item-dropdown" id="nav-service">
+                <a class="dropdown-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="400"
+                        height="400" viewBox="0 0 400 400">
+                        <defs>
+                            <clipPath id="clip-common-service">
+                                <rect width="400" height="400" />
+                            </clipPath>
+                        </defs>
+                        <g id="common-service" clip-path="url(#clip-common-service)">
+                            <path class="icon-path" id="パス_124801" data-name="パス 124801"
+                                d="M33-16H295a49.056,49.056,0,0,1,49,49V178a49.056,49.056,0,0,1-49,49H33a49.056,49.056,0,0,1-49-49V33A49.056,49.056,0,0,1,33-16ZM295,195a17.019,17.019,0,0,0,17-17V33a17.019,17.019,0,0,0-17-17H33A17.019,17.019,0,0,0,16,33V178a17.019,17.019,0,0,0,17,17Z"
+                                transform="translate(36 45)" />
+                            <path class="icon-path" id="パス_124802" data-name="パス 124802"
+                                d="M26-16H302a42,42,0,0,1,0,84H26a42,42,0,0,1,0-84ZM302,36a10,10,0,0,0,0-20H26a10,10,0,0,0,0,20Z"
+                                transform="translate(36 303)" />
+                            <circle class="icon-circle" id="楕円形_471" data-name="楕円形 471" cx="23.5" cy="23.5"
+                                r="23.5" transform="translate(93 131)" />
+                            <circle class="icon-circle" id="楕円形_472" data-name="楕円形 472" cx="23.5" cy="23.5"
+                                r="23.5" transform="translate(177 131)" />
+                            <circle class="icon-circle" id="楕円形_473" data-name="楕円形 473" cx="23.5" cy="23.5"
+                                r="23.5" transform="translate(261 131)" />
+                        </g>
+                    </svg>
+                    <span class="header-text">Service</span></a>
+                <ul class="dropdown-menu common-service">
+                    <ul class="common-service-wrap">
+                        <ul class="dropdown-service">
+                            <li class="dropdown-menu-item">
+                                <a href="https://pubcasefinder.dbcls.jp/" target="_blank">
+                                    <i>
+                                        <img src="/static/record/images/commonmenu-icon1.svg">
+                                    </i>
+                                    <span>
+                                        <h4>DiseaseSearch</h4>
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="dropdown-menu-item">
+                                <a href="https://pubcasefinder.dbcls.jp/casesharing" target="_blank">
+                                    <i>
+                                        <img src="/static/record/images/commonmenu-icon2.svg">
+                                    </i>
+                                    <span>
+                                        <h4>CaseSharing β</h4>
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="dropdown-menu-item">
+                                <a href="https://pubcasefinder.dbcls.jp/panelsearch" target="_blank">
+                                    <i>
+                                        <img src="/static/record/images/commonmenu-icon3.svg">
+                                    </i>
+                                    <span>
+                                        <h4>PanelSearch</h4>
+                                    </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </ul>
+                    <li class="popup-bg-cover"></li>
+                </ul>
+            </li>
+            <li class="nav-item nav-item-dropdown" id="nav-language">
+                <a class="dropdown-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="400"
+                        height="400" viewBox="0 0 400 400">
+                        <defs>
+                            <clipPath id="clip-common-lang">
+                                <rect width="400" height="400" />
+                            </clipPath>
+                        </defs>
+                        <g id="common-lang" clip-path="url(#clip-common-lang)">
+                            <path class="icon-path" id="合体_23" data-name="合体 23"
+                                d="M-19494,6603.5a179.5,179.5,0,0,1,179.5-179.5,179.5,179.5,0,0,1,179.5,179.5,179.5,179.5,0,0,1-179.5,179.5A179.5,179.5,0,0,1-19494,6603.5Zm32,0c0,73.378,53.867,134.415,124.129,145.65v-42.177h-35.605v-35.949l-87.215-87.214A148.192,148.192,0,0,0-19462,6603.5Zm98.4,21.11h104.484v46.414h75.734A146.589,146.589,0,0,0-19167,6603.5c0-72.529-52.619-133-121.684-145.242v51.984h-59.162v74.848h-55.279Z"
+                                transform="translate(19515 -6403)" />
+                        </g>
+                    </svg>
+                    <span class="header-text" id="selected-language-display"></span></a>
+                <ul class="dropdown-menu" id="dropdown-language">
+                    <ul class="dropdown-languag-wrap">
+                        <li class="dropdown-menu-item" data-lang="ja">日本語</li>
+                        <li class="dropdown-menu-item" data-lang="en">English</li>
+                        <li class="dropdown-menu-item" data-lang="ko">한국어</li>
+                        <li class="dropdown-menu-item" data-lang="zh">中文(简体)</li>
+                        <li class="dropdown-menu-item" data-lang="zhcht">中文(繁体)</li>
+                    </ul>
+                    <li class="popup-bg-cover"></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <main id="phenotype-main">
+
+    </main>
+    <div id="modal-karte" class="modal_box modal-karte">
+        <!--left-->
+        <div class="resize-handle"></div>
+        <div class="tab-wrap" id="tab-wrap">
+        </div>
+        <button class="modal-close"><span class="material-symbols-outlined">
+                close
+            </span>
+        </button>
+        <div id="modal-karte-button">
+            <button class="modal-copy"><i class="material-symbols-outlined">
+                    file_copy
+                </i>
+                <p>Copy</p>
+            </button>
+            <button class="modal-phenopackets"><img src="/static/images/PhenoPackets_Logo.png">
+                <p>Phenopackets (coming soon)</p>
+            </button>
+            <div id="phenotype_search_pcf">
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-info" class="modal_box modal-karte">
+        <div class="modal-karte-button-sub" id="modal-info-content">
+            <ul>
+                <li>
+                    <i class="material-symbols-outlined">
+                        computer
+                    </i>
+                    <span>
+                        <h4>How to use</h4>
+                        <p>Here is a brief description of how to use the service. This is a dummy text.This is a dummy
+                            text.
+                        </p>
+                    </span>
+                </li>
+                <li>
+                    <i class="material-symbols-outlined">
+                        subscriptions
+                    </i>
+                    <span>
+                        <h4>How to use</h4>
+                        <p>Here is a brief description of how to use the service. This is a dummy text.This is a dummy
+                            text.
+                        </p>
+                    </span>
+                </li>
+                <li>
+                    <i class="material-symbols-outlined">
+                        format_list_numbered
+                    </i>
+                    <span>
+                        <h4>How to use</h4>
+                        <p>Here is a brief description of how to use the service. This is a dummy text.This is a dummy
+                            text.
+                        </p>
+                    </span>
+                </li>
+                <li>
+                    <i class="material-symbols-outlined">
+                        sign_language
+                    </i>
+                    <span>
+                        <h4>How to use</h4>
+                        <p>Here is a brief description of how to use the service. This is a dummy text.This is a dummy
+                            text.
+                        </p>
+                    </span>
+                </li>
+            </ul>
+        </div>
+        <div id="modal-info-button">
+            <button class="info-modal-close"><span>Let's start!</span></button>
+        </div>
+    </div>
+
+    <script>
+        //let closeBtn = document.querySelector("#btn");
+        //closeBtn.addEventListener("click", () => {
+        //    sidebar.classList.toggle("open");
+        //    menuBtnChange();
+        //});
+
+    </script>
+</body>
+
+
+<!-- start bits-->
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>  -->
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+<script src="/static/bootstrap-4.6.2-dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://unpkg.com/@popperjs/core@2"></script>
+
+<script type="text/javascript" src="/static/js/hposearch/translation.js"></script>
+<script type="text/javascript" src="/static/js/hposearch/phenotype.js"></script>
+<script type="text/javascript" src="/static/js/hposearch/common_modal.js"></script>
+
+<script type="text/javascript" src="/static/js/hposearch/tippyjs/tippy-bundle.umd.js"></script>
+<script type="text/javascript" src="/static/js/hposearch/jquery.magnific_popup.min.js"></script>
+<script type="text/javascript" src="/static/js/hposearch/magnific-popup-options.js"></script>
+<script type="text/javascript" src="/static/js/hposearch/jquery.stellar.min.js"></script>
+<script type="text/javascript" src="/static/js/hposearch/rater.js"></script>
+<script type="text/javascript" src="/static/js/hposearch/jquery.tokeninput.js"></script>
+<script type="text/javascript" src="/static/js/hposearch/popup-hierarchy-hpo.js"></script>
+<script type="text/javascript" src="/static/js/hposearch/button-ripple-effect.js"></script>
+<script type="text/javascript" src="/static/js/hposearch/jaconv/jaconv.min.js"></script>
+<script type="text/javascript" src="/static/js/hposearch/jquery.multitextinput_hpo.js"></script>
+<script type="text/javascript" src="/static/js/hposearch/jquery.search-box_form.js"></script>
+<script type="text/javascript" src="/static/js/hposearch/modal_phenotype.js"></script>
+
+<!-- end bits-->
+<script type="text/javascript"
+    src="https://dbcls.rois.ac.jp/DBCLS-common-header-footer/v2/script/common-header-and-footer.js"
+    style="display: block" id="common-header-and-footer__script" data-width="976" data-color="mono"></script>
+
+</html>

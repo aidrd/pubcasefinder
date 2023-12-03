@@ -1,0 +1,764 @@
+const URL_GET_HPO_TOOLTIP_DATA_BY_HPO_ID = 'https://pubcasefinder.dbcls.jp/sparqlist/api/pcf_get_hpo_tooltip_data_by_hpo_id';
+
+var phenotypeData = [];
+
+function phenotypeInfo_initPhenotypData(patientData) {
+    let phenotypeInfo = phenotypeInfo_getPhenotypeInfo();
+    phenotypeInfo.columns.forEach(c => {
+        phenotypeData[c.columnId] = (patientData && (c.columnId in patientData)) ? patientData[c.columnId] : [];
+    });
+}
+
+function phenotypeInfo_isTrue(str) {
+    if (str === 'yes') return true;
+    return false;
+}
+
+function phenotypeInfo_getColumn(columnId) {
+    for (let i = 0; i < categories.length; i++) {
+        for (let j = 0; j < categories[i].columns.length; j++) {
+            if (categories[i].columns[j].columnId === columnId) return categories[i].columns[j];
+        }
+    }
+    return null;
+}
+
+function phenotypeInfo_getPhenotypeInfo() {
+    return categories.filter(c => { return c.dataKey === 'phenotypicInfo' })[0];
+}
+
+function phenotypeInfo_getCurrentPatientID() {
+    return document.getElementById('PCFNo').nextElementSibling.innerHTML;
+}
+
+function phenotypeInfo_createDocList() {
+    let phenotypeInfo = phenotypeInfo_getPhenotypeInfo();
+    let doc_list = JSON.parse(JSON.stringify(phenotypeInfo.doc_list));
+    doc_list.forEach(doc => {
+        if (doc.dataSrcColumnId) {
+            let c = phenotypeInfo_getColumn(doc.dataSrcColumnId);
+            let title = c['displayName'][lang] || c['displayName']['en'];
+            doc['title'] = title;
+        }
+    })
+    return doc_list;
+}
+
+/*
+function phenotypeInfo_createExtraPopupItems() {
+    let phenotypeInfo = phenotypeInfo_getPhenotypeInfo();
+    let extra_popup_items = [];
+    [columnKeys.PHENOTYPE_EXCLUDED,columnKeys.PHENOTYPE_CLINICAL_RELEVANCE,columnKeys.PHENOTYPE_SEVERITY,columnKeys.PHENOTYPE_AGE_ONSET,columnKeys.PHENOTYPE_TEMPORAL_PATTERN,columnKeys.PHENOTYPE_PACE_PROGRESSION,columnKeys.PPHENOTYPE_RESOLUTION,columnKeys.PHENOTYPE_COMMENTS].forEach(cid => {
+        let col = phenotypeInfo.columns.filter(c => { return c.columnId === cid})[0];
+
+        let dataValue = '';
+        if (col.inputType === 'select') {
+            let options = col.options.dataValue;
+            dataValue = col['options'][lang].length > 0 ? col['options'][lang] : col['options']['en'];
+        }
+
+        let obj = {
+            dataKey:     col.dataKey,
+            displayName: col['displayName'][lang] || col['displayName']['en'],
+            inputType:   col.inputType,
+            dataValue:   dataValue
+        };
+    });
+    return extra_popup_items;
+}
+*/
+
+function phenotypeInfo_updateFilterCNT() {
+    let phenotypeInfo = phenotypeInfo_getPhenotypeInfo();
+
+    [columnKeys.PHENOTYPE_MEDICAL_CURRENT_HISTORY, columnKeys.PHENOTYPE_MEDICAL_PREVIOUS_HISTORY, columnKeys.PHENOTYPE_PROCESS, columnKeys.PHENOTYPE_FAMILY_HISTORY, columnKeys.PHENOTYPE_EXCLUDED, columnKeys.PHENOTYPE_CLINICAL_RELEVANCE, columnKeys.PHENOTYPE_SEVERITY, columnKeys.PHENOTYPE_TEMPORAL_PATTERN, columnKeys.PHENOTYPE_PACE_PROGRESSION].forEach(cid => {
+        let col = phenotypeInfo.columns.filter(c => { return c.columnId === cid })[0];
+        if (col.inputType === 'checkbox') {
+            let cbx_id = `cbx-filter-${cid}`;
+            let displayName = col['displayName'][lang] || col['displayName']['en'];
+            let cnt = 0;
+            let val_yes = col.options.dataValue[1];
+            phenotypeData[cid].forEach(v => {
+                if (v === val_yes) cnt++;
+            });
+            let new_name = `${displayName}(${cnt})`;
+            $('#' + cbx_id).next().text(new_name);
+        } else if (col.inputType === 'select') {
+            let options = col.options.dataValue;
+            let optionLang = col['options'][lang].length > 0 ? col['options'][lang] : col['options']['en'];
+            options.forEach((v_filter, i) => {
+                let cbx_id = `cbx-filter-${cid}-${i}`;
+                let displayName = optionLang[i];
+                let cnt = 0;
+                let targetList = phenotypeData[cid];
+                if (!Array.isArray(targetList))
+                    targetList = [targetList];
+                targetList.forEach(v => {
+                    if (v === v_filter) cnt++;
+                });
+                let new_name = `${displayName}(${cnt})`;
+                $('#' + cbx_id).next().text(new_name);
+            });
+        } else {
+            console.log(`Error: unknown inputTYpe(${col.inputType})`);
+        }
+    });
+}
+
+function phenotypeInfo_createFilterUI(filter_container_id) {
+    let $container = $('#' + filter_container_id);
+
+    let $div_ctl = $('<div>').addClass('ctl').appendTo($container);
+    $('<button>').text(translate('phenotypic-info-filter-clearall'))
+        .click(function () {
+            $('#phenotype_filter').find("input[type='checkbox']").prop('checked', '');
+            //$('#phenotype_list').find('li').show();    
+            phenotypeInfo_onFilterChange();
+        })
+        .appendTo($div_ctl);
+
+    let $tbl = $('<table>').appendTo($container)
+    let $tr1 = $('<tr>').appendTo($tbl);
+    let $td_h = $('<td>').attr('colspan', 2).appendTo($tr1);
+
+    let phenotypeInfo = phenotypeInfo_getPhenotypeInfo();
+    // doc src list
+    [columnKeys.PHENOTYPE_MEDICAL_CURRENT_HISTORY, columnKeys.PHENOTYPE_MEDICAL_PREVIOUS_HISTORY, columnKeys.PHENOTYPE_PROCESS, columnKeys.PHENOTYPE_FAMILY_HISTORY].forEach(cid => {
+        let col = phenotypeInfo.columns.filter(c => { return c.columnId === cid })[0]
+        let displayName = col['displayName'][lang] || col['displayName']['en']
+        displayName += '(0)';
+        let checked = '';
+        let cbx_id = `cbx-filter-${cid}`;
+        phenotypeInfo_createCbx(cbx_id, cid, col.inputType, checked, displayName, phenotypeInfo_onFilterChange).appendTo($td_h);
+        $('#' + cbx_id).val(col.options.dataValue[1]);
+    });
+
+    [columnKeys.PHENOTYPE_EXCLUDED, columnKeys.PHENOTYPE_CLINICAL_RELEVANCE, columnKeys.PHENOTYPE_SEVERITY, columnKeys.PHENOTYPE_TEMPORAL_PATTERN, columnKeys.PHENOTYPE_PACE_PROGRESSION].forEach(cid => {
+        let $tr = $('<tr>').appendTo($tbl);
+        let col = phenotypeInfo.columns.filter(c => { return c.columnId === cid })[0];
+        let titleName = col['displayName'][lang] || col['displayName']['en'];
+        $('<td>').addClass('title').text(titleName).appendTo($tr);
+
+        let $td2 = $('<td>').appendTo($tr);
+
+        let options = col.options.dataValue;
+        let optionLang = col['options'][lang].length > 0 ? col['options'][lang] : col['options']['en'];
+        options.forEach((v, i) => {
+            let displayName = optionLang[i] + "(0)";
+            let cbx_id = `cbx-filter-${cid}-${i}`;
+            phenotypeInfo_createCbx(cbx_id, cid, '', '', displayName, phenotypeInfo_onFilterChange).appendTo($td2);
+            $('#' + cbx_id).val(v);
+        });
+    });
+}
+
+function phenotypeInfo_onFilterChange() {
+
+    let filter_list = [];
+    let $phenotype_selectedfilter_wrap = $('#phenotype_selectedfilter_wrap');
+    $phenotype_selectedfilter_wrap.find('span').remove();
+
+    $('#phenotype_filter').find("input[type='checkbox']:checked").each(function () {
+        let $cbx = $(this);
+        let cid = $cbx.data('cid');
+        let val = $cbx.val();
+        filter_list.push({ cid: cid, val: val });
+
+        let displayName = $cbx.next().text();
+        $('<span>').text(displayName).appendTo($phenotype_selectedfilter_wrap);
+    });
+
+    if (filter_list.length === 0) {
+        $phenotype_selectedfilter_wrap.hide();
+    } else {
+        if ($("#phenotypic-btn-filter").hasClass('active')) {
+        } else {
+            $phenotype_selectedfilter_wrap.show();
+        }
+    }
+
+    let cnt = $('#phenotype_list').find('li').length;
+
+    if (filter_list.length === 0) {
+        $('#phenotype_list').find('li').show();
+    } else {
+
+        $('#phenotype_list').find('li').each(function (li_idx, li) {
+            let isShown = false;
+            filter_list.forEach(filter => {
+                if (phenotypeData[filter.cid][li_idx] === filter.val) isShown = true;
+            });
+            if (isShown) {
+                $(li).show();
+            } else {
+                $(li).hide();
+                cnt--;
+            }
+        });
+    }
+
+    $("#phenotype_num").text(`(${cnt})`);
+}
+
+function phenotypeInfo_updateNum() {
+    $("#phenotype_num").text(`(${phenotypeData.length})`);
+}
+
+function phenotypeInfo_updatePCFSearchButton() {
+    let hpo_id_list = phenotypeData?.[columnKeys.PHENOTYPE_HPO_ID];
+    if (!phenotypeData || !hpo_id_list || hpo_id_list.length === 0) {
+        $("#phenotype_search_pcf")[0].innerHTML = '';
+    } else {
+        $("#phenotype_search_pcf")[0].innerHTML = `
+            <a href="https://pubcasefinder.dbcls.jp/result?target=omim&phenotype=${hpo_id_list.join(',')}&filter=&vgp=&size=10&display_format=full&lang=en" target="_blank">
+                <button id="search-pcf-button">
+                <img src="/static/record/images/commonmenu-icon1.svg">
+                    DiseaseSearch
+                </button>
+            </a>
+        `;
+    }
+}
+
+function phenotypeInfo_initUI(phenotypeInfo_container) {
+    phenotypeInfo_container.innerHTML = `
+        <div class="search-box_wrapper">
+            <div id="search-box_form"></div>
+        </div>
+        <p class="phenotype_add_wrapper">
+            <button id="phenotype_add" class="ripper_effect" onclick="phenotypeInfo_addRows();">
+                <i class="material-symbols-outlined">add_notes</i>
+                ${translate2('phenotypic-info-add')}
+            </button>
+        </p>
+        <div class="d-flex flex-row justify-content-between phenotype_title">
+            <div class="phenotype_title_sub">
+                <span>${translate2('phenotypic-info-list')}</span>
+                <span id="phenotype_num">(0)</span>
+            </div>
+            <div class="phenotype_title_sub">
+              <span class="sample observed mr-3">${translate2('phenotypic-standalone-observed')}</span>
+              <span class="sample notobserved">${translate2('phenotypic-standalone-notobserved')}</span>
+            </div>
+        </div>
+        <ul id="phenotype_list"></ul>
+        <div class="phenotype_action_wrapper">
+            <button id="phenotype_copy" class="phenotype_action_btn ripper_effect" onclick="phenotypeInfo_copyRows();">
+                <i>
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-files" viewBox="0 0 16 16">
+  <path d="M13 0H6a2 2 0 0 0-2 2 2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h7a2 2 0 0 0 2-2 2 2 0 0 0 2-2V2a2 2 0 0 0-2-2m0 13V4a2 2 0 0 0-2-2H5a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1M3 4a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z"/>
+</svg>
+                </i>${translate2('phenotypic-standalone-copy')}
+            </button>
+            <button id="do_pcf_search" class="phenotype_action_btn ripper_effect" onclick="phenotypeInfo_do_pcf_search();">            
+                <i><img src="/static/record/images/commonmenu-icon1.svg"></i>${translate2('phenotypic-standalone-search')}
+            </button>
+        </div>
+    `
+
+    $("#search-box_form").search_box_form({
+        'lang': lang === 'ja' ? 'ja' : 'en',
+        'doc_list': null,
+        'getDocByColId': null,
+        'onClickTextBtn': function (isActived) {
+            if (isActived) {
+                $('#phenotype_add').show();
+                $('#phenotype_doc_input_btn_wrapper').show();
+            } else {
+                $('#phenotype_add').hide();
+                $('#phenotype_doc_input_btn_wrapper').hide();
+            }
+        },
+    })
+
+    $("#phenotypic-btn-filter").click(function (event) {
+        if ($(this).hasClass('active')) {
+            $(this).removeClass('active');
+            $('#phenotype_filter').removeClass('active');
+            if ($('#phenotype_selectedfilter_wrap').find('span').length > 0) {
+                $('#phenotype_selectedfilter_wrap').show();
+            }
+        } else {
+            $(this).addClass('active');
+            $('#phenotype_filter').addClass('active');
+            $('#phenotype_selectedfilter_wrap').hide();
+        }
+    });
+}
+
+function phenotypeInfo_onInputChange(input_obj) {
+    let $input = $(input_obj);
+    let val = $input.val();
+    let cid = $input.data('cid');
+    let inputType = $input.data('inputType');
+
+    let $li = $input.closest('li');
+    let hpo_id = $li.find('.hpo_id')[0].innerHTML;
+
+    let idx = phenotypeData[columnKeys.PHENOTYPE_HPO_ID].indexOf(hpo_id);
+
+    if (inputType === 'age') {
+        let ageString = '';
+        let year = $input.parent().children('.age-year').val();
+        let month = $input.parent().children('.age-month').val();
+        let day = $input.parent().children('.age-day').val();
+        if (year)
+            ageString += `${year}Y`;
+        if (month)
+            ageString += `${month}M`;
+        if (day)
+            ageString += `${day}D`;
+        phenotypeData[cid][idx] = ageString;
+    } else if (inputType === 'text') {
+        phenotypeData[cid][idx] = val;
+    } else if (inputType === 'select') {
+        phenotypeData[cid][idx] = val;
+        phenotypeInfo_updateFilterCNT();
+        phenotypeInfo_onFilterChange();
+    } else if (inputType === 'checkbox') {
+        let phenotypeInfo = phenotypeInfo_getPhenotypeInfo();
+        let col_def = phenotypeInfo.columns.filter(c => { return c.columnId === cid })[0]
+        if ($input.prop('checked')) {
+            phenotypeData[cid][idx] = col_def.options.dataValue[1];
+        } else {
+            phenotypeData[cid][idx] = col_def.options.dataValue[0];
+        }
+        phenotypeInfo_updateFilterCNT();
+        phenotypeInfo_onFilterChange();
+    } else {
+        console.log('Error: unknown phenotypeInfo inputType (' + inputType + ')');
+    }
+
+    ['relative_id1', 'relative_id2'].forEach(id_str => {
+        let relative_id = $input.data(id_str);
+        if (relative_id) {
+            if (inputType === 'checkbox') {
+                let v = $input.prop('checked');
+                $('#' + relative_id).prop('checked', v);
+            } else {
+                $('#' + relative_id).val(val);
+            }
+        }
+    })
+}
+
+function phenotypeInfo_createCbx(cbx_id, cid, inputType, checked, displayName, onchange) {
+
+    let $div_cbx_wrapper = $('<div>').addClass('phenotype_cbx_wrapper');
+    let $cbx = $('<input>').attr('type', 'checkbox')
+        .attr('id', cbx_id)
+        .data('cid', cid)
+        .data('inputType', inputType)
+        .prop('checked', checked)
+        .appendTo($div_cbx_wrapper);
+    if ($.isFunction(onchange)) {
+        $cbx.change(function () { onchange(this); });
+    }
+    $('<label>').text(displayName).prop('for', cbx_id).appendTo($div_cbx_wrapper);
+
+    return $div_cbx_wrapper;
+}
+
+var _isObject = function (value) { return $.isPlainObject(value); },
+    _isArray = function (value) { return $.isArray(value); },
+    _isEmpty = function (value, allowEmptyString) {
+        return (value === null) || (value === undefined) ||
+            (!allowEmptyString ? value === '' : false) ||
+            (_isArray(value) && value.length === 0) ||
+            (_isObject(value) && Object.keys(value).length === 0);
+    },
+    _isExistVal = function (key, hash) {
+        if (_isEmpty(hash)) return false;
+        if (!(key in hash)) return false;
+        return !_isEmpty(hash[key]);
+    };
+
+function _contruct_popup_content_val(key, hash, delimer) {
+    if (!_isExistVal(key, hash)) return '';
+    if (_isEmpty(hash[key])) return '';
+    if (_isArray(hash[key])) {
+        if (_isEmpty(delimer)) return hash[key].join(',');
+        return hash[key].join(delimer);
+    }
+    return hash[key];
+}
+
+function _contruct_popup_content(hpo_id, popup_data, lang) {
+    let max_text_len = hpo_id.length;
+    let name_ja = _contruct_popup_content_val('name_ja', popup_data);
+    let name_en = _contruct_popup_content_val('name_en', popup_data);
+    if (_isEmpty(name_ja) && _isEmpty(name_en)) {
+        return ['no data found for ' + popup_id, max_text_len];
+    }
+    if (max_text_len < name_ja.length) max_text_len = name_ja.length;
+    if (max_text_len < name_en.length) max_text_len = name_en.length;
+    let hpo_url = _contruct_popup_content_val('hpo_url', popup_data);
+    if (max_text_len < hpo_url.length) max_text_len = hpo_url.length;
+
+    let definition = _contruct_popup_content_val('definition', popup_data);
+    if (max_text_len < definition.length) max_text_len = definition.length;
+
+    let comment = _contruct_popup_content_val('comment', popup_data);
+    if (max_text_len < comment.length) max_text_len = comment.length;
+
+    let synonym = _contruct_popup_content_val('synonym', popup_data, ', ');
+    if (max_text_len < synonym.length) max_text_len = synonym.length;
+
+    let content = '<table>' +
+        '<tr>' +
+        '<th class=\"pcf-popup-phenotype_inlist\">HPO ID  </th>' +
+        '<td><a href=\"' + hpo_url + '\" target=\"_blank\">' + hpo_id + '</td>' +
+        '</tr>';
+    if (lang !== 'ja') {
+        content += '<tr>' +
+            '<th class=\"pcf-popup-phenotype_inlist\">Label</th>' +
+            '<td>' + name_en + '</td>' +
+            '</tr>';
+    } else {
+        content += '<tr>' +
+            '<th class=\"pcf-popup-phenotype_inlist\">Label(ja) </th>' +
+            '<td>' + name_ja + '</td>' +
+            '</tr>' +
+            '<tr>' +
+            '<th class=\"pcf-popup-phenotype_inlist\">Label(en) </th>' +
+            '<td>' + name_en + '</td>' +
+            '</tr>';
+    }
+
+    content += '<tr>' +
+        '<th class=\"pcf-popup-phenotype_inlist\">Definition</th>' +
+        '<td>' + definition + '</td>' +
+        '</tr>' +
+        '<tr>' +
+        '<th class=\"pcf-popup-phenotype_inlist\">Comment   </th>' +
+        '<td>' + comment + '</td>' +
+        '</tr>' +
+        '<tr>' +
+        '<th class=\"pcf-popup-phenotype_inlist\">Synonym   </th>' +
+        '<td>' + synonym + '</td>' +
+        '</tr>' +
+        '</table>';
+
+    return [content, max_text_len];
+}
+
+function phenotypeInfo_change_observed_state(hpo_id,is_observed,btn_id){
+    let j=0;
+    for(;j<phenotypeData.length;j++){
+        let hpo_id_list = phenotypeData[j].id.replace('_ja','');
+        if(hpo_id_list === hpo_id){
+            phenotypeData[j].is_observed;
+            break;
+        }
+    }
+
+    $('#'+btn_id).removeClass('observed').removeClass('notobserved')
+                 .addClass(is_observed==='yes'? 'observed' : 'notobserved');
+}
+
+function phenotypeInfo_createRows() {
+    //phenotypeInfo_updatePCFSearchButton();
+    if (!phenotypeData || !phenotypeData.length) return;
+
+    // update list num
+    phenotypeInfo_updateNum();
+
+    //let phenotypeInfo = phenotypeInfo_getPhenotypeInfo();
+
+    //let if_show_detail = $("#phenotype-detail-switch").hasClass('active');
+
+    let $ul = $('#phenotype_list');
+
+    for (let i = 0; i < phenotypeData.length; i++) {
+
+        let $li = $('<li>').addClass('phenotype_list_row').addClass('shadow-sm').appendTo($ul);
+
+        let $header = $('<div>').addClass('d-flex flex-row phenotype_list_row_header').appendTo($li);
+
+        let $header_sub_left = $('<div>').addClass('phenotype_list_row_header_sub flex-grow-1').appendTo($header);
+
+        // delete button
+        $('<span>').addClass('material-symbols-outlined hpo_delete').text('delete')
+            .click(function (e) {
+                if (confirm(translate2('phenotypic-info-comfirm-delete'))) {
+                    let hpo_id = $(this).next().text();
+                    for(let j=0;j<phenotypeData.length;j++){
+                        let hpo_id_list = phenotypeData[j].id.replace('_ja','');
+                        if(hpo_id_list === hpo_id){
+                            phenotypeData.splice(j, 1);
+                            break;
+                        }
+                    }
+                    phenotypeInfo_updateNum();
+                    $(this).closest('li').remove();
+                }
+                e.stopPropagation();
+            })
+            .appendTo($header_sub_left);
+
+        // hpo id
+        let btn_id = "hpo_id_btn_"+i;
+        let $hpd_id_btn_wrapper = $('<div>').attr('id',btn_id).addClass('hpd_id_btn_wrapper').appendTo($header_sub_left);
+        if('is_observed' in phenotypeData[i] && phenotypeData[i].is_observed === 'no'){
+            $hpd_id_btn_wrapper.addClass("notobserved");
+        }else{
+            $hpd_id_btn_wrapper.addClass("observed");
+        }
+
+        let hpo_id = phenotypeData[i].id.replace('_ja','');
+        let button = document.createElement('button');
+        button.textContent = hpo_id;
+        button.classList.add("list-tag");
+        button.classList.add("hpo_id");
+        tippy(button, {
+            arrow: false,
+            allowHTML: true,
+            appendTo: document.body,
+            animation: 'scale',
+            animationFill: true,
+            trigger: 'click',
+            maxWidth: 400,
+            strategy: 'fixed',
+            interactive: true,
+            theme: 'pcf-popup',
+            placement: 'bottom-start',
+            content: 'Loading...',
+            offset: [0, 0],
+            popup_url: URL_GET_HPO_TOOLTIP_DATA_BY_HPO_ID + '?hpo_id=' + hpo_id,
+            popup_id: hpo_id,
+            popup_lang: lang === 'ja' ? 'ja' : 'en',
+            onCreate(instance) {
+                // Setup our own custom state properties
+                instance._isFetching = false;
+                instance._src = null;
+                instance._error = null;
+            },
+            onShow(instance) {
+                if (instance._isFetching || instance._src || instance._error) {
+                    return;
+                }
+
+                instance._isFetching = true;
+
+                let url = instance.props.popup_url;
+                let hpo_id = instance.props.popup_id;
+                let lang = instance.props.popup_lang;
+
+                $.ajax({
+                    url: url,
+                    type: 'GET',
+                    async: true,
+                    dataType: 'text'
+                }).done(function (data, textStatus, jqXHR) {
+                    let json_data = JSON.parse(data);
+                    let [content, max_text_len] = _contruct_popup_content(hpo_id, json_data, lang);
+                    if (max_text_len < 40) {
+                        instance.setProps({ maxWidth: 500 });
+                    } else if (max_text_len < 60) {
+                        instance.setProps({ maxWidth: 600 });
+                    } else if (max_text_len < 80) {
+                        instance.setProps({ maxWidth: 700 });
+                    } else if (max_text_len < 120) {
+                        instance.setProps({ maxWidth: 800 });
+                    } else {
+                        instance.setProps({ maxWidth: 850 });
+                    }
+                    instance.setContent(content);
+                    instance._src = 'done';
+                }).fail(function (jqXHR, textStatus, errorThrown) {
+                    // Fallback if the network request failed
+                    instance.setContent(`Request failed from server.`);
+                    instance._src = null;
+                }).always(function () {
+                    instance._isFetching = false;
+                });
+            }
+        });
+
+        $(button).click(function (e) { e.stopPropagation(); }).appendTo($hpd_id_btn_wrapper);
+
+        // hpo name
+        if (lang === 'ja') {
+            let $div = $('<div>').addClass('d-flex flex-row flex-grow-1').appendTo($header_sub_left);
+            let $div1 = $('<div>').addClass('d-flex align-items-start w-50').appendTo($div);
+            let $div2 = $('<div>').addClass('d-flex align-items-start w-50').appendTo($div);
+
+            let hpo_name_ja = phenotypeData[i]['name_ja'];
+            $('<span>').addClass('text-left').text(hpo_name_ja).appendTo($div1);
+
+            let hpo_name_en = phenotypeData[i]['name_en'];
+            $('<span>').addClass('text-left').text(hpo_name_en).appendTo($div2);
+
+        } else {
+            let hpo_name = phenotypeData[i]['name_en'];
+            let hpo_name_key = `name_${lang}`;
+            if (phenotypeData[i][hpo_name_key]) hpo_name = phenotypeData[i][hpo_name_key];
+            $('<span>').addClass('hpo_name').addClass('text-left').text(hpo_name).appendTo($header_sub_left);
+        }
+
+
+        let $header_sub_right = $('<div>').addClass('phenotype_list_row_header_sub').appendTo($header);
+
+        // switch of if display detail 
+        let dropdown_toggle = document.createElement('button');
+        dropdown_toggle.classList.add('material-symbols-outlined');
+        dropdown_toggle.innerHTML = "more_vert";
+        //let btn_id = "dropdownMenuButton"+i;
+        let li_Y_id = "dropdownMenuButton"+i+'li_y';
+        let li_N_id = "dropdownMenuButton"+i+'li_n';
+
+        tippy(dropdown_toggle, {
+           allowHTML:  true,
+           appendTo:   document.body,
+           maxWidth:   150,
+           trigger:    'click',
+           strategy:   'fixed',
+           interactive:true,
+           theme:      'pcf_menu',
+           placement:  'left',
+           hpo_id:     hpo_id,
+           btn_id:     btn_id,
+           li_Y_id:    li_Y_id,
+           li_N_id:    li_N_id,
+           onCreate(instance) {
+              // Setup our own custom state properties
+              instance._isSetClickEvent = false;
+           },
+           onShown(instance) {
+              if (instance._isSetClickEvent) return;
+                  let btn_id = instance.props.btn_id;
+                  let hpo_id = instance.props.hpo_id;
+                  // set click event
+                  let li_Y_id = instance.props.li_Y_id;
+                  let li_N_id = instance.props.li_N_id;
+
+                  $("#"+li_Y_id).click(function(){
+                       phenotypeInfo_change_observed_state(hpo_id,'yes',btn_id);
+                       setTimeout(function(){tippy.hideAll();},100);
+                  });
+
+                  $("#"+li_N_id).click(function(){
+                       phenotypeInfo_change_observed_state(hpo_id,'no',btn_id);
+                       setTimeout(function(){tippy.hideAll();},100);
+                  });
+
+                  instance._isSetClickEvent = true;
+          },
+          content(reference) {
+             let observed = translate2('phenotypic-standalone-observed');
+             let notobserved = translate2('phenotypic-standalone-notobserved'); 
+             return  "<ul class=\"dropdown-observe\">" +
+                       "<li id=\""+li_Y_id+"\">" +
+                          "<span class=\"observed\">" + observed + "</span>" +
+                       "</li>" +
+                       "<li id=\""+li_N_id+"\">" +
+                          "<span class=\"notobserved\">" +notobserved + "</span>" +
+                       "</li>" +
+                     "</ul>";
+          }
+      });
+
+        $(dropdown_toggle).attr('id',btn_id).appendTo($header_sub_right);
+
+        //$('<span>').addClass("material-symbols-outlined detail_display_switch").text('expand_more')
+        //    .click(function (e) {
+        //        $(this).closest('li').toggleClass('active');
+        //        e.stopPropagation();
+        //    })
+        //    .appendTo($header_sub_right);
+    }
+}
+
+function phenotypeInfo_addRows() {
+    let hpo_list = $("#search-box_form").search_box_form('get_tokens');
+
+    if (!hpo_list || !hpo_list.length) return;
+
+    //let phenotypeInfo = categories.filter(c => { return c.dataKey === 'phenotypicInfo' })[0]
+
+    hpo_list.forEach(hpo => {
+        let hpo_id = hpo.id.replace('_ja', '');
+        let existed_hpo = [];
+        phenotypeData.filter((hpo_existed, idx) => {
+            let hid_existed = hpo_existed.id.replace('_ja', ''); 
+            if (hid_existed === hpo_id) {
+                existed_hpo.push(idx)
+            }
+        })
+        if (existed_hpo.length) {
+            return;
+        }
+        phenotypeData.push(hpo);
+    })
+
+    $("#search-box_form").search_box_form('clear_tokens');
+    phenotypeInfo_reset_hpo_list();
+    phenotypeInfo_createRows();
+}
+
+function phenotypeInfo_reset() {
+
+    // clear data
+    phenotypeInfo_initPhenotypData();
+
+    // search_box reset
+    $("#search-box_form").search_box_form('clear_input_area');
+    $("#search-box_form").search_box_form('load_dic_if_needed');
+
+    // filter reset
+    phenotypeInfo_reset_hpo_filter();
+
+    // list reset
+    phenotypeInfo_reset_hpo_list();
+
+    // 
+    $('#phenotype_add').show();
+    $('#phenotype_doc_input_btn_wrapper').show();
+}
+
+function phenotypeInfo_reset_hpo_filter() {
+    $('#phenotypic-btn-filter').removeClass('active')
+    $('#phenotype_filter').removeClass('active')
+    //$('#phenotype_list').find('li').show();
+}
+
+function phenotypeInfo_reset_hpo_list() {
+    // hpo list reset
+    $('#phenotype_num').text('(0)')
+    $('#phenotype_list').empty()
+}
+
+function phenotypeInfo_inputValues(patientData) {
+    phenotypeInfo_initPhenotypData(patientData);
+    phenotypeInfo_createRows();
+    phenotypeInfo_updateFilterCNT();
+    phenotypeInfo_onFilterChange();
+}
+
+function phenotypeInfo_getDocByColId(dataSrcColumnId) {
+    let val = `${document.querySelector(`.tab-wrap *[name="${dataSrcColumnId}"]`).value}`;
+    return val;
+}
+
+function phenotypeInfo_phenotypeNameRenderer(instance, td, row, col, prop, value, cellProperties) {
+    Handsontable.renderers.BaseRenderer.apply(this, arguments);
+    let displayValue = "";
+    if (value && value.length) {
+        let h = [];
+        value.forEach(names => {
+            let n_k = `name_${lang}`;
+            let n = names[n_k] ? names[n_k] : names['name_en'];
+            h.push(n);
+        });
+        displayValue = h.join('<br>');
+    }
+    //td.classList.add('htDimmed');
+    td.innerHTML = displayValue;
+}
+
+
+
+$(document).ready(function() {
+  let main_div = document.querySelector("#phenotype-main")
+  phenotypeInfo_initUI(main_div);
+});
