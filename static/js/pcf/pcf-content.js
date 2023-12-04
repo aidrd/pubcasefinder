@@ -1669,6 +1669,14 @@
 			}else{
 				textArr.push("");
 			}
+
+            if(_isExistVal("hpo_id",detail_data)){
+                textArr.push(detail_data.hpo_id.join(","));
+            }else{
+                textArr.push("");
+            }
+
+
 			//label en
             if(_isExistVal("omim_disease_name_en",detail_data)){
 			    textArr.push(detail_data.omim_disease_name_en);
@@ -1691,6 +1699,13 @@
 			}			
 			//orpha id
 			textArr.push(target_id);
+
+
+            if(_isExistVal("hpo_id",detail_data)){
+                textArr.push(detail_data.hpo_id.join(","));
+            }else{
+                textArr.push("");
+            }
 
             //label en
             if(_isExistVal("orpha_disease_name_en",detail_data)){

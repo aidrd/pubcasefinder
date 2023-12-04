@@ -1828,7 +1828,7 @@ def pcf_panel_get_mondo_id_match_gene_symbol_synonym_ncbiid():
     return json.dumps(response_data, ensure_ascii=False)
 
 
-@app.route('/hposearch', methods=['GET'])
+@app.route('casesharing/hposearch', methods=['GET'])
 def hposearch():
     r_lang = ""
     if request.args.get('lang') is not None:

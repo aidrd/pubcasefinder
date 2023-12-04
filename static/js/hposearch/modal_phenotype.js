@@ -90,16 +90,20 @@ function phenotypeInfo_initUI(phenotypeInfo_container) {
 
             let textArr = [];
             for(let i=0; i<phenotypeData.length; i++){
-                let row = phenotypeData[i].id + "\t" + 
-                          phenotypeData[i].name_en
-                if(lang==='ja'){ 
+                let row = phenotypeData[i].id;
+
+                if('is_observed' in phenotypeData[i] && phenotypeData[i].is_observed==='no'){
+                    row = row + "\t" + translate2('phenotypic-standalone-notobserved');
+                }else{
+                    row = row + "\t" + translate2('phenotypic-standalone-observed');
+                }
+
+                row = row + "\t" + phenotypeData[i].name_en;
+
+                if(lang==='ja'){
                     row = row + "\t" + phenotypeData[i].name_ja;
                 }
-                //if('is_observed' in phenotypeData[i] && phenotypeData[i].is_observed==='no'){
-                //    row = row + "\t" + translate2('phenotypic-standalone-notobserved');
-                //}else{
-                //    row = row + "\t" + translate2('phenotypic-standalone-observed');
-               // }
+
                 textArr.push(row);
             }
 
