@@ -112,22 +112,23 @@ function phenotypeInfo_initUI(phenotypeInfo_container) {
                 textarea.style = "position: absolute; left: -1000px; top: -1000px";
                 textarea.textContent = text;
                 document.body.appendChild(textarea);
-                //textarea.select();
-                try {
-                    let selection = document.getSelection();
-                    selection.removeAllRanges();
-                    let range = document.createRange();
-                    range.selectNodeContents(textarea);
-                    selection.addRange(range);
-                    document.execCommand('copy');
-                    selection.removeAllRanges();
-                }
-                catch (ex) {
-                    console.log("Copy to clipboard failed.", ex);
-                }
-                finally {
+                textarea.select();
+                document.execCommand('copy');
+                //try {
+                //    let selection = document.getSelection();
+                //    selection.removeAllRanges();
+                //    let range = document.createRange();
+                //    range.selectNodeContents(textarea);
+                //    selection.addRange(range);
+                //    document.execCommand('copy');
+                //    selection.removeAllRanges();
+                //}
+                //catch (ex) {
+                //    console.log("Copy to clipboard failed.", ex);
+                //}
+                //finally {
                     document.body.removeChild(textarea);
-                }
+                //}
             }
 
             e.preventDefault();
