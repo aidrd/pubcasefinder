@@ -1650,75 +1650,45 @@
 		return text;
 	}
 
+
+    function _contruct_copy_content_val(key,hash){
+        if(!_isExistVal(key,hash)) return '';
+        if(_isEmpty(hash[key])) return '';
+        if(_isArray(hash[key])) {
+            return hash[key].join(',');
+        }
+        return hash[key];
+    }
+
+
 	function _contruct_copy_content2(rank,detail_data,lang){
 		let target_id = rank.id;
 		let textArr = [];
         //mondo id
-		if(_isExistVal("mondo_id",detail_data)){
-			textArr.push(detail_data.mondo_id.join(","));
-		}else{
-			textArr.push("");
-		}
+        textArr.push(_contruct_copy_content_val("mondo_id",detail_data));
 
 		if(RegExp_OMIM.test(target_id)){
 			//omim id
 			textArr.push(target_id);
             //orpha id
-			if(_isExistVal("orpha_id",detail_data)){
-				textArr.push(detail_data.orpha_id.join(","));
-			}else{
-				textArr.push("");
-			}
-
-            if(_isExistVal("hpo_id",detail_data)){
-                textArr.push(detail_data.hpo_id.join(","));
-            }else{
-                textArr.push("");
-            }
-
-
+            textArr.push(_contruct_copy_content_val("orpha_id",detail_data));
+            //hpo id
+            textArr.push(_contruct_copy_content_val("hpo_id",detail_data));
 			//label en
-            if(_isExistVal("omim_disease_name_en",detail_data)){
-			    textArr.push(detail_data.omim_disease_name_en);
-            }else{
-                textArr.push("");
-            }
-
+            textArr.push(_contruct_copy_content_val("omim_disease_name_en",detail_data));
             //label ja
-            if(lang==='ja' && _isExistVal("omim_disease_name_ja",detail_data)){
-                textArr.push(detail_data.omim_disease_name_ja);
-            }else{
-                textArr.push("");
-            }
+            if(lang==='ja')textArr.push(_contruct_copy_content_val("omim_disease_name_ja",detail_data));
 		}else{
 			//omim id
-			if(_isExistVal("omim_id",detail_data)){
-				textArr.push(detail_data.omim_id.join(","));
-			}else{
-				textArr.push("");
-			}			
+            textArr.push(_contruct_copy_content_val("omim_id",detail_data));
 			//orpha id
 			textArr.push(target_id);
-
-
-            if(_isExistVal("hpo_id",detail_data)){
-                textArr.push(detail_data.hpo_id.join(","));
-            }else{
-                textArr.push("");
-            }
-
+            //hpo id
+            textArr.push(_contruct_copy_content_val("hpo_id",detail_data));
             //label en
-            if(_isExistVal("orpha_disease_name_en",detail_data)){
-		    	textArr.push(detail_data.orpha_disease_name_en);
-            }else{
-                textArr.push("");
-            }		
+            textArr.push(_contruct_copy_content_val("orpha_disease_name_en",detail_data));
             //label ja	
-            if(lang==='ja' && _isExistVal("orpha_disease_name_ja",detail_data)){
-                textArr.push(detail_data.orpha_disease_name_ja);
-            }else{
-                textArr.push("");
-            }
+            if(lang==='ja') textArr.push(_contruct_copy_content_val("orpha_disease_name_ja",detail_data));
 		}
 		return textArr.join("\t");
 	}
