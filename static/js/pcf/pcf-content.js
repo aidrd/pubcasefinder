@@ -1806,19 +1806,19 @@
 			let $top_panel = $('<div>').addClass("list-header").appendTo($target_tab_panel);
 			$('<div>').attr('id', target + "_list-results").addClass("list-results").text(total_num_str + " results").appendTo($top_panel);
 			$('<div>').attr('id', target + "_selected_num").addClass("list-results-select-num").text("0 item selected").css({'display':'none'}).appendTo($top_panel);
-			$('<div>').attr('id', target + "_clear_select").addClass("list-results-clear-select").text("X CLEAR SELECTION")
+			$('<div>').attr('id', target + "_clear_select").addClass("list-results-clear-select").text("X Clear selection")
 				.click(function(){
 					_clear_selection();
 				})
 				.css({'display':'none'})
 				.appendTo($top_panel);
 
-            //$('<div>').attr('id', target + "_copy_select").addClass("list-results-clear-select").text("COPY SELECTION")
+            //$('<div>').attr('id', target + "_copy_select").addClass("list-results-clear-select").text("Copy selection")
             if(target !== TARGET_GENE && target !== TARGET_CASE){ 
               $('<div>').attr('id', target + "_copy_select").addClass("list-results-clear-select")
-                //.html("<i class=\"material-icons\">content_copy</i>COPY SELECTION")
+                //.html("<i class=\"material-icons\">content_copy</i>Copy selection")
                 .html(
-"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" fill=\"currentColor\" class=\"bi bi-files\" viewBox=\"0 0 16 16\"><path d=\"M13 0H6a2 2 0 0 0-2 2 2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h7a2 2 0 0 0 2-2 2 2 0 0 0 2-2V2a2 2 0 0 0-2-2m0 13V4a2 2 0 0 0-2-2H5a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1M3 4a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z\"\/><\/svg> COPY SELECTION"
+"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" fill=\"currentColor\" class=\"bi bi-files\" viewBox=\"0 0 16 16\"><path d=\"M13 0H6a2 2 0 0 0-2 2 2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h7a2 2 0 0 0 2-2 2 2 0 0 0 2-2V2a2 2 0 0 0-2-2m0 13V4a2 2 0 0 0-2-2H5a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1M3 4a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z\"\/><\/svg> Copy selection"
                 )
                 .click(function(){
                     $(this).tooltip('show');

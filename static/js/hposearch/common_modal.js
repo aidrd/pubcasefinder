@@ -17,10 +17,11 @@ $('#nav-service').click(() => {
     $('.common-service').toggleClass('dropdown-menu-open')
 })
 
-$('#nav-language').click(() => {
-    closeKarteModal()
-    $('#dropdown-language').toggleClass('dropdown-menu-open')
-})
+// disable language selection function
+//$('#nav-language').click(() => {
+//    closeKarteModal()
+//    $('#dropdown-language').toggleClass('dropdown-menu-open')
+//})
 
 $('#menu-save').click((e) => {
     closeKarteModal();

@@ -8,13 +8,19 @@ function phenotypeInfo_isTrue(str) {
     return false;
 }
 
-
+function phenotypeInfo_clear(){
+    $('#phenotype_list').empty();
+    phenotypeData.splice(0);
+    phenotypeInfo_updateNum();
+}
 function phenotypeInfo_updateNum() {
     $("#phenotype_num").text(`(${phenotypeData.length})`);
     if(phenotypeData.length){
-        $('#phenotype_description_wrapper').show();
-    }else{
         $('#phenotype_description_wrapper').hide();
+        $('#phenotype_clear').show();
+    }else{
+        $('#phenotype_description_wrapper').show();
+        $('#phenotype_clear').hide();
     }
 }
 
@@ -44,7 +50,7 @@ function phenotypeInfo_initUI(phenotypeInfo_container) {
             <div id="search-box_form"></div>
         </div>
         <p class="phenotype_add_wrapper">
-            <button id="phenotype_add" class="ripper_effect" onclick="phenotypeInfo_addRows();">
+            <button id="phenotype_add" class="phenotype_action_btn ripper_effect" onclick="phenotypeInfo_addRows();">
                 <i class="material-symbols-outlined">add_notes</i>
                 ${translate2('phenotypic-info-add')}
             </button>
@@ -53,6 +59,7 @@ function phenotypeInfo_initUI(phenotypeInfo_container) {
             <div class="phenotype_title_sub">
                 <span>${translate2('phenotypic-info-list')}</span>
                 <span id="phenotype_num">(0)</span>
+                <span id="phenotype_clear" onclick="phenotypeInfo_clear();">X Clear all</span>
             </div>
             <div class="phenotype_title_sub">
               <span class="sample observed mr-3">${translate2('phenotypic-standalone-observed')}</span>
@@ -60,17 +67,17 @@ function phenotypeInfo_initUI(phenotypeInfo_container) {
             </div>
         </div>
         <ul id="phenotype_list"></ul>
-        <div id="phenotype_description_wrapper"></div>
+        <div id="phenotype_description_wrapper">
+            <img src="/static/images/hposearch/all.png" />
+        </div>
         <div class="phenotype_action_wrapper">
-            <button id="phenotype_copy" class="phenotype_action_btn">
-                <i>
-<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-files" viewBox="0 0 16 16">
-  <path d="M13 0H6a2 2 0 0 0-2 2 2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h7a2 2 0 0 0 2-2 2 2 0 0 0 2-2V2a2 2 0 0 0-2-2m0 13V4a2 2 0 0 0-2-2H5a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1M3 4a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z"/>
-</svg>
-                </i>${translate2('phenotypic-standalone-copy')}
+            <button id="phenotype_copy" class="phenotype_action_btn ripper_effect">
+                <i class="material-symbols-outlined">file_copy</i>
+                ${translate2('phenotypic-standalone-copy')}
             </button>
-            <button id="do_pcf_search" class="phenotype_action_btn" onclick="phenotypeInfo_search_disease();">            
-                <i><img src="/static/record/images/commonmenu-icon1.svg"></i>${translate2('phenotypic-standalone-search')}
+            <button id="do_pcf_search" class="phenotype_action_btn ripper_effect" onclick="phenotypeInfo_search_disease();">
+                <i class="material-symbols-outlined">search</i>
+                ${translate2('phenotypic-standalone-search')}
             </button>
         </div>
     `;
@@ -79,9 +86,16 @@ function phenotypeInfo_initUI(phenotypeInfo_container) {
         'lang': lang === 'ja' ? 'ja' : 'en',
         'doc_list': null,
         'getDocByColId': null,
-        'onClickTextBtn': null,
+        'onClickTextBtn': function (isActived) {
+            if (isActived) {
+                $('#phenotype_add').show();
+            } else {
+                $('#phenotype_add').hide();
+            }
+        },
     });
 
+    $("#search-box_form").search_box_form('load_dic_if_needed');
 
     $('#phenotype_copy')
         .tooltip({'title':'Copied to clipboard!', 'trigger':'manual', 'placement':'top'})
@@ -142,6 +156,7 @@ function phenotypeInfo_initUI(phenotypeInfo_container) {
         .on('mouseleave', function () {
             $(this).tooltip('hide');
         });
+
 }
 
 var _isObject = function (value) { return $.isPlainObject(value); },
@@ -474,6 +489,12 @@ function phenotypeInfo_addRows() {
             }
         })
         if (existed_hpo.length) {
+            let idx = existed_hpo[0];
+            if('is_observed' in hpo){
+                phenotypeData[idx]['is_observed'] = hpo.is_observed;
+            }else{
+                phenotypeData[idx]['is_observed'] = 'yes';
+            }
             return;
         }
         phenotypeData.push(hpo);

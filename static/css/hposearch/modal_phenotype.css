@@ -7,7 +7,7 @@
 }
 
 
-#phenotype_add {
+.phenotype_action_btn {
   display: inline-flex;
   align-items: center;
   cursor: pointer;
@@ -15,6 +15,13 @@
   border-radius: 2em;
   background: #ff8c00;
   color: #fff;
+}
+
+.phenotype_action_btn i {
+  margin-right: 15px;
+}
+
+#phenotype_add {
   margin-bottom: 0.5em;
   margin-top: 0.5em;
 }
@@ -50,33 +57,10 @@
   transition: 0s
 }
 
-.phenotype_action_btn{
-  border: solid 1px #cac3c3;
-  border-radius: 5px;
-  padding: 5px 20px 5px 20px;
-  height: 38px;
-}
 
 #phenotype_copy{
-  background-color: #222057;
-  color: #fff;
   margin-right: 10px;
 }
-#phenotype_copy:hover{
-  color: #222057;
-  background-color: #fff;
-}
-
-.phenotype_action_btn i img{
-  weight: 24px;
-  height: 24px;
-}
-
-
-
-
-
-
 
 
 .search-box_wrapper{width:100% !important;}
@@ -152,7 +136,16 @@
     margin-right: 5px;
 }
 
+#phenotype_clear{
+    margin-left: 25px;
+    color: #b8a5a5;
+    cursor: pointer;
+    display: none;
+}
 
+#phenotype_clear:hover{
+    color: black;
+}
 
 #phenotypic-btn-filter {
   margin: 0px;
@@ -254,18 +247,6 @@
   padding-left: 10px;
   padding-right: 10px;
 }
-
-/*
-#phenotype_list .phenotype_list_row .phenotype_list_row_header {
-  font-size: 18px;
-}
-
-@media screen and (max-width: 1150px) {
-    #phenotype_list .phenotype_list_row .phenotype_list_row_header {
-        font-size: 16px;
-    }
-}
-*/
 
 #phenotype_list .phenotype_list_row .phenotype_list_row_header .phenotype_list_row_header_sub{
   display: flex;

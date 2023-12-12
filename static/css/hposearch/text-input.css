@@ -84,18 +84,33 @@
 
 #text-input-container .text-input-content{
   width:100%;
-  height: 202px;
+  height: 802px;
   position: relative;
   flex: 1 1 auto;
 }
 
 #text-input-container .text-input-content .text-input-wrapper{
   width: 49%;
-  height: 200px;
-  max-height:200px;
+  height: 800px;
+  max-height:800px;
   border-radius:5px;
   background-color:#ced4da;
   border:1px solid #ced4da;
+}
+
+@media screen and (max-height: 1600px) {
+  #text-input-container .text-input-content .text-input-wrapper{height:600px;max-height:600px;}
+  #text-input-container .text-input-content{height:602px;}
+}
+
+@media screen and (max-height: 1440px) {
+  #text-input-container .text-input-content .text-input-wrapper{height:400px;max-height:400px;}
+  #text-input-container .text-input-content{height:402px;}
+}
+
+@media screen and (max-height: 1080px) {
+  #text-input-container .text-input-content .text-input-wrapper{height:200px;max-height:200px;}
+  #text-input-container .text-input-content{height:202px;}
 }
 
 #text-input-container .text-input-content .text-input-wrapper .text-input-textarea{

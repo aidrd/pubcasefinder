@@ -904,6 +904,25 @@ ul.hpo-token-input-list.token-input-list-facebook li.token-input-token-facebook 
 	display: block  !important;
 	font-size:17px;
 }
+
+ul.hpo-token-input-list.token-input-list-facebook li.token-input-token-facebook span.token-input-token-word-facebook.token-input-token-name-facebook:before {
+    content: "\A";
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    margin: 0 6px 2px 0;
+    display: none;
+}
+
+ul.hpo-token-input-list.token-input-list-facebook li.token-input-token-facebook span.token-input-token-word-facebook.token-input-token-name-facebook.observed:before{
+    display:inline-block;
+    background: red;
+}
+ul.hpo-token-input-list.token-input-list-facebook li.token-input-token-facebook span.token-input-token-word-facebook.token-input-token-name-facebook.notobserved:before{    
+    display:inline-block;
+    background: blue;
+}
+
 ul.hpo-token-input-list.token-input-list-facebook li.token-input-token-facebook span.token-input-delete-token-facebook {
 	display: inline-block;
 	height: 15px;

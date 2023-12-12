@@ -101,11 +101,14 @@
             var id    = item['id'].replace(/_ja$/g,'');
             var name  = item['name'];
             var theme = this.theme ? '-'+this.theme : '';
+            // add start 2023/12/12
+            var observedClass = item['is_observed']==='yes' ? 'observed' : 'notobserved';
+            // add end 2023/12/12
             return  '<li class=\"token-input-li token-input-token-term'+theme+' '+ UISETTING_TAG_SIZE_CLASS[uisetting_tag_size] +'\">'+
                       '<p>'+
                         '<span class=\"token-input-li token-input-token-word'+theme+' token-input-token-id'+theme+'\">' +
                         (this.enableHTML ? id : _escapeHTML(id)) + '</span>'+
-                        '<span class=\"token-input-li token-input-token-word'+theme+' token-input-token-name'+theme+'\">' +
+                        '<span class=\"token-input-li token-input-token-word'+theme+' token-input-token-name'+theme+ ' ' + observedClass +' \">' +
                         (this.enableHTML ? name : _escapeHTML(name)) + '</span>'+
                       '</p>'+
                       '<div style=\"position:relative;\" class=\"token-input-li token-input-token-word'+theme+' token-input-token-icon'+theme+'\">'+
@@ -831,6 +834,13 @@
 
 	  // Inner function to a token to the list
 	  function insert_token(item) {
+
+          // add start 2023/12/12
+          if(!('is_observed' in item)){
+              item['is_observed']='yes';
+          }
+          // add end 2023/12/12
+
 		  var uisetting_tag_size = $(input).data("settings").uisetting_tag_size;
 		  var $this_token = $($(input).data("settings").tokenFormatter(item, uisetting_tag_size));
 		  var readonly = item.readonly === true;

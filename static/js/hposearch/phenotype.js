@@ -1,27 +1,5 @@
-// Read the language from the URL
-//let lang1 = window.location.href.split('?lang=')[1] ?? 'en';
-
-let lang1 = window.location.href.split('?lang=')[1];
-// Remove anchor from the URL
-if (lang1) {
-    lang1 = lang1.split('#')[0];
-}
-
-//let lang = localStorage.lang || 'en'
-//lang = lang === 'undefined' ? 'en' : lang
-
-let lang = localStorage.lang
-if(lang1){
-    lang = lang1;
-    localStorage.lang = lang1;
-}else{
-    if(lang){
-    }else{
-        lang = 'en';
-        localStorage.lang = 'en';
-    }
-}
-
+let lang = 'ja';
+localStorage.lang = lang;
 
 $(`.dropdown-menu-item[data-lang='${lang}']`).addClass('dropdown-selected')
 document.getElementById('selected-language-display').innerText = $('.dropdown-selected').text()

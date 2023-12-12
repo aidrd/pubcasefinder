@@ -370,6 +370,13 @@
 			let changedToken   = $.extend(true, {},selectedToken,obj);
 			$selectedToken.data(TOKENINPUT_ITEM_SETTINGS_KEY, changedToken);
 
+            // add start 2023/12/12
+            if('is_observed' in obj){
+                $selectedToken.find('.token-input-token-name-facebook')
+                              .removeClass('observed').removeClass('notobserved')
+                              .addClass(obj.is_observed === 'yes' ? 'observed' : 'notobserved');
+            }
+            // add end 2023/12/12
 			let original_token_node_list = getOriginalTokenInputItemNodes();
 			let idx = original_token_node_list.findIndex(token_node => {
 				return $(token_node).hasClass('selected_at_popup');

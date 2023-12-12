@@ -352,6 +352,7 @@
 
             $div_text.toggleClass('active');
 			$(this).toggleClass('selected');
+			if($div_text.hasClass('active')) $('#text-input-area').focus();
         });
 
         let $ui_trigger_btn = create_uisetting_button(settings.lang).appendTo($div_l2);    
@@ -391,7 +392,7 @@
                                'prependTo': div_search_box_form.id
                               });
 
-//       $("#tokeninput_hpo").tokenInput("setInputBoxFocus");
+       $("#tokeninput_hpo").tokenInput("setInputBoxFocus");
 
 		let $div_text = $('<div>').attr('id', 'text-input-container').insertAfter($div_wrapper);
         $div_text.textinput_hpo({ 
