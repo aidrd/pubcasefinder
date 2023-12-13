@@ -9,9 +9,12 @@ function phenotypeInfo_isTrue(str) {
 }
 
 function phenotypeInfo_clear(){
-    $('#phenotype_list').empty();
-    phenotypeData.splice(0);
-    phenotypeInfo_updateNum();
+    tippy.hideAll();
+    if (confirm('症状一覧の症状を全て削除しますか？')) {
+        $('#phenotype_list').empty();
+        phenotypeData.splice(0);
+        phenotypeInfo_updateNum();
+    }
 }
 function phenotypeInfo_updateNum() {
     $("#phenotype_num").text(`(${phenotypeData.length})`);
@@ -392,8 +395,8 @@ function phenotypeInfo_createRows() {
 
         } else {
             let hpo_name = phenotypeData[i]['name_en'];
-            let hpo_name_key = `name_${lang}`;
-            if (phenotypeData[i][hpo_name_key]) hpo_name = phenotypeData[i][hpo_name_key];
+            //let hpo_name_key = `name_${lang}`;
+            //if (phenotypeData[i][hpo_name_key]) hpo_name = phenotypeData[i][hpo_name_key];
             $('<span>').addClass('hpo_name').addClass('text-left').text(hpo_name).appendTo($header_sub_left);
         }
 
