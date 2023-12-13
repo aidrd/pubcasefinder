@@ -53,96 +53,10 @@ let infoTranslations = {
 
 let modalContent = document.getElementById('modal-info-content')
 modalContent.innerHTML = `
-<img src="/static/record/images/logo_PanelSearch.svg" class="info-panel-img">    
+<img src="/static/record/images/logo_CaseSharing_mini.svg" class="info-panel-img">    
 <ul>
-        <li>
-            <i>
-            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="400" height="400" viewBox="0 0 400 400">
-            <defs>
-                <clipPath id="clip-Info-panel-01">
-                <rect width="400" height="400"/>
-                </clipPath>
-            </defs>
-            <g id="Info-panel-01" clip-path="url(#clip-Info-panel-01)">
-                <path id="合体_26" data-name="合体 26" d="M-21527.922,3999.957l-84.8-77.337a151.581,151.581,0,0,1-81.207,28.6,152.33,152.33,0,0,1-160.1-144.149,152.334,152.334,0,0,1,144.15-160.1,152.343,152.343,0,0,1,160.1,144.154,151.867,151.867,0,0,1-39.018,110.008l82.432,75.18a15.99,15.99,0,0,1,1.041,22.6,15.936,15.936,0,0,1-10.982,5.2c-.277.014-.557.021-.834.021A15.956,15.956,0,0,1-21527.922,3999.957Zm-180.277-321.026a120.467,120.467,0,0,0-113.873,126.463,120.473,120.473,0,0,0,126.469,113.873,120.467,120.467,0,0,0,113.867-126.468,120.485,120.485,0,0,0-120.084-114.035Q-21705,3678.764-21708.2,3678.931Z" transform="translate(21879.32 -3628.085)"/>
-            </g>
-            </svg>
-            </i>
-            <span>
-                <h4>${Object.keys(infoTranslations[lang][0])}</h4>
-                <p>${Object.values(infoTranslations[lang][0])}
-                </p>
-            </span>
-        </li>
-        <li>
-        <i>
-        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="400" height="400" viewBox="0 0 400 400">
-        <defs>
-            <clipPath id="clip-Info-panel-02">
-            <rect width="400" height="400"/>
-            </clipPath>
-        </defs>
-        <g id="Info-panel-02" clip-path="url(#clip-Info-panel-02)">
-            <circle id="楕円形_481" data-name="楕円形 481" cx="30.317" cy="30.317" r="30.317" transform="translate(49.864 80.935)" fill="#11101d"/>
-            <circle id="楕円形_482" data-name="楕円形 482" cx="30.317" cy="30.317" r="30.317" transform="translate(49.864 169.683)" fill="#11101d"/>
-            <circle id="楕円形_483" data-name="楕円形 483" cx="30.317" cy="30.317" r="30.317" transform="translate(49.864 258.43)" fill="#11101d"/>
-            <path id="線_978" data-name="線 978" d="M200.367,16H0A16,16,0,0,1-16,0,16,16,0,0,1,0-16H200.367a16,16,0,0,1,16,16A16,16,0,0,1,200.367,16Z" transform="translate(150.101 111.253)"/>
-            <path id="線_979" data-name="線 979" d="M200.367,16H0A16,16,0,0,1-16,0,16,16,0,0,1,0-16H200.367a16,16,0,0,1,16,16A16,16,0,0,1,200.367,16Z" transform="translate(150.101 200)"/>
-            <path id="線_980" data-name="線 980" d="M200.367,16H0A16,16,0,0,1-16,0,16,16,0,0,1,0-16H200.367a16,16,0,0,1,16,16A16,16,0,0,1,200.367,16Z" transform="translate(150.101 288.747)"/>
-        </g>
-        </svg>
-        </i>
-            <span>
-                <h4>${Object.keys(infoTranslations[lang][1])}</h4>
-                <p>${Object.values(infoTranslations[lang][1])}
-                </p>
-            </span>
-        </li>
-        <li>
-        <i>
-            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="400" height="400" viewBox="0 0 400 400">
-            <defs>
-                <clipPath id="clip-Info-panel-03">
-                <rect width="400" height="400"/>
-                </clipPath>
-            </defs>
-            <g id="Info-panel-03" clip-path="url(#clip-Info-panel-03)">
-                <path id="楕円形_476" data-name="楕円形 476" d="M156.5-16C185.305-16,329-13.4,329,38S185.305,92,156.5,92-16,89.4-16,38,127.695-16,156.5-16ZM294.581,38C281.549,29.245,234.212,16,156.5,16S31.451,29.245,18.419,38C31.451,46.755,78.788,60,156.5,60S281.549,46.755,294.581,38Z" transform="translate(43 34)"/>
-                <path id="パス_124794" data-name="パス 124794" d="M172.5,40.324C143.695,40.324,0,37.722,0-13.653V-270a16,16,0,0,1,16-16,16,16,0,0,1,16,16V-15.615C40.269-7.054,88.746,8.324,172.5,8.324S304.731-7.054,313-15.615V-270a16,16,0,0,1,16-16,16,16,0,0,1,16,16V-13.653C345,37.722,201.305,40.324,172.5,40.324Z" transform="translate(28 341.676)"/>
-                <path id="パス_124795" data-name="パス 124795" d="M172.5,53.977C143.695,53.977,0,51.375,0,0A16,16,0,0,1,16-16,16,16,0,0,1,31.862-2.108c7.853,8.531,56.4,24.085,140.638,24.085S305.285,6.424,313.138-2.108A16,16,0,0,1,329-16,16,16,0,0,1,345,0C345,51.375,201.305,53.977,172.5,53.977Z" transform="translate(28 234.029)"/>
-                <path id="パス_124796" data-name="パス 124796" d="M172.5,53.977C143.695,53.977,0,51.375,0,0A16,16,0,0,1,16-16,16,16,0,0,1,31.862-2.108c7.853,8.531,56.4,24.085,140.638,24.085S305.285,6.424,313.138-2.108A16,16,0,0,1,329-16,16,16,0,0,1,345,0C345,51.375,201.305,53.977,172.5,53.977Z" transform="translate(28 154.277)"/>
-                <rect id="長方形_8893" data-name="長方形 8893" width="345" height="53" transform="translate(28 173)" fill="none"/>
-            </g>
-            </svg>
-            </i>
-            <span>
-                <h4>${Object.keys(infoTranslations[lang][2])}</h4>
-                <p>${Object.values(infoTranslations[lang][2])}
-                </p>
-            </span>
-        </li>
-        <li>
-        <i>
-        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="400" height="400" viewBox="0 0 400 400">
-        <defs>
-            <clipPath id="clip-Info-panel-04">
-            <rect width="400" height="400"/>
-            </clipPath>
-        </defs>
-        <g id="Info-panel-04" clip-path="url(#clip-Info-panel-04)">
-            <path id="多角形_45" data-name="多角形 45" d="M192,13.925A45.536,45.536,0,0,1,231.821,36.9l140,242.075A46,46,0,0,1,332,348H52a46,46,0,0,1-39.821-69.029l140-242.075A45.536,45.536,0,0,1,192,13.925ZM332,316a14,14,0,0,0,12.119-21.009l-140-242.075a14,14,0,0,0-24.239,0l-140,242.075A14,14,0,0,0,52,316Z" transform="translate(8 14)"/>
-            <circle id="楕円形_469" data-name="楕円形 469" cx="24.5" cy="24.5" r="24.5" transform="translate(225 304) rotate(180)"/>
-            <rect id="長方形_8887" data-name="長方形 8887" width="39" height="128" rx="19.5" transform="translate(220 236) rotate(180)"/>
-        </g>
-        </svg>
-        </i>
-            <span>
-                <h4>${Object.keys(infoTranslations[lang][3])}</h4>
-                <p>${Object.values(infoTranslations[lang][3])}
-                </p>
-            </span>
-        </li>
-    </ul>
+    <img src="/static/images/hposearch/all.png" />
+</ul>
 `
 
 document.getElementById('selected-language-display').textContent =
