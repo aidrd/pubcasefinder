@@ -10,7 +10,7 @@ function phenotypeInfo_isTrue(str) {
 
 function phenotypeInfo_clear(){
     tippy.hideAll();
-    if (confirm('症状一覧の症状を全て削除しますか？')) {
+    if (confirm('臨床症状一覧の臨床症状を全て削除しますか？')) {
         $('#phenotype_list').empty();
         phenotypeData.splice(0);
         phenotypeInfo_updateNum();

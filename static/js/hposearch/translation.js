@@ -106,7 +106,7 @@ let elementTranslation = {
     },
     'phenotypic-info-list': {
         en: 'Symptoms list',
-        ja: '症状一覧',
+        ja: '臨床症状一覧',
         ko: ''
     },
     'phenotypic-info-detail': {
@@ -135,11 +135,11 @@ let elementTranslation = {
     },
     'phenotypic-standalone-copy': {
         en: 'Copy the Phenotype list',
-        ja: '症状一覧をコピー',
+        ja: '臨床症状一覧をコピー',
     },
     'phenotypic-standalone-search': {
         en: 'Search for disease',        
-        ja: '疑い疾患を検索',
+        ja: '疑い病名を検索',
     },
     'phenotypic-standalone-observed': {
         en: 'Observed',

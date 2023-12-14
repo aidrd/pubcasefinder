@@ -28,7 +28,7 @@
                 }
             },
             [LANGUAGE_JA] : {
-                'placeholder' : '診療録や症例報告などのテキストを入力してください。',
+                'placeholder' : 'テキストを入力し、真ん中の青い丸ボタンをクリックしてください。',
                 'sample_label': {
                     [OBSERVED_Y] : '症状あり',
                     [OBSERVED_N] : '症状なし'
@@ -129,7 +129,7 @@
         // header
         let $header = $('<div>').addClass('text-input-header d-flex flex-wrap').appendTo($container);
         let $h5 = $('<h5>').addClass('flex-fill').appendTo($header);
-        let html_str = "<img src=\"/static/record/images/HPOID.svg\">Automatically Extract Signs And Symptoms";
+        let html_str = "<img src=\"/static/record/images/HPOID.svg\">任意のテキストから臨床症状を自動抽出";
         $h5.html(html_str);
 
 		
@@ -221,7 +221,7 @@
                                        
         let $input_button = $('<button>').addClass('enter')
                     .attr('id',"text-input-apply-button")
-                    .text("ADD TO SEARCH BOX")
+                    .text("上記ボックスに抽出結果を追加")
                     .click(function(){
                         let hpo_list = $text_input_table.get_hpo_list();
                         if(hpo_list.length){
