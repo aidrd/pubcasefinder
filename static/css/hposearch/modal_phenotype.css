@@ -26,7 +26,7 @@
   margin-top: 0.5em;
 }
 
-#phenotype_add:hover {
+.phenotype_action_btn:hover {
   background-color: #ff7000;
 }
 .ripper_effect {
@@ -462,3 +462,7 @@
    border-radius: 50%;
 }
 
+
+.tippy-content ul.dropdown-observe li.selected{
+  background-color: lightgrey;
+}
