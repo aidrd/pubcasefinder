@@ -107,7 +107,7 @@ function phenotypeInfo_initUI(phenotypeInfo_container) {
 
             let textArr = [];
             for(let i=0; i<phenotypeData.length; i++){
-                let row = phenotypeData[i].id;
+                let row = phenotypeData[i].id.replace('_ja','');
 
                 if('is_observed' in phenotypeData[i] && phenotypeData[i].is_observed==='no'){
                     row = row + "\t" + translate2('phenotypic-standalone-notobserved');
