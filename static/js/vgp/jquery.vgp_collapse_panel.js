@@ -347,7 +347,7 @@
 				  "<togostanza-pagination-table " +
 			  		"data-url=\""+url_str+"\" " +
   					"data-type=\"json\" " +
-					"custom-css-url=\"\" " +
+					"custom-css-url=\"/static/css/vgp/pagination-table.css\" " +
 					"width=\"\" " +
   					"fixed-columns=\"1\" " +
   					"padding=\"0px\" " +
