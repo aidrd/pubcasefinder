@@ -1288,9 +1288,9 @@
 			//let $list_link_panel = $('<div>').addClass("d-flex").addClass("flex-wrap").addClass("list-link").appendTo($container_panel);
             let $list_link_panel = $('<div>').addClass("list-link").appendTo($container_panel);
 			
-			if(_isExistVal("omim_url" ,item)){
+			if(target === TARGET_OMIM && _isExistVal("omim_url" ,item)){
 				$('<a>').text(id).attr('href',item.omim_url).attr('target','_blank').appendTo($list_link_panel);
-			} else if(_isExistVal("orpha_url" ,item)){
+			} else if(target === TARGET_ORPHANET && _isExistVal("orpha_url" ,item)){
 				$('<a>').text(id).attr('href',item.orpha_url).attr('target','_blank').appendTo($list_link_panel);
 			} else if(target === TARGET_GENE){
 				let id_n = id.replace('GENEID:','');
